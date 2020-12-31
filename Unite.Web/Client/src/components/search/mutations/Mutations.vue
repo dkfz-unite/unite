@@ -27,9 +27,19 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-name="props">
+                <q-td :props="props">
+                    <template v-if="props.value">
+                        <a class="u-link" :href="'https://www.ncbi.nlm.nih.gov/snp/'+props.value" target="blank">{{props.value}}</a>
+                    </template>
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-gene="props">
                 <q-td :props="props">
-                    <router-link class="u-link" :to="'gene/'+props.value.id">{{props.value.name}}</router-link>
+                    <template v-if="props.value">
+                        <router-link class="u-link" :to="'gene/'+props.value.id">{{props.value.name}}</router-link>
+                    </template>
                 </q-td>
             </template>
         </q-table>
@@ -43,7 +53,8 @@ export default {
     data(){
         return{
             columns: [
-                { name: "id", label: "ID", field: row => row.id, sortable: false, required: true, align: 'left' },
+                { name: "id", label: "UID", field: row => row.id, sortable: false, required: true, align: 'left' },
+                { name: "name", label: "ID", field: row => row.name, sortable: false },
                 { name: "code", label: "DNA change", field: row => row.code, sortable: false },
                 { name: "type", label: "Type", field: row => row.type, sortable: false },
                 { name: "gene", label: "Gene", field: row => row.gene, sortable: false },
@@ -58,7 +69,7 @@ export default {
 
             pagination: {
                 page: 1,
-                rowsPerPage: 10,
+                rowsPerPage: 20,
                 rowsNumber: 0
             }
         }
@@ -103,7 +114,7 @@ export default {
 
         getFrom(page, pageSize){
             if(page != null && page != undefined){
-                return (page - 1) * pageSize + 1;
+                return (page - 1) * pageSize;
             }
             else{
                 return 0;
@@ -115,37 +126,9 @@ export default {
                 return pageSize == 0 ? 10000 : pageSize;
             }
             else{
-                return 10;
+                return 20;
             }
         }
     }
 }
 </script>
-
-<style lang="sass">
-@import '@/styles/quasar.variables.scss'
-
-.sticky-header
-  /* height or max-height is important */
-  height: 420px
-
-  .q-table__top,
-  .q-table__bottom,
-  thead tr:first-child th
-    /* bg color is important for th; just specify one */
-    background-color: #ffff
-
-  thead tr th
-    position: sticky
-    z-index: 1
-  thead tr:first-child th
-    top: 0
-
-.u-link
-    color: $blue-8
-    text-decoration: none
-    .u-link:visited
-        color: $blue-8
-        text-decoration: none
-
-</style>

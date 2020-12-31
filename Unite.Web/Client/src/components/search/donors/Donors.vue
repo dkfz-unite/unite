@@ -91,7 +91,7 @@ export default {
 
             pagination: {
                 page: 1,
-                rowsPerPage: 10,
+                rowsPerPage: 20,
                 rowsNumber: 0
             }
         }
@@ -136,7 +136,7 @@ export default {
 
         getFrom(page, pageSize){
             if(page != null && page != undefined){
-                return (page - 1) * pageSize + 1;
+                return (page - 1) * pageSize;
             }
             else{
                 return 0;
@@ -148,7 +148,7 @@ export default {
                 return pageSize == 0 ? 10000 : pageSize;
             }
             else{
-                return 10;
+                return 20;
             }
         },
 
@@ -164,31 +164,3 @@ export default {
     }
 }
 </script>
-
-<style lang="sass">
-@import '@/styles/quasar.variables.scss'
-
-.sticky-header
-  /* height or max-height is important */
-  height: 420px
-
-  .q-table__top,
-  .q-table__bottom,
-  thead tr:first-child th
-    /* bg color is important for th; just specify one */
-    background-color: #ffff
-
-  thead tr th
-    position: sticky
-    z-index: 1
-  thead tr:first-child th
-    top: 0
-
-.u-link
-    color: $blue-8
-    text-decoration: none
-    .u-link:visited
-        color: $blue-8
-        text-decoration: none
-
-</style>

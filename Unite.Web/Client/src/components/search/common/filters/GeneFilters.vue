@@ -1,14 +1,5 @@
 <template>
     <div>
-        <div>
-            <u-chips-filter
-                label="ID"
-                placeholder="e.g. 205"
-                v-model="criteria.id"
-                @input="onInput"
-            />
-        </div>
-
         <div class="q-mt-sm">
             <u-chips-filter
                 label="Name"

@@ -2,7 +2,7 @@
     <div>
         <div>
             <u-chips-filter
-                label="ID"
+                label="PID"
                 placeholder="e.g. ABC-123"
                 v-model="criteria.id"
                 @input="onInput"

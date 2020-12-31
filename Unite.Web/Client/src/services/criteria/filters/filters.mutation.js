@@ -2,6 +2,7 @@ import Filters from './filters.js';
 
 class MutationFilters extends Filters{
     id = [];
+    name = [];
     code = [];
     sequenceType = [];
     mutationType = [];
@@ -11,6 +12,7 @@ class MutationFilters extends Filters{
 
     sanitise(){
         this.id = this.sanitiseArray(this.id);
+        this.name = this.sanitiseArray(this.name);
         this.code = this.sanitiseArray(this.code);
         this.sequenceType = this.sanitiseArray(this.sequenceType);
         this.mutationType = this.sanitiseArray(this.mutationType);

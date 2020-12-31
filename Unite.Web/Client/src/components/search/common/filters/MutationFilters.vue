@@ -5,7 +5,7 @@
                 <u-chips-filter 
                     label="ID"
                     placeholder="e.g. 109"
-                    v-model="criteria.id"
+                    v-model="criteria.name"
                     @input="onInput" 
                 />
             </div>

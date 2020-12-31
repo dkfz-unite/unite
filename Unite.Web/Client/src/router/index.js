@@ -11,6 +11,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
   },
   {
+    path: '/mutation/:id',
+    name: 'Mutation',
+    meta: { title: "DKFZ.Mutation" },
+    component: () => import(/* webpackChunkName: "mutation" */ '../views/Mutation.vue')
+  },
+  {
     path: '/privacy',
     name: 'Privacy',
     meta: { title: "DKFZ.Unite - Privacy" },
