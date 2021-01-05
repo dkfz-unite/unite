@@ -3,22 +3,26 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Unite.Web.Configuration;
 
 namespace Unite.Web.Middleware
 {
     public class ReverseProxyMiddleware
     {
-        private static readonly HttpClientHandler _handler = new HttpClientHandler() { UseProxy = false };
-        private static readonly HttpClient _httpClient = new HttpClient(_handler);
-        private readonly RequestDelegate _nextMiddleware;
-        private readonly ILogger _logger;
+        private static readonly HttpClientHandler _httpClientHandler;
+        private static readonly HttpClient _httpClient;
 
-        public ReverseProxyMiddleware(RequestDelegate nextMiddleware, ILogger<ReverseProxyMiddleware> logger)
+        private readonly RequestDelegate _nextMiddleware;
+
+        static ReverseProxyMiddleware()
+        {
+            _httpClientHandler = new HttpClientHandler() { UseProxy = false };
+            _httpClient = new HttpClient(_httpClientHandler);
+        }
+
+        public ReverseProxyMiddleware(RequestDelegate nextMiddleware)
         {
             _nextMiddleware = nextMiddleware;
-            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -32,18 +36,8 @@ namespace Unite.Web.Middleware
                 using (var responseMessage = await _httpClient.SendAsync(targetRequestMessage, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted))
                 {
                     context.Response.StatusCode = (int)responseMessage.StatusCode;
+
                     CopyFromTargetResponseHeaders(context, responseMessage);
-
-                    if (!responseMessage.IsSuccessStatusCode)
-                    {
-                        _logger.LogWarning(targetRequestMessage.RequestUri?.AbsoluteUri);
-                        _logger.LogWarning(targetRequestMessage.Method.Method);
-
-                        if (responseMessage.Content != null)
-                        {
-                            _logger.LogWarning(responseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-                        }
-                    }
 
                     await responseMessage.Content.CopyToAsync(context.Response.Body);
                 }
@@ -55,6 +49,7 @@ namespace Unite.Web.Middleware
         private HttpRequestMessage CreateTargetMessage(HttpContext context, Uri targetUri)
         {
             var requestMessage = new HttpRequestMessage();
+
             CopyFromOriginalRequestContentAndHeaders(context, requestMessage);
 
             requestMessage.RequestUri = targetUri;
@@ -69,9 +64,9 @@ namespace Unite.Web.Middleware
             var requestMethod = context.Request.Method;
 
             if (!HttpMethods.IsGet(requestMethod) &&
-              !HttpMethods.IsHead(requestMethod) &&
-              !HttpMethods.IsDelete(requestMethod) &&
-              !HttpMethods.IsTrace(requestMethod))
+                !HttpMethods.IsHead(requestMethod) &&
+                !HttpMethods.IsDelete(requestMethod) &&
+                !HttpMethods.IsTrace(requestMethod))
             {
                 var streamContent = new StreamContent(context.Request.Body);
                 requestMessage.Content = streamContent;
@@ -94,6 +89,7 @@ namespace Unite.Web.Middleware
             {
                 context.Response.Headers[header.Key] = header.Value.ToArray();
             }
+
             context.Response.Headers.Remove("transfer-encoding");
         }
         private static HttpMethod GetMethod(string method)
@@ -110,19 +106,12 @@ namespace Unite.Web.Middleware
 
         private Uri BuildTargetUri(HttpRequest request)
         {
-            Uri targetUri = null;
-
             if (request.Path.StartsWithSegments("/api", out var remainingPath))
             {
-                
-                //targetUri = new Uri("http://composer.unite/api" + remainingPath);
-                //targetUri = new Uri("http://localhost:5010/api" + remainingPath);
-                targetUri = new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
-
-                _logger.LogInformation(targetUri.AbsoluteUri);
+                return new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
             }
 
-            return targetUri;
+            return null;
         }
     }
 }
