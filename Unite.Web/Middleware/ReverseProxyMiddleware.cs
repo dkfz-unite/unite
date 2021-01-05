@@ -35,11 +35,7 @@ namespace Unite.Web.Middleware
 
                     if (!responseMessage.IsSuccessStatusCode)
                     {
-                        Console.WriteLine("Error");
-                        Console.WriteLine(targetRequestMessage.RequestUri?.AbsolutePath);
-                        Console.WriteLine(targetRequestMessage.Method.Method);
-
-                        _logger.LogWarning(targetRequestMessage.RequestUri?.AbsolutePath);
+                        _logger.LogWarning(targetRequestMessage.RequestUri?.AbsoluteUri);
                         _logger.LogWarning(targetRequestMessage.Method.Method);
                     }
 
@@ -117,8 +113,7 @@ namespace Unite.Web.Middleware
                 //targetUri = new Uri("http://localhost:5010/api" + remainingPath);
                 targetUri = new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
 
-                Console.WriteLine(targetUri.AbsolutePath);
-                _logger.LogInformation(targetUri.AbsolutePath);
+                _logger.LogInformation(targetUri.AbsoluteUri);
             }
 
             return targetUri;
