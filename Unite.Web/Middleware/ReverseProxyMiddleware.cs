@@ -37,6 +37,11 @@ namespace Unite.Web.Middleware
                     {
                         _logger.LogWarning(targetRequestMessage.RequestUri?.AbsoluteUri);
                         _logger.LogWarning(targetRequestMessage.Method.Method);
+
+                        if (responseMessage.Content != null)
+                        {
+                            _logger.LogWarning(responseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                        }
                     }
 
                     await responseMessage.Content.CopyToAsync(context.Response.Body);
