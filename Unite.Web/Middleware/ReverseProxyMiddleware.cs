@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Unite.Web.Configuration;
 
 namespace Unite.Web.Middleware
@@ -11,10 +12,12 @@ namespace Unite.Web.Middleware
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly RequestDelegate _nextMiddleware;
+        private readonly ILogger _logger;
 
-        public ReverseProxyMiddleware(RequestDelegate nextMiddleware)
+        public ReverseProxyMiddleware(RequestDelegate nextMiddleware, ILogger<ReverseProxyMiddleware> logger)
         {
             _nextMiddleware = nextMiddleware;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -29,6 +32,17 @@ namespace Unite.Web.Middleware
                 {
                     context.Response.StatusCode = (int)responseMessage.StatusCode;
                     CopyFromTargetResponseHeaders(context, responseMessage);
+
+                    if (!responseMessage.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Error");
+                        Console.WriteLine(targetRequestMessage.RequestUri?.AbsolutePath);
+                        Console.WriteLine(targetRequestMessage.Method.Method);
+
+                        _logger.LogWarning(targetRequestMessage.RequestUri?.AbsolutePath);
+                        _logger.LogWarning(targetRequestMessage.Method.Method);
+                    }
+
                     await responseMessage.Content.CopyToAsync(context.Response.Body);
                 }
                 return;
@@ -98,9 +112,13 @@ namespace Unite.Web.Middleware
 
             if (request.Path.StartsWithSegments("/api", out var remainingPath))
             {
+                
                 //targetUri = new Uri("http://composer.unite/api" + remainingPath);
                 //targetUri = new Uri("http://localhost:5010/api" + remainingPath);
                 targetUri = new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
+
+                Console.WriteLine(targetUri.AbsolutePath);
+                _logger.LogInformation(targetUri.AbsolutePath);
             }
 
             return targetUri;
