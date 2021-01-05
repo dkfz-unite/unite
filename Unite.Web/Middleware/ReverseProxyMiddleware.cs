@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Unite.Web.Configuration;
 
 namespace Unite.Web.Middleware
 {
@@ -98,7 +99,8 @@ namespace Unite.Web.Middleware
             if (request.Path.StartsWithSegments("/api", out var remainingPath))
             {
                 //targetUri = new Uri("http://composer.unite/api" + remainingPath);
-                targetUri = new Uri("http://localhost:5010/api" + remainingPath);
+                //targetUri = new Uri("http://localhost:5010/api" + remainingPath);
+                targetUri = new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
             }
 
             return targetUri;
