@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Client\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.1" />
