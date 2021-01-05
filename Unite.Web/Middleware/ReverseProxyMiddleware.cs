@@ -10,7 +10,8 @@ namespace Unite.Web.Middleware
 {
     public class ReverseProxyMiddleware
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClientHandler _handler = new HttpClientHandler() { UseProxy = false };
+        private static readonly HttpClient _httpClient = new HttpClient(_handler);
         private readonly RequestDelegate _nextMiddleware;
         private readonly ILogger _logger;
 
