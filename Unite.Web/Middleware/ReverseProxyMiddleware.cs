@@ -108,8 +108,7 @@ namespace Unite.Web.Middleware
         {
             if (request.Path.StartsWithSegments("/api", out var remainingPath))
             {
-                Console.WriteLine(request.QueryString);
-                return new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
+                return new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}{request.QueryString}");
             }
 
             return null;
