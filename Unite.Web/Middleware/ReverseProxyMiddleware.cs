@@ -111,14 +111,12 @@ namespace Unite.Web.Middleware
                 if (request.QueryString.HasValue)
                 {
                     var uri = new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}{request.QueryString}");
-                    Console.WriteLine(uri.ToString());
 
                     return uri;
                 }
                 else
                 {
                     var uri = new Uri($"{EnvironmentConfig.ComposerHost}/api{remainingPath}");
-                    Console.WriteLine(uri.ToString());
 
                     return uri;
                 }
