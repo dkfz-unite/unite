@@ -12,6 +12,7 @@ class DonorsApiClient{
 
     async get(id){
         var url = this.#donorUrl + "?id=" + id;
+        console.log(url);
         return await apiClient.get(url);
     }
 }
