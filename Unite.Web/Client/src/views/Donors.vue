@@ -1,21 +1,32 @@
 <template>
-    <div class="row">
-        <div class="col-2">
-            <u-filters 
-                v-model="criteria"
-                selected="donor"
-                @input="fetchData" />
+    <div class="col q-px-sm q-pt-sm q-gutter-y-sm">
+        <div class="row">
+            <q-breadcrumbs gutter="xs">
+                <q-breadcrumbs-el icon="home" to="/" />
+                <q-breadcrumbs-el label="Donors" />
+            </q-breadcrumbs>
         </div>
 
-        <div class="col">
-            <u-donors
-                :loading="loading"
-                :rows="rows"
-                :rows-total="rowsTotal"
-                :rows-selected.sync="rowsSelected"
-                :filters.sync="filters"
-            />
+        <div class="row">
+            <div class="col-2">
+                <u-filters 
+                    v-model="criteria"
+                    selected="donor"
+                    @input="fetchData" 
+                />
+            </div>
+
+            <div class="col-10">
+                <u-donors
+                    :loading="loading"
+                    :rows="rows"
+                    :rows-total="rowsTotal"
+                    :rows-selected.sync="rowsSelected"
+                    :filters.sync="filters"
+                />
+            </div>
         </div>
+
     </div>
 </template>
 

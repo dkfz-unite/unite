@@ -1,5 +1,0 @@
-<template>
-    <div>
-        <h3>Privacy</h3>
-    </div>
-</template>

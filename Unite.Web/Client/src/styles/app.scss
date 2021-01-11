@@ -2,11 +2,11 @@
 
 .sticky-header{
   @media screen and (max-width: $breakpoint-lg){
-    height: 600px;
+    height: 650px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 800px;
+    height: 950px;
   }
 
   .q-table__top,
@@ -31,4 +31,10 @@
         color: $blue-8;
         text-decoration: none;
     }
+}
+
+.table-strip{
+  tr:nth-child(even){
+    background-color: #f2f2f2;
+  }
 }

@@ -1,11 +1,12 @@
 <template>
     <div>
-        <q-splitter :value="16" disable class="q-mt-sm">
+        <q-splitter :value="16" disable>
             <template v-slot:before>
                 <q-tabs v-model="tab" dense align="left" vertical class="q-pa-none" active-color="primary">
-                    <q-tab name="donor" icon="fas fa-user" />
-                    <q-tab name="mutation" icon="fas fa-dna" />
-                    <q-tab name="cell" icon="fas fa-microscope" />
+                    <q-tab name="donor" icon="las la-user-circle" />
+                    <q-tab name="mutation" icon="las la-dna" />
+                    <q-tab name="cell" icon="las la-microscope" disable/>
+                    <q-tab name="radiology" icon="las la-x-ray" disable/>
                 </q-tabs>
             </template>
 
@@ -82,6 +83,7 @@ export default {
                 case "donor": return value;
                 case "mutation": return value;
                 case "cell": return value;
+                case "radiology": return value;
                 default: return "donor";
             }
         }

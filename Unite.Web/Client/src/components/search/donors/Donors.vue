@@ -2,7 +2,7 @@
     <div>
         <q-table
             title="Donors"
-            class="sticky-header" separator="cell" dense
+            class="sticky-header" separator="cell" dense flat bordered
             selection="multiple"
             row-key="id"
             :columns="columns"

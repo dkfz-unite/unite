@@ -2,7 +2,7 @@
     <div>
         <q-table
             title="Mutations"
-            class="sticky-header" separator="cell" dense
+            class="sticky-header" separator="cell" dense flat bordered
             selection="multiple"
             row-key="id"
             :columns="columns"
@@ -95,6 +95,7 @@ export default {
     },
 
     mounted(){
+        this.$route.params.tab = "mutation";
         this.onRequest({pagination: this.pagination, filter: this.filter});
     },
 

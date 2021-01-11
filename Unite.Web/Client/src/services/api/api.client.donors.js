@@ -11,7 +11,7 @@ class DonorsApiClient{
     }
 
     async get(id){
-        var url = "${this.#donorUrl}?id=${id}";
+        var url = this.#donorUrl + "?id=" + id;
         return await apiClient.get(url);
     }
 }
