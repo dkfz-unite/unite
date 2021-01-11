@@ -34,23 +34,7 @@
                     <u-clinical-data :donor="donor" />
                 </q-tab-panel>
 
-                <q-tab-panel name="mutations" class="q-py-sm q-px-none">
-                    <div class="col-12">
-                        <div class="row">
-                            <q-table
-                                title="Samples"
-                                :data="getSamples(donor.samples)"
-                                dense flat bordered separator="cell"
-                            />
-                        </div>
-                        <div class="row">
-                            <q-table
-                                title="Mutations" 
-                                :data="donor.samples[0].mutations"
-                                dense flat bordered separator="cell" 
-                            />
-                        </div>
-                    </div>                    
+                <q-tab-panel name="mutations" class="q-py-sm q-px-none">      
                 </q-tab-panel>
             </q-tab-panels>
         </div>
@@ -73,23 +57,6 @@ export default {
 
     async mounted(){
         this.donor = await apiClient.get(this.$route.params.id);
-    },
-
-    methods:{
-        getSamples(){
-            if(!this.donor || !this.donor.samples){
-                return null;
-            }
-
-            return this.donor.samples.map(sample => {
-                return {
-                    name: sample.name,
-                    link: sample.link,
-                    type: sample.type,
-                    subtype: sample.subtype
-                }
-            });
-        }
     },
 
     components:{
