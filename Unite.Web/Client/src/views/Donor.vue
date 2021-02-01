@@ -20,7 +20,7 @@
                 <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
                 <q-tab name="mutations" label="Mutations" icon="las la-dna" disable />
                 <q-tab name="cells" label="Cells" icon="las la-microscope" disable />
-                <q-tab name="radiology" label="Radiology" icon="las la-x-ray" disable />
+                <q-tab name="radiology" label="Radiology" icon="las la-radiation-alt" disable />
             </q-tabs>
 
             <q-separator />
@@ -34,7 +34,8 @@
                     <u-clinical-data :donor="donor" />
                 </q-tab-panel>
 
-                <q-tab-panel name="mutations" class="q-py-sm q-px-none">      
+                <q-tab-panel name="mutations" class="q-py-sm q-px-none">
+                    <u-donor-mutations :mutations="donor.mutations" />
                 </q-tab-panel>
             </q-tab-panels>
         </div>
@@ -44,6 +45,7 @@
 <script>
 import USummary from '@/components/donor/Summary.vue';
 import UClinicalData from '@/components/donor/ClinicalData.vue';
+import UDonorMutations from '@/components/donor/DonorMutations.vue';
 
 import apiClient from '@/services/api/api.client.donors.js';
 
@@ -61,7 +63,8 @@ export default {
 
     components:{
         USummary: USummary,
-        UClinicalData: UClinicalData
+        UClinicalData: UClinicalData,
+        UDonorMutations: UDonorMutations
     }
 }
 </script>

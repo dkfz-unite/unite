@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/donors/',
+    redirect: '/donors/:tab?',
     name: 'Home',
     meta: { title: "UNITE.Unite" },
     component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')

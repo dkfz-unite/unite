@@ -1,7 +1,7 @@
 <template>
     <div class="col" v-if="donor">
         <div class="row">
-            <span class="text-h5">Summary</span>
+            <span class="text-h5 u-text-title">Summary</span>
         </div>
 
         <div class="row q-mt-xs">
@@ -13,31 +13,31 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td class="text-bold">PID</td>
+                            <td class="u-text-key">PID</td>
                             <td class="text-bold">{{donor.id}}</td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Diagnosis</td>
+                            <td class="u-text-key">Diagnosis</td>
                             <td>{{donor.diagnosis}}</td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Diagnosis Date</td>
+                            <td class="u-text-key">Diagnosis Date</td>
                             <td>{{this.getDate(donor.diagnosisDate)}}</td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Primary Site</td>
+                            <td class="u-text-key">Primary Site</td>
                             <td>{{donor.primarySite}}</td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Origin</td>
+                            <td class="u-text-key">Origin</td>
                             <td>{{donor.origin}}</td>
                         </tr>
                         <tr>
-                            <td class="text-bold">MTA Protected</td>
-                            <td>{{donor.mtaProtected}}</td>
+                            <td class="u-text-key">MTA Protected</td>
+                            <td>{{donor.mtaProtected ? 'Yes' : 'No'}}</td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Work Packages</td>
+                            <td class="u-text-key">Work Packages</td>
                             <td>
                                 <span v-for="workPackage in donor.workPackages" :key="workPackage.id">
                                     <router-link class="u-link" :to="'/package/' + workPackage.id">{{workPackage.name}}</router-link>
@@ -45,7 +45,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Studies</td>
+                            <td class="u-text-key">Studies</td>
                             <td>
                                 <span v-for="study in donor.studies" :key="study.id">
                                     <router-link class="u-link" :to="'/study/' + study.id">{{study.name}}</router-link>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="row q-mt-xs">
-            <span class="text-h5">Available Data</span>
+            <span class="text-h5 u-text-title">Available Data</span>
         </div>
 
         <div class="row q-mt-xs">
@@ -70,28 +70,28 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td class="text-bold">Clinical Data</td>
+                            <td class="u-text-key">Clinical Data</td>
                             <td>
                                 <q-icon v-if="donor.clinicalData" color="green" size="sm" name="las la-check"  />
                                 <q-icon v-else color="grey" size="sm" name="las la-minus" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Treatment</td>
+                            <td class="u-text-key">Treatment</td>
                             <td>
                                 <q-icon v-if="donor.treatments" color="green" size="sm" name="las la-check"  />
                                 <q-icon v-else color="grey" size="sm" name="las la-minus" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Mutations</td>
+                            <td class="u-text-key">Mutations</td>
                             <td>
-                                <q-icon v-if="donor.samples && donor.samples[0].mutations" color="green" size="sm" name="las la-check"  />
+                                <q-icon v-if="donor.mutations" color="green" size="sm" name="las la-check"  />
                                 <q-icon v-else color="grey" size="sm" name="las la-minus" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-bold">Cells</td>
+                            <td class="u-text-key">Cells</td>
                             <td>
                                 <q-icon v-if="donor.cellLines" color="green" size="sm" name="las la-check"  />
                                 <q-icon v-else color="grey" size="sm" name="las la-minus" />

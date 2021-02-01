@@ -1,7 +1,7 @@
 <template>
     <div class="col" v-if="donor">
         <div class="row">
-            <span class="text-h5">Clinical Data</span>
+            <span class="text-h5 u-text-title">Clinical Data</span>
         </div>
 
         <div class="row q-col-gutter-x-sm q-mt-xs" v-if="donor.clinicalData">
@@ -13,28 +13,28 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td>Gender</td>
+                            <td class="u-text-key">Gender</td>
                             <td>{{donor.clinicalData.gender}}</td>
                         </tr>
                         <tr>
-                            <td>Age</td>
+                            <td class="u-text-key">Age</td>
                             <td>{{donor.clinicalData.age}}</td>
                         </tr>
                         <tr>
-                            <td>Age Category</td>
+                            <td class="u-text-key">Age Category</td>
                             <td>{{donor.clinicalData.ageCategory}}</td>
                         </tr>
                         <tr>
-                            <td>Localization</td>
+                            <td class="u-text-key">Localization</td>
                             <td>{{donor.clinicalData.localization}}</td>
                         </tr>
                         <tr>
-                            <td>KPS Baseline</td>
+                            <td class="u-text-key">KPS Baseline</td>
                             <td>{{donor.clinicalData.kpsBaseline}}</td>
                         </tr>
                         <tr>
-                            <td>Steroids Baseline</td>
-                            <td>{{donor.clinicalData.steroidsBaseline}}</td>
+                            <td class="u-text-key">Steroids Baseline</td>
+                            <td>{{donor.clinicalData.steroidsBaseline ? 'Yes' : 'No'}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -51,31 +51,31 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td>Vital Status</td>
+                            <td class="u-text-key">Vital Status</td>
                             <td>{{donor.clinicalData.vitalStatus}}</td>
                         </tr>
                         <tr>
-                            <td>Vital Status Change Date</td>
+                            <td class="u-text-key">Vital Status Change Date</td>
                             <td>{{getDate(donor.clinicalData.vitalStatusChangeDate)}}</td>
                         </tr>
                         <tr>
-                            <td>Survival Days</td>
+                            <td class="u-text-key">Survival Days</td>
                             <td>{{donor.clinicalData.survivalDays}}</td>
                         </tr>
                         <tr>
-                            <td>Progression Date</td>
+                            <td class="u-text-key">Progression Date</td>
                             <td>{{getDate(donor.clinicalData.progressionDate)}}</td>
                         </tr>
                         <tr>
-                            <td>Progression Free Days</td>
+                            <td class="u-text-key">Progression Free Days</td>
                             <td>{{donor.clinicalData.progressionFreeDays}}</td>
                         </tr>
                         <tr>
-                            <td>Relapse Date</td>
+                            <td class="u-text-key">Relapse Date</td>
                             <td>{{getDate(donor.clinicalData.relapseDate)}}</td>
                         </tr>
                         <tr>
-                            <td>Relapse Free Days</td>
+                            <td class="u-text-key">Relapse Free Days</td>
                             <td>{{donor.clinicalData.relapseFreeDays}}</td>
                         </tr>
                     </tbody>

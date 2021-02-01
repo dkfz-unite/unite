@@ -8,7 +8,7 @@
           <q-route-tab label="Donors" to="/donors" class="q-pa-none" icon="las la-user-circle" />
           <q-route-tab label="Mutations" to="/mutations" class="q-pa-none" icon="las la-dna" />
           <q-route-tab label="Cells" to="/cells" class="q-pa-none" icon="las la-microscope" disable title="Comming soon"/>
-          <q-route-tab label="Radiology" to="/radiology" class="q-pa-none" icon="las la-x-ray" disable title="Comming soon"/>
+          <q-route-tab label="Radiology" to="/radiology" class="q-pa-none" icon="las la-radiation-alt" disable title="Comming soon"/>
         </q-tabs>
       </q-toolbar>
     </q-header>

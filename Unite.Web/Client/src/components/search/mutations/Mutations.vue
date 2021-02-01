@@ -38,7 +38,8 @@
             <template v-slot:body-cell-gene="props">
                 <q-td :props="props">
                     <template v-if="props.value">
-                        <router-link class="u-link" :to="'gene/'+props.value.id">{{props.value.name}}</router-link>
+                        <a class="u-link" :href="'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' + props.value.name" target="blank">{{props.value.name}}</a>
+                        <!-- <router-link class="u-link" :to="'gene/'+props.value.id">{{props.value.name}}</router-link> -->
                     </template>
                 </q-td>
             </template>
@@ -53,10 +54,10 @@ export default {
     data(){
         return{
             columns: [
-                { name: "id", label: "UID", field: row => row.id, sortable: false, required: true, align: 'left' },
-                { name: "name", label: "ID", field: row => row.name, sortable: false },
+                { name: "id", label: "ID", field: row => row.id, sortable: false, required: true, align: 'left' },
+                // { name: "name", label: "ID", field: row => row.name, sortable: false },
                 { name: "code", label: "DNA change", field: row => row.code, sortable: false },
-                { name: "type", label: "Type", field: row => row.type, sortable: false },
+                // { name: "type", label: "Type", field: row => row.type, sortable: false },
                 { name: "gene", label: "Gene", field: row => row.gene, sortable: false },
                 { name: "donors", label: "Donors affected", field: row => row.donors, sortable: false }
             ],

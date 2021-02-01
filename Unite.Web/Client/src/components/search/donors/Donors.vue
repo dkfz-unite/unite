@@ -31,7 +31,7 @@
                 <q-td :props="props">
                     <div v-if="props.value && props.value.length">
                         <div v-for="(treatment, i) in props.value" :key="i">
-                            {{treatment.therapy.name}}
+                            {{treatment.therapy}}
                         </div>
                     </div>
                 </q-td>
@@ -69,7 +69,7 @@ export default {
             columns: [
                 { name: "id", label: "PID", field: row => row.id, sortable: false, required: true, align: 'left' },
                 { name: "origin", label: "Origin", field: row => row.origin, sortable: false },
-                { name: "mtaProtected", label: "MTA", field: row => row.mtaProtected, sortable: false },
+                { name: "mtaProtected", label: "MTA", field: row => row.mtaProtected ? 'Yes' : 'No', sortable: false },
                 { name: "diagnosis", label: "Diagnosis", field: row => row.diagnosis, sortable: false },
                 { name: "diagnosisDate", label: "Diagnosis Date", field: row => this.getDate(row.diagnosisDate), sortable: false },
                 { name: "gender", label: "Gender", field: row => row.clinicalData?.gender, sortable: false },
@@ -77,7 +77,7 @@ export default {
                 { name: "treatments", label: "Treatments", field: row => row.treatments, sortable: false },
                 { name: "packages", label: "Work Packages", field: row => row.workPackages, sortable: false },
                 { name: "studies", label: "Studies", field: row => row.studies, sortable: false },
-                { name: "cells", label: "Cell Lines", field: row => row.cellLines, sortable: false },
+                // { name: "cells", label: "Cell Lines", field: row => row.cellLines, sortable: false },
                 { name: "samples", label: "Samples", field: row => row.samples, sortable: false },
                 { name: "mutations", label: "Mutations", field: row => row.mutations, sortable: false },
                 { name: "genes", label: "Genes", field: row => row.genes, sortable: false }
