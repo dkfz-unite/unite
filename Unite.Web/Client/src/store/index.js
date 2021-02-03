@@ -38,6 +38,11 @@ export default new Vuex.Store({
       searchCriteria: new SearchCriteria()
     },
 
+    donor: {
+      selected: [],
+      searchCriteria: new SearchCriteria()
+    },
+
     filterOptions: {
       genders: Gender.availableOptions,
       ageCategories: AgeCategory.availableOptions,

@@ -1,87 +1,85 @@
 <template>
-    <div class="col q-px-sm q-pt-sm q-gutter-y-sm">
-        <div class="row">
-            <q-breadcrumbs gutter="xs">
-                <q-breadcrumbs-el icon="home" to="/" />
-                <q-breadcrumbs-el label="Mutations" />
-            </q-breadcrumbs>
-        </div>
-        
-        <div class="row">
-            <div class="col-2">
-                <u-filters 
-                    v-model="criteria"
-                    selected="mutation"
-                    @input="fetchData"
-                />
-            </div>
-
-            <div class="col-10">
-                <u-mutations
-                    :loading="loading"
-                    :rows="rows"
-                    :rows-total="rowsTotal"
-                    :rows-selected.sync="rowsSelected"
-                    :filters.sync="filters"
-                />
-            </div>
-        </div>
+  <div class="col q-px-sm q-pt-sm q-gutter-y-sm">
+    <div class="row">
+      <q-breadcrumbs gutter="xs">
+        <q-breadcrumbs-el icon="home" to="/" />
+        <q-breadcrumbs-el label="Mutations" />
+      </q-breadcrumbs>
     </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="row q-col-gutter-sm">
+          <div class="col-2">
+            <u-filters v-model="criteria" selected="mutation" @input="fetchData" />
+          </div>
+
+          <div class="col-10">
+            <u-mutations
+              :loading="loading"
+              :rows="rows"
+              :rows-total="rowsTotal"
+              :rows-selected.sync="rowsSelected"
+              :filters.sync="filters"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import UFilters from '@/components/search/common/filters/Filters.vue';
-import UMutations from '@/components/search/mutations/Mutations.vue';
+import UFilters from "@/components/search/common/filters/Filters.vue";
+import UMutations from "@/components/search/mutations/Mutations.vue";
 
-import apiClient from '@/services/api/api.client.mutations.js';
+import apiClient from "@/services/api/api.client.mutations.js";
 
 export default {
-    data(){
-        return{
-            loading: false,
-            rows: [],
-            rowsSelected: [],
-            rowsTotal: 0,
-            filters: {
-                from: 0,
-                size: 10,
-                term: null
-            },
+  data() {
+    return {
+      loading: false,
+      rows: [],
+      rowsSelected: [],
+      rowsTotal: 0,
+      filters: {
+        from: 0,
+        size: 10,
+        term: null,
+      },
 
-            criteria: this.$store.state.mutations.searchCriteria,
-        }
+      criteria: this.$store.state.mutations.searchCriteria,
+    };
+  },
+
+  mounted() {},
+
+  watch: {
+    filters(value) {
+      this.criteria.from = value.from;
+      this.criteria.size = value.size;
+      this.criteria.term = value.term;
+
+      this.fetchData();
     },
+  },
 
-    mounted(){
-        
+  methods: {
+    async fetchData() {
+      this.loading = true;
+
+      let data = await apiClient.search(this.criteria);
+
+      this.loading = false;
+
+      this.rows = data ? data.rows : [];
+      this.rowsTotal = data ? data.total : 0;
     },
+  },
 
-    watch:{
-        filters(value){
-            this.criteria.from = value.from;
-            this.criteria.size = value.size;
-            this.criteria.term = value.term;
-
-            this.fetchData();
-        }
-    },
-
-    methods: {
-        async fetchData(){
-            this.loading = true;
-
-            let data = await apiClient.search(this.criteria);
-
-            this.loading = false;
-
-            this.rows = data ? data.rows : [];
-            this.rowsTotal = data ? data.total : 0;
-        }
-    },
-
-    components:{
-        UFilters: UFilters,
-        UMutations: UMutations
-    }
-}
+  components: {
+    UFilters: UFilters,
+    UMutations: UMutations,
+  },
+};
 </script>

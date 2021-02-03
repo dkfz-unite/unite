@@ -1,166 +1,232 @@
 <template>
-    <div>
-        <q-table
-            title="Donors"
-            class="sticky-header" separator="cell" dense flat bordered
-            selection="multiple"
-            row-key="id"
-            :columns="columns"
-            :data="data"
-            :selected.sync="selected"
-            :pagination.sync="pagination"
-            :filter="filter"
-            :loading="loading"
-            @request="onRequest">
-            
-            <template v-slot:top-right>
-                <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
-                    <template v-slot:append>
-                        <q-icon name="search" />
-                    </template>
-                </q-input>
-            </template>
+  <div class="col">
+    <q-table
+      title="Donors"
+      class="sticky-header"
+      separator="cell" dense flat bordered
+      selection="multiple"
+      row-key="id"
+      :columns="columns"
+      :data="data"
+      :selected.sync="selected"
+      :pagination.sync="pagination"
+      :filter="filter"
+      :loading="loading"
+      @request="onRequest"
+    >
+      <template v-slot:top-right>
+        <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
 
-            <template v-slot:body-cell-id="props">
-                <q-td :props="props">
-                    <router-link class="u-link" :to="'donor/'+props.value">{{props.value}}</router-link>
-                </q-td>
-            </template>
+      <template v-slot:body-cell-id="props">
+        <q-td :props="props">
+          <router-link class="u-link" :to="'donor/' + props.value">
+            {{ props.value }}
+          </router-link>
+        </q-td>
+      </template>
 
-            <template v-slot:body-cell-treatments="props">
-                <q-td :props="props">
-                    <div v-if="props.value && props.value.length">
-                        <div v-for="(treatment, i) in props.value" :key="i">
-                            {{treatment.therapy}}
-                        </div>
-                    </div>
-                </q-td>
-            </template>
+      <template v-slot:body-cell-treatments="props">
+        <q-td :props="props">
+          <div v-if="props.value && props.value.length">
+            <div v-for="(treatment, i) in props.value" :key="i">
+              {{ treatment.therapy }}
+            </div>
+          </div>
+        </q-td>
+      </template>
 
-            <template v-slot:body-cell-packages="props">
-                <q-td :props="props">
-                    <div v-if="props.value && props.value.length">
-                        <div v-for="(workPackage, i) in props.value" :key="i">
-                            {{workPackage.name}}
-                        </div>
-                    </div>
-                </q-td>
-            </template>
+      <template v-slot:body-cell-packages="props">
+        <q-td :props="props">
+          <div v-if="props.value && props.value.length">
+            <div v-for="(workPackage, i) in props.value" :key="i">
+              {{ workPackage.name }}
+            </div>
+          </div>
+        </q-td>
+      </template>
 
-            <template v-slot:body-cell-studies="props">
-                <q-td :props="props">
-                    <div v-if="props.value && props.value.length">
-                        <div v-for="(study, i) in props.value" :key="i">
-                            {{study.name}}
-                        </div>
-                    </div>
-                </q-td>
-            </template>
-        </q-table>
-    </div>
+      <template v-slot:body-cell-studies="props">
+        <q-td :props="props">
+          <div v-if="props.value && props.value.length">
+            <div v-for="(study, i) in props.value" :key="i">
+              {{ study.name }}
+            </div>
+          </div>
+        </q-td>
+      </template>
+    </q-table>
+  </div>
 </template>
 
 <script>
 export default {
-    props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
+  props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
 
-    data(){
-        return{
-            columns: [
-                { name: "id", label: "PID", field: row => row.id, sortable: false, required: true, align: 'left' },
-                { name: "origin", label: "Origin", field: row => row.origin, sortable: false },
-                { name: "mtaProtected", label: "MTA", field: row => row.mtaProtected ? 'Yes' : 'No', sortable: false },
-                { name: "diagnosis", label: "Diagnosis", field: row => row.diagnosis, sortable: false },
-                { name: "diagnosisDate", label: "Diagnosis Date", field: row => this.getDate(row.diagnosisDate), sortable: false },
-                { name: "gender", label: "Gender", field: row => row.clinicalData?.gender, sortable: false },
-                { name: "age", label: "Age", field: row => row.clinicalData?.age, sortable: false },
-                { name: "treatments", label: "Treatments", field: row => row.treatments, sortable: false },
-                { name: "packages", label: "Work Packages", field: row => row.workPackages, sortable: false },
-                { name: "studies", label: "Studies", field: row => row.studies, sortable: false },
-                // { name: "cells", label: "Cell Lines", field: row => row.cellLines, sortable: false },
-                { name: "samples", label: "Samples", field: row => row.samples, sortable: false },
-                { name: "mutations", label: "Mutations", field: row => row.mutations, sortable: false },
-                { name: "genes", label: "Genes", field: row => row.genes, sortable: false }
-            ],
-
-            data: [],
-
-            selected: [],
-
-            filter: null,
-
-            pagination: {
-                page: 1,
-                rowsPerPage: 20,
-                rowsNumber: 0
-            }
+  data() {
+    return {
+      columns: [
+        {
+          name: "id",
+          label: "PID",
+          field: (row) => row.id,
+          sortable: false,
+          required: true,
+          align: "left"
+        },
+        {
+          name: "origin",
+          label: "Origin",
+          field: (row) => row.origin,
+          sortable: false
+        },
+        {
+          name: "mtaProtected",
+          label: "MTA",
+          field: (row) => (row.mtaProtected ? "Yes" : "No"),
+          sortable: false
+        },
+        {
+          name: "diagnosis",
+          label: "Diagnosis",
+          field: (row) => row.diagnosis,
+          sortable: false
+        },
+        {
+          name: "diagnosisDate",
+          label: "Diagnosis Date",
+          field: (row) => this.getDate(row.diagnosisDate),
+          sortable: false
+        },
+        {
+          name: "gender",
+          label: "Gender",
+          field: (row) => row.clinicalData?.gender,
+          sortable: false
+        },
+        {
+          name: "age",
+          label: "Age",
+          field: (row) => row.clinicalData?.age,
+          sortable: false
+        },
+        {
+          name: "treatments",
+          label: "Treatments",
+          field: (row) => row.treatments,
+          sortable: false
+        },
+        {
+          name: "packages",
+          label: "Work Packages",
+          field: (row) => row.workPackages,
+          sortable: false
+        },
+        {
+          name: "studies",
+          label: "Studies",
+          field: (row) => row.studies,
+          sortable: false
+        },
+        {
+          name: "samples",
+          label: "Samples",
+          field: (row) => row.samples,
+          sortable: false
+        },
+        {
+          name: "mutations",
+          label: "Mutations",
+          field: (row) => row.mutations,
+          sortable: false
+        },
+        {
+          name: "genes",
+          label: "Genes",
+          field: (row) => row.genes,
+          sortable: false
         }
+      ],
+
+      data: [],
+
+      selected: [],
+
+      filter: null,
+
+      pagination: {
+        page: 1,
+        rowsPerPage: 20,
+        rowsNumber: 0,
+      },
+    };
+  },
+
+  watch: {
+    rows(value) {
+      this.data = value;
     },
 
-    watch:{
-        rows(value){
-            this.data = value;
-        },
-
-        rowsTotal(value){
-            this.pagination.rowsNumber = value;
-        },
-
-        rowsSelected(value){
-            this.selected = value;
-        },
-
-
-        selected(value){
-            this.$emit('update:rowsSelected', value);
-        },
+    rowsTotal(value) {
+      this.pagination.rowsNumber = value;
     },
 
-    mounted(){
-        this.onRequest({pagination: this.pagination, filter: this.filter});
+    rowsSelected(value) {
+      this.selected = value;
     },
 
-    methods:{
-        onRequest(props){
-            let filters = {
-                from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
-                size: this.getSize(props.pagination.rowsPerPage),
-                term: props.filter
-            };
+    selected(value) {
+      this.$emit("update:rowsSelected", value);
+    },
+  },
 
-            this.pagination.page = props.pagination.page;
-            this.pagination.rowsPerPage = props.pagination.rowsPerPage;
+  mounted() {
+    this.onRequest({ pagination: this.pagination, filter: this.filter });
+  },
 
-            this.$emit('update:filters', filters);
-        },
+  methods: {
+    onRequest(props) {
+      let filters = {
+        from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
+        size: this.getSize(props.pagination.rowsPerPage),
+        term: props.filter,
+      };
 
-        getFrom(page, pageSize){
-            if(page != null && page != undefined){
-                return (page - 1) * pageSize;
-            }
-            else{
-                return 0;
-            }
-        },
+      this.pagination.page = props.pagination.page;
+      this.pagination.rowsPerPage = props.pagination.rowsPerPage;
 
-        getSize(pageSize){
-            if(pageSize != null && pageSize != undefined){
-                return pageSize == 0 ? 10000 : pageSize;
-            }
-            else{
-                return 20;
-            }
-        },
+      this.$emit("update:filters", filters);
+    },
 
-        getDate(dateString){
-            if(!dateString){
-                return null;
-            }
+    getFrom(page, pageSize) {
+      if (page != null && page != undefined) {
+        return (page - 1) * pageSize;
+      } else {
+        return 0;
+      }
+    },
 
-            var date = new Date(dateString);
+    getSize(pageSize) {
+      if (pageSize != null && pageSize != undefined) {
+        return pageSize == 0 ? 10000 : pageSize;
+      } else {
+        return 20;
+      }
+    },
 
-            return date.toLocaleDateString();
-        }
-    }
-}
+    getDate(dateString) {
+      if (!dateString) {
+        return null;
+      }
+
+      var date = new Date(dateString);
+
+      return date.toLocaleDateString();
+    },
+  },
+};
 </script>

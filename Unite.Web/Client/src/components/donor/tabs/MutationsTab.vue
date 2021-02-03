@@ -1,24 +1,28 @@
 <template>
-  <div class="col">
+  <div class="col q-gutter-y-sm">
     <div class="row">
       <span class="text-h5 u-text-title">Mutations</span>
     </div>
 
-    <div class="row q-mt-xs q-col-gutter-sm">
-      <div class="col-12 col-md-2">
-        <div class="row">
-          <u-filters v-model="criteria" @input="onInput" />
+    <div class="row">
+      <div class="col">
+        <div class="row q-col-gutter-sm">
+          <div class="col-12 col-md-2">
+            <div class="row">
+              <u-filters v-model="criteria" @input="onInput" />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-10">
+            <u-mutations
+              :loading="loading"
+              :rows="rows"
+              :rows-total="rowsTotal"
+              :rows-selected.sync="rowsSelected"
+              :filters.sync="filters"
+            />
+          </div>
         </div>
-      </div>
-      
-      <div class="col-12 col-md-10">
-        <u-mutations
-          :loading="loading"
-          :rows="rows"
-          :rows-total="rowsTotal"
-          :rows-selected.sync="rowsSelected"
-          :filters.sync="filters"
-        />
       </div>
     </div>
   </div>
@@ -31,7 +35,7 @@ import UMutations from "@/components/donor/mutations/Mutations.vue";
 import apiClient from "@/services/api/api.client.mutations.js";
 
 export default {
-  props: ["mutations"],
+  props: ["donor"],
 
   data() {
     return {
@@ -60,7 +64,7 @@ export default {
   },
 
   async mounted() {
-    this.criteria.donorFilters.id.push(this.$route.params.id);
+    this.criteria.donorFilters.id.push(this.donor.id);
 
     await this.fetchData();
   },

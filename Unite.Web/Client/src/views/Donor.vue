@@ -1,70 +1,70 @@
 <template>
-    <div v-if="donor" class="col q-px-sm q-pt-sm q-gutter-y-sm">
-        <div class="row">
-            <q-breadcrumbs gutter="xs">
-                <q-breadcrumbs-el icon="home" to="/" />
-                <q-breadcrumbs-el label="Donors" to="/donors" />
-                <q-breadcrumbs-el :label="$route.params.id"/>
-            </q-breadcrumbs>
-        </div>
-
-        <!-- <div class="row">
-            <span class="text-h4">{{$route.params.id}}</span>
-        </div> -->
-
-        <div class="row">
-            <q-separator />
-
-            <q-tabs v-model="tab" dense align="left">
-                <q-tab name="summary" label="summary" icon="las la-user-circle" />
-                <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
-                <q-tab name="mutations" label="Mutations" icon="las la-dna" disable />
-                <q-tab name="cells" label="Cells" icon="las la-microscope" disable />
-                <q-tab name="radiology" label="Radiology" icon="las la-radiation-alt" disable />
-            </q-tabs>
-
-            <q-separator />
-
-            <q-tab-panels v-model="tab" style="width:100%">
-                <q-tab-panel name="summary" class="q-py-sm q-px-none">
-                    <u-summary :donor="donor" />
-                </q-tab-panel>    
-
-                <q-tab-panel name="clinical" class="q-py-sm q-px-none">
-                    <u-clinical-data :donor="donor" />
-                </q-tab-panel>
-
-                <q-tab-panel name="mutations" class="q-py-sm q-px-none">
-                    <u-donor-mutations :mutations="donor.mutations" />
-                </q-tab-panel>
-            </q-tab-panels>
-        </div>
+  <div v-if="donor" class="col q-px-sm q-pt-sm q-gutter-y-sm">
+    <div class="row">
+      <q-breadcrumbs gutter="xs">
+        <q-breadcrumbs-el icon="home" to="/" />
+        <q-breadcrumbs-el label="Donors" to="/donors" />
+        <q-breadcrumbs-el :label="$route.params.id" />
+      </q-breadcrumbs>
     </div>
+
+    <div class="row">
+      <q-separator />
+      <q-tabs v-model="tab" dense align="left">
+        <q-tab name="summary" label="summary" icon="las la-user-circle" />
+        <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
+        <q-tab name="mutations" label="Mutations" icon="las la-dna" />
+        <q-tab name="cells" label="Cells" icon="las la-microscope" disable />
+        <q-tab name="radiology" label="Radiology" icon="las la-radiation-alt" disable />
+      </q-tabs>
+      
+      <q-separator />
+      <q-tab-panels v-model="tab" style="width: 100%">
+        <q-tab-panel name="summary" class="q-py-sm q-px-none">
+          <u-summary-tab :donor="donor" />
+        </q-tab-panel>
+
+        <q-tab-panel name="clinical" class="q-py-sm q-px-none">
+          <u-clinical-data-tab :donor="donor" />
+        </q-tab-panel>
+
+        <q-tab-panel name="mutations" class="q-py-sm q-px-none">
+          <u-mutations-tab :donor="donor" />
+        </q-tab-panel>
+      </q-tab-panels>
+    </div>
+  </div>
 </template>
 
 <script>
-import USummary from '@/components/donor/Summary.vue';
-import UClinicalData from '@/components/donor/ClinicalData.vue';
-import UDonorMutations from '@/components/donor/DonorMutations.vue';
+import USummaryTab from "@/components/donor/tabs/SummaryTab.vue";
+import UClinicalDataTab from "@/components/donor/tabs/ClinicalDataTab.vue";
+import UMutationsTab from "@/components/donor/tabs/MutationsTab.vue";
 
-import apiClient from '@/services/api/api.client.donors.js';
+import SearchCriteria from '@/services/criteria/criteria.search.js';
+
+import apiClient from "@/services/api/api.client.donors.js";
 
 export default {
-    data(){
-        return{
-            tab: "summary",
-            donor: null
-        }
-    },
+  data() {
+    return {
+      tab: "summary",
+      donor: null,
+    };
+  },
 
-    async mounted(){
-        this.donor = await apiClient.get(this.$route.params.id);
-    },
+  async mounted() {
+    this.donor = await apiClient.get(this.$route.params.id);
+  },
 
-    components:{
-        USummary: USummary,
-        UClinicalData: UClinicalData,
-        UDonorMutations: UDonorMutations
-    }
-}
+  async destroyed() {
+    this.$store.state.donor.searchCriteria = new SearchCriteria();
+  },
+
+  components: {
+    USummaryTab: USummaryTab,
+    UClinicalDataTab: UClinicalDataTab,
+    UMutationsTab: UMutationsTab
+  },
+};
 </script>

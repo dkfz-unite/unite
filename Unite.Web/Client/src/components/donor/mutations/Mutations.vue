@@ -1,8 +1,8 @@
 <template>
-  <div class="col">
+  <div>
     <q-table
-      title="Mutations"
-      class="sticky-header"
+      title="Donor Mutations"
+      class="sticky-header-slim"
       separator="cell" dense flat bordered
       selection="multiple"
       row-key="id"
@@ -14,29 +14,11 @@
       :loading="loading"
       @request="onRequest"
     >
-      <template v-slot:top-right>
-        <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </template>
-
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
           <router-link class="u-link" :to="'mutation/' + props.value">
             {{ props.value }}
-        </router-link>
-        </q-td>
-      </template>
-
-      <template v-slot:body-cell-name="props">
-        <q-td :props="props">
-          <template v-if="props.value">
-            <a class="u-link" :href="'https://www.ncbi.nlm.nih.gov/snp/' + props.value" target="blank">
-                {{ props.value }}
-            </a>
-          </template>
+          </router-link>
         </q-td>
       </template>
 
@@ -44,7 +26,7 @@
         <q-td :props="props">
           <template v-if="props.value">
             <a class="u-link" :href="'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' + props.value.name" target="blank">
-                {{ props.value.name }}
+              {{ props.value.name }}
             </a>
           </template>
         </q-td>
@@ -74,11 +56,11 @@ export default {
           field: (row) => row.code,
           sortable: false
         },
-        { 
-            name: "type", 
-            label: "Type", 
-            field: row => row.type, 
-            sortable: false
+        {
+          name: "type",
+          label: "Type",
+          field: (row) => row.type,
+          sortable: false
         },
         {
           name: "gene",
