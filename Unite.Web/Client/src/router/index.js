@@ -6,13 +6,13 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/donors/:tab?',
+    redirect: '/donors',
     name: 'Home',
     meta: { title: "UNITE.Unite" },
     component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
   },
   {
-    path: '/donors/:tab?',
+    path: '/donors',
     name: 'Donors',
     meta: { title: "UNITE.Donors" },
     component: () => import(/* webpackChunkName: "donors" */ '../views/Donors.vue')
@@ -24,7 +24,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "donor" */ '../views/Donor.vue')
   },
   {
-    path: '/mutations/:tab?',
+    path: '/mutations',
     name: 'Mutations',
     meta: { title: "UNITE.Mutations" },
     component: () => import(/* webpackChunkName: "mutations" */ '../views/Mutations.vue')
