@@ -10,11 +10,11 @@
     <div class="row">
       <div class="col">
         <div class="row q-col-gutter-sm">
-          <div class="col-2">
+          <div class="col-12 col-sm-3 col-md-2">
             <u-filters v-model="criteria" selected="donor" @input="fetchData" />
           </div>
 
-          <div class="col-10">
+          <div class="col-12 col-sm-9 col-md-10">
             <u-donors
               :loading="loading"
               :rows="rows"

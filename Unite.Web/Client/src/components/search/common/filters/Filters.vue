@@ -1,8 +1,8 @@
 <template>
   <div class="col">
-    <q-splitter :value="16" disable>
+    <q-splitter :value="18" disable>
       <template v-slot:before>
-        <q-tabs v-model="tab" align="left" class="q-pa-none" active-color="primary" dense vertical>
+        <q-tabs v-model="tab" align="left" active-color="primary" dense vertical>
           <q-tab name="donor" icon="las la-user-circle" />
           <q-tab name="mutation" icon="las la-dna" />
           <q-tab name="cell" icon="las la-microscope" disable />
@@ -11,64 +11,62 @@
       </template>
 
       <template v-slot:after>
-        <!-- <div class="col"> -->
-          <q-tab-panels v-model="tab" class="q-ml-sm">
-            <q-tab-panel name="donor" class="q-pa-none">
-              <div class="col">
-                <div class="row">
-                  <u-donor-filters
-                    v-model="criteria.donorFilters"
-                    @input="onInput"
-                  />
-                </div>
-              </div>
-            </q-tab-panel>
-
-            <q-tab-panel name="mutation" class="q-pa-none">
-              <div class="col q-gutter-y-sm">
-                <div class="row">
-                  <u-mutation-filters
-                    v-model="criteria.mutationFilters"
-                    @input="onInput"
-                  />
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <q-expansion-item label="Gene" :value="true" dense dense-toggle>
-                      <div class="col q-pt-xs">
-                        <div class="row">
-                          <u-gene-filters
-                            v-model="criteria.geneFilters"
-                            @input="onInput"
-                          />
-                        </div>
-                      </div>
-                    </q-expansion-item>
-                  </div>
-                </div>
-              </div>
-            </q-tab-panel>
-
-            <q-tab-panel name="cell" class="q-pa-none">
-              <div>
-                <u-cell-filters
-                  v-model="criteria.cellLineFilters"
+        <q-tab-panels class="q-ml-sm" v-model="tab">
+          <q-tab-panel name="donor" class="q-pa-none">
+            <div class="col">
+              <div class="row">
+                <u-donor-filters
+                  v-model="criteria.donorFilters"
                   @input="onInput"
                 />
               </div>
-            </q-tab-panel>
-          </q-tab-panels>
-        <!-- </div> -->
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel name="mutation" class="q-pa-none">
+            <div class="col q-gutter-y-sm">
+              <div class="row">
+                <u-mutation-filters
+                  v-model="criteria.mutationFilters"
+                  @input="onInput"
+                />
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <q-expansion-item label="Gene" :value="true" dense dense-toggle>
+                    <div class="col q-pt-xs">
+                      <div class="row">
+                        <u-gene-filters
+                          v-model="criteria.geneFilters"
+                          @input="onInput"
+                        />
+                      </div>
+                    </div>
+                  </q-expansion-item>
+                </div>
+              </div>
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel name="cell" class="q-pa-none">
+            <div>
+              <u-cell-filters
+                v-model="criteria.cellLineFilters"
+                @input="onInput"
+              />
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
       </template>
     </q-splitter>
   </div>
 </template>
 
 <script>
+import UDonorFilters from "@/components/search/common/filters/DonorFilters.vue";
 import UMutationFilters from "@/components/search/common/filters/MutationFilters.vue";
 import UGeneFilters from "@/components/search/common/filters/GeneFilters.vue";
-import UDonorFilters from "@/components/search/common/filters/DonorFilters.vue";
 import UCellFilters from "@/components/search/common/filters/CellFilters.vue";
 
 export default {
