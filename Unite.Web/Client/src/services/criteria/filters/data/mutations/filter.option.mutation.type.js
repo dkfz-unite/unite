@@ -9,6 +9,8 @@ class MutationType extends FilterOption{
     ];
 
     constructor(value) {
+        super();
+
         var option = MutationType.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;

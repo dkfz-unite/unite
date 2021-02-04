@@ -33,6 +33,11 @@ export default new Vuex.Store({
       searchCriteria: new SearchCriteria()
     },
 
+    mutation: {
+      selected: [],
+      searchCriteria: new SearchCriteria()
+    },
+
     donors: {
       selected: [],
       searchCriteria: new SearchCriteria()

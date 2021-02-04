@@ -13,7 +13,7 @@
       <template v-slot:after>
         <q-tab-panels class="q-ml-sm" v-model="tab">
           <q-tab-panel name="donor" class="q-pa-none">
-            <div class="col">
+            <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-donor-filters
                   v-model="criteria.donorFilters"
@@ -101,9 +101,9 @@ export default {
   },
 
   components: {
+    UDonorFilters: UDonorFilters,
     UMutationFilters: UMutationFilters,
     UGeneFilters: UGeneFilters,
-    UDonorFilters: UDonorFilters,
     UCellFilters: UCellFilters,
   },
 };

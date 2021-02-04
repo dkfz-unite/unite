@@ -87,7 +87,7 @@ export default {
         {
           name: "mtaProtected",
           label: "MTA",
-          field: (row) => (row.mtaProtected ? "Yes" : "No"),
+          field: (row) => this.toBooleanString(row.mtaProtected),
           sortable: false
         },
         {
@@ -112,6 +112,18 @@ export default {
           name: "age",
           label: "Age",
           field: (row) => row.clinicalData?.age,
+          sortable: false
+        },
+        {
+          name: "idh",
+          label: "IDH",
+          field: (row) => this.getIdh(row.epigeneticsData?.idhStatus, row.epigeneticsData?.idhMutation),
+          sortable: false
+        },
+        {
+          name: "mgmt",
+          label: "MGMT",
+          field: (row) => this.getMgmt(row.epigeneticsData?.methylationStatus, row.epigeneticsData?.methylationSubtype),
           sortable: false
         },
         {
@@ -227,6 +239,22 @@ export default {
 
       return date.toLocaleDateString();
     },
+
+    toBooleanString(value){
+      if(!value){
+        return null;
+      }
+
+      return value ? "Yes" : "No";
+    },
+
+    getIdh(idhStatus, idhMutation){
+      return idhMutation ?? idhStatus;
+    },
+
+    getMgmt(methylationStatus, methylationSubtype){
+      return methylationSubtype ?? methylationStatus;
+    }
   },
 };
 </script>

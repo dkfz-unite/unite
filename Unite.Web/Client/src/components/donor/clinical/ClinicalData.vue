@@ -37,12 +37,32 @@
                 </tr>
                 <tr>
                   <td class="u-text-key">Steroids Baseline</td>
-                  <td>{{ clinicalData.steroidsBaseline ? "Yes" : "No" }}</td>
+                  <td>{{ toBooleanString(clinicalData.steroidsBaseline) }}</td>
                 </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
+                <template v-if="epigeneticsData">
+                  <tr>
+                    <td class="u-text-key">Gene Expression Subtype</td>
+                    <td>{{ epigeneticsData.geneExpressionSubtype }}</td>
+                  </tr>
+                  <tr>
+                    <td class="u-text-key">IDH</td>
+                    <td>{{ getIdh(epigeneticsData.idhStatus, epigeneticsData.idhMutation) }}</td>
+                  </tr>
+                  <tr>
+                    <td class="u-text-key">MGMT</td>
+                    <td>{{ getMgmt(epigeneticsData.methylationStatus, epigeneticsData.methylationSubtype) }}</td>
+                  </tr>
+                  <tr>
+                    <td class="u-text-key">G-Cimp Methylation</td>
+                    <td>{{ toBooleanString(epigeneticsData.gcimpMethylation) }}</td>
+                  </tr>
+                </template>
+                <template v-else>
+                  <tr>
+                    <td class="u-text-key"></td>
+                    <td></td>
+                  </tr>
+                </template>
               </tbody>
             </q-markup-table>
           </div>
@@ -99,6 +119,10 @@ export default {
   computed:{
     clinicalData(){
       return this.donor?.clinicalData;
+    },
+
+    epigeneticsData(){
+      return this.donor?.epigeneticsData;
     }
   },
 
@@ -111,6 +135,22 @@ export default {
       var date = new Date(jsonValue);
       return date.toLocaleDateString();
     },
+
+    toBooleanString(jsonValue) {
+      if (jsonValue == null || jsonValue == undefined) {
+        return null;
+      }
+
+      return jsonValue ? "Yes" : "No";
+    },
+
+    getIdh(idhStatus, idhMutation){
+      return idhMutation ?? idhStatus;
+    },
+
+    getMgmt(methylationStatus, methylationSubtype){
+      return methylationSubtype ?? methylationStatus;
+    }
   }
 };
 </script>

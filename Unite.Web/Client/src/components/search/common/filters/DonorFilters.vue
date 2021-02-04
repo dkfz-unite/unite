@@ -69,11 +69,25 @@
           </div>
         </q-expansion-item>
       </div>
+
+      <div>
+        <q-expansion-item label="Epigenetics" :value="true" dense dense-toggle>
+          <div class="col q-pt-xs">
+            <div class="row">
+              <u-epigenetics-filters
+                v-model="criteria"
+                @input="onInput"
+              />
+            </div>
+          </div>
+        </q-expansion-item>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import UEpigeneticsFilters from "@/components/common/filters/EpigeneticsFilters.vue";
 import UChipsFilter from "./standard/ChipsFilter.vue";
 import UNumberFilter from "./standard/NumberFilter.vue";
 import USelectFilter from "./standard/SelectFilter.vue";
@@ -96,6 +110,7 @@ export default {
   },
 
   components: {
+    UEpigeneticsFilters: UEpigeneticsFilters,
     UChipsFilter: UChipsFilter,
     UNumberFilter: UNumberFilter,
     USelectFilter: USelectFilter,

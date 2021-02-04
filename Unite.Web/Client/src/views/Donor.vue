@@ -11,7 +11,7 @@
     <div class="row">
       <q-separator />
       <q-tabs v-model="tab" dense align="left">
-        <q-tab name="summary" label="summary" icon="las la-user-circle" />
+        <q-tab name="summary" label="Summary" icon="las la-user-circle" />
         <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
         <q-tab name="mutations" label="Mutations" icon="las la-dna" />
         <q-tab name="cells" label="Cells" icon="las la-microscope" disable />

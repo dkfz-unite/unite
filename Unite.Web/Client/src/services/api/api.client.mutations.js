@@ -11,7 +11,7 @@ class MutationsApiClient{
     }
 
     async get(id){
-        var url = "${this.#mutationUrl}?id=${id}";
+        var url = this.#mutationUrl + "?id=" + id;
         return await apiClient.get(url);
     }
 }

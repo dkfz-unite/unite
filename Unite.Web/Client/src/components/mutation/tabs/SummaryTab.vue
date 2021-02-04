@@ -1,0 +1,21 @@
+<template>
+  <div class="col q-gutter-y-sm">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <u-summary :mutation="mutation" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import USummary from "@/components/mutation/summary/Summary.vue";
+
+export default {
+  props: ["mutation"],
+
+  components:{
+    USummary: USummary
+  }
+};
+</script>

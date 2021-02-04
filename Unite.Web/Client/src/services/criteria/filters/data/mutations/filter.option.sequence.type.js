@@ -12,6 +12,8 @@ class SequenceType extends FilterOption {
     ];
 
     constructor(value) {
+        super();
+
         var option = SequenceType.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;

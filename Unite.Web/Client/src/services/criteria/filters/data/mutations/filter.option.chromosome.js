@@ -29,6 +29,8 @@ class Chromosome extends FilterOption{
     ];
 
     constructor(value) {
+        super();
+
         var option = Chromosome.availableOptions.find(item => item.value == value);
         
         this.value = option?.value;
