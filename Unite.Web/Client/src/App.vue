@@ -5,10 +5,10 @@
       <q-toolbar>
         <q-btn to="/" class="text-bold" flat stretch>DKFZ.UNITE</q-btn>
         <q-tabs dense stretch>
-          <q-route-tab label="Donors" to="/donors" class="q-pa-xs" icon="las la-user-circle" />
-          <q-route-tab label="Mutations" to="/mutations" class="q-pa-xs" icon="las la-dna" />
-          <q-route-tab label="Cells" to="/cells" class="q-pa-xs" icon="las la-microscope" disable title="Comming soon"/>
-          <q-route-tab label="Radiology" to="/radiology" class="q-pa-xs" icon="las la-radiation-alt" disable title="Comming soon"/>
+          <q-route-tab label="Donors" :to="{ name: 'donors' }" class="q-pa-xs" icon="las la-user-circle" />
+          <q-route-tab label="Mutations" :to="{ name: 'mutations' }" class="q-pa-xs" icon="las la-dna" />
+          <q-route-tab label="Cells" :to="{ name: 'cells' }" class="q-pa-xs" icon="las la-microscope" disable title="Comming soon"/>
+          <q-route-tab label="Radiology" :to="{ name: 'radiology' }" class="q-pa-xs" icon="las la-radiation-alt" disable title="Comming soon"/>
         </q-tabs>
       </q-toolbar>
     </q-header>

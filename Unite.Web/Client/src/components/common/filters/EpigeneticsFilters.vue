@@ -1,13 +1,13 @@
 <template>
   <div class="col q-gutter-y-sm">
-    <div>
+    <!-- <div>
       <u-select-filter
         label="Gene Expression Sybtype"
         :options="$store.state.filterOptions.geneExpressionSubtypes"
         v-model="criteria.geneExpressionSubtype"
         @input="onInput"
       />
-    </div>
+    </div> -->
 
     <div>
       <u-select-filter
@@ -18,14 +18,14 @@
       />
     </div>
 
-    <div>
+    <!-- <div v-if="criteria.idhStatus">
       <u-select-filter
         label="IDH Mutation"
         :options="$store.state.filterOptions.idhMutations"
         v-model="criteria.idhMutation"
         @input="onInput"
       />
-    </div>
+    </div> -->
 
     <div>
       <u-select-filter
@@ -36,37 +36,47 @@
       />
     </div>
 
-    <div>
+    <!-- <div>
       <u-select-filter
         label="Methylation Subtype"
         :options="$store.state.filterOptions.methylationSubtypes"
         v-model="criteria.methylationSubtype"
         @input="onInput"
       />
-    </div>
+    </div> -->
+
+    <!-- <div>
+      <u-boolean-filter
+        label="G-Cimp Methylation"
+        v-model="criteria.gcimpMethylation"
+        @input="onInput"
+      />
+    </div> -->
   </div>
 </template>
 
 <script>
 import USelectFilter from "@/components/search/common/filters/standard/SelectFilter.vue";
+import UBooleanFilter from "@/components/common/filters/standard/BooleanFilter.vue";
 
 export default {
-   props: ["value"],
+  props: ["value"],
 
-    data(){
-        return{
-            criteria: this.value
-        }
+  data() {
+    return {
+      criteria: this.value,
+    };
+  },
+
+  methods: {
+    onInput() {
+      this.$emit("input", this.criteria);
     },
+  },
 
-    methods: {
-        onInput(){
-            this.$emit('input', this.criteria);
-        }
-    },
-
-    components:{
-        USelectFilter: USelectFilter
-    }
+  components: {
+    USelectFilter: USelectFilter,
+    UBooleanFilter: UBooleanFilter
+  },
 };
 </script>

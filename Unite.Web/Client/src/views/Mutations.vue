@@ -2,7 +2,7 @@
   <div class="col q-px-sm q-pt-sm q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs">
-        <q-breadcrumbs-el icon="home" to="/" />
+        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
         <q-breadcrumbs-el label="Mutations" />
       </q-breadcrumbs>
     </div>

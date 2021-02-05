@@ -1,8 +1,8 @@
 <template>
-  <div class="col">
+  <div>
     <q-table
-      title="Donors"
-      class="sticky-header"
+      title="Affected Donors"
+      class="sticky-header-slim"
       separator="cell" dense flat bordered
       selection="multiple"
       row-key="id"
@@ -14,14 +14,6 @@
       :loading="loading"
       @request="onRequest"
     >
-      <template v-slot:top-right>
-        <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </template>
-
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
           <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value }}">
@@ -76,92 +68,100 @@ export default {
           field: (row) => row.id,
           sortable: false,
           required: true,
-          align: "left"
+          align: "left",
         },
         {
           name: "origin",
           label: "Origin",
           field: (row) => row.origin,
-          sortable: false
+          sortable: false,
         },
         {
           name: "mtaProtected",
           label: "MTA",
           field: (row) => this.toBooleanString(row.mtaProtected),
-          sortable: false
+          sortable: false,
         },
         {
           name: "diagnosis",
           label: "Diagnosis",
           field: (row) => row.diagnosis,
-          sortable: false
+          sortable: false,
         },
         {
           name: "diagnosisDate",
           label: "Diagnosis Date",
           field: (row) => this.getDate(row.diagnosisDate),
-          sortable: false
+          sortable: false,
         },
         {
           name: "gender",
           label: "Gender",
           field: (row) => row.clinicalData?.gender,
-          sortable: false
+          sortable: false,
         },
         {
           name: "age",
           label: "Age",
           field: (row) => row.clinicalData?.age,
-          sortable: false
+          sortable: false,
         },
         {
           name: "idh",
           label: "IDH",
-          field: (row) => this.getIdh(row.epigeneticsData?.idhStatus, row.epigeneticsData?.idhMutation),
-          sortable: false
+          field: (row) =>
+            this.getIdh(
+              row.epigeneticsData?.idhStatus,
+              row.epigeneticsData?.idhMutation
+            ),
+          sortable: false,
         },
         {
           name: "mgmt",
           label: "MGMT",
-          field: (row) => this.getMgmt(row.epigeneticsData?.methylationStatus, row.epigeneticsData?.methylationSubtype),
-          sortable: false
+          field: (row) =>
+            this.getMgmt(
+              row.epigeneticsData?.methylationStatus,
+              row.epigeneticsData?.methylationSubtype
+            ),
+          sortable: false,
         },
         {
           name: "treatments",
           label: "Treatments",
           field: (row) => row.treatments,
-          sortable: false
+          sortable: false,
         },
         {
           name: "packages",
           label: "Work Packages",
           field: (row) => row.workPackages,
-          sortable: false
+          sortable: false,
         },
         {
           name: "studies",
           label: "Studies",
           field: (row) => row.studies,
-          sortable: false
+          sortable: false,
         },
         {
           name: "samples",
           label: "Samples",
           field: (row) => row.samples,
-          sortable: false
+          sortable: false,
         },
         {
           name: "mutations",
           label: "Mutations",
           field: (row) => row.mutations,
-          sortable: false
+          sortable: false,
         },
         {
           name: "genes",
           label: "Genes",
           field: (row) => row.genes,
-          sortable: false
-        }
+          sortable: false,
+        },
       ],
 
       data: [],
@@ -240,21 +240,21 @@ export default {
       return date.toLocaleDateString();
     },
 
-    toBooleanString(value){
-      if(!value){
+    toBooleanString(value) {
+      if (!value) {
         return null;
       }
 
       return value ? "Yes" : "No";
     },
 
-    getIdh(idhStatus, idhMutation){
+    getIdh(idhStatus, idhMutation) {
       return idhMutation ?? idhStatus;
     },
 
-    getMgmt(methylationStatus, methylationSubtype){
+    getMgmt(methylationStatus, methylationSubtype) {
       return methylationSubtype ?? methylationStatus;
-    }
+    },
   },
 };
 </script>

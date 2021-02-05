@@ -24,7 +24,7 @@
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <router-link class="u-link" :to="'mutation/' + props.value">
+          <router-link class="u-link" :to="{ name: 'mutation', params: { id: props.value }}">
             {{ props.value }}
         </router-link>
         </q-td>

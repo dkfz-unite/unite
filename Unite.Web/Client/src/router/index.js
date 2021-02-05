@@ -7,31 +7,31 @@ const routes = [
   {
     path: '/',
     redirect: '/donors',
-    name: 'Home',
+    name: 'home',
     meta: { title: "UNITE.Unite" },
     component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
   },
   {
     path: '/donors',
-    name: 'Donors',
+    name: 'donors',
     meta: { title: "UNITE.Donors" },
     component: () => import(/* webpackChunkName: "donors" */ '../views/Donors.vue')
   },
   {
     path: '/donor/:id',
-    name: 'Donor',
+    name: 'donor',
     meta: { title: "UNITE.Donor" },
     component: () => import(/* webpackChunkName: "donor" */ '../views/Donor.vue')
   },
   {
     path: '/mutations',
-    name: 'Mutations',
+    name: 'mutations',
     meta: { title: "UNITE.Mutations" },
     component: () => import(/* webpackChunkName: "mutations" */ '../views/Mutations.vue')
   },
   {
     path: '/mutation/:id',
-    name: 'Mutation',
+    name: 'mutation',
     meta: { title: "UNITE.Mutation" },
     component: () => import(/* webpackChunkName: "mutation" */ '../views/Mutation.vue')
   },
