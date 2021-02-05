@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import UFilters from "@/components/search/common/filters/Filters.vue";
-import UDonors from "@/components/search/donors/Donors.vue";
+import UFilters from "@/components/common/filters/Filters.vue";
+import UDonors from "@/components/donors/Donors.vue";
 
 import apiClient from "@/services/api/api.client.donors.js";
 

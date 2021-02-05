@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import USelectFilter from "@/components/search/common/filters/standard/SelectFilter.vue";
-import UBooleanFilter from "@/components/common/filters/standard/BooleanFilter.vue";
+import USelectFilter from "./standard/SelectFilter.vue";
+import UBooleanFilter from "./standard/BooleanFilter.vue";
 
 export default {
   props: ["value"],

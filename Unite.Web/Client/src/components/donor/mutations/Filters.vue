@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import UMutationFilters from "@/components/search/common/filters/MutationFilters.vue";
-import UGeneFilters from "@/components/search/common/filters/GeneFilters.vue";
+import UMutationFilters from "@/components/common/filters/MutationFilters.vue";
+import UGeneFilters from "@/components/common/filters/GeneFilters.vue";
 
 export default {
   props: ["value"],

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import UDonorFilters from "@/components/search/common/filters/DonorFilters.vue";
+import UDonorFilters from "@/components/common/filters/DonorFilters.vue";
 
 export default {
 props: ["value"],

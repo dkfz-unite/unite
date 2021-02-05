@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import UEpigeneticsFilters from "@/components/common/filters/EpigeneticsFilters.vue";
+import UEpigeneticsFilters from "./EpigeneticsFilters.vue";
 import UChipsFilter from "./standard/ChipsFilter.vue";
 import UNumberFilter from "./standard/NumberFilter.vue";
 import USelectFilter from "./standard/SelectFilter.vue";

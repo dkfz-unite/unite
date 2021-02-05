@@ -64,10 +64,10 @@
 </template>
 
 <script>
-import UDonorFilters from "@/components/search/common/filters/DonorFilters.vue";
-import UMutationFilters from "@/components/search/common/filters/MutationFilters.vue";
-import UGeneFilters from "@/components/search/common/filters/GeneFilters.vue";
-import UCellFilters from "@/components/search/common/filters/CellFilters.vue";
+import UDonorFilters from "./DonorFilters.vue";
+import UMutationFilters from "./MutationFilters.vue";
+import UGeneFilters from "./GeneFilters.vue";
+// import UCellFilters from "./CellFilters.vue";
 
 export default {
   props: ["value", "selected"],
@@ -104,7 +104,7 @@ export default {
     UDonorFilters: UDonorFilters,
     UMutationFilters: UMutationFilters,
     UGeneFilters: UGeneFilters,
-    UCellFilters: UCellFilters,
+    // UCellFilters: UCellFilters,
   },
 };
 </script>

@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import UFilters from "@/components/search/common/filters/Filters.vue";
-import UMutations from "@/components/search/mutations/Mutations.vue";
+import UFilters from "@/components/common/filters/Filters.vue";
+import UMutations from "@/components/mutations/Mutations.vue";
 
 import apiClient from "@/services/api/api.client.mutations.js";
 
