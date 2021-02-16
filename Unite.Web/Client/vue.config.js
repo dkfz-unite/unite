@@ -7,5 +7,8 @@ module.exports = {
   },
   transpileDependencies: [
     'quasar'
-  ]
+  ],
+  devServer: {
+    proxy: 'http://localhost:5010'
+  }
 }

@@ -28,6 +28,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    drawers: {
+      left: {
+        display: false,
+        show: false
+      },
+      right: {
+        display: false,
+        show: false
+      }
+    },
+
+    account: {
+      email: "valiantsin.ulasau@dkfz-heidelberg.de"
+    },
+
     mutations: {
       selected: [],
       searchCriteria: new SearchCriteria()

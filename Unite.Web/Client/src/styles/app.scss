@@ -2,11 +2,11 @@
 
 .sticky-header{
   @media screen and (max-width: $breakpoint-lg){
-    height: 650px;
+    height: 630px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 950px;
+    height: 930px;
   }
 
   .q-table__top,
@@ -26,11 +26,11 @@
 
 .sticky-header-slim{
   @media screen and (max-width: $breakpoint-lg){
-    height: 550px;
+    height: 520px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 850px;
+    height: 820px;
   }
 
   .q-table__top,
