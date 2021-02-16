@@ -9,17 +9,19 @@
     </div>
 
     <div class="row" v-if="donor">
-      <q-separator />
-      <q-tabs v-model="tab" dense align="left">
-        <q-tab name="summary" label="Summary" icon="las la-user-circle" />
-        <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
-        <q-tab name="mutations" label="Mutations" icon="las la-dna" />
-        <q-tab name="cells" label="Cells" icon="las la-microscope" disable />
-        <q-tab name="radiology" label="Radiology" icon="las la-radiation-alt" disable />
-      </q-tabs>
-      
-      <q-separator />
-      <q-tab-panels v-model="tab" style="width: 100%">
+      <div class="col-12">
+        <q-separator />
+        <q-tabs v-model="tab" dense align="left">
+          <q-tab name="summary" label="Summary" icon="las la-user-circle" />
+          <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
+          <q-tab name="mutations" label="Mutations" icon="las la-dna" />
+          <q-tab name="cells" label="Cells" icon="las la-microscope" disable />
+          <q-tab name="radiology" label="Radiology" icon="las la-x-ray" disable />
+        </q-tabs>
+        <q-separator />
+      </div>
+
+      <q-tab-panels v-model="tab" class="fit">
         <q-tab-panel name="summary" class="q-py-sm q-px-none">
           <u-summary-tab :donor="donor" />
         </q-tab-panel>

@@ -9,13 +9,15 @@
     </div>
 
     <div class="row" v-if="mutation">
-      <q-separator />
-      <q-tabs v-model="tab" dense align="left">
-        <q-tab name="summary" label="Summary" icon="las la-dna" />
-        <q-tab name="donors" label="Donors" icon="las la-user-circle" />
-      </q-tabs>
-      
-      <q-separator />
+      <div class="col-12">
+        <q-separator />
+        <q-tabs v-model="tab" dense align="left">
+          <q-tab name="summary" label="Summary" icon="las la-dna" />
+          <q-tab name="donors" label="Donors" icon="las la-user-circle" />
+        </q-tabs>
+        <q-separator />
+      </div>
+
       <q-tab-panels v-model="tab" style="width: 100%">
         <q-tab-panel name="summary" class="q-py-sm q-px-none">
           <u-summary-tab :mutation="mutation" />

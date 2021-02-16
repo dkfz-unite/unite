@@ -6,7 +6,7 @@
           <q-tab name="donor" icon="las la-user-circle" />
           <q-tab name="mutation" icon="las la-dna" />
           <q-tab name="cell" icon="las la-microscope" disable />
-          <q-tab name="radiology" icon="las la-radiation-alt" disable />
+          <q-tab name="radiology" icon="las la-x-ray" disable />
         </q-tabs>
       </template>
 
