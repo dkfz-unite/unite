@@ -171,8 +171,7 @@ export default {
         rules: [
           (val) => !!val || "Please, enter your new password",
           (val) => !(val.length < 8) || "Password should be at least 8 characters long",
-          (val) => stringHelpers.hasLowercaseLetter(val) || "Password should contain at least 1 lowercase letter",
-          (val) => stringHelpers.hasUppercaseLetter(val) || "Password should contain at least 1 uppercase letter",
+          (val) => stringHelpers.hasLetter(val) || "Password should contain at least 1 letter",
           (val) => stringHelpers.hasNumber(val) || "Password should contain at least 1 number"
         ]
       },
