@@ -106,8 +106,8 @@ export default {
       try {
         this.$store.state.account = await apiClient.getAccount();
       } catch (error) {
-        this.$cookies.delete(settings.cookies.sessionCookieName);
-        this.$cookies.delete(settings.cookies.tokenCookieName);
+        this.$cookies.remove(settings.cookies.sessionCookieName);
+        this.$cookies.remove(settings.cookies.tokenCookieName);
         this.$store.state.account = null;
         //this.$router.push({ name: "login" });
         location.href = "/";

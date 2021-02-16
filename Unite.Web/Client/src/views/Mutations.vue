@@ -66,14 +66,17 @@ export default {
 
   methods: {
     async fetchData() {
-      this.loading = true;
-
-      let data = await apiClient.search(this.criteria);
-
-      this.loading = false;
-
-      this.rows = data ? data.rows : [];
-      this.rowsTotal = data ? data.total : 0;
+      try {
+        this.loading = true;
+        let data = await apiClient.search(this.criteria);
+        this.loading = false;
+        this.rows = data ? data.rows : [];
+        this.rowsTotal = data ? data.total : 0;
+      } catch (error) {
+        this.loading = false;
+        this.rows = [];
+        this.rowsTotal = 0;
+      }
     },
   },
 

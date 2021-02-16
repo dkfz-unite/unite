@@ -1,5 +1,5 @@
 <template>
-  <div v-if="donor" class="col q-gutter-y-sm">
+  <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
@@ -8,7 +8,7 @@
       </q-breadcrumbs>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="donor">
       <q-separator />
       <q-tabs v-model="tab" dense align="left">
         <q-tab name="summary" label="Summary" icon="las la-user-circle" />
@@ -33,6 +33,9 @@
         </q-tab-panel>
       </q-tab-panels>
     </div>
+    <div class="row" v-else>
+      Data is not accessible.
+    </div>
   </div>
 </template>
 
@@ -54,7 +57,11 @@ export default {
   },
 
   async mounted() {
-    this.donor = await apiClient.get(this.$route.params.id);
+    try {
+      this.donor = await apiClient.get(this.$route.params.id);
+    } catch (error) {
+      this.donor = null;
+    }
   },
 
   async destroyed() {

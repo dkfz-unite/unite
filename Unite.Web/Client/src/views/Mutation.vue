@@ -8,7 +8,7 @@
       </q-breadcrumbs>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="mutation">
       <q-separator />
       <q-tabs v-model="tab" dense align="left">
         <q-tab name="summary" label="Summary" icon="las la-dna" />
@@ -25,6 +25,9 @@
           <u-donors-tab :mutation="mutation" />
         </q-tab-panel>
       </q-tab-panels>
+    </div>
+    <div class="row" v-else>
+      Data is not accessible.
     </div>
   </div>
 </template>
@@ -46,7 +49,11 @@ export default {
   },
 
   async mounted() {
-    this.mutation = await apiClient.get(this.$route.params.id);
+    try {
+      this.mutation = await apiClient.get(this.$route.params.id);
+    } catch (error) {
+      this.mutation = null;
+    }
   },
 
   async destroyed() {
