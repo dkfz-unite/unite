@@ -66,7 +66,7 @@ export default {
   async mounted() {
     this.criteria.donorFilters.id.push(this.donor.id);
 
-    await this.fetchData();
+    // await this.fetchData();
   },
 
   methods: {

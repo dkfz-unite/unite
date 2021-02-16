@@ -64,9 +64,9 @@ export default {
   },
 
   async mounted() {
-    this.criteria.mutationFilters.id.push(this.mutation.id);
+    this.criteria.mutationFilters.code.push(this.mutation.code);
 
-    await this.fetchData();
+    // await this.fetchData();
   },
 
   methods: {
