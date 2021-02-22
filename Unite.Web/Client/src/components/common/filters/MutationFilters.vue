@@ -18,14 +18,14 @@
       />
     </div>
 
-    <div>
+    <!-- <div>
       <u-select-filter
         label="Sequence Type"
         :options="$store.state.filterOptions.sequenceTypes"
         v-model="criteria.sequenceType"
         @input="onInput"
       />
-    </div>
+    </div> -->
 
     <div>
       <u-select-filter
