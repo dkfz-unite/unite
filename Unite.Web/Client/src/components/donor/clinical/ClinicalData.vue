@@ -1,5 +1,5 @@
 <template>
-  <div class="col q-gutter-y-sm" v-if="clinicalData">
+  <div class="col q-gutter-y-sm">
     <div class="row">
       <span class="text-h5 u-text-title">Clinical Data</span>
     </div>

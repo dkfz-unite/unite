@@ -13,8 +13,8 @@
         <q-separator />
         <q-tabs v-model="tab" dense align="left">
           <q-tab name="summary" label="Summary" icon="las la-user-circle" />
-          <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" />
-          <q-tab name="mutations" label="Mutations" icon="las la-dna" />
+          <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" :disable="!showClinicalData" />
+          <q-tab name="mutations" label="Mutations" icon="las la-dna" :disable="!showMutations" />
           <q-tab name="cells" label="Cells" icon="las la-microscope" disable />
           <q-tab name="radiology" label="Radiology" icon="las la-x-ray" disable />
         </q-tabs>
@@ -56,6 +56,16 @@ export default {
       tab: "summary",
       donor: null,
     };
+  },
+
+  computed: {
+    showClinicalData() {
+      return this.donor?.clinicalData || this.donor?.epigeneticsData;
+    },
+
+    showMutations() {
+      return !!this.donor?.mutations;
+    }
   },
 
   async mounted() {

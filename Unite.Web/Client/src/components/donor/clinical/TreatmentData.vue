@@ -17,13 +17,13 @@
                   <div>
                     <span class="text-bold">Details:</span>
                     <span v-if="treatment.details">{{ treatment.details }}</span>
-                    <span v-else>No data</span>
+                    <span v-else> No data</span>
                   </div>
 
                   <div class="q-mt-xs">
                     <span class="text-bold">Results:</span>
                     <span v-if="treatment.results">{{ treatment.results }}</span>
-                    <span v-else>No data</span>
+                    <span v-else> No data</span>
                   </div>
                 </q-item-section>
               </q-item>

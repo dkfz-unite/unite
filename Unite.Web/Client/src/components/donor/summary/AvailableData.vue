@@ -55,7 +55,7 @@ export default {
     },
 
     hasMutations(){
-      return this.donor && this.donor.mutations && this.donor.mutations.length;
+      return this.donor && this.donor.mutations;
     }
   }
 };

@@ -13,7 +13,7 @@
         <q-separator />
         <q-tabs v-model="tab" dense align="left">
           <q-tab name="summary" label="Summary" icon="las la-dna" />
-          <q-tab name="donors" label="Donors" icon="las la-user-circle" />
+          <q-tab name="donors" label="Donors" icon="las la-user-circle" :disable="!showDonors" />
         </q-tabs>
         <q-separator />
       </div>
@@ -48,6 +48,12 @@ export default {
       tab: "summary",
       mutation: null,
     };
+  },
+
+  computed: {
+    showDonors() {
+      return !!this.mutation?.donors;
+    }
   },
 
   async mounted() {
