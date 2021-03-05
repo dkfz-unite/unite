@@ -4,13 +4,13 @@
       <u-mutation-filters v-model="criteria.mutationFilters" @input="onInput" />
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col">
         <q-expansion-item label="Gene" :value="true" dense dense-toggle>
           <u-gene-filters v-model="criteria.geneFilters" @input="onInput" />
         </q-expansion-item>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

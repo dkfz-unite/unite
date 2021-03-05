@@ -62,12 +62,12 @@ export default {
           field: (row) => row.type,
           sortable: false
         },
-        {
-          name: "gene",
-          label: "Gene",
-          field: (row) => row.gene,
-          sortable: false
-        },
+        // {
+        //   name: "gene",
+        //   label: "Gene",
+        //   field: (row) => row.gene,
+        //   sortable: false
+        // },
         {
           name: "donors",
           label: "Donors affected",

@@ -1,12 +1,16 @@
 @import '@/styles/quasar.variables.scss';
 
 .sticky-header{
-  @media screen and (max-width: $breakpoint-lg){
-    height: 630px;
+  @media screen and (min-width: $breakpoint-xs){
+    height: 600px;
+  }
+
+  @media screen and (min-width: $breakpoint-md){
+    height: 590px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 930px;
+    height: 890px;
   }
 
   .q-table__top,
@@ -25,12 +29,16 @@
 }
 
 .sticky-header-slim{
-  @media screen and (max-width: $breakpoint-lg){
-    height: 520px;
+  @media screen and (min-width: $breakpoint-sm){
+    height: 480px;
+  }
+
+  @media screen and (min-width: $breakpoint-md){
+    height: 480px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 820px;
+    height: 780px;
   }
 
   .q-table__top,

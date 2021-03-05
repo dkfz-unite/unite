@@ -32,7 +32,7 @@
                 />
               </div>
 
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col">
                   <q-expansion-item label="Gene" :value="true" dense dense-toggle>
                     <div class="col q-pt-xs">
@@ -45,7 +45,7 @@
                     </div>
                   </q-expansion-item>
                 </div>
-              </div>
+              </div> -->
             </div>
           </q-tab-panel>
 

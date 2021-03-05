@@ -19,7 +19,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "donors" */ '../views/Donors.vue')
   },
   {
-    path: '/donor/:id',
+    path: '/donors/:id',
     name: 'donor',
     meta: { title: "UNITE.Donor", authorize: true },
     component: () => import(/* webpackChunkName: "donor" */ '../views/Donor.vue')
@@ -31,7 +31,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "mutations" */ '../views/Mutations.vue')
   },
   {
-    path: '/mutation/:id',
+    path: '/mutations/:id',
     name: 'mutation',
     meta: { title: "UNITE.Mutation", authorize: true },
     component: () => import(/* webpackChunkName: "mutation" */ '../views/Mutation.vue')

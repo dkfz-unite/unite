@@ -13,14 +13,14 @@
           </colgroup>
 
           <tbody>
-            <tr>
+            <!-- <tr>
               <td class="u-text-key">ID</td>
               <td>
                 <a v-if="mutation.name" class="u-link" :href="'https://www.ncbi.nlm.nih.gov/snp/' + mutation.name" target="blank">
                   {{ mutation.name }}
                 </a>
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td class="u-text-key">DNA Change</td>
               <td>{{ mutation.code }}</td>
@@ -28,6 +28,10 @@
             <tr>
               <td class="u-text-key">Sequence Type</td>
               <td>{{ getSequenceType(mutation.sequenceType) }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Type</td>
+              <td>{{ mutation.type }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Chromosome</td>
@@ -38,10 +42,6 @@
               <td>{{ mutation.position }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Type</td>
-              <td>{{ mutation.type }}</td>
-            </tr>
-            <tr>
               <td class="u-text-key">Reference Base</td>
               <td>{{ mutation.ref }}</td>
             </tr>
@@ -49,14 +49,14 @@
               <td class="u-text-key">Alternate Base</td>
               <td>{{ mutation.alt }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="u-text-key">Gene</td>
               <td>
                 <a v-if="mutation.gene" class="u-link" :href="'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' + mutation.gene.name" target="blank">
                   {{ mutation.gene.name }}
                 </a>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </q-markup-table>
       </div>

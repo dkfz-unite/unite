@@ -156,12 +156,12 @@ export default {
           field: (row) => row.mutations,
           sortable: false,
         },
-        {
-          name: "genes",
-          label: "Genes",
-          field: (row) => row.genes,
-          sortable: false,
-        },
+        // {
+        //   name: "genes",
+        //   label: "Genes",
+        //   field: (row) => row.genes,
+        //   sortable: false,
+        // },
       ],
 
       data: [],
