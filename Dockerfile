@@ -13,8 +13,7 @@ FROM restore-client as build-client
 COPY ["Unite.Web/Client/", "./"]
 RUN npm run build
 
-#FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS restore
-FROM mcr.microsoft.com/dotnet/sdk:5.0.102-ca-patch-buster-slim AS restore
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS restore
 WORKDIR /src
 COPY ["Unite.Web/Unite.Web.csproj", "Unite.Web/"]
 RUN dotnet restore "Unite.Web/Unite.Web.csproj"
