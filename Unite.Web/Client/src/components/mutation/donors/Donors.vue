@@ -75,18 +75,21 @@ export default {
           label: "Origin",
           field: (row) => row.origin,
           sortable: false,
+          align: "left"
         },
         {
           name: "mtaProtected",
           label: "MTA",
           field: (row) => this.toBooleanString(row.mtaProtected),
           sortable: false,
+          align: "left"
         },
         {
           name: "diagnosis",
           label: "Diagnosis",
           field: (row) => row.diagnosis,
           sortable: false,
+          align: "left"
         },
         {
           name: "diagnosisDate",
@@ -99,6 +102,7 @@ export default {
           label: "Gender",
           field: (row) => row.clinicalData?.gender,
           sortable: false,
+          align: "left"
         },
         {
           name: "age",
@@ -115,6 +119,7 @@ export default {
               row.epigeneticsData?.idhMutation
             ),
           sortable: false,
+          align: "left"
         },
         {
           name: "mgmt",
@@ -125,43 +130,47 @@ export default {
               row.epigeneticsData?.methylationSubtype
             ),
           sortable: false,
+          align: "left"
         },
         {
           name: "treatments",
           label: "Treatments",
           field: (row) => row.treatments,
           sortable: false,
+          align: "left"
         },
         {
           name: "packages",
           label: "Work Packages",
           field: (row) => row.workPackages,
           sortable: false,
+          align: "left"
         },
         {
           name: "studies",
           label: "Studies",
           field: (row) => row.studies,
           sortable: false,
+          align: "left"
         },
         {
           name: "samples",
           label: "Samples",
           field: (row) => row.samples,
-          sortable: false,
+          sortable: false
         },
         {
           name: "mutations",
           label: "Mutations",
           field: (row) => row.mutations,
-          sortable: false,
+          sortable: false
         },
-        // {
-        //   name: "genes",
-        //   label: "Genes",
-        //   field: (row) => row.genes,
-        //   sortable: false,
-        // },
+        {
+          name: "genes",
+          label: "Genes",
+          field: (row) => row.genes,
+          sortable: false
+        }
       ],
 
       data: [],
