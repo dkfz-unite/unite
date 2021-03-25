@@ -38,7 +38,7 @@
               </td>
               <td>
                 <div v-for="(consequence, i) in feature.consequences" :key="i">
-                  <span :class="getImpactColor(consequence.impact)">{{consequence.type}}</span>
+                  <span :class="getImpactColor(consequence.impact)">{{getConsequenceLabel(consequence.type)}}</span>
                 </div>
               </td>
               <td>
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import ConsequenceType from '@/services/criteria/filters/data/mutations/filter.option.consequence.type.js';
+
 export default {
   props: ["features"],
 
@@ -75,6 +77,12 @@ export default {
         case "Low": return "text-green-8";
         default: return "text-grey-8";
       }
+    },
+
+    getConsequenceLabel(value){
+      var option = new ConsequenceType(value);
+
+      return option.label;
     }
   }
 };

@@ -27,7 +27,7 @@
           <template v-if="props.value">
             <div v-for="(consequence, i) in props.value" :key="i">
               <div>
-                <span :class="getImpactColor(consequence.impact)">{{consequence.term}}: </span>
+                <span :class="getImpactColor(consequence.impact)">{{getConsequenceLabel(consequence.term)}}: </span>
                 <span>
                   <span v-for="(gene, i) in consequence.genes" :key="i">
                     <a class="u-link text-italic" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + gene.ensemblId" target="blank">{{gene.symbol}}&nbsp;&nbsp;</a>
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import ConsequenceType from '@/services/criteria/filters/data/mutations/filter.option.consequence.type.js';
+
 export default {
   props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
 
@@ -167,6 +169,12 @@ export default {
         case "Low": return "text-green-8";
         default: return "text-grey-8";
       }
+    },
+
+    getConsequenceLabel(value){
+      var option = new ConsequenceType(value);
+
+      return option.label;
     }
   },
 };
