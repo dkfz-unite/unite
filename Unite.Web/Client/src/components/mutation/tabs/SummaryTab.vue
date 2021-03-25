@@ -5,17 +5,25 @@
         <u-summary :mutation="mutation" />
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-12">
+        <u-transcript-consequences :features="mutation.affectedTranscripts" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import USummary from "@/components/mutation/summary/Summary.vue";
+import UTranscriptConsequences from "@/components/mutation/summary/TranscriptConsequences.vue";
 
 export default {
   props: ["mutation"],
 
   components:{
-    USummary: USummary
+    USummary: USummary,
+    UTranscriptConsequences: UTranscriptConsequences
   }
 };
 </script>

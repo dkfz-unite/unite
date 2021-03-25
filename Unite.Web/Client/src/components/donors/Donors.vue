@@ -162,12 +162,6 @@ export default {
           align: "left"
         },
         {
-          name: "samples",
-          label: "Samples",
-          field: (row) => row.samples,
-          sortable: false
-        },
-        {
           name: "mutations",
           label: "Mutations",
           field: (row) => row.mutations,

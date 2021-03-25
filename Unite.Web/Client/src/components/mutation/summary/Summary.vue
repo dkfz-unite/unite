@@ -13,14 +13,6 @@
           </colgroup>
 
           <tbody>
-            <!-- <tr>
-              <td class="u-text-key">ID</td>
-              <td>
-                <a v-if="mutation.name" class="u-link" :href="'https://www.ncbi.nlm.nih.gov/snp/' + mutation.name" target="blank">
-                  {{ mutation.name }}
-                </a>
-              </td>
-            </tr> -->
             <tr>
               <td class="u-text-key">DNA Change</td>
               <td>{{ mutation.code }}</td>
