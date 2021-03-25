@@ -22,12 +22,26 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-gene="props">
+      <template v-slot:body-cell-consequences="props">
         <q-td :props="props">
           <template v-if="props.value">
-            <a class="u-link" :href="'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' + props.value.name" target="blank">
-              {{ props.value.name }}
-            </a>
+            <div v-for="(consequence, i) in props.value" :key="i">
+              <div>
+                <span :class="getImpactColor(consequence.impact)">{{consequence.term}}: </span>
+                <span>
+                  <span v-for="(gene, i) in consequence.genes" :key="i">
+                    <a class="u-link text-italic" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + gene.ensemblId" target="blank">{{gene.symbol}}&nbsp;&nbsp;</a>
+                    <span v-if="gene.transcripts && gene.transcripts.length">
+                      (<span v-for="(transcript, i) in gene.transcripts" :key="i">
+                        <span>{{transcript}}</span>
+                        <span v-if="i + 1 < gene.transcripts.length">, </span>
+                      </span>)
+                    </span>
+                    <span>&nbsp;</span>
+                  </span>
+                </span>
+              </div>
+            </div>
           </template>
         </q-td>
       </template>
@@ -54,20 +68,23 @@ export default {
           name: "code",
           label: "DNA change",
           field: (row) => row.code,
-          sortable: false
+          sortable: false,
+          align: "left"
         },
         {
           name: "type",
           label: "Type",
           field: (row) => row.type,
-          sortable: false
+          sortable: false,
+          align: "left"
         },
-        // {
-        //   name: "gene",
-        //   label: "Gene",
-        //   field: (row) => row.gene,
-        //   sortable: false
-        // },
+        {
+          name: "consequences",
+          label: "Consequences",
+          field: row => row.transcriptConsequences,
+          sortable: false,
+          align: "left"
+        },
         {
           name: "donors",
           label: "Donors affected",
@@ -142,6 +159,15 @@ export default {
         return 20;
       }
     },
+
+    getImpactColor(impact) {
+      switch(impact){
+        case "High": return "text-red-8";
+        case "Moderate": return "text-orange-8";
+        case "Low": return "text-green-8";
+        default: return "text-grey-8";
+      }
+    }
   },
 };
 </script>
