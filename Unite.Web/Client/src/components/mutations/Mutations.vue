@@ -99,7 +99,7 @@ export default {
         },
         {
           name: "donors",
-          label: "Donors affected",
+          label: "#Affected Donors",
           field: (row) => row.donors,
           sortable: false
         }

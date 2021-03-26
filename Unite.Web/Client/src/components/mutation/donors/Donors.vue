@@ -155,13 +155,13 @@ export default {
         },
         {
           name: "mutations",
-          label: "Mutations",
+          label: "#Mutations",
           field: (row) => row.mutations,
           sortable: false
         },
         {
           name: "genes",
-          label: "Genes",
+          label: "#Genes",
           field: (row) => row.genes,
           sortable: false
         }
