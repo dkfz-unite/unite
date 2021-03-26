@@ -1,14 +1,5 @@
 <template>
   <div class="col q-gutter-y-sm">
-    <!-- <div>
-      <u-chips-filter 
-          label="ID"
-          placeholder="e.g. 109"
-          v-model="criteria.name"
-          @input="onInput" 
-      />
-    </div> -->
-
     <div>
       <u-chips-filter
         label="Code"
@@ -17,15 +8,6 @@
         @input="onInput"
       />
     </div>
-
-    <!-- <div>
-      <u-select-filter
-        label="Sequence Type"
-        :options="$store.state.filterOptions.sequenceTypes"
-        v-model="criteria.sequenceType"
-        @input="onInput"
-      />
-    </div> -->
 
     <div>
       <u-select-filter
@@ -67,6 +49,45 @@
               />
             </div>
           </template>
+        </div>
+      </q-expansion-item>
+    </div>
+
+    <div>
+      <q-expansion-item label="Consequences" :value="true" dense dense-toggle>
+        <div class="col q-pt-xs q-gutter-y-sm">
+          <div>
+            <u-select-filter
+              label="Impact"
+              :options="$store.state.filterOptions.impacts"
+              v-model="criteria.impact"
+              @input="onInput"
+            />
+          </div>
+
+          <div>
+            <u-select-filter
+              label="Consequence"
+              :options="$store.state.filterOptions.consequenceTypes"
+              v-model="criteria.consequence"
+              @input="onInput"
+            />
+          </div>
+        </div>
+      </q-expansion-item>
+    </div>
+
+    <div>
+      <q-expansion-item label="Gene" :value="true" dense dense-toggle>
+        <div class="col q-pt-xs q-gutter-y-sm">
+          <div>
+            <u-chips-filter
+              label="Gene"
+              placeholder="e.g. TTN"
+              v-model="criteria.gene"
+              @input="onInput"
+            />
+          </div>
         </div>
       </q-expansion-item>
     </div>

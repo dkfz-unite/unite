@@ -4,9 +4,21 @@
     <q-header bordered class="bg-blue-7 text-white">
       <q-toolbar>
         <q-toolbar-title>
-          <!-- <div>DKFZ.UNITE</div> -->
-          <img src="logo-white.png" width="250">
-          <!-- <q-btn :to="{ name: 'home' }" class="text-bold" flat dense>DKFZ.UNITE</q-btn> -->
+          <!-- <img src="/logo-white.png" width="250"> -->
+          <!-- <q-btn
+            label="UNITE Glioblastoma"
+            class="text-bold"
+            :to="{ name: 'home' }"
+            flat 
+            dense
+          /> -->
+
+          <q-btn
+            :to="{ name: 'home' }"
+            flat 
+            dense>
+            <img src="/logo-white.png" width="250">
+          </q-btn>
         </q-toolbar-title>
 
         <q-space />

@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm" v-if="features">
     <div class="row">
-      <span class="text-h5 u-text-title">Affected transcripts</span>
+      <span class="text-h5 u-text-title">Transcript Consequences</span>
     </div>
 
     <div class="row">

@@ -12,6 +12,7 @@ import AgeCategory from '@/services/criteria/filters/data/donors/filter.option.a
 import Chromosome from '@/services/criteria/filters/data/mutations/filter.option.chromosome.js';
 import SequenceType from '@/services/criteria/filters/data/mutations/filter.option.sequence.type.js';
 import MutationType from '@/services/criteria/filters/data/mutations/filter.option.mutation.type.js';
+import Impact from '@/services/criteria/filters/data/mutations/filter.option.impact.js';
 import ConsequenceType from '@/services/criteria/filters/data/mutations/filter.option.consequence.type.js';
 
 import CellLineType from '@/services/criteria/filters/data/cells/filter.option.cell.type.js';
@@ -41,7 +42,7 @@ export default new Vuex.Store({
     },
 
     account: {
-      email: "valiantsin.ulasau@dkfz-heidelberg.de"
+      email: null
     },
 
     mutations: {
@@ -72,6 +73,7 @@ export default new Vuex.Store({
       chromosomes: Chromosome.availableOptions,
       sequenceTypes: SequenceType.availableOptions,
       mutationTypes: MutationType.availableOptions,
+      impacts: Impact.availableOptions,
       consequenceTypes: ConsequenceType.availableOptions,
 
       cellLineTypes: CellLineType.availableOptions,
