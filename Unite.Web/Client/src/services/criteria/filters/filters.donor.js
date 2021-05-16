@@ -1,23 +1,15 @@
 import Filters from './filters.js';
 
 class DonorFilters extends Filters{
-    id = [];
-    diagnosis = [];
-
+    referenceId = [];
+    
     gender = [];
-    vitalStatus = [];
-    ageCategory = [];
     age = { from: null, to: null };
-
-    geneExpressionSubtype = [];
-    idhStatus = [];
-    idhMutation = [];
-    methylationStatus = [];
-    methylationSubtype = [];
-    gcimpMethylation = null;
+    diagnosis = [];
     
     sanitise(){
-        this.id = this.sanitiseArray(this.id);
+        this.referenceId = this.sanitiseArray(this.referenceId);
+        
         this.diagnosis = this.sanitiseArray(this.diagnosis);
         this.age = this.sanitiseRange(this.age);
     }

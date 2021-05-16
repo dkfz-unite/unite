@@ -16,7 +16,7 @@
     >
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value }}">
+          <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value.toString() }}">
             {{ props.value }}
           </router-link>
         </q-td>
@@ -64,7 +64,7 @@ export default {
       columns: [
         {
           name: "id",
-          label: "PID",
+          label: "ID",
           field: (row) => row.id,
           sortable: false,
           required: true,

@@ -2,8 +2,8 @@ import FilterOption from '../filter.option.js';
 
 class VitalStatus extends FilterOption{
     static availableOptions = [
-        { value: "Living", label: "Living" },
-        { value: "Deceased", label: "Deceased" }
+        { value: true, label: "Living" },
+        { value: false, label: "Deceased" }
     ];
 
     constructor(value) {

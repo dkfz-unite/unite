@@ -14,30 +14,16 @@
 
           <tbody>
             <tr>
-              <td class="u-text-key">PID</td>
+              <td class="u-text-key">ID</td>
               <td class="text-bold">{{ donor.id }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Diagnosis</td>
-              <td>{{ donor.diagnosis }}</td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Diagnosis Date</td>
-              <td>{{ this.toDateString(donor.diagnosisDate) }}</td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Primary Site</td>
-              <td>{{ donor.primarySite }}</td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Origin</td>
-              <td>{{ donor.origin }}</td>
+              <td class="u-text-key">External ID</td>
+              <td class="text-bold">{{ donor.referenceId }}</td>
             </tr>
             <tr>
               <td class="u-text-key">MTA Protected</td>
-              <td>
-                {{ this.toBooleanString(donor.mtaProtected) }}
-              </td>
+              <td>{{ this.toBooleanString(donor.mtaProtected) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Work Packages</td>

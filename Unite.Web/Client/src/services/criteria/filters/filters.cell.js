@@ -1,14 +1,15 @@
-class CellLineFilters{
-    id = [];
+import SpecimenFilters from './filters.specimen.js';
+
+class CellLineFilters extends SpecimenFilters{
     name = [];
     type = [];
     species = [];
-    geneExpressionSubtype = [];
-    idhStatus = [];
-    idhMutation = [];
-    methylationStatus = [];
-    methylationSubtype = [];
-    gcimpMethylation = null;
+
+    sanitise(){
+        super.sanitise();
+
+        this.name = this.sanitiseArray(this.name);
+    }
 }
 
 export default CellLineFilters;

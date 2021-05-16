@@ -24,12 +24,28 @@
                   <td>{{ clinicalData.age }}</td>
                 </tr>
                 <tr>
-                  <td class="u-text-key">Age Category</td>
-                  <td>{{ clinicalData.ageCategory }}</td>
+                  <td class="u-text-key">Diagnosis</td>
+                  <td>{{ clinicalData.diagnosis }}</td>
+                </tr>
+                <tr>
+                  <td class="u-text-key">Diagnosis date</td>
+                  <td>{{ toDateString(clinicalData.diagnosisDate) }}</td>
+                </tr>
+                <tr>
+                  <td class="u-text-key">Primary site</td>
+                  <td>{{ clinicalData.primarySite }}</td>
                 </tr>
                 <tr>
                   <td class="u-text-key">Localization</td>
                   <td>{{ clinicalData.localization }}</td>
+                </tr>
+                <tr>
+                  <td class="u-text-key">Vital Status</td>
+                  <td>{{ toVitalStatusString(clinicalData.vitalStatus) }}</td>
+                </tr>
+                <tr>
+                  <td class="u-text-key">Vital Status Change Date</td>
+                  <td>{{ toDateString(clinicalData.vitalStatusChangeDate) }}</td>
                 </tr>
                 <tr>
                   <td class="u-text-key">KPS Baseline</td>
@@ -63,46 +79,6 @@
                     <td></td>
                   </tr>
                 </template>
-              </tbody>
-            </q-markup-table>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <q-markup-table class="table-strip" separator="cell" dense flat bordered>
-              <colgroup>
-                <col span="1" style="width: 50%" />
-                <col span="1" style="width: 50%" />
-              </colgroup>
-
-              <tbody>
-                <tr>
-                  <td class="u-text-key">Vital Status</td>
-                  <td>{{ clinicalData.vitalStatus }}</td>
-                </tr>
-                <tr>
-                  <td class="u-text-key">Vital Status Change Date</td>
-                  <td>{{ toDateString(clinicalData.vitalStatusChangeDate) }}</td>
-                </tr>
-                <tr>
-                  <td class="u-text-key">Survival Days</td>
-                  <td>{{ clinicalData.survivalDays }}</td>
-                </tr>
-                <tr>
-                  <td class="u-text-key">Progression Date</td>
-                  <td>{{ toDateString(clinicalData.progressionDate) }}</td>
-                </tr>
-                <tr>
-                  <td class="u-text-key">Progression Free Days</td>
-                  <td>{{ clinicalData.progressionFreeDays }}</td>
-                </tr>
-                <tr>
-                  <td class="u-text-key">Relapse Date</td>
-                  <td>{{ toDateString(clinicalData.relapseDate) }}</td>
-                </tr>
-                <tr>
-                  <td class="u-text-key">Relapse Free Days</td>
-                  <td>{{ clinicalData.relapseFreeDays }}</td>
-                </tr>
               </tbody>
             </q-markup-table>
           </div>
@@ -142,6 +118,14 @@ export default {
       }
 
       return jsonValue ? "Yes" : "No";
+    },
+
+    toVitalStatusString(jsonValue){
+      if (jsonValue == null || jsonValue == undefined) {
+        return null;
+      }
+
+      return jsonValue ? "Living" : "Diceased";
     },
 
     getIdh(idhStatus, idhMutation){

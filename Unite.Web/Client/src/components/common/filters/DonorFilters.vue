@@ -2,9 +2,9 @@
   <div class="col q-gutter-y-sm">
     <div>
       <u-chips-filter
-        label="PID"
+        label="External ID"
         placeholder="e.g. ABC-123"
-        v-model="criteria.id"
+        v-model="criteria.referenceId"
         @input="onInput"
       />
     </div>
@@ -19,7 +19,7 @@
     </div>
 
     <div>
-      <u-select-filter
+      <u-select-single-filter
         label="Vital Status"
         :options="$store.state.filterOptions.vitalStatuses"
         v-model="criteria.vitalStatus"
@@ -40,15 +40,6 @@
       <q-expansion-item label="Age" :value="true" dense dense-toggle>
         <div class="col q-pt-xs q-gutter-y-sm">
           <div>
-            <u-select-filter
-              label="Age Category"
-              :options="$store.state.filterOptions.ageCategories"
-              v-model="criteria.ageCategory"
-              @input="onInput"
-            />
-          </div>
-
-          <div>
             <u-number-filter
               label="From"
               placeholder="e.g. 50"
@@ -68,27 +59,14 @@
         </div>
       </q-expansion-item>
     </div>
-
-    <div>
-      <q-expansion-item label="Epigenetics" :value="true" dense dense-toggle>
-        <div class="col q-pt-xs">
-          <div class="row">
-            <u-epigenetics-filters
-              v-model="criteria"
-              @input="onInput"
-            />
-          </div>
-        </div>
-      </q-expansion-item>
-    </div>
   </div>
 </template>
 
 <script>
-import UEpigeneticsFilters from "./EpigeneticsFilters.vue";
 import UChipsFilter from "./standard/ChipsFilter.vue";
 import UNumberFilter from "./standard/NumberFilter.vue";
 import USelectFilter from "./standard/SelectFilter.vue";
+import USelectSingleFilter from "./standard/SelectSingleFilter.vue";
 
 export default {
   props: ["value"],
@@ -108,10 +86,10 @@ export default {
   },
 
   components: {
-    UEpigeneticsFilters: UEpigeneticsFilters,
     UChipsFilter: UChipsFilter,
     UNumberFilter: UNumberFilter,
     USelectFilter: USelectFilter,
+    USelectSingleFilter: USelectSingleFilter
   },
 };
 </script>

@@ -60,7 +60,7 @@ export default {
 
   computed: {
     showClinicalData() {
-      return this.donor?.clinicalData || this.donor?.epigeneticsData;
+      return !!this.donor?.clinicalData;
     },
 
     showMutations() {

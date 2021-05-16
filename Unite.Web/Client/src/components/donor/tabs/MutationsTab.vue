@@ -64,7 +64,7 @@ export default {
   },
 
   async mounted() {
-    this.criteria.donorFilters.id.push(this.donor.id);
+    this.criteria.donorFilters.referenceId.push(this.donor.referenceId);
 
     // await this.fetchData();
   },

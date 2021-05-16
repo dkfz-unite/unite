@@ -31,21 +31,6 @@
                   @input="onInput"
                 />
               </div>
-
-              <!-- <div class="row">
-                <div class="col">
-                  <q-expansion-item label="Gene" :value="true" dense dense-toggle>
-                    <div class="col q-pt-xs">
-                      <div class="row">
-                        <u-gene-filters
-                          v-model="criteria.geneFilters"
-                          @input="onInput"
-                        />
-                      </div>
-                    </div>
-                  </q-expansion-item>
-                </div>
-              </div> -->
             </div>
           </q-tab-panel>
 
