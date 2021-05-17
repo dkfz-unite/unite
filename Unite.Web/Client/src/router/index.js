@@ -6,6 +6,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/oncogrid',
+    name: "oncogrid",
+    meta: { title: "Unite.OncoGrid", authorize: true },
+    component: () => import(/* webpackChunkName: "oncogrid" */ '../views/OncoGridPlayground.vue')
+  },
+  {
     path: '/',
     redirect: 'donors',
     name: 'home',
