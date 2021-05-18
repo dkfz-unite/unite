@@ -1,17 +1,13 @@
-﻿<!--  <button onclick="toggleGridLines()">Grid</button>-->
-<!--  <button onclick="toggleCrosshair()">Crosshair Mode</button>-->
-<!--  <input type="text" size="5" id="width-resize"/>-->
-<!--  <input type="text" size="5" id="height-resize"/>-->
-<!--  <button onclick="resize()">Resize</button>-->
-
-<template>
+﻿<template>
   <div>
-    <div v-show="isOncoRendered">
-      <div id="grid-div">
-        
+    <div v-show="this.isOncoRendered">
+      <button @click="toggleGridLines()">Grid</button>
+      <button @click="toggleCrosshair()">Crosshair Mode</button>
+      <div id="oncoGrid">
+
       </div>
     </div>
-    <div v-if="!isOncoRendered">
+    <div v-if="!this.isOncoRendered">
       <q-spinner
           color="primary"
           size="3em"
@@ -24,10 +20,21 @@
 <script>
 import OncoGrid from "oncogrid";
 
+let oncoGrid;
+
 export default {
   name: 'oncogrid',
   data() {
-    return {isOncoRendered: true}
+    return {isOncoRendered: false}
+  },
+  methods:{
+    toggleCrosshair() {
+      this.oncoGrid.toggleCrosshair();
+    },
+
+    toggleGridLines() {
+      this.oncoGrid.toggleGridLines();
+    },
   },
   mounted() {
     "use strict";
@@ -127,7 +134,7 @@ export default {
     };
 
     var params = {
-      element: '#grid-div',
+      element: '#oncoGrid',
       donors: donors,
       genes: genes,
       observations: observations,
@@ -143,16 +150,94 @@ export default {
       geneOpacityFunc: geneOpacity
     };
 
-    var grid = new OncoGrid(params);
-    grid.render();
-    
-    //TODO: Test this 
-    // this.booleanProperty = true
+    this.oncoGrid = new OncoGrid(params);
+    this.oncoGrid.render();
+    //ToODO: maybe use oncoGrid != null instead of boolean property
+    this.isOncoRendered = true
   }
-
 };
 </script>
 
 <style scoped>
+#oncoGrid {
+  cursor: pointer;
+}
 
+#oncoGrid .crosshair-mode {
+  cursor: crosshair;
+}
+
+#oncoGrid .background {
+  fill: #fff;
+  stroke: black;
+  stroke-width: 0.5;
+}
+
+#oncoGrid line {
+  stroke: grey;
+  stroke-opacity: .5;
+  shape-rendering: crispEdges;
+
+}
+
+#oncoGrid line .og-vertical-cross {
+  stroke: black;
+  stroke-opacity: 1;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+
+}
+
+#oncoGrid line .og-horizontal-cross {
+  stroke: black;
+  stroke-opacity: 1;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+
+}
+
+#oncoGrid .og-histogram-axis {
+  stroke: #000;
+  stroke-opacity: 0.5;
+  shape-rendering: crispEdges;
+}
+
+#oncoGrid textarea {
+  padding: 2px;
+  width: 714px;
+  height: 360px;
+}
+
+#oncoGrid .og-gene-label {
+  cursor: move;
+}
+
+#oncoGrid .og-remove-gene:before {
+  content: 'Remove';
+}
+
+#oncoGrid .og-remove-gene {
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-family: sans-serif;
+  color: red;
+}
+
+#oncoGrid .og-label-text-font {
+  font-size: 0.5rem;
+}
+
+#oncoGrid .og-track-group-label {
+  font-size: 0.8em;
+}
+
+#oncoGrid .og-sortable-rect:hover {
+  stroke: red;
+  stroke-width: 3;
+}
+
+#oncoGrid .og-highlight {
+  stroke: green;
+  stroke-width: 1;
+}
 </style>
