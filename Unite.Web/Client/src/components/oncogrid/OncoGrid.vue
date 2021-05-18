@@ -5,13 +5,20 @@
 <!--  <button onclick="resize()">Resize</button>-->
 
 <template>
-  <div v-if="booleanProperty">
-    <div id="grid-div"></div>
+  <div>
+    <div v-show="isOncoRendered">
+      <div id="grid-div">
+        
+      </div>
+    </div>
+    <div v-if="!isOncoRendered">
+      <q-spinner
+          color="primary"
+          size="3em"
+          :thickness="2"
+      />
+    </div>
   </div>
-  <div v-else>
-    THIS page is still loading. Implement loading indicator... Lineawesom icon 
-  </div>
-  
 </template>
 
 <script>
@@ -20,7 +27,7 @@ import OncoGrid from "oncogrid";
 export default {
   name: 'oncogrid',
   data() {
-    return {booleanProperty: false}
+    return {isOncoRendered: true}
   },
   mounted() {
     "use strict";

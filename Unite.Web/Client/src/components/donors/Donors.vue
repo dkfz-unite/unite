@@ -15,6 +15,11 @@
       @request="onRequest"
     >
       <template v-slot:top-right>
+        <div class="q-pa-md q-gutter-sm">
+            <router-link class="u-link" :to="{ name: 'oncogrid', params: { filters: filters }}">
+              <i  class="las la-chart-area" :disable="!showDonors"/>
+            </router-link>
+        </div>
         <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
           <template v-slot:append>
             <q-icon name="search" />
@@ -64,8 +69,12 @@
 </template>
 
 <script>
+import apiClient from "@/services/api/api.client.identity";
+
 export default {
   props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
+
+  
 
   data() {
     return {
@@ -189,6 +198,12 @@ export default {
     };
   },
 
+  computed: {
+    showDonors() {
+      return !!this.data;
+    }
+  },
+
   watch: {
     rows(value) {
       this.data = value;
@@ -212,6 +227,7 @@ export default {
   },
 
   methods: {
+    
     onRequest(props) {
       let filters = {
         from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
