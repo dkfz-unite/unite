@@ -11,7 +11,7 @@
       <div class="col">
         <div class="row q-col-gutter-sm">
           <div class="col-12 col-sm-9 col-md-10">
-            <oncogrid/>
+            <oncogrid :search-criteria="{SearchCriteria}" :selected-donors="{selectedDonors}"/>
           </div>
         </div>
       </div>
@@ -21,8 +21,15 @@
 
 <script>
 import Oncogrid from "@/components/oncogrid/OncoGrid";
+
 export default {
-  components: {Oncogrid}
+  components: {Oncogrid},
+  props: ["selectedDonors"],
+  data() {
+    return {
+      SearchCriteria: this.$store.state.donors.searchCriteria
+    };
+  }
 }
 </script>
 

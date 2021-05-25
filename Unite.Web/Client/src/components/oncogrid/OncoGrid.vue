@@ -29,6 +29,7 @@
 </template>
 <script>
 import OncoGrid from "oncogrid";
+import apiClient from "@/services/api/api.client.oncogrid.js";
 
 let colorMap = {};
 colorMap['mutation'] = {
@@ -44,6 +45,7 @@ let oncoGrid;
 
 export default {
   name: 'oncogrid',
+  props: ["selectedDonors", "searchCriteria"],
   data() {
     return {
       colorMap: colorMap['mutation'],
@@ -63,70 +65,14 @@ export default {
       this.oncoGrid.toggleGridLines();
     },
   },
-  mounted() {
+  async mounted() {
+    try {
+      this.oncoGirdResources = await apiClient.search(this.searchCriteria);
+    } catch (error) {
+      this.oncoGirdResources = null;
+    }
+    //TODO: handle null oncoGirdResources
     "use strict";
-
-    var donors = [
-      {"id": "DO1", "age_diagnosis": 49, "alive": true},
-      {"id": "DO2", "age_diagnosis": 62, "alive": false},
-      {"id": "DO3", "age_diagnosis": 1, "alive": true},
-      {"id": "DO4", "age_diagnosis": 59, "alive": true},
-      {"id": "DO5", "age_diagnosis": 12, "alive": true},
-      {"id": "DO6", "age_diagnosis": 32, "alive": true},
-      {"id": "DO7", "age_diagnosis": 80, "alive": true}
-    ];
-
-
-    var genes = [
-      {"id": "ENSG00000141510", "symbol": "TP53", "totalDonors": 40},
-      {"id": "ENSG00000157764", "symbol": "BRAF", "totalDonors": 21},
-      {"id": "ENSG00000155657", "symbol": "TTN", "totalDonors": 12},
-      {"id": "ENSG00000164796", "symbol": "CSMD3", "totalDonors": 4}
-    ];
-
-
-    var observations = [
-      {"id": "MU1", "donorId": "DO1", "geneId": "ENSG00000157764", "type": "mutation", "consequence": "start_lost"},
-      {
-        "id": "MU11",
-        "donorId": "DO1",
-        "geneId": "ENSG00000157764",
-        "type": "mutation",
-        "consequence": "missense_variant"
-      },
-      {"id": "MU2", "donorId": "DO1", "geneId": "ENSG00000141510", "type": "mutation", "consequence": "start_lost"},
-      {
-        "id": "MU3",
-        "donorId": "DO2",
-        "geneId": "ENSG00000141510",
-        "type": "mutation",
-        "consequence": "missense_variant"
-      },
-      {
-        "id": "MU4",
-        "donorId": "DO3",
-        "geneId": "ENSG00000157764",
-        "type": "mutation",
-        "consequence": "frameshift_variant"
-      },
-      {
-        "id": "MU5",
-        "donorId": "DO4",
-        "geneId": "ENSG00000157764",
-        "type": "mutation",
-        "consequence": "frameshift_variant"
-      },
-      {"id": "MU6", "donorId": "DO4", "geneId": "ENSG00000164796", "type": "mutation", "consequence": "start_lost"},
-      {
-        "id": "MU7",
-        "donorId": "DO5",
-        "geneId": "ENSG00000155657",
-        "type": "mutation",
-        "consequence": "initiator_codon_variant"
-      },
-      {"id": "MU8", "donorId": "DO5", "geneId": "ENSG00000157764", "type": "mutation", "consequence": "stop_gained"},
-      {"id": "MU9", "donorId": "DO6", "geneId": "ENSG00000157764", "type": "mutation", "consequence": "stop_gained"}
-    ];
 
     var donorOpacity = function (d) {
       if (d.type === 'int') {
@@ -172,26 +118,62 @@ export default {
       return function (a, b) {
         return a[field] - b[field];
       };
+    };    
+    
+    var sortString = function (field) {
+      return function (a, b) {
+        return a[field].localeCompare(b[field]);
+      };
     };
 
+    /*  
+      name - string - The name and label for the track
+      fieldName - string - The field of the donor/gene object to read
+      type - string - The type of the track data, not used by OncoGrid internally, but allows user to group behaviour for styling and the opacity function passed in for the tracks.
+      sort - function - The function responsible for sorting
+      group - string - the name of the group the track belongs to.
+      collapsed - bool - if true, and the track group is in the expandableGroups array, then the track by default will not be shown.
+    */
     var donorTracks = [
-      {'name': 'Age at Diagnosis', 'fieldName': 'age_diagnosis', 'group': 'Clinical', 'type': 'int', 'sort': sortInt},
-      {'name': 'Alive', 'fieldName': 'alive', 'type': 'bool', 'group': 'Clinical', 'sort': sortBool},
-      {'name': 'Foobar', 'fieldName': 'foobar', 'type': 'bool', 'group': 'Data', 'sort': sortBool}
+      /*  
+        Copy Number Somatic Mutations (CNSM)
+        Structural Somatic Mutations (StSM)
+        Simple Germline Variants (SGV)
+        Array-based DNA Methylation (METH-A)
+        Sequence-based DNA Methylation (METH-S)
+        Array-based Gene Expression (EXP-A)
+        Sequence-based Gene Expression (EXP-S)
+        Protein Expression (PEXP)
+        Sequence-based miRNA Expression (miRNA)
+        Exon Junctions (JCN)
+      */
+      { 'name': 'Age at Diagnosis', 'fieldName': 'age', 'type': 'int', 'sort': sortInt},
+      { 'name': 'Vital Status', 'fieldName': 'vitalStatus', 'type': 'vital', 'sort': sortString},
+      { 'name': 'Gender', 'fieldName': 'gender', 'type': 'gender', 'sort': sortString},
+      // { 'name': 'CNSM', 'fieldName': 'cnsmExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'STSM', 'fieldName': 'stsmExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'SGV', 'fieldName': 'sgvExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'METH-A', 'fieldName': 'methaExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'METH-S', 'fieldName': 'methsExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'EXP-A', 'fieldName': 'expaExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'EXP-S', 'fieldName': 'expsExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'PEXP', 'fieldName': 'pexpExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'miRNA-S', 'fieldName': 'mirnasExists', 'type': 'bool', 'sort': sortBool},
+      // { 'name': 'JCN', 'fieldName': 'jcnExists', 'type': 'bool', 'sort': sortBool}
     ];
-
+    
     var params = {
       element: '#oncoGrid',
-      donors: donors,
-      genes: genes,
-      observations: observations,
+      donors: this.oncoGirdResources.donors,
+      genes: this.oncoGirdResources.genes,
+      observations: this.oncoGirdResources.observations,
       heatMap: true,
       trackHeight: 20,
       trackLegendLabel: '<i>?</i>',
       donorTracks: donorTracks,
       donorOpacityFunc: donorOpacity,
       donorFillFunc: donorFill,
-      geneTracks: geneTracks,
+      // geneTracks: geneTracks,
       geneOpacityFunc: geneOpacity
     };
 
