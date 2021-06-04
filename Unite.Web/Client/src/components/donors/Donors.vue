@@ -1,28 +1,29 @@
 <template>
   <div class="col">
     <q-table
-      title="Donors"
-      class="sticky-header"
-      separator="cell" dense flat bordered
-      selection="multiple"
-      row-key="id"
-      :columns="columns"
-      :data="data"
-      :selected.sync="selected"
-      :pagination.sync="pagination"
-      :filter="filter"
-      :loading="loading"
-      @request="onRequest"
+        title="Donors"
+        class="sticky-header"
+        separator="cell" dense flat bordered
+        selection="multiple"
+        row-key="id"
+        :columns="columns"
+        :data="data"
+        :selected.sync="selected"
+        :pagination.sync="pagination"
+        :filter="filter"
+        :loading="loading"
+        @request="onRequest"
     >
       <template v-slot:top-right>
         <div class="q-pa-md q-gutter-sm">
-            <router-link class="u-link" :to="{ name: 'oncogrid', params: { selectedDonors: selected }}">
-              <i  class="las la-chart-area" :disable="!showDonors"/>
-            </router-link>
+          <router-link class="u-link"
+                       :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, donorFilters: filters }}">
+            <i class="las la-chart-area" :disable="!showDonors"/>
+          </router-link>
         </div>
         <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
           <template v-slot:append>
-            <q-icon name="search" />
+            <q-icon name="search"/>
           </template>
         </q-input>
       </template>
@@ -74,7 +75,6 @@ import apiClient from "@/services/api/api.client.identity";
 export default {
   props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
 
-  
 
   data() {
     return {
@@ -130,22 +130,22 @@ export default {
         {
           name: "idh",
           label: "IDH",
-          field: (row) => 
-            this.getIdh(
-              row.epigeneticsData?.idhStatus, 
-              row.epigeneticsData?.idhMutation
-            ),
+          field: (row) =>
+              this.getIdh(
+                  row.epigeneticsData?.idhStatus,
+                  row.epigeneticsData?.idhMutation
+              ),
           sortable: false,
           align: "left"
         },
         {
           name: "mgmt",
           label: "MGMT",
-          field: (row) => 
-            this.getMgmt(
-              row.epigeneticsData?.methylationStatus, 
-              row.epigeneticsData?.methylationSubtype
-            ),
+          field: (row) =>
+              this.getMgmt(
+                  row.epigeneticsData?.methylationStatus,
+                  row.epigeneticsData?.methylationSubtype
+              ),
           sortable: false,
           align: "left"
         },
@@ -223,11 +223,11 @@ export default {
   },
 
   mounted() {
-    this.onRequest({ pagination: this.pagination, filter: this.filter });
+    this.onRequest({pagination: this.pagination, filter: this.filter});
   },
 
   methods: {
-    
+
     onRequest(props) {
       let filters = {
         from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
@@ -267,19 +267,19 @@ export default {
       return date.toLocaleDateString();
     },
 
-    toBooleanString(value){
-      if(!value){
+    toBooleanString(value) {
+      if (!value) {
         return null;
       }
 
       return value ? "Yes" : "No";
     },
 
-    getIdh(idhStatus, idhMutation){
+    getIdh(idhStatus, idhMutation) {
       return idhMutation ?? idhStatus;
     },
 
-    getMgmt(methylationStatus, methylationSubtype){
+    getMgmt(methylationStatus, methylationSubtype) {
       return methylationSubtype ?? methylationStatus;
     }
   },

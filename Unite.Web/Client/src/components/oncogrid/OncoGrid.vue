@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <div v-show="this.isOncoRendered">
+    <div v-show="this.oncoGridResource != null">
       <div class="onco-toolbar">
         <div>
           <q-btn icon="las la-border-all" @click="toggleGridLines()"></q-btn>
@@ -18,18 +18,13 @@
       <div id="oncoGrid">
       </div>
     </div>
-    <div v-if="!this.isOncoRendered">
-      <q-spinner
-          color="primary"
-          size="3em"
-          :thickness="2"
-      />
+    <div v-if="this.oncoGridResource == null">
+      No suitable data found for OncoGrid
     </div>
   </div>
 </template>
 <script>
 import OncoGrid from "oncogrid";
-import apiClient from "@/services/api/api.client.oncogrid.js";
 
 let colorMap = {};
 colorMap['mutation'] = {
@@ -45,11 +40,10 @@ let oncoGrid;
 
 export default {
   name: 'oncogrid',
-  props: ["selectedDonors", "searchCriteria"],
+  props: ["oncoGridResource"],
   data() {
     return {
       colorMap: colorMap['mutation'],
-      isOncoRendered: false
     }
   },
   methods: {
@@ -65,14 +59,11 @@ export default {
       this.oncoGrid.toggleGridLines();
     },
   },
+
   async mounted() {
-    try {
-      this.oncoGirdResources = await apiClient.search(this.searchCriteria);
-    } catch (error) {
-      this.oncoGirdResources = null;
+    if (this.oncoGridResource == null) {
+      return
     }
-    //TODO: handle null oncoGirdResources
-    "use strict";
 
     var donorOpacity = function (d) {
       if (d.type === 'int') {
@@ -118,8 +109,8 @@ export default {
       return function (a, b) {
         return a[field] - b[field];
       };
-    };    
-    
+    };
+
     var sortString = function (field) {
       return function (a, b) {
         return a[field].localeCompare(b[field]);
@@ -147,9 +138,9 @@ export default {
         Sequence-based miRNA Expression (miRNA)
         Exon Junctions (JCN)
       */
-      { 'name': 'Age at Diagnosis', 'fieldName': 'age', 'type': 'int', 'sort': sortInt},
-      { 'name': 'Vital Status', 'fieldName': 'vitalStatus', 'type': 'vital', 'sort': sortString},
-      { 'name': 'Gender', 'fieldName': 'gender', 'type': 'gender', 'sort': sortString},
+      {'name': 'Age at Diagnosis', 'fieldName': 'age', 'type': 'int', 'sort': sortInt},
+      {'name': 'Vital Status', 'fieldName': 'vitalStatus', 'type': 'vital', 'sort': sortString},
+      {'name': 'Gender', 'fieldName': 'gender', 'type': 'gender', 'sort': sortString},
       // { 'name': 'CNSM', 'fieldName': 'cnsmExists', 'type': 'bool', 'sort': sortBool},
       // { 'name': 'STSM', 'fieldName': 'stsmExists', 'type': 'bool', 'sort': sortBool},
       // { 'name': 'SGV', 'fieldName': 'sgvExists', 'type': 'bool', 'sort': sortBool},
@@ -161,12 +152,12 @@ export default {
       // { 'name': 'miRNA-S', 'fieldName': 'mirnasExists', 'type': 'bool', 'sort': sortBool},
       // { 'name': 'JCN', 'fieldName': 'jcnExists', 'type': 'bool', 'sort': sortBool}
     ];
-    
+
     var params = {
       element: '#oncoGrid',
-      donors: this.oncoGirdResources.donors,
-      genes: this.oncoGirdResources.genes,
-      observations: this.oncoGirdResources.observations,
+      donors: this.oncoGridResource.donors,
+      genes: this.oncoGridResource.genes,
+      observations: this.oncoGridResource.observations,
       heatMap: true,
       trackHeight: 20,
       trackLegendLabel: '<i>?</i>',
@@ -179,8 +170,6 @@ export default {
 
     this.oncoGrid = new OncoGrid(params);
     this.oncoGrid.render();
-    //TODO: maybe use oncoGrid != null instead of boolean property
-    this.isOncoRendered = true
   }
 };
 </script>

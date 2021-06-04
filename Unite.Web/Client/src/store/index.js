@@ -64,6 +64,10 @@ export default new Vuex.Store({
       searchCriteria: new SearchCriteria()
     },
 
+    oncogrid: {
+      searchCriteria: new SearchCriteria()
+    },
+
     filterOptions: {
       genders: Gender.availableOptions,
       vitalStatuses: VitalStatus.availableOptions,

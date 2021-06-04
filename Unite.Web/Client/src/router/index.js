@@ -8,8 +8,9 @@ const routes = [
   {
     path: '/oncogrid',
     name: "oncogrid",
-    meta: { title: "Unite.OncoGrid", authorize: true },
-    component: () => import(/* webpackChunkName: "oncogrid" */ '../views/OncoGridPlayground.vue')
+    meta: { title: "UNITE.OncoGrid", authorize: true },
+    component: () => import(/* webpackChunkName: "oncogrid" */ '../views/visualize/OncoGrid.vue'),
+    props: true
   },
   {
     path: '/',
