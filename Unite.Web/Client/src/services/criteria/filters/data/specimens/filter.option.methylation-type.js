@@ -1,6 +1,6 @@
 import FilterOption from '../filter.option.js';
 
-class MethylationSubtype extends FilterOption{
+class MethylationType extends FilterOption{
     static availableOptions = [
         { value: "H3-K27", label: "H3-K27" },
         { value: "H3-G34", label: "H3-G34" },
@@ -10,11 +10,11 @@ class MethylationSubtype extends FilterOption{
     ];
 
     constructor(value) {
-        var option = MethylationSubtype.availableOptions.find(item => item.value == value);
+        var option = MethylationType.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;
     }
 }
 
-export default MethylationSubtype;
+export default MethylationType;

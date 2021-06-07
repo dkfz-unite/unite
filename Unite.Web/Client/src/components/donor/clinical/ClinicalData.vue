@@ -29,7 +29,7 @@
                 </tr>
                 <tr>
                   <td class="u-text-key">Diagnosis date</td>
-                  <td>{{ toDateString(clinicalData.diagnosisDate) }}</td>
+                  <td>{{ contentHelpers.toDateString(clinicalData.diagnosisDate) }}</td>
                 </tr>
                 <tr>
                   <td class="u-text-key">Primary site</td>
@@ -41,11 +41,11 @@
                 </tr>
                 <tr>
                   <td class="u-text-key">Vital Status</td>
-                  <td>{{ toVitalStatusString(clinicalData.vitalStatus) }}</td>
+                  <td>{{ contentHelpers.toBooleanString(clinicalData.vitalStatus, false, "Living", "Diceased") }}</td>
                 </tr>
                 <tr>
                   <td class="u-text-key">Vital Status Change Date</td>
-                  <td>{{ toDateString(clinicalData.vitalStatusChangeDate) }}</td>
+                  <td>{{ contentHelpers.toDateString(clinicalData.vitalStatusChangeDate) }}</td>
                 </tr>
                 <tr>
                   <td class="u-text-key">KPS Baseline</td>
@@ -53,32 +53,8 @@
                 </tr>
                 <tr>
                   <td class="u-text-key">Steroids Baseline</td>
-                  <td>{{ toBooleanString(clinicalData.steroidsBaseline) }}</td>
+                  <td>{{ contentHelpers.toBooleanString(clinicalData.steroidsBaseline) }}</td>
                 </tr>
-                <template v-if="epigeneticsData">
-                  <tr>
-                    <td class="u-text-key">Gene Expression Subtype</td>
-                    <td>{{ epigeneticsData.geneExpressionSubtype }}</td>
-                  </tr>
-                  <tr>
-                    <td class="u-text-key">IDH</td>
-                    <td>{{ getIdh(epigeneticsData.idhStatus, epigeneticsData.idhMutation) }}</td>
-                  </tr>
-                  <tr>
-                    <td class="u-text-key">MGMT</td>
-                    <td>{{ getMgmt(epigeneticsData.methylationStatus, epigeneticsData.methylationSubtype) }}</td>
-                  </tr>
-                  <tr>
-                    <td class="u-text-key">G-Cimp Methylation</td>
-                    <td>{{ toBooleanString(epigeneticsData.gcimpMethylation) }}</td>
-                  </tr>
-                </template>
-                <template v-else>
-                  <tr>
-                    <td class="u-text-key"></td>
-                    <td></td>
-                  </tr>
-                </template>
               </tbody>
             </q-markup-table>
           </div>
@@ -89,52 +65,21 @@
 </template>
 
 <script>
+import contentHelpers from "@/services/helpers/helpers.content.js";
+
 export default {
   props: ["donor"],
+
+  data(){
+    return{
+      contentHelpers: contentHelpers
+    }
+  },
 
   computed:{
     clinicalData(){
       return this.donor?.clinicalData;
-    },
-
-    epigeneticsData(){
-      return this.donor?.epigeneticsData;
     }
   },
-
-  methods:{
-    toDateString(jsonValue) {
-      if (!jsonValue) {
-        return null;
-      }
-
-      var date = new Date(jsonValue);
-      return date.toLocaleDateString();
-    },
-
-    toBooleanString(jsonValue) {
-      if (jsonValue == null || jsonValue == undefined) {
-        return null;
-      }
-
-      return jsonValue ? "Yes" : "No";
-    },
-
-    toVitalStatusString(jsonValue){
-      if (jsonValue == null || jsonValue == undefined) {
-        return null;
-      }
-
-      return jsonValue ? "Living" : "Diceased";
-    },
-
-    getIdh(idhStatus, idhMutation){
-      return idhMutation ?? idhStatus;
-    },
-
-    getMgmt(methylationStatus, methylationSubtype){
-      return methylationSubtype ?? methylationStatus;
-    }
-  }
-};
+}
 </script>

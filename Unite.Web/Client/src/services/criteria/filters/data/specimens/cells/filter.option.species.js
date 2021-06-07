@@ -1,4 +1,4 @@
-import FilterOption from '../filter.option.js';
+import FilterOption from '../../filter.option.js';
 
 class Species extends FilterOption{
     static availableOptions = [

@@ -1,9 +1,9 @@
 import SpecimenFilters from './filters.specimen.js';
 
 class CellLineFilters extends SpecimenFilters{
-    name = [];
     type = [];
     species = [];
+    name = [];
 
     sanitise(){
         super.sanitise();

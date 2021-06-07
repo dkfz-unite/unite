@@ -25,6 +25,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "donor" */ '../views/Donor.vue')
   },
   {
+    path: '/specimens',
+    name: 'specimens',
+    props: { type: 'tissue' },
+    meta: { title: "UNITE.Specimens", authorize: true },
+    component: () => import(/* webpackChunkName: "specimens" */ '../views/Specimens.vue')
+  },
+  {
+    path: '/specimens/:id',
+    name: 'specimen',
+    meta: { title: "UNITE.Specimen", authorize: true },
+    component: () => import(/* webpackChunkName: "specimen" */ '../views/Specimen.vue')
+  },
+  {
     path: '/mutations',
     name: 'mutations',
     meta: { title: "UNITE.Mutations", authorize: true },

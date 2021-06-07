@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td class="u-text-key">MTA Protected</td>
-              <td>{{ this.toBooleanString(donor.mtaProtected) }}</td>
+              <td>{{ contentHelpers.toBooleanString(donor.mtaProtected) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Work Packages</td>
@@ -54,26 +54,14 @@
 </template>
 
 <script>
+import contentHelpers from "@/services/helpers/helpers.content.js";
+
 export default {
   props: ["donor"],
-
-  methods: {
-    toDateString(jsonValue) {
-      if (!jsonValue) {
-        return null;
-      }
-
-      var date = new Date(jsonValue);
-      return date.toLocaleDateString();
-    },
-
-    toBooleanString(jsonValue) {
-      if (jsonValue == null || jsonValue == undefined) {
-        return null;
-      }
-
-      return jsonValue ? "Yes" : "No";
-    },
-  },
-};
+  data(){
+    return{
+      contentHelpers: contentHelpers
+    }
+  }
+}
 </script>

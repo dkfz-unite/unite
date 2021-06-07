@@ -41,21 +41,15 @@
           </div>
         </q-route-tab>
 
+        <q-route-tab :to="{ name: 'specimens' }">
+          <div>
+            <q-icon name="las la-microscope" size="xs" /> Specimens
+          </div>
+        </q-route-tab>
+
         <q-route-tab :to="{ name: 'mutations' }">
           <div>
             <q-icon name="las la-dna" size="xs" /> Mutations
-          </div>
-        </q-route-tab>
-
-        <q-route-tab :to="{ name: 'cells' }" disable title="Comming soon">
-          <div>
-            <q-icon name="las la-microscope" size="xs" /> Cells
-          </div>
-        </q-route-tab>
-
-        <q-route-tab :to="{ name: 'radiology' }" disable title="Comming soon">
-          <div>
-            <q-icon name="las la-x-ray" size="xs" /> Radiology
           </div>
         </q-route-tab>
       </q-tabs>
@@ -97,7 +91,6 @@ import apiClient from '@/services/api/api.client.identity.js';
 export default {
   data () {
     return {
-      // account: this.$store.state.account,
       drawers: this.$store.state.drawers
     }
   },
@@ -122,7 +115,6 @@ export default {
         this.$cookies.remove(settings.cookies.sessionCookieName);
         this.$cookies.remove(settings.cookies.tokenCookieName);
         this.$store.state.account = null;
-        //this.$router.push({ name: "login" });
         location.href = "/";
       }
     }
@@ -132,7 +124,6 @@ export default {
     async onLogOut() {
       try {
         await apiClient.signOut();
-        // this.$router.push({ name: 'login' });
         location.href = "/";
       } catch(error) {
         location.href = "/";

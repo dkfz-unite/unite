@@ -1,4 +1,5 @@
 import DonorFilters from './filters/filters.donor.js';
+import TissueFilters from './filters/filters.tissue.js';
 import CellLineFilters from './filters/filters.cell.js';
 import MutationFilters from './filters/filters.mutation.js';
 
@@ -7,6 +8,7 @@ class SearchCriteria{
     size = 10;
     term = null;
     donorFilters = new DonorFilters();
+    tissueFilters = new TissueFilters();
     cellLineFilters = new CellLineFilters();
     mutationFilters = new MutationFilters();
 }

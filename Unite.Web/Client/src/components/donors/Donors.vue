@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import contentHelpers from "@/services/helpers/helpers.content.js";
+
 export default {
   props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
 
@@ -79,31 +81,11 @@ export default {
           align: "left"
         },
         {
-          name: "origin",
-          label: "Origin",
-          field: (row) => row.origin,
-          sortable: false,
-          align: "left"
-        },
-        {
           name: "mtaProtected",
           label: "MTA",
-          field: (row) => this.toBooleanString(row.mtaProtected),
+          field: (row) => contentHelpers.toBooleanString(row.mtaProtected),
           sortable: false,
           align: "left"
-        },
-        {
-          name: "diagnosis",
-          label: "Diagnosis",
-          field: (row) => row.diagnosis,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "diagnosisDate",
-          label: "Diagnosis Date",
-          field: (row) => this.getDate(row.diagnosisDate),
-          sortable: false
         },
         {
           name: "gender",
@@ -119,27 +101,26 @@ export default {
           sortable: false
         },
         {
-          name: "idh",
-          label: "IDH",
-          field: (row) => 
-            this.getIdh(
-              row.epigeneticsData?.idhStatus, 
-              row.epigeneticsData?.idhMutation
-            ),
+          name: "primarySite",
+          label: "Primary Site",
+          field: (row) => row.clinicalData?.primarySite,
           sortable: false,
           align: "left"
         },
         {
-          name: "mgmt",
-          label: "MGMT",
-          field: (row) => 
-            this.getMgmt(
-              row.epigeneticsData?.methylationStatus, 
-              row.epigeneticsData?.methylationSubtype
-            ),
+          name: "diagnosis",
+          label: "Diagnosis",
+          field: (row) => row.clinicalData?.diagnosis,
           sortable: false,
           align: "left"
         },
+        // {
+        //   name: "diagnosisDate",
+        //   label: "Diagnosis Date",
+        //   field: (row) => contentHelpers.toDateString(row.clinicalData?.diagnosisDate),
+        //   sortable: false,
+        //   align: "left"
+        // },
         {
           name: "treatments",
           label: "Treatments",
@@ -239,33 +220,7 @@ export default {
       } else {
         return 20;
       }
-    },
-
-    getDate(dateString) {
-      if (!dateString) {
-        return null;
-      }
-
-      var date = new Date(dateString);
-
-      return date.toLocaleDateString();
-    },
-
-    toBooleanString(value){
-      if(!value){
-        return null;
-      }
-
-      return value ? "Yes" : "No";
-    },
-
-    getIdh(idhStatus, idhMutation){
-      return idhMutation ?? idhStatus;
-    },
-
-    getMgmt(methylationStatus, methylationSubtype){
-      return methylationSubtype ?? methylationStatus;
     }
   },
-};
+}
 </script>

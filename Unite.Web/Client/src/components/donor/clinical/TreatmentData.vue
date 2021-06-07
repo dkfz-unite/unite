@@ -11,7 +11,7 @@
             <q-expansion-item
               header-class="u-text-key"
               :label="treatment.therapy"
-              :caption="toDataRangeString(treatment.startDate, treatment.endDate)">
+              :caption="contentHelpers.toDataRangeString(treatment.startDate, treatment.endDate)">
               <q-item>
                 <q-item-section>
                   <div>
@@ -38,35 +38,21 @@
 </template>
 
 <script>
+import contentHelpers from "@/services/helpers/helpers.content.js";
+
 export default {
   props: ["donor"],
+
+  data(){
+    return{
+      contentHelpers: contentHelpers
+    }
+  },
 
   computed:{
     treatments(){
       return this.donor?.treatments;
     }
-  },
-
-  methods: {
-    toDateString(jsonValue) {
-      if (!jsonValue) {
-        return null;
-      }
-
-      var date = new Date(jsonValue);
-      return date.toLocaleDateString();
-    },
-
-    toDataRangeString(jsonValueStart, jsonValueEnd) {
-      if(!jsonValueStart && !jsonValueEnd){
-        return null;
-      }
-      else{
-        var startDate = this.toDateString(jsonValueStart) ?? "...";
-        var endDate = this.toDateString(jsonValueEnd) ?? "...";
-        return startDate + " - " + endDate;
-      }
-    }
-  },
-};
+  }
+}
 </script>

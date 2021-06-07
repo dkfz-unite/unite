@@ -1,8 +1,8 @@
-import FilterOption from '../filter.option.js';
+import FilterOption from '../../filter.option.js';
 
 class CellLineType extends FilterOption{
     static availableOptions = [
-        { value: "GSC", label: "GSC" },
+        { value: "GCS", label: "GCS" },
         { value: "Suspension", label: "Suspension" }
     ];
 
