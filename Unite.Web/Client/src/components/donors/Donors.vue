@@ -17,7 +17,7 @@
       <template v-slot:top-right>
         <div class="q-pa-md q-gutter-sm">
           <router-link class="u-link"
-                       :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, donorFilters: filters }}">
+                       :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, preselectFilters: true }}">
             <i class="las la-chart-area" :disable="!showDonors"/>
           </router-link>
         </div>

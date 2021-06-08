@@ -14,8 +14,8 @@
             <u-filters v-model="criteria" selected="donor" @input="fetchData"/>
           </div>
           <div class="col-12 col-sm-9 col-md-10">
-            <!-- define oncoGridResource as key in order to force refresh on update (rebuild oncogrid)-->
-            <oncogrid :key="oncoGridResource" :onco-grid-resource="oncoGridResource"/>
+            <!-- define oncoGridData as key in order to force refresh on update (rebuild oncogrid)-->
+            <oncogrid :key="oncoGridData" :onco-grid-data="oncoGridData"/>
             <q-inner-loading :showing="loading">
               <q-spinner color="primary" size="3em" :thickness="2"/>
             </q-inner-loading>
@@ -33,22 +33,24 @@ import UNumberFilter from "@/components/common/filters/standard/NumberFilter.vue
 import apiClient from "@/services/api/api.client.oncogrid";
 
 export default {
-  props: ["selectedDonors", "donorFilters"],
+  props: ["selectedDonors", "preselectFilters"],
   data() {
     return {
       criteria: this.$store.state.oncogrid.searchCriteria,
       loading: true,
-      oncoGridResource: null
+      oncoGridData: null
     };
   },
 
   created() {
-    if (this.donorFilters != null) {
-      this.criteria.donorFilters = this.donorFilters;
+    if (this.preselectFilters) {
+      this.criteria.donorFilters = this.$store.state.donors.searchCriteria.donorFilters;
+      this.criteria.mutationFilters = this.$store.state.donors.searchCriteria.mutationFilters;
     }
-    if (this.selectedDonors != null) {
+    if (this.selectedDonors != null && this.selectedDonors.length > 0) {
+      this.criteria.donorFilters.referenceId = []
       for (const selectedDonor of this.selectedDonors) {
-        this.criteria.donorFilters.referenceId.push(selectedDonor.id)
+        this.criteria.donorFilters.referenceId.push(selectedDonor.referenceId)
       }
     }
     this.fetchData();
@@ -58,9 +60,9 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        this.oncoGridResource = await apiClient.search(this.criteria);
+        this.oncoGridData = await apiClient.search(this.criteria);
       } catch (error) {
-        this.oncoGridResource = null;
+        this.oncoGridData = null;
       }
 
       this.loading = false;

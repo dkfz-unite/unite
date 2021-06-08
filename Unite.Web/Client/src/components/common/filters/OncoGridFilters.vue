@@ -30,7 +30,7 @@
           <div class="col q-pt-xs q-gutter-y-sm">
             <div>
               <u-number-filter
-                  :label="'Donors (max ' + {MAX_DONORS} + ')'"
+                  :label="'Donors (max ' + MAX_DONORS + ')'"
                   placeholder="e.g. 200"
                   v-model="criteria.oncoGridFilters.mostAffectedDonorCount"
                   @input="onInput"
@@ -56,17 +56,17 @@ import UNumberFilter from "./standard/NumberFilter.vue";
 import UDonorFilters from "./DonorFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
 import UGeneFilters from "./GeneFilters.vue";
-import OncoGridFilters from "@/services/criteria/filters/filters.oncogrid.js";
+import {MAX_GENES, MAX_DONORS} from "@/services/criteria/filters/filters.oncogrid.js";
 
 export default {
-  props: ["value", "selected", "MAX_GENES", "MAX_DONORS"],
+  props: ["value", "selected"],
 
   data() {
     return {
       tab: this.getSelectedTab(this.selected),
       criteria: this.value,
-      MAX_GENES: OncoGridFilters.MAX_GENES,
-      MAX_DONORS: OncoGridFilters.MAX_DONORS
+      MAX_GENES: MAX_GENES,
+      MAX_DONORS: MAX_DONORS
     };
   },
 

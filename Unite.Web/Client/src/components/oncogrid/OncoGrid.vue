@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <div v-show="this.oncoGridResource != null">
+    <div v-show="this.oncoGridData != null">
       <div class="onco-toolbar">
         <div>
           <q-btn icon="las la-border-all" @click="toggleGridLines()"></q-btn>
@@ -18,7 +18,7 @@
       <div id="oncoGrid">
       </div>
     </div>
-    <div v-if="this.oncoGridResource == null">
+    <div v-if="this.oncoGridData == null">
       No suitable data found for OncoGrid
     </div>
   </div>
@@ -40,7 +40,7 @@ let oncoGrid;
 
 export default {
   name: 'oncogrid',
-  props: ["oncoGridResource"],
+  props: ["oncoGridData"],
   data() {
     return {
       colorMap: colorMap['mutation'],
@@ -61,7 +61,7 @@ export default {
   },
 
   async mounted() {
-    if (this.oncoGridResource == null) {
+    if (this.oncoGridData == null) {
       return
     }
 
@@ -155,9 +155,9 @@ export default {
 
     var params = {
       element: '#oncoGrid',
-      donors: this.oncoGridResource.donors,
-      genes: this.oncoGridResource.genes,
-      observations: this.oncoGridResource.observations,
+      donors: this.oncoGridData.donors,
+      genes: this.oncoGridData.genes,
+      observations: this.oncoGridData.observations,
       heatMap: true,
       trackHeight: 20,
       trackLegendLabel: '<i>?</i>',
