@@ -12,11 +12,7 @@ class MutationFilters extends Filters{
 
     sanitise(){
         this.code = this.sanitiseArray(this.code);
-
-        this.position = !this.chromosome || this.chromosome.length != 1
-            ? this.sanitiseRange(null)
-            : this.sanitiseRange(this.position);
-
+        this.position = this.sanitiseRange(this.position);
         this.gene = this.sanitiseArray(this.gene);
     }
 }

@@ -1,6 +1,6 @@
 import FilterOption from '../filter.option.js';
 
-class GeneExpressionType extends FilterOption{
+class GeneExpressionSubtype extends FilterOption{
     static availableOptions = [
         { value: "Classical", label: "Classical" },
         { value: "Mesenchymal", label: "Mesenchymal" },
@@ -8,11 +8,11 @@ class GeneExpressionType extends FilterOption{
     ];
 
     constructor(value) {
-        var option = GeneExpressionType.availableOptions.find(item => item.value == value);
+        var option = GeneExpressionSubtype.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;
     }
 }
 
-export default GeneExpressionType;
+export default GeneExpressionSubtype;

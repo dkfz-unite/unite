@@ -6,8 +6,11 @@ class MethylationStatus extends FilterOption{
         { value: "Methylated", label: "Methylated" }
     ];
 
+    static Unmethylated = this.availableOptions[0];
+    static Methylated = this.availableOptions[1];
+
     constructor(value) {
-        var option = MethylationStatus.availableOptions.find(item => item.value == value);
+        var option = this.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;

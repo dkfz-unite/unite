@@ -35,21 +35,27 @@
       </q-toolbar>
 
       <q-tabs dense stretch align="left" v-if="account">
-        <q-route-tab  :to="{ name: 'donors' }">
+        <q-route-tab :to="{ name: 'donors' }">
           <div>
-            <q-icon name="las la-user-circle" size="xs"/> Donors
+            <q-icon name="las la-user-circle" size="sm"/> Donors
           </div>
         </q-route-tab>
 
-        <q-route-tab :to="{ name: 'specimens' }">
+        <q-route-tab :to="{ name: 'tissues' }">
           <div>
-            <q-icon name="las la-microscope" size="xs" /> Specimens
+            <q-icon name="svguse:icons.svg#u-tissue" size="sm" /> Tissues
+          </div>
+        </q-route-tab>
+
+        <q-route-tab :to="{ name: 'cells' }">
+          <div>
+            <q-icon name="las la-microscope" size="sm" /> Cell Lines
           </div>
         </q-route-tab>
 
         <q-route-tab :to="{ name: 'mutations' }">
           <div>
-            <q-icon name="las la-dna" size="xs" /> Mutations
+            <q-icon name="las la-dna" size="sm" /> Mutations
           </div>
         </q-route-tab>
       </q-tabs>

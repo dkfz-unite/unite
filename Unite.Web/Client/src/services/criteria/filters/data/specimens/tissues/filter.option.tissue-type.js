@@ -6,6 +6,9 @@ class TissueType extends FilterOption{
         { value: "Tumour", label: "Tumour" }
     ];
 
+    static Control = this.availableOptions[0];
+    static Tumour = this.availableOptions[1];
+
     constructor(value) {
         var option = TissueType.availableOptions.find(item => item.value == value);
 

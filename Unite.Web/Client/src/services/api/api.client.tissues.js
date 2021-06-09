@@ -1,9 +1,9 @@
 import settings from '@/settings.js';
 import apiClient from "./api.client.js";
 
-class SpecimensApiClient{
-    #specimensUrl = settings.baseUrl + "/specimens";
-    #specimenUrl = settings.baseUrl + "/specimen";
+class TissuesApiClient{
+    #specimensUrl = settings.baseUrl + "/tissues";
+    #specimenUrl = settings.baseUrl + "/tissue";
 
     async search(criteria){
         var url = this.#specimensUrl;
@@ -16,4 +16,4 @@ class SpecimensApiClient{
     }
 }
 
-export default new SpecimensApiClient();
+export default new TissuesApiClient();

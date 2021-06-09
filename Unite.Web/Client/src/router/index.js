@@ -16,38 +16,49 @@ const routes = [
     path: '/donors',
     name: 'donors',
     meta: { title: "UNITE.Donors", authorize: true },
-    component: () => import(/* webpackChunkName: "donors" */ '../views/Donors.vue')
+    component: () => import(/* webpackChunkName: "donors" */ '../views/donors/Donors.vue')
   },
   {
     path: '/donors/:id',
     name: 'donor',
     meta: { title: "UNITE.Donor", authorize: true },
-    component: () => import(/* webpackChunkName: "donor" */ '../views/Donor.vue')
+    component: () => import(/* webpackChunkName: "donor" */ '../views/donors/Donor.vue')
   },
   {
-    path: '/specimens',
-    name: 'specimens',
-    props: { type: 'tissue' },
-    meta: { title: "UNITE.Specimens", authorize: true },
-    component: () => import(/* webpackChunkName: "specimens" */ '../views/Specimens.vue')
+    path: '/tissues',
+    name: 'tissues',
+    meta: { title: "UNITE.Tissues", authorize: true },
+    component: () => import(/* webpackChunkName: "tissues" */ '../views/specimens/Tissues.vue')
   },
   {
-    path: '/specimens/:id',
-    name: 'specimen',
-    meta: { title: "UNITE.Specimen", authorize: true },
-    component: () => import(/* webpackChunkName: "specimen" */ '../views/Specimen.vue')
+    path: '/tissues/:id',
+    name: 'tissue',
+    meta: { title: "UNITE.Tissue", authorize: true },
+    component: () => import(/* webpackChunkName: "tissue" */ '../views/specimens/Tissue.vue')
+  },
+  {
+    path: '/cells',
+    name: 'cells',
+    meta: { title: "UNITE.CellLines", authorize: true },
+    component: () => import(/* webpackChunkName: "cells" */ '../views/specimens/Cells.vue')
+  },
+  {
+    path: '/cells/:id',
+    name: 'cell',
+    meta: { title: "UNITE.CellLine", authorize: true },
+    component: () => import(/* webpackChunkName: "cell" */ '../views/specimens/Cell.vue')
   },
   {
     path: '/mutations',
     name: 'mutations',
     meta: { title: "UNITE.Mutations", authorize: true },
-    component: () => import(/* webpackChunkName: "mutations" */ '../views/Mutations.vue')
+    component: () => import(/* webpackChunkName: "mutations" */ '../views/mutations/Mutations.vue')
   },
   {
     path: '/mutations/:id',
     name: 'mutation',
     meta: { title: "UNITE.Mutation", authorize: true },
-    component: () => import(/* webpackChunkName: "mutation" */ '../views/Mutation.vue')
+    component: () => import(/* webpackChunkName: "mutation" */ '../views/mutations/Mutation.vue')
   },
 
   {

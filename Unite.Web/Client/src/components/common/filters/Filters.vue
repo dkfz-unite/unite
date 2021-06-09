@@ -4,9 +4,10 @@
       <template v-slot:before>
         <q-tabs v-model="tab" align="left" active-color="primary" dense vertical>
           <q-tab name="donor" icon="las la-user-circle" />
+          <q-tab name="tissue" icon="svguse:icons.svg#u-tissue" />
+          <q-tab name="cell" icon="las la-microscope" />
           <q-tab name="mutation" icon="las la-dna" />
-          <q-tab name="cell" icon="las la-microscope" disable />
-          <q-tab name="radiology" icon="las la-x-ray" disable />
+          <!-- <q-tab name="radiology" icon="las la-x-ray" disable /> -->
         </q-tabs>
       </template>
 
@@ -23,6 +24,28 @@
             </div>
           </q-tab-panel>
 
+          <q-tab-panel name="cell" class="q-pa-none">
+            <div class="col q-gutter-y-sm">
+              <div class="row">
+                <u-cell-filters
+                  v-model="criteria.cellLineFilters"
+                  @input="onInput"
+                />
+              </div>
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel name="tissue" class="q-pa-none">
+            <div class="col q-gutter-y-sm">
+              <div class="row">
+                <u-tissue-filters
+                  v-model="criteria.tissueFilters"
+                  @input="onInput"
+                />
+              </div>
+            </div>
+          </q-tab-panel>
+
           <q-tab-panel name="mutation" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
@@ -33,15 +56,6 @@
               </div>
             </div>
           </q-tab-panel>
-
-          <q-tab-panel name="cell" class="q-pa-none">
-            <div>
-              <u-cell-filters
-                v-model="criteria.cellLineFilters"
-                @input="onInput"
-              />
-            </div>
-          </q-tab-panel>
         </q-tab-panels>
       </template>
     </q-splitter>
@@ -50,9 +64,10 @@
 
 <script>
 import UDonorFilters from "./DonorFilters.vue";
+import UTissueFilters from "./TissueFilters.vue";
+import UCellFilters from "./CellFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
 import UGeneFilters from "./GeneFilters.vue";
-// import UCellFilters from "./CellFilters.vue";
 
 export default {
   props: ["value", "selected"],
@@ -73,12 +88,14 @@ export default {
       switch (value) {
         case "donor":
           return value;
-        case "mutation":
+        case "tissue":
           return value;
         case "cell":
           return value;
-        case "radiology":
+        case "mutation":
           return value;
+        // case "radiology":
+        //   return value;
         default:
           return "donor";
       }
@@ -87,9 +104,10 @@ export default {
 
   components: {
     UDonorFilters: UDonorFilters,
+    UTissueFilters: UTissueFilters,
+    UCellFilters: UCellFilters,
     UMutationFilters: UMutationFilters,
     UGeneFilters: UGeneFilters,
-    // UCellFilters: UCellFilters,
   },
-};
+}
 </script>

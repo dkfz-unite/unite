@@ -20,7 +20,7 @@ import TumourType from '@/services/criteria/filters/data/specimens/tissues/filte
 import CellLineType from '@/services/criteria/filters/data/specimens/cells/filter.option.cell-type.js';
 import Species from '@/services/criteria/filters/data/specimens/cells/filter.option.species.js';
 
-import GeneExpressionType from '@/services/criteria/filters/data/specimens/filter.option.gene-expression-type.js';
+import GeneExpressionSubtype from '@/services/criteria/filters/data/specimens/filter.option.gene-expression-subtype.js';
 import IDHStatus from '@/services/criteria/filters/data/specimens/filter.option.idh-status.js';
 import IDHMutation from '@/services/criteria/filters/data/specimens/filter.option.idh-mutation.js';
 import MethylationStatus from '@/services/criteria/filters/data/specimens/filter.option.methylation-status.js';
@@ -93,7 +93,7 @@ export default new Vuex.Store({
       cellLineTypes: CellLineType.availableOptions,
       species: Species.availableOptions,
 
-      geneExpressionTypes: GeneExpressionType.availableOptions,
+      geneExpressionSubtypes: GeneExpressionSubtype.availableOptions,
       idhStatuses: IDHStatus.availableOptions,
       idhMutations: IDHMutation.availableOptions,
       methylationStatuses: MethylationStatus.availableOptions,
