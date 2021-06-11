@@ -48,7 +48,7 @@ export default {
         term: null,
       },
 
-      criteria: this.$store.state.specimens.searchCriteria
+      criteria: this.$store.state.cells.searchCriteria
     };
   },
 

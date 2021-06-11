@@ -1,6 +1,7 @@
 import Filters from './filters.js';
 
-class DonorFilters extends Filters{
+class DonorFilters extends Filters {
+    id = [];
     referenceId = [];
     
     gender = [];

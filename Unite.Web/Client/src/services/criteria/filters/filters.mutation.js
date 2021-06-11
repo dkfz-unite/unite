@@ -1,6 +1,8 @@
 import Filters from './filters.js';
 
 class MutationFilters extends Filters{
+    id = [];
+
     code = [];
     sequenceType = [];
     mutationType = [];

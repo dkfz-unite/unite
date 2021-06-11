@@ -1,14 +1,14 @@
 <template>
-  <div class="col q-gutter-y-sm">
-    <div class="row">
-      <div class="col-12 col-md-6">
-        <u-summary :donor="donor" />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-md-6">
-        <u-available-data :donor="donor" />
+  <div class="col">
+    <div class="row q-col-gutter-sm" :class="{ 'q-col-gutter-md': $q.screen.gt.sm }">
+      
+      <div class="col-12 col-md-7 q-gutter-y-sm">
+        <div class="row">
+          <u-summary :donor="donor" />
+        </div>
+        <div class="row">
+          <u-available-data :donor="donor" />
+        </div>
       </div>
     </div>
   </div>

@@ -7,8 +7,7 @@
 </template>
 
 <script>
-import UMutationFilters from "@/components/common/filters/MutationFilters.vue";
-import UGeneFilters from "@/components/common/filters/GeneFilters.vue";
+import UMutationFilters from "../filters/MutationFilters.vue";
 
 export default {
   props: ["value"],
@@ -27,7 +26,6 @@ export default {
 
   components: {
     UMutationFilters: UMutationFilters,
-    UGeneFilters: UGeneFilters
   },
-};
+}
 </script>

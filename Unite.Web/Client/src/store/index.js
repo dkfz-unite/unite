@@ -67,12 +67,22 @@ export default new Vuex.Store({
       searchCriteria: new SearchCriteria()
     },
 
-    specimens: {
+    tissues: {
       selected: [],
       searchCriteria: new SearchCriteria()
     },
 
-    specimen: {
+    tissue: {
+      selected: [],
+      searchCriteria: new SearchCriteria()
+    },
+
+    cells: {
+      selected: [],
+      searchCriteria: new SearchCriteria()
+    },
+
+    cell: {
       selected: [],
       searchCriteria: new SearchCriteria()
     },

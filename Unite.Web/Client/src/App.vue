@@ -17,7 +17,7 @@
             :to="{ name: 'home' }"
             flat 
             dense>
-            <img src="/logo-white.png" width="250">
+            <img src="/logo-white.png" width="250" />
           </q-btn>
         </q-toolbar-title>
 
@@ -43,7 +43,7 @@
 
         <q-route-tab :to="{ name: 'tissues' }">
           <div>
-            <q-icon name="svguse:icons.svg#u-tissue" size="sm" /> Tissues
+            <q-icon name="svguse:/icons.svg#u-tissue" size="sm" /> Tissues
           </div>
         </q-route-tab>
 

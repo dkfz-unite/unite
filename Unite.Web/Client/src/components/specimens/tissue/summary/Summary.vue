@@ -19,15 +19,23 @@
             </tr>
             <tr>
               <td class="u-text-key">External ID</td>
-              <td class="text-bold">{{ specimen.cellLine.referenceId }}</td>
+              <td class="text-bold">{{ specimen.tissue.referenceId }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
-              <td>{{ specimen.cellLine.type }}</td>
+              <td>{{ specimen.tissue.type }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Tumour Type</td>
-              <td>{{ specimen.cellLine.species }}</td>
+              <td>{{ specimen.tissue.tumourType }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Source</td>
+              <td>{{ specimen.tissue.source }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Extraction Date</td>
+              <td>{{ contentHelpers.toDateString(specimen.tissue.extractionDate) }}</td>
             </tr>
           </tbody>
         </q-markup-table>
@@ -37,7 +45,14 @@
 </template>
 
 <script>
+import contentHelpers from "@/services/helpers/helpers.content.js";
+
 export default {
   props: ["specimen"],
+  data(){
+    return{
+      contentHelpers: contentHelpers
+    }
+  }
 }
 </script>

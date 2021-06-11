@@ -40,14 +40,8 @@
 
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
-          <router-link v-if="!!props.value && !!props.value.tissue" class="u-link" :to="{ name: 'tissue', params: { id: props.value.id.toString() }}">
+          <router-link v-if="props.value" class="u-link" :to="getSpecimenLink(props.value)">
             {{ props.value.id }}
-          </router-link>
-          <router-link v-else-if="!!props.value && !!props.value.cellLine" class="u-link" :to="{ name: 'cell', params: { id: props.value.id.toString() }}">
-            {{ props.value }}
-          </router-link>
-          <router-link v-else-if="!!props.value && !!props.value.xenograft" class="u-link" :to="{ name: 'xenograft', params: { id: props.value.id.toString() }}">
-            {{ props.value }}
           </router-link>
         </q-td>
       </template>
@@ -230,11 +224,11 @@ export default {
       if (!specimen) {
         return null;
       } else if (!!specimen.tissue) {
-        return {to: "tissue", params: { id: specimen.tissue.id.toString() }}
+        return {to: "tissue", params: { id: specimen.id.toString() }}
       } else if (!!specimen.cellLine) {
-        return {to: "cell", params: { id: specimen.cellLine.id.toString() }}
+        return {to: "cell", params: { id: specimen.id.toString() }}
       } else if (!!specimen.xenograft) {
-        return {to: "xenograft", params: { id: specimen.xenograft.id.toString() }}
+        return {to: "xenograft", params: { id: specimen.id.toString() }}
       } else {
         return null;
       }

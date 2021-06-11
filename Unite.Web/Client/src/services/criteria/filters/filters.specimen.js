@@ -1,6 +1,7 @@
 import Filters from './filters.js';
 
 class SpecimenFilters extends Filters{
+    id = [];
     referenceId = [];
 
     geneExpressionSubtype = [];

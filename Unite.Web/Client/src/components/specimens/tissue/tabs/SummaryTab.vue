@@ -1,13 +1,13 @@
 <template>
   <div class="col">
     <div class="row q-col-gutter-sm" :class="{ 'q-col-gutter-md': $q.screen.gt.sm }">
-      
+
       <div class="col-12 col-md-7 q-gutter-y-sm">
         <div class="row">
-          <u-clinical-data :donor="donor" />
+          <u-summary :specimen="specimen" />
         </div>
         <div class="row">
-          <u-treatment-data :donor="donor" />
+          <u-molecular-data :specimen="specimen" />
         </div>
       </div>
     </div>
@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import UClinicalData from "@/components/donor/clinical/ClinicalData.vue";
-import UTreatmentData from "@/components/donor/clinical/TreatmentData.vue";
+import USummary from "@/components/specimens/tissue/summary/Summary.vue";
+import UMolecularData from "@/components/specimens/base/summary/MolecularData.vue";
 
 export default {
-  props: ["donor"],
+  props: ["specimen"],
 
   components: {
-    UClinicalData: UClinicalData,
-    UTreatmentData: UTreatmentData,
+    USummary: USummary,
+    UMolecularData: UMolecularData
   },
 };
 </script>
