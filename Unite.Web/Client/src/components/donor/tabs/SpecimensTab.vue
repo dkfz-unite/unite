@@ -2,9 +2,11 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <div class="col-12">
-        <u-specimens v-if="donor && specimens"
-          :donor="donor" 
-          :specimens="specimens" 
+        <u-ancestry v-if="donor && specimens" 
+          title="Specimens"
+          :donor="donor"
+          :specimens="specimens"
+          :current="donor.id"
         />
       </div>
     </div>
@@ -12,7 +14,7 @@
 </template>
 
 <script>
-import USpecimens from "../specimens/Specimens.vue";
+import UAncestry from "../../specimens/base/ancestry/Ancestry.vue";
 
 import SearchCriteria from "../../../services/criteria/criteria.search.js";
 import specimensApiClient from "../../../services/api/api.client.specimens.js";
@@ -40,28 +42,15 @@ export default {
       let data = await specimensApiClient.search(criteria);
 
       if (data) {
-        let filtered = data.rows
-          .filter(row => !row.parent)
-          .sort(this.compareSpecimens);
-        return filtered;
+        return data.rows.filter(row => !row.parent);
       } else {
         return null;
-      }
-    },
-
-    compareSpecimens(left, right) {
-      if (left.children?.length > right.children?.length) {
-        return 1;
-      } else if (left.children?.length < right.children?.length) {
-        return -1;
-      } else {
-        return 0;
       }
     }
   },
 
   components: {
-    USpecimens: USpecimens
+    UAncestry: UAncestry
   }
 }
 </script>

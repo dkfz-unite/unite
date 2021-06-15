@@ -15,6 +15,7 @@
 
           <div class="col-12 col-sm-9 col-md-10">
             <u-mutations
+              title="Donor Mutations"
               :loading="loading"
               :rows="rows"
               :rows-total="rowsTotal"
@@ -29,10 +30,10 @@
 </template>
 
 <script>
-import UFilters from "@/components/donor/mutations/Filters.vue";
-import UMutations from "@/components/donor/mutations/Mutations.vue";
+import UFilters from "../../common/mutations/Filters.vue";
+import UMutations from "../../common/mutations/Mutations.vue";
 
-import apiClient from "@/services/api/api.client.mutations.js";
+import apiClient from "../../../services/api/api.client.mutations.js";
 
 export default {
   props: ["donor"],
@@ -49,7 +50,7 @@ export default {
         term: null,
       },
 
-      criteria: this.$store.state.donor.searchCriteria,
+      criteria: this.$store.state.donor.mutationsSearchCriteria
     };
   },
 
@@ -61,29 +62,37 @@ export default {
 
       this.fetchData();
     },
+
+    rowsSelected(value) {
+      this.$store.state.donor.mutationsSelected = value;
+    }
   },
 
   async mounted() {
-    this.criteria.donorFilters.referenceId.push(this.donor.referenceId);
-
-    // await this.fetchData();
+    this.criteria.donorFilters.id.push(this.donor.id);
   },
 
   methods: {
     async onInput() {
+      this.$store.state.donor.mutationsSelected = [];
       await this.fetchData();
     },
 
     async fetchData() {
-      this.loading = true;
-
-      let data = await apiClient.search(this.criteria);
-
-      this.loading = false;
-
-      this.rows = data ? data.rows : [];
-      this.rowsTotal = data ? data.total : 0;
-    },
+      try {
+        this.loading = true;
+        let data = await apiClient.search(this.criteria);
+        this.rows = data ? data.rows : [];
+        this.rowsTotal = data ? data.total : 0;
+        this.rowsSelected = this.$store.state.donor.mutationsSelected;
+      } catch {
+        this.rows = [];
+        this.rowsTotal = 0;
+        this.rowsSelected = [];
+      } finally {
+        this.loading = false;
+      }
+    }
   },
 
   components: {

@@ -1,13 +1,20 @@
 <template>
   <div class="col q-gutter-y-sm">
+    <u-filters-drawer
+      category="mutation"
+      :criteria="criteria" 
+      :controls="drawer" 
+      @filter="fetchData"
+    />
+
     <div class="row">
-      <q-breadcrumbs gutter="xs">
+      <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
         <q-breadcrumbs-el label="Mutations" />
       </q-breadcrumbs>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col">
         <div class="row q-col-gutter-sm">
           <div class="col-12 col-sm-3 col-md-2">
@@ -25,15 +32,28 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col">
+        <u-mutations
+          :loading="loading"
+          :rows="rows"
+          :rows-total="rowsTotal"
+          :rows-selected.sync="rowsSelected"
+          :filters.sync="filters"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import UFilters from "@/components/common/filters/Filters.vue";
-import UMutations from "@/components/mutations/Mutations.vue";
+import UFilters from "../../components/common/filters/Filters.vue";
+import UFiltersDrawer from "../../components/common/filters/FiltersDrawer.vue";
+import UMutations from "../../components/mutations/Mutations.vue";
 
-import apiClient from "@/services/api/api.client.mutations.js";
+import apiClient from "../../services/api/api.client.mutations.js";
 
 export default {
   data() {
@@ -49,10 +69,9 @@ export default {
       },
 
       criteria: this.$store.state.mutations.searchCriteria,
+      drawer: this.$store.state.mutations.drawer
     };
   },
-
-  mounted() {},
 
   watch: {
     filters(value) {
@@ -69,19 +88,20 @@ export default {
       try {
         this.loading = true;
         let data = await apiClient.search(this.criteria);
-        this.loading = false;
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
       } catch (error) {
-        this.loading = false;
         this.rows = [];
         this.rowsTotal = 0;
+      } finally {
+        this.loading = false;
       }
     },
   },
 
   components: {
     UFilters: UFilters,
+    UFiltersDrawer: UFiltersDrawer,
     UMutations: UMutations,
   },
 };

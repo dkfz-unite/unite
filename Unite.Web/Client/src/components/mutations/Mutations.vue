@@ -106,11 +106,8 @@ export default {
       ],
 
       data: [],
-
       selected: [],
-
       filter: null,
-
       pagination: {
         page: 1,
         rowsPerPage: 20,

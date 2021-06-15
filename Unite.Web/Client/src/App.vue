@@ -3,35 +3,45 @@
 
     <q-header bordered class="bg-blue-7 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <!-- <img src="/logo-white.png" width="250"> -->
-          <!-- <q-btn
-            label="UNITE Glioblastoma"
-            class="text-bold"
-            :to="{ name: 'home' }"
-            flat 
-            dense
-          /> -->
+        <div class="col">
+          <div class="row justify-between">
+            <div v-if="showFilters">
+              <q-btn
+                icon="las la-filter"
+                :label="$q.screen.gt.xs ? 'Filters' : null"
+                :rounded="$q.screen.lt.sm"
+                dense flat
+                @click="onFiltersClick"
+              />
+            </div>
 
-          <q-btn
-            :to="{ name: 'home' }"
-            flat 
-            dense>
-            <img src="/logo-white.png" width="250" />
-          </q-btn>
-        </q-toolbar-title>
+            <div>
+              <q-toolbar-title>
+                <div v-if="$q.screen.lt.md">
+                  UNITE
+                </div>
 
-        <q-space />
-
-        <q-btn
-          v-if="account"
-          icon="las la-user" 
-          label="Account" 
-          flat 
-          dense 
-          @click="drawers.right.show = !drawers.right.show" 
-        />
-
+                <q-btn
+                  v-else
+                  dense flat
+                  :to="{ name: 'home' }">
+                  <img src="/logo-white.png" width="250" />
+                </q-btn>
+              </q-toolbar-title>
+            </div>
+              
+            <div>
+              <q-btn
+                v-if="account"
+                icon="las la-user"
+                :label="$q.screen.gt.xs ? 'Account' : null"
+                :rounded="$q.screen.lt.sm"
+                dense flat
+                @click="drawers.right.show = !drawers.right.show" 
+              />
+            </div>
+          </div>
+        </div>
       </q-toolbar>
 
       <q-tabs dense stretch align="left" v-if="account">
@@ -61,7 +71,7 @@
       </q-tabs>
     </q-header>
 
-    <q-drawer v-if="account" v-model="drawers.right.show" side="right" bordered overlay>
+    <q-drawer v-if="account" v-model="drawers.right.show" side="right" bordered overlay elevated>
       <div class="col q-pa-sm q-gutter-y-sm">
         <div>
           <div class="text-h6">
@@ -91,20 +101,35 @@
 </template>
 
 <script>
-import settings from '@/settings.js';
-import apiClient from '@/services/api/api.client.identity.js';
+import settings from './settings.js';
+import apiClient from './services/api/api.client.identity.js';
 
 export default {
   data () {
     return {
-      drawers: this.$store.state.drawers
+      drawers: this.$store.state.drawers,
+      donorsDrawer: this.$store.state.donors.drawer,
+      tissuesDrawer: this.$store.state.tissues.drawer,
+      cellsDrawer: this.$store.state.cells.drawer,
+      mutationsDrawer: this.$store.state.mutations.drawer,
     }
   },
 
   computed: {
     account() {
       return this.$store.state.account;
-    }
+    },
+
+    showAccount() {
+      return this.$store.state.account;
+    },
+
+    showFilters() {
+      let screen = this.$q.screen.lt.md;
+      let routes = ["donors", "tissues", "cells", "mutations"];
+
+      return screen && routes.includes(this.$route.name);
+    },
   },
 
   async mounted() {
@@ -133,6 +158,28 @@ export default {
         location.href = "/";
       } catch(error) {
         location.href = "/";
+      }
+    },
+
+    onFiltersClick(e) {
+      switch (this.$route.name) {
+        case "donors": {
+          this.donorsDrawer.show = true;
+          return;
+        }
+        case "tissues": {
+          this.tissuesDrawer.show = true;
+          return;
+        }
+        case "cells": {
+          this.cellsDrawer.show = true;
+          return;
+        }
+        case "mutations": {
+          this.mutationsDrawer.show = true;
+          return;
+        }
+        default: return;
       }
     }
   }

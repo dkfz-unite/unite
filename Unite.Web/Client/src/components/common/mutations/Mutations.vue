@@ -1,11 +1,11 @@
 <template>
   <div>
     <q-table
-      title="Mutations"
       class="sticky-header-slim"
       separator="cell" dense flat bordered
       selection="multiple"
       row-key="id"
+      :title="title"
       :columns="columns"
       :data="data"
       :selected.sync="selected"
@@ -50,10 +50,39 @@
 </template>
 
 <script>
-import ConsequenceType from '@/services/criteria/filters/data/mutations/filter.option.consequence.type.js';
+import ConsequenceType from '../../../services/criteria/filters/data/mutations/filter.option.consequence.type.js';
 
 export default {
-  props: ["title", "rows", "rowsSelected", "rowsTotal", "filters", "loading"],
+  props: {
+    title: {
+      type: String,
+      default: "Mutations"
+    },
+    rows: {
+      type: Array,
+      default: []
+    },
+    rowsSelected: {
+      type: Array,
+      default: []
+    },
+    rowsTotal: {
+      type: Number,
+      default: 0
+    },
+    filters: {
+      type: Object,
+      default: {
+        from: 0,
+        size: 10,
+        term: null,
+      }
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
 
   data() {
     return {
@@ -96,11 +125,8 @@ export default {
       ],
 
       data: [],
-
       selected: [],
-
       filter: null,
-
       pagination: {
         page: 1,
         rowsPerPage: 20,

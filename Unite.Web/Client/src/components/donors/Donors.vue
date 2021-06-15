@@ -64,10 +64,10 @@
 </template>
 
 <script>
-import contentHelpers from "@/services/helpers/helpers.content.js";
+import contentHelpers from "../../services/helpers/helpers.content.js";
 
 export default {
-  props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
+  props: ["rows", "rowsSelected", "rowsTotal", "loading"],
 
   data() {
     return {
@@ -156,16 +156,15 @@ export default {
         }
       ],
 
-      data: [],
-
-      selected: [],
+      data: this.rows,
+      selected: this.rowsSelected,
 
       filter: null,
 
       pagination: {
         page: 1,
         rowsPerPage: 20,
-        rowsNumber: 0,
+        rowsNumber: this.rowsTotal,
       },
     };
   },
@@ -177,10 +176,6 @@ export default {
 
     rowsTotal(value) {
       this.pagination.rowsNumber = value;
-    },
-
-    rowsSelected(value) {
-      this.selected = value;
     },
 
     selected(value) {
@@ -203,24 +198,16 @@ export default {
       this.pagination.page = props.pagination.page;
       this.pagination.rowsPerPage = props.pagination.rowsPerPage;
 
-      this.$emit("update:filters", filters);
+      this.$emit("request", filters);
     },
 
     getFrom(page, pageSize) {
-      if (page != null && page != undefined) {
         return (page - 1) * pageSize;
-      } else {
-        return 0;
-      }
     },
 
     getSize(pageSize) {
-      if (pageSize != null && pageSize != undefined) {
         return pageSize == 0 ? 10000 : pageSize;
-      } else {
-        return 20;
-      }
     }
-  },
+  }
 }
 </script>

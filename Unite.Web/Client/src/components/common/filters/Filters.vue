@@ -7,7 +7,6 @@
           <q-tab name="tissue" icon="svguse:icons.svg#u-tissue" />
           <q-tab name="cell" icon="las la-microscope" />
           <q-tab name="mutation" icon="las la-dna" />
-          <!-- <q-tab name="radiology" icon="las la-x-ray" disable /> -->
         </q-tabs>
       </template>
 
@@ -85,6 +84,7 @@ export default {
     },
 
     getSelectedTab(value) {
+      this.$emit("update:selected", this.value);
       switch (value) {
         case "donor":
           return value;

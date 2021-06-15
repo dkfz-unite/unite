@@ -2,7 +2,6 @@
   <div v-if="nodes">
     <q-tree
       :nodes="nodes"
-      :selected="null"
       node-key="key"
       default-expand-all
     >
@@ -62,8 +61,16 @@ export default {
   data() {
     return {
       nodes: this.buildNodes(this.donor, this.specimens, this.current),
+      // selected: this.value ?? null
     }
   },
+
+  // watch: {
+  //   selected(value) {
+  //     let node = this.findNode(this.nodes, value);
+  //     this.$emit('input', node);
+  //   }
+  // },
 
   methods: {
     getName(node) {
@@ -119,14 +126,15 @@ export default {
           children: specimens.map(specimen => this.buildNode(specimen, current))
       }
 
-      return [node];
+      return [node].sort(this.compareNodes);
     },
 
     buildNode(specimen, current) {
       var node = { 
         id: specimen.id, 
         key: `s.${specimen.id}`,
-        active: specimen.id == current 
+        active: specimen.id == current,
+        molecularData: specimen.molecularData
       };
       
       if (!!specimen.tissue) {
@@ -150,6 +158,20 @@ export default {
         parentNode.children = [node];
 
         return parentNode;
+      }
+    },
+
+    findNode(nodes, key) {
+      for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        
+        if (node.key == key) {
+          return node;
+        } else if (node.children?.length > 0) {
+          return this.findNode(node.children, key);
+        } else {
+          return null;
+        }
       }
     }
   }

@@ -33,7 +33,6 @@
 import UFilters from "../../../common/mutations/Filters.vue";
 import UMutations from "../../../common/mutations/Mutations.vue";
 
-import SearchCriteria from "../../../../services/criteria/criteria.search.js"
 import apiClient from "../../../../services/api/api.client.mutations.js";
 
 export default {
@@ -51,7 +50,7 @@ export default {
         term: null,
       },
 
-      criteria: new SearchCriteria(),
+      criteria: this.getMutationsSearchCriteria(),
     };
   },
 
@@ -63,33 +62,77 @@ export default {
 
       this.fetchData();
     },
+
+    rowsSelected(value) {
+      this.setMutationsSelected(value);
+    }
   },
 
   async mounted() {
-    if (this.specimen.tissue) {
-      this.criteria.tissueFilters.id.push(this.specimen.id);
-    } else if (this.specimen.cellLine) {
-      this.criteria.cellLineFilters.id.push(this.specimen.id);
-    } else if (this.specimen.xenograft) {
-      throw 'Not implemented';
-    }
-
-    // await this.fetchData();
+    this.setMutationsSearchCriteria(this.specimen.id);
   },
 
   methods: {
     async onInput() {
+      this.setMutationsSelected([]);
       await this.fetchData();
     },
 
     async fetchData() {
-      this.loading = true;
-      let data = await apiClient.search(this.criteria);
-      this.loading = false;
-
-      this.rows = data ? data.rows : [];
-      this.rowsTotal = data ? data.total : 0;
+      try {
+        this.loading = true;
+        let data = await apiClient.search(this.criteria);
+        this.rows = data ? data.rows : [];
+        this.rowsTotal = data ? data.total : 0;
+        this.rowsSelected = this.getMutationsSelected();
+      } catch {
+        this.rows = [];
+        this.rowsTotal = 0;
+        this.rowsSelected = [];
+      } finally {
+        this.loading = false;
+      }
     },
+
+    getMutationsSearchCriteria() {
+      if (this.specimen.tissue) {
+        return this.$store.state.tissue.mutationsSearchCriteria;
+      } else if (this.specimen.cell) {
+        return this.$store.state.cell.mutationsSearchCriteria;
+      } else {
+        throw 'Not implemented';
+      }
+    },
+
+    setMutationsSearchCriteria(value) {
+      if (this.specimen.tissue) {
+        this.criteria.tissueFilters.id.push(value);
+      } else if (this.specimen.cellLine) {
+        this.criteria.cellLineFilters.id.push(value);
+      } else if (this.specimen.xenograft) {
+        throw 'Not implemented';
+      }
+    },
+
+    getMutationsSelected() {
+      if (this.specimen.tissue) {
+        return this.$store.state.tissue.mutationsSelected;
+      } else if (this.specimen.cell) {
+        return this.$store.state.cell.mutationsSelected;
+      } else {
+        throw 'Not implemented';
+      }
+    },
+
+    setMutationsSelected(value) {
+      if (this.specimen.tissue) {
+        this.$store.state.tissue.mutationsSelected = value;
+      } else if (this.specimen.cell) {
+        this.$store.state.cell.mutationsSelected = value;
+      } else {
+        throw 'Not implemented';
+      }
+    }
   },
 
   components: {

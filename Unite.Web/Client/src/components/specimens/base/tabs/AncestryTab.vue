@@ -2,7 +2,8 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <div class="col-12">
-        <u-ancestry 
+        <u-ancestry v-if="donor && specimens"
+          title="Ancestry"
           :donor="donor" 
           :specimens="specimens"
           :current="current"
