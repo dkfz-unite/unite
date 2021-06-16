@@ -158,13 +158,12 @@ export default {
       donors: this.oncoGridData.donors,
       genes: this.oncoGridData.genes,
       observations: this.oncoGridData.observations,
-      heatMap: true,
+      heatMap: false,
       trackHeight: 20,
       trackLegendLabel: '<i>?</i>',
       donorTracks: donorTracks,
       donorOpacityFunc: donorOpacity,
       donorFillFunc: donorFill,
-      // geneTracks: geneTracks,
       geneOpacityFunc: geneOpacity
     };
 
