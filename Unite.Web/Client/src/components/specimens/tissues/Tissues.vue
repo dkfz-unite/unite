@@ -102,9 +102,9 @@ export default {
           align: "left"
         },
         {
-          name: "tumourType",
-          label: "Tumour Type",
-          field: (row) => row.tissue?.tumourType,
+          name: "tumorType",
+          label: "Tumor Type",
+          field: (row) => row.tissue?.tumorType,
           sortable: false,
           align: "left"
         },
@@ -258,10 +258,10 @@ export default {
     getTissueTypeName(tissue) {
       if (!tissue.type) {
         return "Tissue";
-      } else if(!tissue.tumourType) {
+      } else if(!tissue.tumorType) {
         return `Tissue (${tissue.type})`;
       } else {
-        return `Tissue (${tissue.tumourType} ${tissue.type})`; 
+        return `Tissue (${tissue.tumorType} ${tissue.type})`; 
       }
     },
 

@@ -251,10 +251,10 @@ export default {
     getTissueTypeName(tissue) {
       if (!tissue.type) {
         return "Tissue";
-      } else if(!tissue.tumourType) {
+      } else if(!tissue.tumorType) {
         return `Tissue (${tissue.type})`;
       } else {
-        return `Tissue (${tissue.tumourType} ${tissue.type})`; 
+        return `Tissue (${tissue.tumorType} ${tissue.type})`; 
       }
     },
 

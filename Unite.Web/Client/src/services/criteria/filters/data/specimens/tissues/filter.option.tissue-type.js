@@ -3,11 +3,11 @@ import FilterOption from '../../filter.option.js';
 class TissueType extends FilterOption{
     static availableOptions = [
         { value: "Control", label: "Control" },
-        { value: "Tumour", label: "Tumour" }
+        { value: "Tumor", label: "Tumor" }
     ];
 
     static Control = this.availableOptions[0];
-    static Tumour = this.availableOptions[1];
+    static Tumor = this.availableOptions[1];
 
     constructor(value) {
         var option = TissueType.availableOptions.find(item => item.value == value);

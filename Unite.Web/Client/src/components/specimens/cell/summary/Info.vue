@@ -46,7 +46,7 @@
     <div class="row" v-if="hasLinks">
       <div class="col q-gutter-y-sm">
         <div class="row">
-          <span class="text-h5 u-text-title">Links</span>
+          <span class="text-h5 u-text-title">Public References</span>
         </div>
 
         <div class="row">
@@ -60,9 +60,9 @@
               </colgroup>
 
               <tbody>
-                <tr v-if="info.pubMdeLink">
+                <tr v-if="info.pubMedLink">
                   <td>
-                    <a :href="info.pubMdeLink" target="blank" class="u-link">
+                    <a :href="info.pubMedLink" target="blank" class="u-link">
                       <q-icon name="las la-external-link-alt" />
                       PubMed
                     </a>
@@ -99,6 +99,7 @@ import contentHelpers from "@/services/helpers/helpers.content.js";
 
 export default {
   props: ["specimen"],
+
   data() {
     return {
       contentHelpers: contentHelpers,
@@ -107,7 +108,7 @@ export default {
 
   computed: {
     info() {
-      return this.specimen?.cellLine?.info;
+      return this.specimen?.cellLine;
     },
 
     hasLinks() {

@@ -26,8 +26,12 @@
               <td>{{ specimen.cellLine.type }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Tumour Type</td>
+              <td class="u-text-key">Species</td>
               <td>{{ specimen.cellLine.species }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Passage Number</td>
+              <td>{{ specimen.cellLine.passageNumber }}</td>
             </tr>
           </tbody>
         </q-markup-table>

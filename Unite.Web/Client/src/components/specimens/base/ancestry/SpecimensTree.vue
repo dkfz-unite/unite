@@ -32,7 +32,7 @@
                 <template v-else-if="!!prop.node.tissue">
                   <div>
                     <span>Type: </span>
-                    <span class="text-grey-9">{{prop.node.tissue.tumourType}} {{prop.node.tissue.type}}</span>
+                    <span class="text-grey-9">{{prop.node.tissue.tumorType}} {{prop.node.tissue.type}}</span>
                   </div>
                 </template>
                 <template v-else-if="!!prop.node.cell">
@@ -123,7 +123,7 @@ export default {
           key: `d.${donor.id}`,
           active: donor.id == current,
           donor: donor,
-          children: specimens.map(specimen => this.buildNode(specimen, current))
+          children: specimens.map(specimen => this.buildNode(specimen, specimens.length > 1 ? null : current))
       }
 
       return [node].sort(this.compareNodes);

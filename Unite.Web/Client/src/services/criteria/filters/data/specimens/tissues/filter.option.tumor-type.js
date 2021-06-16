@@ -1,6 +1,6 @@
 import FilterOption from '../../filter.option.js';
 
-class TumourType extends FilterOption{
+class TumorType extends FilterOption{
     static availableOptions = [
         { value: "Primary", label: "Primary" },
         { value: "Metastasis", label: "Metastasis" },
@@ -8,11 +8,11 @@ class TumourType extends FilterOption{
     ];
 
     constructor(value) {
-        var option = TumourType.availableOptions.find(item => item.value == value);
+        var option = TumorType.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;
     }
 }
 
-export default TumourType;
+export default TumorType;

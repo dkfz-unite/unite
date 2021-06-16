@@ -2,7 +2,7 @@ import SpecimenFilters from './filters.specimen.js';
 
 class TissueFilters extends SpecimenFilters{
     type = [];
-    tumourType = [];
+    tumorType = [];
     source = [];
 
     sanitise(){

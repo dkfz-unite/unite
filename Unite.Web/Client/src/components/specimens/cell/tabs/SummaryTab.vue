@@ -10,6 +10,12 @@
           <u-molecular-data :specimen="specimen" />
         </div>
       </div>
+
+      <div class="col-12 col-md-5 q-gutter-y-sm">
+        <div class="row">
+          <u-info :specimen="specimen" />
+        </div>
+      </div>
     </div>
   </div>
 </template>

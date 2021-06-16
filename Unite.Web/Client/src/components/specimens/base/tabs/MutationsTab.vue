@@ -97,7 +97,7 @@ export default {
     getMutationsSearchCriteria() {
       if (this.specimen.tissue) {
         return this.$store.state.tissue.mutationsSearchCriteria;
-      } else if (this.specimen.cell) {
+      } else if (this.specimen.cellLine) {
         return this.$store.state.cell.mutationsSearchCriteria;
       } else {
         throw 'Not implemented';
@@ -117,7 +117,7 @@ export default {
     getMutationsSelected() {
       if (this.specimen.tissue) {
         return this.$store.state.tissue.mutationsSelected;
-      } else if (this.specimen.cell) {
+      } else if (this.specimen.cellLine) {
         return this.$store.state.cell.mutationsSelected;
       } else {
         throw 'Not implemented';
@@ -127,7 +127,7 @@ export default {
     setMutationsSelected(value) {
       if (this.specimen.tissue) {
         this.$store.state.tissue.mutationsSelected = value;
-      } else if (this.specimen.cell) {
+      } else if (this.specimen.cellLine) {
         this.$store.state.cell.mutationsSelected = value;
       } else {
         throw 'Not implemented';

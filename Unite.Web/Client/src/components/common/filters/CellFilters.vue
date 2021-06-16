@@ -20,6 +20,15 @@
 
     <div>
       <u-select-filter
+        label="Species"
+        :options="$store.state.filterOptions.species"
+        v-model="criteria.species"
+        @input="onInput"
+      />
+    </div>
+
+    <div>
+      <u-select-filter
         label="Type"
         :options="$store.state.filterOptions.cellLineTypes"
         v-model="criteria.type"
@@ -29,9 +38,9 @@
 
     <div>
       <u-select-filter
-        label="Species"
-        :options="$store.state.filterOptions.species"
-        v-model="criteria.species"
+        label="Culture Type"
+        :options="$store.state.filterOptions.cellLineCultureTypes"
+        v-model="criteria.cultureType"
         @input="onInput"
       />
     </div>

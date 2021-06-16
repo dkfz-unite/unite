@@ -15,14 +15,20 @@
               <q-item>
                 <q-item-section>
                   <div>
-                    <span class="text-bold">Details:</span>
+                    <span class="text-bold">Details: </span>
                     <span v-if="treatment.details">{{ treatment.details }}</span>
                     <span v-else> No data</span>
                   </div>
 
                   <div class="q-mt-xs">
-                    <span class="text-bold">Results:</span>
+                    <span class="text-bold">Results: </span>
                     <span v-if="treatment.results">{{ treatment.results }}</span>
+                    <span v-else> No data</span>
+                  </div>
+
+                  <div class="q-mt-xs">
+                    <span class="text-bold">Progression: </span>
+                    <span v-if="treatment.progressionStatus">{{ contentHelpers.toBooleanString(treatment.progressionStatus) }}</span>
                     <span v-else> No data</span>
                   </div>
                 </q-item-section>

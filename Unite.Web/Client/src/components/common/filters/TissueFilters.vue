@@ -18,11 +18,11 @@
       />
     </div>
 
-    <div v-if="showTumourTypeFilter">
+    <div v-if="showTumorTypeFilter">
       <u-select-filter
-        label="Tumour Type"
-        :options="$store.state.filterOptions.tumourTypes"
-        v-model="criteria.tumourType"
+        label="Tumor Type"
+        :options="$store.state.filterOptions.tumorTypes"
+        v-model="criteria.tumorType"
         @input="onInput"
       />
     </div>
@@ -70,18 +70,18 @@ export default {
   },
 
   computed: {
-    showTumourTypeFilter() {
+    showTumorTypeFilter() {
       return this.criteria.type?.length == 1
-          && this.criteria.type[0] == TissueType.Tumour.value;
+          && this.criteria.type[0] == TissueType.Tumor.value;
     },
   },
 
   watch: {
     'criteria.type'(value) {
-      let isTumour = value?.length == 1 && value[0] == TissueType.Tumour.value;
+      let isTumor = value?.length == 1 && value[0] == TissueType.Tumor.value;
 
-      if (!isTumour) {
-        this.criteria.tumourType = [];
+      if (!isTumor) {
+        this.criteria.tumorType = [];
       }
     }
   },

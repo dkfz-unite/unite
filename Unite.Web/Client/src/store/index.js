@@ -11,10 +11,11 @@ import Impact from '../services/criteria/filters/data/mutations/filter.option.im
 import ConsequenceType from '../services/criteria/filters/data/mutations/filter.option.consequence.type.js';
 
 import TissueType from '../services/criteria/filters/data/specimens/tissues/filter.option.tissue-type.js';
-import TumourType from '../services/criteria/filters/data/specimens/tissues/filter.option.tumour-type.js';
+import TumorType from '../services/criteria/filters/data/specimens/tissues/filter.option.tumor-type.js';
 
-import CellLineType from '../services/criteria/filters/data/specimens/cells/filter.option.cell-type.js';
 import Species from '../services/criteria/filters/data/specimens/cells/filter.option.species.js';
+import CellLineType from '../services/criteria/filters/data/specimens/cells/filter.option.cell-type.js';
+import CellLineCultureType from '../services/criteria/filters/data/specimens/cells/filter.options.cell-culture-type.js';
 
 import GeneExpressionSubtype from '../services/criteria/filters/data/specimens/filter.option.gene-expression-subtype.js';
 import IDHStatus from '../services/criteria/filters/data/specimens/filter.option.idh-status.js';
@@ -72,10 +73,11 @@ export default new Vuex.Store({
       consequenceTypes: ConsequenceType.availableOptions,
 
       tissueTypes: TissueType.availableOptions,
-      tumourTypes: TumourType.availableOptions,
+      tumorTypes: TumorType.availableOptions,
 
-      cellLineTypes: CellLineType.availableOptions,
       species: Species.availableOptions,
+      cellLineTypes: CellLineType.availableOptions,
+      cellLineCultureTypes: CellLineCultureType.availableOptions,
 
       geneExpressionSubtypes: GeneExpressionSubtype.availableOptions,
       idhStatuses: IDHStatus.availableOptions,
