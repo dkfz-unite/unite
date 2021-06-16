@@ -2,8 +2,8 @@ import FilterOption from '../../filter.option.js';
 
 class CellLineType extends FilterOption{
     static availableOptions = [
-        { value: "GCS", label: "GCS" },
-        { value: "Suspension", label: "Suspension" }
+        { value: "Stem Cell", label: "Stem Cell" },
+        { value: "Differentiated", label: "Differentiated" }
     ];
 
     constructor(value) {

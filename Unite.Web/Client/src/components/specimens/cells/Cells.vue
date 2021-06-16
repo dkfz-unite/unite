@@ -95,6 +95,13 @@ export default {
         //   align: "left"
         // },
         {
+          name: "species",
+          label: "Species",
+          field: (row) => row.cellLine?.species,
+          sortable: false,
+          align: "left"
+        },
+        {
           name: "type",
           label: "Type",
           field: (row) => row.cellLine?.type,
@@ -102,9 +109,9 @@ export default {
           align: "left"
         },
         {
-          name: "species",
-          label: "Species",
-          field: (row) => row.cellLine?.species,
+          name: "cultureType",
+          label: "Culture Type",
+          field: (row) => row.cellLine?.cultureType,
           sortable: false,
           align: "left"
         },

@@ -22,12 +22,16 @@
               <td class="text-bold">{{ specimen.cellLine.referenceId }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Species</td>
+              <td>{{ specimen.cellLine.species }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Type</td>
               <td>{{ specimen.cellLine.type }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Species</td>
-              <td>{{ specimen.cellLine.species }}</td>
+              <td class="u-text-key">Culture Type</td>
+              <td>{{ specimen.cellLine.cultureType }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Passage Number</td>
