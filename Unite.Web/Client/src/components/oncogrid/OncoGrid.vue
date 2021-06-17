@@ -33,7 +33,12 @@ colorMap['mutation'] = {
   stop_gained: '#af57db',
   start_lost: '#ff2323',
   stop_lost: '#d3ec00',
-  initiator_codon_variant: '#5abaff'
+  initiator_codon_variant: '#5abaff',
+  intron_variant: '#008080',
+  upstream_gene_variant: '#800000',
+  downstream_gene_variant: '#000080',
+  synonymous_variant: '#808000',
+  non_coding_transcript_exon_variant: '#c0c0c0'
 };
 
 let oncoGrid;
@@ -162,6 +167,7 @@ export default {
       trackHeight: 20,
       trackLegendLabel: '<i>?</i>',
       donorTracks: donorTracks,
+      colorMap: this.colorMap,
       donorOpacityFunc: donorOpacity,
       donorFillFunc: donorFill,
       geneOpacityFunc: geneOpacity

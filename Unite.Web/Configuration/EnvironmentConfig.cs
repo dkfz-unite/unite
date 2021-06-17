@@ -4,7 +4,7 @@ namespace Unite.Web.Configuration
 {
     public static class EnvironmentConfig
     {
-        public static string _defaultComposerHost = "http://composer.unite";
+        public static string _defaultComposerHost = "http://localhost:5010";
 
         public static string ComposerHost => GetEnvironmentVariable("UNITE_COMPOSER_HOST", _defaultComposerHost);
 
