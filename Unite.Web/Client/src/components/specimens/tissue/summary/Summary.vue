@@ -26,8 +26,8 @@
               <td>{{ specimen.tissue.type }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Tumour Type</td>
-              <td>{{ specimen.tissue.tumourType }}</td>
+              <td class="u-text-key">Tumor Type</td>
+              <td>{{ specimen.tissue.tumorType }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Source</td>
