@@ -245,7 +245,7 @@ export default {
       if (!specimen) {
         return null;
       } else if (!!specimen.tissue) {
-        return this.getTissueTypeName(specimen.tissue);
+        return `Tissue (${specimen.tissue.tumorType ?? specimen.tissue.type})`;
       } else if (!!specimen.cellLine) {
         return "Cell Line"
       } else if (!!specimen.xenograft) {
@@ -255,15 +255,15 @@ export default {
       }
     },
 
-    getTissueTypeName(tissue) {
-      if (!tissue.type) {
-        return "Tissue";
-      } else if(!tissue.tumorType) {
-        return `Tissue (${tissue.type})`;
-      } else {
-        return `Tissue (${tissue.tumorType} ${tissue.type})`; 
-      }
-    },
+    // getTissueTypeName(tissue) {
+    //   if (!tissue.type) {
+    //     return "Tissue";
+    //   } else if(!tissue.tumorType) {
+    //     return `Tissue (${tissue.type})`;
+    //   } else {
+    //     return `Tissue (${tissue.tumorType} ${tissue.type})`; 
+    //   }
+    // },
 
     getIdh(idhStatus, idhMutation) {
       return !!idhMutation ? idhMutation : idhStatus;
