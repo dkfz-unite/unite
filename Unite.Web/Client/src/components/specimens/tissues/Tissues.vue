@@ -97,14 +97,7 @@ export default {
         {
           name: "type",
           label: "Type",
-          field: (row) => row.tissue?.type,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "tumorType",
-          label: "Tumor Type",
-          field: (row) => row.tissue?.tumorType,
+          field: (row) => row.tissue?.tumorType ?? row.tissue?.type,
           sortable: false,
           align: "left"
         },
