@@ -30,14 +30,6 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-donor="props">
-        <q-td :props="props">
-          <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value.toString() }}">
-            {{ props.value }}
-          </router-link>
-        </q-td>
-      </template>
-
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
           <router-link v-if="props.value" class="u-link" :to="getSpecimenLink(props.value)">
@@ -66,13 +58,6 @@ export default {
           required: true,
           align: "left"
         },
-        // {
-        //   name: "donor",
-        //   label: "Donor ID",
-        //   field: (row) => row.donorId,
-        //   sortable: false,
-        //   align: "left"
-        // },
         {
           name: "parentId",
           label: "Parent ID",
@@ -87,13 +72,6 @@ export default {
           sortable: false,
           align: "left"
         },
-        // {
-        //   name: "children",
-        //   label: "#Children",
-        //   field: (row) => row.children?.length,
-        //   sortable: false,
-        //   align: "left"
-        // },
         {
           name: "type",
           label: "Type",
@@ -109,9 +87,9 @@ export default {
           align: "left"
         },
         {
-          name: "geneExpressionType",
-          label: "Gene Expression Type",
-          field: (row) => row.molecularData?.geneExpressionSubtype,
+          name: "mgmt",
+          label: "MGMT",
+          field: (row) => row.molecularData?.mgmtStatus,
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"
@@ -125,9 +103,17 @@ export default {
           headerClasses: "bg-grey-2"
         },
         {
-          name: "mgmt",
-          label: "MGMT",
-          field: (row) => this.getMgmt(row.molecularData?.methylationStatus, row.molecularData?.methylationType),
+          name: "geneExpressionSubtype",
+          label: "Gene Expression Subtype",
+          field: (row) => row.molecularData?.geneExpressionSubtype,
+          sortable: false,
+          align: "left",
+          headerClasses: "bg-grey-2"
+        },
+        {
+          name: "methylationSubtype",
+          label: "Methylation Subtype",
+          field: (row) => row.molecularData?.methylationSubtype,
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"
@@ -224,11 +210,13 @@ export default {
       if (!specimen) {
         return null;
       } else if (!!specimen.tissue) {
-        return {to: "tissue", params: { id: specimen.id.toString() }}
+        return { name: "tissue", params: { id: specimen.id.toString() }}
       } else if (!!specimen.cellLine) {
-        return {to: "cell", params: { id: specimen.id.toString() }}
+        return { name: "cell", params: { id: specimen.id.toString() }}
+      } else if (!!specimen.organoid) {
+        return { name: "organoid", params: { id: specimen.id.toString() }}
       } else if (!!specimen.xenograft) {
-        return {to: "xenograft", params: { id: specimen.id.toString() }}
+        return { name: "xenograft", params: { id: specimen.id.toString() }}
       } else {
         return null;
       }
@@ -238,9 +226,11 @@ export default {
       if (!specimen) {
         return null;
       } else if (!!specimen.tissue) {
-        return this.getTissueTypeName(specimen.tissue);
+        return `Tissue (${specimen.tissue.tumorType ?? specimen.tissue.type})`;
       } else if (!!specimen.cellLine) {
         return "Cell Line"
+      } else if (!!specimen.organoid) {
+        return "Organoid"
       } else if (!!specimen.xenograft) {
         return "Xenograft"
       } else {
@@ -248,22 +238,8 @@ export default {
       }
     },
 
-    getTissueTypeName(tissue) {
-      if (!tissue.type) {
-        return "Tissue";
-      } else if(!tissue.tumorType) {
-        return `Tissue (${tissue.type})`;
-      } else {
-        return `Tissue (${tissue.tumorType} ${tissue.type})`; 
-      }
-    },
-
     getIdh(idhStatus, idhMutation) {
       return !!idhMutation ? idhMutation : idhStatus;
-    },
-
-    getMgmt(methylationStatus, methylationType) {
-      return !!methylationType ? methylationType : methylationStatus;
     }
   }
 }

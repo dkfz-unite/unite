@@ -8,7 +8,7 @@ class GeneExpressionSubtype extends FilterOption{
     ];
 
     constructor(value) {
-        var option = GeneExpressionSubtype.availableOptions.find(item => item.value == value);
+        var option = this.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;

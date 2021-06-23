@@ -2,9 +2,9 @@
   <div class="col q-gutter-y-sm">
     <div>
       <u-select-filter
-        label="Gene Expression Type"
-        :options="$store.state.filterOptions.geneExpressionSubtypes"
-        v-model="criteria.geneExpressionSubtype"
+        label="MGMT Status"
+        :options="$store.state.filterOptions.mgmtStatuses"
+        v-model="criteria.mgmtStatus"
         @input="onInput"
       />
     </div>
@@ -27,20 +27,20 @@
       />
     </div>
 
-    <div>
+    <div v-if="showGeneExpressionSubtypeFilter">
       <u-select-filter
-        label="Methylation Status"
-        :options="$store.state.filterOptions.methylationStatuses"
-        v-model="criteria.methylationStatus"
+        label="Gene Expression Subtype"
+        :options="$store.state.filterOptions.geneExpressionSubtypes"
+        v-model="criteria.geneExpressionSubtype"
         @input="onInput"
       />
     </div>
 
-    <div v-if="showMethylationTypeFilter">
+    <div v-if="showMethylationSubtypeFilter">
       <u-select-filter
-        label="Methylation Type"
-        :options="$store.state.filterOptions.methylationTypes"
-        v-model="criteria.methylationType"
+        label="Methylation Subtype"
+        :options="$store.state.filterOptions.methylationSubtypes"
+        v-model="criteria.methylationSubtype"
         @input="onInput"
       />
     </div>
@@ -59,8 +59,7 @@
 import USelectFilter from "./standard/SelectFilter.vue";
 import UBooleanFilter from "./standard/BooleanFilter.vue";
 
-import IDHStatus from "@/services/criteria/filters/data/specimens/filter.option.idh-status.js";
-import MethylationStatus from "@/services/criteria/filters/data/specimens/filter.option.methylation-status.js";
+import IdhStatus from "../../../services/criteria/filters/data/specimens/filter.option.idh-status.js";
 
 export default {
   props: ["value"],
@@ -74,29 +73,32 @@ export default {
   computed: {
     showIdhMutationFilter() {
       return this.criteria.idhStatus?.length == 1
-          && this.criteria.idhStatus[0] == IDHStatus.Mutant.value;
+          && this.criteria.idhStatus[0] == IdhStatus.Mutant.value;
     },
 
-    showMethylationTypeFilter() {
-      return this.criteria.methylationStatus?.length == 1 
-          && this.criteria.methylationStatus[0] == MethylationStatus.Methylated.value;
+    showGeneExpressionSubtypeFilter() {
+      return this.criteria.idhStatus?.length == 1
+          && this.criteria.idhStatus[0] == IdhStatus.WildType.value;
+    },
+
+    showMethylationSubtypeFilter() {
+      return this.criteria.idhStatus?.length == 1
+          && this.criteria.idhStatus[0] == IdhStatus.WildType.value;
     }
   },
 
   watch: {
     'criteria.idhStatus'(value) {
-      let isMutant = value?.length == 1 && value[0] == IDHStatus.Mutant.value;
+      let isWildType = value?.length == 1 && value[0] == IdhStatus.WildType.value;
+      let isMutant = value?.length == 1 && value[0] == IdhStatus.Mutant.value;
+
+      if (!isWildType) {
+        this.criteria.geneExpressionSubtype = [];
+        this.criteria.methylationSubtype = [];
+      }
 
       if (!isMutant) {
         this.criteria.idhMutation = [];
-      }
-    },
-
-    'criteria.methylationStatus'(value) {
-      let isMethylated = value?.length == 1 && value[0] == MethylationStatus.Methylated.value;
-
-      if (!isMethylated) {
-        this.criteria.methylationType = [];
       }
     }
   },

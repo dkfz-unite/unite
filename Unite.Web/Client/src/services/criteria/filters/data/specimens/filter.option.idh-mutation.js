@@ -1,6 +1,6 @@
 import FilterOption from '../filter.option.js';
 
-class IDHMutation extends FilterOption{
+class IdhMutation extends FilterOption{
     static availableOptions = [
         { value: "IDH1 R132H", label: "IDH1 R132H" },
         { value: "IDH1 R132C", label: "IDH1 R132C" },
@@ -16,11 +16,11 @@ class IDHMutation extends FilterOption{
     ];
 
     constructor(value) {
-        var option = IDHMutation.availableOptions.find(item => item.value == value);
+        var option = this.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;
     }
 }
 
-export default IDHMutation;
+export default IdhMutation;

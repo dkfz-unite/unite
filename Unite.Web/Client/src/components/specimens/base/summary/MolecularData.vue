@@ -14,8 +14,8 @@
 
           <tbody>
             <tr>
-              <td class="u-text-key">Gene Expression Type</td>
-              <td>{{ molecularData.geneExpressionSubtype }}</td>
+              <td class="u-text-key">MGMT Status</td>
+              <td>{{ molecularData.mgmtStatus }}</td>
             </tr>
             <tr>
               <td class="u-text-key">IDH Status</td>
@@ -26,12 +26,12 @@
               <td>{{ molecularData.idhMutation }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Methylation Status</td>
-              <td>{{ molecularData.methylationStatus }}</td>
+              <td class="u-text-key">Gene Expression Subtype</td>
+              <td>{{ molecularData.geneExpressionSubtype }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Methylation Type</td>
-              <td>{{ molecularData.methylationType }}</td>
+              <td class="u-text-key">Methylation Subtype</td>
+              <td>{{ molecularData.methylationSubtype }}</td>
             </tr>
             <tr>
               <td class="u-text-key">G-CIMP Methylation</td>

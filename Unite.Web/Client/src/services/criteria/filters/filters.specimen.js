@@ -4,11 +4,11 @@ class SpecimenFilters extends Filters{
     id = [];
     referenceId = [];
 
-    geneExpressionSubtype = [];
+    mgmtStatus = [];
     idhStatus = [];
     idhMutation = [];
-    methylationStatus = [];
-    methylationType = [];
+    geneExpressionSubtype = [];
+    methylationSubtype = [];
     gCimpMethylation = null;
 
     sanitise(){

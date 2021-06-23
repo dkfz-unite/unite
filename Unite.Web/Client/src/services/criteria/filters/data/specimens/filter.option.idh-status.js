@@ -1,6 +1,6 @@
 import FilterOption from '../filter.option.js';
 
-class IDHStatus extends FilterOption{
+class IdhStatus extends FilterOption{
     static availableOptions = [
         { value: "Wild Type", label: "Wild Type" },
         { value: "Mutant", label: "Mutant" }
@@ -10,11 +10,11 @@ class IDHStatus extends FilterOption{
     static Mutant = this.availableOptions[1];
 
     constructor(value) {
-        var option = IDHStatus.availableOptions.find(item => item.value == value);
+        var option = this.availableOptions.find(item => item.value == value);
 
         this.value = option?.value;
         this.label = option?.label;
     }
 }
 
-export default IDHStatus;
+export default IdhStatus;

@@ -1,6 +1,6 @@
 import FilterOption from '../filter.option.js';
 
-class MethylationStatus extends FilterOption{
+class MgmtStatus extends FilterOption{
     static availableOptions = [
         { value: "Unmethylated", label: "Unmethylated" },
         { value: "Methylated", label: "Methylated" }
@@ -17,4 +17,4 @@ class MethylationStatus extends FilterOption{
     }
 }
 
-export default MethylationStatus;
+export default MgmtStatus;

@@ -81,13 +81,6 @@ export default {
           align: "left"
         },
         {
-          name: "mtaProtected",
-          label: "MTA",
-          field: (row) => contentHelpers.toBooleanString(row.mtaProtected),
-          sortable: false,
-          align: "left"
-        },
-        {
           name: "gender",
           label: "Gender",
           field: (row) => row.clinicalData?.gender,
@@ -114,17 +107,17 @@ export default {
           sortable: false,
           align: "left"
         },
-        // {
-        //   name: "diagnosisDate",
-        //   label: "Diagnosis Date",
-        //   field: (row) => contentHelpers.toDateString(row.clinicalData?.diagnosisDate),
-        //   sortable: false,
-        //   align: "left"
-        // },
         {
           name: "treatments",
           label: "Treatments",
           field: (row) => row.treatments,
+          sortable: false,
+          align: "left"
+        },
+        {
+          name: "mtaProtected",
+          label: "MTA",
+          field: (row) => contentHelpers.toBooleanString(row.mtaProtected),
           sortable: false,
           align: "left"
         },

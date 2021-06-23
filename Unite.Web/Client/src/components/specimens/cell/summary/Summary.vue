@@ -33,10 +33,6 @@
               <td class="u-text-key">Culture Type</td>
               <td>{{ specimen.cellLine.cultureType }}</td>
             </tr>
-            <tr>
-              <td class="u-text-key">Passage Number</td>
-              <td>{{ specimen.cellLine.passageNumber }}</td>
-            </tr>
           </tbody>
         </q-markup-table>
       </div>

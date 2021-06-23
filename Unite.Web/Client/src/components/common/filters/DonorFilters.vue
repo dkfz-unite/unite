@@ -19,6 +19,15 @@
     </div>
 
     <div>
+      <u-chips-filter
+        label="Therapy"
+        placeholder="e.g. Temodal therapy"
+        v-model="criteria.therapy"
+        @input="onInput"
+      />
+    </div>
+
+    <div>
       <u-select-single-filter
         label="Vital Status"
         :options="$store.state.filterOptions.vitalStatuses"
@@ -59,6 +68,23 @@
         </div>
       </q-expansion-item>
     </div>
+
+    <div>
+      <u-boolean-filter
+        label="MTA Protected"
+        v-model="criteria.mtaProtected"
+        @input="onInput" 
+      />
+    </div>
+
+    <div v-if="criteria.mtaProtected">
+      <u-chips-filter
+        label="Work Package"
+        placeholder="e.g. N2M2"
+        v-model="criteria.workPackage"
+        @input="onInput"
+      />
+    </div>
   </div>
 </template>
 
@@ -67,6 +93,7 @@ import UChipsFilter from "./standard/ChipsFilter.vue";
 import UNumberFilter from "./standard/NumberFilter.vue";
 import USelectFilter from "./standard/SelectFilter.vue";
 import USelectSingleFilter from "./standard/SelectSingleFilter.vue";
+import UBooleanFilter from "./standard/BooleanFilter.vue";
 
 export default {
   props: ["value"],
@@ -89,7 +116,8 @@ export default {
     UChipsFilter: UChipsFilter,
     UNumberFilter: UNumberFilter,
     USelectFilter: USelectFilter,
-    USelectSingleFilter: USelectSingleFilter
+    USelectSingleFilter: USelectSingleFilter,
+    UBooleanFilter: UBooleanFilter
   },
 };
 </script>

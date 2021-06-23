@@ -39,7 +39,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Vital Status</td>
-              <td>{{ contentHelpers.toBooleanString(clinicalData.vitalStatus, false, "Living", "Diceased") }}</td>
+              <td>{{ contentHelpers.toBooleanString(clinicalData.vitalStatus, false, "Living", "Deceased") }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Vital Status Change Date</td>

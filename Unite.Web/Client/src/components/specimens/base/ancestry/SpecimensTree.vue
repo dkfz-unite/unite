@@ -32,7 +32,7 @@
                 <template v-else-if="!!prop.node.tissue">
                   <div>
                     <span>Type: </span>
-                    <span class="text-grey-9">{{prop.node.tissue.tumorType}} {{prop.node.tissue.type}}</span>
+                    <span class="text-grey-9">{{!!prop.node.tissue.tumorType ? prop.node.tissue.tumorType : prop.node.tissue.type}}</span>
                   </div>
                 </template>
                 <template v-else-if="!!prop.node.cell">
