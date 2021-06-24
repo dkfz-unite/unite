@@ -49,6 +49,30 @@ const routes = [
     component: () => import(/* webpackChunkName: "cell" */ '../views/specimens/Cell.vue')
   },
   {
+    path: '/organoids',
+    name: 'organoids',
+    meta: { title: "UNITE.Organoids", authorize: true },
+    component: () => import(/* webpackChunkName: "organoids" */ '../views/specimens/Organoids.vue')
+  },
+  {
+    path: '/organoids/:id',
+    name: 'organoid',
+    meta: { title: "UNITE.Organoid", authorize: true },
+    component: () => import(/* webpackChunkName: "organoid" */ '../views/specimens/Organoid.vue')
+  },
+  {
+    path: '/xenografts',
+    name: 'xenografts',
+    meta: { title: "UNITE.Xenografts", authorize: true },
+    component: () => import(/* webpackChunkName: "xenografts" */ '../views/specimens/Xenografts.vue')
+  },
+  {
+    path: '/xenografts/:id',
+    name: 'xenograft',
+    meta: { title: "UNITE.Xenograft", authorize: true },
+    component: () => import(/* webpackChunkName: "xenograft" */ '../views/specimens/Xenograft.vue')
+  },
+  {
     path: '/mutations',
     name: 'mutations',
     meta: { title: "UNITE.Mutations", authorize: true },

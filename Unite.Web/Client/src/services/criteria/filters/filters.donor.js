@@ -7,6 +7,7 @@ class DonorFilters extends Filters {
     gender = [];
     age = { from: null, to: null };
     diagnosis = [];
+    vitalStatus = null;
     therapy = [];
 
     mtaProtected = null;

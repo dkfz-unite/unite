@@ -17,6 +17,8 @@ import Species from "../services/criteria/filters/data/specimens/cells/filter.op
 import CellLineType from "../services/criteria/filters/data/specimens/cells/filter.option.cell-type.js";
 import CellLineCultureType from "../services/criteria/filters/data/specimens/cells/filter.options.cell-culture-type.js";
 
+import TumorGrowthForm from "../services/criteria/filters/data/specimens/xenografts/filter.option.tumor-growth-form.js";
+
 import MgmtStatus from "../services/criteria/filters/data/specimens/filter.option.mgmt-status.js";
 import IdhStatus from "../services/criteria/filters/data/specimens/filter.option.idh-status.js";
 import IdhMutation from "../services/criteria/filters/data/specimens/filter.option.idh-mutation.js";
@@ -29,6 +31,8 @@ import tissueModule from "./modules/tissue";
 import tissuesModule from "./modules/tissues";
 import cellModule from "./modules/cell";
 import cellsModule from "./modules/cells";
+import organoidModule from "./modules/organoid";
+import organoidsModule from "./modules/organoids";
 import mutationModule from "./modules/mutation";
 import mutationsModule from "./modules/mutations";
 
@@ -42,6 +46,8 @@ export default new Vuex.Store({
     tissues: tissuesModule,
     cell: cellModule,
     cells: cellsModule,
+    organoid: organoidModule,
+    organoids: organoidsModule,
     mutation: mutationModule,
     mutations: mutationsModule
   },
@@ -78,6 +84,8 @@ export default new Vuex.Store({
       species: Species.availableOptions,
       cellLineTypes: CellLineType.availableOptions,
       cellLineCultureTypes: CellLineCultureType.availableOptions,
+
+      tumorGrowthForms: TumorGrowthForm.availableOptions,
 
       mgmtStatuses: MgmtStatus.availableOptions,
       idhStatuses: IdhStatus.availableOptions,

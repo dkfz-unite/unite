@@ -34,6 +34,7 @@
             <q-tab name="donor" icon="las la-user-circle" />
             <q-tab name="tissue" icon="svguse:icons.svg#u-tissue" />
             <q-tab name="cell" icon="las la-microscope" />
+            <q-tab name="organoid" icon="svguse:icons.svg#u-organoid" />
             <q-tab name="mutation" icon="las la-dna" />
           </q-tabs>
         </div>
@@ -53,6 +54,17 @@
               </div>
             </q-tab-panel>
 
+            <q-tab-panel name="tissue" class="q-pa-none">
+              <div class="col q-gutter-y-sm">
+                <div class="row">
+                  <u-tissue-filters
+                    v-model="criteria.tissueFilters"
+                    @input="onInput"
+                  />
+                </div>
+              </div>
+            </q-tab-panel>
+
             <q-tab-panel name="cell" class="q-pa-none">
               <div class="col q-gutter-y-sm">
                 <div class="row">
@@ -64,11 +76,11 @@
               </div>
             </q-tab-panel>
 
-            <q-tab-panel name="tissue" class="q-pa-none">
+            <q-tab-panel name="organoid" class="q-pa-none">
               <div class="col q-gutter-y-sm">
                 <div class="row">
-                  <u-tissue-filters
-                    v-model="criteria.tissueFilters"
+                  <u-organoid-filters
+                    v-model="criteria.organoidFilters"
                     @input="onInput"
                   />
                 </div>
@@ -96,6 +108,7 @@
 import UDonorFilters from "./DonorFilters.vue";
 import UTissueFilters from "./TissueFilters.vue";
 import UCellFilters from "./CellFilters.vue";
+import UOrganoidFilters from "./OrganoidFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
 import UGeneFilters from "./GeneFilters.vue";
 
@@ -128,6 +141,7 @@ export default {
         case "donor": return "Donor Filters";
         case "tissue": return "Tissue Filters";
         case "cell": return "Cell Line Filters";
+        case "organoid": return "Organoid Filters";
         case "mutation": return "Mutation Filters";
         default: return "Donor Filters"
       }
@@ -180,6 +194,7 @@ export default {
     UDonorFilters: UDonorFilters,
     UTissueFilters: UTissueFilters,
     UCellFilters: UCellFilters,
+    UOrganoidFilters: UOrganoidFilters,
     UMutationFilters: UMutationFilters,
     UGeneFilters: UGeneFilters,
   },

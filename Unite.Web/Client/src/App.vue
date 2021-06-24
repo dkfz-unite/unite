@@ -63,6 +63,12 @@
           </div>
         </q-route-tab>
 
+        <q-route-tab :to="{ name: 'organoids' }">
+          <div>
+            <q-icon name="svguse:/icons.svg#u-organoid" size="sm" /> Organoids
+          </div>
+        </q-route-tab>
+
         <q-route-tab :to="{ name: 'mutations' }">
           <div>
             <q-icon name="las la-dna" size="sm" /> Mutations
@@ -111,6 +117,7 @@ export default {
       donorsDrawer: this.$store.state.donors.drawer,
       tissuesDrawer: this.$store.state.tissues.drawer,
       cellsDrawer: this.$store.state.cells.drawer,
+      organoidsDrawer: this.$store.state.organoids.drawer,
       mutationsDrawer: this.$store.state.mutations.drawer,
     }
   },
@@ -126,7 +133,7 @@ export default {
 
     showFilters() {
       let screen = this.$q.screen.lt.md;
-      let routes = ["donors", "tissues", "cells", "mutations"];
+      let routes = ["donors", "tissues", "cells", "organoids", "xenografts", "mutations"];
 
       return screen && routes.includes(this.$route.name);
     },
@@ -173,6 +180,10 @@ export default {
         }
         case "cells": {
           this.cellsDrawer.show = true;
+          return;
+        }
+        case "organoids": {
+          this.organoidsDrawer.show = true;
           return;
         }
         case "mutations": {

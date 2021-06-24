@@ -29,20 +29,29 @@
                     <span class="text-grey-9">{{prop.node.donor.clinicalData.diagnosis}}</span>
                   </div>
                 </template>
+
                 <template v-else-if="!!prop.node.tissue">
                   <div>
                     <span>Type: </span>
                     <span class="text-grey-9">{{!!prop.node.tissue.tumorType ? prop.node.tissue.tumorType : prop.node.tissue.type}}</span>
                   </div>
                 </template>
-                <template v-else-if="!!prop.node.cell">
+
+                <template v-else-if="!!prop.node.cellLine">
                   <div>
                     <span>Species: </span>
-                    <span class="text-grey-9">{{prop.node.cell.species}}</span>
+                    <span class="text-grey-9">{{prop.node.cellLine.species}}</span>
                   </div>
                   <div>
                     <span>Type: </span>
-                    <span class="text-grey-9">{{prop.node.cell.type}}</span>
+                    <span class="text-grey-9">{{prop.node.cellLine.type}}</span>
+                  </div>
+                </template>
+
+                <template v-else-if="!!prop.node.organoid">
+                  <div>
+                    <span>Medium: </span>
+                    <span class="text-grey-9">{{prop.node.organoid.medium}}</span>
                   </div>
                 </template>
               </div>
@@ -78,9 +87,13 @@ export default {
         return "Donor";
       } else if (!!node?.tissue) {
         return "Tissue";
-      } else if (!!node?.cell) {
+      } else if (!!node?.cellLine) {
         return "Cell Line";
-      }
+      } else if (!!node?.organoid) {
+        return "Organoid";
+      } else if (!!node?.xenograft) {
+        return "Xenograft";
+      } 
     },
 
     getLink(node) {
@@ -90,8 +103,10 @@ export default {
         return { name: 'donor', params: params};
       } else if (!!node?.tissue) {
         return { name: 'tissue', params: params};
-      } else if (!!node?.cell) {
+      } else if (!!node?.cellLine) {
         return { name: 'cell', params: params};
+      } else if (!!node?.organoid) {
+        return { name: 'organoid', params: params};
       }
     },
 
@@ -100,8 +115,10 @@ export default {
         return "las la-user-circle";
       } else if (!!node?.tissue) {
         return "svguse:/icons.svg#u-tissue";
-      } else if (!!node?.cell) {
+      } else if (!!node?.cellLine) {
         return "las la-microscope";
+      } else if (!!node?.organoid) {
+        return "svguse:/icons.svg#u-organoid";
       }
     },
 
@@ -140,7 +157,11 @@ export default {
       if (!!specimen.tissue) {
         node.tissue = specimen.tissue;
       } else if (!!specimen.cellLine) {
-        node.cell = specimen.cellLine;
+        node.cellLine = specimen.cellLine;
+      } else if (!!specimen.organoid) {
+        node.organoid = specimen.organoid;
+      } else if (!!specimen.xenograft) {
+        node.xenograft = specimen.xenograft;
       }
 
       if (specimen.children?.length > 0) {
