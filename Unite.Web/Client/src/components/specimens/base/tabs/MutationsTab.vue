@@ -102,6 +102,7 @@ export default {
       } else if (this.specimen.organoid) {
         return this.$store.state.organoid.mutationsSearchCriteria;
       } else if (this.specimen.xenograft) {
+        console.log("blabla");
         return this.$store.state.xenograft.mutationsSearchCriteria;
       } else {
         throw 'Not implemented';

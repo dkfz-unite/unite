@@ -32,9 +32,10 @@
         <div class="col-auto">
           <q-tabs v-model="tab" align="left" active-color="primary" dense vertical :indicator-color="controls.minimized ? 'transparent' : 'primary'">
             <q-tab name="donor" icon="las la-user-circle" />
-            <q-tab name="tissue" icon="svguse:icons.svg#u-tissue" />
-            <q-tab name="cell" icon="las la-microscope" />
-            <q-tab name="organoid" icon="svguse:icons.svg#u-organoid" />
+            <q-tab v-if="mode.tissues || mode.other" name="tissue" icon="svguse:icons.svg#u-tissue" />
+            <q-tab v-if="mode.cells || mode.other" name="cell" icon="las la-microscope" />
+            <q-tab v-if="mode.organoids || mode.other" name="organoid" icon="svguse:icons.svg#u-organoid" />
+            <q-tab v-if="mode.xenografts || mode.other" name="xenograft" icon="svguse:icons.svg#u-mouse" />
             <q-tab name="mutation" icon="las la-dna" />
           </q-tabs>
         </div>
@@ -87,6 +88,17 @@
               </div>
             </q-tab-panel>
 
+            <q-tab-panel name="xenograft" class="q-pa-none">
+              <div class="col q-gutter-y-sm">
+                <div class="row">
+                  <u-xenograft-filters
+                    v-model="criteria.xenograftFilters"
+                    @input="onInput"
+                  />
+                </div>
+              </div>
+            </q-tab-panel>
+
             <q-tab-panel name="mutation" class="q-pa-none">
               <div class="col q-gutter-y-sm">
                 <div class="row">
@@ -109,6 +121,7 @@ import UDonorFilters from "./DonorFilters.vue";
 import UTissueFilters from "./TissueFilters.vue";
 import UCellFilters from "./CellFilters.vue";
 import UOrganoidFilters from "./OrganoidFilters.vue";
+import UXenograftFilters from "./XenograftFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
 import UGeneFilters from "./GeneFilters.vue";
 
@@ -131,7 +144,15 @@ export default {
 
   data() {
     return {
-      tab: this.category
+      tab: this.category,
+
+      mode: {
+        tissues: this.category == "tissue",
+        cells: this.category == "cell",
+        organoids: this.category == "organoid",
+        xenografts: this.category == "xenograft",
+        other: ["donor", "mutation"].includes(this.category)
+      }
     }
   },
 
@@ -142,6 +163,7 @@ export default {
         case "tissue": return "Tissue Filters";
         case "cell": return "Cell Line Filters";
         case "organoid": return "Organoid Filters";
+        case "xenograft": return "Xenograft Filters";
         case "mutation": return "Mutation Filters";
         default: return "Donor Filters"
       }
@@ -195,6 +217,7 @@ export default {
     UTissueFilters: UTissueFilters,
     UCellFilters: UCellFilters,
     UOrganoidFilters: UOrganoidFilters,
+    UXenograftFilters: UXenograftFilters,
     UMutationFilters: UMutationFilters,
     UGeneFilters: UGeneFilters,
   },

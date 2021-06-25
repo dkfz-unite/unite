@@ -16,6 +16,7 @@
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-user-circle" />
               <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" :disable="!showClinicalData" />
+              <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mutations" label="Mutations" icon="las la-dna" :disable="!showMutations" />
             </q-tabs>
@@ -32,6 +33,10 @@
 
               <q-tab-panel name="clinical" class="q-py-sm q-px-none">
                 <u-clinical-data-tab :donor="donor" />
+              </q-tab-panel>
+
+              <q-tab-panel name="treatments" class="q-py-sm q-px-none">
+                <u-treatments-tab :donor="donor" />
               </q-tab-panel>
 
               <q-tab-panel name="specimens" class="q-py-sm q-px-none">
@@ -56,10 +61,9 @@
 <script>
 import USummaryTab from "../../components/donor/tabs/SummaryTab.vue";
 import UClinicalDataTab from "../../components/donor/tabs/ClinicalDataTab.vue";
+import UTreatmentsTab from "../../components/donor/tabs/TreatmentsTab.vue"
 import USpecimensTab from "../../components/donor/tabs/SpecimensTab.vue"
 import UMutationsTab from "../../components/donor/tabs/MutationsTab.vue";
-
-import SearchCriteria from '../../services/criteria/criteria.search.js';
 
 import apiClient from "../../services/api/api.client.donors.js";
 
@@ -75,6 +79,10 @@ export default {
   computed: {
     showClinicalData() {
       return !!this.donor?.clinicalData;
+    },
+
+    showTreatments() {
+      return !!this.donor?.treatments?.length
     },
 
     showMutations() {
@@ -104,6 +112,7 @@ export default {
   components: {
     USummaryTab: USummaryTab,
     UClinicalDataTab: UClinicalDataTab,
+    UTreatmentsTab: UTreatmentsTab,
     USpecimensTab: USpecimensTab,
     UMutationsTab: UMutationsTab
   },

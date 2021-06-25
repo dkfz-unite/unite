@@ -6,7 +6,7 @@
       default-expand-all
     >
       <template v-slot:default-header="prop">
-       <div class="row q-gutter-x-xs">
+       <div class="row q-gutter-x-xs items-center">
           <q-icon :name="getIcon(prop.node)" :size="getIconSize(prop.node)" />
           <div :class="{ 'text-subtitle1 text-bold' : prop.node.active} ">
             <span>
@@ -52,6 +52,17 @@
                   <div>
                     <span>Medium: </span>
                     <span class="text-grey-9">{{prop.node.organoid.medium}}</span>
+                  </div>
+                </template>
+
+                <template v-else-if="!!prop.node.xenograft">
+                  <div>
+                    <span>Mouse Strain: </span>
+                    <span class="text-grey-9">{{prop.node.xenograft.mouseStrain}}</span>
+                  </div>
+                  <div>
+                    <span>Survival Days: </span>
+                    <span class="text-grey-9">{{prop.node.xenograft.survivalDays}}</span>
                   </div>
                 </template>
               </div>
@@ -107,6 +118,8 @@ export default {
         return { name: 'cell', params: params};
       } else if (!!node?.organoid) {
         return { name: 'organoid', params: params};
+      } else if (!!node?.xenograft) {
+        return { name: 'xenograft', params: params};
       }
     },
 
@@ -119,6 +132,8 @@ export default {
         return "las la-microscope";
       } else if (!!node?.organoid) {
         return "svguse:/icons.svg#u-organoid";
+      } else if (!!node?.xenograft) {
+        return "svguse:/icons.svg#u-mouse";
       }
     },
 

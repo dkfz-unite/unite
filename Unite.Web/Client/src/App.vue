@@ -46,32 +46,44 @@
 
       <q-tabs dense stretch align="left" v-if="account">
         <q-route-tab :to="{ name: 'donors' }">
-          <div>
-            <q-icon name="las la-user-circle" size="sm"/> Donors
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="las la-user-circle" size="sm"/>
+            <span>Donors</span>
           </div>
         </q-route-tab>
 
         <q-route-tab :to="{ name: 'tissues' }">
-          <div>
-            <q-icon name="svguse:/icons.svg#u-tissue" size="sm" /> Tissues
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-tissue" size="sm" />
+            <span>Tissues</span>
           </div>
         </q-route-tab>
 
         <q-route-tab :to="{ name: 'cells' }">
-          <div>
-            <q-icon name="las la-microscope" size="sm" /> Cell Lines
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="las la-microscope" size="sm" />
+            <span>Cell Lines</span>
           </div>
         </q-route-tab>
 
         <q-route-tab :to="{ name: 'organoids' }">
-          <div>
-            <q-icon name="svguse:/icons.svg#u-organoid" size="sm" /> Organoids
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-organoid" size="sm" />
+            <span>Organoids</span>
+          </div>
+        </q-route-tab>
+
+        <q-route-tab :to="{ name: 'xenografts' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-mouse" size="sm" />
+            <span>Xenografts</span>
           </div>
         </q-route-tab>
 
         <q-route-tab :to="{ name: 'mutations' }">
-          <div>
-            <q-icon name="las la-dna" size="sm" /> Mutations
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="las la-dna" size="sm" />
+            <span>Mutations</span>
           </div>
         </q-route-tab>
       </q-tabs>
@@ -118,6 +130,7 @@ export default {
       tissuesDrawer: this.$store.state.tissues.drawer,
       cellsDrawer: this.$store.state.cells.drawer,
       organoidsDrawer: this.$store.state.organoids.drawer,
+      xenograftsDrawer: this.$store.state.xenografts.drawer,
       mutationsDrawer: this.$store.state.mutations.drawer,
     }
   },
@@ -184,6 +197,10 @@ export default {
         }
         case "organoids": {
           this.organoidsDrawer.show = true;
+          return;
+        }
+        case "xenografts": {
+          this.xenograftsDrawer.show = true;
           return;
         }
         case "mutations": {

@@ -33,6 +33,8 @@ import cellModule from "./modules/cell";
 import cellsModule from "./modules/cells";
 import organoidModule from "./modules/organoid";
 import organoidsModule from "./modules/organoids";
+import xenograftModule from "./modules/xenograft";
+import xenograftsModule from "./modules/xenografts";
 import mutationModule from "./modules/mutation";
 import mutationsModule from "./modules/mutations";
 
@@ -48,6 +50,8 @@ export default new Vuex.Store({
     cells: cellsModule,
     organoid: organoidModule,
     organoids: organoidsModule,
+    xenograft: xenograftModule,
+    xenografts: xenograftsModule,
     mutation: mutationModule,
     mutations: mutationsModule
   },

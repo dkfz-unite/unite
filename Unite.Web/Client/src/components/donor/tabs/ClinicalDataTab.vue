@@ -6,9 +6,6 @@
         <div class="row">
           <u-clinical-data :donor="donor" />
         </div>
-        <div class="row">
-          <u-treatment-data :donor="donor" />
-        </div>
       </div>
     </div>
   </div>
@@ -16,14 +13,12 @@
 
 <script>
 import UClinicalData from "@/components/donor/clinical/ClinicalData.vue";
-import UTreatmentData from "@/components/donor/clinical/TreatmentData.vue";
 
 export default {
   props: ["donor"],
 
   components: {
-    UClinicalData: UClinicalData,
-    UTreatmentData: UTreatmentData,
+    UClinicalData: UClinicalData
   },
 };
 </script>
