@@ -70,7 +70,7 @@ export default {
   },
 
   async mounted() {
-    this.criteria.mutationFilters.code.push(this.mutation.code);
+    this.criteria.mutationFilters.code = [this.mutation.code];
   },
 
   methods: {

@@ -69,7 +69,7 @@ export default {
   },
 
   async mounted() {
-    this.criteria.donorFilters.id.push(this.donor.id);
+    this.criteria.donorFilters.id = [this.donor.id];
   },
 
   methods: {

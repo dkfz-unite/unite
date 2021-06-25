@@ -102,7 +102,6 @@ export default {
       } else if (this.specimen.organoid) {
         return this.$store.state.organoid.mutationsSearchCriteria;
       } else if (this.specimen.xenograft) {
-        console.log("blabla");
         return this.$store.state.xenograft.mutationsSearchCriteria;
       } else {
         throw 'Not implemented';
@@ -111,13 +110,13 @@ export default {
 
     setMutationsSearchCriteria(value) {
       if (this.specimen.tissue) {
-        this.criteria.tissueFilters.id.push(value);
+        this.criteria.tissueFilters.id = [value];
       } else if (this.specimen.cellLine) {
-        this.criteria.cellLineFilters.id.push(value);
+        this.criteria.cellLineFilters.id = [value];
       } else if (this.specimen.organoid) {
-        this.criteria.organoidFilters.id.push(value);
+        this.criteria.organoidFilters.id = [value];
       } else if (this.specimen.xenograft) {
-        this.criteria.xenograftFilters.id.push(value);
+        this.criteria.xenograftFilters.id = [value];
       } else {
         throw "Not implemented";
       }
