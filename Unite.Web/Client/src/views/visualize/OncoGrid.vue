@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="col q-gutter-y-sm">
     <u-filters-drawer
-        category="donor"
+        category="oncogrid"
         :criteria="criteria"
         :controls="drawer"
         @filter="onFilter"
@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col">
         <!-- define oncoGridData as key in order to force refresh on update (rebuild oncogrid)-->
-        <oncogrid :key="oncoGridData" :onco-grid-data="oncoGridData"/>
+        <oncogrid :key="oncoGridData" :onco-grid-data="oncoGridData" :showing="!loading"/>
         <q-inner-loading :showing="loading">
           <q-spinner color="primary" size="3em" :thickness="2"/>
         </q-inner-loading>

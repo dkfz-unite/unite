@@ -37,6 +37,7 @@
             <q-tab v-if="mode.organoids || mode.other" name="organoid" icon="svguse:icons.svg#u-organoid" />
             <q-tab v-if="mode.xenografts || mode.other" name="xenograft" icon="svguse:icons.svg#u-mouse" />
             <q-tab name="mutation" icon="las la-dna" />
+            <q-tab v-if="mode.oncogrid" name="oncogrid" icon="las la-chart-area" />
           </q-tabs>
         </div>
 
@@ -109,6 +110,17 @@
                 </div>
               </div>
             </q-tab-panel>
+
+            <q-tab-panel name="oncogrid" class="q-pa-none">
+              <div class="col q-gutter-y-sm">
+                <div class="row">
+                  <u-oncogrid-filters
+                      v-model="criteria.oncoGridFilters"
+                      @input="onInput"
+                  />
+                </div>
+              </div>
+            </q-tab-panel>
           </q-tab-panels>
         </div>
       </div>
@@ -120,6 +132,7 @@
 import UDonorFilters from "./DonorFilters.vue";
 import UTissueFilters from "./TissueFilters.vue";
 import UCellFilters from "./CellFilters.vue";
+import UOncogridFilters from "./OncoGridFilters.vue";
 import UOrganoidFilters from "./OrganoidFilters.vue";
 import UXenograftFilters from "./XenograftFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
@@ -144,13 +157,14 @@ export default {
 
   data() {
     return {
-      tab: this.category,
+      tab: this.category == "oncogrid" ? "donor" : this.category,
 
       mode: {
         tissues: this.category == "tissue",
         cells: this.category == "cell",
         organoids: this.category == "organoid",
         xenografts: this.category == "xenograft",
+        oncogrid: this.category == "oncogrid",
         other: ["donor", "mutation"].includes(this.category)
       }
     }
@@ -162,6 +176,7 @@ export default {
         case "donor": return "Donor Filters";
         case "tissue": return "Tissue Filters";
         case "cell": return "Cell Line Filters";
+        case "oncogrid": return "Oncogrid Filters";
         case "organoid": return "Organoid Filters";
         case "xenograft": return "Xenograft Filters";
         case "mutation": return "Mutation Filters";
@@ -216,6 +231,7 @@ export default {
     UDonorFilters: UDonorFilters,
     UTissueFilters: UTissueFilters,
     UCellFilters: UCellFilters,
+    UOncogridFilters: UOncogridFilters,
     UOrganoidFilters: UOrganoidFilters,
     UXenograftFilters: UXenograftFilters,
     UMutationFilters: UMutationFilters,

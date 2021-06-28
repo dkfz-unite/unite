@@ -1,30 +1,37 @@
 ﻿<template>
-  <div>
-    <div v-show="this.oncoGridData != null">
-      <div class="onco-toolbar">
-        <div>
-          <q-btn icon="las la-border-all" @click="toggleGridLines()"></q-btn>
-          <q-btn icon="las la-crosshairs" @click="toggleCrosshair()"></q-btn>
-          <q-btn icon="las la-undo-alt" @click="reloadGrid()"></q-btn>
+  <div class="col">
+    <div class="row">
+      <q-expansion-item dense dense-toggle expand-separator icon="las la-tools" label="Oncogrid Toolbar">
+        <div class="col">
+          <div class="onco-toolbar">
+            <q-btn icon="las la-border-all" @click="toggleGridLines()"></q-btn>
+            <q-btn icon="las la-crosshairs" @click="toggleCrosshair()"></q-btn>
+            <q-btn icon="las la-undo-alt" @click="reloadGrid()"></q-btn>
+          </div>
         </div>
-        <div class="onco-legend-container">
-          <div class="onco-legend-square" v-bind:style="{backgroundColor:color}" v-for="(color, key) in colorMap">
-            <div class="onco-legend-text">
-              {{ key }}
+
+        <div class="col">
+          <div class="onco-legend-container">
+            <div class="onco-legend-square" v-bind:style="{backgroundColor:color}" v-for="(color, key) in colorMap">
+              <div class="onco-legend-text">
+                {{ key }}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="oncoGrid">
-      </div>
+      </q-expansion-item>
     </div>
-    <div v-if="this.oncoGridData == null">
-      No suitable data found for OncoGrid
+    <div class="row">
+      <div class="col">
+        <div id="oncoGrid"/>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import OncoGrid from "oncogrid";
+import UOncoGridFilters from "../common/filters/OncoGridFilters.vue";
+
 
 let colorMap = {};
 colorMap['mutation'] = {
@@ -52,6 +59,10 @@ export default {
     }
   },
   methods: {
+    onInput() {
+      this.$emit("filter");
+    },
+
     reloadGrid() {
       this.oncoGrid.reload();
     },
@@ -175,6 +186,10 @@ export default {
 
     this.oncoGrid = new OncoGrid(params);
     this.oncoGrid.render();
+  },
+
+  components: {
+    UOncoGridFilters: UOncoGridFilters,
   }
 };
 </script>
@@ -284,7 +299,6 @@ export default {
 .onco-legend-container {
   flex: 1 1 0;
   background: #e6e6e6;
-  margin-left: 50px;
 }
 
 .onco-legend-square {
