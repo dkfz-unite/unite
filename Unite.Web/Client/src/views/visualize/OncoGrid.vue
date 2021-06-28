@@ -1,5 +1,12 @@
 ﻿<template>
   <div class="col q-gutter-y-sm">
+    <u-filters-drawer
+        category="donor"
+        :criteria="criteria"
+        :controls="drawer"
+        @filter="onFilter"
+    />
+
     <div class="row">
       <q-breadcrumbs gutter="xs">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }"/>
@@ -9,36 +16,32 @@
 
     <div class="row">
       <div class="col">
-        <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2">
-            <u-filters v-model="criteria" selected="donor" @input="fetchData"/>
-          </div>
-          <div class="col-12 col-sm-9 col-md-10">
-            <!-- define oncoGridData as key in order to force refresh on update (rebuild oncogrid)-->
-            <oncogrid :key="oncoGridData" :onco-grid-data="oncoGridData"/>
-            <q-inner-loading :showing="loading">
-              <q-spinner color="primary" size="3em" :thickness="2"/>
-            </q-inner-loading>
-          </div>
-        </div>
+        <!-- define oncoGridData as key in order to force refresh on update (rebuild oncogrid)-->
+        <oncogrid :key="oncoGridData" :onco-grid-data="oncoGridData"/>
+        <q-inner-loading :showing="loading">
+          <q-spinner color="primary" size="3em" :thickness="2"/>
+        </q-inner-loading>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Oncogrid from "@/components/oncogrid/OncoGrid";
-import UFilters from "@/components/common/filters/OncoGridFilters";
-import UNumberFilter from "@/components/common/filters/standard/NumberFilter.vue";
-import apiClient from "@/services/api/api.client.oncogrid";
+import UFilters from "../../components/common/filters/Filters.vue";
+import UFiltersDrawer from "../../components/common/filters/FiltersDrawer.vue";
+import Oncogrid from "../../components/oncogrid/OncoGrid";
+
+import apiClient from "../../services/api/api.client.oncogrid.js";
 
 export default {
   props: ["selectedDonors", "preselectFilters"],
   data() {
     return {
-      criteria: this.$store.state.oncogrid.searchCriteria,
       loading: true,
-      oncoGridData: null
+      oncoGridData: null,
+      
+      criteria: this.$store.state.oncogrid.searchCriteria,
+      drawer: this.$store.state.oncogrid.drawer
     };
   },
 
@@ -57,22 +60,35 @@ export default {
   },
 
   methods: {
+    async onFilter() {
+      this.$store.state.donors.selected = [];
+      await this.fetchData();
+    },
+
+    async onRequest(filters) {
+      this.criteria.from = filters.from;
+      this.criteria.size = filters.size;
+      this.criteria.term = filters.term;
+
+      await this.fetchData();
+    },
+
     async fetchData() {
       try {
         this.loading = true;
         this.oncoGridData = await apiClient.search(this.criteria);
       } catch (error) {
         this.oncoGridData = null;
+      } finally {
+        this.loading = false;
       }
-
-      this.loading = false;
     },
   },
 
   components: {
     UFilters: UFilters,
+    UFiltersDrawer: UFiltersDrawer,
     Oncogrid: Oncogrid,
-    UNumberFilter: UNumberFilter
   },
 }
 </script>

@@ -26,6 +26,7 @@
             </div>
           </q-tab-panel>
         </q-tab-panels>
+        <!--TODO: correct layout in order to have the same paddings as the other filter components-->
         <q-expansion-item label="Most affected" :value="true" dense dense-toggle>
           <div class="col q-pt-xs q-gutter-y-sm">
             <div>
@@ -56,7 +57,7 @@ import UNumberFilter from "./standard/NumberFilter.vue";
 import UDonorFilters from "./DonorFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
 import UGeneFilters from "./GeneFilters.vue";
-import {MAX_GENES, MAX_DONORS} from "@/services/criteria/filters/filters.oncogrid.js";
+import {MAX_GENES, MAX_DONORS} from "../../../services/criteria/filters/filters.oncogrid.js";
 
 export default {
   props: ["value", "selected"],
