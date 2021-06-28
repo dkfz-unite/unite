@@ -1,18 +1,18 @@
-class Filters{
-    sanitiseArray(values){
-        if(!values || !values.length){
+class Filters {
+    sanitiseArray(values) {
+        if (!values || !values.length) {
             return [];
         }
-        else{
-            return values.map(value => value.trim());            
+        else {
+            return values.map(value => value.trim());
         }
     }
 
-    sanitiseRange(range){
-        if(!range){
+    sanitiseRange(range) {
+        if (!range) {
             return { from: null, to: null };
         }
-        else{
+        else {
             var from = range.from != null && !isNaN(range.from) ? +range.from : null;
             var to = range.to != null && !isNaN(range.to) ? +range.to : null;
 

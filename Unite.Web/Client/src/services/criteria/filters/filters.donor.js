@@ -1,17 +1,26 @@
 import Filters from './filters.js';
 
-class DonorFilters extends Filters{
+class DonorFilters extends Filters {
+    id = [];
     referenceId = [];
-    
+
     gender = [];
     age = { from: null, to: null };
     diagnosis = [];
-    
-    sanitise(){
+    vitalStatus = null;
+    therapy = [];
+
+    mtaProtected = null;
+    workPackage = [];
+
+    sanitise() {
         this.referenceId = this.sanitiseArray(this.referenceId);
-        
-        this.diagnosis = this.sanitiseArray(this.diagnosis);
+
         this.age = this.sanitiseRange(this.age);
+        this.diagnosis = this.sanitiseArray(this.diagnosis);
+        this.therapy = this.sanitiseArray(this.therapy);
+        
+        this.workPackage = this.sanitiseArray(this.workPackage);
     }
 }
 

@@ -1,13 +1,15 @@
 import Filters from './filters.js';
 
 class SpecimenFilters extends Filters{
+    id = [];
     referenceId = [];
 
+    mgmtStatus = [];
     idhStatus = [];
     idhMutation = [];
-    methylationStatus = [];
+    geneExpressionSubtype = [];
     methylationSubtype = [];
-    gcimpMethylation = null;
+    gCimpMethylation = null;
 
     sanitise(){
         this.referenceId = this.sanitiseArray(this.referenceId);

@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-7">
         <u-summary :mutation="mutation" />
       </div>
     </div>

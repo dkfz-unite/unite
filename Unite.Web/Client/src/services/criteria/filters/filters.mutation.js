@@ -1,6 +1,8 @@
 import Filters from './filters.js';
 
 class MutationFilters extends Filters{
+    id = [];
+
     code = [];
     sequenceType = [];
     mutationType = [];
@@ -12,14 +14,7 @@ class MutationFilters extends Filters{
 
     sanitise(){
         this.code = this.sanitiseArray(this.code);
-        // this.sequenceType = this.sanitiseArray(this.sequenceType);
-        // this.mutationType = this.sanitiseArray(this.mutationType);
-        // this.chromosome = this.sanitiseArray(this.chromosome);
-        this.position = !this.chromosome || this.chromosome.length != 1
-            ? this.sanitiseRange(null)
-            : this.sanitiseRange(this.position);
-        // this.impact = this.sanitiseArray(this.impact);
-        // this.consequence = this.sanitiseArray(this.consequence);
+        this.position = this.sanitiseRange(this.position);
         this.gene = this.sanitiseArray(this.gene);
     }
 }

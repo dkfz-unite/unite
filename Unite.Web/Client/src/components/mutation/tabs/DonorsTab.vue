@@ -1,7 +1,9 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Donors</span>
+      <div class="col">
+        <div class="text-h5 u-text-title">Donors</div>
+      </div>
     </div>
 
     <div class="row">
@@ -29,10 +31,10 @@
 </template>
 
 <script>
-import UFilters from "@/components/mutation/donors/Filters.vue";
-import UDonors from "@/components/mutation/donors/Donors.vue";
+import UFilters from "../donors/Filters.vue";
+import UDonors from "../donors/Donors.vue";
 
-import apiClient from "@/services/api/api.client.donors.js";
+import apiClient from "../../../services/api/api.client.donors.js";
 
 export default {
   props: ["mutation"],
@@ -41,7 +43,7 @@ export default {
     return {
       loading: false,
       rows: [],
-      rowsSelected: [],
+      rowsSelected: this.$store.state.mutation.donorsSelected,
       rowsTotal: 0,
       filters: {
         from: 0,
@@ -49,7 +51,7 @@ export default {
         term: null,
       },
 
-      criteria: this.$store.state.mutation.searchCriteria,
+      criteria: this.$store.state.mutation.donorsSearchCriteria,
     };
   },
 
@@ -61,12 +63,14 @@ export default {
 
       this.fetchData();
     },
+
+    rowsSelected(value) {
+      this.$store.state.mutation.donorsSelected = value;
+    }
   },
 
   async mounted() {
-    this.criteria.mutationFilters.code.push(this.mutation.code);
-
-    // await this.fetchData();
+    this.criteria.mutationFilters.code = [this.mutation.code];
   },
 
   methods: {
@@ -75,14 +79,17 @@ export default {
     },
 
     async fetchData() {
-      this.loading = true;
-
-      let data = await apiClient.search(this.criteria);
-
-      this.loading = false;
-
-      this.rows = data ? data.rows : [];
-      this.rowsTotal = data ? data.total : 0;
+      try {
+        this.loading = true;
+        let data = await apiClient.search(this.criteria);
+        this.rows = data ? data.rows : [];
+        this.rowsTotal = data ? data.total : 0;
+      } catch {
+        this.rows = [];
+        this.rowsTotal = 0;
+      } finally {
+        this.loading = false;
+      }
     },
   },
 

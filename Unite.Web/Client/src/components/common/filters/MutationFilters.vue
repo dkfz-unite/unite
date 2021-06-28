@@ -110,6 +110,14 @@ export default {
     };
   },
 
+  watch: {
+    'criteria.chromosome'(value) {
+      if(value?.length != 1) {
+        this.criteria.position = { from: null, to: null };
+      }
+    }
+  },
+
   methods: {
     onInput() {
       this.criteria?.sanitise();
@@ -123,5 +131,5 @@ export default {
     UNumberFilter: UNumberFilter,
     USelectFilter: USelectFilter,
   },
-};
+}
 </script>

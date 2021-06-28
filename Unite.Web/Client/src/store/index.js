@@ -1,33 +1,61 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
-import getters from './getters.js';
-import mutations from './mutations.js';
-import actions from './actions.js';
+import Gender from "../services/criteria/filters/data/donors/filter.option.gender.js";
+import VitalStatus from "../services/criteria/filters/data/donors/filter.option.vital.status.js";
 
-import Gender from '@/services/criteria/filters/data/donors/filter.option.gender.js';
-import VitalStatus from '@/services/criteria/filters/data/donors/filter.option.vital.status.js';
+import Chromosome from "../services/criteria/filters/data/mutations/filter.option.chromosome.js";
+import SequenceType from "../services/criteria/filters/data/mutations/filter.option.sequence.type.js";
+import MutationType from "../services/criteria/filters/data/mutations/filter.option.mutation.type.js";
+import Impact from "../services/criteria/filters/data/mutations/filter.option.impact.js";
+import ConsequenceType from "../services/criteria/filters/data/mutations/filter.option.consequence.type.js";
 
-import Chromosome from '@/services/criteria/filters/data/mutations/filter.option.chromosome.js';
-import SequenceType from '@/services/criteria/filters/data/mutations/filter.option.sequence.type.js';
-import MutationType from '@/services/criteria/filters/data/mutations/filter.option.mutation.type.js';
-import Impact from '@/services/criteria/filters/data/mutations/filter.option.impact.js';
-import ConsequenceType from '@/services/criteria/filters/data/mutations/filter.option.consequence.type.js';
+import TissueType from "../services/criteria/filters/data/specimens/tissues/filter.option.tissue-type.js";
+import TumorType from "../services/criteria/filters/data/specimens/tissues/filter.option.tumor-type.js";
 
-import GeneExpressionSubtype from '@/services/criteria/filters/data/specimens/filter.option.gene.expression.subtype.js';
-import IDHStatus from '@/services/criteria/filters/data/specimens/filter.option.idh.status.js';
-import IDHMutation from '@/services/criteria/filters/data/specimens/filter.option.idh.mutation.js';
-import MethylationStatus from '@/services/criteria/filters/data/specimens/filter.option.methylation.status.js';
-import MethylationSubtype from '@/services/criteria/filters/data/specimens/filter.option.methylation.subtype.js';
+import Species from "../services/criteria/filters/data/specimens/cells/filter.option.species.js";
+import CellLineType from "../services/criteria/filters/data/specimens/cells/filter.option.cell-type.js";
+import CellLineCultureType from "../services/criteria/filters/data/specimens/cells/filter.options.cell-culture-type.js";
 
-import CellLineType from '@/services/criteria/filters/data/cells/filter.option.cell.type.js';
-import Species from '@/services/criteria/filters/data/cells/filter.option.species.js';
+import TumorGrowthForm from "../services/criteria/filters/data/specimens/xenografts/filter.option.tumor-growth-form.js";
 
-import SearchCriteria from '@/services/criteria/criteria.search.js';
+import MgmtStatus from "../services/criteria/filters/data/specimens/filter.option.mgmt-status.js";
+import IdhStatus from "../services/criteria/filters/data/specimens/filter.option.idh-status.js";
+import IdhMutation from "../services/criteria/filters/data/specimens/filter.option.idh-mutation.js";
+import GeneExpressionSubtype from "../services/criteria/filters/data/specimens/filter.option.gene-expression-subtype.js";
+import MethylationSubtype from "../services/criteria/filters/data/specimens/filter.option.methylation-subtype.js";
+
+import donorModule from "./modules/donor";
+import donorsModule from "./modules/donors";
+import tissueModule from "./modules/tissue";
+import tissuesModule from "./modules/tissues";
+import cellModule from "./modules/cell";
+import cellsModule from "./modules/cells";
+import organoidModule from "./modules/organoid";
+import organoidsModule from "./modules/organoids";
+import xenograftModule from "./modules/xenograft";
+import xenograftsModule from "./modules/xenografts";
+import mutationModule from "./modules/mutation";
+import mutationsModule from "./modules/mutations";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    donor: donorModule,
+    donors: donorsModule,
+    tissue: tissueModule,
+    tissues: tissuesModule,
+    cell: cellModule,
+    cells: cellsModule,
+    organoid: organoidModule,
+    organoids: organoidsModule,
+    xenograft: xenograftModule,
+    xenografts: xenograftsModule,
+    mutation: mutationModule,
+    mutations: mutationsModule
+  },
+
   state: {
     drawers: {
       left: {
@@ -44,30 +72,6 @@ export default new Vuex.Store({
       email: null
     },
 
-    mutations: {
-      selected: [],
-      searchCriteria: new SearchCriteria()
-    },
-
-    mutation: {
-      selected: [],
-      searchCriteria: new SearchCriteria()
-    },
-
-    donors: {
-      selected: [],
-      searchCriteria: new SearchCriteria()
-    },
-
-    donor: {
-      selected: [],
-      searchCriteria: new SearchCriteria()
-    },
-
-    oncogrid: {
-      searchCriteria: new SearchCriteria()
-    },
-
     filterOptions: {
       genders: Gender.availableOptions,
       vitalStatuses: VitalStatus.availableOptions,
@@ -78,20 +82,20 @@ export default new Vuex.Store({
       impacts: Impact.availableOptions,
       consequenceTypes: ConsequenceType.availableOptions,
 
-      geneExpressionSubtypes: GeneExpressionSubtype.availableOptions,
-      idhStatuses: IDHStatus.availableOptions,
-      idhMutations: IDHMutation.availableOptions,
-      methylationStatuses: MethylationStatus.availableOptions,
-      methylationSubtypes: MethylationSubtype.availableOptions,
+      tissueTypes: TissueType.availableOptions,
+      tumorTypes: TumorType.availableOptions,
 
+      species: Species.availableOptions,
       cellLineTypes: CellLineType.availableOptions,
-      species: Species.availableOptions
+      cellLineCultureTypes: CellLineCultureType.availableOptions,
+
+      tumorGrowthForms: TumorGrowthForm.availableOptions,
+
+      mgmtStatuses: MgmtStatus.availableOptions,
+      idhStatuses: IdhStatus.availableOptions,
+      idhMutations: IdhMutation.availableOptions,
+      geneExpressionSubtypes: GeneExpressionSubtype.availableOptions,
+      methylationSubtypes: MethylationSubtype.availableOptions
     }
-  },
-
-  getters: getters,
-
-  mutations: mutations,
-
-  actions: actions
-})
+  }
+});

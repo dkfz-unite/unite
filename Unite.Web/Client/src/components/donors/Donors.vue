@@ -1,18 +1,18 @@
 <template>
   <div class="col">
     <q-table
-        title="Donors"
-        class="sticky-header"
-        separator="cell" dense flat bordered
-        selection="multiple"
-        row-key="id"
-        :columns="columns"
-        :data="data"
-        :selected.sync="selected"
-        :pagination.sync="pagination"
-        :filter="filter"
-        :loading="loading"
-        @request="onRequest"
+      title="Donors"
+      class="sticky-header"
+      separator="cell" dense flat bordered
+      selection="multiple"
+      row-key="id"
+      :columns="columns"
+      :data="data"
+      :selected.sync="selected"
+      :pagination.sync="pagination"
+      :filter="filter"
+      :loading="loading"
+      @request="onRequest"
     >
       <template v-slot:top-right>
         <div class="q-pa-md q-gutter-sm">
@@ -23,7 +23,7 @@
         </div>
         <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
           <template v-slot:append>
-            <q-icon name="search"/>
+            <q-icon name="search" />
           </template>
         </q-input>
       </template>
@@ -70,11 +70,10 @@
 </template>
 
 <script>
-import apiClient from "@/services/api/api.client.identity";
+import contentHelpers from "../../services/helpers/helpers.content.js";
 
 export default {
-  props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
-
+  props: ["rows", "rowsSelected", "rowsTotal", "loading"],
 
   data() {
     return {
@@ -86,33 +85,6 @@ export default {
           sortable: false,
           required: true,
           align: "left"
-        },
-        {
-          name: "origin",
-          label: "Origin",
-          field: (row) => row.origin,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "mtaProtected",
-          label: "MTA",
-          field: (row) => this.toBooleanString(row.mtaProtected),
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "diagnosis",
-          label: "Diagnosis",
-          field: (row) => row.diagnosis,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "diagnosisDate",
-          label: "Diagnosis Date",
-          field: (row) => this.getDate(row.diagnosisDate),
-          sortable: false
         },
         {
           name: "gender",
@@ -128,24 +100,16 @@ export default {
           sortable: false
         },
         {
-          name: "idh",
-          label: "IDH",
-          field: (row) =>
-              this.getIdh(
-                  row.epigeneticsData?.idhStatus,
-                  row.epigeneticsData?.idhMutation
-              ),
+          name: "primarySite",
+          label: "Primary Site",
+          field: (row) => row.clinicalData?.primarySite,
           sortable: false,
           align: "left"
         },
         {
-          name: "mgmt",
-          label: "MGMT",
-          field: (row) =>
-              this.getMgmt(
-                  row.epigeneticsData?.methylationStatus,
-                  row.epigeneticsData?.methylationSubtype
-              ),
+          name: "diagnosis",
+          label: "Diagnosis",
+          field: (row) => row.clinicalData?.diagnosis,
           sortable: false,
           align: "left"
         },
@@ -153,6 +117,13 @@ export default {
           name: "treatments",
           label: "Treatments",
           field: (row) => row.treatments,
+          sortable: false,
+          align: "left"
+        },
+        {
+          name: "mtaProtected",
+          label: "MTA",
+          field: (row) => contentHelpers.toBooleanString(row.mtaProtected),
           sortable: false,
           align: "left"
         },
@@ -184,24 +155,17 @@ export default {
         }
       ],
 
-      data: [],
-
-      selected: [],
+      data: this.rows,
+      selected: this.rowsSelected,
 
       filter: null,
 
       pagination: {
         page: 1,
         rowsPerPage: 20,
-        rowsNumber: 0,
+        rowsNumber: this.rowsTotal,
       },
     };
-  },
-
-  computed: {
-    showDonors() {
-      return !!this.data;
-    }
   },
 
   watch: {
@@ -213,21 +177,16 @@ export default {
       this.pagination.rowsNumber = value;
     },
 
-    rowsSelected(value) {
-      this.selected = value;
-    },
-
     selected(value) {
       this.$emit("update:rowsSelected", value);
     },
   },
 
   mounted() {
-    this.onRequest({pagination: this.pagination, filter: this.filter});
+    this.onRequest({ pagination: this.pagination, filter: this.filter });
   },
 
   methods: {
-
     onRequest(props) {
       let filters = {
         from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
@@ -238,50 +197,16 @@ export default {
       this.pagination.page = props.pagination.page;
       this.pagination.rowsPerPage = props.pagination.rowsPerPage;
 
-      this.$emit("update:filters", filters);
+      this.$emit("request", filters);
     },
 
     getFrom(page, pageSize) {
-      if (page != null && page != undefined) {
         return (page - 1) * pageSize;
-      } else {
-        return 0;
-      }
     },
 
     getSize(pageSize) {
-      if (pageSize != null && pageSize != undefined) {
         return pageSize == 0 ? 10000 : pageSize;
-      } else {
-        return 20;
-      }
-    },
-
-    getDate(dateString) {
-      if (!dateString) {
-        return null;
-      }
-
-      var date = new Date(dateString);
-
-      return date.toLocaleDateString();
-    },
-
-    toBooleanString(value) {
-      if (!value) {
-        return null;
-      }
-
-      return value ? "Yes" : "No";
-    },
-
-    getIdh(idhStatus, idhMutation) {
-      return idhMutation ?? idhStatus;
-    },
-
-    getMgmt(methylationStatus, methylationSubtype) {
-      return methylationSubtype ?? methylationStatus;
     }
-  },
-};
+  }
+}
 </script>

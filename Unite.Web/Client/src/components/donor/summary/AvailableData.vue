@@ -8,8 +8,8 @@
       <div class="col">
         <q-markup-table class="table-strip" separator="cell" dense flat bordered>
           <colgroup>
-            <col span="1" style="width: 50%" />
-            <col span="1" style="width: 50%" />
+            <col span="1" :style="{ width: $q.screen.lt.md ? '50%' : '30%' }" />
+            <col span="1" :style="{ width: $q.screen.lt.md ? '50%' : '70%' }" />
           </colgroup>
 
           <tbody>

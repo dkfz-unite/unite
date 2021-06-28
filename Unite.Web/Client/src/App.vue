@@ -3,65 +3,93 @@
 
     <q-header bordered class="bg-blue-7 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <!-- <img src="/logo-white.png" width="250"> -->
-          <!-- <q-btn
-            label="UNITE Glioblastoma"
-            class="text-bold"
-            :to="{ name: 'home' }"
-            flat 
-            dense
-          /> -->
+        <div class="col">
+          <div class="row justify-between">
+            <div v-if="showFilters">
+              <q-btn
+                icon="las la-filter"
+                :label="$q.screen.gt.xs ? 'Filters' : null"
+                :rounded="$q.screen.lt.sm"
+                dense flat
+                @click="onFiltersClick"
+              />
+            </div>
 
-          <q-btn
-            :to="{ name: 'home' }"
-            flat 
-            dense>
-            <img src="/logo-white.png" width="250">
-          </q-btn>
-        </q-toolbar-title>
+            <div>
+              <q-toolbar-title>
+                <div v-if="$q.screen.lt.md">
+                  UNITE
+                </div>
 
-        <q-space />
-
-        <q-btn
-          v-if="account"
-          icon="las la-user" 
-          label="Account" 
-          flat 
-          dense 
-          @click="drawers.right.show = !drawers.right.show" 
-        />
-
+                <q-btn
+                  v-else
+                  dense flat
+                  :to="{ name: 'home' }">
+                  <img src="/logo-white.png" width="250" />
+                </q-btn>
+              </q-toolbar-title>
+            </div>
+              
+            <div>
+              <q-btn
+                v-if="account"
+                icon="las la-user"
+                :label="$q.screen.gt.xs ? 'Account' : null"
+                :rounded="$q.screen.lt.sm"
+                dense flat
+                @click="drawers.right.show = !drawers.right.show" 
+              />
+            </div>
+          </div>
+        </div>
       </q-toolbar>
 
       <q-tabs dense stretch align="left" v-if="account">
-        <q-route-tab  :to="{ name: 'donors' }">
-          <div>
-            <q-icon name="las la-user-circle" size="xs"/> Donors
+        <q-route-tab :to="{ name: 'donors' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="las la-user-circle" size="sm"/>
+            <span>Donors</span>
+          </div>
+        </q-route-tab>
+
+        <q-route-tab :to="{ name: 'tissues' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-tissue" size="sm" />
+            <span>Tissues</span>
+          </div>
+        </q-route-tab>
+
+        <q-route-tab :to="{ name: 'cells' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="las la-microscope" size="sm" />
+            <span>Cell Lines</span>
+          </div>
+        </q-route-tab>
+
+        <q-route-tab :to="{ name: 'organoids' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-organoid" size="sm" />
+            <span>Organoids</span>
+          </div>
+        </q-route-tab>
+
+        <q-route-tab :to="{ name: 'xenografts' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-mouse" size="sm" />
+            <span>Xenografts</span>
           </div>
         </q-route-tab>
 
         <q-route-tab :to="{ name: 'mutations' }">
-          <div>
-            <q-icon name="las la-dna" size="xs" /> Mutations
-          </div>
-        </q-route-tab>
-
-        <q-route-tab :to="{ name: 'cells' }" disable title="Comming soon">
-          <div>
-            <q-icon name="las la-microscope" size="xs" /> Cells
-          </div>
-        </q-route-tab>
-
-        <q-route-tab :to="{ name: 'radiology' }" disable title="Comming soon">
-          <div>
-            <q-icon name="las la-x-ray" size="xs" /> Radiology
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="las la-dna" size="sm" />
+            <span>Mutations</span>
           </div>
         </q-route-tab>
       </q-tabs>
     </q-header>
 
-    <q-drawer v-if="account" v-model="drawers.right.show" side="right" bordered overlay>
+    <q-drawer v-if="account" v-model="drawers.right.show" side="right" bordered overlay elevated>
       <div class="col q-pa-sm q-gutter-y-sm">
         <div>
           <div class="text-h6">
@@ -91,21 +119,37 @@
 </template>
 
 <script>
-import settings from '@/settings.js';
-import apiClient from '@/services/api/api.client.identity.js';
+import settings from './settings.js';
+import apiClient from './services/api/api.client.identity.js';
 
 export default {
   data () {
     return {
-      // account: this.$store.state.account,
-      drawers: this.$store.state.drawers
+      drawers: this.$store.state.drawers,
+      donorsDrawer: this.$store.state.donors.drawer,
+      tissuesDrawer: this.$store.state.tissues.drawer,
+      cellsDrawer: this.$store.state.cells.drawer,
+      organoidsDrawer: this.$store.state.organoids.drawer,
+      xenograftsDrawer: this.$store.state.xenografts.drawer,
+      mutationsDrawer: this.$store.state.mutations.drawer,
     }
   },
 
   computed: {
     account() {
       return this.$store.state.account;
-    }
+    },
+
+    showAccount() {
+      return this.$store.state.account;
+    },
+
+    showFilters() {
+      let screen = this.$q.screen.lt.md;
+      let routes = ["donors", "tissues", "cells", "organoids", "xenografts", "mutations"];
+
+      return screen && routes.includes(this.$route.name);
+    },
   },
 
   async mounted() {
@@ -122,7 +166,6 @@ export default {
         this.$cookies.remove(settings.cookies.sessionCookieName);
         this.$cookies.remove(settings.cookies.tokenCookieName);
         this.$store.state.account = null;
-        //this.$router.push({ name: "login" });
         location.href = "/";
       }
     }
@@ -132,10 +175,39 @@ export default {
     async onLogOut() {
       try {
         await apiClient.signOut();
-        // this.$router.push({ name: 'login' });
         location.href = "/";
       } catch(error) {
         location.href = "/";
+      }
+    },
+
+    onFiltersClick(e) {
+      switch (this.$route.name) {
+        case "donors": {
+          this.donorsDrawer.show = true;
+          return;
+        }
+        case "tissues": {
+          this.tissuesDrawer.show = true;
+          return;
+        }
+        case "cells": {
+          this.cellsDrawer.show = true;
+          return;
+        }
+        case "organoids": {
+          this.organoidsDrawer.show = true;
+          return;
+        }
+        case "xenografts": {
+          this.xenograftsDrawer.show = true;
+          return;
+        }
+        case "mutations": {
+          this.mutationsDrawer.show = true;
+          return;
+        }
+        default: return;
       }
     }
   }
