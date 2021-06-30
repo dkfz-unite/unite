@@ -31,13 +31,13 @@
       <div class="row content-top">
         <div class="col-auto">
           <q-tabs v-model="tab" align="left" active-color="primary" dense vertical :indicator-color="controls.minimized ? 'transparent' : 'primary'">
+            <q-tab v-if="mode.oncogrid" name="oncogrid" icon="las la-chart-area" />
             <q-tab name="donor" icon="las la-user-circle" />
             <q-tab v-if="mode.tissues || mode.other" name="tissue" icon="svguse:icons.svg#u-tissue" />
             <q-tab v-if="mode.cells || mode.other" name="cell" icon="las la-microscope" />
             <q-tab v-if="mode.organoids || mode.other" name="organoid" icon="svguse:icons.svg#u-organoid" />
             <q-tab v-if="mode.xenografts || mode.other" name="xenograft" icon="svguse:icons.svg#u-mouse" />
             <q-tab name="mutation" icon="las la-dna" />
-            <q-tab v-if="mode.oncogrid" name="oncogrid" icon="las la-chart-area" />
           </q-tabs>
         </div>
 

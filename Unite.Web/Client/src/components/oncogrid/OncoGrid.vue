@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="col">
     <div class="row">
-      <q-expansion-item dense dense-toggle expand-separator icon="las la-tools" label="Oncogrid Toolbar">
+      <q-expansion-item default-opened dense dense-toggle expand-separator icon="las la-tools" label="Oncogrid Toolbar">
         <div class="col">
           <div class="onco-toolbar">
             <q-btn icon="las la-border-all" @click="toggleGridLines()"></q-btn>
