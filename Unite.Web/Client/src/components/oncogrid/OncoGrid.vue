@@ -12,9 +12,9 @@
 
         <div class="col">
           <div class="onco-legend-container">
-            <div class="onco-legend-square" v-bind:style="{backgroundColor:color}" v-for="(color, key) in colorMap">
+            <div class="onco-legend-square" v-bind:style="{backgroundColor:availableMutation.color}" v-for="(availableMutation, key) in availableMutationsWithLabelsAndColors">
               <div class="onco-legend-text">
-                {{ key }}
+                {{ availableMutationsWithLabelsAndColors[key].label }}
               </div>
             </div>
           </div>
@@ -32,21 +32,50 @@
 import OncoGrid from "oncogrid";
 import UOncoGridFilters from "../common/filters/OncoGridFilters.vue";
 
+let availableMutationsWithLabelsAndColors = [
+  { value: "transcript_ablation", label: "Transcript ablation", color: '#696969' },
+  { value: "splice_acceptor_variant", label: "Splice acceptor", color: '#c0c0c0' },
+  { value: "splice_donor_variant", label: "Splice donor", color: '#556b2f' },
+  { value: "stop_gained", label: "Stop gained", color: '#228b22' },
+  { value: "frameshift_variant", label: "Frameshift", color: '#8b0000' },
+  { value: "stop_lost", label: "Stop lost", color: '#808000' },
+  { value: "start_lost", label: "Start lost", color: '#483d8b' },
+  { value: "transcript_amplification", label: "Transcript amplification", color: '#008080' },
+  { value: "inframe_insertion", label: "Inframe insertion", color: '#4682b4' },
+  { value: "inframe_deletion", label: "Inframe deletion", color: '#9acd32' },
+  { value: "missense_variant", label: "Missense", color: '#00008b' },
+  { value: "protein_altering_variant", label: "Protein altering", color: '#daa520' },
+  { value: "splice_region_variant", label: "Splice region", color: '#7f007f' },
+  { value: "incomplete_terminal_codon_variant", label: "Incomplete terminal codon", color: '#8fbc8f' },
+  { value: "start_retained_variant", label: "Start retained", color: '#b03060' },
+  { value: "stop_retained_variant", label: "Stop retained", color: '#ff0000' },
+  { value: "synonymous_variant", label: "Synonymous", color: '#00ced1' },
+  { value: "coding_sequence_variant", label: "Coding sequence", color: '#ff8c00' },
+  { value: "mature_miRNA_variant", label: "Mature miRNA", color: '#ffff00' },
+  { value: "5_prime_UTR_variant", label: "UTR 5", color: '#00ff00' },
+  { value: "3_prime_UTR_variant", label: "UTR 3", color: '#00ff7f' },
+  { value: "non_coding_transcript_exon_variant", label: "Non coding transcript exon", color: '#dc143c' },
+  { value: "intron_variant", label: "Intron", color: '#0000ff' },
+  { value: "NMD_transcript_variant", label: "NMD transcript", color: '#a020f0' },
+  { value: "non_coding_transcript_variant", label: "Non coding transcript", color: '#ff00ff' },
+  { value: "upstream_gene_variant", label: "Upstream gene", color: '#1e90ff' },
+  { value: "downstream_gene_variant", label: "Downstream gene", color: '#fa8072' },
+  { value: "TFBS_ablation", label: "TFBS ablation", color: '#dda0dd' },
+  { value: "TFBS_amplification", label: "TFBS amplification", color: '#ff1493' },
+  { value: "TF_binding_site_variant", label: "TF binding site", color: '#7b68ee' },
+  { value: "regulatory_region_ablation", label: "Regulatory region ablation", color: '#ee82ee' },
+  { value: "regulatory_region_amplification", label: "Regulatory region amplification", color: '#98fb98' },
+  { value: "feature_elongation", label: "Feature elongation", color: '#87cefa' },
+  { value: "regulatory_region_variant", label: "Regulatory region", color: '#7fffd4' },
+  { value: "feature_truncation", label: "Feature truncation", color: '#ffe4b5' },
+  { value: "intergenic_variant", label: "Intergenic", color: '#ffb6c1' }
+];
 
 let colorMap = {};
-colorMap['mutation'] = {
-  missense_variant: '#ff9b6c',
-  frameshift_variant: '#57dba4',
-  stop_gained: '#af57db',
-  start_lost: '#ff2323',
-  stop_lost: '#d3ec00',
-  initiator_codon_variant: '#5abaff',
-  intron_variant: '#008080',
-  upstream_gene_variant: '#800000',
-  downstream_gene_variant: '#000080',
-  synonymous_variant: '#808000',
-  non_coding_transcript_exon_variant: '#c0c0c0'
-};
+colorMap['mutation'] = {};
+for (let i = 0; i < availableMutationsWithLabelsAndColors.length; i++) {
+  colorMap['mutation'][availableMutationsWithLabelsAndColors[i].value] = availableMutationsWithLabelsAndColors[i].color;
+}
 
 let oncoGrid;
 
@@ -56,6 +85,7 @@ export default {
   data() {
     return {
       colorMap: colorMap['mutation'],
+      availableMutationsWithLabelsAndColors: availableMutationsWithLabelsAndColors,
     }
   },
   methods: {
