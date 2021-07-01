@@ -89,7 +89,7 @@ export default {
         {
           name: "mgmt",
           label: "MGMT",
-          field: (row) => row.molecularData?.mgmtStatus,
+          field: (row) => row.tissue?.molecularData?.mgmtStatus,
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"
@@ -97,7 +97,7 @@ export default {
         {
           name: "idh",
           label: "IDH",
-          field: (row) => this.getIdh(row.molecularData?.idhStatus, row.molecularData?.idhMutation),
+          field: (row) => this.getIdh(row.tissue?.molecularData?.idhStatus, row.tissue?.molecularData?.idhMutation),
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"
@@ -105,7 +105,7 @@ export default {
         {
           name: "geneExpressionSubtype",
           label: "Gene Expression Subtype",
-          field: (row) => row.molecularData?.geneExpressionSubtype,
+          field: (row) => row.tissue?.molecularData?.geneExpressionSubtype,
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"
@@ -113,7 +113,7 @@ export default {
         {
           name: "methylationSubtype",
           label: "Methylation Subtype",
-          field: (row) => row.molecularData?.methylationSubtype,
+          field: (row) => row.tissue?.molecularData?.methylationSubtype,
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"
@@ -121,7 +121,7 @@ export default {
         {
           name: "gCimpMethylation",
           label: "G-CIMP Methylation",
-          field: (row) => contentHelpers.toBooleanString(row.molecularData?.gcimpMethylation),
+          field: (row) => contentHelpers.toBooleanString(row.tissue?.molecularData?.gcimpMethylation),
           sortable: false,
           align: "left",
           headerClasses: "bg-grey-2"

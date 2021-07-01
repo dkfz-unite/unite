@@ -30,7 +30,7 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-treatments="props">
+      <!-- <template v-slot:body-cell-treatments="props">
         <q-td :props="props">
           <div v-if="props.value && props.value.length">
             <div v-for="(treatment, i) in props.value" :key="i">
@@ -38,7 +38,7 @@
             </div>
           </div>
         </q-td>
-      </template>
+      </template> -->
 
       <template v-slot:body-cell-packages="props">
         <q-td :props="props">
@@ -107,13 +107,13 @@ export default {
           sortable: false,
           align: "left"
         },
-        {
-          name: "treatments",
-          label: "Treatments",
-          field: (row) => row.treatments,
-          sortable: false,
-          align: "left"
-        },
+        // {
+        //   name: "treatments",
+        //   label: "Treatments",
+        //   field: (row) => row.treatments,
+        //   sortable: false,
+        //   align: "left"
+        // },
         {
           name: "mtaProtected",
           label: "MTA",

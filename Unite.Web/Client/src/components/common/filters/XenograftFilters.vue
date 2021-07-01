@@ -59,7 +59,7 @@
       />
     </div>
 
-    <div v-if="showTumorGrowthFormFilter">
+    <div>
       <u-select-filter
         label="Tumor Growth Form"
         :options="$store.state.filterOptions.tumorGrowthForms"
@@ -99,20 +99,6 @@ export default {
 
       criteria: this.value,
     };
-  },
-
-  computed: {
-    showTumorGrowthFormFilter() {
-      return this.criteria.tumorigenicity;
-    }
-  },
-
-  watch: {
-    'criteria.tumorigenicity'(value) {
-      if (!value) {
-        this.criteria.tumorGrowthForm = [];
-      }
-    }
   },
 
   methods: {
