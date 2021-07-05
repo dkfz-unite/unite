@@ -18,7 +18,7 @@
         <div class="q-pa-md q-gutter-sm">
           <router-link class="u-link"
                        :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, preselectFilters: true }}">
-            <i class="las la-chart-area" :disable="!showDonors"/>
+            <q-btn color="primary" icon="las la-chart-area" label="Oncogrid" :disable="!showDonors" />
           </router-link>
         </div>
         <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">

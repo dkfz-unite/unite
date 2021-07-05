@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Client\" />
+    <Folder Include="Client\src\components\charts" />
     <Folder Include="Middleware\" />
     <Folder Include="Configuration\" />
   </ItemGroup>
