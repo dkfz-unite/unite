@@ -9,6 +9,7 @@
         clearable
         use-chips
         emit-value
+        map-options
         square outlined dense options-dense hide-dropdown-icon>
     </q-select>
 </template>

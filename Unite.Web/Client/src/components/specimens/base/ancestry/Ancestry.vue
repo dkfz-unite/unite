@@ -51,12 +51,29 @@ export default {
 
   methods: {
     compareSpecimens(left, right) {
-      if (left.children?.length > right.children?.length) {
+      var leftRank = this.getSpecimenRank(left);
+      var rightRank = this.getSpecimenRank(right);
+
+      if (leftRank > rightRank) {
         return 1;
-      } else if (left.children?.length < right.children?.length) {
+      } else if (leftRank < rightRank) {
         return -1;
       } else {
         return 0;
+      }
+    },
+
+    getSpecimenRank(specimen) {
+      if (specimen.tissue) {
+        if (specimen.tissue.type == "Control") {
+          return 1;
+        } else if (specimen.tissue.tumorType == "Primary") {
+          return 2;
+        } else {
+          return 3;
+        }
+      } else {
+        return 4;
       }
     }
   },
