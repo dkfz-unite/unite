@@ -15,17 +15,17 @@
       @request="onRequest"
     >
       <template v-slot:top-right>
-        <div class="q-pa-md q-gutter-sm">
-          <router-link class="u-link"
-                       :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, preselectFilters: true }}">
-            <q-btn color="primary" icon="las la-chart-area" label="Oncogrid" :disable="!showDonors" />
-          </router-link>
+        <div class="row q-gutter-x-md">
+          <q-btn
+            label="Oncogrid" icon="las la-chart-area" color="primary" dense flat no-caps
+            :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, preselectFilters: true }}" 
+          />
+          <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
         </div>
-        <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
       </template>
 
       <template v-slot:body-cell-id="props">
@@ -36,7 +36,7 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-treatments="props">
+      <!-- <template v-slot:body-cell-treatments="props">
         <q-td :props="props">
           <div v-if="props.value && props.value.length">
             <div v-for="(treatment, i) in props.value" :key="i">
@@ -44,7 +44,7 @@
             </div>
           </div>
         </q-td>
-      </template>
+      </template> -->
 
       <template v-slot:body-cell-packages="props">
         <q-td :props="props">
@@ -113,13 +113,13 @@ export default {
           sortable: false,
           align: "left"
         },
-        {
-          name: "treatments",
-          label: "Treatments",
-          field: (row) => row.treatments,
-          sortable: false,
-          align: "left"
-        },
+        // {
+        //   name: "treatments",
+        //   label: "Treatments",
+        //   field: (row) => row.treatments,
+        //   sortable: false,
+        //   align: "left"
+        // },
         {
           name: "mtaProtected",
           label: "MTA",
