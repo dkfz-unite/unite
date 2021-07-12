@@ -8,7 +8,7 @@
     />
 
     <div class="row">
-      <q-breadcrumbs gutter="xs">
+      <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }"/>
         <q-breadcrumbs-el label="OncoGrid"/>
       </q-breadcrumbs>
@@ -16,8 +16,7 @@
 
     <div class="row">
       <div class="col">
-        <!-- define oncoGridData as key in order to force refresh on update (rebuild oncogrid)-->
-        <oncogrid :key="oncoGridData" :onco-grid-data="oncoGridData" :showing="!loading"/>
+        <oncogrid v-if="!!oncoGridData" :onco-grid-data="oncoGridData" :showing="!loading"/>
         <q-inner-loading :showing="loading">
           <q-spinner color="primary" size="3em" :thickness="2"/>
         </q-inner-loading>
@@ -45,7 +44,7 @@ export default {
     };
   },
 
-  created() {
+  async mounted() {
     if (this.preselectFilters) {
       this.criteria.donorFilters = this.$store.state.donors.searchCriteria.donorFilters;
       this.criteria.mutationFilters = this.$store.state.donors.searchCriteria.mutationFilters;
@@ -56,7 +55,7 @@ export default {
         this.criteria.donorFilters.referenceId.push(selectedDonor.referenceId)
       }
     }
-    this.fetchData();
+    await this.fetchData();
   },
 
   methods: {
@@ -76,6 +75,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
+        this.oncoGridData = null;
         this.oncoGridData = await apiClient.search(this.criteria);
       } catch (error) {
         this.oncoGridData = null;
@@ -92,7 +92,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-
-</style>

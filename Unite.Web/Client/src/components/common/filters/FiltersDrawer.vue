@@ -31,7 +31,9 @@
       <div class="row content-top">
         <div class="col-auto">
           <q-tabs v-model="tab" align="left" active-color="primary" dense vertical :indicator-color="controls.minimized ? 'transparent' : 'primary'">
+            <!-- Visualisation -->
             <q-tab v-if="mode.oncogrid" name="oncogrid" icon="las la-chart-area" />
+            <!-- Data types -->
             <q-tab name="donor" icon="las la-user-circle" />
             <q-tab v-if="mode.tissues || mode.other" name="tissue" icon="svguse:icons.svg#u-tissue" />
             <q-tab v-if="mode.cells || mode.other" name="cell" icon="las la-microscope" />
@@ -132,11 +134,11 @@
 import UDonorFilters from "./DonorFilters.vue";
 import UTissueFilters from "./TissueFilters.vue";
 import UCellFilters from "./CellFilters.vue";
-import UOncogridFilters from "./OncoGridFilters.vue";
 import UOrganoidFilters from "./OrganoidFilters.vue";
 import UXenograftFilters from "./XenograftFilters.vue";
 import UMutationFilters from "./MutationFilters.vue";
 import UGeneFilters from "./GeneFilters.vue";
+import UOncogridFilters from "./OncoGridFilters.vue";
 
 export default {
   props: {
@@ -157,7 +159,7 @@ export default {
 
   data() {
     return {
-      tab: this.category == "oncogrid" ? "donor" : this.category,
+      tab: this.category,
 
       mode: {
         tissues: this.category == "tissue",
@@ -176,10 +178,10 @@ export default {
         case "donor": return "Donor Filters";
         case "tissue": return "Tissue Filters";
         case "cell": return "Cell Line Filters";
-        case "oncogrid": return "Oncogrid Filters";
         case "organoid": return "Organoid Filters";
         case "xenograft": return "Xenograft Filters";
         case "mutation": return "Mutation Filters";
+        case "oncogrid": return "Oncogrid Filters";
         default: return "Donor Filters"
       }
     }
@@ -231,11 +233,11 @@ export default {
     UDonorFilters: UDonorFilters,
     UTissueFilters: UTissueFilters,
     UCellFilters: UCellFilters,
-    UOncogridFilters: UOncogridFilters,
     UOrganoidFilters: UOrganoidFilters,
     UXenograftFilters: UXenograftFilters,
     UMutationFilters: UMutationFilters,
     UGeneFilters: UGeneFilters,
+    UOncogridFilters: UOncogridFilters
   },
 };
 </script>
