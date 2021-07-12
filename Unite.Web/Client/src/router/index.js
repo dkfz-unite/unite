@@ -6,13 +6,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/oncogrid',
-    name: "oncogrid",
-    meta: { title: "UNITE.OncoGrid", authorize: true },
-    component: () => import(/* webpackChunkName: "oncogrid" */ '../views/visualize/OncoGrid.vue'),
-    props: true
-  },
-  {
     path: '/',
     redirect: 'donors',
     name: 'home',
@@ -90,6 +83,14 @@ const routes = [
     name: 'mutation',
     meta: { title: "UNITE.Mutation", authorize: true },
     component: () => import(/* webpackChunkName: "mutation" */ '../views/mutations/Mutation.vue')
+  },
+
+  {
+    path: '/oncogrid',
+    name: "oncogrid",
+    meta: { title: "UNITE.OncoGrid", authorize: true },
+    component: () => import(/* webpackChunkName: "oncogrid" */ '../views/visualisations/OncoGrid.vue'),
+    props: true
   },
 
   {
