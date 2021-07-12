@@ -1,5 +1,35 @@
 ﻿<template>
   <div class="col q-gutter-sm">
+    <!-- Grid cell tooltip -->
+    <q-tooltip v-if="!!targetGridCellData" :target="targetGridCell" content-class="bg-grey-1 text-grey-10 shadow-5 text-caption">
+      <div class="col">
+        <div>
+          <span class="text-weight-light">Donor: </span>
+          <span class="text-weight-medium">
+            {{targetGridCellData.donor}}
+          </span>
+        </div>
+        <div>
+          <span class="text-weight-light">Gene: </span>
+          <span class="text-weight-medium">
+            {{targetGridCellData.gene}}
+          </span>
+        </div>
+        <div>
+          <span class="text-weight-light">Mutation: </span>
+          <span class="text-weight-medium">
+            {{targetGridCellData.mutation}}
+          </span>
+        </div>
+        <div>
+          <span class="text-weight-light">Consequence: </span>
+          <span class="text-weight-medium" :style="{ color: getImpactColor(targetGridCellData.consequence.impact)}">
+            {{targetGridCellData.consequence.name}}
+          </span>
+        </div>
+      </div>
+    </q-tooltip>
+
     <div class="row">
       <q-btn-group>
         <q-btn icon="las la-border-all" @click="toggleGridLines()" />
@@ -12,7 +42,7 @@
 
     <div class="row">
       <div class="col-10">
-        <q-card class="q-px-lg q-py-sm" style="margin-bottom: 100px">
+        <q-card class="q-px-lg q-py-sm">
           <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
         </q-card>
       </div>
@@ -23,7 +53,7 @@
             <div class="col-12" v-for="(paletteColor, index) in colorPalette" :key="index">
               <div class="row q-gutter-x-xs justyfy-left content-center no-wrap">
                 <div style="height: 20px; width: 20px" v-bind:style="{ backgroundColor: paletteColor.color }"></div>
-                <span class="text-body2">{{ paletteColor.label }}</span>
+                <span class="text-body2">{{ paletteColor.name }}</span>
               </div>
             </div>
           </div>
@@ -34,77 +64,39 @@
 </template>
 
 <script>
-import { colors } from 'quasar'
+import { colors } from "quasar";
+
 import OncoGrid from "oncogrid";
 import UOncoGridFilters from "../common/filters/OncoGridFilters.vue";
 
-let availableMutationsWithLabelsAndColors = [
-  { value: "transcript_ablation", label: "Transcript ablation", color: colors.getPaletteColor("red-10") },
-  { value: "splice_acceptor_variant", label: "Splice acceptor", color: colors.getPaletteColor("red-9") },
-  { value: "splice_donor_variant", label: "Splice donor", color: colors.getPaletteColor("red-8") },
-  { value: "stop_gained", label: "Stop gained", color: colors.getPaletteColor("red-7") },
-  { value: "frameshift_variant", label: "Frameshift", color: colors.getPaletteColor("red-6") },
-  { value: "stop_lost", label: "Stop lost", color: colors.getPaletteColor("red-5") },
-  { value: "start_lost", label: "Start lost", color: colors.getPaletteColor("red-4") },
-  { value: "transcript_amplification", label: "Transcript amplification", color: colors.getPaletteColor("red-3") },
-
-  { value: "inframe_insertion", label: "Inframe insertion", color: colors.getPaletteColor("orange-10") },
-  { value: "inframe_deletion", label: "Inframe deletion", color: colors.getPaletteColor("orange-9") },
-  { value: "missense_variant", label: "Missense", color: colors.getPaletteColor("orange-8") },
-  { value: "protein_altering_variant", label: "Protein altering", color: colors.getPaletteColor("orange-7") },
-
-  { value: "splice_region_variant", label: "Splice region", color: colors.getPaletteColor("green-10") },
-  { value: "incomplete_terminal_codon_variant", label: "Incomplete terminal codon", color: colors.getPaletteColor("green-9") },
-  { value: "start_retained_variant", label: "Start retained", color: colors.getPaletteColor("green-8") },
-  { value: "stop_retained_variant", label: "Stop retained", color: colors.getPaletteColor("green-7") },
-  { value: "synonymous_variant", label: "Synonymous", color: colors.getPaletteColor("green-6") },
-
-  { value: "coding_sequence_variant", label: "Coding sequence", color: colors.getPaletteColor("blue-grey-7") },
-  { value: "mature_miRNA_variant", label: "Mature miRNA", color: colors.getPaletteColor("blue-grey-7") },
-  { value: "5_prime_UTR_variant", label: "UTR 5", color: colors.getPaletteColor("blue-grey-7") },
-  { value: "3_prime_UTR_variant", label: "UTR 3", color: colors.getPaletteColor("blue-grey-6") },
-  { value: "non_coding_transcript_exon_variant", label: "Non coding transcript exon", color: colors.getPaletteColor("blue-grey-6") },
-  { value: "intron_variant", label: "Intron", color: colors.getPaletteColor("blue-grey-6") },
-  { value: "NMD_transcript_variant", label: "NMD transcript", color: colors.getPaletteColor("blue-grey-5") },
-  { value: "non_coding_transcript_variant", label: "Non coding transcript", color: colors.getPaletteColor("blue-grey-5") },
-  { value: "upstream_gene_variant", label: "Upstream gene", color: colors.getPaletteColor("blue-grey-5") },
-  { value: "downstream_gene_variant", label: "Downstream gene", color: colors.getPaletteColor("blue-grey-4") },
-  { value: "TFBS_ablation", label: "TFBS ablation", color: colors.getPaletteColor("blue-grey-4") },
-  { value: "TFBS_amplification", label: "TFBS amplification", color: colors.getPaletteColor("blue-grey-4") },
-  { value: "TF_binding_site_variant", label: "TF binding site", color: colors.getPaletteColor("blue-grey-3") },
-  { value: "regulatory_region_ablation", label: "Regulatory region ablation", color: colors.getPaletteColor("orange-6") },
-  { value: "regulatory_region_amplification", label: "Regulatory region amplification", color: colors.getPaletteColor("blue-grey-3") },
-  { value: "feature_elongation", label: "Feature elongation", color: colors.getPaletteColor("blue-grey-3") },
-  { value: "regulatory_region_variant", label: "Regulatory region", color: colors.getPaletteColor("blue-grey-2") },
-  { value: "feature_truncation", label: "Feature truncation", color: colors.getPaletteColor("blue-grey-2") },
-  { value: "intergenic_variant", label: "Intergenic", color: colors.getPaletteColor("blue-grey-2") },
-];
-
-let colorMap = {};
-
-availableMutationsWithLabelsAndColors.forEach(option => colorMap[option.value] = option.color);
+import consequences from "./consequences.js";
 
 export default {
-  name: "oncogrid",
   props: ["oncoGridData"],
 
   data() {
     return {
+      oncogrid: null,
       gridLinesMode: true,
       crosshairMode: false,
-      heatMapMode: false
+      heatMapMode: false,
+
+      targetGridCell: false,
+      targetGridCellData: null,
+
+      colorMap: consequences.reduce((self, item) => { return { ...self, [item["type"]]: item.color } })
     }
   },
 
   computed: {
     colorPalette() {
       if (!!this.oncoGridData) {
-        let consequences = this.oncoGridData.observations
+        let uniqueConsequences = this.oncoGridData.observations
           .filter((value, index, self) => self.findIndex((uniqueValue) => uniqueValue.consequence === value.consequence) === index)
           .map((value) => value.consequence);
 
-        let palette = availableMutationsWithLabelsAndColors
-          .filter((value) => consequences.includes(value.value));
+        let palette = consequences
+          .filter((value) => uniqueConsequences.includes(value.type));
 
         return palette;
       } else {
@@ -139,6 +131,52 @@ export default {
     toggleHeatMap() {
       this.oncoGrid.toggleHeatmap();
       this.heatMapMode = this.oncoGrid.heatMapMode;
+    },
+
+    // Grid cell mouse over
+    onGridCellHover(data) {
+      var elements = document.querySelectorAll(":hover");
+      var element = elements[elements.length -1];
+
+      this.targetGridCellData = {
+        donor: data.donor.id,
+        gene: data.gene.symbol ?? data.gene.id,
+        mutation: data.observation.id,
+        consequence: consequences.filter(consequence => consequence.type == data.observation.consequence)[0]
+      };
+
+      this.targetGridCell = (element);
+    },
+
+    // Grid cell click
+    onGridCellClick(data) {
+      // TODO: Navigate to mutation page
+      console.log(data);
+    },
+
+
+    // Track group mouse over
+    onTrackGroupHover(data) {
+
+    },
+
+    // Track cell mouse over
+    onTrackCellHover(data) {
+
+    },
+
+    // Track cell click
+    onTrackCellClick(data) {
+
+    },
+
+    getImpactColor(impact) {
+      switch (impact) {
+        case "High": return colors.getPaletteColor("red");
+        case "Moderate": return colors.getPaletteColor("orange");
+        case "Low": return colors.getPaletteColor("green");
+        default: return colors.getPaletteColor("grey");
+      }
     }
   },
 
@@ -203,7 +241,7 @@ export default {
       donorTracks: donorTracks,
       donorOpacityFunc: donorOpacity,
       donorFillFunc: donorFill,
-      colorMap: colorMap,
+      colorMap: this.colorMap,
       trackHeight: 15,
       scaleToFit: true,
       // width: 500,
@@ -214,7 +252,11 @@ export default {
 
     this.oncoGrid = new OncoGrid(params);
     this.oncoGrid.render();
+
     this.oncoGrid.setGridLines(this.gridLinesMode);
+
+    this.oncoGrid.on('gridMouseOver', this.onGridCellHover);
+    this.oncoGrid.on('gridClick', this.onGridCellClick);
   },
 
   components: {
