@@ -1,34 +1,13 @@
 ﻿<template>
   <div class="col q-gutter-sm">
     <!-- Grid cell tooltip -->
-    <q-tooltip v-if="!!targetGridCellData" :target="targetGridCell" content-class="bg-grey-1 text-grey-10 shadow-5 text-caption">
-      <div class="col">
-        <div>
-          <span class="text-weight-light">Donor: </span>
-          <span class="text-weight-medium">
-            {{targetGridCellData.donor}}
-          </span>
-        </div>
-        <div>
-          <span class="text-weight-light">Gene: </span>
-          <span class="text-weight-medium">
-            {{targetGridCellData.gene}}
-          </span>
-        </div>
-        <div>
-          <span class="text-weight-light">Mutation: </span>
-          <span class="text-weight-medium">
-            {{targetGridCellData.mutation}}
-          </span>
-        </div>
-        <div>
-          <span class="text-weight-light">Consequence: </span>
-          <span class="text-weight-medium" :style="{ color: getImpactColor(targetGridCellData.consequence.impact)}">
-            {{targetGridCellData.consequence.name}}
-          </span>
-        </div>
-      </div>
-    </q-tooltip>
+    <u-grid-cell-tolltip :target="targetGridCell" :data="targetGridCellData" />
+
+    <!-- Clinical data track group tooltip -->
+    <u-clinical-data-tooltip :target="clinicalDataGroup" :show="!!clinicalDataGroup" />
+
+    <!-- Clinical data track cell tooltip -->
+    <u-clinical-data-cell-tooltip :target="targetTrackCell" :data="targetTrackCellData" />
 
     <div class="row">
       <q-btn-group>
@@ -67,6 +46,9 @@
 import { colors } from "quasar";
 
 import OncoGrid from "oncogrid";
+import UClinicalDataTooltip from "./tooltips/ClinicalDataGroupTooltip.vue";
+import UClinicalDataCellTooltip from "./tooltips/ClinicalDataCellTooltip.vue";
+import UGridCellTolltip from "./tooltips/GridCellTooltip.vue";
 import UOncoGridFilters from "../common/filters/OncoGridFilters.vue";
 
 import consequences from "./consequences.js";
@@ -83,6 +65,12 @@ export default {
 
       targetGridCell: false,
       targetGridCellData: null,
+
+      targetTrackGroup: false,
+      targetTrackCell: false,
+      targetTrackCellData: null,
+
+      clinicalDataGroup: false,
 
       colorMap: consequences.reduce((self, item) => { return { ...self, [item["type"]]: item.color } })
     }
@@ -135,48 +123,75 @@ export default {
 
     // Grid cell mouse over
     onGridCellHover(data) {
-      var elements = document.querySelectorAll(":hover");
-      var element = elements[elements.length -1];
+      var element = this.getHoverElement();
 
-      this.targetGridCellData = {
-        donor: data.donor.id,
-        gene: data.gene.symbol ?? data.gene.id,
-        mutation: data.observation.id,
-        consequence: consequences.filter(consequence => consequence.type == data.observation.consequence)[0]
-      };
+      let consequence = consequences.filter(consequence => consequence.type == data.observation.consequence)[0];
 
-      this.targetGridCell = (element);
+      let properties = [
+        { key: "Donor", value: data.donor.displayId },
+        { key: "Gene", value: data.gene.symbol },
+        { key: "Mutation", value: data.observation.code },
+        { key: "Consequence", value: consequence.name, color: this.getImpactColor(consequence.impact) },
+      ];
+
+      this.targetGridCellData = properties;
+      this.targetGridCell = element;
     },
 
     // Grid cell click
     onGridCellClick(data) {
-      // TODO: Navigate to mutation page
-      console.log(data);
+      this.$router.push({ name: "mutation", params: { id: data.observation.id }});
     },
 
 
     // Track group mouse over
     onTrackGroupHover(data) {
+      var element = this.getHoverElement();
 
+      if (data.group == "Clinical Data") {
+        this.clinicalDataGroup = element;
+      }
     },
 
     // Track cell mouse over
     onTrackCellHover(data) {
+      var element = this.getHoverElement();
 
+      if(data.type === "donor") {
+        let properties = [{ key: "Donor", value: data.domain.displayId }];
+
+        if (data.domain.type === "age") {
+          properties.push({ key: "Age", value: data.domain.value });
+        } else if (data.domain.type === "vital") {
+          properties.push({key: "Vital status", value: data.domain.value ? "Living" : "Deceased" });
+        } else if (data.domain.type === "gender") {
+          properties.push({key: "Gender", value: data.domain.value });
+        }
+
+        this.targetTrackCellData = properties;
+        this.targetTrackCell = element;
+      }
     },
 
     // Track cell click
     onTrackCellClick(data) {
-
+      this.$router.push({ name: "donor", params: { id: data.domain.id }});
     },
 
     getImpactColor(impact) {
       switch (impact) {
-        case "High": return colors.getPaletteColor("red");
-        case "Moderate": return colors.getPaletteColor("orange");
-        case "Low": return colors.getPaletteColor("green");
-        default: return colors.getPaletteColor("grey");
+        case "High": return "red";
+        case "Moderate": return "orange";
+        case "Low": return "green";
+        default: return "grey";
       }
+    },
+
+    getHoverElement() {
+      var elements = document.querySelectorAll(":hover");
+      var element = elements[elements.length -1];
+
+      return element;
     }
   },
 
@@ -257,9 +272,15 @@ export default {
 
     this.oncoGrid.on('gridMouseOver', this.onGridCellHover);
     this.oncoGrid.on('gridClick', this.onGridCellClick);
+    this.oncoGrid.on('trackLegendMouseOver', this.onTrackGroupHover);
+    this.oncoGrid.on('trackMouseOver', this.onTrackCellHover);
+    this.oncoGrid.on('trackClick', this.onTrackCellClick);
   },
 
   components: {
+    UClinicalDataTooltip: UClinicalDataTooltip,
+    UClinicalDataCellTooltip: UClinicalDataCellTooltip,
+    UGridCellTolltip: UGridCellTolltip,
     UOncoGridFilters: UOncoGridFilters,
   },
 };
