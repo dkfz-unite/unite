@@ -146,10 +146,10 @@ export default {
     },
 
     onHistogramClick(data) {
-      if (data.domain.x != undefined) {
+      if (data.type === "donor") {
         this.$router.push({ name: "donor", params: { id: data.domain.id }});
       } else {
-        // TODO: Navigate to ensembl gene page by data.domain.ensemblId
+        window.open(`http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=${data.domain.ensemblId}`, '_blank').focus();
       }
     },
 
