@@ -7,10 +7,10 @@
 
     <div class="row">
       <q-btn-group>
-        <q-btn icon="las la-border-all" @click="toggleGridLines()" />
+        <q-btn icon="las la-border-all" :class="{ 'bg-grey-3 text-blue-8': showGridLines }" @click="toggleGridLines()" />
+        <q-btn icon="las la-burn" :class="{ 'bg-grey-3 text-blue-8': heatMapMode }" @click="toggleHeatMap()" />
+        <q-btn icon="las la-crosshairs" :class="{ 'bg-grey-3 text-blue-8': crosshairMode }" @click="toggleCrosshair()" />
         <q-btn icon="las la-sort-amount-down" @click="toggleCluster()" />
-        <q-btn icon="las la-burn" @click="toggleHeatMap()" />
-        <q-btn icon="las la-crosshairs" @click="toggleCrosshair()" />
         <q-btn icon="las la-undo-alt" @click="reloadGrid()" />
       </q-btn-group>
     </div>
@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       oncogrid: null,
+      showGridLines: true,
       crosshairMode: false,
       heatMapMode: false,
 
@@ -90,11 +91,9 @@ export default {
 
   methods: {
     toggleGridLines() {
-      this.oncoGrid.toggleGridLines();
-    },
+      this.showGridLines = !this.showGridLines;
 
-    toggleCluster() {
-      this.oncoGrid.cluster();
+      this.oncoGrid.setGridLines(this.showGridLines);
     },
 
     toggleHeatMap() {
@@ -109,14 +108,20 @@ export default {
       this.oncoGrid.setCrosshair(this.crosshairMode);
     },
 
+    toggleCluster() {
+      this.oncoGrid.cluster();
+    },
+
     reloadGrid() {
+      this.showGridLines = true;
       this.crosshairMode = false;
       this.heatMapMode = false;
 
       this.oncoGrid.reload();
-      this.oncoGrid.setCrosshair(false);
-      this.oncoGrid.setHeatmap(false);
-      this.oncoGrid.setGridLines(true);
+      this.oncoGrid.setGridLines(this.showGridLines);
+      this.oncoGrid.setCrosshair(this.crosshairMode);
+      this.oncoGrid.setHeatmap(this.heatMapMode);
+      
     },
 
 
@@ -219,7 +224,7 @@ export default {
     }
   },
 
-  async mounted() {
+  mounted() {
     var sortInt = function (field) {
       return function (a, b) {
         return a[field] - b[field];
@@ -290,7 +295,7 @@ export default {
     };
 
     this.oncoGrid = new OncoGrid(params);
-    this.oncoGrid.setGridLines(true);
+    this.oncoGrid.setGridLines(this.showGridLines);
     this.oncoGrid.render();
 
     this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
