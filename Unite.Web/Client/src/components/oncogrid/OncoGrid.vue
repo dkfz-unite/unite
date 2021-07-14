@@ -414,16 +414,4 @@ export default {
   #oncoGrid .og-track-data:hover {
     fill-opacity: 0.5;
   }
-
-
-  /* Tooltip */
-  #oncoGrid .og-tooltip-oncogrid {
-    position: absolute;
-    z-index: 1;
-    padding: 5px;
-    border: 1px solid grey;
-    border-radius: 3px;
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-  }
 </style>
