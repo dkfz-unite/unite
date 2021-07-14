@@ -1,13 +1,9 @@
 ﻿<template>
   <div class="col q-gutter-sm">
-    <!-- Grid cell tooltip -->
+    <u-histogram-bar-tooltip :target="targetHistogramBar" :data="targetHistogramBarData" />
     <u-grid-cell-tolltip :target="targetGridCell" :data="targetGridCellData" />
-
-    <!-- Clinical data track group tooltip -->
-    <u-clinical-data-tooltip :target="clinicalDataGroup" :show="!!clinicalDataGroup" />
-
-    <!-- Clinical data track cell tooltip -->
-    <u-clinical-data-cell-tooltip :target="targetTrackCell" :data="targetTrackCellData" />
+    <u-track-cell-tooltip :target="targetTrackCell" :data="targetTrackCellData" />
+    <u-clinical-data-track-tooltip :target="clinicalDataTrack" />
 
     <div class="row">
       <q-btn-group>
@@ -44,11 +40,12 @@
 
 <script>
 import { colors } from "quasar";
-
 import OncoGrid from "oncogrid";
-import UClinicalDataTooltip from "./tooltips/ClinicalDataGroupTooltip.vue";
-import UClinicalDataCellTooltip from "./tooltips/ClinicalDataCellTooltip.vue";
+
+import UHistogramBarTooltip from "./tooltips/HistogramBarTooltip.vue";
 import UGridCellTolltip from "./tooltips/GridCellTooltip.vue";
+import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
+import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 import UOncoGridFilters from "../common/filters/OncoGridFilters.vue";
 
 import consequences from "./consequences.js";
@@ -59,18 +56,16 @@ export default {
   data() {
     return {
       oncogrid: null,
-      gridLinesMode: true,
       crosshairMode: false,
       heatMapMode: false,
 
+      targetHistogramBar: false,
+      targetHistogramBarData: null,
       targetGridCell: false,
       targetGridCellData: null,
-
-      targetTrackGroup: false,
       targetTrackCell: false,
       targetTrackCellData: null,
-
-      clinicalDataGroup: false,
+      clinicalDataTrack: false,
 
       colorMap: consequences.reduce((self, item) => { return { ...self, [item["type"]]: item.color } })
     }
@@ -90,38 +85,70 @@ export default {
       } else {
         return null;
       }
-    },
+    }
   },
 
   methods: {
+    toggleGridLines() {
+      this.oncoGrid.toggleGridLines();
+    },
+
     toggleCluster() {
       this.oncoGrid.cluster();
     },
 
-    reloadGrid() {
-      this.gridLinesMode = true;
-      this.crosshairMode = false;
-      this.heatMapMode = false;
-      this.oncoGrid.reload();
-      this.oncoGrid.setGridLines(this.gridLinesMode);
+    toggleHeatMap() {
+      this.heatMapMode = !this.heatMapMode;
+
+      this.oncoGrid.setHeatmap(this.heatMapMode);
     },
 
     toggleCrosshair() {
-      this.oncoGrid.toggleCrosshair();
-      this.crosshairMode = this.oncoGrid.crosshairMode;
+      this.crosshairMode = !this.crosshairMode;
+
+      this.oncoGrid.setCrosshair(this.crosshairMode);
     },
 
-    toggleGridLines() {
-      this.oncoGrid.toggleGridLines();
-      this.gridLinesMode = this.oncoGrid.drawGridLines;
+    reloadGrid() {
+      this.crosshairMode = false;
+      this.heatMapMode = false;
+
+      this.oncoGrid.reload();
+      this.oncoGrid.setCrosshair(false);
+      this.oncoGrid.setHeatmap(false);
+      this.oncoGrid.setGridLines(true);
     },
 
-    toggleHeatMap() {
-      this.oncoGrid.toggleHeatmap();
-      this.heatMapMode = this.oncoGrid.heatMapMode;
+
+    onHistogramHover(data) {
+      let element = this.getHoverElement();
+      let properties = null;
+
+      if (data.domain.x != undefined) {
+        properties = [
+          { key: "Donor", value: data.domain.displayId },
+          { key: "Mutations", value: data.domain.count },
+        ];
+      } else {
+        properties = [
+          { key: "Gene", value: data.domain.symbol },
+          { key: "Mutations", value: data.domain.count },
+        ];
+      }
+
+      this.targetHistogramBarData = properties;
+      this.targetHistogramBar = element;
     },
 
-    // Grid cell mouse over
+    onHistogramClick(data) {
+      if (data.domain.x != undefined) {
+        this.$router.push({ name: "donor", params: { id: data.domain.id }});
+      } else {
+        // TODO: Navigate to ensembl gene page by data.domain.ensemblId
+      }
+    },
+
+
     onGridCellHover(data) {
       var element = this.getHoverElement();
 
@@ -138,22 +165,19 @@ export default {
       this.targetGridCell = element;
     },
 
-    // Grid cell click
     onGridCellClick(data) {
       this.$router.push({ name: "mutation", params: { id: data.observation.id }});
     },
 
 
-    // Track group mouse over
     onTrackGroupHover(data) {
       var element = this.getHoverElement();
 
       if (data.group == "Clinical Data") {
-        this.clinicalDataGroup = element;
+        this.clinicalDataTrack = element;
       }
     },
 
-    // Track cell mouse over
     onTrackCellHover(data) {
       var element = this.getHoverElement();
 
@@ -173,10 +197,10 @@ export default {
       }
     },
 
-    // Track cell click
     onTrackCellClick(data) {
       this.$router.push({ name: "donor", params: { id: data.domain.id }});
     },
+
 
     getImpactColor(impact) {
       switch (impact) {
@@ -266,21 +290,23 @@ export default {
     };
 
     this.oncoGrid = new OncoGrid(params);
+    this.oncoGrid.setGridLines(this.gridLinesMode);
     this.oncoGrid.render();
 
-    this.oncoGrid.setGridLines(this.gridLinesMode);
-
-    this.oncoGrid.on('gridMouseOver', this.onGridCellHover);
-    this.oncoGrid.on('gridClick', this.onGridCellClick);
-    this.oncoGrid.on('trackLegendMouseOver', this.onTrackGroupHover);
-    this.oncoGrid.on('trackMouseOver', this.onTrackCellHover);
-    this.oncoGrid.on('trackClick', this.onTrackCellClick);
+    this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
+    this.oncoGrid.on("histogramClick", this.onHistogramClick);
+    this.oncoGrid.on("gridMouseOver", this.onGridCellHover);
+    this.oncoGrid.on("gridClick", this.onGridCellClick);
+    this.oncoGrid.on("trackLegendMouseOver", this.onTrackGroupHover);
+    this.oncoGrid.on("trackMouseOver", this.onTrackCellHover);
+    this.oncoGrid.on("trackClick", this.onTrackCellClick);
   },
 
   components: {
-    UClinicalDataTooltip: UClinicalDataTooltip,
-    UClinicalDataCellTooltip: UClinicalDataCellTooltip,
+    UHistogramBarTooltip: UHistogramBarTooltip,
     UGridCellTolltip: UGridCellTolltip,
+    UTrackCellTooltip: UTrackCellTooltip,
+    UClinicalDataTrackTooltip: UClinicalDataTrackTooltip,
     UOncoGridFilters: UOncoGridFilters,
   },
 };

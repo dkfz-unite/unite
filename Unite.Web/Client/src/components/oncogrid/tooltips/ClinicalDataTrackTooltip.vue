@@ -4,8 +4,7 @@
     anchor="top middle" 
     self="bottom middle" 
     :offset="[10, 10]"
-    :target="target"
-    v-if="show && target">
+    :target="target">
 
     <div class="col">
       <!-- Age -->
@@ -54,13 +53,7 @@
 
 <script>
 export default {
-  props: ["target", "show"],
-
-  computed: {
-    tooltipTarget() {
-      return this.target;
-    }
-  }
+  props: ["target"],
 }
 </script>
 

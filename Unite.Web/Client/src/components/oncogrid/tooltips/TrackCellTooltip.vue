@@ -5,7 +5,7 @@
     self="bottom middle" 
     :offset="[10, 10]"
     :target="target"
-    v-if="target && data">
+    v-if="data">
 
     <div class="col">
       <div v-for="(property, index) in data" :key="index" class="row content-center q-gutter-xs">
