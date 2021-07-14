@@ -290,7 +290,7 @@ export default {
     };
 
     this.oncoGrid = new OncoGrid(params);
-    this.oncoGrid.setGridLines(this.gridLinesMode);
+    this.oncoGrid.setGridLines(true);
     this.oncoGrid.render();
 
     this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
@@ -312,20 +312,21 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+  @import '@/styles/quasar.variables.scss';
+
   /* Grid background */
   #oncoGrid .background {
-    fill: white;
-    stroke: black;
+    fill: $grey-1;
+    stroke: $grey-10;
     stroke-width: 0.1;
   }
 
   /* Grid line */
   #oncoGrid line {
-    stroke: black;
-    stroke-width: 0.1;
+    stroke: $grey-10;
+    stroke-width: 0.2;
   }
-
 
   /* Crosshair mode */
   #oncoGrid.og-crosshair-mode {
@@ -334,13 +335,13 @@ export default {
 
   /* Crosshair line (vertical) */
   #oncoGrid line.og-vertical-cross {
-    stroke: black;
+    stroke: $grey-10;
     stroke-width: 0.5;
   }
 
   /* Crosshair line (horizontal) */
   #oncoGrid line.og-horizontal-cross {
-    stroke: black;
+    stroke: $grey-10;
     stroke-width: 0.5;
   }
 
@@ -367,13 +368,13 @@ export default {
   }
 
   /* Gene label (hover) */
-  #oncoGrid .og-gene-label:hover {
+  #oncoGrid .og-gene-label {
     cursor: grab;
   }
 
   /* Gene label (active) */
   #oncoGrid .og-gene-label:active {
-    fill: blue;
+    fill: $blue-8;
     cursor: grabbing;
   }
 
@@ -402,7 +403,7 @@ export default {
 
   /* Track label (hover) */
   #oncoGrid .og-track-label:hover {
-    fill: blue;
+    fill: $blue-8;
   }
 
   /* Track grid cell */
