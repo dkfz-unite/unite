@@ -15,11 +15,17 @@
       @request="onRequest"
     >
       <template v-slot:top-right>
-        <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
+        <div class="row q-gutter-x-md">
+          <q-btn
+            label="Oncogrid" icon="las la-chart-area" color="primary" dense flat no-caps
+            :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, preselectFilters: true }}" 
+          />
+          <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </div>
       </template>
 
       <template v-slot:body-cell-id="props">

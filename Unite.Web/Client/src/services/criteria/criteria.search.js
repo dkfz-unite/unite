@@ -4,6 +4,7 @@ import CellLineFilters from './filters/filters.cell.js';
 import OrganoidFilters from "./filters/filters.organoid.js";
 import XenograftFilters from "./filters/filters.xenograft.js";
 import MutationFilters from './filters/filters.mutation.js';
+import OncoGridFilters from './filters/filters.oncogrid.js';
 
 class SearchCriteria {
     from = 0;
@@ -15,6 +16,7 @@ class SearchCriteria {
     organoidFilters = new OrganoidFilters();
     xenograftFilters = new XenograftFilters();
     mutationFilters = new MutationFilters();
+    oncoGridFilters = new OncoGridFilters();
 }
 
 export default SearchCriteria;

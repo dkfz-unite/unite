@@ -86,6 +86,14 @@ const routes = [
   },
 
   {
+    path: '/oncogrid',
+    name: "oncogrid",
+    meta: { title: "UNITE.OncoGrid", authorize: true },
+    component: () => import(/* webpackChunkName: "oncogrid" */ '../views/visualisations/OncoGrid.vue'),
+    props: true
+  },
+
+  {
     path: '/login',
     name: "login",
     meta: { title: "Unite.Login", anonymous: true },
