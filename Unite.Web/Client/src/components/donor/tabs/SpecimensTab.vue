@@ -17,7 +17,7 @@
 import UAncestry from "../../specimens/base/ancestry/Ancestry.vue";
 
 import SearchCriteria from "../../../services/criteria/criteria.search.js";
-import specimensApiClient from "../../../services/api/api.client.specimens.js";
+import apiClient from "../../../services/api/api.client.donors.js";
 
 export default {
   props: ["donor"],
@@ -39,7 +39,7 @@ export default {
       criteria.size = 1000;
       criteria.donorFilters.id.push(donorId);
 
-      let data = await specimensApiClient.search(criteria);
+      let data = await apiClient.searchSpecimens(donorId, criteria);
 
       if (data) {
         return data.rows.filter(row => !row.parent);

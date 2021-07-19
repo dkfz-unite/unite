@@ -33,7 +33,7 @@
 import UFilters from "../../common/mutations/Filters.vue";
 import UMutations from "../../common/mutations/Mutations.vue";
 
-import apiClient from "../../../services/api/api.client.mutations.js";
+import apiClient from "../../../services/api/api.client.donors.js";
 
 export default {
   props: ["donor"],
@@ -81,7 +81,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        let data = await apiClient.search(this.criteria);
+        let data = await apiClient.searchMutations(this.donor.id, this.criteria);
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
         this.rowsSelected = this.$store.state.donor.mutationsSelected;
