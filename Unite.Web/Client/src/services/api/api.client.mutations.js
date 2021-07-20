@@ -5,14 +5,19 @@ class MutationsApiClient{
     #mutationsUrl = settings.baseUrl + "/mutations";
     #mutationUrl = settings.baseUrl + "/mutation";
 
-    async search(criteria){
-        var url = this.#mutationsUrl;
+    async get(id){
+        let url = `${this.#mutationUrl}/${id}`;
+        return await apiClient.get(url);
+    }
+
+    async getDonors(id, criteria){
+        let url = `${this.#mutationUrl}/${id}/donors`;
         return await apiClient.post(url, criteria);
     }
 
-    async get(id){
-        var url = this.#mutationUrl + "?id=" + id;
-        return await apiClient.get(url);
+    async search(criteria){
+        let url = this.#mutationsUrl;
+        return await apiClient.post(url, criteria);
     }
 }
 

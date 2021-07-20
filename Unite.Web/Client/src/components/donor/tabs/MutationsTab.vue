@@ -69,7 +69,6 @@ export default {
   },
 
   async mounted() {
-    this.criteria.donorFilters.id = [this.donor.id];
   },
 
   methods: {
@@ -81,7 +80,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        let data = await apiClient.searchMutations(this.donor.id, this.criteria);
+        let data = await apiClient.getMutations(this.donor.id, this.criteria);
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
         this.rowsSelected = this.$store.state.donor.mutationsSelected;

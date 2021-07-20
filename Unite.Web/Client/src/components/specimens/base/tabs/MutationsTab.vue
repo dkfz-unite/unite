@@ -33,7 +33,7 @@
 import UFilters from "../../../common/mutations/Filters.vue";
 import UMutations from "../../../common/mutations/Mutations.vue";
 
-import apiClient from "../../../../services/api/api.client.mutations.js";
+import apiClient from "../../../../services/api/api.client.specimens.js";
 
 export default {
   props: ["specimen"],
@@ -69,7 +69,6 @@ export default {
   },
 
   async mounted() {
-    this.setMutationsSearchCriteria(this.specimen.id);
   },
 
   methods: {
@@ -81,7 +80,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        let data = await apiClient.search(this.criteria);
+        let data = await apiClient.getMutations(this.specimen.id, this.criteria);
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
         this.rowsSelected = this.getMutationsSelected();
@@ -105,20 +104,6 @@ export default {
         return this.$store.state.xenograft.mutationsSearchCriteria;
       } else {
         throw 'Not implemented';
-      }
-    },
-
-    setMutationsSearchCriteria(value) {
-      if (this.specimen.tissue) {
-        this.criteria.tissueFilters.id = [value];
-      } else if (this.specimen.cellLine) {
-        this.criteria.cellLineFilters.id = [value];
-      } else if (this.specimen.organoid) {
-        this.criteria.organoidFilters.id = [value];
-      } else if (this.specimen.xenograft) {
-        this.criteria.xenograftFilters.id = [value];
-      } else {
-        throw "Not implemented";
       }
     },
 

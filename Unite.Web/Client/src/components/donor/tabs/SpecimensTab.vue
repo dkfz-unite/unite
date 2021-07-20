@@ -39,7 +39,7 @@ export default {
       criteria.size = 1000;
       criteria.donorFilters.id.push(donorId);
 
-      let data = await apiClient.searchSpecimens(donorId, criteria);
+      let data = await apiClient.getSpecimens(donorId, criteria);
 
       if (data) {
         return data.rows.filter(row => !row.parent);

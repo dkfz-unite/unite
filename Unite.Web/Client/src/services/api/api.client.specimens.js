@@ -5,14 +5,19 @@ class SpecimensApiClient{
     #specimensUrl = settings.baseUrl + "/specimens";
     #specimenUrl = settings.baseUrl + "/specimen";
 
-    async search(criteria){
-        var url = this.#specimensUrl;
+    async get(id){
+        let url = `${this.#specimenUrl}/${id}`;
+        return await apiClient.get(url);
+    }
+
+    async getMutations(id, criteria){
+        let url = `${this.#specimenUrl}/${id}/mutations`;
         return await apiClient.post(url, criteria);
     }
 
-    async get(id){
-        var url = this.#specimenUrl + "?id=" + id;
-        return await apiClient.get(url);
+    async search(type, criteria){
+        let url = `${this.#specimensUrl}/${type}`;
+        return await apiClient.post(url, criteria);
     }
 }
 

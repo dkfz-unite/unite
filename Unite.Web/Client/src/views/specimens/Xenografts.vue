@@ -33,7 +33,7 @@ import UFilters from "../../components/common/filters/Filters.vue";
 import UFiltersDrawer from "../../components/common/filters/FiltersDrawer.vue";
 import UXenografts from "../../components/specimens/xenografts/Xenografts.vue";
 
-import apiClient from "../../services/api/api.client.xenografts.js";
+import apiClient from "../../services/api/api.client.specimens.js";
 
 export default {
   data() {
@@ -67,7 +67,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        let data = await apiClient.search(this.criteria);
+        let data = await apiClient.search("Xenograft", this.criteria);
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
       } catch (error) {

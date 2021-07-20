@@ -13,26 +13,6 @@
         <q-breadcrumbs-el label="Cell Lines" />
       </q-breadcrumbs>
     </div>
-
-    <!-- <div class="row">
-      <div class="col">
-        <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2">
-            <u-filters v-model="criteria" selected="cell" @input="fetchData" />
-          </div>
-
-          <div class="col-12 col-sm-9 col-md-10">
-            <u-cells
-              :loading="loading"
-              :rows="rows"
-              :rows-total="rowsTotal"
-              :rows-selected.sync="rowsSelected"
-              :filters.sync="filters"
-            />
-          </div>
-        </div>
-      </div>
-    </div> -->
   
     <div class="row">
       <div class="col">
@@ -53,7 +33,7 @@ import UFilters from "../../components/common/filters/Filters.vue";
 import UFiltersDrawer from "../../components/common/filters/FiltersDrawer.vue";
 import UCells from "../../components/specimens/cells/Cells.vue";
 
-import apiClient from "../../services/api/api.client.cells.js";
+import apiClient from "../../services/api/api.client.specimens.js";
 
 export default {
   data() {
@@ -87,7 +67,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        let data = await apiClient.search(this.criteria);
+        let data = await apiClient.search("CellLine", this.criteria);
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
       } catch (error) {

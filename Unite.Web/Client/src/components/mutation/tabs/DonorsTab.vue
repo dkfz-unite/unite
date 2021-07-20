@@ -34,7 +34,7 @@
 import UFilters from "../donors/Filters.vue";
 import UDonors from "../donors/Donors.vue";
 
-import apiClient from "../../../services/api/api.client.donors.js";
+import apiClient from "../../../services/api/api.client.mutations.js";
 
 export default {
   props: ["mutation"],
@@ -70,7 +70,6 @@ export default {
   },
 
   async mounted() {
-    this.criteria.mutationFilters.code = [this.mutation.code];
   },
 
   methods: {
@@ -81,7 +80,7 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-        let data = await apiClient.search(this.criteria);
+        let data = await apiClient.getDonors(this.mutation.id, this.criteria);
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
       } catch {

@@ -57,7 +57,7 @@ import USummaryTab from "../../components/specimens/tissue/tabs/SummaryTab.vue";
 import UAncestryTab from "../../components/specimens/base/tabs/AncestryTab.vue";
 import UMutationsTab from "../../components/specimens/base/tabs/MutationsTab.vue";
 
-import tissuesApiClient from "../../services/api/api.client.tissues.js";
+import specimensApiClient from "../../services/api/api.client.specimens.js";
 import donorsApiClient from "../../services/api/api.client.donors.js";
 
 export default {
@@ -79,7 +79,7 @@ export default {
   async mounted() {
     try {
       this.loading = true;
-      this.specimen = await tissuesApiClient.get(this.$route.params.id);
+      this.specimen = await specimensApiClient.get(this.$route.params.id);
       this.donor = await donorsApiClient.get(this.specimen.donorId);
     } catch (error) {
       this.specimen = null;

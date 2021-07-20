@@ -63,7 +63,7 @@ import UAncestryTab from "../../components/specimens/base/tabs/AncestryTab.vue";
 import UInterventionsTab from "../../components/specimens/organoid/tabs/InterventionsTab.vue";
 import UMutationsTab from "../../components/specimens/base/tabs/MutationsTab.vue";
 
-import specimensApiClient from "../../services/api/api.client.organoids.js";
+import specimensApiClient from "../../services/api/api.client.specimens.js";
 import donorsApiClient from "../../services/api/api.client.donors.js";
 
 export default {
