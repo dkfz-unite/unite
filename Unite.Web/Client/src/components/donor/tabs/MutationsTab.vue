@@ -31,7 +31,7 @@
 
 <script>
 import UFilters from "../../common/mutations/Filters.vue";
-import UMutations from "../../common/mutations/Mutations.vue";
+import UMutations from "../mutations/Mutations.vue";
 
 import apiClient from "../../../services/api/api.client.donors.js";
 

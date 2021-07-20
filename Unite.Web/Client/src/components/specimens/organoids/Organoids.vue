@@ -134,15 +134,15 @@ export default {
           headerClasses: "bg-grey-2"
         },
         {
-          name: "mutations",
+          name: "numberOfMutations",
           label: "#Mutations",
-          field: (row) => row.mutations,
+          field: (row) => row.numberOfMutations,
           sortable: false
         },
         {
-          name: "genes",
+          name: "numberOfGenes",
           label: "#Genes",
-          field: (row) => row.genes,
+          field: (row) => row.numberOfGenes,
           sortable: false
         }
       ],

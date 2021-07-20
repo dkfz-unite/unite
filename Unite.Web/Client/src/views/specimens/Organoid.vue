@@ -82,7 +82,7 @@ export default {
     },
 
     showMutations() {
-      return !!this.specimen?.mutations;
+      return !!this.specimen?.numberOfMutations;
     }
   },
 

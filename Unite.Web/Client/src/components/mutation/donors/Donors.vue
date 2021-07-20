@@ -129,15 +129,21 @@ export default {
           align: "left"
         },
         {
-          name: "mutations",
-          label: "#Mutations",
-          field: (row) => row.mutations,
+          name: "numberOfSpecimens",
+          label: "#Specimens",
+          field: (row) => row.numberOfSpecimens,
           sortable: false
         },
         {
-          name: "genes",
+          name: "numberOfMutations",
+          label: "#Mutations",
+          field: (row) => row.numberOfMutations,
+          sortable: false
+        },
+        {
+          name: "numberOfGenes",
           label: "#Genes",
-          field: (row) => row.genes,
+          field: (row) => row.numberOfGenes,
           sortable: false
         }
       ],

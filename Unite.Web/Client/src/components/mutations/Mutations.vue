@@ -98,9 +98,9 @@ export default {
           align: "left"
         },
         {
-          name: "donors",
+          name: "numberOfDonors",
           label: "#Affected Donors",
-          field: (row) => row.donors,
+          field: (row) => row.numberOfDonors,
           sortable: false
         }
       ],

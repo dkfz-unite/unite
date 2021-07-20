@@ -36,16 +36,6 @@
         </q-td>
       </template>
 
-      <!-- <template v-slot:body-cell-treatments="props">
-        <q-td :props="props">
-          <div v-if="props.value && props.value.length">
-            <div v-for="(treatment, i) in props.value" :key="i">
-              {{ treatment.therapy }}
-            </div>
-          </div>
-        </q-td>
-      </template> -->
-
       <template v-slot:body-cell-packages="props">
         <q-td :props="props">
           <div v-if="props.value && props.value.length">
@@ -142,15 +132,21 @@ export default {
           align: "left"
         },
         {
-          name: "mutations",
-          label: "#Mutations",
-          field: (row) => row.mutations,
+          name: "numberOfSpecimens",
+          label: "#Specimens",
+          field: (row) => row.numberOfSpecimens,
           sortable: false
         },
         {
-          name: "genes",
+          name: "numberOfMutations",
+          label: "#Mutations",
+          field: (row) => row.numberOfMutations,
+          sortable: false
+        },
+        {
+          name: "numberOfGenes",
           label: "#Genes",
-          field: (row) => row.genes,
+          field: (row) => row.numberOfGenes,
           sortable: false
         }
       ],

@@ -47,15 +47,15 @@ export default {
 
   computed:{
     hasClinicalData(){
-      return this.donor && this.donor.clinicalData;
+      return this.donor?.clinicalData;
     },
 
     hasTreatmentData(){
-      return this.donor && this.donor.treatments && this.donor.treatments.length;
+      return this.donor?.treatments?.length;
     },
 
     hasMutations(){
-      return this.donor && this.donor.mutations;
+      return this.donor?.numberOfMutations;
     }
   }
 };

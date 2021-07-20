@@ -24,25 +24,50 @@
 
       <template v-slot:body-cell-consequences="props">
         <q-td :props="props">
-          <template v-if="props.value">
-            <div v-for="(consequence, i) in props.value" :key="i">
+          <div v-if="props.value" class="column">
+            <div v-for="(consequence, i) in props.value" :key="i" class="row justify-left q-gutter-x-xs">
               <div>
                 <span :class="getImpactColor(consequence.impact)">{{getConsequenceLabel(consequence.term)}}: </span>
+              </div>
+              <div v-for="(gene, j) in consequence.genes" :key="j">
                 <span>
-                  <span v-for="(gene, i) in consequence.genes" :key="i">
-                    <a class="u-link text-italic" :href="getGeneLink(gene.ensemblId)" target="blank">{{gene.symbol}}&nbsp;&nbsp;</a>
-                    <span v-if="gene.transcripts && gene.transcripts.length">
-                      (<span v-for="(transcript, i) in gene.transcripts" :key="i">
-                        <span>{{transcript}}</span>
-                        <span v-if="i + 1 < gene.transcripts.length">, </span>
-                      </span>)
-                    </span>
-                    <span>&nbsp;</span>
+                  <a class="u-link text-italic" :href="getGeneLink(gene.ensemblId)" target="blank">
+                    {{gene.symbol}}
+                  </a>
+                  <span v-if="gene.transcripts && gene.transcripts.length">
+                    (<span v-for="(transcript, k) in gene.transcripts" :key="k">
+                      <span>{{transcript}}</span>
+                      <span v-if="k < gene.transcripts.length - 1">, </span>
+                    </span>)
                   </span>
                 </span>
               </div>
             </div>
-          </template>
+          </div>
+        </q-td>
+      </template>
+
+       <template v-slot:body-cell-specimens="props">
+        <q-td :props="props">
+          <div v-if="props.value" class="column">
+            <div v-if="props.value.tissues && props.value.tissues.length" class="row justify-left q-gutter-x-xs">
+              <div>
+                <span>Tissues:</span>
+              </div>
+              <div v-for="(specimen, index) in props.value.tissues" :key="index">
+                <router-link class="u-link" :to="{ name: 'tissue', params: { id: specimen.id }}">
+                  {{specimen.tissue.referenceId}}
+                </router-link>
+                <q-badge 
+                  v-if="!!specimen.tissue.type"
+                  align="top" rounded
+                  :color="getTissueBadgeColor(specimen.tissue)">
+                  {{ getTissueBadgeLable(specimen.tissue) }}
+                </q-badge>
+                <span v-if="index < props.value.tissues.length - 1">,</span>
+              </div>
+            </div>
+          </div>
         </q-td>
       </template>
     </q-table>
@@ -113,6 +138,13 @@ export default {
           name: "consequences",
           label: "Consequences",
           field: row => row.transcriptConsequences,
+          sortable: false,
+          align: "left"
+        },
+        {
+          name: "specimens",
+          label: "Specimens",
+          field: row => this.getSpecimensView(row.specimens),
           sortable: false,
           align: "left"
         },
@@ -208,6 +240,49 @@ export default {
         return null;
       } else {
         return `http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=${ensemblId}`;
+      }
+    },
+
+    getSpecimensView(specimens) {
+      if (specimens?.length) {
+        return {
+          tissues: specimens.filter(specimen => !!specimen.tissue),
+          cells: specimens.filter(specimen => !!specimen.cellLine),
+          organoids: specimens.filter(specimen => !!specimen.organoid),
+          xenografts: specimens.filter(specimen => !!specimen.xenograft)
+        }
+      }
+    },
+
+    getTissueBadgeLable(tissue) {
+      if (tissue.type == "Control") {
+        return "C";
+      } else if (tissue.tumorType == "Primary") {
+        return "P";
+      } else if (tissue.tumorType == "Metastasis") {
+        return "M";
+      } else if (tissue.tumorType == "Recurrent") {
+        return "R";
+      } else if (tissue.type == "Tumor") {
+        return "T";
+      } else {
+        return null;
+      }
+    },
+
+    getTissueBadgeColor(tissue) {
+      if (tissue.type == "Control") {
+        return "green";
+      } else if (tissue.tumorType == "Primary") {
+        return "blue-5";
+      } else if (tissue.tumorType == "Metastasis") {
+        return "blue-7";
+      } else if (tissue.tumorType == "Recurrent") {
+        return "blue-9";
+      } else if (tissue.type == "Tumor") {
+        return "blue-5";
+      } else {
+        return null;
       }
     }
   },

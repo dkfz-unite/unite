@@ -85,12 +85,12 @@ export default {
       return !!this.donor?.treatments?.length
     },
 
-    showMutations() {
-      return !!this.donor?.mutations;
+    showSpecimens() {
+      return !!this.donor?.numberOfSpecimens;
     },
 
-    showSpecimens() {
-      return !!this.donor?.specimens;
+    showMutations() {
+      return !!this.donor?.numberOfMutations;
     }
   },
 

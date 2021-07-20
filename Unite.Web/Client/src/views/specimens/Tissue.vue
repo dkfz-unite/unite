@@ -72,7 +72,7 @@ export default {
 
   computed: {
     showMutations() {
-      return !!this.specimen?.mutations;
+      return !!this.specimen?.numberOfMutations;
     }
   },
 
