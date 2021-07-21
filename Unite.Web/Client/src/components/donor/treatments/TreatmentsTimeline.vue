@@ -3,14 +3,14 @@
     <q-timeline-entry
       v-if="diagnosisDate"
       title="Diagnosis Statement" 
-      :subtitle="contentHelpers.toDateString(diagnosisDate)" 
+      subtitle="Day 0" 
     />
 
     <q-timeline-entry
       v-for="(treatment, index) in treatments"
       :key="index"
       :title="treatment.therapy"
-      :subtitle="contentHelpers.toDataRangeString(treatment.startDate, treatment.endDate)"
+      :subtitle="contentHelpers.toTimespanString(treatment.startDay, treatment.durationDays)"
       :color="treatment.progressionStatus ? 'orange': 'primary'">
       <u-treatments-timeline-item :treatment="treatment" />
     </q-timeline-entry>

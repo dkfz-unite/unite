@@ -26,10 +26,6 @@
               <td>{{ clinicalData.diagnosis }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Diagnosis date</td>
-              <td>{{ contentHelpers.toDateString(clinicalData.diagnosisDate) }}</td>
-            </tr>
-            <tr>
               <td class="u-text-key">Primary site</td>
               <td>{{ clinicalData.primarySite }}</td>
             </tr>
@@ -42,8 +38,8 @@
               <td>{{ contentHelpers.toBooleanString(clinicalData.vitalStatus, false, "Living", "Deceased") }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Vital Status Change Date</td>
-              <td>{{ contentHelpers.toDateString(clinicalData.vitalStatusChangeDate) }}</td>
+              <td class="u-text-key">Vital Status Changed After (Days)</td>
+              <td>{{ clinicalData.vitalStatusChangeDay }}</td>
             </tr>
             <tr>
               <td class="u-text-key">KPS Baseline</td>

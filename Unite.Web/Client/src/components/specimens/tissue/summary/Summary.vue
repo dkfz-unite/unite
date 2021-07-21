@@ -34,8 +34,8 @@
               <td>{{ specimen.tissue.source }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Extraction Date</td>
-              <td>{{ contentHelpers.toDateString(specimen.tissue.extractionDate) }}</td>
+              <td class="u-text-key">Extraction Day</td>
+              <td>{{ specimen.tissue.extractionDay }}</td>
             </tr>
           </tbody>
         </q-markup-table>

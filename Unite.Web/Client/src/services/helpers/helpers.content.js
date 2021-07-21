@@ -46,6 +46,23 @@ class ContentHelpers {
             return startDate + " - " + endDate;
         }
     }
+
+    /**
+     * Converts start day and duration to timespan string
+     * @param {*} startDay Start day
+     * @param {*} durationDays Duration days
+     */
+    toTimespanString(startDay, durationDays) {
+        if (!startDay && !durationDays) {
+            return "Days ? - ?";
+        } else if (startDay && !durationDays) {
+            return `Day ${startDay} - ?`;
+        } else if (!startDay && durationDays) {
+            return `${durationDays} days long`;
+        } else {
+            return `Days ${startDay} - ${startDay + durationDays}`;
+        }
+    }
 }
 
 export default new ContentHelpers();
