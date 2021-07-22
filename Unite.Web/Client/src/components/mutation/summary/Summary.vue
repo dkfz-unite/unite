@@ -30,8 +30,12 @@
               <td>{{ mutation.chromosome }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Position</td>
-              <td>{{ mutation.position }}</td>
+              <td class="u-text-key">Start</td>
+              <td>{{ mutation.start }}</td>
+            </tr>
+             <tr>
+              <td class="u-text-key">End</td>
+              <td>{{ mutation.end }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Reference Base</td>
