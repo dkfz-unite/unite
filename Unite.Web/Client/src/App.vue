@@ -110,10 +110,23 @@
       </div>
     </q-page-container>
 
-    <!-- <q-footer class="bg-grey-3 text-white">
+    <q-footer v-if="!hideBanner" class="bg-green-5">
       <q-toolbar>
+        <div class="col">
+          <div class="row justify-center q-gutter-x-md">
+            <div>
+                <span class="text-subtitle1">
+                  All information on this environment is artificial and was generated based on real examples for presentation purposes.
+                </span>
+            </div>
+
+            <div>
+              <q-btn label="Dismiss" class="bg-blue q-px-xs" dense @click="onDismiss" />
+            </div>
+          </div>
+        </div>
       </q-toolbar>
-    </q-footer> -->
+    </q-footer>
 
   </q-layout>
 </template>
@@ -132,6 +145,8 @@ export default {
       organoidsDrawer: this.$store.state.organoids.drawer,
       xenograftsDrawer: this.$store.state.xenografts.drawer,
       mutationsDrawer: this.$store.state.mutations.drawer,
+
+      hideBanner: localStorage.hideBanner
     }
   },
 
@@ -149,7 +164,7 @@ export default {
       let routes = ["donors", "tissues", "cells", "organoids", "xenografts", "mutations"];
 
       return screen && routes.includes(this.$route.name);
-    },
+    }
   },
 
   async mounted() {
@@ -209,7 +224,12 @@ export default {
         }
         default: return;
       }
-    }
+    },
+
+    onDismiss() {
+      this.hideBanner = true;
+      localStorage.hideBanner = this.hideBanner;
+    },
   }
 }
 </script>

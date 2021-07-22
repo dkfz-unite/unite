@@ -45,14 +45,6 @@
               <td class="u-text-key">Alternate Base</td>
               <td>{{ mutation.alt }}</td>
             </tr>
-            <!-- <tr>
-              <td class="u-text-key">Gene</td>
-              <td>
-                <a v-if="mutation.gene" class="u-link" :href="'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' + mutation.gene.name" target="blank">
-                  {{ mutation.gene.name }}
-                </a>
-              </td>
-            </tr> -->
           </tbody>
         </q-markup-table>
       </div>
