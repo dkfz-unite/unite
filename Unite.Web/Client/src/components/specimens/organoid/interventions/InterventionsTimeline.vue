@@ -10,7 +10,7 @@
       v-for="(intervention, index) in interventions"
       :key="index"
       :title="intervention.type"
-      :subtitle="`Day: ${intervention.startDay}, Duration (Days): ${intervention.durationDays}`">
+      :subtitle="contentHelpers.toTimespanString(intervention.startDay, intervention.durationDays)">
       <u-interventions-timeline-item :intervention="intervention" />
     </q-timeline-entry>
   </q-timeline>
@@ -19,12 +19,20 @@
 <script>
 import UInterventionsTimelineItem from "./InterventionsTimelineItem.vue";
 
+import contentHelpers from "../../../../services/helpers/helpers.content.js";
+
 export default {
   props: {
     interventions: {
       type: Array,
       required: true,
     },
+  },
+
+  data(){
+    return {
+      contentHelpers: contentHelpers
+    }
   },
 
   components: {

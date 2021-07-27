@@ -30,6 +30,14 @@
         </q-td>
       </template>
 
+      <template v-slot:body-cell-donorId="props">
+        <q-td :props="props">
+          <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value.toString() }}">
+            {{ props.value }}
+          </router-link>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
           <router-link v-if="props.value" class="u-link" :to="getSpecimenLink(props.value)">
@@ -56,6 +64,13 @@ export default {
           field: (row) => row.id,
           sortable: false,
           required: true,
+          align: "left"
+        },
+        {
+          name: "donorId",
+          label: "Donor Id",
+          field: (row) => row.donorId,
+          sortable: false,
           align: "left"
         },
         {

@@ -56,7 +56,7 @@ class ContentHelpers {
         if (!startDay && !durationDays) {
             return "Days ? - ?";
         } else if (startDay && !durationDays) {
-            return `Day ${startDay} - ?`;
+            return `Day ${startDay}`;
         } else if (!startDay && durationDays) {
             return `${durationDays} days long`;
         } else {

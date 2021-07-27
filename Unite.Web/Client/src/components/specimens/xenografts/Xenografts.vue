@@ -30,6 +30,14 @@
         </q-td>
       </template>
 
+      <template v-slot:body-cell-donorId="props">
+        <q-td :props="props">
+          <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value.toString() }}">
+            {{ props.value }}
+          </router-link>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
           <router-link v-if="props.value" class="u-link" :to="getSpecimenLink(props.value)">
@@ -56,6 +64,13 @@ export default {
           field: (row) => row.id,
           sortable: false,
           required: true,
+          align: "left"
+        },
+        {
+          name: "donorId",
+          label: "Donor Id",
+          field: (row) => row.donorId,
+          sortable: false,
           align: "left"
         },
         {
@@ -87,9 +102,16 @@ export default {
           align: "left"
         },
         {
-          name: "tumorGrowth",
-          label: "Tumor Growth",
-          field: (row) => this.getTumorGrowth(row.xenograft?.tumorigenicity, row.xenograft?.tumorGrowthForm),
+          name: "tumorigenicity",
+          label: "Tumorigenicity",
+          field: (row) => contentHelpers.toBooleanString(row.xenograft?.tumorigenicity),
+          sortable: false,
+          align: "left"
+        },
+        {
+          name: "tumorGrowthForm",
+          label: "Tumor Growth Form",
+          field: (row) => row.xenograft?.tumorGrowthForm,
           sortable: false,
           align: "left"
         },
@@ -249,14 +271,6 @@ export default {
         return "Xenograft"
       } else {
         return null;
-      }
-    },
-
-    getTumorGrowth(tumorigenicity, tumorGrowthForm) {
-      if(tumorigenicity) {
-        return tumorGrowthForm;
-      } else {
-        return contentHelpers.toBooleanString(tumorigenicity);
       }
     },
 
