@@ -4,14 +4,18 @@ const module = {
     namespaced: true,
 
     state: () => ({
+        genesSearchCriteria: new SearchCriteria(),
+        genesSelected: [],
         mutationsSearchCriteria: new SearchCriteria(),
         mutationsSelected: []
     }),
 
     actions: {
         clearState({state}) {
+            state.genesSearchCriteria = new SearchCriteria();
+            state.genesSelected = [];
             state.mutationsSearchCriteria = new SearchCriteria();
-            state.mutationsSelected = []
+            state.mutationsSelected = [];
         }
     }
 }

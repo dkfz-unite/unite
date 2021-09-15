@@ -32,9 +32,12 @@
           <tbody>
             <tr v-for="(feature, i) in features" :key="i">
               <td>
-                <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + feature.gene.ensemblId" target="blank">
-                  {{feature.gene.symbol}}
-                </a>
+                <router-link class="u-link" :to="{ name: 'gene', params: { id: feature.transcript.gene.id }}">
+                  {{feature.transcript.gene.symbol}}
+                </router-link>
+                <!-- <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + feature.transcript.gene.ensemblId" target="blank">
+                  {{feature.transcript.gene.symbol}}
+                </a> -->
               </td>
               <td>
                 <div v-for="(consequence, i) in feature.consequences" :key="i">
@@ -52,7 +55,10 @@
               </td>
               <td>
                 <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=' + feature.transcript.ensemblId" target="blank">
-                  {{feature.transcript.ensemblId}}
+                  <div class="row">
+                    <q-icon name="las la-external-link-alt" size="xs"/> 
+                    {{feature.transcript.symbol}}
+                  </div>
                 </a>
               </td>
             </tr>
@@ -64,7 +70,7 @@
 </template>
 
 <script>
-import ConsequenceType from '@/services/criteria/filters/data/mutations/filter.option.consequence.type.js';
+import ConsequenceType from '../../../services/criteria/filters/data/mutations/filter.option.consequence.type.js';
 
 export default {
   props: ["features"],

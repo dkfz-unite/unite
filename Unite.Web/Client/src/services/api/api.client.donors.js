@@ -10,6 +10,11 @@ class DonorsApiClient{
         return await apiClient.get(url);
     }
 
+    async getGenes(id, criteria){
+        let url = `${this.#donorUrl}/${id}/genes`;
+        return await apiClient.post(url, criteria);
+    }
+
     async getMutations(id, criteria){
         let url = `${this.#donorUrl}/${id}/mutations`;
         return await apiClient.post(url, criteria);

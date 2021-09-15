@@ -1,11 +1,11 @@
 <template>
   <div class="col">
     <q-table
-      title="Organoids"
       class="sticky-header"
       separator="cell" dense flat bordered
       selection="multiple"
       row-key="id"
+      :title="title"
       :columns="columns"
       :data="data"
       :selected.sync="selected"
@@ -50,10 +50,12 @@
 </template>
 
 <script>
-import contentHelpers from "@/services/helpers/helpers.content.js";
+import contentHelpers from "../../../services/helpers/helpers.content.js";
+import tableMixin from "../../_common/_mixins/mixin.table.js";
+import specimensTableMixin from "../_common/_mixins/mixin.specimens.table.js";
 
 export default {
-  props: ["rows", "rowsSelected", "rowsTotal", "filters", "loading"],
+  mixins: [tableMixin, specimensTableMixin],
 
   data() {
     return {
@@ -161,108 +163,7 @@ export default {
           sortable: false
         }
       ],
-
-      data: [],
-
-      selected: [],
-
-      filter: null,
-
-      pagination: {
-        page: 1,
-        rowsPerPage: 20,
-        rowsNumber: 0,
-      },
-    };
-  },
-
-  watch: {
-    rows(value) {
-      this.data = value;
-    },
-
-    rowsTotal(value) {
-      this.pagination.rowsNumber = value;
-    },
-
-    rowsSelected(value) {
-      this.selected = value;
-    },
-
-    selected(value) {
-      this.$emit("update:rowsSelected", value);
-    },
-  },
-
-  mounted() {
-    this.onRequest({ pagination: this.pagination, filter: this.filter });
-  },
-
-  methods: {
-    onRequest(props) {
-      let filters = {
-        from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
-        size: this.getSize(props.pagination.rowsPerPage),
-        term: props.filter,
-      };
-
-      this.pagination.page = props.pagination.page;
-      this.pagination.rowsPerPage = props.pagination.rowsPerPage;
-
-      this.$emit("update:filters", filters);
-    },
-
-    getFrom(page, pageSize) {
-      if (page != null && page != undefined) {
-        return (page - 1) * pageSize;
-      } else {
-        return 0;
-      }
-    },
-
-    getSize(pageSize) {
-      if (pageSize != null && pageSize != undefined) {
-        return pageSize == 0 ? 10000 : pageSize;
-      } else {
-        return 20;
-      }
-    },
-
-    getSpecimenLink(specimen) {
-      if (!specimen) {
-        return null;
-      } else if (!!specimen.tissue) {
-        return { name: "tissue", params: { id: specimen.id.toString() }}
-      } else if (!!specimen.cellLine) {
-        return { name: "cell", params: { id: specimen.id.toString() }}
-      } else if (!!specimen.organoid) {
-        return { name: "organoid", params: { id: specimen.id.toString() }}
-      } else if (!!specimen.xenograft) {
-        return { name: "xenograft", params: { id: specimen.id.toString() }}
-      } else {
-        return null;
-      }
-    },
-
-    getSpecimenTypeName(specimen) {
-      if (!specimen) {
-        return null;
-      } else if (!!specimen.tissue) {
-        return `Tissue (${specimen.tissue.tumorType ?? specimen.tissue.type})`;
-      } else if (!!specimen.cellLine) {
-        return "Cell Line"
-      } else if (!!specimen.organoid) {
-        return "Organoid"
-      } else if (!!specimen.xenograft) {
-        return "Xenograft"
-      } else {
-        return null;
-      }
-    },
-
-    getIdh(idhStatus, idhMutation) {
-      return !!idhMutation ? idhMutation : idhStatus;
     }
-  }
+  },
 }
 </script>

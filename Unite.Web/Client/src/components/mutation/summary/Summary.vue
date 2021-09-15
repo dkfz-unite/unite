@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import SequenceType from "@/services/criteria/filters/data/mutations/filter.option.sequence.type.js";
+import SequenceType from "../../../services/criteria/filters/data/mutations/filter.option.sequence.type.js";
 
 export default {
   props: ["mutation"],

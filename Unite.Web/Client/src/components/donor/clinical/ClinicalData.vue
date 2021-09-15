@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import contentHelpers from "@/services/helpers/helpers.content.js";
+import contentHelpers from "../../../services/helpers/helpers.content.js";
 
 export default {
   props: ["donor"],

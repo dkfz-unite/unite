@@ -63,24 +63,30 @@
                 <tr v-if="info.pubMedLink">
                   <td>
                     <a :href="info.pubMedLink" target="blank" class="u-link">
-                      <q-icon name="las la-external-link-alt" />
-                      PubMed
+                      <div class="row">
+                        <q-icon name="las la-external-link-alt" size="xs" />
+                        PubMed
+                      </div>
                     </a>
                   </td>
                 </tr>
                 <tr v-if="info.atccLink">
                   <td>
                     <a :href="info.atccLink" target="blank" class="u-link">
-                      <q-icon name="las la-external-link-alt" />
-                      ATCC
+                      <div class="row">
+                        <q-icon name="las la-external-link-alt" size="xs" />
+                        ATCC
+                      </div>
                     </a>
                   </td>
                 </tr>
                 <tr v-if="info.exPasyLink">
                   <td>
                     <a :href="info.exPasyLink" target="blank" class="u-link">
-                      <q-icon name="las la-external-link-alt" />
-                      ExPasy
+                      <div class="row">
+                        <q-icon name="las la-external-link-alt" size="xs" />
+                        ExPasy
+                      </div>
                     </a>
                   </td>
                 </tr>
@@ -95,7 +101,7 @@
 </template>
 
 <script>
-import contentHelpers from "@/services/helpers/helpers.content.js";
+import contentHelpers from "../../../../services/helpers/helpers.content.js";
 
 export default {
   props: ["specimen"],

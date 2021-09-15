@@ -1,0 +1,64 @@
+<template>
+  <div v-if="tissues && tissues.length" class="row justify-left q-gutter-x-xs">
+    <div>
+      <span>Tissues:</span>
+    </div>
+    <div v-for="(specimen, index) in tissues" :key="index">
+      <router-link class="u-link" :to="{ name: 'tissue', params: { id: specimen.id }}">
+        {{specimen.tissue.referenceId}}
+      </router-link>
+      <q-badge 
+        v-if="!!specimen.tissue.type"
+        align="top" rounded
+        :color="getTissueBadgeColor(specimen.tissue)">
+        {{ getTissueBadgeLable(specimen.tissue) }}
+      </q-badge>
+      <span v-if="index < tissues.length - 1">,</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    tissues: {
+      type: Array,
+      required: true
+    }
+  },
+
+  methods: {
+    getTissueBadgeLable(tissue) {
+      if (tissue.type == "Control") {
+        return "C";
+      } else if (tissue.tumorType == "Primary") {
+        return "P";
+      } else if (tissue.tumorType == "Metastasis") {
+        return "M";
+      } else if (tissue.tumorType == "Recurrent") {
+        return "R";
+      } else if (tissue.type == "Tumor") {
+        return "T";
+      } else {
+        return null;
+      }
+    },
+
+    getTissueBadgeColor(tissue) {
+      if (tissue.type == "Control") {
+        return "green";
+      } else if (tissue.tumorType == "Primary") {
+        return "blue-5";
+      } else if (tissue.tumorType == "Metastasis") {
+        return "blue-7";
+      } else if (tissue.tumorType == "Recurrent") {
+        return "blue-9";
+      } else if (tissue.type == "Tumor") {
+        return "blue-5";
+      } else {
+        return null;
+      }
+    }
+  }
+}
+</script>

@@ -10,6 +10,11 @@ class SpecimensApiClient{
         return await apiClient.get(url);
     }
 
+    async getGenes(id, criteria){
+        let url = `${this.#specimenUrl}/${id}/genes`;
+        return await apiClient.post(url, criteria);
+    }
+
     async getMutations(id, criteria){
         let url = `${this.#specimenUrl}/${id}/mutations`;
         return await apiClient.post(url, criteria);

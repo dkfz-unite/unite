@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 import './quasar'
 
-import USpinner from './components/common/workflow/Spinner.vue';
+import USpinner from './components/_common/workflow/Spinner.vue';
 
 Vue.config.productionTip = false
 Vue.use(VueCookies)

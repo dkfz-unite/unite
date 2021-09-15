@@ -80,9 +80,16 @@
           </div>
         </q-route-tab>
 
+        <q-route-tab :to="{ name: 'genes' }">
+          <div class="row q-gutter-x-xs items-center">
+            <q-icon name="svguse:/icons.svg#u-gene-alt" size="sm" />
+            <span>Genes</span>
+          </div>
+        </q-route-tab>
+
         <q-route-tab :to="{ name: 'mutations' }">
           <div class="row q-gutter-x-xs items-center">
-            <q-icon name="las la-dna" size="sm" />
+            <q-icon name="svguse:/icons.svg#u-mutation-alt" size="sm" />
             <span>Mutations</span>
           </div>
         </q-route-tab>
@@ -144,7 +151,9 @@ export default {
       cellsDrawer: this.$store.state.cells.drawer,
       organoidsDrawer: this.$store.state.organoids.drawer,
       xenograftsDrawer: this.$store.state.xenografts.drawer,
+      genesDrawer: this.$store.state.genes.drawer,
       mutationsDrawer: this.$store.state.mutations.drawer,
+      oncogridDrawer: this.$store.state.oncogrid.drawer,
 
       hideBanner: localStorage.hideBanner
     }
@@ -161,7 +170,7 @@ export default {
 
     showFilters() {
       let screen = this.$q.screen.lt.md;
-      let routes = ["donors", "tissues", "cells", "organoids", "xenografts", "mutations"];
+      let routes = ["donors", "tissues", "cells", "organoids", "xenografts", "genes", "mutations", "oncogrid"];
 
       return screen && routes.includes(this.$route.name);
     }
@@ -218,8 +227,16 @@ export default {
           this.xenograftsDrawer.show = true;
           return;
         }
+        case "genes": {
+          this.genesDrawer.show = true;
+          return;
+        }
         case "mutations": {
           this.mutationsDrawer.show = true;
+          return;
+        }
+        case "oncogrid": {
+          this.oncogridDrawer.show = true;
           return;
         }
         default: return;

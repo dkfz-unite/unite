@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import Gender from "../services/criteria/filters/data/donors/filter.option.gender.js";
 import VitalStatus from "../services/criteria/filters/data/donors/filter.option.vital.status.js";
 
+import Biotype from "../services/criteria/filters/data/mutations/filter.option.biotype.js";
 import Chromosome from "../services/criteria/filters/data/mutations/filter.option.chromosome.js";
 import SequenceType from "../services/criteria/filters/data/mutations/filter.option.sequence.type.js";
 import MutationType from "../services/criteria/filters/data/mutations/filter.option.mutation.type.js";
@@ -27,17 +28,19 @@ import MethylationSubtype from "../services/criteria/filters/data/specimens/filt
 
 import donorModule from "./modules/donor";
 import donorsModule from "./modules/donors";
-import tissueModule from "./modules/tissue";
-import tissuesModule from "./modules/tissues";
-import cellModule from "./modules/cell";
-import cellsModule from "./modules/cells";
-import oncogridModule from "./modules/oncogrid";
-import organoidModule from "./modules/organoid";
-import organoidsModule from "./modules/organoids";
-import xenograftModule from "./modules/xenograft";
-import xenograftsModule from "./modules/xenografts";
+import tissueModule from "./modules/specimens/tissue";
+import tissuesModule from "./modules/specimens/tissues";
+import cellModule from "./modules/specimens/cell";
+import cellsModule from "./modules/specimens/cells";
+import organoidModule from "./modules/specimens/organoid";
+import organoidsModule from "./modules/specimens/organoids";
+import xenograftModule from "./modules/specimens/xenograft";
+import xenograftsModule from "./modules/specimens/xenografts";
+import geneModule from "./modules/gene";
+import genesModule from "./modules/genes";
 import mutationModule from "./modules/mutation";
 import mutationsModule from "./modules/mutations";
+import oncogridModule from "./modules/visualization/oncogrid";
 
 Vue.use(Vuex)
 
@@ -49,13 +52,15 @@ export default new Vuex.Store({
     tissues: tissuesModule,
     cell: cellModule,
     cells: cellsModule,
-    oncogrid: oncogridModule,
     organoid: organoidModule,
     organoids: organoidsModule,
     xenograft: xenograftModule,
     xenografts: xenograftsModule,
+    gene: geneModule,
+    genes: genesModule,
     mutation: mutationModule,
-    mutations: mutationsModule
+    mutations: mutationsModule,
+    oncogrid: oncogridModule,
   },
 
   state: {
@@ -78,6 +83,7 @@ export default new Vuex.Store({
       genders: Gender.availableOptions,
       vitalStatuses: VitalStatus.availableOptions,
 
+      biotypes: Biotype.availableOptions,
       chromosomes: Chromosome.availableOptions,
       sequenceTypes: SequenceType.availableOptions,
       mutationTypes: MutationType.availableOptions,

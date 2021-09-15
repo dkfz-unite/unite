@@ -9,6 +9,6 @@ module.exports = {
     'quasar'
   ],
   devServer: {
-    proxy: 'http://localhost:5010'
+    proxy: 'http://localhost:5002'
   }
 }

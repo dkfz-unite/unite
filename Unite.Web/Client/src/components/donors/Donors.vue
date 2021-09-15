@@ -18,7 +18,7 @@
         <div class="row q-gutter-x-md">
           <q-btn
             label="Oncogrid" icon="las la-chart-area" color="primary" dense flat no-caps
-            :to="{ name: 'oncogrid', params: { selectedDonors: rowsSelected, preselectFilters: true }}" 
+            :to="{ name: 'oncogrid', params: { mode: 'donors', donors: rowsSelected }}" 
           />
           <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
             <template v-slot:append>
@@ -61,9 +61,10 @@
 
 <script>
 import contentHelpers from "../../services/helpers/helpers.content.js";
+import tableMixin from "../_common/_mixins/mixin.table.js";
 
 export default {
-  props: ["rows", "rowsSelected", "rowsTotal", "loading"],
+  mixins: [tableMixin],
 
   data() {
     return {
@@ -103,13 +104,6 @@ export default {
           sortable: false,
           align: "left"
         },
-        // {
-        //   name: "treatments",
-        //   label: "Treatments",
-        //   field: (row) => row.treatments,
-        //   sortable: false,
-        //   align: "left"
-        // },
         {
           name: "mtaProtected",
           label: "MTA",
@@ -150,58 +144,6 @@ export default {
           sortable: false
         }
       ],
-
-      data: this.rows,
-      selected: this.rowsSelected,
-
-      filter: null,
-
-      pagination: {
-        page: 1,
-        rowsPerPage: 20,
-        rowsNumber: this.rowsTotal,
-      },
-    };
-  },
-
-  watch: {
-    rows(value) {
-      this.data = value;
-    },
-
-    rowsTotal(value) {
-      this.pagination.rowsNumber = value;
-    },
-
-    selected(value) {
-      this.$emit("update:rowsSelected", value);
-    },
-  },
-
-  mounted() {
-    this.onRequest({ pagination: this.pagination, filter: this.filter });
-  },
-
-  methods: {
-    onRequest(props) {
-      let filters = {
-        from: this.getFrom(props.pagination.page, props.pagination.rowsPerPage),
-        size: this.getSize(props.pagination.rowsPerPage),
-        term: props.filter,
-      };
-
-      this.pagination.page = props.pagination.page;
-      this.pagination.rowsPerPage = props.pagination.rowsPerPage;
-
-      this.$emit("request", filters);
-    },
-
-    getFrom(page, pageSize) {
-        return (page - 1) * pageSize;
-    },
-
-    getSize(pageSize) {
-        return pageSize == 0 ? 10000 : pageSize;
     }
   }
 }
