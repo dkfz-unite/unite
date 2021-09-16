@@ -17,7 +17,7 @@
 
     <div class="row">
       <div class="col-10">
-        <q-card class="q-px-lg q-py-sm">
+        <q-card class="q-pa-sm">
           <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
         </q-card>
       </div>
@@ -49,6 +49,8 @@ import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 import UOncoGridFilters from "../../_common/filters/visualization/OncoGridFilters.vue";
 
 import consequences from "./consequences.js";
+import oncogridColors from "./oncogrid-colors.js";
+import donorTracks from "./oncogrid-tracks-donor";
 
 export default {
   props: ["data"],
@@ -66,9 +68,7 @@ export default {
       targetGridCellData: null,
       targetTrackCell: false,
       targetTrackCellData: null,
-      clinicalDataTrack: false,
-
-      colorMap: consequences.reduce((self, item) => { return { ...self, [item["type"]]: item.color } })
+      clinicalDataTrack: false
     }
   },
 
@@ -89,7 +89,41 @@ export default {
     }
   },
 
+  mounted() {
+    let parameters = {
+      element: "#oncoGrid",
+      donors: this.data.donors,
+      genes: this.data.genes,
+      observations: this.data.observations,
+      donorTracks: donorTracks,
+      donorFillFunc: this.getDonorTrackCellColor,
+      donorOpacityFunc: this.getDonorTrackCellOpacity,
+      colorMap: oncogridColors,
+      trackHeight: 15,
+      scaleToFit: true,
+      width: 970,
+      trackLegendLabel: "<i class='las la-question-circle'></i>",
+      margin: { top: 0, right: 0, bottom: 0, left: 0 }
+    };
+
+    this.initializeGrid(parameters);
+  },
+
   methods: {
+    initializeGrid(parameters) {
+      this.oncoGrid = new OncoGrid(parameters);
+      this.oncoGrid.setGridLines(this.showGridLines);
+      this.oncoGrid.render();
+
+      this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
+      this.oncoGrid.on("histogramClick", this.onHistogramClick);
+      this.oncoGrid.on("gridMouseOver", this.onGridCellHover);
+      this.oncoGrid.on("gridClick", this.onGridCellClick);
+      this.oncoGrid.on("trackLegendMouseOver", this.onTrackGroupHover);
+      this.oncoGrid.on("trackMouseOver", this.onTrackCellHover);
+      this.oncoGrid.on("trackClick", this.onTrackCellClick);
+    },
+
     toggleGridLines() {
       this.showGridLines = !this.showGridLines;
 
@@ -148,8 +182,8 @@ export default {
     onHistogramClick(data) {
       if (data.type === "donor") {
         this.$router.push({ name: "donor", params: { id: data.domain.id }});
-      } else {
-        window.open(`http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=${data.domain.ensemblId}`, '_blank').focus();
+      } else if (data.type === "gene") {
+        this.$router.push({ name: "gene", params: { id: data.domain.id }});
       }
     },
 
@@ -206,6 +240,32 @@ export default {
       this.$router.push({ name: "donor", params: { id: data.domain.id }});
     },
 
+    getDonorTrackCellColor(trackCell) {
+      if (trackCell.type == "age") {
+        return trackCell.value != null ? colors.getPaletteColor("purple-6") :
+               colors.getPaletteColor("grey-4")
+      } else if (trackCell.type == "gender") {
+        return trackCell.value == "Male" ? colors.getPaletteColor("blue-4") : 
+               trackCell.value == "Female" ? colors.getPaletteColor("orange-4") :
+               trackCell.value == "Other" ? colors.getPaletteColor("pink-4") :
+               colors.getPaletteColor("grey-4");
+      } else if (trackCell.type == "vitalStatus") {
+        return trackCell.value == true ? colors.getPaletteColor("green-4") : 
+               trackCell.value == false ? colors.getPaletteColor("red-4") :
+               colors.getPaletteColor("grey-4");
+      } else {
+        return colors.getPaletteColor("grey-4");
+      }
+    },
+
+    getDonorTrackCellOpacity(trackCell) {
+      if (trackCell.type == "age") {
+        return trackCell.value / 100 + 0.1;
+      } else {
+        return 1;
+      }
+    },
+
 
     getImpactColor(impact) {
       switch (impact) {
@@ -222,89 +282,6 @@ export default {
 
       return element;
     }
-  },
-
-  mounted() {
-    var sortInt = function (field) {
-      return function (a, b) {
-        return a[field] - b[field];
-      };
-    };
-
-    var sortString = function (field) {
-      return function (a, b) {
-        return a[field].localeCompare(b[field]);
-      };
-    };
-
-    var sortBool = function (field) {
-      return function (a, b) {
-        return b[field] - a[field];
-      }
-    }
-
-    var donorFill = function (track) {
-      if (track.type == "age") {
-        return colors.getPaletteColor("purple-10");
-      } else if (track.type == "vital") {
-        return track.value == true ? colors.getPaletteColor("green-5") : colors.getPaletteColor("red-5");
-      } else if (track.type == "gender") {
-        return track.value == "Male" ? colors.getPaletteColor("blue-5") : colors.getPaletteColor("orange-5");
-      } else {
-        return colors.getPaletteColor("blue-grey");
-      }
-    };
-
-    var donorOpacity = function (track) {
-      if (track.type == "age") {
-        return track.value / 100 + 0.1;
-      } else {
-        return 1;
-      }
-    };
-
-    /*  
-      name - string - The name and label for the track
-      fieldName - string - The field of the donor/gene object to read
-      type - string - The type of the track data, not used by OncoGrid internally, but allows user to group behaviour for styling and the opacity function passed in for the tracks.
-      sort - function - The function responsible for sorting
-      group - string - the name of the group the track belongs to.
-      collapsed - bool - if true, and the track group is in the expandableGroups array, then the track by default will not be shown.
-    */
-    var donorTracks = [
-      { name: "Age", fieldName: "age", type: "age", sort: sortInt, group: "Clinical Data" },
-      { name: "Vital Status", fieldName: "vitalStatus", type: "vital", sort: sortBool, group: "Clinical Data" },
-      { name: "Gender", fieldName: "gender", type: "gender", sort: sortString, group: "Clinical Data" }
-    ];
-
-    var params = {
-      element: "#oncoGrid",
-      donors: this.data.donors,
-      genes: this.data.genes,
-      observations: this.data.observations,
-      donorTracks: donorTracks,
-      donorOpacityFunc: donorOpacity,
-      donorFillFunc: donorFill,
-      colorMap: this.colorMap,
-      trackHeight: 15,
-      scaleToFit: true,
-      // width: 500,
-      // height: 500,
-      trackLegendLabel: "<i class='las la-question-circle'></i>",
-      margin: { top: 0, right: 0, bottom: 0, left: 0 }
-    };
-
-    this.oncoGrid = new OncoGrid(params);
-    this.oncoGrid.setGridLines(this.showGridLines);
-    this.oncoGrid.render();
-
-    this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
-    this.oncoGrid.on("histogramClick", this.onHistogramClick);
-    this.oncoGrid.on("gridMouseOver", this.onGridCellHover);
-    this.oncoGrid.on("gridClick", this.onGridCellClick);
-    this.oncoGrid.on("trackLegendMouseOver", this.onTrackGroupHover);
-    this.oncoGrid.on("trackMouseOver", this.onTrackCellHover);
-    this.oncoGrid.on("trackClick", this.onTrackCellClick);
   },
 
   components: {
@@ -353,7 +330,7 @@ export default {
 
   /* Axis label */
   #oncoGrid .og-label-text-font {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
   }
 
   /* Axis bar */
@@ -369,7 +346,7 @@ export default {
 
   /* Gene label */
   #oncoGrid .og-gene-label {
-    font-size: 0.5rem;
+    font-size: 0.55rem;
   }
 
   /* Gene label (hover) */
@@ -402,7 +379,7 @@ export default {
 
   /* Track label */
   #oncoGrid .og-track-label {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     cursor: pointer;
   }
 

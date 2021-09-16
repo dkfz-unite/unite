@@ -8,12 +8,12 @@ const consequences = [
     { type: "frameshift_variant", name: "Frameshift", impact: "High", color: colors.getPaletteColor("red-6") },
     { type: "stop_lost", name: "Stop lost", impact: "High", color: colors.getPaletteColor("red-5") },
     { type: "start_lost", name: "Start lost", impact: "High", color: colors.getPaletteColor("red-4") },
-    { type: "transcript_amplification", impact: "High", name: "Transcript amplification", color: colors.getPaletteColor("red-3") },
+    { type: "transcript_amplification", name: "Transcript amplification", impact: "High", color: colors.getPaletteColor("red-3") },
 
     { type: "inframe_insertion", name: "Inframe insertion", impact: "Moderate", color: colors.getPaletteColor("orange-10") },
     { type: "inframe_deletion", name: "Inframe deletion", impact: "Moderate", color: colors.getPaletteColor("orange-9") },
     { type: "missense_variant", name: "Missense", impact: "Moderate", color: colors.getPaletteColor("orange-8") },
-    { type: "protein_altering_variant", impact: "Moderate", name: "Protein altering", color: colors.getPaletteColor("orange-7") },
+    { type: "protein_altering_variant", name: "Protein altering", impact: "Moderate", color: colors.getPaletteColor("orange-7") },
 
     { type: "splice_region_variant", name: "Splice region", impact: "Low", color: colors.getPaletteColor("green-10") },
     { type: "incomplete_terminal_codon_variant", impact: "Low", name: "Incomplete terminal codon", color: colors.getPaletteColor("green-9") },
