@@ -29,7 +29,7 @@
 import UFiltersDrawer from "../../components/_common/drawers/FiltersDrawer.vue";
 import UOncogrid from "../../components/visualization/oncogrid/OncoGrid.vue";
 
-import apiClient from "../../services/api/api.client.oncogrid.js";
+import apiClient from "../../services/api/visualization/api.client.oncogrid.js";
 
 export default {
   props: ["mode", "donors", "genes"],

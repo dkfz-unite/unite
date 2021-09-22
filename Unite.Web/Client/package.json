@@ -7,9 +7,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@oncojs/lolliplot": "^0.10.2",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "d3v4": "^4.2.2",
     "oncogrid": "^2.0.1",
     "quasar": "^1.0.0",
     "vue": "^2.6.11",

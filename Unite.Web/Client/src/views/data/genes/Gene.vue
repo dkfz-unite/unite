@@ -15,6 +15,7 @@
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
+              <q-tab name="protein" label="Protein" icon="svguse:/icons.svg#u-lolliplot" />
               <q-tab name="donors" label="Donors" icon="las la-user-circle" />
               <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" />
             </q-tabs>
@@ -27,6 +28,10 @@
             <q-tab-panels v-model="tab">
               <q-tab-panel name="summary" class="q-py-sm q-px-none">
                 <u-summary-tab :gene="gene" />
+              </q-tab-panel>
+
+              <q-tab-panel name="protein" class="q-py-sm q-px-none">
+                <u-protein-tab :gene="gene" />
               </q-tab-panel>
 
               <q-tab-panel name="donors" class="q-py-sm q-px-none">
@@ -46,6 +51,7 @@
 
 <script>
 import USummaryTab from "../../../components/gene/SummaryTab.vue";
+import UProteinTab from "../../../components/gene/ProteinTab.vue";
 import UDonorsTab from "../../../components/gene/DonorsTab.vue";
 import UMutationsTab from "../../../components/gene/MutationsTab.vue";
 
@@ -77,6 +83,7 @@ export default {
 
   components:{
     USummaryTab: USummaryTab,
+    UProteinTab: UProteinTab,
     UDonorsTab: UDonorsTab,
     UMutationsTab: UMutationsTab
   }

@@ -7,11 +7,34 @@
 
     <div class="row">
       <q-btn-group>
-        <q-btn icon="las la-border-all" :class="{ 'bg-grey-3 text-blue-8': showGridLines }" @click="toggleGridLines()" />
-        <q-btn icon="las la-burn" :class="{ 'bg-grey-3 text-blue-8': heatMapMode }" @click="toggleHeatMap()" />
-        <q-btn icon="las la-crosshairs" :class="{ 'bg-grey-3 text-blue-8': crosshairMode }" @click="toggleCrosshair()" />
-        <q-btn icon="las la-sort-amount-down" @click="toggleCluster()" />
-        <q-btn icon="las la-undo-alt" @click="reloadGrid()" />
+        <q-btn
+          icon="las la-border-all"
+          title="Toggle grid lines"
+          :class="{ 'bg-grey-3 text-blue-8': showGridLines }"
+          @click="toggleGridLines()"
+        />
+        <q-btn
+          icon="las la-burn"
+          title="Toggle heat map"
+          :class="{ 'bg-grey-3 text-blue-8': heatMapMode }"
+          @click="toggleHeatMap()"
+        />
+        <q-btn
+          icon="las la-crosshairs"
+          title="Toggle zoom"
+          :class="{ 'bg-grey-3 text-blue-8': crosshairMode }"
+          @click="toggleCrosshair()"
+        />
+        <q-btn
+          icon="las la-sort-amount-down"
+          title="Reset genes"
+          @click="toggleCluster()"
+        />
+        <q-btn
+          icon="las la-undo-alt"
+          title="Reset grid"
+          @click="reloadGrid()"
+        />
       </q-btn-group>
     </div>
 
@@ -48,7 +71,7 @@ import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
 import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 import UOncoGridFilters from "../../_common/filters/visualization/OncoGridFilters.vue";
 
-import consequences from "./consequences.js";
+import consequences from "../_common/consequences.js";
 import oncogridColors from "./oncogrid-colors.js";
 import donorTracks from "./oncogrid-tracks-donor";
 
@@ -189,9 +212,9 @@ export default {
 
 
     onGridCellHover(data) {
-      var element = this.getHoverElement();
+      let element = this.getHoverElement();
 
-      let consequence = consequences.filter(consequence => consequence.type == data.observation.consequence)[0];
+      let consequence = consequences.find(consequence => consequence.type == data.observation.consequence);
 
       let properties = [
         { key: "Donor", value: data.donor.displayId },

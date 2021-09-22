@@ -67,13 +67,6 @@ export default {
           align: "left"
         },
         {
-          name: "specimens",
-          label: "Specimens",
-          field: row => this.getSpecimensView(row.specimens),
-          sortable: false,
-          align: "left"
-        },
-        {
           name: "numberOfDonors",
           label: "#Affected Donors",
           field: (row) => row.numberOfDonors,
@@ -95,17 +88,6 @@ export default {
         return `chr${gene.chromosome}:${gene.start}-${gene.end}`;
       } else {
         return null;
-      }
-    },
-
-    getSpecimensView(specimens) {
-      if (specimens?.length) {
-        return {
-          tissues: specimens.filter(specimen => !!specimen.tissue),
-          cells: specimens.filter(specimen => !!specimen.cellLine),
-          organoids: specimens.filter(specimen => !!specimen.organoid),
-          xenografts: specimens.filter(specimen => !!specimen.xenograft)
-        }
       }
     }
   }
