@@ -14,11 +14,11 @@ export default class ProteinPlotDataService {
 
         proteinPlotData.mutation = mutation;
 
-        proteinPlotData.proteins = data.domains
+        proteinPlotData.proteins = !data.domains?.length ? [] : data.domains
             .filter(domain => domain.start < proteinPlotData.transcript.protein.length)
             .map(domain => {
                 return {
-                    id: domain.symbol ?? domain.id,
+                    id: domain.id,
                     symbol: domain.symbol,
                     description: domain.description,
                     start: domain.start,
@@ -28,7 +28,7 @@ export default class ProteinPlotDataService {
                 }
             });
 
-        proteinPlotData.mutations = data.mutations
+        proteinPlotData.mutations = !data.mutations?.length ? [] : data.mutations
             .map(mutation => {
                 return {
                     id: mutation.id,

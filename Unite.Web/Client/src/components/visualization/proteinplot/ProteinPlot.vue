@@ -90,7 +90,7 @@ export default {
               let matches = element.text().startsWith("This track represents");
               return matches;
             })
-            .remove();
+            .text("Canonical protein pfam domains");
         }
       };
 
@@ -180,5 +180,7 @@ export default {
     cursor: pointer;
   }
 
-
+  text[class^='protein-name'] {
+    padding-left: 1px;
+  }
 </style>
