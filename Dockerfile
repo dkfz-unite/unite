@@ -7,7 +7,6 @@ FROM node:lts-alpine as restore-client
 WORKDIR /app
 COPY ["Unite.Web/Client/package*.json", "./"]
 RUN npm install
-RUN npm audit fix
 
 FROM restore-client as build-client
 COPY ["Unite.Web/Client/", "./"]
