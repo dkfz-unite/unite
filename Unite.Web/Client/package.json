@@ -1,6 +1,6 @@
 {
-  "name": "unite.web",
-  "version": "0.1.0",
+  "name": "unite",
+  "version": "1.3.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,26 +9,23 @@
   "dependencies": {
     "@oncojs/lolliplot": "^0.10.2",
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "d3v4": "^4.2.2",
     "oncogrid": "^2.0.1",
-    "quasar": "^1.0.0",
-    "vue": "^2.6.11",
-    "vue-cookies": "^1.7.4",
-    "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "quasar": "^2.0.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-router": "~4.4.0",
-    "@vue/cli-plugin-vuex": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "babel-plugin-transform-imports": "1.5.0",
-    "node-sass": "^4.13.0",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "vue-cli-plugin-quasar": "~2.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "sass": "1.32.12",
+    "sass-loader": "^10.1.0",
+    "vue-cli-plugin-quasar": "~4.0.3"
   }
 }

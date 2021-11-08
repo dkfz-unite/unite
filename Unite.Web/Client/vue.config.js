@@ -9,6 +9,7 @@ module.exports = {
     'quasar'
   ],
   devServer: {
-    proxy: 'http://localhost:5002'
+    proxy: 'http://localhost:5002',
+    // https: true
   }
 }

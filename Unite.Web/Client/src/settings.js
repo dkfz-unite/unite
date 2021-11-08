@@ -3,6 +3,6 @@ export default {
     baseUrl: "/api",
     cookies: {
         sessionCookieName: "unite_session",
-        tokenCookieName: "unite_toke"
+        tokenCookieName: "unite_token"
     }
 }

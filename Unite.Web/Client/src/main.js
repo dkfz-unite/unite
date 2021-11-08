@@ -1,19 +1,14 @@
-import Vue from 'vue'
-import App from './App.vue'
-import VueCookies from 'vue-cookies'
-import router from './router'
-import store from './store'
-import './quasar'
+import { Quasar } from "quasar";
+import quasarOptions from "./settings.quasar";
+import helpers from "./_shared/plugins/helpers-plugin";
+import { createApp } from "vue";
+import App from "./app/App.vue";
+import router from "./app/router";
+import store from "./app/store";
 
-import USpinner from './components/_common/workflow/Spinner.vue';
-
-Vue.config.productionTip = false
-Vue.use(VueCookies)
-
-Vue.component('u-spinner', USpinner);
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+createApp(App)
+.use(Quasar, quasarOptions)
+.use(helpers)
+.use(store)
+.use(router)
+.mount('#app');
