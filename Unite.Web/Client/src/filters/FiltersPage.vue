@@ -58,7 +58,7 @@
 
         <!-- Cohort content -->
         <div class="row">
-          <u-cohort :cohort="cohort" />
+          <u-cohort :cohort="cohort" :domain="domain?.name" />
         </div>
       </div>
     </div>
@@ -81,8 +81,13 @@ import UControlsToolbar from "./components/controls/ControlsToolbar.vue";
 import UCohorts from "./components/Cohorts.vue";
 import UCohortsMini from "./components/CohortsMini.vue";
 import UCohort from "./components/Cohort.vue";
+import FiltersCriteria from "../_shared/components/filters/filters-criteria";
 
 import cohortsStorage from "./services/cohorts-storage";
+import donorsApi from "../domain/donors/api";
+import specimensApi from "../domain/specimens/_shared/api/specimens";
+import genesApi from "../domain/genome/genes/api";
+import mutationsApi from "../domain/genome/mutations/api";
 
 export default {
   components: {
@@ -113,6 +118,14 @@ export default {
     this.loadCohorts();
   },
 
+  watch: {
+    cohort(cohort) {
+      if (cohort.size == null) {
+        this.loadCohortSize();
+      }
+    }
+  },
+
   methods: {
     loadCohorts() {
       this.domains = cohortsStorage.loadCohorts(this.identity);
@@ -124,6 +137,36 @@ export default {
       this.cohort = this.domain?.cohorts?.length
         ? this.domain.cohorts[0] 
         : null;
+    },
+
+    async loadCohortSize() {
+      let searchCriteria = new FiltersCriteria(this.cohort.criteria).toSearchCriteria();
+      searchCriteria.from = 0;
+      searchCriteria.size = 1;
+
+      let data = null;
+
+      try {
+        if (this.domain.name == "donors") {
+          data = await donorsApi.search(searchCriteria);
+        } else if (this.domain.name == "tissues") {
+          data = await specimensApi.search("Tissue", searchCriteria);
+        } else if (this.domain.name == "cells") {
+          data = await specimensApi.search("CellLine", searchCriteria);
+        } else if (this.domain.name == "organoids") {
+          data = await specimensApi.search("Organoid", searchCriteria);
+        } else if (this.domain.name == "xenografts") {
+          data = await specimensApi.search("Xenograft", searchCriteria);
+        } else if (this.domain.name == "genes") {
+          data = await genesApi.search(searchCriteria);
+        } else if (this.domain.name == "mutations") {
+          data = await mutationsApi.search(searchCriteria);
+        }
+
+        this.cohort.size = data?.total;
+      } catch {
+        // Do nothing
+      }
     }
   }
 }

@@ -21,7 +21,7 @@
         <div>
           <span class="text-caption q-gutter-x-lg">
             <span class="text-weight-bold">{{$helpers.content.toDateTimeString(cohort.date)}}</span>
-            <span class="text-weight-bold">{{cohort.selection?.length || cohort.size }}</span> rows of data
+            <span class="text-weight-bold" v-if="cohort.size != null">{{cohort.size }} rows of data</span>
           </span>
         </div>
       </div>
@@ -92,24 +92,6 @@
             :criteria="cohort.criteria.mutationFiltersCriteria"
             :filters="mutationFilters"
           />
-        </div>
-      </div>
-    </div>
-    
-    <!-- Selection -->
-    <q-separator v-if="cohort.selection" />
-    <div class="row q-pa-sm" v-if="cohort.selection">
-      <div class="col">
-        <div class="text-subtitle1 text-weight-medium">
-          Selection
-        </div>
-        <div>
-          <span v-for="(value, i) in cohort.selection" :key="i">
-            <span v-if="i != 0">, </span>
-            <q-badge color="grey-2" text-color="black" class="text-body2 text-weight-medium">
-              {{value}}
-            </q-badge>
-          </span>
         </div>
       </div>
     </div>
