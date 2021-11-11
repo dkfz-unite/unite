@@ -43,6 +43,7 @@ export default class DonorFiltersCriteria {
     }
 
     sanitise() {
+        this.id = sanitiseArray(this.id, true);
         this.referenceId = sanitiseArray(this.referenceId);
 
         this.age = sanitiseRange(this.age);

@@ -8,12 +8,12 @@
   },
   "dependencies": {
     "@oncojs/lolliplot": "^0.10.2",
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.11.5",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "d3v4": "^4.2.2",
     "oncogrid": "^2.0.1",
-    "quasar": "^2.0.0",
+    "quasar": "^2.3.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -26,6 +26,6 @@
     "@vue/compiler-sfc": "^3.0.0",
     "sass": "1.32.12",
     "sass-loader": "^10.1.0",
-    "vue-cli-plugin-quasar": "~4.0.3"
+    "vue-cli-plugin-quasar": "~4.0.4"
   }
 }

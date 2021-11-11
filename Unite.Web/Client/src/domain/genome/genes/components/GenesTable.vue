@@ -32,13 +32,21 @@
         </div>
       </template>
 
-      <template v-slot:body-cell-name="props">
+      <template v-slot:body-cell-id="props">
+        <q-td :props="props">
+          <router-link class="u-link" :to="{ name: 'gene', params: { id: props.value.id.toString() }}">
+            {{ props.value.id }}
+          </router-link>
+        </q-td>
+      </template>
+
+      <!-- <template v-slot:body-cell-name="props">
         <q-td :props="props">
           <router-link class="u-link" :to="{ name: 'gene', params: { id: props.value.id.toString() }}">
             {{ props.value.symbol }}
           </router-link>
         </q-td>
-      </template>
+      </template> -->
     </q-table>
   </div>
 </template>
@@ -60,9 +68,16 @@ export default {
     return {
       columns: [
         {
+          name: "id",
+          label: "ID",
+          field: (row) => row,
+          sortable: false,
+          align: "left"
+        },
+        {
           name: "name",
           label: "Name",
-          field: (row) => row,
+          field: (row) => row.symbol,
           sortable: false,
           align: "left"
         },

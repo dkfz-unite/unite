@@ -23,7 +23,7 @@
               :loading="loading"
               :rows="rows"
               :rows-total="rowsTotal"
-              v-model:rows-selected="model.mutationsSelected"
+              v-model:rows-selected="rowsSelected"
               v-model:filters="filtersCriteria.filters"
               @update:filters="loadData"
             />
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import UFilters from "./mutations/Filters.vue";
 import UDataTable from "./mutations/MutationsTable.vue";
 import tablePageMixin from "../../../../_shared/table-page-mixin";
@@ -54,35 +53,26 @@ export default {
     specimen: Object
   },
 
-  setup(props) {
-    const store = useStore();
+  computed: {
+    domain() {
+      const state = 
+        this.specimen.tissue ? this.$store.state.tissue :
+        this.specimen.cellLine ? this.$store.state.cell :
+        this.specimen.organoid ? this.$store.state.organoid :
+        this.specimen.xenograft ? this.$store.state.xenograft :
+        null;
 
-    const state = 
-      props.specimen.tissue ? store.state.tissue :
-      props.specimen.cellLine ? store.state.cell :
-      props.specimen.organoid ? store.state.organoid :
-      props.specimen.xenograft ? store.state.xenograft :
-      null;
+      return state;
+    },
 
-    return {
-      model : state
-    }
-  },
-
-  data() {
-    return {
-      filtersCriteria: this.model.mutationsFiltersCriteria,
-      filtersContext: this.model.mutationsFiltersContext,
-    };
+    criteriaPropertyName: () => "mutationsFiltersCriteria",
+    contextPropertyName: () => "mutationsFiltersContext",
+    selectionPropertyName: () => "mutationsSelected"
   },
 
   methods: {
-    async fetchData() {
-      return await api.searchMutations(this.specimen.id, this.filtersCriteria.toSearchCriteria());
-    },
-
-    clearSelection() {
-      this.model.mutationsSelected = [];
+    async fetchData(searchCriteria) {
+      return await api.searchMutations(this.specimen.id, searchCriteria);
     }
   }
 }

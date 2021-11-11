@@ -29,6 +29,7 @@ export default class GeneFiltersCriteria {
     }
 
     sanitise(){
+        this.id = sanitiseArray(this.id, true);
         this.symbol = sanitiseArray(this.symbol);
         this.position = sanitiseRange(this.position);
     };

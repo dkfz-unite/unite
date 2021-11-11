@@ -37,7 +37,7 @@ export default class SpecimenFiltersCriteria {
     }
 
     sanitise(){
-        this.id = sanitiseArray(this.id);
+        this.id = sanitiseArray(this.id, true);
         this.referenceId = sanitiseArray(this.referenceId);
     }
 

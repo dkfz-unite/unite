@@ -25,8 +25,8 @@
               :loading="loading"
               :rows="rows"
               :rows-total="rowsTotal"
-              v-model:rows-selected="$store.state.mutation.donorsSelected"
-              v-model:filters="$store.state.mutation.donorsFiltersCriteria.filters"
+              v-model:rows-selected="rowsSelected"
+              v-model:filters="filtersCriteria.filters"
               @update:filters="loadData"
             />
           </div>
@@ -55,20 +55,19 @@ export default {
     mutation: Object
   },
 
-  data() {
-    return {
-      filtersCriteria: this.$store.state.mutation.donorsFiltersCriteria,
-      filtersContext: this.$store.state.mutation.donorsFiltersContext,
-    };
+  computed: {
+    domain() {
+      return this.$store.state.mutation;
+    },
+
+    criteriaPropertyName: () => "donorsFiltersCriteria",
+    contextPropertyName: () => "donorsFiltersContext",
+    selectionPropertyName: () => "donorsSelected"
   },
 
   methods: {
-    async fetchData() {
-      return await api.searchDonors(this.mutation.id, this.filtersCriteria.toSearchCriteria());
-    },
-
-    clearSelection() {
-      this.$store.state.mutation.donorsSelected = [];
+    async fetchData(searchCriteria) {
+      return await api.searchDonors(this.mutation.id, searchCriteria);
     }
   }
 }

@@ -2,6 +2,15 @@
   <div class="col q-gutter-y-sm">
     <div>
       <u-chips-filter
+        label="ID"
+        placeholder="e.g. 123"
+        v-model="filtersCriteria.id"
+        @update:modelValue="onUpdate"
+      />
+    </div>
+    
+    <div>
+      <u-chips-filter
         label="Name"
         placeholder="e.g. TTN"
         v-model="filtersCriteria.symbol"

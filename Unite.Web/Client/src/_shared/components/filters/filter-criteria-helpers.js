@@ -1,5 +1,13 @@
-export function sanitiseArray(values) {
-    return values?.length ? values.map(value => value.trim()) : [];
+export function sanitiseArray(values, numbers = false) {
+    if (numbers === true) {
+        let numberValues = values
+            ?.filter(value => !isNaN(value.trim()))
+            ?.map(value => value.trim());
+
+        return numberValues?.length ? numberValues : [];
+    } else {
+        return values?.length ? values.map(value => value.trim()) : [];
+    }
 }
 
 export function sanitiseRange(range) {

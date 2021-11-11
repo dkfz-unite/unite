@@ -38,6 +38,7 @@ export default class MutationFiltersCriteria {
     }
 
     sanitise() {
+        this.id = sanitiseArray(this.id, true);
         this.code = sanitiseArray(this.code);
         this.position = sanitiseRange(this.position);
     }

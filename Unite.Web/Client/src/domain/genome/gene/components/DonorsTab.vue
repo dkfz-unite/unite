@@ -25,8 +25,8 @@
               :loading="loading"
               :rows="rows"
               :rows-total="rowsTotal"
-              v-model:rows-selected="$store.state.gene.donorsSelected"
-              v-model:filters="$store.state.gene.donorsFiltersCriteria.filters"
+              v-model:rows-selected="rowsSelected"
+              v-model:filters="filtersCriteria.filters"
               @update:filters="loadData"
             />
           </div>
@@ -55,20 +55,19 @@ export default {
     gene: Object
   },
 
-  data() {
-    return {
-      filtersCriteria: this.$store.state.gene.donorsFiltersCriteria,
-      filtersContext: this.$store.state.gene.donorsFiltersContext,
-    };
+  computed: {
+    domain() {
+      return this.$store.state.gene;
+    },
+
+    criteriaPropertyName: () => "donorsFiltersCriteria",
+    contextPropertyName: () => "donorsFiltersContext",
+    selectionPropertyName: () => "donorsSelected"
   },
 
   methods: {
-    async fetchData() {
-      return await api.searchDonors(this.gene.id, this.filtersCriteria.toSearchCriteria());
-    },
-
-    clearSelection() {
-      this.$store.state.gene.donorsSelected = [];
+    async fetchData(searchCriteria) {
+      return await api.searchDonors(this.gene.id, searchCriteria);
     }
   }
 }

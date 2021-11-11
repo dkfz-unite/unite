@@ -23,8 +23,8 @@
               :loading="loading"
               :rows="rows"
               :rows-total="rowsTotal"
-              v-model:rows-selected="$store.state.donor.mutationsSelected"
-              v-model:filters="$store.state.donor.mutationsFiltersCriteria.filters"
+              v-model:rows-selected="rowsSelected"
+              v-model:filters="filtersCriteria.filters"
               @update:filters="loadData"
             />
           </div>
@@ -53,20 +53,19 @@ export default {
     donor: Object
   },
 
-  data() {
-    return {
-      filtersCriteria: this.$store.state.donor.mutationsFiltersCriteria,
-      filtersContext: this.$store.state.donor.mutationsFiltersContext,
-    };
+  computed: {
+    domain() {
+      return this.$store.state.donor;
+    },
+
+    criteriaPropertyName: () => "mutationsFiltersCriteria",
+    contextPropertyName: () => "mutationsFiltersContext",
+    selectionPropertyName: () => "mutationsSelected"
   },
 
   methods: {
-    async fetchData() {
-      return await api.searchMutations(this.donor.id, this.filtersCriteria.toSearchCriteria());
-    },
-
-    clearSelection() {
-      this.$store.state.donor.mutationsSelected = [];
+    async fetchData(searchCriteria) {
+      return await api.searchMutations(this.donor.id, searchCriteria);
     }
   }
 }
