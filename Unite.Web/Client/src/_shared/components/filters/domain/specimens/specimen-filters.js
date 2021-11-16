@@ -14,10 +14,10 @@ const filters = [
   {
     field: "id",
     label: "ID",
-    tooltip: "e.g. 11032",
+    placeholder: "e.g. 11033",
     type: FilterType.Values,
     valueType: ValueType.Number,
-    show: (value, criteria, context) => false
+    sanitize: (value) => sanitiseArray(value, true)
   },
   {
     field: "referenceId",
@@ -28,63 +28,127 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "mgmtStatus",
-    label: "MGMT Status",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.mgmtStatusOptions, MgmtStatus.values)
+    group: "molecular",
+    label: "Molecular Data",
+    filters: [
+      {
+        field: "mgmtStatus",
+        label: "MGMT Status",
+        type: FilterType.Options,
+        valueType: ValueType.String,
+        options: (context) => mapOptions(context?.mgmtStatusOptions, MgmtStatus.values)
+      },
+      {
+        field: "idhStatus",
+        label: "IDH Status",
+        type: FilterType.Options,
+        valueType: ValueType.String,
+        options: (context) => mapOptions(context?.idhStatusOptions, IdhStatus.values),
+        watch: (value, criteria, context) => {
+          criteria.idhMutation = [];
+          criteria.geneExpressionSubtype = [];
+          criteria.methylationSubtype = [];
+        }
+      },
+      {
+        field: "idhMutation",
+        label: "IDH Mutation",
+        type: FilterType.Options,
+        valueType: ValueType.String,
+        options: (context) => mapOptions(context?.idhMutationOptions, IdhMutation.values),
+        show: (value, criteria, context) => {
+          return criteria.idhStatus?.length == 1 
+              && criteria.idhStatus[0] == IdhStatus.Mutant;
+        }
+      },
+      {
+        field: "geneExpressionSubtype",
+        label: "Gene Expression Subtype",
+        type: FilterType.Options,
+        valueType: ValueType.String,
+        options: (context) => mapOptions(context?.idhMutationOptions, GeneExpressionSubtype.values),
+        show: (value, criteria, context) => {
+          return criteria.idhStatus?.length == 1 
+              && criteria.idhStatus[0] == IdhStatus.WildType;
+        }
+      },
+      {
+        field: "methylationSubtype",
+        label: "Methylation Subtype",
+        type: FilterType.Options,
+        valueType: ValueType.String,
+        options: (context) => mapOptions(context?.idhMutationOptions, MethylationSubtype.values),
+        show: (value, criteria, context) => {
+          return criteria.idhStatus?.length == 1 
+              && criteria.idhStatus[0] == IdhStatus.WildType;
+        }
+      },
+      {
+        field: "gCimpMethylation",
+        label: "G-CIMP Methylation",
+        type: FilterType.Boolean,
+        default: null
+      }
+    ]
   },
-  {
-    field: "idhStatus",
-    label: "IDH Status",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.idhStatusOptions, IdhStatus.values),
-    watch: (value, criteria, context) => {
-      criteria.idhMutation = [];
-      criteria.geneExpressionSubtype = [];
-      criteria.methylationSubtype = [];
-    }
-  },
-  {
-    field: "idhMutation",
-    label: "IDH Mutation",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.idhMutationOptions, IdhMutation.values),
-    show: (value, criteria, context) => {
-      return criteria.idhStatus?.length == 1 
-          && criteria.idhStatus[0] == IdhStatus.Mutant;
-    }
-  },
-  {
-    field: "geneExpressionSubtype",
-    label: "Gene Expression Subtype",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.idhMutationOptions, GeneExpressionSubtype.values),
-    show: (value, criteria, context) => {
-      return criteria.idhStatus?.length == 1 
-          && criteria.idhStatus[0] == IdhStatus.WildType;
-    }
-  },
-  {
-    field: "methylationSubtype",
-    label: "Methylation Subtype",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.idhMutationOptions, MethylationSubtype.values),
-    show: (value, criteria, context) => {
-      return criteria.idhStatus?.length == 1 
-          && criteria.idhStatus[0] == IdhStatus.WildType;
-    }
-  },
-  {
-    field: "gCimpMethylation",
-    label: "G-CIMP Methylation",
-    type: FilterType.Boolean,
-    default: null
-  }
+  // {
+  //   field: "mgmtStatus",
+  //   label: "MGMT Status",
+  //   type: FilterType.Options,
+  //   valueType: ValueType.String,
+  //   options: (context) => mapOptions(context?.mgmtStatusOptions, MgmtStatus.values)
+  // },
+  // {
+  //   field: "idhStatus",
+  //   label: "IDH Status",
+  //   type: FilterType.Options,
+  //   valueType: ValueType.String,
+  //   options: (context) => mapOptions(context?.idhStatusOptions, IdhStatus.values),
+  //   watch: (value, criteria, context) => {
+  //     criteria.idhMutation = [];
+  //     criteria.geneExpressionSubtype = [];
+  //     criteria.methylationSubtype = [];
+  //   }
+  // },
+  // {
+  //   field: "idhMutation",
+  //   label: "IDH Mutation",
+  //   type: FilterType.Options,
+  //   valueType: ValueType.String,
+  //   options: (context) => mapOptions(context?.idhMutationOptions, IdhMutation.values),
+  //   show: (value, criteria, context) => {
+  //     return criteria.idhStatus?.length == 1 
+  //         && criteria.idhStatus[0] == IdhStatus.Mutant;
+  //   }
+  // },
+  // {
+  //   field: "geneExpressionSubtype",
+  //   label: "Gene Expression Subtype",
+  //   type: FilterType.Options,
+  //   valueType: ValueType.String,
+  //   options: (context) => mapOptions(context?.idhMutationOptions, GeneExpressionSubtype.values),
+  //   show: (value, criteria, context) => {
+  //     return criteria.idhStatus?.length == 1 
+  //         && criteria.idhStatus[0] == IdhStatus.WildType;
+  //   }
+  // },
+  // {
+  //   field: "methylationSubtype",
+  //   label: "Methylation Subtype",
+  //   type: FilterType.Options,
+  //   valueType: ValueType.String,
+  //   options: (context) => mapOptions(context?.idhMutationOptions, MethylationSubtype.values),
+  //   show: (value, criteria, context) => {
+  //     return criteria.idhStatus?.length == 1 
+  //         && criteria.idhStatus[0] == IdhStatus.WildType;
+  //   }
+  // },
+  // {
+  //   field: "gCimpMethylation",
+  //   label: "G-CIMP Methylation",
+  //   type: FilterType.Boolean,
+  //   default: null
+  // }
 ];
 
 export default filters;

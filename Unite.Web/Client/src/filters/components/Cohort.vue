@@ -136,9 +136,11 @@ export default {
 
   methods: {
     hasGroupFilters(filters, criteria) {
+      let filterItems = filters.flatMap(item => item.group ? [...item.filters] : [item]);
+
       if (criteria) {
-        for (let i = 0; i < filters.length; i++) {
-          const filter = filters[i];
+        for (let i = 0; i < filterItems.length; i++) {
+          const filter = filterItems[i];
           const value = criteria[filter.field];
 
           if (this.hasFilters(filter, value)) {

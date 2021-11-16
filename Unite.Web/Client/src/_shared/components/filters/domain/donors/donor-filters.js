@@ -11,10 +11,10 @@ const filters = [
   {
     field: "id",
     label: "ID",
-    placeholder: "e.g. 11032",
+    placeholder: "e.g. 11033",
     type: FilterType.Values,
     valueType: ValueType.Number,
-    show: (value, criteria, context) => false
+    sanitize: (value) => sanitiseArray(value, true)
   },
   {
     field: "referenceId",
@@ -25,27 +25,17 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "gender",
-    label: "Gender",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.genderOptions, Gender.values)
-  },
-  {
-    field: "age",
-    label: "Age",
-    labelFrom: "From",
-    labelTo: "To",
-    placeholderFrom: "e.g. 50",
-    placeholderTo: "e.g. 70",
-    type: FilterType.Range,
-    valueType: ValueType.Number,
-    sanitize: (value) => sanitiseRange(value)
-  },
-  {
     field: "diagnosis",
     label: "Diagnosis",
     placeholder: "e.g. Glioblastoma",
+    type: FilterType.Values,
+    valueType: ValueType.String,
+    sanitize: (value) => sanitiseArray(value)
+  },
+  {
+    field: "therapy",
+    label: "Therapy",
+    placeholder: "e.g. Temodal therapy",
     type: FilterType.Values,
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
@@ -58,12 +48,20 @@ const filters = [
     options: (context) => mapOptions(context?.vitalStatusOptions, VitalStatus.values)
   },
   {
-    field: "therapy",
-    label: "Therapy",
-    placeholder: "e.g. Temodal therapy",
-    type: FilterType.Values,
+    field: "gender",
+    label: "Gender",
+    type: FilterType.Options,
     valueType: ValueType.String,
-    sanitize: (value) => sanitiseArray(value)
+    options: (context) => mapOptions(context?.genderOptions, Gender.values)
+  },
+  {
+    field: "age",
+    label: "Age",
+    placeholderFrom: "e.g. 50",
+    placeholderTo: "e.g. 70",
+    type: FilterType.Range,
+    valueType: ValueType.Number,
+    sanitize: (value) => sanitiseRange(value)
   },
   {
     field: "mtaProtected",

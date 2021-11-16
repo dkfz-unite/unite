@@ -40,7 +40,18 @@
 
   <!-- Range filter -->
   <template v-else-if="filter.type == FilterType.Range">
-    <q-expansion-item :model-value="true" :label="filter.label" dense dense-toggle>
+    <u-range-filter
+      v-model="filterValue"
+      :label="filter.label"
+      :labelFrom="filter.labelFrom"
+      :labelTo="filter.labelTo"
+      :placeholderFrom="filter.placeholderFrom"
+      :placeholderTo="filter.placeholderTo"
+      :expandable="filter.expandable"
+      @update:modelValue="onUpdate"
+    />
+
+    <!-- <q-expansion-item :model-value="true" :label="filter.label" dense dense-toggle>
       <div class="col q-pt-xs q-gutter-y-sm">
         <div>
           <u-number-filter
@@ -60,7 +71,7 @@
           />
         </div>
       </div>
-    </q-expansion-item>
+    </q-expansion-item> -->
   </template>
 </template>
 
@@ -70,6 +81,7 @@ import USelectOneFilter from "./base/SelectSingleFilter.vue";
 import USelectManyFilter from "./base/SelectFilter.vue";
 import UBooleanFilter from "./base/BooleanFilter.vue";
 import UNumberFilter from "./base/NumberFilter.vue";
+import URangeFilter from "./base/RangeFilter.vue";
 
 import FilterType from "./filter-type";
 import ValueType from "./filter-value-type";
@@ -80,7 +92,8 @@ export default {
     USelectOneFilter,
     USelectManyFilter,
     UBooleanFilter,
-    UNumberFilter
+    UNumberFilter,
+    URangeFilter
   },
 
   props: {
@@ -116,12 +129,22 @@ export default {
     };
   },
 
+  watch: {
+    modelValue(value) {
+      this.filterValue = value;
+    },
+
+    options(value) {
+      this.filterOptions = value;
+    }
+  },
+
   methods: {
     onUpdate() {
       let value = this.filterValue;
 
       if (this.filter.sanitize != null) {
-        value = this.filter.sanitize(this.value);
+        value = this.filter.sanitize(value);
       }
 
       this.$emit("update:modelValue", value);

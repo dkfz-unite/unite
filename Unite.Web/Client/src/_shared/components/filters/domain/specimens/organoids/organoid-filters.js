@@ -5,6 +5,8 @@ import { sanitiseArray } from "../../../filter-criteria-helpers";
 import specimenFilters from "../specimen-filters";
 
 const filters = [
+  specimenFilters[0],
+  specimenFilters[1],
   {
     field: "medium",
     label: "Medium",
@@ -27,7 +29,7 @@ const filters = [
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
   },
-  ...specimenFilters
+  specimenFilters[2]
 ];
 
 export default filters;

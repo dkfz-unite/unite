@@ -9,7 +9,7 @@
 
     <!-- Filters -->
     <div class="q-gutter-y-xs">
-      <template v-for="filter in filters" :key="filter.field">
+      <template v-for="filter in filterItems" :key="filter.field">
         <div v-if="hasFilters(filter, criteria[filter.field])">
           <!-- Filter label -->
           <span class="text-body2 text-grey-9 text-weight-medium">{{filter.label}}: </span>
@@ -82,6 +82,12 @@ export default {
     return {
       FilterType: FilterType
     };
+  },
+
+  computed: {
+    filterItems() {
+      return this.filters.flatMap(item => item.group ? [...item.filters] : [item]);
+    }
   },
 
   methods: {

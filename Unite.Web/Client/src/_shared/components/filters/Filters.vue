@@ -107,18 +107,18 @@
           <q-tab-panel name="donor" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <u-donor-filters
+                <!-- <u-donor-filters
                   v-model="filtersCriteria.donorFiltersCriteria"
                   :context="filtersContext.donorFiltersContext"
                   @update:modelValue="onUpdate"
-                />
-                <!-- <u-criteria-filters
+                /> -->
+                <u-criteria-filters
                   v-if="filtersCriteria?.donorFiltersCriteria"
                   v-model="filtersCriteria.donorFiltersCriteria"
                   :context="filtersContext.donorFiltersContext"
                   :filters="donorFilters"
                   @update:modelValue="onUpdate"
-                /> -->
+                />
               </div>
               <div class="row" v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters">
                 <u-filters-button-clear @click="filtersCriteria.donorFiltersCriteria.clear(); onUpdate();" />
@@ -129,9 +129,16 @@
           <q-tab-panel name="tissue" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <u-tissue-filters
+                <!-- <u-tissue-filters
                   v-model="filtersCriteria.tissueFiltersCriteria"
                   :context="filtersContext.tissueFiltersContext"
+                  @update:modelValue="onUpdate"
+                /> -->
+                <u-criteria-filters
+                  v-if="filtersCriteria?.tissueFiltersCriteria"
+                  v-model="filtersCriteria.tissueFiltersCriteria"
+                  :context="filtersContext.tissueFiltersContext"
+                  :filters="tissueFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -144,9 +151,16 @@
           <q-tab-panel name="cell" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <u-cell-filters
+                <!-- <u-cell-filters
                   v-model="filtersCriteria.cellFiltersCriteria"
                   :context="filtersContext.cellFiltersContext"
+                  @update:modelValue="onUpdate"
+                /> -->
+                <u-criteria-filters
+                  v-if="filtersCriteria?.cellFiltersCriteria"
+                  v-model="filtersCriteria.cellFiltersCriteria"
+                  :context="filtersContext.cellFiltersContext"
+                  :filters="cellFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -159,9 +173,16 @@
           <q-tab-panel name="organoid" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <u-organoid-filters
+                <!-- <u-organoid-filters
                   v-model="filtersCriteria.organoidFiltersCriteria"
                   :context="filtersContext.organoidFiltersContext"
+                  @update:modelValue="onUpdate"
+                /> -->
+                <u-criteria-filters
+                  v-if="filtersCriteria?.organoidFiltersCriteria"
+                  v-model="filtersCriteria.organoidFiltersCriteria"
+                  :context="filtersContext.organoidFiltersContext"
+                  :filters="organoidFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -174,9 +195,16 @@
           <q-tab-panel name="xenograft" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <u-xenograft-filters
+                <!-- <u-xenograft-filters
                   v-model="filtersCriteria.xenograftFiltersCriteria"
                   :context="filtersContext.xenograftFiltersContext"
+                  @update:modelValue="onUpdate"
+                /> -->
+                <u-criteria-filters
+                  v-if="filtersCriteria?.xenograftFiltersCriteria"
+                  v-model="filtersCriteria.xenograftFiltersCriteria"
+                  :context="filtersContext.xenograftFiltersContext"
+                  :filters="xenograftFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -187,11 +215,18 @@
           </q-tab-panel>
 
           <q-tab-panel name="gene" class="q-pa-none">
-            <div class="col q-hutter-y-sm">
-              <div>
-                <u-gene-filters
+            <div class="col q-gutter-y-sm">
+              <div class="row">
+                <!-- <u-gene-filters
                   v-model="filtersCriteria.geneFiltersCriteria"
                   :context="filtersContext.geneFiltersContext"
+                  @update:modelValue="onUpdate"
+                /> -->
+                <u-criteria-filters
+                  v-if="filtersCriteria?.geneFiltersCriteria"
+                  v-model="filtersCriteria.geneFiltersCriteria"
+                  :context="filtersContext.geneFiltersContext"
+                  :filters="geneFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -204,9 +239,16 @@
           <q-tab-panel name="mutation" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div>
-                <u-mutation-filters
+                <!-- <u-mutation-filters
                   v-model="filtersCriteria.mutationFiltersCriteria"
                   :context="filtersContext.mutationFiltersContext"
+                  @update:modelValue="onUpdate"
+                /> -->
+                <u-criteria-filters
+                  v-if="filtersCriteria?.mutationFiltersCriteria"
+                  v-model="filtersCriteria.mutationFiltersCriteria"
+                  :context="filtersContext.mutationFiltersContext"
+                  :filters="mutationFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -223,33 +265,39 @@
 
 <script>
 import UFiltersButtonClear from "./FiltersButtonClear.vue";
-import UDonorFilters from "./domain/donors/DonorFilters.vue";
-import UTissueFilters from "./domain/specimens/tissues/TissueFilters.vue";
-import UCellFilters from "./domain/specimens/cells/CellFilters.vue";
-import UOrganoidFilters from "./domain/specimens/organoids/OrganoidFilters.vue";
-import UXenograftFilters from "./domain/specimens/xenografts/XenograftFilters.vue";
-import UGeneFilters from "./domain/genome/genes/GeneFilters.vue";
-import UMutationFilters from "./domain/genome/mutations/MutationFilters.vue";
+// import UDonorFilters from "./domain/donors/DonorFilters.vue";
+// import UTissueFilters from "./domain/specimens/tissues/TissueFilters.vue";
+// import UCellFilters from "./domain/specimens/cells/CellFilters.vue";
+// import UOrganoidFilters from "./domain/specimens/organoids/OrganoidFilters.vue";
+// import UXenograftFilters from "./domain/specimens/xenografts/XenograftFilters.vue";
+// import UGeneFilters from "./domain/genome/genes/GeneFilters.vue";
+// import UMutationFilters from "./domain/genome/mutations/MutationFilters.vue";
 import UOncogridFilters from "./visualization/oncogrid/OncoGridFilters.vue";
 import filtersMixin from "./filters-mixin";
 
 import FiltersCriteria from "./filters-criteria";
 import FiltersContext from "./filters-context";
 
-// import UCriteriaFilters from "./CriteriaFilters.vue";
-// import donorFilters from "./domain/donors/donor-filters";
+import UCriteriaFilters from "./CriteriaFilters.vue";
+import donorFilters from "./domain/donors/donor-filters";
+import tissueFilters from "./domain/specimens/tissues/tissue-filters";
+import cellFilters from "./domain/specimens/cells/cell-filters";
+import organoidFilters from "./domain/specimens/organoids/organoid-filters";
+import xenograftFilters from "./domain/specimens/xenografts/xenograft-filters";
+import geneFilters from "./domain/genome/genes/gene-filters";
+import mutationFilters from "./domain/genome/mutations/mutation-filters";
 
 export default {
   components: {
-    // UCriteriaFilters,
+    UCriteriaFilters,
     UFiltersButtonClear,
-    UDonorFilters,
-    UTissueFilters,
-    UCellFilters,
-    UOrganoidFilters,
-    UXenograftFilters,
-    UMutationFilters,
-    UGeneFilters,
+    // UDonorFilters,
+    // UTissueFilters,
+    // UCellFilters,
+    // UOrganoidFilters,
+    // UXenograftFilters,
+    // UMutationFilters,
+    // UGeneFilters,
     UOncogridFilters
   },
 
@@ -271,11 +319,17 @@ export default {
 
   emits: ["update:category", "close"],
 
-  // setup() {
-  //   return {
-  //     donorFilters: donorFilters
-  //   }
-  // },
+  setup() {
+    return {
+      donorFilters: donorFilters,
+      tissueFilters: tissueFilters,
+      cellFilters: cellFilters,
+      organoidFilters: organoidFilters,
+      xenograftFilters: xenograftFilters,
+      geneFilters: geneFilters,
+      mutationFilters: mutationFilters
+    }
+  },
 
   data() {
     return {

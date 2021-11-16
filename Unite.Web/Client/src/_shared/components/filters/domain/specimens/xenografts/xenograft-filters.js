@@ -8,6 +8,8 @@ import { sanitiseArray, sanitiseRange } from "../../../filter-criteria-helpers";
 import specimenFilters from "../specimen-filters";
 
 const filters = [
+  specimenFilters[0],
+  specimenFilters[1],
   {
     field: "mouseStrain",
     label: "Mouse Strain",
@@ -48,7 +50,7 @@ const filters = [
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.tumorGrowthFormOptions, TumorGrowthForm.values)
   },
-  ...specimenFilters
+  specimenFilters[2]
 ];
 
 export default filters;
