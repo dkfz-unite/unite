@@ -85,6 +85,7 @@ import FiltersCriteria from "../_shared/components/filters/filters-criteria";
 
 import cohortsStorage from "./services/cohorts-storage";
 import donorsApi from "../domain/donors/api";
+import imagesApi from "../domain/images/_shared/api/images";
 import specimensApi from "../domain/specimens/_shared/api/specimens";
 import genesApi from "../domain/genome/genes/api";
 import mutationsApi from "../domain/genome/mutations/api";
@@ -149,6 +150,8 @@ export default {
       try {
         if (this.domain.name == "donors") {
           data = await donorsApi.search(searchCriteria);
+        } else if (this.domain.name == "mris") {
+          data = await imagesApi.search("MRI", searchCriteria);
         } else if (this.domain.name == "tissues") {
           data = await specimensApi.search("Tissue", searchCriteria);
         } else if (this.domain.name == "cells") {

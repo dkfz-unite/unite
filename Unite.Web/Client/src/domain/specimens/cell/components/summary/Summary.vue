@@ -22,6 +22,10 @@
               <td class="text-bold">{{ specimen.cellLine.referenceId }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Creation Day</td>
+              <td>{{ specimen.creationDay }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Species</td>
               <td>{{ specimen.cellLine.species }}</td>
             </tr>

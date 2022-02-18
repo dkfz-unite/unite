@@ -115,6 +115,7 @@ export default {
     title() {
       switch (this.tab) {
         case "donors": return "Donor Filters";
+        case "mris": return "MRI Filters";
         case "tissues": return "Tissue Filters";
         case "cells": return "Cell Line Filters";
         case "organoids": return "Organoid Filters";
@@ -159,6 +160,7 @@ export default {
     getIcon(domain) {
       switch (domain) {
         case "donors": return "las la-user-circle";
+        case "mris": return "las la-x-ray";
         case "tissues": return "svguse:/icons.svg#u-tissue";
         case "cells": return "las la-microscope";
         case "organoids": return "svguse:/icons.svg#u-organoid";

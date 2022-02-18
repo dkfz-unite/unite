@@ -24,6 +24,10 @@
               <td class="text-bold">{{ specimen.organoid.referenceId }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Creation Day</td>
+              <td>{{ specimen.creationDay }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Implanted Cells Number</td>
               <td>{{ specimen.organoid.implantedCellsNumber }}</td>
             </tr>

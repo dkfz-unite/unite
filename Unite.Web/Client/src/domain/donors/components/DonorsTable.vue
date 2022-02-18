@@ -134,6 +134,12 @@ export default {
           align: "left"
         },
         {
+          name: "numberOfImages",
+          label: "#Images",
+          field: (row) => row.numberOfImages,
+          sortable: false
+        },
+        {
           name: "numberOfSpecimens",
           label: "#Specimens",
           field: (row) => row.numberOfSpecimens,

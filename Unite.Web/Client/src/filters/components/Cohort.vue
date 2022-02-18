@@ -40,6 +40,15 @@
           />
         </div>
 
+        <!-- MRI filters -->
+        <div class="row" v-if="hasGroupFilters(mriFilters, cohort.criteria.mriFiltersCriteria)">
+          <u-filters-data
+            title="MRI filters"
+            :criteria="cohort.criteria.mriFiltersCriteria"
+            :filters="mriFilters"
+          />
+        </div>
+
         <!-- Tissue filters -->
         <div class="row" v-if="hasGroupFilters(tissueFilters, cohort.criteria.tissueFiltersCriteria)">
           <u-filters-data
@@ -103,6 +112,7 @@ import UFiltersData from "./data/FiltersData.vue";
 
 import FilterType from "../../_shared/components/filters/filter-type";
 import donorFilters from "../../_shared/components/filters/domain/donors/donor-filters";
+import mriFilters from "../../_shared/components/filters/domain/images/mris/mri-filters";
 import tissueFilters from "../../_shared/components/filters/domain/specimens/tissues/tissue-filters";
 import cellFilters from "../../_shared/components/filters/domain/specimens/cells/cell-filters";
 import organoidFilters from "../../_shared/components/filters/domain/specimens/organoids/organoid-filters";
@@ -125,6 +135,7 @@ export default {
   setup() {
     return {
       donorFilters: donorFilters,
+      mriFilters: mriFilters,
       tissueFilters: tissueFilters,
       cellFilters: cellFilters,
       organoidFilters: organoidFilters,

@@ -15,6 +15,12 @@
     />
 
     <q-route-tab
+      label="Images"
+      icon="las la-x-ray"
+      :to="{ name: 'mris' }"
+    />
+
+    <q-route-tab
       label="Specimens"
       icon="svguse:/icons.svg#u-tissue"
       :to="getSpecimensRoute()"

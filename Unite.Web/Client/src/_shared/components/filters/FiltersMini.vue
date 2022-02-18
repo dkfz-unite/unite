@@ -34,6 +34,12 @@
             </q-badge>
           </q-tab>
 
+          <q-tab name="mri" icon="las la-x-ray">
+            <q-badge v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters" :color="getBadgeColor('mri')" rounded>
+              {{filtersCriteria.mriFiltersCriteria.numberOfFilters}}
+            </q-badge>
+          </q-tab>
+
           <q-tab v-if="filtersMode.tissues || filtersMode.general" name="tissue" icon="svguse:icons.svg#u-tissue">
             <q-badge v-if="filtersCriteria.tissueFiltersCriteria.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
               {{filtersCriteria.tissueFiltersCriteria.numberOfFilters}}
@@ -104,7 +110,7 @@ export default {
       filtersContext: this.context || new FiltersContext(),
       filtersCategory: this.category,
       filtersMode: {
-        general: ["donor", "gene", "mutation"].includes(this.mode),
+        general: ["donor", "gene", "mutation", "mri"].includes(this.mode),
         tissues: this.mode == "tissue",
         cells: this.mode == "cell",
         organoids: this.mode == "organoid",

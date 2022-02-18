@@ -97,6 +97,7 @@ export default {
     getIcon(domain) {
       switch (domain) {
         case "donors": return "las la-user-circle";
+        case "mris": return "las la-x-ray";
         case "tissues": return "svguse:/icons.svg#u-tissue";
         case "cells": return "las la-microscope";
         case "organoids": return "svguse:/icons.svg#u-organoid";

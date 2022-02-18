@@ -130,7 +130,7 @@ export default {
       colorMap: oncogridColors,
       trackHeight: 15,
       scaleToFit: true,
-      width: 970,
+      width: 1000,
       trackLegendLabel: "<i class='las la-question-circle'></i>",
       margin: { top: 0, right: 0, bottom: 0, left: 0 }
     };

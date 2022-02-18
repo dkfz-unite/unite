@@ -49,6 +49,12 @@
             </q-badge>
           </q-tab>
 
+          <q-tab name="mri" icon="las la-x-ray">
+            <q-badge v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters" :color="getBadgeColor('mri')" rounded>
+              {{filtersCriteria.mriFiltersCriteria.numberOfFilters}}
+            </q-badge>
+          </q-tab>
+
           <q-tab v-if="filtersMode.tissues || filtersMode.general" name="tissue" icon="svguse:/icons.svg#u-tissue">
             <q-badge v-if="filtersCriteria.tissueFiltersCriteria.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
               {{filtersCriteria.tissueFiltersCriteria.numberOfFilters}}
@@ -122,6 +128,23 @@
               </div>
               <div class="row" v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters">
                 <u-filters-button-clear @click="filtersCriteria.donorFiltersCriteria.clear(); onUpdate();" />
+              </div>
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel name="mri" class="q-pa-none">
+            <div class="col q-gutter-y-sm">
+              <div>
+                <u-criteria-filters
+                  v-if="filtersCriteria?.mriFiltersCriteria"
+                  v-model="filtersCriteria.mriFiltersCriteria"
+                  :context="filtersContext.mriFiltersContext"
+                  :filters="mriFilters"
+                  @update:modelValue="onUpdate"
+                />
+              </div>
+              <div class="row" v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.mriFiltersCriteria.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -286,6 +309,7 @@ import organoidFilters from "./domain/specimens/organoids/organoid-filters";
 import xenograftFilters from "./domain/specimens/xenografts/xenograft-filters";
 import geneFilters from "./domain/genome/genes/gene-filters";
 import mutationFilters from "./domain/genome/mutations/mutation-filters";
+import mriFilters from "./domain/images/mris/mri-filters";
 
 export default {
   components: {
@@ -327,7 +351,8 @@ export default {
       organoidFilters: organoidFilters,
       xenograftFilters: xenograftFilters,
       geneFilters: geneFilters,
-      mutationFilters: mutationFilters
+      mutationFilters: mutationFilters,
+      mriFilters: mriFilters
     }
   },
 
@@ -337,7 +362,7 @@ export default {
       filtersContext: this.context || new FiltersContext(),
       filtersCategory: this.category,
       filtersMode: {
-        general: ["donor", "gene", "mutation"].includes(this.mode),
+        general: ["donor", "gene", "mutation", "mri"].includes(this.mode),
         tissues: this.mode == "tissue",
         cells: this.mode == "cell",
         organoids: this.mode == "organoid",
@@ -357,6 +382,7 @@ export default {
         case "xenograft": return "Xenograft Filters";
         case "gene": return "Gene Filters";
         case "mutation": return "Mutation Filters";
+        case "mri": return "MRI Filters";
         case "oncogrid": return "Oncogrid Filters";
         default: return "Filters";
       }

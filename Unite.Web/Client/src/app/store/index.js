@@ -5,6 +5,8 @@ import rightDrawerModule from "./modules/drawers/right";
 import identityModule from "../../identity/store";
 import donorModule from "../../domain/donor/store";
 import donorsModule from "../../domain/donors/store";
+import mriModule from "../../domain/images/mri/store";
+import mrisModule from "../../domain/images/mris/store";
 import tissueModule from "../../domain/specimens/tissue/store";
 import tissuesModule from "../../domain/specimens/tissues/store";
 import cellModule from "../../domain/specimens/cell/store";
@@ -27,6 +29,8 @@ export default createStore({
     identity: identityModule,
     donor: donorModule,
     donors: donorsModule,
+    mri: mriModule,
+    mris: mrisModule,
     tissue: tissueModule,
     tissues: tissuesModule,
     cell: cellModule,

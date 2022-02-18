@@ -5,6 +5,8 @@ import appRoutes from "./routes";
 import identityRoutes from "../../identity/router";
 import donorRoutes from "../../domain/donor/router";
 import donorsRoutes from "../../domain/donors/router";
+import mriRoutes from "../../domain/images/mri/router";
+import mrisRoutes from "../../domain/images/mris/router";
 import tissueRoutes from "../../domain/specimens/tissue/router";
 import tissuesRoutes from "../../domain/specimens/tissues/router";
 import cellRoutes from "../../domain/specimens/cell/router";
@@ -26,6 +28,8 @@ const routes = [
   ...identityRoutes,
   ...donorRoutes,
   ...donorsRoutes,
+  ...mriRoutes,
+  ...mrisRoutes,
   ...tissueRoutes,
   ...tissuesRoutes,
   ...cellRoutes,

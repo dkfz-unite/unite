@@ -5,6 +5,7 @@ import OrganoidFiltersContext from "./domain/specimens/organoids/organoid-filter
 import XenograftFiltersContext from "./domain/specimens/xenografts/xenograft-filters-context";
 import GeneFiltersContext from "./domain/genome/genes/gene-filters-context";
 import MutationFiltersContext from "./domain/genome/mutations/mutation-filters-context";
+import MriFilterContext from "./domain/images/mris/mri-filters-context";
 
 export default class FiltersContext {
     donorFiltersContext = new DonorFiltersContext();
@@ -14,4 +15,5 @@ export default class FiltersContext {
     xenograftFiltersContext = new XenograftFiltersContext();
     geneFiltersContext = new GeneFiltersContext();
     mutationFiltersContext = new MutationFiltersContext();
+    mriFiltersContext = new MriFilterContext();
 }
