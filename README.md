@@ -79,7 +79,9 @@ Development requires the followind tools and technologies:
 - node.js (v17.0.1)
 - npm (8.1.0)
 
-Frontend source code is located in `Unite.Web/Client` folder
+Frontend source code is located in `Unite.Web/Client` folder.
 1. Open `Unite.Web/Client` folder in terminal
 2. Install dependencies: `npm install`
 3. Run development server: `npm run serve`
+
+Composer web api proxy can be configured in vue [config](https://github.com/dkfz-unite/unite/blob/main/Unite.Web/Client/vue.config.js) file.
