@@ -27,8 +27,8 @@ Docker|https://portal.unite.net|443
 To configure the application, change environment variables:
 Variable|Description|Default(Local)|Default(Docker)
 --------|-----------|--------------|---------------
-ASPNETCORE_ENVIRONMENT|ASP.NET environment type|Debug|Release
-UNITE_COMPOSER_HOST|Composer web api host|http://localhost:5002|http://composer.unite.net
+ASPNETCORE_ENVIRONMENT|ASP.NET environment|Debug|Release
+UNITE_COMPOSER_HOST|Composer web api|http://localhost:5002|http://composer.unite.net
 
 ## Installation
 Application requires valid SSL certificate.
