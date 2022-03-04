@@ -36,6 +36,11 @@ Self signed development certificate can be used:
 - Create SSL certificate and name it `unite-cert.pem`
 - Sign certificate and name it's key `unite-key.pem`
 
+### Docker Compose
+The easies way to install the application is to use docker-compose:
+- Environment configuration and installation scripts: https://github.com/dkfz-unite/unite-environment
+- Web portal configuration and installation scripts: https://github.com/dkfz-unite/unite-environment/tree/main/applications/unite 
+
 ### Docker
 [Dockerfile](https://github.com/dkfz-unite/unite/blob/main/Dockerfile) is used to build an image of the application.
 To build an image run the following command:
@@ -68,8 +73,3 @@ docker run \
 -d \
 unite.portal:latest
 ```
-
-### Docker Compose
-Easies way to install the application is to use docker-compose:
-- Environment configuration and installation scripts: https://github.com/dkfz-unite/unite-environment
-- Web portal configuration and installation scripts: https://github.com/dkfz-unite/unite-environment/tree/main/applications/unite 
