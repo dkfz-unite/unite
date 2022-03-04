@@ -71,5 +71,5 @@ unite.portal:latest
 
 ### Docker Compose
 Easies way to install the application is to use docker-compose:
-- Environment installation documentation, configuration and scripts: https://github.com/dkfz-unite/unite-environment
-- Web portal installation configuration and scripts: https://github.com/dkfz-unite/unite-environment/tree/main/applications/unite 
+- Environment configuration and installation scripts: https://github.com/dkfz-unite/unite-environment
+- Web portal configuration and installation scripts: https://github.com/dkfz-unite/unite-environment/tree/main/applications/unite 
