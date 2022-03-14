@@ -9,18 +9,18 @@ async function get(id){
   return await client.get(url);
 }
 
-// async function searchGenes(id, criteria){
-//   let url = `${imageUrl}/${id}/genes`;
-//   return await client.post(url, criteria);
-// }
+async function searchGenes(id, criteria){
+  let url = `${imageUrl}/${id}/genes`;
+  return await client.post(url, criteria);
+}
 
-// async function searchMutations(id, criteria){
-//   let url = `${imageUrl}/${id}/mutations`;
-//   return await client.post(url, criteria);
-// }
+async function searchMutations(id, criteria){
+  let url = `${imageUrl}/${id}/mutations`;
+  return await client.post(url, criteria);
+}
 
 export default {
   get,
-  // searchGenes,
-  // searchMutations
+  searchGenes,
+  searchMutations
 }

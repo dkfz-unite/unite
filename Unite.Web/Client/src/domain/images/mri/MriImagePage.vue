@@ -15,8 +15,8 @@
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
-              <!-- <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
-              <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" /> -->
+              <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
+              <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" />
             </q-tabs>
             <q-separator />
           </div>
@@ -29,13 +29,13 @@
                 <u-summary-tab :image="image" />
               </q-tab-panel>
 
-              <!-- <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :specimen="specimen" />
+              <q-tab-panel name="genes" class="q-py-sm q-px-none">
+                <u-genes-tab :image="image" />
               </q-tab-panel>
 
               <q-tab-panel name="mutations" class="q-py-sm q-px-none">
-                <u-mutations-tab :specimen="specimen" />
-              </q-tab-panel> -->
+                <u-mutations-tab :image="image" />
+              </q-tab-panel>
             </q-tab-panels>
           </div>
         </div>
@@ -50,8 +50,8 @@
 
 <script>
 import USummaryTab from "./components/SummaryTab.vue";
-// import UGenesTab from "../_shared/components/image/GenesTab.vue";
-// import UMutationsTab from "../_shared/components/image/MutationsTab.vue";
+import UGenesTab from "../_shared/components/image/GenesTab.vue";
+import UMutationsTab from "../_shared/components/image/MutationsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
 import imageApi from "../_shared/api/image";
@@ -60,8 +60,8 @@ import donorApi from "../../donor/api";
 export default {
   components: {
     USummaryTab,
-    // UGenesTab,
-    // UMutationsTab
+    UGenesTab,
+    UMutationsTab
   },
 
   mixins: [tabPageMixin],
@@ -75,13 +75,13 @@ export default {
   },
 
   computed: {
-    // showGenes() {
-    //   return !!this.image?.numberOfGenes;
-    // },
+    showGenes() {
+      return !!this.image?.numberOfGenes;
+    },
 
-    // showMutations() {
-    //   return !!this.image?.numberOfMutations;
-    // }
+    showMutations() {
+      return !!this.image?.numberOfMutations;
+    }
   },
 
   async mounted() {

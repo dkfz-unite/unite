@@ -18,6 +18,7 @@
               <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" :disable="!showClinicalData" />
               <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
+              <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
               <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" />
             </q-tabs>
@@ -44,6 +45,10 @@
                 <u-specimens-tab :donor="donor" />
               </q-tab-panel>
 
+              <q-tab-panel name="mris" class="q-py-sm q-px-none">
+                <u-mris-tab :donor="donor" />
+              </q-tab-panel>
+
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
                 <u-genes-tab :donor="donor" />
               </q-tab-panel>
@@ -66,8 +71,9 @@
 <script>
 import USummaryTab from "./components/SummaryTab.vue";
 import UClinicalDataTab from "./components/ClinicalDataTab.vue";
-import UTreatmentsTab from "./components/TreatmentsTab.vue"
-import USpecimensTab from "./components/SpecimensTab.vue"
+import UTreatmentsTab from "./components/TreatmentsTab.vue";
+import USpecimensTab from "./components/SpecimensTab.vue";
+import UMrisTab from "./components/MriImagesTab.vue";
 import UGenesTab from "./components/GenesTab.vue";
 import UMutationsTab from "./components/MutationsTab.vue";
 import tabPageMixin from "../_shared/tab-page-mixin";
@@ -80,6 +86,7 @@ export default {
     UClinicalDataTab,
     UTreatmentsTab,
     USpecimensTab,
+    UMrisTab,
     UGenesTab,
     UMutationsTab
   },
@@ -104,6 +111,10 @@ export default {
 
     showSpecimens() {
       return !!this.donor?.numberOfSpecimens;
+    },
+
+    showImages() {
+      return !!this.donor?.numberOfImages;
     },
 
     showGenes() {

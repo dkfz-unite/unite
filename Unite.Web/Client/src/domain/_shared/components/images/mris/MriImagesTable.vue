@@ -2,9 +2,8 @@
   <div class="col">
     <q-table
       :title="title"
-      class="sticky-header"
+      class="sticky-header-slim"
       separator="cell" dense flat bordered
-      selection="multiple"
       row-key="id"
       :columns="columns"
       :rows="data"
@@ -14,7 +13,7 @@
       :loading="loading"
       @request="onRequest"
     >
-      <template v-slot:top-right>
+      <!-- <template v-slot:top-right>
         <div class="row q-gutter-x-sm">
           <u-filters-toolbar domain="mris" />
           
@@ -24,7 +23,7 @@
             </template>
           </q-input>
         </div>
-      </template>
+      </template> -->
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
@@ -34,25 +33,25 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-donorId="props">
+      <!-- <template v-slot:body-cell-donorId="props">
         <q-td :props="props">
           <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value.toString() }}">
             {{ props.value }}
           </router-link>
         </q-td>
-      </template>
+      </template> -->
     </q-table>
   </div>
 </template>
 
 <script>
-import UFiltersToolbar from "../../../_shared/components/filters/toolbar/FiltersToolbar.vue";
-import tableMixin from "../../../_shared/table-mixin";
+// import UFiltersToolbar from "../../../_shared/components/filters/toolbar/FiltersToolbar.vue";
+import tableMixin from "../../../table-mixin";
 
 export default {
-  components: {
-    UFiltersToolbar
-  },
+  // components: {
+  //   UFiltersToolbar
+  // },
 
   mixins: [tableMixin],
 
@@ -67,13 +66,13 @@ export default {
           required: true,
           align: "left"
         },
-        {
-          name: "donorId",
-          label: "Donor Id",
-          field: (row) => row.donorId,
-          sortable: false,
-          align: "left"
-        },
+        // {
+        //   name: "donorId",
+        //   label: "Donor Id",
+        //   field: (row) => row.donorId,
+        //   sortable: false,
+        //   align: "left"
+        // },
         {
           name: "wholeTumor",
           label: "Whole Tumor (cm³)",

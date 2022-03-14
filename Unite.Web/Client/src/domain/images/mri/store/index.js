@@ -5,11 +5,24 @@ const module = {
     namespaced: true,
 
     state: () => ({
-        filtersCriteria: new FiltersCriteria(),
-        filtersContext: new FiltersContext(),
+        genesFiltersCriteria: new FiltersCriteria(),
+        genesFiltersContext: new FiltersContext(),
+        genesSelected: [],
+        mutationsFiltersCriteria: new FiltersCriteria(),
+        mutationsFiltersContext: new FiltersContext(),
+        mutationsSelected: []
+    }),
 
-        selected: []
-    })
+    actions: {
+        clearState({state}) {
+            state.genesFiltersCriteria = new FiltersCriteria();
+            state.genesFiltersContext = new FiltersContext();
+            state.genesSelected = [];
+            state.mutationsFiltersCriteria = new FiltersCriteria();
+            state.mutationsFiltersContext = new FiltersContext();
+            state.mutationsSelected = [];
+        }
+    }
 }
 
 export default module;

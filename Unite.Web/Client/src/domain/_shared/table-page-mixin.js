@@ -82,6 +82,7 @@ const mixin = {
 
   methods: {
     async filterData() {
+      this.filtersCriteria?.sanitise();
       this.rowsSelected = [];
       this.loadData();
     },

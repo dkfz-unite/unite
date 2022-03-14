@@ -36,56 +36,56 @@
           dense vertical>
 
           <!-- Visualisation -->
-          <q-tab v-if="filtersMode.oncogrid" name="oncogrid" icon="las la-chart-area">
+          <q-tab v-if="showFilters('oncogrid')" name="oncogrid" icon="las la-chart-area">
             <q-badge v-if="filtersCriteria.oncogridFiltersCriteria.numberOfFilters" :color="getBadgeColor('oncogrid')" rounded>
               {{filtersCriteria.oncogridFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <!-- Data types -->
-          <q-tab name="donor" icon="las la-user-circle">
+          <q-tab v-if="showFilters('donor')" name="donor" icon="las la-user-circle">
             <q-badge v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters" :color="getBadgeColor('donor')" rounded>
               {{filtersCriteria.donorFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab name="mri" icon="las la-x-ray">
+          <q-tab v-if="showFilters('mri')" name="mri" icon="las la-x-ray">
             <q-badge v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters" :color="getBadgeColor('mri')" rounded>
               {{filtersCriteria.mriFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="filtersMode.tissues || filtersMode.general" name="tissue" icon="svguse:/icons.svg#u-tissue">
+          <q-tab v-if="showFilters('tissue')" name="tissue" icon="svguse:/icons.svg#u-tissue">
             <q-badge v-if="filtersCriteria.tissueFiltersCriteria.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
               {{filtersCriteria.tissueFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="filtersMode.cells || filtersMode.general" name="cell" icon="las la-microscope">
+          <q-tab v-if="showFilters('cell')" name="cell" icon="las la-microscope">
             <q-badge v-if="filtersCriteria.cellFiltersCriteria.numberOfFilters" :color="getBadgeColor('cell')" rounded>
               {{filtersCriteria.cellFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="filtersMode.organoids || filtersMode.general" name="organoid" icon="svguse:/icons.svg#u-organoid">
+          <q-tab v-if="showFilters('organoid')" name="organoid" icon="svguse:/icons.svg#u-organoid">
             <q-badge v-if="filtersCriteria.organoidFiltersCriteria.numberOfFilters" :color="getBadgeColor('organoid')" rounded>
               {{filtersCriteria.organoidFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="filtersMode.xenografts || filtersMode.general" name="xenograft" icon="svguse:/icons.svg#u-mouse">
+          <q-tab v-if="showFilters('xenograft')" name="xenograft" icon="svguse:/icons.svg#u-mouse">
             <q-badge v-if="filtersCriteria.xenograftFiltersCriteria.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
               {{filtersCriteria.xenograftFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab name="gene" icon="svguse:/icons.svg#u-gene-alt">
+          <q-tab v-if="showFilters('gene')" name="gene" icon="svguse:/icons.svg#u-gene-alt">
             <q-badge v-if="filtersCriteria.geneFiltersCriteria.numberOfFilters" :color="getBadgeColor('gene')" rounded>
               {{filtersCriteria.geneFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab name="mutation" icon="svguse:/icons.svg#u-mutation-alt">
+          <q-tab v-if="showFilters('mutation')" name="mutation" icon="svguse:/icons.svg#u-mutation-alt">
             <q-badge v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters" :color="getBadgeColor('mutation')" rounded>
               {{filtersCriteria.mutationFiltersCriteria.numberOfFilters}}
             </q-badge>
@@ -98,7 +98,7 @@
       <div class="col">
         <q-tab-panels v-model="filtersCategory" class="q-pl-sm">
           <!-- Visualisation -->
-          <q-tab-panel name="oncogrid" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('oncogrid')" name="oncogrid" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-oncogrid-filters
@@ -110,7 +110,7 @@
           </q-tab-panel>
 
           <!-- Data types -->
-          <q-tab-panel name="donor" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('donor')" name="donor" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <!-- <u-donor-filters
@@ -132,7 +132,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="mri" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('mri')" name="mri" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div>
                 <u-criteria-filters
@@ -149,7 +149,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="tissue" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('tissue')" name="tissue" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <!-- <u-tissue-filters
@@ -171,7 +171,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="cell" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('cell')" name="cell" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <!-- <u-cell-filters
@@ -193,7 +193,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="organoid" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('organoid')" name="organoid" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <!-- <u-organoid-filters
@@ -215,7 +215,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="xenograft" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('xenograft')" name="xenograft" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <!-- <u-xenograft-filters
@@ -237,7 +237,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="gene" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('gene')" name="gene" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <!-- <u-gene-filters
@@ -259,7 +259,7 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="mutation" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('mutation')" name="mutation" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div>
                 <!-- <u-mutation-filters
@@ -288,13 +288,6 @@
 
 <script>
 import UFiltersButtonClear from "./FiltersButtonClear.vue";
-// import UDonorFilters from "./domain/donors/DonorFilters.vue";
-// import UTissueFilters from "./domain/specimens/tissues/TissueFilters.vue";
-// import UCellFilters from "./domain/specimens/cells/CellFilters.vue";
-// import UOrganoidFilters from "./domain/specimens/organoids/OrganoidFilters.vue";
-// import UXenograftFilters from "./domain/specimens/xenografts/XenograftFilters.vue";
-// import UGeneFilters from "./domain/genome/genes/GeneFilters.vue";
-// import UMutationFilters from "./domain/genome/mutations/MutationFilters.vue";
 import UOncogridFilters from "./visualization/oncogrid/OncoGridFilters.vue";
 import filtersMixin from "./filters-mixin";
 
@@ -315,13 +308,6 @@ export default {
   components: {
     UCriteriaFilters,
     UFiltersButtonClear,
-    // UDonorFilters,
-    // UTissueFilters,
-    // UCellFilters,
-    // UOrganoidFilters,
-    // UXenograftFilters,
-    // UMutationFilters,
-    // UGeneFilters,
     UOncogridFilters
   },
 
@@ -360,15 +346,7 @@ export default {
     return {
       filtersCriteria: this.modelValue || new FiltersCriteria(),
       filtersContext: this.context || new FiltersContext(),
-      filtersCategory: this.category,
-      filtersMode: {
-        general: ["donor", "gene", "mutation", "mri"].includes(this.mode),
-        tissues: this.mode == "tissue",
-        cells: this.mode == "cell",
-        organoids: this.mode == "organoid",
-        xenografts: this.mode == "xenograft",
-        oncogrid: this.mode == "oncogrid"
-      }
+      filtersCategory: this.category
     };
   },
 
@@ -400,6 +378,22 @@ export default {
   },
 
   methods: {
+    showFilters(category) {
+      let general = ["donor", "gene", "mutation"];
+      switch (category) {
+        case "donor": return true;
+        case "mri": return [...general, "mri", "tissue"].includes(this.mode);
+        case "tissue": return [...general, "mri", "tissue"].includes(this.mode);
+        case "cell": return [...general, "cell"].includes(this.mode);
+        case "organoid": return [...general, "organoid"].includes(this.mode);
+        case "xenograft": return [...general, "xenograft"].includes(this.mode);
+        case "gene": return true;
+        case "mutation": return true;
+        case "oncogrid": return ["oncogrid"].includes(this.mode);
+        default: return false;
+      }
+    },
+
     getBadgeColor(filtersCategory) {
       return this.filtersCategory == filtersCategory
         ? "primary"

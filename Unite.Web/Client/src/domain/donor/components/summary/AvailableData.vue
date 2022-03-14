@@ -34,6 +34,13 @@
                 <q-icon v-else color="grey" size="sm" name="las la-minus" />
               </td>
             </tr>
+            <tr>
+              <td class="u-text-key">Images</td>
+              <td>
+                <q-icon v-if="hasImages" color="green" size="sm" name="las la-check" />
+                <q-icon v-else color="grey" size="sm" name="las la-minus" />
+              </td>
+            </tr>
           </tbody>
         </q-markup-table>
       </div>
@@ -63,6 +70,10 @@ export default {
 
     hasMutations(){
       return this.donor?.numberOfMutations;
+    },
+
+    hasImages(){
+      return this.donor?.numberOfImages;
     }
   }
 }
