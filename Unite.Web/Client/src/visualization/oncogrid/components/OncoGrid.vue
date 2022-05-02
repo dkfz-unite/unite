@@ -184,7 +184,6 @@ export default {
       this.oncoGrid.setGridLines(this.showGridLines);
       this.oncoGrid.setCrosshair(this.crosshairMode);
       this.oncoGrid.setHeatmap(this.heatMapMode);
-      
     },
 
 
@@ -257,7 +256,7 @@ export default {
         } else if (data.domain.type === "vital") {
           properties.push({key: "Vital status", value: data.domain.value ? "Living" : "Deceased" });
         } else if (data.domain.type === "gender") {
-          properties.push({key: "Gender", value: data.domain.value });
+          properties.push({key: "Sex", value: data.domain.value });
         }
 
         this.targetTrackCellData = properties;

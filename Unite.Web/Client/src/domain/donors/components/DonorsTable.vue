@@ -87,7 +87,7 @@ export default {
         },
         {
           name: "gender",
-          label: "Gender",
+          label: "Sex",
           field: (row) => row.clinicalData?.gender,
           sortable: false,
           align: "left"

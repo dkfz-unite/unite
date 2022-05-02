@@ -11,7 +11,7 @@
       :key="index"
       :title="treatment.therapy"
       :subtitle="$helpers.content.toTimespanString(treatment.startDay, treatment.durationDays)"
-      :color="treatment.progressionStatus ? 'orange': 'primary'"
+      color="primary"
     >
       <u-treatments-timeline-item :treatment="treatment" />
     </q-timeline-entry>

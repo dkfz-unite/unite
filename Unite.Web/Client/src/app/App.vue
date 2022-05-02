@@ -33,7 +33,6 @@
     </q-page-container>
 
     <q-footer bordered>
-      <u-content-banner />
     </q-footer>
   </q-layout>
 </template>
@@ -43,14 +42,12 @@ import { mapState } from "vuex";
 import ULogo from "./components/header/Logo.vue";
 import UNavigation from "./components/header/navigation/Navigation.vue";
 import UMenuButton from "./components/header/menu/MenuButton.vue";
-import UContentBanner from "./components/footer/banners/ContentBanner.vue";
 
 export default {
   components: {
     ULogo,
     UNavigation,
     UMenuButton,
-    UContentBanner,
   },
 
   computed: {

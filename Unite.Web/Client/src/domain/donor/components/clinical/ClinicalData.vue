@@ -14,7 +14,7 @@
 
           <tbody>
             <tr>
-              <td class="u-text-key">Gender</td>
+              <td class="u-text-key">Sex</td>
               <td>{{ clinicalData.gender }}</td>
             </tr>
             <tr>
@@ -41,6 +41,16 @@
               <td class="u-text-key">Vital Status Changed After (Days)</td>
               <td>{{ clinicalData.vitalStatusChangeDay }}</td>
             </tr>
+
+            <tr>
+              <td class="u-text-key">Progression Status</td>
+              <td>{{ $helpers.content.toBooleanString(clinicalData.progressionStatus, false, "Yes", "No") }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Progression Status Changed After (Days)</td>
+              <td>{{ clinicalData.progressionStatusChangeDay }}</td>
+            </tr>
+            
             <tr>
               <td class="u-text-key">KPS Baseline</td>
               <td>{{ clinicalData.kpsBaseline }}</td>

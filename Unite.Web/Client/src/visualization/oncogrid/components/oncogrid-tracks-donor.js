@@ -20,7 +20,7 @@ function sortString(field) {
 
 const donorTracks = [
     new OncoGridTrack("Clinical Data", "Age", "age", "age", sortInt),
-    new OncoGridTrack("Clinical Data", "Gender", "gender", "gender", sortString),
+    new OncoGridTrack("Clinical Data", "Sex", "gender", "gender", sortString),
     new OncoGridTrack("Clinical Data", "Vital Status", "vitalStatus", "vitalStatus", sortBool)
 ];
 

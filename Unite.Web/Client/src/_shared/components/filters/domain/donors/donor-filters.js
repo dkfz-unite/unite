@@ -49,7 +49,7 @@ const filters = [
   },
   {
     field: "gender",
-    label: "Gender",
+    label: "Sex",
     type: FilterType.Options,
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.genderOptions, Gender.values)

@@ -47,7 +47,7 @@
 
     <div>
       <u-select-filter
-        label="Gender"
+        label="Sex"
         :options="genderOptions"
         v-model="filtersCriteria.gender"
         @update:modelValue="onUpdate"

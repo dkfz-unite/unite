@@ -26,14 +26,6 @@
         </span>
       </div>
     </div>
-
-    <div class="column" v-if="treatment.progressionStatus">
-      <div class="row">
-        <span class="text-body1 text-orange text-bold">
-          Progression {{ getProgressionDate(treatment.progressionStatusChangeDate) }}
-        </span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -50,16 +42,6 @@ export default {
     show() {
       return this.treatment.details 
           || this.treatment.results;
-    }
-  },
-
-  methods: {
-    getProgressionDate(progressionStatusChangeDate) {
-      if(!progressionStatusChangeDate) {
-        return null;
-      } else {
-        return `(${this.$helpers.content.toDateString(progressionStatusChangeDate)})`;
-      }
     }
   }
 }
