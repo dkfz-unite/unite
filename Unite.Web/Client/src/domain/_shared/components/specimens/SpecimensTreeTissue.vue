@@ -1,6 +1,11 @@
 <template>
   <div>
     <div>
+      <span>Creation Day: </span>
+      <span v-if="tissue.creationDay" class="text-black">{{tissue.creationDay}}</span>
+      <span v-else class="text-black">Unknown</span>
+    </div>
+    <div>
       <span>Type: </span>
       <span :class="getColor(tissue)">{{getType(tissue)}}</span>
     </div>

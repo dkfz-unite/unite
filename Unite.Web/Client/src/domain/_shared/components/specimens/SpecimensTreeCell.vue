@@ -1,6 +1,11 @@
 <template>
   <div>
     <div>
+      <span>Creation Day: </span>
+      <span v-if="cellLine.creationDay" class="text-black">{{cellLine.creationDay}}</span>
+      <span v-else class="text-black">Unknown</span>
+    </div>
+    <div>
       <span>Type: </span>
       <span v-if="cellLine.type" class="text-black">{{cellLine.type}}</span>
       <span v-else class="text-black">Unknown</span>
