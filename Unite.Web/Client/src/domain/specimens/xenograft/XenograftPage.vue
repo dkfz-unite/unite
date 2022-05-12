@@ -32,11 +32,7 @@
               </q-tab-panel>
 
               <q-tab-panel name="ancestry" class="q-py-sm q-px-none">
-                <u-ancestry-tab 
-                  :donor="donor" 
-                  :specimens="[specimen]"
-                  :current="specimen.id"
-                />
+                <u-ancestry-tab :specimen="specimen" />
               </q-tab-panel>
 
               <q-tab-panel name="interventions" class="q-py-sm q-px-none">
@@ -70,8 +66,7 @@ import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
 import UMutationsTab from "../_shared/components/specimen/MutationsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
-import specimenApi from "../_shared/api/specimen";
-import donorApi from "../../donor/api";
+import api from "../_shared/api/specimen";
 
 export default {
   components: {
@@ -87,7 +82,6 @@ export default {
   data() {
     return {
       loading: false,
-      donor: null,
       specimen: null
     };
   },
@@ -109,8 +103,7 @@ export default {
   async mounted() {
     try {
       this.loading = true;
-      this.specimen = await specimenApi.get(this.$route.params.id);
-      this.donor = await donorApi.get(this.specimen.donorId);
+      this.specimen = await api.get(this.$route.params.id);
     } catch (error) {
       this.specimen = null;
     } finally {

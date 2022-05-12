@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import UAncestry from "../../_shared/components/specimens/Ancestry.vue";
+import UAncestry from "@/domain/_shared/components/specimens/Ancestry.vue";
 
 import api from "../api";
 

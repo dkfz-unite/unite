@@ -5,7 +5,7 @@
     </div>
 
     <div class="row">
-      <div class="col-12 col-md-7">
+      <div class="col-12 col-md-6">
         <u-specimens-tree 
           :donor="donor" 
           :specimens="orderedSpecimens"

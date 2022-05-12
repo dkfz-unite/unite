@@ -8,74 +8,50 @@
       <template v-slot:default-header="prop">
        <div class="row q-gutter-x-xs items-center">
           <q-icon :name="getIcon(prop.node)" :size="getIconSize(prop.node)" />
-          <div :class="{ 'text-subtitle1 text-bold' : prop.node.active} ">
+          <div :class="{ 'text-subtitle1' : prop.node.active} ">
             <span>
-              ID: <router-link class="u-link" :to="getLink(prop.node)">{{prop.node.id}}</router-link>
+              <span>
+                {{getName(prop.node)}}
+              </span>
+              <span v-if="prop.node.active">
+                ({{getLinkName(prop.node)}})
+              </span>
+              <span v-else>
+                (<router-link class="u-link" :to="getLinkAddress(prop.node)">{{getLinkName(prop.node)}}</router-link>)
+              </span>
             </span>
-             - {{getName(prop.node)}}
-            <q-badge v-if="prop.node.active && !prop.node.donor" align="top">this specimen</q-badge>
+            <q-badge v-if="prop.node.active && !prop.node.donor" align="top">This</q-badge>
           </div>
        </div>
       </template>
 
       <template v-slot:default-body="prop">
-        <div class="row" v-if="!(prop.node.active && prop.node.donor)">
-          <q-card bordered :flat="!prop.node.active">
-            <q-card-section class="q-pa-sm">
-              <div class="row q-gutter-x-sm" :class="{ 'text-caption': !prop.node.active, 'text-body2 text-grey-5': prop.node.active }">
-                <template v-if="!!prop.node.donor">
-                  <div v-if="!!prop.node.donor.clinicalData">
-                    <span>Diagnosis: </span>
-                    <span class="text-grey-9">{{prop.node.donor.clinicalData.diagnosis}}</span>
-                  </div>
-                </template>
-
-                <template v-else-if="!!prop.node.tissue">
-                  <div>
-                    <span>Type: </span>
-                    <span class="text-grey-9">{{!!prop.node.tissue.tumorType ? prop.node.tissue.tumorType : prop.node.tissue.type}}</span>
-                  </div>
-                </template>
-
-                <template v-else-if="!!prop.node.cellLine">
-                  <div>
-                    <span>Species: </span>
-                    <span class="text-grey-9">{{prop.node.cellLine.species}}</span>
-                  </div>
-                  <div>
-                    <span>Type: </span>
-                    <span class="text-grey-9">{{prop.node.cellLine.type}}</span>
-                  </div>
-                </template>
-
-                <template v-else-if="!!prop.node.organoid">
-                  <div>
-                    <span>Medium: </span>
-                    <span class="text-grey-9">{{prop.node.organoid.medium}}</span>
-                  </div>
-                </template>
-
-                <template v-else-if="!!prop.node.xenograft">
-                  <div>
-                    <span>Mouse Strain: </span>
-                    <span class="text-grey-9">{{prop.node.xenograft.mouseStrain}}</span>
-                  </div>
-                  <div>
-                    <span>Survival Days: </span>
-                    <span class="text-grey-9">{{prop.node.xenograft.survivalDays}}</span>
-                  </div>
-                </template>
-              </div>
-            </q-card-section>
-          </q-card>
-          </div>
+        <u-specimens-tree-donor v-if="prop.node.donor" :donor="prop.node.donor" />
+        <u-specimens-tree-tissue v-else-if="prop.node.tissue" :tissue="prop.node.tissue" />
+        <u-specimens-tree-cell v-else-if="prop.node.cellLine" :cellLine="prop.node.cellLine" />
+        <u-specimens-tree-organoid v-else-if="prop.node.organoid" :organoid="prop.node.organoid" />
+        <u-specimens-tree-xenograft v-else-if="prop.node.xenograft" :xenograft="prop.node.xenograft" />
       </template>
     </q-tree>
   </div>
 </template>
 
 <script>
+import USpecimensTreeDonor from './SpecimensTreeDonor.vue';
+import USpecimensTreeTissue from './SpecimensTreeTissue.vue';
+import USpecimensTreeCell from './SpecimensTreeCell.vue';
+import USpecimensTreeOrganoid from './SpecimensTreeOrganoid.vue';
+import USpecimensTreeXenograft from './SpecimensTreeXenograft.vue';
+
 export default {
+  components: {
+    USpecimensTreeDonor,
+    USpecimensTreeTissue,
+    USpecimensTreeCell,
+    USpecimensTreeOrganoid,
+    USpecimensTreeXenograft
+  },
+
   props: {
     donor: Object,
     specimens: Array,
@@ -103,8 +79,8 @@ export default {
       } 
     },
 
-    getLink(node) {
-      let params = { id: node.id.toString() };
+    getLinkAddress(node) {
+      let params = { id: node.id.toString(), tab: !!node?.donor ? "specimens" : "ancestry" };
 
       if (!!node?.donor) {
         return { name: 'donor', params: params};
@@ -116,6 +92,20 @@ export default {
         return { name: 'organoid', params: params};
       } else if (!!node?.xenograft) {
         return { name: 'xenograft', params: params};
+      }
+    },
+
+    getLinkName(node) {
+      if (!!node?.donor) {
+        return node.donor.referenceId;
+      } else if (!!node?.tissue) {
+        return node.tissue.referenceId;
+      } else if (!!node?.cellLine) {
+        return node.cellLine.referenceId;
+      } else if (!!node?.organoid) {
+        return node.organoid.referenceId;
+      } else if (!!node?.xenograft) {
+        return node.xenograft.referenceId;
       }
     },
 
@@ -151,10 +141,10 @@ export default {
           key: `d.${donor.id}`,
           active: donor.id == current,
           donor: donor,
-          children: specimens.map(specimen => this.buildNode(specimen, specimens.length > 1 ? null : current))
+          children: specimens.map(specimen => this.buildNode(specimen, current))
       }
 
-      return [node].sort(this.compareNodes);
+      return [node];
     },
 
     buildNode(specimen, current) {
@@ -162,7 +152,6 @@ export default {
         id: specimen.id, 
         key: `s.${specimen.id}`,
         active: specimen.id == current,
-        molecularData: specimen.molecularData
       };
       
       if (!!specimen.tissue) {
@@ -179,33 +168,26 @@ export default {
         node.children = [];
 
         specimen.children.forEach(childSpecimen => {
-          node.children.push(this.buildNode(childSpecimen));
+          node.children.push(this.buildNode(childSpecimen, current));
         });
       }
 
-      if (!specimen.parent) {
-        return node;
-      } else {
-        let parentNode = this.buildNode(specimen.parent);
-        parentNode.children = [node];
-
-        return parentNode;
-      }
+      return node;
     },
 
-    findNode(nodes, key) {
-      for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
+    // findNode(nodes, key) {
+    //   for (let i = 0; i < nodes.length; i++) {
+    //     let node = nodes[i];
         
-        if (node.key == key) {
-          return node;
-        } else if (node.children?.length > 0) {
-          return this.findNode(node.children, key);
-        } else {
-          return null;
-        }
-      }
-    }
+    //     if (node.key == key) {
+    //       return node;
+    //     } else if (node.children?.length > 0) {
+    //       return this.findNode(node.children, key);
+    //     } else {
+    //       return null;
+    //     }
+    //   }
+    // }
   }
 }
 </script>
