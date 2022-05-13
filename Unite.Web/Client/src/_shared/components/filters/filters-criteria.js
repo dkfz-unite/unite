@@ -8,12 +8,19 @@ import MutationFiltersCriteria from "./domain/genome/mutations/mutation-filters-
 import MriFiltersCriteria from "./domain/images/mris/mri-filters-criteria";
 import OncogirdFiltersCriteria from "./visualization/oncogrid/oncogrid-filters-criteria";
 
+// This class is used only inside this file, all side assignments still use object.
+class Filters {
+    query = null;
+    from = 0;
+    size = 20;
+
+    constructor(filters = null) {
+        this.query = filters?.query || null;
+    }
+}
+
 export default class FiltersCriteria {
-    filters = {
-        query: null,
-        from: 0,
-        size: 20
-    };
+    filters = new Filters();
     donorFiltersCriteria = new DonorFiltersCriteria();
     tissueFiltersCriteria = new TissueFiltersCriteria();
     cellFiltersCriteria = new CellFiltersCriteria();
@@ -27,6 +34,7 @@ export default class FiltersCriteria {
     get numberOfFilters() {
         let number = 0;
 
+        number += this.filters.query != null ? 1 : 0;
         number += this.donorFiltersCriteria.numberOfFilters;
         number += this.tissueFiltersCriteria.numberOfFilters;
         number += this.cellFiltersCriteria.numberOfFilters;
@@ -39,7 +47,8 @@ export default class FiltersCriteria {
         return number;
     }
 
-    constructor(criteria = null){
+    constructor(criteria = null) {
+        this.filters = new Filters(criteria?.filters);
         this.donorFiltersCriteria = new DonorFiltersCriteria(criteria?.donorFiltersCriteria);
         this.tissueFiltersCriteria = new TissueFiltersCriteria(criteria?.tissueFiltersCriteria);
         this.cellFiltersCriteria = new CellFiltersCriteria(criteria?.cellFiltersCriteria);
@@ -65,6 +74,7 @@ export default class FiltersCriteria {
 
     clone() {
         var criteria = new FiltersCriteria();
+
         criteria.filters = {
             query: this.filters.query,
             from: this.filters.from,

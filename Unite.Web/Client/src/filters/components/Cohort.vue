@@ -31,6 +31,18 @@
     <q-separator v-if="cohort.criteria" />
     <div class="row q-pa-sm" v-if="cohort.criteria">
       <div class="col q-gutter-y-sm">
+        <!-- Query -->
+        <div v-if="cohort.criteria.filters?.query">
+          <div class="col">
+            <div>
+              <span class="text-subtitle1 text-weight-medium">Query: </span>
+              <q-badge color="grey-2" text-color="black" class="text-body2 text-weight-medium">
+                {{cohort.criteria.filters.query}}
+              </q-badge>
+            </div>
+          </div>
+        </div>
+
         <!-- Donor filters -->
         <div class="row" v-if="hasGroupFilters(donorFilters, cohort.criteria.donorFiltersCriteria)">
           <u-filters-data

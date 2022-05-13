@@ -121,7 +121,7 @@ export default {
 
   watch: {
     cohort(cohort) {
-      if (cohort.size == null) {
+      if (cohort && cohort.size == null) {
         this.loadCohortSize();
       }
     }
