@@ -49,35 +49,56 @@ export default {
 
   computed: {
     orderedSpecimens() {
-      return this.specimens?.sort(this.compareSpecimens);
+      return this.sortSpecimens(this.specimens);
     }
   },
 
   methods: {
-    compareSpecimens(left, right) {
-      var leftRank = this.getSpecimenRank(left);
-      var rightRank = this.getSpecimenRank(right);
-
-      if (leftRank > rightRank) {
-        return 1;
-      } else if (leftRank < rightRank) {
-        return -1;
+    sortSpecimens(specimens) {
+      if (!specimens?.length) {
+        return specimens;
       } else {
-        return 0;
+        var sorted = specimens.sort(this.compareSpecimens);
+        for (let i = 0; i < sorted.length; i++) {
+          sorted[i].children = this.sortSpecimens(sorted[i].children);
+        }
+        return sorted;
+      }
+    },
+
+    compareSpecimens(left, right) {
+      if (left.creationDay != null && right.creationDay != null) {
+        return right.creationDay > left.creationDay ? 1
+             : right.creationDay < left.creationDay ? -1
+             : 0;
+      } else if (left.creationDay != null && right.creationDay == null) {
+        return -1;
+      } else if (left.creationDay == null && right.creationDay != null) {
+        return 1;
+      } else {
+        var leftRank = this.getSpecimenRank(left);
+        var rightRank = this.getSpecimenRank(right);
+        return leftRank > rightRank ? 1
+             : leftRank < rightRank ? -1
+             : 0;
       }
     },
 
     getSpecimenRank(specimen) {
       if (specimen.tissue) {
-        if (specimen.tissue.type == "Control") {
-          return 1;
-        } else if (specimen.tissue.tumorType == "Primary") {
-          return 2;
-        } else {
-          return 3;
-        }
+        return specimen.tissue.type == "Control" ? 1
+             : specimen.tumorType == "Primary" ? 2
+             : specimen.tumorType == "Metastasis" ? 3
+             : specimen.tumorType == "Recurrent" ? 4
+             : 5;
+      } else if (specimen.cellLine) {
+        return 11;
+      } else if (specimen.organoid) {
+        return 21;
+      } else if (specimen.xenograft) {
+        return 31;
       } else {
-        return 4;
+        return 41;
       }
     }
   }
