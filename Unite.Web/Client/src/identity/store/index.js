@@ -11,8 +11,7 @@ const module = {
     async logOut() {
       try {
         await api.signOut();
-        location.href = "/";
-      } catch(error) {
+      } finally {
         location.href = "/";
       }
     }

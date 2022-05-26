@@ -1,32 +1,28 @@
-import { Cookies } from "quasar";
 import settings from "../../../settings";
 import api from "../../api";
 
 export async function authorize(hook, state) {
   const { to, from, next } = hook;
+  const token = localStorage.getItem("token");
   
   if (to.meta?.authorize) {
-    const session = Cookies.get(settings.cookies.sessionCookieName);
-    if (!session) {
-      state.account = null;
-      next({ name: "login" });
-    } else {
-      try {
-        state.account = await api.getAccount();
-      } catch (error) {
+    if (!token) {
+      if (!!state.account) {
         state.account = null;
-        Cookies.remove(settings.cookies.sessionCookieName);
-        Cookies.remove(settings.cookies.tokenCookieName);
-        next({ name: "login" });
+      }
+      const redirect = encodeURI(to.fullPath);
+      next({ name: "login", query: { redirect: redirect } });
+    } else {
+      if (!state.account) {
+        state.account = await api.getAccount();
       }
     }
   } else if (to.meta?.anonymous) {
-    const session = Cookies.get(settings.cookies.sessionCookieName);
-    if (!!session) {
+    if (!!token) {
       next({ name: "account" });
     }
   } else {
-    next();
+    // next();
   }
 }
 

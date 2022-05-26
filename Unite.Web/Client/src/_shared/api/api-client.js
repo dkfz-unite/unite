@@ -1,4 +1,15 @@
 import axios from 'axios';
+import interceptors from './api-client-interceptors';
+
+axios.interceptors.request.use(
+    interceptors.beforeEach.onFulfilled, 
+    interceptors.beforeEach.onRejected
+);
+
+axios.interceptors.response.use(
+    interceptors.afterEach.onFulfilled,
+    interceptors.afterEach.onRejected
+);
 
 class ApiClient {
     async get(url) {

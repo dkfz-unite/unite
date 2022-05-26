@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Unite.Web.Configuration;
 using Unite.Web.Middleware;
 
 namespace Unite.Web
@@ -18,7 +19,13 @@ namespace Unite.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ReverseProxyMiddleware>();
+            app.UseProxy(options =>
+            {
+                options.Map(
+                    (path, query) => path.StartsWith("/api"),
+                    (path, query) => $"{EnvironmentConfig.ComposerHost}{path}{query}"
+                );
+            });
 
             if (env.IsDevelopment())
             {

@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { path } from 'd3-path';
 import api from "./api";
 
 export default {
@@ -128,8 +129,12 @@ export default {
         this.error = null;
         await api.signIn(this.email.value, this.password.value);
         this.submitting = false;
-        // this.$router.push({ name: "home" });
-        location.href = "/";
+        if (this.$route.query.redirect) {
+          const path = decodeURI(this.$route.query.redirect);
+          this.$router.push({ path: path });
+        } else {
+          this.$router.push({ name: "home" });
+        }
       } catch (error) {
         this.submitting = false;
         this.error = error.status;

@@ -219,10 +219,8 @@ export default {
     async onLogOut() {
       try {
         await api.signOut();
-        // this.$router.push({ name: 'login' });
-        location.href = "/";
-      } catch(error) {
-        location.href = "/";
+      } finally {
+        this.$router.push({ name: 'home' });
       }
     },
 
