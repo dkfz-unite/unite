@@ -97,10 +97,10 @@
                   <!-- Errors -->
                   <div v-if="!!error">
                     <div class="text-hint text-red-9">
-                      <template v-if="error == 400">
+                      <!-- <template v-if="error == 400">
                         Account with provided email is already registered. Please, use other email or log in instead.
-                      </template>
-                      <template v-else-if="error == 404">
+                      </template> -->
+                      <template v-if="error == 400">
                         Sorry, provided email is not in access list. Use other email or contact UNITE PIs to get access.
                       </template>
                       <template v-else>
