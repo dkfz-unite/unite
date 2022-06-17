@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import { path } from 'd3-path';
 import api from "./api";
 
 export default {
@@ -117,27 +116,28 @@ export default {
   },
 
   mounted() {
-    this.$store.state.leftDrawer.display = false;
-    this.$store.state.rightDrawer.display = false;
     this.$refs.loginForm.resetValidation();
   },
 
   methods: {
     async onSubmit() {
-      try {
-        this.submitting = true;
-        this.error = null;
-        await api.signIn(this.email.value, this.password.value);
-        this.submitting = false;
+      const payload = {
+        email: this.email.value,
+        password: this.password.value
+      };
+
+      this.error = null;
+      this.submitting = true;
+      this.error = await this.$store.dispatch("identity/signIn", payload);
+      this.submitting = false;
+
+      if (!this.error) {
         if (this.$route.query.redirect) {
           const path = decodeURI(this.$route.query.redirect);
           this.$router.push({ path: path });
         } else {
           this.$router.push({ name: "home" });
         }
-      } catch (error) {
-        this.submitting = false;
-        this.error = error.status;
       }
     }
   }

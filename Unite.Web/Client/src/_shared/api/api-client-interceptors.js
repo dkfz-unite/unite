@@ -1,12 +1,13 @@
 import axios from "axios";
-import tokens from "./api-client-token";
+import tokenApi from "./api-client-token";
+import tokenHelpers from "../helpers/token-helpers";
 
-const loginPageUrl = 'login';
-const accountPageUrl = 'account';
+const loginPageUrl = '/login';
+const accountPageUrl = '/account';
 
 export const beforeEach = {
     onFulfilled: async (request) => {
-        const oldToken = tokens.getToken();
+        const oldToken = tokenHelpers.get();
         
         if (oldToken) {
             // Validating new token
@@ -15,12 +16,13 @@ export const beforeEach = {
                 request.headers.Authorization = `Bearer ${oldToken.value}`;
             } else {
                 // Refreshing token
-                localStorage.removeItem('token');
-                const newToken = await tokens.refreshToken(oldToken);
+                tokenHelpers.remove();
+                const newValue = await tokenApi.refresh(oldToken.data.email);
+                const newToken = tokenHelpers.parse(newValue);
                 
                 // Using new token
                 if (newToken) {
-                    localStorage.setItem('token', newToken.value);
+                    tokenHelpers.set(newToken.value);
                     request.headers.Authorization = `Bearer ${newToken.value}`;
                 }
             }

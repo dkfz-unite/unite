@@ -1,11 +1,11 @@
 import settings from '../../settings';
 import ApiClient from "../../_shared/api/api-client";
+import tokenHelpers from "@/_shared/helpers/token-helpers";
 
 const client = new ApiClient();
 const signUpUrl = `${settings.baseUrl}/identity/signup`;
 const signInUrl = `${settings.baseUrl}/identity/signin`;
 const signOutUrl = `${settings.baseUrl}/identity/signout`;
-const tokenUrl = `${settings.baseUrl}/identity/token`;
 const accountUrl = `${settings.baseUrl}/identity/account`;
 const accessibilityUrl = `${settings.baseUrl}/accessibility`;
 
@@ -30,14 +30,14 @@ async function signIn(email, password) {
   };
 
   var token = await client.post(url, data);
-  localStorage.setItem("token", token);
+  tokenHelpers.set(token);
 }
 
 async function signOut() {
   var url = signOutUrl;
 
   await client.post(url, null);
-  localStorage.removeItem("token");
+  tokenHelpers.remove();
 }
 
 async function getAccount() {

@@ -21,6 +21,7 @@ import mutationRoutes from "../../domain/genome/mutation/router";
 import mutationsRoutes from "../../domain/genome/mutations/router";
 import filtersRoutes from "../../filters/router";
 import oncogridRoutes from "../../visualization/oncogrid/router";
+import adminRoutes from "../../admin/router";
 import store from "../store";
 
 const routes = [
@@ -43,7 +44,8 @@ const routes = [
   ...mutationRoutes,
   ...mutationsRoutes,
   ...filtersRoutes,
-  ...oncogridRoutes
+  ...oncogridRoutes,
+  ...adminRoutes
 ];
 
 const router = createRouter({
@@ -51,9 +53,16 @@ const router = createRouter({
   routes: routes
 });
 
-router.beforeEach((to, from, next) => {
-  authorize({ to, from, next }, store.state.identity);
-  setPageTitle({ to, from, next });
+router.beforeEach(async (to, from, next) => {
+  let route = null;
+  
+  route = await setPageTitle({ to, from, next });
+  if (!!route) next(route);
+
+  route = await authorize({ to, from, next }, store);
+  if (!!route) next(route);
+
+  else next();
 });
 
 export default router;

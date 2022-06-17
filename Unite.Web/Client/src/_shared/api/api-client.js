@@ -41,6 +41,16 @@ class ApiClient {
             throw error.response;
         }
     }
+
+    async delete (url) {
+        try {
+            var response = await axios.delete(url);
+            return response.data;
+        }
+        catch (error) {
+            throw error.response;
+        }
+    }
 }
 
 export default ApiClient;

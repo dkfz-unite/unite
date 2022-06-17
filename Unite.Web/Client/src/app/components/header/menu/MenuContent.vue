@@ -9,6 +9,16 @@
     </q-item>
     <q-separator />
 
+    <!-- Admin -->
+    <q-item v-if="account?.isAdmin" clickable v-close-popup :to="{ name: 'admin' }">
+      <q-item-section avatar>
+        <q-icon name="las la-tools" />
+      </q-item-section>
+      <q-item-section>
+        Admin
+      </q-item-section>
+    </q-item>
+
     <!-- Account -->
     <q-item clickable v-close-popup :to="{ name: 'account' }">
       <q-item-section avatar>
@@ -20,7 +30,7 @@
     </q-item>
 
     <!-- Log out -->
-    <q-item clickable v-close-popup @click="$store.dispatch('identity/logOut')">
+    <q-item clickable v-close-popup @click="onLogOut">
       <q-item-section avatar>
         <q-icon name="logout" color="primary" />
       </q-item-section>
@@ -37,6 +47,14 @@ export default {
   computed: {
     account() {
       return this.$store.state.identity.account;
+    }
+  },
+
+  methods: {
+    async onLogOut() {      
+      await this.$store.dispatch("identity/signOut");
+      this.$router.push({ name: 'home' });
+      this.$router.go(0); //Required to refresh the page
     }
   }
 }

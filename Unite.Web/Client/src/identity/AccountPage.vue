@@ -36,6 +36,21 @@
                     </span>
                   </div>
                 </div>
+
+                <!-- Permissions -->
+                <div class="row">
+                  <div class="col-12 col-sm-3">
+                    <span class="text-subtitle1 text-bold">
+                      Permissions
+                    </span>
+                  </div>
+
+                  <div class="col-12 col-sm-9">
+                    <div v-for="group in account?.permissionsGrouped" :key="group.name" class="text-subtitle1 text-weight-medium">
+                      {{group.name}} <span class="text-weight-regular text-italic">({{group.values.join(', ')}}) </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </q-card-section>
 
@@ -210,39 +225,34 @@ export default {
   },
 
   mounted() {
-    this.$store.state.leftDrawer.display = false;
-    this.$store.state.rightDrawer.display = true;
-    this.$refs.changePasswordForm.resetValidation();
+    // this.$refs.changePasswordForm.resetValidation();
   },
 
   methods: {
     async onLogOut() {
-      try {
-        await api.signOut();
-      } finally {
-        this.$router.push({ name: 'home' });
-      }
+      await this.$store.dispatch("identity/signOut");
+      this.$router.push({ name: 'home' });
     },
 
     async onChangePassword() {
-      try {
-        this.changingPassword = true;
-        this.changingPasswordError = null;
-        this.changePasswordSuccess = false;
-        let account = await api.changePassword(this.oldPassword.value, this.newPassword.value, this.newPasswordRepeat.value);
-        this.changingPassword = false;
-        this.$store.state.identity.account = account;
-        this.oldPassword.value = null;
-        this.newPassword.value = null;
-        this.newPasswordRepeat.value = null;
-        this.changePasswordSuccess = true;
-        this.$refs.changePasswordForm.resetValidation();
+      const payload = {
+        oldPassword: this.oldPassword.value,
+        newPassword: this.newPassword.value,
+        newPasswordRepeat: this.newPasswordRepeat.value
+      };
+      
+      this.changingPasswordError = null;
+      this.changePasswordSuccess = false;
+      this.changingPassword = true;
+      this.changingPasswordError = await this.$store.dispatch("identity/changePassword", payload);
+      this.changePasswordSuccess = !this.changingPasswordError;
+      this.changingPassword = false;
+      this.$refs.changePasswordForm.resetValidation();
+
+      if (!this.changingPasswordError) {
         setTimeout(() => {
           this.changePasswordSuccess = false;
         }, 3000);
-      } catch (error) {
-        this.changingPassword = false;
-        this.changingPasswordError = error.status;
       }
     }
   }

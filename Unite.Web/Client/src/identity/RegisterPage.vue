@@ -30,11 +30,7 @@
                     autocomplete="off"
                     type="text"
                     :rules="email.rules"
-                    :loading="emailSubmitting"
-                    lazy-rules
-                    square
-                    outlined
-                    dense
+                    lazy-rules square outlined dense
                   />
 
                   <!-- Password -->
@@ -44,10 +40,7 @@
                     autocomplete="off"
                     :type="password.show ? 'text' : 'password'"
                     :rules="password.rules"
-                    lazy-rules
-                    square
-                    outlined
-                    dense
+                    lazy-rules square outlined dense
                   >
                     <template v-slot:append>
                       <q-icon
@@ -64,10 +57,7 @@
                     v-model="passwordRepeat.value"
                     :type="passwordRepeat.show ? 'text' : 'password'"
                     :rules="passwordRepeat.rules"
-                    lazy-rules
-                    square
-                    outlined
-                    dense
+                    lazy-rules square outlined dense
                   >
                     <template v-slot:append>
                       <q-icon
@@ -97,11 +87,8 @@
                   <!-- Errors -->
                   <div v-if="!!error">
                     <div class="text-hint text-red-9">
-                      <!-- <template v-if="error == 400">
-                        Account with provided email is already registered. Please, use other email or log in instead.
-                      </template> -->
                       <template v-if="error == 400">
-                        Sorry, provided email is not in access list. Use other email or contact UNITE PIs to get access.
+                        Provided email address is not in access list or is already registered.
                       </template>
                       <template v-else>
                         Something wrong has happened. Please, refresh the page and
@@ -146,7 +133,7 @@ export default {
         show: false,
         rules: [
           (val) => !!val || "Please, enter your password",
-          (val) => !(val.length < 8) || "Password should be at least 8 characters long",
+          (val) => !(val?.length < 8) || "Password should be at least 8 characters long",
           (val) => this.$helpers.string.hasLetter(val) || "Password should contain at least 1 letter",
           (val) => this.$helpers.string.hasNumber(val) || "Password should contain at least 1 number"
         ]
@@ -167,38 +154,45 @@ export default {
 
   computed: {
     canSubmit() {
-      let emaiIslValid = this.email.rules.every(
-        (rule) => rule(this.email.value) === true
-      );
-      let passwordIsValid = this.password.rules.every(
-        (rule) => rule(this.password.value) === true
-      );
-      let passwordRepeatIsValid = this.passwordRepeat.rules.every(
-        (rule) => rule(this.passwordRepeat.value) === true
-      );
+      let results = [];
 
-      return emaiIslValid && passwordIsValid && passwordRepeatIsValid;
+      this.email.rules.forEach((rule) => {
+        results.push(rule(this.email.value) === true);
+      });
+
+      this.password.rules.forEach((rule) => {
+        results.push(rule(this.password.value) === true);
+      });
+
+      this.passwordRepeat.rules.forEach((rule) => {
+        results.push(rule(this.passwordRepeat.value) === true);
+      });
+
+      return results.every((result) => result === true);
     }
   },
 
   mounted() {
-    this.$store.state.leftDrawer.display = false;
-    this.$store.state.rightDrawer.display = false;
+    // this.$store.state.leftDrawer.display = false;
+    // this.$store.state.rightDrawer.display = false;
     this.$refs.registerForm.resetValidation();
   },
 
   methods: {
     async onSubmit() {
-      try {
-        this.submitting = true;
-        this.error = null;
-        await api.signUp(this.email.value, this.password.value, this.passwordRepeat.value);
-        this.submitting = false;
-        // this.$router.push({ name: "login" });
-        location.href = "/";
-      } catch (error) {
-        this.submitting = false;
-        this.error = error.status;
+      const payload = {
+        email: this.email.value,
+        password: this.password.value,
+        passwordRepeat: this.passwordRepeat.value,
+      };
+
+      this.error = null;
+      this.submitting = true;
+      this.error = await this.$store.dispatch("identity/signUp", payload);
+      this.submitting = false;
+
+      if (!this.error) {
+        this.$router.push({ name: "login" });
       }
     }
   }

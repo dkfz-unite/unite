@@ -1,28 +1,41 @@
-import settings from "../../../settings";
-import api from "../../api";
+import tokenHelpers from "@/_shared/helpers/token-helpers";
 
-export async function authorize(hook, state) {
+export async function authorize(hook, store) {
   const { to, from, next } = hook;
-  const token = localStorage.getItem("token");
+  const token = tokenHelpers.get();
   
   if (to.meta?.authorize) {
     if (!token) {
-      if (!!state.account) {
-        state.account = null;
+      // If no token is present, redirect to login
+      if (!!store.state["identity"].account) {
+        store.state["identity"].account = null;
       }
       const redirect = encodeURI(to.fullPath);
-      next({ name: "login", query: { redirect: redirect } });
+      return { name: "login", query: { redirect: redirect } };
     } else {
-      if (!state.account) {
-        state.account = await api.getAccount();
+      // If no account is present, load account
+      if (!store.state["identity"].account) {
+        const error = await store.dispatch("identity/load");
+        if (error) {
+          // If account load fails, redirect to login
+          return { name: "login" };
+        }
+      }
+      // Check account permissions if required
+      if (to.meta?.authorize.permissions) {
+        const authorized = store.state["identity"].account.hasPermissions(to.meta?.authorize.permissions);
+        if (!authorized) {
+          // If permissions are not met, redirect to account
+          return { name: "account" };
+        }
       }
     }
   } else if (to.meta?.anonymous) {
     if (!!token) {
-      next({ name: "account" });
+      return { name: "account" };
     }
   } else {
-    // next();
+    return null;
   }
 }
 
