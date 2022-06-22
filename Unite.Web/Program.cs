@@ -1,20 +1,38 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using Unite.Web.Configuration;
+using Unite.Web.Middleware;
 
-namespace Unite.Web
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+
+builder.Logging.AddConsole();
+
+
+builder.Services.AddSpaStaticFiles(configuration =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    configuration.RootPath = "Client/dist";
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}
+
+var app = builder.Build();
+
+app.UseProxy(options =>
+{
+    options.Map(
+        (path, query) => path.StartsWith("/api"),
+        (path, query) => $"{EnvironmentConfig.ComposerHost}{path}{query}"
+    );
+});
+
+app.UseHsts();
+
+app.UseHttpsRedirection();
+
+app.UseSpaStaticFiles();
+
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "Client";
+});
+
+app.Run();

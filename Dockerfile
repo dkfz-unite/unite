@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -12,7 +12,7 @@ FROM restore-client as build-client
 COPY ["Unite.Web/Client/", "./"]
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS restore
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS restore
 WORKDIR /src
 COPY ["Unite.Web/Unite.Web.csproj", "Unite.Web/"]
 RUN dotnet restore "Unite.Web/Unite.Web.csproj"

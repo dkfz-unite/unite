@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace Unite.Web.Configuration;
 
-namespace Unite.Web.Configuration
+public static class EnvironmentConfig
 {
-    public static class EnvironmentConfig
-    {
-        public static string ComposerHost => Environment.GetEnvironmentVariable("UNITE_COMPOSER_HOST");
-    }
+    public static string ComposerHost => Environment.GetEnvironmentVariable("UNITE_COMPOSER_HOST");
 }
