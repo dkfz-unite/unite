@@ -54,6 +54,7 @@ export default {
 
   async mounted() {
     this.initializePlot();
+    console.log("Loaded");
   },
 
   methods: {
@@ -112,8 +113,12 @@ export default {
     },
 
     onMutationClick(data) {
-      this.$router.push({ name: "mutation", params: { id: data.id.toString() } });
-      this.$router.go(0);
+      if (this.$route.params.id != data.id.toString()){
+        window.location.assign(`/mutations/${data.id.toString()}/protein`);
+      }
+      // Router push doesn't work here
+      // this.$router.push({ name: "mutation", params: { id: data.id.toString(), tab: "protein" } });
+      // this.$router.go(0);
     },
 
     onMutationHover(data) {
