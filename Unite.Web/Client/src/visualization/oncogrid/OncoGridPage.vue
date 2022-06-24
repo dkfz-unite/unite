@@ -55,13 +55,14 @@
 </template>
 
 <script>
-import UFiltersButton from "../../_shared/components/filters/FiltersButton.vue";
-import UFilters from "../../_shared/components/filters/Filters.vue";
-import UFiltersMini from "../../_shared/components/filters/FiltersMini.vue";
-import UDrawer from "../../_shared/components/drawers/Drawer.vue";
+import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
+import UFilters from "@/_shared/components/filters/Filters.vue";
+import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
+import UDrawer from "@/_shared/components/drawers/Drawer.vue";
 import UOncogrid from "./components/OncoGrid.vue";
 
-import FiltersCriteria from "../../_shared/components/filters/filters-criteria";
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
+import ConsequenceImpact from '@/_models/domain/genome/mutations/enums/consequence-impact';
 
 import api from "./api";
 
@@ -99,6 +100,14 @@ export default {
     } else if (mode == "genes") {
       filtersCriteria = this.$store.state.genes.filtersCriteria.clone();
       filtersCriteria.geneFiltersCriteria.symbol = genes?.map(gene => gene.symbol);
+    }
+
+    if (!filtersCriteria.mutationFiltersCriteria.impact.length){
+      filtersCriteria.mutationFiltersCriteria.impact = [
+        ConsequenceImpact.High, 
+        ConsequenceImpact.Moderate, 
+        ConsequenceImpact.Low
+      ];
     }
 
     this.filtersCriteria = filtersCriteria;
