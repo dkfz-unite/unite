@@ -12,8 +12,7 @@
       v-model:pagination="pagination"
       :filter="filter"
       :loading="loading"
-      @request="onRequest"
-    >
+      @request="onRequest">
       <template v-slot:top-right>
         <div class="row q-gutter-x-sm">
           <u-filters-toolbar domain="donors" />
@@ -44,7 +43,9 @@
         <q-td :props="props">
           <div v-if="props.value && props.value.length">
             <div v-for="(workPackage, i) in props.value" :key="i">
-              {{ workPackage.name }}
+              <router-link class="u-link" :to="{ name: 'project', params: { id: workPackage.id.toString() } }">
+                {{ workPackage.name }}
+              </router-link>
             </div>
           </div>
         </q-td>
@@ -121,7 +122,7 @@ export default {
         },
         {
           name: "packages",
-          label: "Work Packages",
+          label: "Projects",
           field: (row) => row.workPackages,
           sortable: false,
           align: "left"

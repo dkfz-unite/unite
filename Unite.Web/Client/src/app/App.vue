@@ -15,7 +15,7 @@
             </div>
 
             <!-- Top right corner placeholder -->
-            <div id="top-right-placeholder">
+            <div id="top-right-placeholder" class="q-gutter-x-sm">
               <u-menu-button v-if="account" />
             </div>
           </div>

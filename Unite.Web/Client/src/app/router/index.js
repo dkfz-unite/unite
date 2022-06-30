@@ -3,6 +3,8 @@ import { setPageTitle } from "./hooks";
 import { authorize } from "../../identity/router/hooks";
 import appRoutes from "./routes";
 import identityRoutes from "../../identity/router";
+import projectRoutes from "../../domain/project/router";
+import projectsRoutes from "../../domain/projects/router";
 import donorRoutes from "../../domain/donor/router";
 import donorsRoutes from "../../domain/donors/router";
 import mriRoutes from "../../domain/images/mri/router";
@@ -27,6 +29,8 @@ import store from "../store";
 const routes = [
   ...appRoutes,
   ...identityRoutes,
+  ...projectRoutes,
+  ...projectsRoutes,
   ...donorRoutes,
   ...donorsRoutes,
   ...mriRoutes,

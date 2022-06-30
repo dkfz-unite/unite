@@ -26,10 +26,10 @@
               <td>{{ $helpers.content.toBooleanString(donor.mtaProtected) }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Work Packages</td>
+              <td class="u-text-key">Projects</td>
               <td>
                 <span v-for="(workPackage, i) in donor.workPackages" :key="workPackage.id">
-                  <router-link class="u-link" :to="'/package/' + workPackage.id">
+                  <router-link class="u-link" :to="{ name: 'project', params: { id: workPackage.id.toString() } }">
                     {{ workPackage.name }}
                   </router-link>
                   <span v-if="i < donor.workPackages.length - 1">/</span>
