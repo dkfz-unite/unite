@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "d3v4": "^4.2.2",
     "oncogrid": "^2.0.1",
+    "plotly.js-dist-min": "^2.13.1",
     "quasar": "^2.7.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",

@@ -41,7 +41,8 @@ const filters = [
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
   },
-  specimenFilters[2]
+  specimenFilters[2],
+  specimenFilters[3]
 ];
 
 export default filters;

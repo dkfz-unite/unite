@@ -50,7 +50,8 @@ const filters = [
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.tumorGrowthFormOptions, TumorGrowthForm.values)
   },
-  specimenFilters[2]
+  specimenFilters[2],
+  specimenFilters[3]
 ];
 
 export default filters;

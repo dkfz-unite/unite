@@ -91,6 +91,30 @@ const filters = [
       }
     ]
   },
+  {
+    group: "drugs",
+    label: "Drug Screening",
+    filters: [
+      {
+        field: "drug",
+        label: "Drug",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+      },
+      {
+        field: "dss",
+        label: "DSS",
+        type: FilterType.Range,
+        valueType: ValueType.Number,
+      },
+      // {
+      //   field: "dssSelective",
+      //   label: "sDSS",
+      //   type: FilterType.Range,
+      //   valueType: ValueType.Number,
+      // }
+    ]
+  }
   // {
   //   field: "mgmtStatus",
   //   label: "MGMT Status",

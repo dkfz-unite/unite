@@ -9,6 +9,9 @@ export default class SpecimenFiltersCriteria {
     geneExpressionSubtype = [];
     methylationSubtype = [];
     gCimpMethylation = null;
+    drug = [];
+    dss = { from: null, to: null };
+    dssSelective = { from: null, to: null };
 
     get numberOfFilters() {
         let number = 0;
@@ -21,6 +24,11 @@ export default class SpecimenFiltersCriteria {
         number += this.geneExpressionSubtype?.length || 0;
         number += this.methylationSubtype?.length || 0;
         number += this.gCimpMethylation != null ? 1 : 0;
+        number += this.drug?.length || 0;
+        number += this.dss?.from != null ? 1 : 0;
+        number += this.dss?.to != null ? 1 : 0;
+        number += this.dssSelective?.from != null ? 1 : 0;
+        number += this.dssSelective?.to != null ? 1 : 0;
 
         return number;
     }
@@ -34,11 +42,15 @@ export default class SpecimenFiltersCriteria {
         this.geneExpressionSubtype = criteria?.geneExpressionSubtype || [];
         this.methylationSubtype = criteria?.methylationSubtype || [];
         this.gCimpMethylation = criteria?.gCimpMethylation || null;
+        this.drug = criteria?.drug || [];
+        this.dss = criteria?.dss || { from: null, to: null };
+        this.dssSelective = criteria?.dssSelective || { from: null, to: null };
     }
 
     sanitise(){
         this.id = sanitiseArray(this.id, true);
         this.referenceId = sanitiseArray(this.referenceId);
+        this.drug = sanitiseArray(this.drug);
     }
 
     clear() {
@@ -50,6 +62,9 @@ export default class SpecimenFiltersCriteria {
         this.geneExpressionSubtype = [];
         this.methylationSubtype = [];
         this.gCimpMethylation = null;
+        this.drug = [];
+        this.dss = { from: null, to: null };
+        this.dssSelective = { from: null, to: null };
     }
 
     clone() {
