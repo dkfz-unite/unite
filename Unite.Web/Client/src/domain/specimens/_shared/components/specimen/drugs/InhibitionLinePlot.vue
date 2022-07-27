@@ -93,7 +93,7 @@ export default {
         showline: true
       },
       yaxis: {
-        title: "Inhibition",
+        title: "% Inhibition",
         showline: true,
         range: [-50, 150]
       }
