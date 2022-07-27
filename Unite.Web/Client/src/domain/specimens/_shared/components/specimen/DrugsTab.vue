@@ -108,20 +108,27 @@ export default {
     }
   },
 
+  watch: {
+    mode() {
+      this.screeningDss = null;
+      this.screeningDssSelective = null;
+    }
+  },
+
   methods: {
     onDssClick(event) {
       this.screeningDss = null;
-      this.screeningDssSelective = null;
+      // Requires delay to re-render properly
       if (event.data.inhibition?.length) {
-        setTimeout(() => this.screeningDss = event.data, 50);
+        setTimeout(() => this.screeningDss = event.data, 100);
       }
     },
 
     onDssSelectiveClick(event) {
       this.screeningDssSelective = null;
-      this.screeningDss = null;
+      // Requires delay to re-render properly
       if (event.data.inhibition?.length) {
-        setTimeout(() => this.screeningDssSelective = event.data, 50);
+        setTimeout(() => this.screeningDssSelective = event.data, 100);
       }
     }
   }
