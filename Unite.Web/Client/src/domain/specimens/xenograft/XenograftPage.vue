@@ -16,6 +16,7 @@
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="ancestry" label="Ancestry" icon="las la-sitemap" />
+              <q-tab name="drugs" label="Drugs" icon="las la-capsules" :disable="!showDrugs" />
               <q-tab name="interventions" label="Interventions" icon="las la-biohazard" :disable="!showInterventions" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
               <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" />
@@ -33,6 +34,10 @@
 
               <q-tab-panel name="ancestry" class="q-py-sm q-px-none">
                 <u-ancestry-tab :specimen="specimen" />
+              </q-tab-panel>
+
+              <q-tab-panel name="drugs" class="q-py-sm q-px-none">
+                <u-drugs-tab :specimen="specimen" />
               </q-tab-panel>
 
               <q-tab-panel name="interventions" class="q-py-sm q-px-none">
@@ -62,6 +67,7 @@
 import USummaryTab from "./components//SummaryTab.vue";
 import UInterventionsTab from "./components/InterventionsTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
+import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
 import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
 import UMutationsTab from "../_shared/components/specimen/MutationsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
@@ -73,6 +79,7 @@ export default {
     USummaryTab,
     UInterventionsTab,
     UAncestryTab,
+    UDrugsTab,
     UGenesTab,
     UMutationsTab
   },
@@ -87,6 +94,10 @@ export default {
   },
 
   computed: {
+    showDrugs() {
+      return !!this.specimen?.cellLine?.drugScreenings;
+    },
+
     showInterventions() {
       return !!this.specimen?.xenograft?.interventions;
     },

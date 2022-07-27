@@ -18,16 +18,16 @@ export default {
     }
   },
 
-  // emits: ["hover", "unhover"],
+  emits: ["click"],
 
-  setup(props) {
-    const barColors = {
-        normalPositive: colors.getPaletteColor("blue"),
-        normalNegative: colors.getPaletteColor("red")
-    };
-
+  data() {
     return {
-        barColors
+      plotColors: {
+        positiveNormal: colors.getPaletteColor("blue-6"),
+        positiveClicked: colors.getPaletteColor("blue-3"),
+        negativeNormal: colors.getPaletteColor("red-6"),
+        negativeClicked: colors.getPaletteColor("red-3")
+      }
     }
   },
 
@@ -35,7 +35,7 @@ export default {
     drugs() { return this.screenings.sort((a,b) => b.dssSelective - a.dssSelective) },
     drugNames() { return this.drugs.map(screening => screening.drug) },
     drugScores() { return this.drugs.map(screening => screening.dssSelective) },
-    colors() { return this.drugs.map(screening => screening.dssSelective > 0 ? this.barColors.normalPositive : this.barColors.normalNegative)}
+    colors() { return this.getMarkerColors(this.drugs) }
   },
 
   async mounted() {
@@ -49,14 +49,20 @@ export default {
     };
 
     var layout = {
-      margin: { t:15, r: 10, b: 110, l: 20 },
+      margin: { t: 20, r: 10, b: 110, l: 40 },
       modebar: {
         remove: ["lasso", "select", "zoomin", "zoomout", "autoscale"]
       },
       xaxis: {
+        showline: true,
         tickfont: {
-          // size: 10,
-        }}
+          size: this.drugs.length > 50 ? 9 : 12,
+        }
+      },
+      yaxis: {
+        title: "sDSS",
+        showline: true
+      }
     };
 
     var config = {
@@ -66,19 +72,41 @@ export default {
     };
     
     var plot = await Plotly.newPlot(this.id, [dssTrace], layout, config);
-    // plot.on("plotly_hover", this.onHover);
-    // plot.on("plotly_unhover", this.onUnhover);
+    plot.on("plotly_click", this.onClick);
   },
 
   methods: {
-    onHover(event) {
-      let drug = event.points[0].label;
-      let screening = this.drugs.find(screening => screening.drug == drug);
-      this.$emit("hover", screening);
+    onClick(event) {
+      const target = event.target;
+      const data = this.getTargetBarData(event);
+      const color = data.dssSelective > 0 ? this.plotColors.positiveClicked : this.plotColors.negativeClicked;
+      this.highlightTargetBar(event, color);
+      this.$emit("click", { target, data });
     },
 
-    onUnhover(event) {
-      this.$emit("unhover");
+    getTargetBarData(event) {
+      const point = event.points[0];
+      const label = point.label;
+
+      return this.drugs.find(screening => screening.drug == label);
+    },
+
+    highlightTargetBar(event, color) {
+      const point = event.points[0];
+      const traceIndex = point.curveNumber;
+      const markerIndex = point.pointNumber;
+
+      var markerColors = this.getMarkerColors(this.drugs);
+      markerColors[markerIndex] = color;
+
+      var update = { marker: { color: markerColors }};
+      Plotly.restyle(this.id, update, traceIndex);
+    },
+
+    getMarkerColors(drugs) {
+      const positive = this.plotColors.positiveNormal;
+      const negative = this.plotColors.negativeNormal;
+      return drugs.map(screening => screening.dssSelective > 0 ? positive : negative );
     }
   }
 }
