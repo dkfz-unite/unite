@@ -31,17 +31,20 @@ export default {
 
   computed: {
     inhibitions() {
-      return this.screening.inhibitionsSample;
+      return this.screening.inhibitions?.length
+           ? this.screening.inhibitions
+           : this.screening.inhibitionsSample;
     },
 
     concentrations() { 
-      return [
-        this.screening.minConcentration,
-        this.screening.minConcentration * Math.pow(10, 1),
-        this.screening.minConcentration * Math.pow(10, 2),
-        this.screening.minConcentration * Math.pow(10, 3),
-        this.screening.minConcentration * Math.pow(10, 4),
-      ];
+      return this.screening.concentrations?.length
+           ? this.screening.concentrations
+           : [ this.screening.minConcentration,
+               this.screening.minConcentration * Math.pow(10, 1),
+               this.screening.minConcentration * Math.pow(10, 2),
+               this.screening.minConcentration * Math.pow(10, 3),
+               this.screening.minConcentration * Math.pow(10, 4)
+             ];
     }
   },
 
@@ -65,9 +68,9 @@ export default {
     };
 
     const concentrationTrace = {
-      name: "50%",
-      x: [this.screening.absIC50, this.screening.absIC50],
-      y: [-45, 145],
+      name: "50% Inhibition",
+      x: [this.screening.absIC50, this.screening.absIC50, this.screening.absIC50, this.screening.absIC50, this.screening.absIC50],
+      y: [-45, 0, 50, 100, 145],
       mode: "lines",
       hoverinfo: "x+name",
       line: {
