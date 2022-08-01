@@ -19,8 +19,14 @@ async function searchMutations(id, criteria){
   return await client.post(url, criteria);
 }
 
+async function searchDrugs(id){
+  let url = `${specimenUrl}/${id}/drugs`;
+  return await client.post(url, null);
+}
+
 export default {
   get,
   searchGenes,
-  searchMutations
+  searchMutations,
+  searchDrugs
 }

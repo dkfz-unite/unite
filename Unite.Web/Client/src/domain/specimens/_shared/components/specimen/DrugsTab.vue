@@ -6,7 +6,7 @@
       <q-radio v-if="hasDssSelective" v-model="mode" val="sdss" label="sDSS" class="q-mt-xs" dense />
     </div>
 
-    <div class="row" v-if="mode == 'dss'">
+    <div class="row" v-if="mode == 'dss' && screenings">
       <div class="col-12 col-lg-8">
         <div class="row justify-center">
           <span class="text-subtitle1 q-mb-sm">Drug Sensitivity Scores</span>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="mode == 'sdss'">
+    <div class="row" v-if="mode == 'sdss' && screenings">
       <div class="col-12 col-lg-8">
         <div class="row justify-center">
           <span class="text-subtitle1 q-mb-sm">Selective Drug Sensitivity Scores</span>
@@ -68,6 +68,7 @@
 import UDssBarPlot from "./drugs/DssBarPlot.vue";
 import UDssSelBarPlot from "./drugs/DssSelBarPlot.vue";
 import UInhibitionLinePlot from "./drugs/InhibitionLinePlot.vue";
+import api from "../../api/specimen";
 
 export default {
   props: {
@@ -82,6 +83,7 @@ export default {
 
   data() {
     return {
+      screenings: null,
       screeningDss: null,
       screeningDssSelective: null,
       mode: "dss"
@@ -89,22 +91,8 @@ export default {
   },
 
   computed:{
-    screenings() {
-      if (this.specimen.tissue) {
-        return this.specimen.tissue.drugScreenings;
-      } else if (this.specimen.cellLine) {
-        return this.specimen.cellLine.drugScreenings;
-      } else if (this.specimen.organoid) {
-        return this.specimen.organoid.drugScreenings;
-      } else if (this.specimen.xenograft) {
-        return this.specimen.xenograft.drugScreenings;
-      } else {
-        return null;
-      }
-    },
-
     hasDssSelective() {
-      return this.screenings.some(screening => screening.dssSelective != null);
+      return this.screenings?.some(screening => screening.dssSelective != null);
     }
   },
 
@@ -115,11 +103,15 @@ export default {
     }
   },
 
+  async mounted() {
+    this.screenings = await this.fetchData();
+  },
+
   methods: {
     onDssClick(event) {
       this.screeningDss = null;
       // Requires delay to re-render properly
-      if (event.data.inhibition?.length) {
+      if (this.hasDrugResponseData(event.data)) {
         setTimeout(() => this.screeningDss = event.data, 100);
       }
     },
@@ -127,9 +119,18 @@ export default {
     onDssSelectiveClick(event) {
       this.screeningDssSelective = null;
       // Requires delay to re-render properly
-      if (event.data.inhibition?.length) {
+      if (this.hasDrugResponseData(event.data)) {
         setTimeout(() => this.screeningDssSelective = event.data, 100);
       }
+    },
+
+    hasDrugResponseData(screening) {
+      return screening.inhibitionsSample?.length
+          || (screening.inhibitions?.length && screening.concentrations?.length);
+    },
+
+    async fetchData() {
+      return await api.searchDrugs(this.specimen.id);
     }
   }
 }

@@ -30,8 +30,8 @@ export default {
   },
 
   computed: {
-    inhibitions() { 
-      return this.screening.inhibition;
+    inhibitions() {
+      return this.screening.inhibitionsSample;
     },
 
     concentrations() { 
