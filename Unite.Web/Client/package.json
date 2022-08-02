@@ -9,24 +9,24 @@
   "dependencies": {
     "@oncojs/lolliplot": "^0.10.2",
     "@quasar/extras": "^1.14.1",
-    "axios": "^0.21.4",
-    "core-js": "^3.6.5",
+    "axios": "^0.27.2",
+    "core-js": "^3.8.3",
     "d3v4": "^4.2.2",
     "oncogrid": "^2.0.1",
-    "plotly.js-dist-min": "^2.13.1",
+    "plotly.js-dist-min": "^2.13.3",
     "quasar": "^2.7.4",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "util": "^0.12.4",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-vuex": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
     "sass": "1.32.12",
-    "sass-loader": "^10.1.0",
-    "vue-cli-plugin-quasar": "~4.0.4"
+    "sass-loader": "^12.0.0",
+    "vue-cli-plugin-quasar": "~5.0.1"
   }
 }
