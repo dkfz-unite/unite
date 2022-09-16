@@ -22,7 +22,7 @@
 
       <div class="col-12 col-lg-4" v-if="screeningDss">
         <div class="row justify-center">
-          <span class="text-subtitle1 q-mb-sm">'{{screeningDss.drug}}' Response Curve</span>
+          <span class="text-subtitle1 q-mb-sm">'{{screeningDss.drug}}' Inhibition Level</span>
         </div>
         <div class="row">
           <div class="col">
@@ -109,24 +109,24 @@ export default {
 
   methods: {
     onDssClick(event) {
-      this.screeningDss = null;
-      // Requires delay to re-render properly
       if (this.hasDrugResponseData(event.data)) {
-        setTimeout(() => this.screeningDss = event.data, 100);
+        this.screeningDss = event.data;
+      } else {
+        this.screeningDss = null;
       }
     },
 
     onDssSelectiveClick(event) {
-      this.screeningDssSelective = null;
-      // Requires delay to re-render properly
       if (this.hasDrugResponseData(event.data)) {
-        setTimeout(() => this.screeningDssSelective = event.data, 100);
+        this.screeningDssSelective = event.data;
+      } else {
+        this.screeningDssSelective = null;
       }
     },
 
     hasDrugResponseData(screening) {
-      return screening.inhibitionsSample?.length
-          || (screening.inhibitions?.length && screening.concentrations?.length);
+      return (screening.dose?.length && screening.response?.length)
+          || (screening.inhibition?.length && screening.concentration?.length);
     },
 
     async fetchData() {
