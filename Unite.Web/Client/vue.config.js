@@ -16,8 +16,12 @@ module.exports = {
     'quasar'
   ],
   devServer: {
-    // proxy: 'http://localhost:5002', // In case API is running on VS dev server
-    proxy: 'http://127.0.0.1:5002' // In case if API is running in docker container
-    // https: true
+    proxy: {
+      "/composer": { target: "http://127.0.0.1:5002", pathRewrite: { '^/composer': '' } },
+      "/donors-feed": {target: "http://127.0.0.1:5100", pathRewrite: { '^/donors-feed': '' } },
+      "/specimens-feed": { target: "http://127.0.0.1:5102", pathRewrite: { '^/specimens-feed': '' } },
+      "/images-feed": { target: "http://127.0.0.1:5104", pathRewrite: { '^/images-feed': '' } },
+      "/genome-feed": { target: "http://127.0.0.1:5106", pathRewrite: { '^/genome-feed': '' } }
+    }
   }
 }

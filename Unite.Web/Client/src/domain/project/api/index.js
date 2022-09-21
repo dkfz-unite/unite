@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const projectUrl = `${settings.baseUrl}/data/project`;
+const projectUrl = `${settings.urls.composer}/api/data/project`;
 
 export async function get(id) {
     const url = `${projectUrl}/${id}`;

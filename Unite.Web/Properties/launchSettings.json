@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -13,17 +13,24 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "UNITE_COMPOSER_HOST": "http://localhost:5002"
+        "UNITE_COMPOSER_HOST": "http://localhost:5002",
+        "UNITE_DONORS_FEED_HOST": "http://localhost:5100",
+        "UNITE_SPECIMENS_FEED_HOST": "http://localhost:5102",
+        "UNITE_IMAGES_FEED_HOST": "http://localhost:5104",
+        "UNITE_GENOME_FEED_HOST": "http://localhost:5106"
       }
     },
     "Unite.Web": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "http://localhost:59966",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "UNITE_COMPOSER_HOST": "http://localhost:5002"
+        "UNITE_COMPOSER_HOST": "http://localhost:5002",
+        "UNITE_DONORS_FEED_HOST": "http://localhost:5100",
+        "UNITE_SPECIMENS_FEED_HOST": "http://localhost:5102",
+        "UNITE_IMAGES_FEED_HOST": "http://localhost:5104",
+        "UNITE_GENOME_FEED_HOST": "http://localhost:5106"
       }
     }
   }

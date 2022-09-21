@@ -1,8 +1,9 @@
-import ApiClient from "../../../../../_shared/api/api-client";
-import settings from "../../../../../settings";
+import ApiClient from "@/_shared/api/api-client";
+import settings from "@/settings";
 
 const client = new ApiClient();
-const specimenUrl = `${settings.baseUrl}/specimen`;
+const specimenUrl = `${settings.urls.composer}/api/specimen`;
+const specimensFeedUrl = `${settings.urls.specimens}/api`;
 
 async function get(id){
   let url = `${specimenUrl}/${id}`;
@@ -24,9 +25,15 @@ async function searchDrugs(id){
   return await client.post(url, null);
 }
 
+async function uploadDrugs(data){
+  let url = `${specimensFeedUrl}/drugs`;
+  return await client.post(url, data);
+}
+
 export default {
   get,
   searchGenes,
   searchMutations,
-  searchDrugs
+  searchDrugs,
+  uploadDrugs
 }

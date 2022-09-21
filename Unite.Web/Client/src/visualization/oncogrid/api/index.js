@@ -1,8 +1,8 @@
-import settings from "../../../settings";
-import ApiClient from "../../../_shared/api/api-client";
+import settings from "@/settings";
+import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const oncogridUrl = `${settings.baseUrl}/oncogrid`;
+const oncogridUrl = `${settings.urls.composer}/api/oncogrid`;
 
 async function search(criteria) {
     var url = oncogridUrl;

@@ -2,8 +2,8 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings.js";
 
 const client = new ApiClient();
-const usersUrl = `${settings.baseUrl}/admin/users`;
-const userUrl = `${settings.baseUrl}/admin/user`;
+const usersUrl = `${settings.urls.composer}/api/admin/users`;
+const userUrl = `${settings.urls.composer}/api/admin/user`;
 
 export async function search() {
     const url = usersUrl;

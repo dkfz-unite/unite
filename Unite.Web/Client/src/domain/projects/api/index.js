@@ -2,8 +2,8 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const projectsUrl = `${settings.baseUrl}/data/projects`;
-const projectUrl = `${settings.baseUrl}/data/project`;
+const projectsUrl = `${settings.urls.composer}/api/data/projects`;
+const projectUrl = `${settings.urls.composer}/api/data/project`;
 
 export async function search() {
     const url = projectsUrl;

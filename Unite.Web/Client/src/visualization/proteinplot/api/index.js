@@ -1,8 +1,8 @@
-import settings from "../../../settings";
-import ApiClient from "../../../_shared/api/api-client";
+import settings from "@/settings";
+import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const lolliplotUrl = `${settings.baseUrl}/lolliplot`;
+const lolliplotUrl = `${settings.urls.composer}/api/lolliplot`;
 
 /**
  * Retrieves protein plot data for given transcript

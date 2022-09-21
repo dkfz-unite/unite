@@ -1,8 +1,8 @@
-import ApiClient from "../../../../../_shared/api/api-client";
-import settings from "../../../../../settings";
+import ApiClient from "@/_shared/api/api-client";
+import settings from "@/settings";
 
 const client = new ApiClient();
-const imageUrl = `${settings.baseUrl}/image`;
+const imageUrl = `${settings.urls.composer}/api/image`;
 
 async function get(id){
   let url = `${imageUrl}/${id}`;

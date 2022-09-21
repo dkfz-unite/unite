@@ -1,8 +1,8 @@
-import ApiClient from "../../../../_shared/api/api-client";
-import settings from "../../../../settings";
+import ApiClient from "@/_shared/api/api-client";
+import settings from "@/settings";
 
 const client = new ApiClient();
-const mutationUrl = `${settings.baseUrl}/mutation`;
+const mutationUrl = `${settings.urls.composer}/api/mutation`;
 
 async function get(id){
   let url = `${mutationUrl}/${id}`;

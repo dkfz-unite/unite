@@ -1,13 +1,13 @@
-import settings from '../../settings';
-import ApiClient from "../../_shared/api/api-client";
+import settings from '@/settings';
+import ApiClient from "@/_shared/api/api-client";
 import tokenHelpers from "@/_shared/helpers/token-helpers";
 
 const client = new ApiClient();
-const signUpUrl = `${settings.baseUrl}/identity/signup`;
-const signInUrl = `${settings.baseUrl}/identity/signin`;
-const signOutUrl = `${settings.baseUrl}/identity/signout`;
-const accountUrl = `${settings.baseUrl}/identity/account`;
-const accessibilityUrl = `${settings.baseUrl}/accessibility`;
+const signUpUrl = `${settings.urls.composer}/api/identity/signup`;
+const signInUrl = `${settings.urls.composer}/api/identity/signin`;
+const signOutUrl = `${settings.urls.composer}/api/identity/signout`;
+const accountUrl = `${settings.urls.composer}/api/identity/account`;
+const accessibilityUrl = `${settings.urls.composer}/api/accessibility`;
 
 async function signUp(email, password, passwordRepeat) {
   var url = signUpUrl;

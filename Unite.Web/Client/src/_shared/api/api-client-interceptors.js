@@ -1,9 +1,9 @@
-import axios from "axios";
+import settings from "@/settings";
 import tokenApi from "./api-client-token";
 import tokenHelpers from "../helpers/token-helpers";
 
-const loginPageUrl = '/login';
-const accountPageUrl = '/account';
+const loginPageUrl = `/login`;
+const accountPageUrl = `/account`;
 
 export const beforeEach = {
     onFulfilled: async (request) => {
