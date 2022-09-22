@@ -1,14 +1,23 @@
 <template>
   <div class="col q-gutter-y-sm">
-    <div class="row" v-if="specimen">
+    <div class="row" v-if="specimen && donor">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
         <q-breadcrumbs-el label="Xenografts" :to="{ name: 'xenografts' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
       </q-breadcrumbs>
+
+      <q-space />
+
+      <u-upload-button
+        v-if="specimen && donor && canUpload"
+        :donorId="donor.referenceId"
+        :specimenId="specimen.xenograft.referenceId"
+        specimenType="Xenograft">
+      </u-upload-button>
     </div>
 
-    <div class="row" v-if="specimen">
+    <div class="row" v-if="specimen && donor">
       <div class="col">
         <div class="row">
           <div class="col">
@@ -70,9 +79,12 @@ import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
 import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
 import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
 import UMutationsTab from "../_shared/components/specimen/MutationsTab.vue";
+import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
-import api from "../_shared/api/specimen";
+import Permissions from "@/_models/admin/enums/permissions";
+import specimenApi from "../_shared/api/specimen";
+import donorApi from "@/domain/donor/api";
 
 export default {
   components: {
@@ -81,7 +93,8 @@ export default {
     UAncestryTab,
     UDrugsTab,
     UGenesTab,
-    UMutationsTab
+    UMutationsTab,
+    UUploadButton
   },
 
   mixins: [tabPageMixin],
@@ -89,7 +102,8 @@ export default {
   data() {
     return {
       loading: false,
-      specimen: null
+      specimen: null,
+      donor: null
     };
   },
 
@@ -108,15 +122,21 @@ export default {
 
     showMutations() {
       return !!this.specimen?.numberOfMutations;
+    },
+
+    canUpload() {
+      return this.account.hasPermission(Permissions.Data.Write);
     }
   },
 
   async mounted() {
     try {
       this.loading = true;
-      this.specimen = await api.get(this.$route.params.id);
+      this.specimen = await specimenApi.get(this.$route.params.id);
+      this.donor = await donorApi.get(this.specimen.donorId);
     } catch (error) {
       this.specimen = null;
+      this.donor = null;
     } finally {
       this.loading = false;
     }
