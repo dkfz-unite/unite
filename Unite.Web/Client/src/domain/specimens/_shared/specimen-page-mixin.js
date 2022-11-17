@@ -21,6 +21,10 @@ const mixin = {
       return this.account.hasPermission(Permissions.Data.Write);
     },
 
+    showDrugs() {
+      return !!this.specimen?.numberOfDrugs;
+    },
+
     showGenes() {
       return !!this.specimen?.numberOfGenes;
     },

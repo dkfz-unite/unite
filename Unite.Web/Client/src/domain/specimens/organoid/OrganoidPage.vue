@@ -131,10 +131,6 @@ export default {
   mixins: [tabPageMixin, specimenPageMixin],
 
   computed: {
-    showDrugs() {
-      return !!this.specimen?.drugScreenings;
-    },
-
     showInterventions() {
       return !!this.specimen?.organoid?.interventions;
     }

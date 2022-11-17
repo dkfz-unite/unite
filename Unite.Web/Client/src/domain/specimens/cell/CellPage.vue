@@ -123,12 +123,6 @@ export default {
 
   mixins: [tabPageMixin, specimenPageMixin],
 
-  computed: {
-    showDrugs() {
-      return !!this.specimen?.drugScreenings;
-    }
-  },
-
   async unmounted() {
     this.$store.dispatch("cell/clearState");
   }
