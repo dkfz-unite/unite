@@ -15,8 +15,8 @@ async function searchGenes(id, criteria){
   return await client.post(url, criteria);
 }
 
-async function searchMutations(id, criteria){
-  let url = `${specimenUrl}/${id}/mutations`;
+async function searchVariants(id, type, criteria){
+  let url = `${specimenUrl}/${id}/variants/${type}`;
   return await client.post(url, criteria);
 }
 
@@ -33,7 +33,7 @@ async function uploadDrugs(data){
 export default {
   get,
   searchGenes,
-  searchMutations,
+  searchVariants,
   searchDrugs,
   uploadDrugs
 }

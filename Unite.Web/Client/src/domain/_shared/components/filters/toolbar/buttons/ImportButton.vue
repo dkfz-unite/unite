@@ -185,7 +185,9 @@ export default {
         && cohort?.criteria?.organoidFiltersCriteria == null
         && cohort?.criteria?.xenograftFiltersCriteria == null
         && cohort?.criteria?.geneFiltersCriteria == null
-        && cohort?.criteria?.mutationFiltersCriteria == null) {
+        && cohort?.criteria?.mutationFiltersCriteria == null
+        && cohort?.criteria?.copyNumberVariantFiltersCriteria == null
+        && cohort?.criteria?.structuralVariantFiltersCriteria == null) {
         return `Filters criteria should be specified`;
       }
       

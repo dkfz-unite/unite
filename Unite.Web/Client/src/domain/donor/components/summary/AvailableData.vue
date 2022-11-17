@@ -28,16 +28,30 @@
               </td>
             </tr>
             <tr>
-              <td class="u-text-key">Mutations</td>
+              <td class="u-text-key">Images</td>
+              <td>
+                <q-icon v-if="hasImages" color="green" size="sm" name="las la-check" />
+                <q-icon v-else color="grey" size="sm" name="las la-minus" />
+              </td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Simple Somatic Mutations (SSM)</td>
               <td>
                 <q-icon v-if="hasMutations" color="green" size="sm" name="las la-check" />
                 <q-icon v-else color="grey" size="sm" name="las la-minus" />
               </td>
             </tr>
             <tr>
-              <td class="u-text-key">Images</td>
+              <td class="u-text-key">Copy Number Variants (CNV)</td>
               <td>
-                <q-icon v-if="hasImages" color="green" size="sm" name="las la-check" />
+                <q-icon v-if="hasCopyNumberVariants" color="green" size="sm" name="las la-check" />
+                <q-icon v-else color="grey" size="sm" name="las la-minus" />
+              </td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Structural Variants (SV)</td>
+              <td>
+                <q-icon v-if="hasStructuralVariants" color="green" size="sm" name="las la-check" />
                 <q-icon v-else color="grey" size="sm" name="las la-minus" />
               </td>
             </tr>
@@ -70,6 +84,14 @@ export default {
 
     hasMutations(){
       return this.donor?.numberOfMutations;
+    },
+
+    hasCopyNumberVariants(){
+      return this.donor?.numberOfCopyNumberVariants;
+    },
+
+    hasStructuralVariants(){
+      return this.donor?.numberOfStructuralVariants;
     },
 
     hasImages(){

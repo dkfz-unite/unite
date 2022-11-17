@@ -39,12 +39,12 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-packages="props">
+      <template v-slot:body-cell-projects="props">
         <q-td :props="props">
           <div v-if="props.value && props.value.length">
-            <div v-for="(workPackage, i) in props.value" :key="i">
-              <router-link class="u-link" :to="{ name: 'project', params: { id: workPackage.id.toString() } }">
-                {{ workPackage.name }}
+            <div v-for="(project, i) in props.value" :key="i">
+              <router-link class="u-link" :to="{ name: 'project', params: { id: project.id.toString() } }">
+                {{ project.name }}
               </router-link>
             </div>
           </div>
@@ -65,8 +65,8 @@
 </template>
 
 <script>
-import UFiltersToolbar from "../../_shared/components/filters/toolbar/FiltersToolbar.vue";
-import tableMixin from "../../_shared/table-mixin";
+import UFiltersToolbar from "@/domain/_shared/components/filters/toolbar/FiltersToolbar.vue";
+import tableMixin from "@/domain/_shared/table-mixin";
 
 export default {
   components: {
@@ -121,9 +121,9 @@ export default {
           align: "left"
         },
         {
-          name: "packages",
+          name: "projects",
           label: "Projects",
-          field: (row) => row.workPackages,
+          field: (row) => row.projects,
           sortable: false,
           align: "left"
         },
@@ -147,15 +147,27 @@ export default {
           sortable: false
         },
         {
-          name: "numberOfMutations",
-          label: "#Mutations",
+          name: "numberOfGenes",
+          label: "#Genes",
+          field: (row) => row.numberOfGenes,
+          sortable: false
+        },
+        {
+          name: "numberOfSsms",
+          label: "#SSMs",
           field: (row) => row.numberOfMutations,
           sortable: false
         },
         {
-          name: "numberOfGenes",
-          label: "#Genes",
-          field: (row) => row.numberOfGenes,
+          name: "numberOfCnvs",
+          label: "#CNVs",
+          field: (row) => row.numberOfCopyNumberVariants,
+          sortable: false
+        },
+        {
+          name: "numberOfSvs",
+          label: "#SVs",
+          field: (row) => row.numberOfStructuralVariants,
           sortable: false
         }
       ]

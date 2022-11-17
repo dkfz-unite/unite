@@ -9,7 +9,7 @@
       <span>Type: </span>
       <span :class="getColor(tissue)">{{getType(tissue)}}</span>
     </div>
-     <div>
+    <div>
       <span>Source: </span>
       <span v-if="!!tissue.source" class="text-black">{{tissue.source}}</span>
       <span v-else class="text-black">Unknown</span>

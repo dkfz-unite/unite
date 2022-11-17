@@ -17,8 +17,12 @@ import xenograftModule from "../../domain/specimens/xenograft/store";
 import xenograftsModule from "../../domain/specimens/xenografts/store";
 import geneModule from "../../domain/genome/gene/store";
 import genesModule from "../../domain/genome/genes/store";
-import mutationModule from "../../domain/genome/mutation/store";
-import mutationsModule from "../../domain/genome/mutations/store";
+import ssmModule from "../../domain/genome/variants/ssm/store";
+import ssmsModule from "../../domain/genome/variants/ssms/store";
+import cnvModule from "../../domain/genome/variants/cnv/store";
+import cnvsModule from "../../domain/genome/variants/cnvs/store";
+import svModule from "../../domain/genome/variants/sv/store";
+import svsModule from "../../domain/genome/variants/svs/store";
 import filtersModule from "../../filters/store";
 import oncogridModule from "../../visualization/oncogrid/store";
 
@@ -41,8 +45,12 @@ export default createStore({
     xenografts: xenograftsModule,
     gene: geneModule,
     genes: genesModule,
-    mutation: mutationModule,
-    mutations: mutationsModule,
+    ssm: ssmModule,
+    ssms: ssmsModule,
+    cnv: cnvModule,
+    cnvs: cnvsModule,
+    sv: svModule,
+    svs: svsModule,
     filters: filtersModule,
     oncogrid: oncogridModule
   },

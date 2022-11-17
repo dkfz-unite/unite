@@ -75,6 +75,18 @@
               {{filtersCriteria.mutationFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
+
+          <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-mutation-alt">
+            <q-badge v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters}}
+            </q-badge>
+          </q-tab>
+
+          <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-mutation-alt">
+            <q-badge v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters}}
+            </q-badge>
+          </q-tab>
         </q-tabs>
       </div>
     </div>
@@ -124,16 +136,21 @@ export default {
 
   methods: {
     showFilters(category) {
-      let general = ["donor", "gene", "mutation"];
+      let general = ["donor", "gene"];
+      let images = ["mri"];
+      let specimens = ["tissue", "cell", "organoid", "xenograft"];
+      let variants = ["mutation", "cnv", "sv"];
       switch (category) {
         case "donor": return true;
-        case "mri": return [...general, "mri", "tissue"].includes(this.mode);
-        case "tissue": return [...general, "mri", "tissue"].includes(this.mode);
-        case "cell": return [...general, "cell"].includes(this.mode);
-        case "organoid": return [...general, "organoid"].includes(this.mode);
-        case "xenograft": return [...general, "xenograft"].includes(this.mode);
+        case "mri": return [...general, "mri", ...variants, "tissue"].includes(this.mode);
+        case "tissue": return [...general, "mri", "tissue", ...variants].includes(this.mode);
+        case "cell": return [...general, "cell", ...variants].includes(this.mode);
+        case "organoid": return [...general, "organoid", ...variants].includes(this.mode);
+        case "xenograft": return [...general, "xenograft", ...variants].includes(this.mode);
         case "gene": return true;
-        case "mutation": return true;
+        case "mutation": return [...general, ...specimens, ...images, "mutation"].includes(this.mode);
+        case "cnv": return [...general, ...specimens, ...images, "cnv"].includes(this.mode);
+        case "sv": return [...general, ...specimens, ...images, "sv"].includes(this.mode);
         case "oncogrid": return ["oncogrid"].includes(this.mode);
         default: return false;
       }

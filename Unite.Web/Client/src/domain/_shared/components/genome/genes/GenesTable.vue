@@ -1,0 +1,103 @@
+<template>
+    <div class="col">
+      <q-table
+        separator="cell" dense flat bordered
+        selection="multiple"
+        row-key="id"
+        :class="class"
+        :title="title"
+        :columns="columns"
+        :rows="data"
+        v-model:selected="selected"
+        v-model:pagination="pagination"
+        :filter="filter"
+        :loading="loading"
+        @request="onRequest"
+      >
+        <template v-slot:body-cell-name="props">
+          <q-td :props="props">
+            <router-link class="u-link" :to="{ name: 'gene', params: { id: props.value.id.toString() }}">
+              {{ props.value.symbol }}
+            </router-link>
+          </q-td>
+        </template>
+      </q-table>
+    </div>
+  </template>
+  
+  <script>
+  import USpecimens from "../Specimens.vue";
+  import tableMixin from "@/domain/_shared/table-mixin";
+  
+  import Biotype from "@/_models/domain/genome/genes/enums/biotype";
+  
+  export default {
+    components: {
+      USpecimens
+    },
+  
+    mixins: [tableMixin],
+  
+    data() {
+      return {
+        columns: [
+          {
+            name: "name",
+            label: "Name",
+            field: (row) => row,
+            sortable: false,
+            align: "left",
+          },
+          {
+            name: "location",
+            label: "Location",
+            field: (row) => this.getLocation(row),
+            sortable: false,
+            align: "left",
+          },
+          {
+            name: "biotype",
+            label: "Biotype",
+            field: (row) => this.$helpers.enum.getLabel(row.biotype, Biotype.values),
+            sortable: false,
+            align: "left",
+          },
+          {
+            name: "numberOfDonors",
+            label: "#Affected Donors",
+            field: (row) => row.numberOfDonors,
+            sortable: false,
+          },
+          {
+            name: "numberOfSsms",
+            label: "#SSMs",
+            field: (row) => row.numberOfMutations,
+            sortable: false,
+          },
+          {
+            name: "numberOfCnvs",
+            label: "#CNVs",
+            field: (row) => row.numberOfCopyNumberVariants,
+            sortable: false,
+          },
+          {
+            name: "numberOfSvs",
+            label: "#SVs",
+            field: (row) => row.numberOfStructuralVariants,
+            sortable: false,
+          }
+        ]
+      };
+    },
+  
+    methods: {
+      getLocation(gene) {
+        if (gene.chromosome && gene.start && gene.end) {
+          return `chr${gene.chromosome}:${gene.start}-${gene.end}`;
+        } else {
+          return null;
+        }
+      }
+    }
+  }
+  </script>

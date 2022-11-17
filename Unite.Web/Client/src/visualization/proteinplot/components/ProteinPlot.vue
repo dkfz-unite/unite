@@ -114,7 +114,7 @@ export default {
 
     onMutationClick(data) {
       if (this.$route.params.id != data.id.toString()){
-        window.location.assign(`/mutations/${data.id.toString()}/protein`);
+        window.location.assign(`/ssms/SSM${data.id.toString()}/protein`);
       }
       // Router push doesn't work here
       // this.$router.push({ name: "mutation", params: { id: data.id.toString(), tab: "protein" } });

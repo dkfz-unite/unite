@@ -4,8 +4,9 @@
       v-model="modelValue"
       :label="label"
       :disable="disable"
+      :toggle-indeterminate="nullable"
       @update:modelValue="onUpdate"
-      toggle-indeterminate dense
+      dense
     />
   </div>
 </template>
@@ -24,6 +25,10 @@
       disable: {
         type: Boolean,
         default: false
+      },
+      nullable: {
+        type: Boolean,
+        default: true
       }
     },
     

@@ -34,6 +34,7 @@
     <u-boolean-filter
       v-model="filterValue"
       :label="filter.label"
+      :nullable="filter.nullable"
       @update:modelValue="onUpdate"
     />
   </template>

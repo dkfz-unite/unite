@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import FiltersCriteria from "../../../../_shared/components/filters/filters-criteria";
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
   props: ["identity", "domain", "cohort"],

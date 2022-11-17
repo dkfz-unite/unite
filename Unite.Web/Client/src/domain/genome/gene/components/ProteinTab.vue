@@ -1,12 +1,11 @@
 <template>
   <div class="col q-gutter-y-sm">
-    <div class="row">
+    <div class="row" v-if="transcriptOptions?.length">
       <div class="col">
         <q-btn-group>
           <q-select
             label="Transcript"
             title="Choose transcript"
-            v-if="transcriptOptions"
             v-model="transcriptOption"
             :options="transcriptOptions"
             map-options emit-value
@@ -21,12 +20,13 @@
             icon="las la-chart-bar"
             title="Toggle stats box"
             :class="{ 'bg-grey-3 text-blue-8': showStats }"
-            @click="toggleStats" />
+            @click="toggleStats"
+          />
         </q-btn-group>
       </div>
     </div>
 
-    <div class="row" v-if="!loading">
+    <div class="row" v-if="!loading && transcriptOptions?.length">
       <div class="col q-pa-sm">
         <u-protein-plot 
           ref="lolliplot" 
@@ -34,6 +34,10 @@
           :data="plotData"
         />
       </div>
+    </div>
+
+    <div class="row" v-if="!loading && !transcriptOptions?.length">
+      Gene doesn't have any mutation affected proteins.
     </div>
 
     <q-inner-loading :showing="loading">
@@ -76,6 +80,9 @@ export default {
 
   computed: {
     transcriptOptions() {
+      if (!this.transcripts) 
+        return null;
+        
       return this.transcripts?.map(transcript => {
         return {
           value: transcript.id,

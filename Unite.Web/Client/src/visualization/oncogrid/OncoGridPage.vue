@@ -62,7 +62,7 @@ import UDrawer from "@/_shared/components/drawers/Drawer.vue";
 import UOncogrid from "./components/OncoGrid.vue";
 
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
-import ConsequenceImpact from '@/_models/domain/genome/mutations/enums/consequence-impact';
+import ConsequenceImpact from '@/_models/domain/genome/variants/enums/consequence-impact';
 
 import api from "./api";
 

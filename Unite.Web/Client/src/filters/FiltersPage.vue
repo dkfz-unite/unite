@@ -88,7 +88,7 @@ import donorsApi from "../domain/donors/api";
 import imagesApi from "../domain/images/_shared/api/images";
 import specimensApi from "../domain/specimens/_shared/api/specimens";
 import genesApi from "../domain/genome/genes/api";
-import mutationsApi from "../domain/genome/mutations/api";
+import mutationsApi from "../domain/genome/variants/ssms/api";
 
 export default {
   components: {
@@ -162,8 +162,12 @@ export default {
           data = await specimensApi.search("Xenograft", searchCriteria);
         } else if (this.domain.name == "genes") {
           data = await genesApi.search(searchCriteria);
-        } else if (this.domain.name == "mutations") {
-          data = await mutationsApi.search(searchCriteria);
+        } else if (this.domain.name == "ssms") {
+          data = await mutationsApi.search("ssm", searchCriteria);
+        } else if (this.domain.name == "cnvs") {
+          data = await mutationsApi.search("cnv", searchCriteria);
+        } else if (this.domain.name == "svs") {
+          data = await mutationsApi.search("sv", searchCriteria);
         }
 
         this.cohort.size = data?.total;

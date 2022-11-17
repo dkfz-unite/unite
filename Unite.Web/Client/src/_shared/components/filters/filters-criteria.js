@@ -4,7 +4,9 @@ import CellFiltersCriteria from "./domain/specimens/cells/cell-filters-criteria"
 import OrganoidFiltersCriteria from "./domain/specimens/organoids/organoid-filters-criteria";
 import XenograftFiltersCriteria from "./domain/specimens/xenografts/xenograft-filters-criteria";
 import GeneFiltersCriteria from "./domain/genome/genes/gene-filters-criteria";
-import MutationFiltersCriteria from "./domain/genome/mutations/mutation-filters-criteria";
+import MutationFiltersCriteria from "./domain/genome/variants/ssm/ssm-filters-criteria";
+import CopyNumberVariantFiltersCriteria from "./domain/genome/variants/cnv/cnv-filters-criteria";
+import StructuralVariantFiltersCriteria from "./domain/genome/variants/sv/sv-filters-criteria";
 import MriFiltersCriteria from "./domain/images/mris/mri-filters-criteria";
 import OncogirdFiltersCriteria from "./visualization/oncogrid/oncogrid-filters-criteria";
 
@@ -28,6 +30,8 @@ export default class FiltersCriteria {
     xenograftFiltersCriteria = new XenograftFiltersCriteria();
     geneFiltersCriteria = new GeneFiltersCriteria();
     mutationFiltersCriteria = new MutationFiltersCriteria();
+    copyNumberVariantFiltersCriteria = new CopyNumberVariantFiltersCriteria();
+    structuralVariantFiltersCriteria = new StructuralVariantFiltersCriteria();
     mriFiltersCriteria = new MriFiltersCriteria();
     oncogridFiltersCriteria = new OncogirdFiltersCriteria();
 
@@ -42,6 +46,8 @@ export default class FiltersCriteria {
         number += this.xenograftFiltersCriteria.numberOfFilters;
         number += this.geneFiltersCriteria.numberOfFilters;
         number += this.mutationFiltersCriteria.numberOfFilters;
+        number += this.copyNumberVariantFiltersCriteria.numberOfFilters;
+        number += this.structuralVariantFiltersCriteria.numberOfFilters;
         number += this.mriFiltersCriteria.numberOfFilters;
 
         return number;
@@ -56,6 +62,8 @@ export default class FiltersCriteria {
         this.xenograftFiltersCriteria = new XenograftFiltersCriteria(criteria?.xenograftFiltersCriteria);
         this.geneFiltersCriteria = new GeneFiltersCriteria(criteria?.geneFiltersCriteria);
         this.mutationFiltersCriteria = new MutationFiltersCriteria(criteria?.mutationFiltersCriteria);
+        this.copyNumberVariantFiltersCriteria = new CopyNumberVariantFiltersCriteria(criteria?.copyNumberVariantFiltersCriteria);
+        this.structuralVariantFiltersCriteria = new StructuralVariantFiltersCriteria(criteria?.structuralVariantFiltersCriteria);
         this.mriFiltersCriteria = new MriFiltersCriteria(criteria?.mriFiltersCriteria);
         this.oncogridFiltersCriteria = new OncogirdFiltersCriteria(criteria?.oncogridFiltersCriteria);
     }
@@ -68,6 +76,8 @@ export default class FiltersCriteria {
         this.xenograftFiltersCriteria?.sanitise();
         this.geneFiltersCriteria?.sanitise();
         this.mutationFiltersCriteria?.sanitise();
+        this.copyNumberVariantFiltersCriteria.sanitise();
+        this.structuralVariantFiltersCriteria.sanitise();
         this.mriFiltersCriteria?.sanitise();
         this.oncogridFiltersCriteria?.sanitise();
     }
@@ -87,6 +97,8 @@ export default class FiltersCriteria {
         criteria.xenograftFiltersCriteria = this.xenograftFiltersCriteria?.clone();
         criteria.geneFiltersCriteria = this.geneFiltersCriteria?.clone();
         criteria.mutationFiltersCriteria = this.mutationFiltersCriteria?.clone();
+        criteria.copyNumberVariantFiltersCriteria = this.copyNumberVariantFiltersCriteria.clone();
+        criteria.structuralVariantFiltersCriteria = this.structuralVariantFiltersCriteria.clone();
         criteria.mriFiltersCriteria = this.mriFiltersCriteria?.clone();
         criteria.oncogridFiltersCriteria = this.oncogridFiltersCriteria?.clone();
 
@@ -118,6 +130,8 @@ export default class FiltersCriteria {
         this.xenograftFiltersCriteria.clear();
         this.geneFiltersCriteria.clear();
         this.mutationFiltersCriteria.clear();
+        this.copyNumberVariantFiltersCriteria.clear();
+        this.structuralVariantFiltersCriteria.clear();
         this.mriFiltersCriteria.clear();
     }
 
@@ -133,6 +147,8 @@ export default class FiltersCriteria {
             xenograftFilters: this.xenograftFiltersCriteria,
             geneFilters: this.geneFiltersCriteria,
             mutationFilters: this.mutationFiltersCriteria,
+            copyNumberVariantFilters: this.copyNumberVariantFiltersCriteria,
+            structuralVariantFilters: this.structuralVariantFiltersCriteria,
             mriImageFilters: this.mriFiltersCriteria,
             oncoGridFilters: this.oncogridFiltersCriteria
         };

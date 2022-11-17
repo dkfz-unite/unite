@@ -19,8 +19,12 @@ import xenograftRoutes from "../../domain/specimens/xenograft/router";
 import xenograftsRoutes from "../../domain/specimens/xenografts/router";
 import geneRoutes from "../../domain/genome/gene/router";
 import genesRoutes from "../../domain/genome/genes/router";
-import mutationRoutes from "../../domain/genome/mutation/router";
-import mutationsRoutes from "../../domain/genome/mutations/router";
+import ssmRoutes from "../../domain/genome/variants/ssm/router";
+import ssmsRoutes from "../../domain/genome/variants/ssms/router";
+import cnvRoutes from "../../domain/genome/variants/cnv/router";
+import cnvsRoutes from "../../domain/genome/variants/cnvs/router";
+import svRoutes from "../../domain/genome/variants/sv/router";
+import svsRoutes from "../../domain/genome/variants/svs/router";
 import filtersRoutes from "../../filters/router";
 import oncogridRoutes from "../../visualization/oncogrid/router";
 import adminRoutes from "../../admin/router";
@@ -45,8 +49,12 @@ const routes = [
   ...xenograftsRoutes,
   ...geneRoutes,
   ...genesRoutes,
-  ...mutationRoutes,
-  ...mutationsRoutes,
+  ...ssmRoutes,
+  ...ssmsRoutes,
+  ...cnvRoutes,
+  ...cnvsRoutes,
+  ...svRoutes,
+  ...svsRoutes,
   ...filtersRoutes,
   ...oncogridRoutes,
   ...adminRoutes

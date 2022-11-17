@@ -9,9 +9,10 @@
         <div class="row q-col-gutter-sm">
           <div class="col-12 col-sm-3 col-md-2">
             <div class="row">
-              <u-filters 
-                v-model="filtersCriteria"
-                :context="filtersContext" 
+              <u-filters
+                v-model="filtersCriteria.geneFiltersCriteria"
+                :context="filtersContext.geneFiltersContext"
+                :filters="filters"
                 @update:modelValue="filterData"
               />
             </div>
@@ -20,6 +21,7 @@
           <div class="col-12 col-sm-9 col-md-10">
             <u-data-table
               title="Genes"
+              class="sticky-header-slim"
               :loading="loading"
               :rows="rows"
               :rows-total="rowsTotal"
@@ -35,15 +37,18 @@
 </template>
 
 <script>
-import UFilters from "./genes/Filters.vue";
-import UDataTable from "./genes/GenesTable.vue";
-import tablePageMixin from "../../../../_shared/table-page-mixin";
+import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
+import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
+import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
+import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import filters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
 
 import api from "../../api/image";
 
 export default {
   components: {
     UFilters,
+    UFiltersButtonClear,
     UDataTable
   },
 
@@ -51,6 +56,12 @@ export default {
 
   props: {
     image: Object
+  },
+
+  setup() {
+    return {
+      filters: filters
+    }
   },
 
   computed: {

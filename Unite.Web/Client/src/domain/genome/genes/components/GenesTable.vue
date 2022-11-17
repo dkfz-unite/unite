@@ -102,9 +102,21 @@ export default {
           sortable: false
         },
         {
-          name: "numberOfMutations",
-          label: "#Mutations",
+          name: "numberOfSsms",
+          label: "#SSMs",
           field: (row) => row.numberOfMutations,
+          sortable: false
+        },
+        {
+          name: "numberOfCnvs",
+          label: "#CNVs",
+          field: (row) => row.numberOfCopyNumberVariants,
+          sortable: false
+        },
+        {
+          name: "numberOfSvs",
+          label: "#SVs",
+          field: (row) => row.numberOfStructuralVariants,
           sortable: false
         }
       ]

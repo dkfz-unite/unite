@@ -14,13 +14,13 @@ async function searchDonors(id, criteria){
   return await client.post(url, criteria);
 }
 
-async function searchMutations(id, criteria){
-  let url = `${geneUrl}/${id}/mutations`;
+async function searchVariants(id, type, criteria){
+  let url = `${geneUrl}/${id}/variants/${type}`;
   return await client.post(url, criteria);
 }
 
 export default {
   get,
   searchDonors,
-  searchMutations
+  searchVariants
 }

@@ -5,6 +5,7 @@
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
         <q-breadcrumbs-el label="MRI Images" :to="{ name: 'mris' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
+        <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
     </div>
 
@@ -16,7 +17,27 @@
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
-              <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" />
+              <q-tab :name="variantTab" label="Variants" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showVariants" @click.prevent="null">
+                <q-menu fit>
+                  <q-list dense>
+                    <q-item clickable @click="tab = 'ssms'" :active="tab == 'ssms'" :disable="!showMutations">
+                      <q-item-section>
+                        <span class="q-py-sm">Mutations (SSM)</span>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable @click="tab = 'cnvs'" :active="tab == 'cnvs'" :disable="!showCopyNumberVariants">
+                      <q-item-section>
+                        <span class="q-py-sm">Copy Number Variants (CNV)</span>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable @click="tab = 'svs'" :active="tab == 'svs'" :disable="!showStructuralVariants">
+                      <q-item-section>
+                        <span class="q-py-sm">Structural Variants (SV)</span>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-tab>
             </q-tabs>
             <q-separator />
           </div>
@@ -33,8 +54,16 @@
                 <u-genes-tab :image="image" />
               </q-tab-panel>
 
-              <q-tab-panel name="mutations" class="q-py-sm q-px-none">
-                <u-mutations-tab :image="image" />
+              <q-tab-panel name="ssms" class="q-py-sm q-px-none">
+                <u-ssms-tab :image="image" />
+              </q-tab-panel>
+
+              <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
+                <u-cnvs-tab :image="image" />
+              </q-tab-panel>
+
+              <q-tab-panel name="svs" class="q-py-sm q-px-none">
+                <u-svs-tab :image="image" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -51,7 +80,9 @@
 <script>
 import USummaryTab from "./components/SummaryTab.vue";
 import UGenesTab from "../_shared/components/image/GenesTab.vue";
-import UMutationsTab from "../_shared/components/image/MutationsTab.vue";
+import USsmsTab from "../_shared/components/image/SSMsTab.vue";
+import UCnvsTab from "../_shared/components/image/CNVsTab.vue";
+import USvsTab from "../_shared/components/image/SVsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
 import imageApi from "../_shared/api/image";
@@ -61,7 +92,9 @@ export default {
   components: {
     USummaryTab,
     UGenesTab,
-    UMutationsTab
+    USsmsTab,
+    UCnvsTab,
+    USvsTab
   },
 
   mixins: [tabPageMixin],
@@ -75,12 +108,42 @@ export default {
   },
 
   computed: {
+    tabName() {
+      return this.tab === "summary" ? "Summary"
+           : this.tab === "genes" ? "Genes"
+           : this.tab === "ssms" ? "SSMs"
+           : this.tab === "cnvs" ? "CNVs"
+           : this.tab === "svs" ? "SVs"
+           : this.tab;
+    },
+
+    variantTab() {
+      return this.tab === "ssms" ? "ssms"
+           : this.tab === "cnvs" ? "cnvs"
+           : this.tab === "svs" ? "svs"
+           : null;
+    },
+
     showGenes() {
       return !!this.image?.numberOfGenes;
     },
 
+    showVariants() {
+      return !!this.donor?.numberOfMutations
+          || !!this.donor?.numberOfCopyNumberVariants
+          || !!this.donor?.numberOfStructuralVariants;
+    },
+
     showMutations() {
-      return !!this.image?.numberOfMutations;
+      return !!this.donor?.numberOfMutations;
+    },
+
+    showCopyNumberVariants() {
+      return !!this.donor?.numberOfCopyNumberVariants;
+    },
+
+    showStructuralVariants() {
+      return !!this.donor?.numberOfStructuralVariants;
     }
   },
 
@@ -94,6 +157,10 @@ export default {
     } finally {
       this.loading = false;
     }
+  },
+
+  async unmounted() {
+    this.$store.dispatch("mri/clearState");
   }
 }
 </script>

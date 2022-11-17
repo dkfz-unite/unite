@@ -5,6 +5,7 @@
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
         <q-breadcrumbs-el label="Organoids" :to="{ name: 'organoids' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
+        <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
 
       <q-space />
@@ -28,7 +29,27 @@
               <q-tab name="drugs" label="Drugs" icon="las la-capsules" :disable="!showDrugs" />
               <q-tab name="interventions" label="Interventions" icon="las la-biohazard" :disable="!showInterventions" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
-              <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" />
+              <q-tab :name="variantTab" label="Variants" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showVariants" @click.prevent="null">
+                <q-menu fit>
+                  <q-list dense>
+                    <q-item clickable @click="tab = 'ssms'" :active="tab == 'ssms'" :disable="!showMutations">
+                      <q-item-section>
+                        <span class="q-py-sm">Mutations (SSM)</span>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable @click="tab = 'cnvs'" :active="tab == 'cnvs'" :disable="!showCopyNumberVariants">
+                      <q-item-section>
+                        <span class="q-py-sm">Copy Number Variants (CNV)</span>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable @click="tab = 'svs'" :active="tab == 'svs'" :disable="!showStructuralVariants">
+                      <q-item-section>
+                        <span class="q-py-sm">Structural Variants (SV)</span>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-tab>
             </q-tabs>
             <q-separator />
           </div>
@@ -57,8 +78,16 @@
                 <u-genes-tab :specimen="specimen" />
               </q-tab-panel>
 
-              <q-tab-panel name="mutations" class="q-py-sm q-px-none">
-                <u-mutations-tab :specimen="specimen" />
+              <q-tab-panel name="ssms" class="q-py-sm q-px-none">
+                <u-ssms-tab :specimen="specimen" />
+              </q-tab-panel>
+
+              <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
+                <u-cnvs-tab :specimen="specimen" />
+              </q-tab-panel>
+
+              <q-tab-panel name="svs" class="q-py-sm q-px-none">
+                <u-svs-tab :specimen="specimen" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -78,13 +107,13 @@ import UInterventionsTab from "./components/InterventionsTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
 import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
 import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
-import UMutationsTab from "../_shared/components/specimen/MutationsTab.vue";
+import USsmsTab from "../_shared/components/specimen/SSMsTab.vue";
+import UCnvsTab from "../_shared/components/specimen/CNVsTab.vue";
+import USvsTab from "../_shared/components/specimen/SVsTab.vue";
 import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vue";
-import tabPageMixin from "../../_shared/tab-page-mixin";
 
-import Permissions from "@/_models/admin/enums/permissions";
-import specimenApi from "../_shared/api/specimen";
-import donorApi from "@/domain/donor/api";
+import tabPageMixin from "../../_shared/tab-page-mixin";
+import specimenPageMixin from "../_shared/specimen-page-mixin";
 
 export default {
   components: {
@@ -93,53 +122,26 @@ export default {
     UDrugsTab,
     UInterventionsTab,
     UGenesTab,
-    UMutationsTab,
+    USsmsTab,
+    UCnvsTab,
+    USvsTab,
     UUploadButton
   },
 
-  mixins: [tabPageMixin],
-
-  data() {
-    return {
-      loading: false,
-      specimen: null,
-      donor: null
-    };
-  },
+  mixins: [tabPageMixin, specimenPageMixin],
 
   computed: {
     showDrugs() {
-      return !!this.specimen?.organoid?.drugScreenings;
+      return !!this.specimen?.drugScreenings;
     },
 
     showInterventions() {
       return !!this.specimen?.organoid?.interventions;
-    },
-
-    showGenes() {
-      return !!this.specimen?.numberOfGenes;
-    },
-
-    showMutations() {
-      return !!this.specimen?.numberOfMutations;
-    },
-
-    canUpload() {
-      return this.account.hasPermission(Permissions.Data.Write);
     }
   },
 
-  async mounted() {
-    try {
-      this.loading = true;
-      this.specimen = await specimenApi.get(this.$route.params.id);
-      this.donor = await donorApi.get(this.specimen.donorId);
-    } catch (error) {
-      this.specimen = null;
-      this.donor = null;
-    } finally {
-      this.loading = false;
-    }
+  async unmounted() {
+    this.$store.dispatch("organoid/clearState");
   }
 }
 </script>

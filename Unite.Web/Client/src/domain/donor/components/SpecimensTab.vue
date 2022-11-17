@@ -4,6 +4,7 @@
       <div class="col-12">
         <u-ancestry v-if="donor && specimens" 
           title="Specimens"
+          type="donor"
           :donor="donor"
           :specimens="specimens"
           :current="donor.id"
@@ -43,12 +44,35 @@ export default {
       try {
         this.loading = true;
         let data = await api.searchSpecimens(this.donor.id, { from: 0, size: 1000 });
-        this.specimens = data.rows.filter(row => !row.parent);
+        this.specimens = this.buildNodes(null, data.rows);
       } catch(error) {
         this.specimens = null;
       } finally {
         this.loading = false;
       }
+    },
+
+    buildNodes(nodes, allNodes) {
+      nodes = nodes || allNodes.filter(node => !node.parent).map(node => this.copyNode(node));
+
+      for (let i = 0; i < nodes.length; i++) {
+        const currentNode = nodes[i];
+
+        let childNodes = allNodes
+          .filter(node => node.parent?.id == currentNode.id)
+          .map(node => this.copyNode(node));
+
+        if (childNodes?.length) {
+          this.buildNodes(childNodes, allNodes);
+          currentNode.children = childNodes;
+        }
+      }
+
+      return nodes;
+    },
+
+    copyNode(node) {
+      return JSON.parse(JSON.stringify(node));
     }
   }
 }

@@ -5,6 +5,7 @@
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
         <q-breadcrumbs-el label="Donors" :to="{ name: 'donors' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
+        <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
     </div>
 
@@ -20,7 +21,27 @@
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
-              <q-tab name="mutations" label="Mutations" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showMutations" />
+              <q-tab :name="variantTab" label="Variants" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showVariants" @click.prevent="null">
+                <q-menu fit>
+                  <q-list dense>
+                    <q-item clickable @click="tab = 'ssms'" :active="tab == 'ssms'" :disable="!showMutations">
+                      <q-item-section>
+                        <span class="q-py-sm">Mutations (SSM)</span>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable @click="tab = 'cnvs'" :active="tab == 'cnvs'" :disable="!showCopyNumberVariants">
+                      <q-item-section>
+                        <span class="q-py-sm">Copy Number Variants (CNV)</span>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable @click="tab = 'svs'" :active="tab == 'svs'" :disable="!showStructuralVariants">
+                      <q-item-section>
+                        <span class="q-py-sm">Structural Variants (SV)</span>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-tab>
             </q-tabs>
             <q-separator />
           </div>
@@ -53,8 +74,16 @@
                 <u-genes-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel name="mutations" class="q-py-sm q-px-none">
-                <u-mutations-tab :donor="donor" />
+              <q-tab-panel name="ssms" class="q-py-sm q-px-none">
+                <u-ssms-tab :donor="donor" />
+              </q-tab-panel>
+
+              <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
+                <u-cnvs-tab :donor="donor" />
+              </q-tab-panel>
+
+              <q-tab-panel name="svs" class="q-py-sm q-px-none">
+                <u-svs-tab :donor="donor" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -75,7 +104,9 @@ import UTreatmentsTab from "./components/TreatmentsTab.vue";
 import USpecimensTab from "./components/SpecimensTab.vue";
 import UMrisTab from "./components/MriImagesTab.vue";
 import UGenesTab from "./components/GenesTab.vue";
-import UMutationsTab from "./components/MutationsTab.vue";
+import USsmsTab from "./components/SSMsTab.vue";
+import UCnvsTab from "./components/CNVsTab.vue";
+import USvsTab from "./components/SVsTab.vue";
 import tabPageMixin from "../_shared/tab-page-mixin";
 
 import api from "./api";
@@ -88,7 +119,9 @@ export default {
     USpecimensTab,
     UMrisTab,
     UGenesTab,
-    UMutationsTab
+    USsmsTab,
+    UCnvsTab,
+    USvsTab
   },
 
   mixins: [tabPageMixin],
@@ -101,6 +134,26 @@ export default {
   },
 
   computed: {
+    tabName() {
+      return this.tab === "summary" ? "Summary"
+           : this.tab === "clinical" ? "Clinical"
+           : this.tab === "treatments" ? "Treatments"
+           : this.tab === "specimens" ? "Specimens"
+           : this.tab === "mris" ? "MRI"
+           : this.tab === "genes" ? "Genes"
+           : this.tab === "ssms" ? "SSMs"
+           : this.tab === "cnvs" ? "CNVs"
+           : this.tab === "svs" ? "SVs"
+           : this.tab;
+    },
+
+    variantTab() {
+      return this.tab === "ssms" ? "ssms"
+           : this.tab === "cnvs" ? "cnvs"
+           : this.tab === "svs" ? "svs"
+           : null;
+    },
+
     showClinicalData() {
       return !!this.donor?.clinicalData;
     },
@@ -121,8 +174,22 @@ export default {
       return !!this.donor?.numberOfGenes;
     },
 
+    showVariants() {
+      return !!this.donor?.numberOfMutations
+          || !!this.donor?.numberOfCopyNumberVariants
+          || !!this.donor?.numberOfStructuralVariants;
+    },
+
     showMutations() {
       return !!this.donor?.numberOfMutations;
+    },
+
+    showCopyNumberVariants() {
+      return !!this.donor?.numberOfCopyNumberVariants;
+    },
+
+    showStructuralVariants() {
+      return !!this.donor?.numberOfStructuralVariants;
     }
   },
 
@@ -143,7 +210,7 @@ export default {
     }
   },
 
-  async destroyed() {
+  async unmounted() {
     this.$store.dispatch("donor/clearState");
   }
 }

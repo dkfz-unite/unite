@@ -173,15 +173,27 @@ export default {
           headerClasses: "bg-grey-2"
         },
         {
-          name: "numberOfMutations",
-          label: "#Mutations",
+          name: "numberOfGenes",
+          label: "#Genes",
+          field: (row) => row.numberOfGenes,
+          sortable: false
+        },
+        {
+          name: "numberOfSsms",
+          label: "#SSMs",
           field: (row) => row.numberOfMutations,
           sortable: false
         },
         {
-          name: "numberOfGenes",
-          label: "#Genes",
-          field: (row) => row.numberOfGenes,
+          name: "numberOfCnvs",
+          label: "#CNVs",
+          field: (row) => row.numberOfCopyNumberVariants,
+          sortable: false
+        },
+        {
+          name: "numberOfSVs",
+          label: "#SVs",
+          field: (row) => row.numberOfStructuralVariants,
           sortable: false
         }
       ]

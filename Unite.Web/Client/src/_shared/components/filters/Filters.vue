@@ -85,9 +85,21 @@
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('mutation')" name="mutation" icon="svguse:/icons.svg#u-mutation-alt">
-            <q-badge v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters" :color="getBadgeColor('mutation')" rounded>
+          <q-tab v-if="showFilters('ssm')" name="ssm" icon="svguse:/icons.svg#u-mutation-alt">
+            <q-badge v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters" :color="getBadgeColor('ssm')" rounded>
               {{filtersCriteria.mutationFiltersCriteria.numberOfFilters}}
+            </q-badge>
+          </q-tab>
+
+          <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-mutation-alt">
+            <q-badge v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters}}
+            </q-badge>
+          </q-tab>
+
+          <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-mutation-alt">
+            <q-badge v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
         </q-tabs>
@@ -113,11 +125,6 @@
           <q-tab-panel v-if="showFilters('donor')" name="donor" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <!-- <u-donor-filters
-                  v-model="filtersCriteria.donorFiltersCriteria"
-                  :context="filtersContext.donorFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.donorFiltersCriteria"
                   v-model="filtersCriteria.donorFiltersCriteria"
@@ -152,11 +159,6 @@
           <q-tab-panel v-if="showFilters('tissue')" name="tissue" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <!-- <u-tissue-filters
-                  v-model="filtersCriteria.tissueFiltersCriteria"
-                  :context="filtersContext.tissueFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.tissueFiltersCriteria"
                   v-model="filtersCriteria.tissueFiltersCriteria"
@@ -174,11 +176,6 @@
           <q-tab-panel v-if="showFilters('cell')" name="cell" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <!-- <u-cell-filters
-                  v-model="filtersCriteria.cellFiltersCriteria"
-                  :context="filtersContext.cellFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.cellFiltersCriteria"
                   v-model="filtersCriteria.cellFiltersCriteria"
@@ -196,11 +193,6 @@
           <q-tab-panel v-if="showFilters('organoid')" name="organoid" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <!-- <u-organoid-filters
-                  v-model="filtersCriteria.organoidFiltersCriteria"
-                  :context="filtersContext.organoidFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.organoidFiltersCriteria"
                   v-model="filtersCriteria.organoidFiltersCriteria"
@@ -218,11 +210,6 @@
           <q-tab-panel v-if="showFilters('xenograft')" name="xenograft" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <!-- <u-xenograft-filters
-                  v-model="filtersCriteria.xenograftFiltersCriteria"
-                  :context="filtersContext.xenograftFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.xenograftFiltersCriteria"
                   v-model="filtersCriteria.xenograftFiltersCriteria"
@@ -240,11 +227,6 @@
           <q-tab-panel v-if="showFilters('gene')" name="gene" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div class="row">
-                <!-- <u-gene-filters
-                  v-model="filtersCriteria.geneFiltersCriteria"
-                  :context="filtersContext.geneFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.geneFiltersCriteria"
                   v-model="filtersCriteria.geneFiltersCriteria"
@@ -259,14 +241,9 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel v-if="showFilters('mutation')" name="mutation" class="q-pa-none">
+          <q-tab-panel v-if="showFilters('ssm')" name="ssm" class="q-pa-none">
             <div class="col q-gutter-y-sm">
               <div>
-                <!-- <u-mutation-filters
-                  v-model="filtersCriteria.mutationFiltersCriteria"
-                  :context="filtersContext.mutationFiltersContext"
-                  @update:modelValue="onUpdate"
-                /> -->
                 <u-criteria-filters
                   v-if="filtersCriteria?.mutationFiltersCriteria"
                   v-model="filtersCriteria.mutationFiltersCriteria"
@@ -277,6 +254,40 @@
               </div>
               <div class="row" v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters">
                 <u-filters-button-clear @click="filtersCriteria.mutationFiltersCriteria.clear(); onUpdate();" />
+              </div>
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel v-if="showFilters('cnv')" name="cnv" class="q-pa-none">
+            <div class="col q-gutter-y-sm">
+              <div>
+                <u-criteria-filters
+                  v-if="filtersCriteria?.copyNumberVariantFiltersCriteria"
+                  v-model="filtersCriteria.copyNumberVariantFiltersCriteria"
+                  :context="filtersContext.copyNumberVariantFiltersContext"
+                  :filters="copyNumberVariantFilters"
+                  @update:modelValue="onUpdate"
+                />
+              </div>
+              <div class="row" v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.copyNumberVariantFiltersCriteria.clear(); onUpdate();" />
+              </div>
+            </div>
+          </q-tab-panel>
+
+          <q-tab-panel v-if="showFilters('sv')" name="sv" class="q-pa-none">
+            <div class="col q-gutter-y-sm">
+              <div>
+                <u-criteria-filters
+                  v-if="filtersCriteria?.structuralVariantFiltersCriteria"
+                  v-model="filtersCriteria.structuralVariantFiltersCriteria"
+                  :context="filtersContext.structuralVariantFiltersContext"
+                  :filters="structuralVariantFilters"
+                  @update:modelValue="onUpdate"
+                />
+              </div>
+              <div class="row" v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.structuralVariantFiltersCriteria.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -301,7 +312,9 @@ import cellFilters from "./domain/specimens/cells/cell-filters";
 import organoidFilters from "./domain/specimens/organoids/organoid-filters";
 import xenograftFilters from "./domain/specimens/xenografts/xenograft-filters";
 import geneFilters from "./domain/genome/genes/gene-filters";
-import mutationFilters from "./domain/genome/mutations/mutation-filters";
+import ssmFilters from "./domain/genome/variants/ssm/ssm-filters";
+import cnvFilters from "./domain/genome/variants/cnv/cnv-filters";
+import svFilters from "./domain/genome/variants/sv/sv-filters";
 import mriFilters from "./domain/images/mris/mri-filters";
 
 export default {
@@ -337,7 +350,9 @@ export default {
       organoidFilters: organoidFilters,
       xenograftFilters: xenograftFilters,
       geneFilters: geneFilters,
-      mutationFilters: mutationFilters,
+      mutationFilters: ssmFilters,
+      copyNumberVariantFilters: cnvFilters,
+      structuralVariantFilters: svFilters,
       mriFilters: mriFilters
     }
   },
@@ -359,7 +374,9 @@ export default {
         case "organoid": return "Organoid Filters";
         case "xenograft": return "Xenograft Filters";
         case "gene": return "Gene Filters";
-        case "mutation": return "Mutation Filters";
+        case "ssm": return "SSM Filters";
+        case "cnv": return "CNV Filters";
+        case "sv": return "SV Filters";
         case "mri": return "MRI Filters";
         case "oncogrid": return "Oncogrid Filters";
         default: return "Filters";
@@ -379,16 +396,21 @@ export default {
 
   methods: {
     showFilters(category) {
-      let general = ["donor", "gene", "mutation"];
+      let general = ["donor", "gene"];
+      let images = ["mri"];
+      let specimens = ["tissue", "cell", "organoid", "xenograft"];
+      let variants = ["ssm", "cnv", "sv"];
       switch (category) {
         case "donor": return true;
-        case "mri": return [...general, "mri", "tissue"].includes(this.mode);
-        case "tissue": return [...general, "mri", "tissue"].includes(this.mode);
-        case "cell": return [...general, "cell"].includes(this.mode);
-        case "organoid": return [...general, "organoid"].includes(this.mode);
-        case "xenograft": return [...general, "xenograft"].includes(this.mode);
+        case "mri": return [...general, "mri", ...variants, "tissue"].includes(this.mode);
+        case "tissue": return [...general, "mri", "tissue", ...variants].includes(this.mode);
+        case "cell": return [...general, "cell", ...variants].includes(this.mode);
+        case "organoid": return [...general, "organoid", ...variants].includes(this.mode);
+        case "xenograft": return [...general, "xenograft", ...variants].includes(this.mode);
         case "gene": return true;
-        case "mutation": return true;
+        case "ssm": return [...general, ...specimens, ...images, "oncogrid", "ssm"].includes(this.mode);
+        case "cnv": return [...general, ...specimens, ...images, "cnv"].includes(this.mode);
+        case "sv": return [...general, ...specimens, ...images, "sv"].includes(this.mode);
         case "oncogrid": return ["oncogrid"].includes(this.mode);
         default: return false;
       }

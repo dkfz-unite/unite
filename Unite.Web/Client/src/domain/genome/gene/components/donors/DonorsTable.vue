@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import tableMixin from "../../../../_shared/table-mixin";
+import tableMixin from "@/domain/_shared/table-mixin";
 
 export default {
   mixins: [tableMixin],
@@ -119,22 +119,28 @@ export default {
           sortable: false,
           align: "left"
         },
+        // {
+        //   name: "numberOfSpecimens",
+        //   label: "#Specimens",
+        //   field: (row) => row.numberOfSpecimens,
+        //   sortable: false
+        // },
         {
-          name: "numberOfSpecimens",
-          label: "#Specimens",
-          field: (row) => row.numberOfSpecimens,
-          sortable: false
-        },
-        {
-          name: "numberOfGenes",
-          label: "#Genes",
-          field: (row) => row.numberOfGenes,
-          sortable: false
-        },
-        {
-          name: "numberOfMutations",
-          label: "#Mutations",
+          name: "numberOfSsms",
+          label: "#SSMs",
           field: (row) => row.numberOfMutations,
+          sortable: false
+        },
+        {
+          name: "numberOfCnvs",
+          label: "#CNVs",
+          field: (row) => row.numberOfCopyNumberVariants,
+          sortable: false
+        },
+        {
+          name: "numberOfSvs",
+          label: "#SVs",
+          field: (row) => row.numberOfStructuralVariants,
           sortable: false
         }
       ]

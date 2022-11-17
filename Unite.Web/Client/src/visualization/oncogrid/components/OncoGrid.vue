@@ -222,9 +222,9 @@ export default {
       let consequence = consequences.find(consequence => consequence.type == data.observation.consequence);
 
       let properties = [
-        { key: "Donor", value: data.donor.displayId },
-        { key: "Gene", value: data.gene.symbol },
-        { key: "Mutation", value: data.observation.code },
+        { key: "Donor", value: data.donor?.displayId },
+        { key: "Gene", value: data.gene?.symbol },
+        { key: "Mutation", value: data.observation?.code },
         { key: "Consequence", value: consequence.name, color: this.getImpactColor(consequence.impact) },
       ];
 
@@ -233,7 +233,7 @@ export default {
     },
 
     onGridCellClick(data) {
-      this.$router.push({ name: "mutation", params: { id: data.observation.id }});
+      this.$router.push({ name: "ssm", params: { id: data.observation.id }});
     },
 
 

@@ -28,21 +28,20 @@
             <tr>
               <td class="u-text-key">Projects</td>
               <td>
-                <span v-for="(workPackage, i) in donor.workPackages" :key="workPackage.id">
-                  <router-link class="u-link" :to="{ name: 'project', params: { id: workPackage.id.toString() } }">
-                    {{ workPackage.name }}
+                <span v-for="(project, i) in donor.projects" :key="project.id">
+                  <router-link class="u-link" :to="{ name: 'project', params: { id: project.id.toString() } }">
+                    {{ project.name }}
                   </router-link>
-                  <span v-if="i < donor.workPackages.length - 1">/</span>
+                  <span v-if="i < donor.projects.length - 1">/</span>
                 </span>
               </td>
             </tr>
             <tr>
               <td class="u-text-key">Studies</td>
               <td>
-                <span v-for="study in donor.studies" :key="study.id">
-                  <router-link class="u-link" :to="'/study/' + study.id">
-                    {{ study.name }}
-                  </router-link>
+                <span v-for="(study, i) in donor.studies" :key="study.id">
+                  {{ study.name }}
+                  <span v-if="i < donor.studies.length - 1">/</span>
                 </span>
               </td>
             </tr>

@@ -6,7 +6,8 @@
 
     <div class="row">
       <div class="col-12 col-md-6">
-        <u-specimens-tree 
+        <u-specimens-tree
+          :type="type"
           :donor="donor" 
           :specimens="orderedSpecimens"
           :current="current"
@@ -25,6 +26,14 @@ export default {
   },
 
   props: {
+    type: {
+      type: String,
+      default: null,
+      required: true,
+      validator(value) {
+        return ["donor", "specimen"].includes(value);
+      }
+    },
     donor: {
       type: Object,
       default: null,

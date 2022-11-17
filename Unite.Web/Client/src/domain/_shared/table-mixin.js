@@ -5,6 +5,11 @@ const tableMixin = {
         default: null
       },
 
+      class: {
+        type: String,
+        default: null
+      },
+
       rows: {
         type: Array,
         default() {

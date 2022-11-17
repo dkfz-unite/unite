@@ -1,5 +1,5 @@
-import FiltersCriteria from "../../../../_shared/components/filters/filters-criteria";
-import FiltersContext from "../../../../_shared/components/filters/filters-context";
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
+import FiltersContext from "@/_shared/components/filters/filters-context";
 
 const module = {
     namespaced: true,

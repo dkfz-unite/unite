@@ -106,12 +106,30 @@
           />
         </div>
 
-        <!-- Mutation filters -->
-        <div class="row" v-if="hasGroupFilters(mutationFilters, cohort.criteria.mutationFiltersCriteria)">
+        <!-- SSM filters -->
+        <div class="row" v-if="hasGroupFilters(ssmFilters, cohort.criteria.mutationFiltersCriteria)">
           <u-filters-data
-            title="Mutation filters"
+            title="SSM filters"
             :criteria="cohort.criteria.mutationFiltersCriteria"
-            :filters="mutationFilters"
+            :filters="ssmFilters"
+          />
+        </div>
+
+        <!-- CNV filters -->
+        <div class="row" v-if="hasGroupFilters(cnvFilters, cohort.criteria.copyNumberVariantFiltersCriteria)">
+          <u-filters-data
+            title="CNV filters"
+            :criteria="cohort.criteria.copyNumberVariantFiltersCriteria"
+            :filters="cnvFilters"
+          />
+        </div>
+
+        <!-- SV filters -->
+        <div class="row" v-if="hasGroupFilters(svFilters, cohort.criteria.structuralVariantFiltersCriteria)">
+          <u-filters-data
+            title="SV filters"
+            :criteria="cohort.criteria.structuralVariantFiltersCriteria"
+            :filters="svFilters"
           />
         </div>
       </div>
@@ -130,7 +148,9 @@ import cellFilters from "../../_shared/components/filters/domain/specimens/cells
 import organoidFilters from "../../_shared/components/filters/domain/specimens/organoids/organoid-filters";
 import xenograftFilters from "../../_shared/components/filters/domain/specimens/xenografts/xenograft-filters";
 import geneFilters from "../../_shared/components/filters/domain/genome/genes/gene-filters";
-import mutationFilters from "../../_shared/components/filters/domain/genome/mutations/mutation-filters";
+import ssmFilters from "../../_shared/components/filters/domain/genome/variants/ssm/ssm-filters";
+import cnvFilters from "../../_shared/components/filters/domain/genome/variants/cnv/cnv-filters";
+import svFilters from "../../_shared/components/filters/domain/genome/variants/sv/sv-filters";
 
 export default {
   components: {
@@ -153,7 +173,9 @@ export default {
       organoidFilters: organoidFilters,
       xenograftFilters: xenograftFilters,
       geneFilters: geneFilters,
-      mutationFilters: mutationFilters
+      ssmFilters: ssmFilters,
+      cnvFilters: cnvFilters,
+      svFilters: svFilters
     }
   },
 

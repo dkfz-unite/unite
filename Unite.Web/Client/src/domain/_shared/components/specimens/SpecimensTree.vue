@@ -53,6 +53,14 @@ export default {
   },
 
   props: {
+    type: {
+      type: String,
+      default: null,
+      required: true,
+      validator(value) {
+        return ["donor", "specimen"].includes(value);
+      }
+    },
     donor: Object,
     specimens: Array,
     current: Number
@@ -60,7 +68,7 @@ export default {
 
   data() {
     return {
-      nodes: this.buildNodes(this.donor, this.specimens, this.current),
+      nodes: this.buildNodes(this.donor, this.specimens, this.current, this.type),
     };
   },
 
@@ -131,7 +139,7 @@ export default {
       }
     },
 
-    buildNodes(donor, specimens, current) {
+    buildNodes(donor, specimens, current, type) {
       if(!donor || !specimens) {
         return null;
       }
@@ -139,19 +147,19 @@ export default {
       let node = {
           id: donor.id,
           key: `d.${donor.id}`,
-          active: donor.id == current,
+          active: donor.id == current && type === "donor",
           donor: donor,
-          children: specimens.map(specimen => this.buildNode(specimen, current))
+          children: specimens.map(specimen => this.buildNode(specimen, current, type))
       }
 
       return [node];
     },
 
-    buildNode(specimen, current) {
+    buildNode(specimen, current, type) {
       var node = { 
         id: specimen.id, 
         key: `s.${specimen.id}`,
-        active: specimen.id == current,
+        active: specimen.id == current && type === "specimen",
       };
       
       if (!!specimen.tissue) {
@@ -168,7 +176,7 @@ export default {
         node.children = [];
 
         specimen.children.forEach(childSpecimen => {
-          node.children.push(this.buildNode(childSpecimen, current));
+          node.children.push(this.buildNode(childSpecimen, current, type));
         });
       }
 

@@ -24,8 +24,8 @@ async function searchGenes(id, criteria){
   return await client.post(url, criteria);
 }
 
-async function searchMutations(id, criteria){
-  let url = `${donorUrl}/${id}/mutations`;
+async function searchVariants(id, type, criteria){
+  let url = `${donorUrl}/${id}/variants/${type}`;
   return await client.post(url, criteria);
 }
 
@@ -34,5 +34,5 @@ export default {
   searchImages,
   searchSpecimens,
   searchGenes,
-  searchMutations
+  searchVariants
 }
