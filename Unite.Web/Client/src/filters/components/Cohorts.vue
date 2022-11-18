@@ -167,10 +167,10 @@ export default {
         case "cells": return "las la-microscope";
         case "organoids": return "svguse:/icons.svg#u-organoid";
         case "xenografts": return "svguse:/icons.svg#u-mouse";
-        case "genes": return "svguse:/icons.svg#u-gene-alt";
-        case "ssms": return "svguse:/icons.svg#u-mutation-alt";
-        case "cnvs": return "svguse:/icons.svg#u-mutation-alt";
-        case "svs": return "svguse:/icons.svg#u-mutation-alt";
+        case "genes": return "svguse:/icons.svg#u-gene";
+        case "ssms": return "svguse:/icons.svg#u-ssm";
+        case "cnvs": return "svguse:/icons.svg#u-cnv";
+        case "svs": return "svguse:/icons.svg#u-sv";
         default: return null;
       }
     },

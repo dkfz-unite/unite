@@ -20,28 +20,13 @@
               <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
-              <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene-alt" :disable="!showGenes" />
-              <q-tab :name="variantTab" label="Variants" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showVariants" @click.prevent="null">
-                <q-menu fit>
-                  <q-list dense>
-                    <q-item clickable @click="tab = 'ssms'" :active="tab == 'ssms'" :disable="!showMutations">
-                      <q-item-section>
-                        <span class="q-py-sm">Mutations (SSM)</span>
-                      </q-item-section>
-                    </q-item>
-                    <q-item clickable @click="tab = 'cnvs'" :active="tab == 'cnvs'" :disable="!showCopyNumberVariants">
-                      <q-item-section>
-                        <span class="q-py-sm">Copy Number Variants (CNV)</span>
-                      </q-item-section>
-                    </q-item>
-                    <q-item clickable @click="tab = 'svs'" :active="tab == 'svs'" :disable="!showStructuralVariants">
-                      <q-item-section>
-                        <span class="q-py-sm">Structural Variants (SV)</span>
-                      </q-item-section>
-                    </q-item>
-                  </q-list>
-                </q-menu>
-              </q-tab>
+              <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
+              <u-variants-tab-header 
+                v-model="tab"
+                :disable="!showVariants"
+                :disableSsms="!showMutations"
+                :disableCnvs="!showCopyNumberVariants"
+                :disableSvs="!showStructuralVariants" />
             </q-tabs>
             <q-separator />
           </div>
@@ -98,6 +83,7 @@
 </template>
 
 <script>
+import UVariantsTabHeader from "../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UClinicalDataTab from "./components/ClinicalDataTab.vue";
 import UTreatmentsTab from "./components/TreatmentsTab.vue";
@@ -113,6 +99,7 @@ import api from "./api";
 
 export default {
   components: {
+    UVariantsTabHeader,
     USummaryTab,
     UClinicalDataTab,
     UTreatmentsTab,
@@ -145,13 +132,6 @@ export default {
            : this.tab === "cnvs" ? "CNVs"
            : this.tab === "svs" ? "SVs"
            : this.tab;
-    },
-
-    variantTab() {
-      return this.tab === "ssms" ? "ssms"
-           : this.tab === "cnvs" ? "cnvs"
-           : this.tab === "svs" ? "svs"
-           : null;
     },
 
     showClinicalData() {

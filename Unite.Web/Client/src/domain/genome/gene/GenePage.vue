@@ -18,27 +18,12 @@
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="protein" label="Protein" icon="svguse:/icons.svg#u-lolliplot" />
               <q-tab name="donors" label="Donors" icon="las la-user-circle" />
-              <q-tab :name="variantTab" label="Variants" icon="svguse:/icons.svg#u-mutation-alt" :disable="!showVariants" @click.prevent="null">
-                <q-menu fit>
-                  <q-list dense>
-                    <q-item clickable @click="tab = 'ssms'" :active="tab == 'ssms'" :disable="!showMutations">
-                      <q-item-section>
-                        <span class="q-py-sm">Mutations (SSM)</span>
-                      </q-item-section>
-                    </q-item>
-                    <q-item clickable @click="tab = 'cnvs'" :active="tab == 'cnvs'" :disable="!showCopyNumberVariants">
-                      <q-item-section>
-                        <span class="q-py-sm">Copy Number Variants (CNV)</span>
-                      </q-item-section>
-                    </q-item>
-                    <q-item clickable @click="tab = 'svs'" :active="tab == 'svs'" :disable="!showStructuralVariants">
-                      <q-item-section>
-                        <span class="q-py-sm">Structural Variants (SV)</span>
-                      </q-item-section>
-                    </q-item>
-                  </q-list>
-                </q-menu>
-              </q-tab>
+              <u-variants-tab-header 
+                v-model="tab"
+                :disable="!showVariants"
+                :disableSsms="!showMutations"
+                :disableCnvs="!showCopyNumberVariants"
+                :disableSvs="!showStructuralVariants" />
             </q-tabs>
             <q-separator />
           </div>
@@ -83,6 +68,7 @@
 </template>
 
 <script>
+import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UProteinTab from "./components/ProteinTab.vue";
 import UDonorsTab from "./components/DonorsTab.vue";
@@ -95,6 +81,7 @@ import api from "./api";
 
 export default {
   components:{
+    UVariantsTabHeader,
     USummaryTab,
     UProteinTab,
     UDonorsTab,
@@ -127,13 +114,6 @@ export default {
       return !!this.gene?.numberOfMutations
           || !!this.gene?.numberOfCopyNumberVariants
           || !!this.gene?.numberOfStructuralVariants;
-    },
-
-    variantTab() {
-      return this.tab === "ssms" ? "ssms"
-           : this.tab === "cnvs" ? "cnvs"
-           : this.tab === "svs" ? "svs"
-           : null;
     },
 
     showMutations() {

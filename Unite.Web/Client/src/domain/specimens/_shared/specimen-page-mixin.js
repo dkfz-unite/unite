@@ -57,13 +57,6 @@ const mixin = {
            : this.tab === "cnvs" ? "CNVs"
            : this.tab === "svs" ? "SVs"
            : this.tab;
-    },
-
-    variantTab() {
-      return this.tab === "ssms" ? "ssms"
-           : this.tab === "cnvs" ? "cnvs"
-           : this.tab === "svs" ? "svs"
-           : null;
     }
   },
 

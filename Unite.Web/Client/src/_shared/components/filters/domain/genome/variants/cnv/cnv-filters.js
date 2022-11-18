@@ -10,7 +10,7 @@ const filters = [
   variantFilters[0],
   {
     field: "cnaType",
-    label: "CNA Type",
+    label: "Type",
     type: FilterType.Options,
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.cnaTypeOptions, CnaType.values)

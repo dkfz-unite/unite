@@ -64,25 +64,25 @@
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('gene')" name="gene" icon="svguse:/icons.svg#u-gene-alt">
+          <q-tab v-if="showFilters('gene')" name="gene" icon="svguse:/icons.svg#u-gene">
             <q-badge v-if="filtersCriteria.geneFiltersCriteria.numberOfFilters" :color="getBadgeColor('gene')" rounded>
               {{filtersCriteria.geneFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('mutation')" name="mutation" icon="svguse:/icons.svg#u-mutation-alt">
+          <q-tab v-if="showFilters('mutation')" name="mutation" icon="svguse:/icons.svg#u-ssm">
             <q-badge v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters" :color="getBadgeColor('mutation')" rounded>
               {{filtersCriteria.mutationFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-mutation-alt">
+          <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-cnv">
             <q-badge v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
               {{filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-mutation-alt">
+          <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-sv">
             <q-badge v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
               {{filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters}}
             </q-badge>
