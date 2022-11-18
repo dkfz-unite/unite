@@ -11,7 +11,7 @@ export default class DonorFiltersCriteria {
     therapy = [];
 
     mtaProtected = null;
-    workPackage = [];
+    project = [];
 
     get numberOfFilters() {
         let number = 0;
@@ -25,7 +25,7 @@ export default class DonorFiltersCriteria {
         number += this.vitalStatus != null ? 1 : 0;
         number += this.therapy?.length || 0;
         number += this.mtaProtected != null ? 1 : 0;
-        number += this.workPackage?.length || 0;
+        number += this.project?.length || 0;
 
         return number;
     }
@@ -39,7 +39,7 @@ export default class DonorFiltersCriteria {
         this.vitalStatus = criteria?.vitalStatus || null;
         this.therapy = criteria?.therapy || [];
         this.mtaProtected = criteria?.mtaProtected || null;
-        this.workPackage = criteria?.workPackage || [];
+        this.project = criteria?.project || [];
     }
 
     sanitise() {
@@ -50,7 +50,7 @@ export default class DonorFiltersCriteria {
         this.diagnosis = sanitiseArray(this.diagnosis);
         this.therapy = sanitiseArray(this.therapy);
         
-        this.workPackage = sanitiseArray(this.workPackage);
+        this.project = sanitiseArray(this.project);
     }
 
     clear() {
@@ -64,7 +64,7 @@ export default class DonorFiltersCriteria {
         this.therapy = [];
 
         this.mtaProtected = null;
-        this.workPackage = [];
+        this.project = [];
     }
 
     clone() {

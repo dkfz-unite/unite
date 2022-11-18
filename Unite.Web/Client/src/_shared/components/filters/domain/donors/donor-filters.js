@@ -73,7 +73,7 @@ const filters = [
     // }
   },
   {
-    field: "projects",
+    field: "project",
     label: "Projects",
     placeholder: "e.g. N2M2",
     type: FilterType.Values,
