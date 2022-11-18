@@ -68,18 +68,18 @@ const filters = [
     label: "MTA Protected",
     type: FilterType.Boolean,
     default: null,
-    watch: (value, criteria, context) => {
-      criteria.workPackage = [];
-    }
+    // watch: (value, criteria, context) => {
+    //   criteria.workPackage = [];
+    // }
   },
   {
-    field: "workPackage",
-    label: "Work Package",
+    field: "projects",
+    label: "Projects",
     placeholder: "e.g. N2M2",
     type: FilterType.Values,
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value),
-    show: (value, criteria, context) => criteria.mtaProtected == true
+    // show: (value, criteria, context) => criteria.mtaProtected == true
   }
 ];
 
