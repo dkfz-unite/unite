@@ -74,8 +74,8 @@ const filters = [
   },
   {
     field: "project",
-    label: "Projects",
-    placeholder: "e.g. N2M2",
+    label: "Project",
+    placeholder: "e.g. PBCA-DE",
     type: FilterType.Values,
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value),

@@ -121,12 +121,12 @@ export default {
           sortable: false,
           align: "left"
         },
-        {
-          name: "numberOfSpecimens",
-          label: "#Specimens",
-          field: (row) => row.numberOfSpecimens,
-          sortable: false
-        },
+        // {
+        //   name: "numberOfSpecimens",
+        //   label: "#Specimens",
+        //   field: (row) => row.numberOfSpecimens,
+        //   sortable: false
+        // },
         {
           name: "numberOfGenes",
           label: "#Genes",

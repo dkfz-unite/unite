@@ -32,11 +32,11 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-packages="props">
+      <template v-slot:body-cell-projects="props">
         <q-td :props="props">
           <div v-if="props.value && props.value.length">
-            <div v-for="(workPackage, i) in props.value" :key="i">
-              {{ workPackage.name }}
+            <div v-for="(project, i) in props.value" :key="i">
+              {{ project.name }}
             </div>
           </div>
         </q-td>
@@ -106,9 +106,9 @@ export default {
           align: "left"
         },
         {
-          name: "packages",
-          label: "Work Packages",
-          field: (row) => row.workPackages,
+          name: "projects",
+          label: "Projects",
+          field: (row) => row.projects,
           sortable: false,
           align: "left"
         },

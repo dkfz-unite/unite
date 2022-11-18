@@ -16,6 +16,9 @@
                 @update:modelValue="filterData"
               />
             </div>
+            <div class="row" v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters">
+              <u-filters-button-clear @click="filtersCriteria.mutationFiltersCriteria.clear(); filterData();" />
+            </div>
           </div>
 
           <div class="col-12 col-sm-9 col-md-10">

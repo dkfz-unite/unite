@@ -11,11 +11,15 @@
         <div class="row q-col-gutter-sm">
           <div class="col-12 col-sm-3 col-md-2">
             <div class="row">
-              <u-filters 
-                v-model="filtersCriteria"
-                :context="filtersContext" 
+              <u-filters
+                v-model="filtersCriteria.donorFiltersCriteria"
+                :context="filtersContext.donorFiltersContext"
+                :filters="filters"
                 @update:modelValue="filterData"
               />
+            </div>
+            <div class="row" v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters">
+              <u-filters-button-clear @click="filtersCriteria.donorFiltersCriteria.clear(); filterData();" />
             </div>
           </div>
 
@@ -37,15 +41,18 @@
 </template>
 
 <script>
-import UFilters from "./donors/Filters.vue";
+import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
+import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "./donors/DonorsTable.vue";
 import tablePageMixin from "../../../_shared/table-page-mixin";
+import filters from "@/_shared/components/filters/domain/donors/donor-filters";
 
 import api from "../api";
 
 export default {
   components: {
     UFilters,
+    UFiltersButtonClear,
     UDataTable
   },
 
@@ -53,6 +60,12 @@ export default {
 
   props: {
     gene: Object
+  },
+
+  setup() {
+    return {
+      filters: filters
+    }
   },
 
   computed: {
