@@ -6,7 +6,7 @@ EXPOSE 443
 FROM node:lts-alpine as restore-client
 WORKDIR /app
 COPY ["Unite.Web/Client/package*.json", "./"]
-RUN npm install --loglevel verbose
+RUN npm install
 
 FROM restore-client as build-client
 COPY ["Unite.Web/Client/", "./"]
