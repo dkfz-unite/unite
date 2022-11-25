@@ -3,7 +3,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM node:lts-alpine as restore-client
+#FROM node:lts-alpine as restore-client
+FROM node as restore-client
 WORKDIR /app
 COPY ["Unite.Web/Client/package*.json", "./"]
 RUN npm install
