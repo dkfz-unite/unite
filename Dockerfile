@@ -3,11 +3,10 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-#FROM node:lts-alpine as restore-client
-FROM node:lts-alpine3.15 as restore-client
+FROM node:lts-alpine as restore-client
 WORKDIR /app
 COPY ["Unite.Web/Client/package*.json", "./"]
-RUN npm install
+RUN npm install --maxsockets 10
 
 FROM restore-client as build-client
 COPY ["Unite.Web/Client/", "./"]
