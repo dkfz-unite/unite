@@ -33,6 +33,10 @@
               <td class="u-text-key">Alternate Base</td>
               <td>{{ variant.mutation.alt }}</td>
             </tr>
+            <tr v-if="(variant.mutation.length > 1)">
+              <td class="u-text-key">Length</td>
+              <td>{{ variant.mutation.length }}</td>
+            </tr>
             <tr>
               <td class="u-text-key">Type</td>
               <td>{{ variant.mutation.type }}</td>

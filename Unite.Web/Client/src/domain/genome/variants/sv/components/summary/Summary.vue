@@ -45,6 +45,10 @@
               <td class="u-text-key">2nd Breakpoint - Flanking Sequences</td>
               <td>{{ variant.structuralVariant.flankingSequenceTo }}</td>
             </tr>
+            <tr v-if="!!variant.structuralVariant.length">
+              <td class="u-text-key">Length</td>
+              <td>{{ variant.structuralVariant.length }}</td>
+            </tr>
             <tr>
               <td class="u-text-key">Type</td>
               <td>{{ variant.structuralVariant.type }}</td>
