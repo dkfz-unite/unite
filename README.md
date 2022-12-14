@@ -10,8 +10,8 @@ Wep portal giving access to data providing the follwoing functionality:
 - Data analysis
 
 Web portal includes several components:
-- Web server - ASP.NET (.NET 5) web server hosting static files of the frontend SPA.
-- Reverse proxy - ASP.NET (.NET 5) reverse proxy service redirecting frontend calls to composer web api.
+- Web server - ASP.NET (.NET 6) web server hosting static files of the frontend SPA.
+- Reverse proxy - ASP.NET (.NET 6) reverse proxy service redirecting frontend calls to composer web api.
 - Frontend SPA - Vue.js (v3) single page web application.
 
 ## Dependencies
@@ -37,7 +37,7 @@ Self signed development certificate can be used:
 - Sign certificate and name it's key `unite-key.pem`
 
 ### Docker Compose
-The easies way to install the application is to use docker-compose:
+The easiest way to install the application is to use docker-compose:
 - Environment configuration and installation scripts: https://github.com/dkfz-unite/unite-environment
 - Web portal configuration and installation scripts: https://github.com/dkfz-unite/unite-environment/tree/main/applications/unite 
 
