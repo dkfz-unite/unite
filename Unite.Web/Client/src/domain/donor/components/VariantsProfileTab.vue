@@ -46,11 +46,11 @@ export default {
     let loss = Math.round(base * 0.5);
 
     let yCna = ranges.map(range => {
-      // return range.tcn > 2.5 ? gain
-      //      : range.tcn < 1.5 ? loss
-      //      : base;
+      return range.tcn > 2.5 ? gain
+           : range.tcn < 1.5 ? loss
+           : base;
 
-      return range.tcn;
+      // return range.tcn;
     });
 
     let getTrace = function(x, y, name, color) {
@@ -90,8 +90,8 @@ export default {
       yaxis: {
         title: "#Mutations",
         tickwidth: 2,
-        type: 'log',
-    autorange: true
+        // type: 'log',
+        // autorange: true
       },
     };
 
