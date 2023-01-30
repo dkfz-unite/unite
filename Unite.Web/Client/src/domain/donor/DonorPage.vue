@@ -20,6 +20,7 @@
               <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
+              <q-tab name="profile" label="Profile" v-show="false"/>
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
                 v-model="tab"
@@ -70,6 +71,10 @@
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
                 <u-svs-tab :donor="donor" />
               </q-tab-panel>
+
+              <q-tab-panel name="profile" class="q-py-sm q-px-none">
+                <u-profile-tab :donor="donor" />
+              </q-tab-panel>
             </q-tab-panels>
           </div>
         </div>
@@ -93,6 +98,7 @@ import UGenesTab from "./components/GenesTab.vue";
 import USsmsTab from "./components/SSMsTab.vue";
 import UCnvsTab from "./components/CNVsTab.vue";
 import USvsTab from "./components/SVsTab.vue";
+import UProfileTab from "./components/VariantsProfileTab.vue";
 import tabPageMixin from "../_shared/tab-page-mixin";
 
 import api from "./api";
@@ -108,7 +114,8 @@ export default {
     UGenesTab,
     USsmsTab,
     UCnvsTab,
-    USvsTab
+    USvsTab,
+    UProfileTab
   },
 
   mixins: [tabPageMixin],
