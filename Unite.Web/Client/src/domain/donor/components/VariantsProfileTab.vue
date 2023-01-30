@@ -40,8 +40,7 @@ export default {
     let y4 = ranges.map(range => range.ssm?.u);
 
     let values = ranges.map(range => Math.max(range.ssm?.h || 0, range.ssm?.m || 0, range.ssm?.l || 0, range.ssm?.u || 0));
-    values.sort((a,b) => b- a);
-    let base = Math.round(values[Math.round(values.length / 2)] * 1.5);
+    let base = Math.round(Math.max(...values) / 2);
     let gain = Math.round(base * 1.5);
     let loss = Math.round(base * 0.5);
 
