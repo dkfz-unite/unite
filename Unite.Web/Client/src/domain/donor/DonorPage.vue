@@ -20,14 +20,14 @@
               <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
-              <q-tab name="profile" label="Profile" v-show="false"/>
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
                 v-model="tab"
                 :disable="!showVariants"
                 :disableSsms="!showMutations"
                 :disableCnvs="!showCopyNumberVariants"
-                :disableSvs="!showStructuralVariants" />
+                :disableSvs="!showStructuralVariants"
+                :showProfile="showMutations || showCopyNumberVariants" />
             </q-tabs>
             <q-separator />
           </div>

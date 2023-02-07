@@ -29,10 +29,16 @@ async function searchVariants(id, type, criteria){
   return await client.post(url, criteria);
 }
 
+async function getVariantsProfile(id, criteria){
+  let url = `${donorUrl}/${id}/variants-profile`;
+  return await client.post(url, criteria);
+}
+
 export default {
   get,
   searchImages,
   searchSpecimens,
   searchGenes,
-  searchVariants
+  searchVariants,
+  getVariantsProfile
 }
