@@ -30,7 +30,7 @@
           <q-item-section>
             <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
               <q-icon name="las la-chart-bar" size="sm" />
-              <span>Variants Profile</span>
+              <span>Genomic Profile</span>
             </div>
           </q-item-section>
         </q-item>
