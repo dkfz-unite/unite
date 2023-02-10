@@ -53,11 +53,11 @@ export default {
   setup(props) {
     return {
       colors: {
-        red: colors.getPaletteColor("red"),
-        orange: colors.getPaletteColor("orange"),
-        green: colors.getPaletteColor("green"),
+        red: colors.getPaletteColor("red-5"),
+        orange: colors.getPaletteColor("orange-5"),
+        green: colors.getPaletteColor("green-5"),
         grey: colors.getPaletteColor("grey-4"),
-        blue: colors.getPaletteColor("blue")
+        blue: colors.getPaletteColor("blue-5")
       }
     };
   },
