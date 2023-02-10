@@ -93,7 +93,7 @@ export default {
 
   async mounted() {
     let config = {
-      displayModeBar: false,
+      // displayModeBar: true,
       displaylogo: false,
       responsive: true,
     };
