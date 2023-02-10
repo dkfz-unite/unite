@@ -73,7 +73,7 @@
               </q-tab-panel>
 
               <q-tab-panel name="profile" class="q-py-sm q-px-none">
-                <u-profile-tab :donor="donor" />
+                <u-profile-tab1 :donor="donor" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -99,6 +99,7 @@ import USsmsTab from "./components/SSMsTab.vue";
 import UCnvsTab from "./components/CNVsTab.vue";
 import USvsTab from "./components/SVsTab.vue";
 import UProfileTab from "./components/VariantsProfileTab.vue";
+import UProfileTab1 from "./components/VariantsProfileTab1.vue";
 import tabPageMixin from "../_shared/tab-page-mixin";
 
 import api from "./api";
@@ -115,7 +116,8 @@ export default {
     USsmsTab,
     UCnvsTab,
     USvsTab,
-    UProfileTab
+    UProfileTab,
+    UProfileTab1
   },
 
   mixins: [tabPageMixin],
