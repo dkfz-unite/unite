@@ -5,7 +5,7 @@
     </div>
     <div class="row q-gutter-x-md">
       <div>
-        <div>Location: {{ min?.chr }}.{{ min?.start }} - {{ max?.chr }}.{{ max?.end }}</div>
+        <div>Location: {{ getChromosomeLabel(min?.chr) }}.{{ min?.start }} - {{ getChromosomeLabel(max?.chr) }}.{{ max?.end }}</div>
       </div>
       <div class="row">
         <div class="q-mr-sm">#Mutations:</div>
@@ -145,7 +145,7 @@ export default {
     },
 
     getTickLabel(range) {
-      let chr = range.chr == 23 ? "X" : range.chr == 24 ? "Y" : `${range.chr}`;
+      let chr = this.getChromosomeLabel(range.chr);
       let start = range.start;
       let millions = Math.floor(start / 1000000);
 
@@ -268,6 +268,11 @@ export default {
       };
 
       return scales;
+    },
+
+    getChromosomeLabel(chr) {
+      if (!chr) return null;
+      else return chr == 23 ? "X" : chr == 24 ? "Y" : `${chr}`;
     }
   }
 }
