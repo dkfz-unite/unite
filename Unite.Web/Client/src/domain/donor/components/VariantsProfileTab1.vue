@@ -3,34 +3,42 @@
     <div class="row">
       <span class="text-h5 u-text-title">Genomic Profile</span>
     </div>
+
     <div class="row q-gutter-x-md">
-      <div>
-        <div>Location: {{ getChromosomeLabel(min?.chr) }}.{{ min?.start }} - {{ getChromosomeLabel(max?.chr) }}.{{ max?.end }}</div>
+      <div v-if="profile" class="row self-center">
+        <div>Location:</div>
+        <div class="q-ml-xs">
+          {{ getChromosomeLabel(min?.chr) }}:{{ min?.start }} - {{ getChromosomeLabel(max?.chr) }}:{{ max?.end }}
+        </div>
       </div>
-      <div class="row">
-        <div class="q-mr-sm">#Mutations:</div>
-        <div :style="{ height: '20px', width: `${ssms?.h.number > 0 ? (ssms?.h.percent || 1) * 3 : 0}px`, backgroundColor: colors.red }">
-          <q-tooltip style="font-size: 12px;">
-            High impact: {{ ssms?.h.number }} ({{ ssms?.h.percent }}%)
-          </q-tooltip>
-        </div>
-        <div :style="{ height: '20px', width: `${ssms?.m.number > 0 ? (ssms?.m.percent || 1) * 3 : 0}px`, backgroundColor: colors.orange }">
-          <q-tooltip style="font-size: 12px;">
-            Moderate impact: {{ ssms?.m.number }} ({{ ssms?.m.percent }}%)
-          </q-tooltip>
-        </div>
-        <div :style="{ height: '20px', width: `${ssms?.l.number > 0 ? (ssms?.l.percent || 1) * 3 : 0}px`, backgroundColor: colors.green }">
-          <q-tooltip style="font-size: 12px;">
-            Low impact: {{ ssms?.l.number }} ({{ ssms?.l.percent }}%)
-          </q-tooltip>
-        </div>
-        <div :style="{ height: '20px', width: `${ssms?.u.number > 0 ? (ssms?.u.percent || 1) * 3 : 0}px`, backgroundColor: colors.grey }">
-          <q-tooltip style="font-size: 12px;">
-            Unknown impact: {{ ssms?.u.number }} ({{ ssms?.u.percent }}%)
-          </q-tooltip>
+
+      <div v-if="ssms" class="row self-center">
+        <div> #Mutations: </div>
+        <div class="row self-center q-ml-xs">
+          <div :style="{ height: '20px', width: `${ssms?.h.number > 0 ? (ssms?.h.percent || 1) * 3 : 0}px`, backgroundColor: colors.red }">
+            <q-tooltip style="font-size: 12px;">
+              High impact: {{ ssms?.h.number }} ({{ ssms?.h.percent }}%)
+            </q-tooltip>
+          </div>
+          <div :style="{ height: '20px', width: `${ssms?.m.number > 0 ? (ssms?.m.percent || 1) * 3 : 0}px`, backgroundColor: colors.orange }">
+            <q-tooltip style="font-size: 12px;">
+              Moderate impact: {{ ssms?.m.number }} ({{ ssms?.m.percent }}%)
+            </q-tooltip>
+          </div>
+          <div :style="{ height: '20px', width: `${ssms?.l.number > 0 ? (ssms?.l.percent || 1) * 3 : 0}px`, backgroundColor: colors.green }">
+            <q-tooltip style="font-size: 12px;">
+              Low impact: {{ ssms?.l.number }} ({{ ssms?.l.percent }}%)
+            </q-tooltip>
+          </div>
+          <div :style="{ height: '20px', width: `${ssms?.u.number > 0 ? (ssms?.u.percent || 1) * 3 : 0}px`, backgroundColor: colors.grey }">
+            <q-tooltip style="font-size: 12px;">
+              Unknown impact: {{ ssms?.u.number }} ({{ ssms?.u.percent }}%)
+            </q-tooltip>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col">
         <q-card class="q-mx-xs q-pa-xs">
@@ -67,7 +75,8 @@ export default {
       profile: null,
       plot: null,
       min: null,
-      max: null      
+      max: null,
+      density: 512 
     }
   },
 
@@ -75,6 +84,8 @@ export default {
     data() { return this.getValues(); },
     layout() { return this.getScales(); },
     ssms() {
+      if (!this.profile?.hasSsm) return null;
+
       let hNumber = this.profile?.ranges.map(range => range.ssm?.h || 0).reduce((a, b) => a + b);
       let mNumber = this.profile?.ranges.map(range => range.ssm?.m || 0).reduce((a, b) => a + b);
       let lNumber = this.profile?.ranges.map(range => range.ssm?.l || 0).reduce((a, b) => a + b);
@@ -91,9 +102,16 @@ export default {
     }
   },
 
+  watch: {
+    async density(value) {
+      await this.fetchData(this.min.chr, this.min.start, this.max.chr, this.max.end, value);
+      await Plotly.react("profile", this.data, this.layout);
+    }
+  },
+
   async mounted() {
     let config = {
-      // displayModeBar: true,
+      displayModeBar: true,
       displaylogo: false,
       responsive: true,
     };
@@ -111,17 +129,16 @@ export default {
         let length = this.profile.ranges.length;
         let start = min <= 0 ? this.min : this.profile.ranges[min];
         let end = max >= length ? this.max : this.profile.ranges[max];
-        await this.fetchData(start.chr, start.start, end.chr, end.end);
+        await this.fetchData(start.chr, start.start, end.chr, end.end, this.density);
         await Plotly.react("profile", this.data, this.layout);
       } else if (payload["xaxis.autorange"]) {
-        await this.fetchData();
+        await this.fetchData(0, 0, 0, 0, this.density);
         await Plotly.react("profile", this.data, this.layout);
       }
     },
 
-    async fetchData(startChr = 0, start = 0, endChr = 0, end = 0) {
+    async fetchData(startChr = 0, start = 0, endChr = 0, end = 0, density = 512) {
       try {
-        let density = 512;
         this.profile = await api.getVariantsProfile(this.donor.id, { startChr, start, endChr, end, density});
         this.min = this.profile?.ranges?.slice(0, 1)[0];
         this.max = this.profile?.ranges?.slice(-1)[0];
@@ -149,7 +166,7 @@ export default {
       let start = range.start;
       let millions = Math.floor(start / 1000000);
 
-      return start == 1 ? chr : `${chr}.${millions}M`;
+      return start == 1 ? chr : `${chr}:${millions}M`;
     },
 
     getValues() {
@@ -162,7 +179,7 @@ export default {
           name: "High",
           type: "bar",
           x: this.profile.ranges.map(range => range.code),
-          y: this.profile.ranges.map(range => range.ssm?.h),
+          y: this.profile.ranges.map(range => range.ssm?.h || 0),
           marker: { color: this.colors.red },
           xaxis: "x1",
           yaxis: "y1"
@@ -172,7 +189,7 @@ export default {
           name: "Moderate",
           type: "bar",
           x: this.profile.ranges.map(range => range.code),
-          y: this.profile.ranges.map(range => range.ssm?.m),
+          y: this.profile.ranges.map(range => range.ssm?.m || 0),
           marker: { color: this.colors.orange },
           xaxis: "x1",
           yaxis: "y1"
@@ -182,7 +199,7 @@ export default {
           name: "Low",
           type: "bar",
           x: this.profile.ranges.map(range => range.code),
-          y: this.profile.ranges.map(range => range.ssm?.l),
+          y: this.profile.ranges.map(range => range.ssm?.l || 0),
           marker: { color: this.colors.green },
           xaxis: "x1",
           yaxis: "y1"
@@ -192,7 +209,7 @@ export default {
           name: "Unknown",
           type: "bar",
           x: this.profile.ranges.map(range => range.code),
-          y: this.profile.ranges.map(range => range.ssm?.u),
+          y: this.profile.ranges.map(range => range.ssm?.u || 0),
           marker: { color: this.colors.grey },
           xaxis: "x1",
           yaxis: "y1"
@@ -234,14 +251,15 @@ export default {
           remove: ["pan", "select", "lasso", "zoomin", "zoomout", "resetscale"],
         },
         legend: { orientation: "h", y: 1.05, x: 0.35 },
-        margin:  { l: 60, t: 40, r: 60, b: 40 },
-        barmode: "stack",
+        margin:  { l: 60, t: 40, r: 60, b: 50 },
+        barmode: "relative",
         xaxis1: {
           anchor: "x1",
           tickvals: this.profile?.ranges?.map((range, index) => this.getTickValue(range, index)),
           ticktext: this.profile?.ranges?.map(range => this.getTickLabel(range)),
           ticklen: 5,
           tickwidth: 2,
+          // tickangle: 0
         },
         yaxis1: {
           title: "#Mutations",
