@@ -40,7 +40,7 @@
                 </router-link>
               </td>
               <td>
-                <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=' + affectedFeature.transcript.feature.ensemblId" target="blank">
+                <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=' + affectedFeature.transcript.feature.stableId" target="blank">
                   <div class="row">
                     <q-icon name="las la-external-link-alt" size="xs"/> 
                     {{affectedFeature.transcript.feature.symbol}}

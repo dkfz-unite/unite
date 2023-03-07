@@ -54,7 +54,7 @@
 
         <template v-slot:body-cell-type="props">
           <q-td :props="props">
-            <span v-if="!!props.value.cnaType">{{props.value.cnaType}}</span><span v-else class="text-grey">N/A</span>
+            <span v-if="!!props.value.type">{{props.value.type}}</span><span v-else class="text-grey">N/A</span>
             <span v-if="!!props.value.loh"> LOH</span>
             <span v-if="!!props.value.homoDel"> HomoDel</span>
           </q-td>

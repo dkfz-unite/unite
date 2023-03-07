@@ -32,7 +32,7 @@
             <tr>
               <td class="u-text-key">Type</td>
               <td>
-                <span v-if="!!variant.copyNumberVariant.cnaType">{{ variant.copyNumberVariant.cnaType }}</span>
+                <span v-if="!!variant.copyNumberVariant.type">{{ variant.copyNumberVariant.type }}</span>
                 <span v-if="!!variant.copyNumberVariant.loh"> LOH</span>
                 <span v-if="!!variant.copyNumberVariant.homoDel"> HomoDel</span>
               </td>

@@ -1,7 +1,7 @@
 import FilterType from "../../../../filter-type";
 import ValueType from "../../../../filter-value-type";
 
-import CnaType from "@/_models/domain/genome/variants/cnv/enums/cna-type";
+import CnvType from "@/_models/domain/genome/variants/cnv/enums/cnv-type";
 
 import { mapOptions } from "../../../../filter-options-helpers";
 import variantFilters from "../variant-filters";
@@ -9,11 +9,11 @@ import variantFilters from "../variant-filters";
 const filters = [
   variantFilters[0],
   {
-    field: "cnaType",
+    field: "type",
     label: "Type",
     type: FilterType.Options,
     valueType: ValueType.String,
-    options: (context) => mapOptions(context?.cnaTypeOptions, CnaType.values)
+    options: (context) => mapOptions(context?.typeOptions, CnvType.values)
   },
   {
     field: "loh",

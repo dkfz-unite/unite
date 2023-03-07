@@ -171,9 +171,9 @@
   
       getFeatureId(feature) {
         var ensemblUrl = "http://feb2014.archive.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=";
-        return !!feature.transcript ? ensemblUrl + feature.transcript.feature.ensemblId :
-               !!feature.regulator ? ensemblUrl + feature.regulator.feature.ensemblId :
-               !!feature.motif ? ensemblUrl + feature.motif.feature.ensemblId :
+        return !!feature.transcript ? ensemblUrl + feature.transcript.feature.stableId :
+               !!feature.regulator ? ensemblUrl + feature.regulator.feature.stableId :
+               !!feature.motif ? ensemblUrl + feature.motif.feature.stableId :
                null;
       },
   

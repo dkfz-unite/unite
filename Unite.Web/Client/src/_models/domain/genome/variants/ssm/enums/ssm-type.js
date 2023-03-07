@@ -1,4 +1,4 @@
-export default class MutationType {
+export default class SsmType {
     static values = {
         "SNV": "SNV",
         "INS": "INS",

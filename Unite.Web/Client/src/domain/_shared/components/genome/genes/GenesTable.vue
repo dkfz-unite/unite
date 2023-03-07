@@ -21,19 +21,48 @@
             </router-link>
           </q-td>
         </template>
+
+        <template v-slot:header-cell-expression="props">
+          <q-th :props="props">
+              Expression ( <span>Raw</span> / <span class="text-teal">TPM</span> / <span class="text-purple">FPKM</span> )
+          </q-th>
+        </template>
+
+        <template v-slot:body-cell-expression="props">
+          <q-td :props="props">
+            <u-expression :expression="props.value" />
+          </q-td>
+        </template>
+
+        <template v-slot:header-cell-expressions="props">
+          <q-th :props="props">
+              Expression ( <span>Raw</span> / <span class="text-teal">TPM</span> / <span class="text-purple">FPKM</span> )
+          </q-th>
+        </template>
+
+        <template v-slot:body-cell-expressions="props">
+          <q-td :props="props">
+            <u-specimen v-for="(specimen, i) in props.value" :specimen="specimen">
+              ( <u-expression :expression="specimen.expression" /> )
+            </u-specimen>
+          </q-td>
+        </template>
+
       </q-table>
     </div>
   </template>
   
   <script>
-  import USpecimens from "../Specimens.vue";
+  import USpecimen from "../Specimen.vue";
+  import UExpression from "../Expression.vue";
   import tableMixin from "@/domain/_shared/table-mixin";
   
   import Biotype from "@/_models/domain/genome/genes/enums/biotype";
   
   export default {
     components: {
-      USpecimens
+      USpecimen,
+      UExpression
     },
   
     mixins: [tableMixin],
@@ -89,6 +118,24 @@
         ]
       };
     },
+
+    mounted() {
+      if (["donor", "image"].includes(this.$route.name)){
+        this.columns.splice(3, 0, {
+          name: "expressions",
+          field: (row) => row.specimens,
+          sortable: false,
+          align: "left"
+        });
+      } else if (["tissue", "cell", "organoid", "xenograft"].includes(this.$route.name)){
+        this.columns.splice(3, 0, {
+          name: "expression",
+          field: (row) => row.expression,
+          sortable: false,
+          align: "left"
+        });
+      }
+    },
   
     methods: {
       getLocation(gene) {
@@ -97,6 +144,9 @@
         } else {
           return null;
         }
+      },
+
+      orderSpecimens(specimens) {
       }
     }
   }

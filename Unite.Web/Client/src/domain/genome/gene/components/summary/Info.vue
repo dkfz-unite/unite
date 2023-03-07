@@ -17,9 +17,9 @@
               </colgroup>
 
               <tbody>
-                <tr v-if="gene.ensemblId">
+                <tr v-if="gene.stableId">
                   <td>
-                    <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + gene.ensemblId" target="blank">
+                    <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + gene.stableId" target="blank">
                       <div class="row">
                         <q-icon name="las la-external-link-alt" size="xs" />
                         Ensembl
@@ -44,7 +44,7 @@ export default {
 
   computed: {
     hasLinks() {
-      return !!this.gene.ensemblId;
+      return !!this.gene.stableId;
     }
   }
 }

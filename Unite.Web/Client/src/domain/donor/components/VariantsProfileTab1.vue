@@ -65,7 +65,10 @@ export default {
         orange: colors.getPaletteColor("orange-5"),
         green: colors.getPaletteColor("green-5"),
         grey: colors.getPaletteColor("grey-4"),
-        blue: colors.getPaletteColor("blue-5")
+        blue: colors.getPaletteColor("blue-5"),
+        black: colors.getPaletteColor("black"),
+        teal: colors.getPaletteColor("teal-5"),
+        purple: colors.getPaletteColor("purple-5")
       }
     };
   },
@@ -240,6 +243,43 @@ export default {
         }
       }
 
+      if (this.profile.hasExp) {
+        datasets.push({
+          name: "Reads",
+          type: "scatter",
+          visible: "legendonly",
+          x: this.profile.ranges.map(range => range.code),
+          y: this.profile.ranges.map(range => range.exp?.reads),
+          line: { width: 1, color: this.colors.black },
+          opacity: 0.5,
+          xaxis: "x1",
+          yaxis: "y3"
+        });
+
+        datasets.push({
+          name: "TPM",
+          type: "scatter",
+          // visible: "legendonly",
+          x: this.profile.ranges.map(range => range.code),
+          y: this.profile.ranges.map(range => range.exp?.tpm),
+          line: { width: 1, color: this.colors.teal },
+          opacity: 0.5,
+          xaxis: "x1",
+          yaxis: "y3"
+        });
+
+        datasets.push({
+          name: "FPKM",
+          type: "scatter",
+          x: this.profile.ranges.map(range => range.code),
+          y: this.profile.ranges.map(range => range.exp?.fpkm),
+          line: { width: 1, color: this.colors.purple },
+          opacity: 0.5,
+          xaxis: "x1",
+          yaxis: "y3"
+        });
+      }
+
       return datasets;
     },
 
@@ -266,7 +306,8 @@ export default {
           anchor: "y1",
           domain: this.getSsmDomain(),
           fixedrange: true,
-          showline: true
+          showline: true,
+          side: "left"
         },
         yaxis2: {
           anchor: "y2",
@@ -278,6 +319,16 @@ export default {
           categoryarray: ["Loss", "Neutral", "Gain"],
           color: this.colors.blue,
         },
+        yaxis3: {
+          title: "Expression",
+          anchor: "y3",
+          domain: this.getSsmDomain(),
+          overlaying:"y",
+          fixedrange: true,
+          showline: true,
+          side: "right",
+        },
+        
         grid: {
           rows: 2,
           columns: 1,
