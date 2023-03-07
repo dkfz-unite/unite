@@ -259,7 +259,7 @@ export default {
         datasets.push({
           name: "TPM",
           type: "scatter",
-          // visible: "legendonly",
+          visible: "legendonly",
           x: this.profile.ranges.map(range => range.code),
           y: this.profile.ranges.map(range => range.exp?.tpm),
           line: { width: 1, color: this.colors.teal },
@@ -298,8 +298,7 @@ export default {
           tickvals: this.profile?.ranges?.map((range, index) => this.getTickValue(range, index)),
           ticktext: this.profile?.ranges?.map(range => this.getTickLabel(range)),
           ticklen: 5,
-          tickwidth: 2,
-          // tickangle: 0
+          tickwidth: 2
         },
         yaxis1: {
           title: "#Mutations",

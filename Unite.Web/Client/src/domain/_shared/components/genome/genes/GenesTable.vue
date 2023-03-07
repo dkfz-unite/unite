@@ -42,9 +42,11 @@
 
         <template v-slot:body-cell-expressions="props">
           <q-td :props="props">
-            <u-specimen v-for="(specimen, i) in props.value" :specimen="specimen">
-              ( <u-expression :expression="specimen.expression" /> )
-            </u-specimen>
+            <template v-if="props.value?.some(sample => sample.expression != null)">
+              <u-specimen v-for="(specimen, i) in props.value" :specimen="specimen">
+                <span v-if="specimen.expression">( <u-expression :expression="specimen.expression" /> )</span>
+              </u-specimen>
+            </template>
           </q-td>
         </template>
 
@@ -120,7 +122,7 @@
     },
 
     mounted() {
-      if (["donor", "image"].includes(this.$route.name)){
+      if (["donor", "mri", "ct"].includes(this.$route.name)){
         this.columns.splice(3, 0, {
           name: "expressions",
           field: (row) => row.specimens,
@@ -132,7 +134,7 @@
           name: "expression",
           field: (row) => row.expression,
           sortable: false,
-          align: "left"
+          align: "right"
         });
       }
     },
