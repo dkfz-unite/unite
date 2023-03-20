@@ -7,7 +7,16 @@
     <div class="row">
       <div class="col">
         <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2">
+          <div class="col-12 col-sm-3 col-md-2 q-gutter-sm">
+            <div class="row">
+              <div class="col">
+                <u-samples 
+                  v-model="sample"
+                  :options="samples"
+                  @update:modelValue="filterData"
+                />
+              </div>
+            </div>
             <div class="row">
               <u-filters
                 v-model="filtersCriteria.geneFiltersCriteria"
@@ -42,8 +51,10 @@
 <script>
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
+import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import filters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
 
 import api from "../api";
@@ -52,16 +63,17 @@ export default {
   components: {
     UFilters,
     UFiltersButtonClear,
+    USamples,
     UDataTable
   },
 
-  mixins: [tablePageMixin],
+  mixins: [tablePageMixin, samplePageMixin],
 
   props: {
     donor: Object
   },
 
-  setup() {
+  setup(props) {
     return {
       filters: filters
     }
@@ -79,7 +91,8 @@ export default {
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.searchGenes(this.donor.id, searchCriteria);
+      if (!this.sample) return;
+      return await api.searchGenes(this.donor.id, this.sample.id, searchCriteria);
     }
   }
 }

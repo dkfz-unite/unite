@@ -1,0 +1,63 @@
+<template>
+  <q-select
+    label="Specimen"
+    option-label="referenceId"
+    v-model="modelValue"
+    :options="options"
+    :disable="!options?.length"
+    @update:model-value="$emit('update:modelValue', modelValue)"
+    square dense>
+
+    <template v-slot:selected-item="scope">
+      <u-sample :sample="scope.opt" class="q-mt-sm q-mb-xs"/>
+    </template>
+    <template v-slot:option="scope">
+      <q-item v-bind="scope.itemProps" dense>
+        <u-sample :sample="scope.opt" :showAnalyses="true" />  
+      </q-item>
+    </template>
+
+  </q-select>
+</template>
+
+<script>
+import USample from "./Sample.vue";
+
+export default {
+  components: { USample },
+
+  props: {
+    modelValue: {
+      type: Object
+    },
+    options: {
+      type: [Array, Object, null],
+      required: true,
+      default: () => []
+    }
+  },
+
+  mounted() {
+    if (!this.modelValue) {
+      var option = this.options?.length ? this.options[0] : null;
+      this.$emit("update:modelValue", option);
+    }
+  },
+
+  watch: {
+    options(options) {
+      var option = options?.length ? options[0] : null;
+      this.$emit("update:modelValue", option);
+    }
+  },
+
+  methods: {
+    getIcon(specimenType) {
+      return specimenType == "Tissue" ? "svguse:/icons.svg#u-tissue"
+           : specimenType == "CellLine" ? "las la-microscope"
+           : specimenType == "Organoid" ? "svguse:/icons.svg#u-organoid"
+           : "svguse:/icons.svg#u-mouse";
+    }
+  }
+}
+</script>

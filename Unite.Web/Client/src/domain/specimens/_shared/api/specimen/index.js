@@ -30,10 +30,16 @@ async function uploadDrugs(data){
   return await client.post(url, data);
 }
 
+async function getProfile(id, sampleId, criteria){
+  let url = `${specimenUrl}/${id}/profile/${sampleId}`;
+  return await await client.post(url, criteria);
+}
+
 export default {
   get,
   searchGenes,
   searchVariants,
   searchDrugs,
-  uploadDrugs
+  uploadDrugs,
+  getProfile
 }

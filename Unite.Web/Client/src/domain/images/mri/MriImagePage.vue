@@ -16,6 +16,7 @@
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
+              <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
                 v-model="tab"
@@ -35,20 +36,24 @@
                 <u-summary-tab :image="image" />
               </q-tab-panel>
 
+              <q-tab-panel name="profile" class="q-py-sm q-px-none">
+                <u-profile-tab :image="image" :samples="samples" />
+              </q-tab-panel>
+
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :image="image" />
+                <u-genes-tab :image="image" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab :image="image" />
+                <u-ssms-tab :image="image" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab :image="image" />
+                <u-cnvs-tab :image="image" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab :image="image" />
+                <u-svs-tab :image="image" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -65,6 +70,7 @@
 <script>
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
+import UProfileTab from "../_shared/components/image/ProfileTab.vue";
 import UGenesTab from "../_shared/components/image/GenesTab.vue";
 import USsmsTab from "../_shared/components/image/SSMsTab.vue";
 import UCnvsTab from "../_shared/components/image/CNVsTab.vue";
@@ -78,6 +84,7 @@ export default {
   components: {
     UVariantsTabHeader,
     USummaryTab,
+    UProfileTab,
     UGenesTab,
     USsmsTab,
     UCnvsTab,
@@ -90,13 +97,15 @@ export default {
     return {
       loading: false,
       donor: null,
-      image: null
+      image: null,
+      samples: null
     };
   },
 
   computed: {
     tabName() {
       return this.tab === "summary" ? "Summary"
+           : this.tab === "profile" ? "Profile"
            : this.tab === "genes" ? "Genes"
            : this.tab === "ssms" ? "SSMs"
            : this.tab === "cnvs" ? "CNVs"
@@ -104,14 +113,16 @@ export default {
            : this.tab;
     },
 
+    showProfile() {
+      return this.showVariants || this.showGenes;
+    },
+
     showGenes() {
       return !!this.image?.numberOfGenes;
     },
 
     showVariants() {
-      return !!this.donor?.numberOfMutations
-          || !!this.donor?.numberOfCopyNumberVariants
-          || !!this.donor?.numberOfStructuralVariants;
+      return this.showMutations || this.showCopyNumberVariants || this.showStructuralVariants;
     },
 
     showMutations() {
@@ -132,6 +143,7 @@ export default {
       this.loading = true;
       this.image = await imageApi.get(this.$route.params.id);
       this.donor = await donorApi.get(this.image.donorId);
+      this.samples = await imageApi.getSamples(this.image.id);
     } catch (error) {
       this.image = null;
     } finally {

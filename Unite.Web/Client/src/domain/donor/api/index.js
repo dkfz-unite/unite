@@ -19,19 +19,24 @@ async function searchSpecimens(id, criteria){
   return await client.post(url, criteria);
 }
 
-async function searchGenes(id, criteria){
-  let url = `${donorUrl}/${id}/genes`;
+async function searchGenes(id, sampleId, criteria){
+  let url = `${donorUrl}/${id}/genes/${sampleId}`;
   return await client.post(url, criteria);
 }
 
-async function searchVariants(id, type, criteria){
-  let url = `${donorUrl}/${id}/variants/${type}`;
+async function searchVariants(id, sampleId, type, criteria){
+  let url = `${donorUrl}/${id}/variants/${sampleId}/${type}`;
   return await client.post(url, criteria);
 }
 
-async function getVariantsProfile(id, criteria){
-  let url = `${donorUrl}/${id}/variants-profile`;
-  return await client.post(url, criteria);
+async function getSamples(id) {
+  let url = `${donorUrl}/${id}/samples`;
+  return await client.get(url);
+}
+
+async function getProfile(id, sampleId, criteria){
+  let url = `${donorUrl}/${id}/profile/${sampleId}`;
+  return await await client.post(url, criteria);
 }
 
 export default {
@@ -40,5 +45,6 @@ export default {
   searchSpecimens,
   searchGenes,
   searchVariants,
-  getVariantsProfile
+  getSamples,
+  getProfile
 }

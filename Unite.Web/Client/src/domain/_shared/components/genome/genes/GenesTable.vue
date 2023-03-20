@@ -34,7 +34,7 @@
           </q-td>
         </template>
 
-        <template v-slot:header-cell-expressions="props">
+        <!-- <template v-slot:header-cell-expressions="props">
           <q-th :props="props">
               Expression ( <span>Raw</span> / <span class="text-teal">TPM</span> / <span class="text-purple">FPKM</span> )
           </q-th>
@@ -48,7 +48,7 @@
               </u-specimen>
             </template>
           </q-td>
-        </template>
+        </template> -->
 
       </q-table>
     </div>
@@ -122,14 +122,8 @@
     },
 
     mounted() {
-      if (["donor", "mri", "ct"].includes(this.$route.name)){
-        this.columns.splice(3, 0, {
-          name: "expressions",
-          field: (row) => row.specimens,
-          sortable: false,
-          align: "left"
-        });
-      } else if (["tissue", "cell", "organoid", "xenograft"].includes(this.$route.name)){
+      let routes = ["donor", "mri", "ct", "tissue", "cell", "organoid", "xenograft"];
+      if (routes.includes(this.$route.name)){
         this.columns.splice(3, 0, {
           name: "expression",
           field: (row) => row.expression,
@@ -137,6 +131,22 @@
           align: "right"
         });
       }
+
+      // if (["donor", "mri", "ct"].includes(this.$route.name)){
+      //   this.columns.splice(3, 0, {
+      //     name: "expressions",
+      //     field: (row) => row.specimens,
+      //     sortable: false,
+      //     align: "left"
+      //   });
+      // } else if (["tissue", "cell", "organoid", "xenograft"].includes(this.$route.name)){
+      //   this.columns.splice(3, 0, {
+      //     name: "expression",
+      //     field: (row) => row.expression,
+      //     sortable: false,
+      //     align: "right"
+      //   });
+      // }
     },
   
     methods: {

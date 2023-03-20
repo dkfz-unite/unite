@@ -20,6 +20,7 @@
               <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
+              <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
                 v-model="tab"
@@ -56,24 +57,24 @@
                 <u-mris-tab :donor="donor" />
               </q-tab-panel>
 
+              <q-tab-panel name="profile" class="q-py-sm q-px-none">
+                <u-profile-tab :donor="donor" :samples="samples" />
+              </q-tab-panel>
+
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :donor="donor" />
+                <u-genes-tab :donor="donor" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab :donor="donor" />
+                <u-ssms-tab :donor="donor" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab :donor="donor" />
+                <u-cnvs-tab :donor="donor" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab :donor="donor" />
-              </q-tab-panel>
-
-              <q-tab-panel name="profile" class="q-py-sm q-px-none">
-                <u-profile-tab1 :donor="donor" />
+                <u-svs-tab :donor="donor" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -94,12 +95,11 @@ import UClinicalDataTab from "./components/ClinicalDataTab.vue";
 import UTreatmentsTab from "./components/TreatmentsTab.vue";
 import USpecimensTab from "./components/SpecimensTab.vue";
 import UMrisTab from "./components/MriImagesTab.vue";
+import UProfileTab from "./components/ProfileTab.vue";
 import UGenesTab from "./components/GenesTab.vue";
 import USsmsTab from "./components/SSMsTab.vue";
 import UCnvsTab from "./components/CNVsTab.vue";
 import USvsTab from "./components/SVsTab.vue";
-import UProfileTab from "./components/VariantsProfileTab.vue";
-import UProfileTab1 from "./components/VariantsProfileTab1.vue";
 import tabPageMixin from "../_shared/tab-page-mixin";
 
 import api from "./api";
@@ -112,12 +112,11 @@ export default {
     UTreatmentsTab,
     USpecimensTab,
     UMrisTab,
+    UProfileTab,
     UGenesTab,
     USsmsTab,
     UCnvsTab,
-    USvsTab,
-    UProfileTab,
-    UProfileTab1
+    USvsTab
   },
 
   mixins: [tabPageMixin],
@@ -125,7 +124,8 @@ export default {
   data() {
     return {
       loading: false,
-      donor: null
+      donor: null,
+      samples: null,
     };
   },
 
@@ -136,6 +136,7 @@ export default {
            : this.tab === "treatments" ? "Treatments"
            : this.tab === "specimens" ? "Specimens"
            : this.tab === "mris" ? "MRI"
+           : this.tab === "profile" ? "Profile"
            : this.tab === "genes" ? "Genes"
            : this.tab === "ssms" ? "SSMs"
            : this.tab === "cnvs" ? "CNVs"
@@ -163,10 +164,12 @@ export default {
       return !!this.donor?.numberOfGenes;
     },
 
+    showProfile() {
+      return this.showVariants || this.showGenes;
+    },
+
     showVariants() {
-      return !!this.donor?.numberOfMutations
-          || !!this.donor?.numberOfCopyNumberVariants
-          || !!this.donor?.numberOfStructuralVariants;
+      return this.showMutations || this.showCopyNumberVariants || this.showStructuralVariants;
     },
 
     showMutations() {
@@ -191,8 +194,10 @@ export default {
       try {
         this.loading = true;
         this.donor = await api.get(this.$route.params.id);
+        this.samples = await api.getSamples(this.$route.params.id);
       } catch (error) {
         this.donor = null;
+        this.samples = null;
       } finally {
         this.loading = false;
       }

@@ -25,14 +25,16 @@ const mixin = {
       return !!this.specimen?.numberOfDrugs;
     },
 
+    showProfile() {
+      return this.showVariants || this.showGenes;
+    },
+
     showGenes() {
       return !!this.specimen?.numberOfGenes;
     },
 
     showVariants() {
-      return !!this.specimen?.numberOfMutations
-          || !!this.specimen?.numberOfCopyNumberVariants
-          || !!this.specimen?.numberOfStructuralVariants;
+      return !!this.showMutations || this.showCopyNumberVariants || this.showStructuralVariants;
     },
 
     showMutations() {
@@ -52,6 +54,7 @@ const mixin = {
            : this.tab === "ancestry" ? "Ancestry"
            : this.tab === "interventions" ? "Interventions"
            : this.tab === "drugs" ? "Drugs"
+           : this.tab === "profile" ? "Profile"
            : this.tab === "genes" ? "Genes"
            : this.tab === "ssms" ? "SSMs"
            : this.tab === "cnvs" ? "CNVs"

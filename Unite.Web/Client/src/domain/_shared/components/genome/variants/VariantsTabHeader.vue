@@ -26,14 +26,6 @@
             </div>
           </q-item-section>
         </q-item>
-        <q-item v-if="showProfile" clickable @click="$emit('update:modelValue', 'profile')" :active="modelValue == 'profile'">
-          <q-item-section>
-            <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-              <q-icon name="las la-chart-bar" size="sm" />
-              <span>Genomic Profile</span>
-            </div>
-          </q-item-section>
-        </q-item>
       </q-list>
     </q-menu>
   </q-tab>
@@ -61,10 +53,6 @@ export default {
     disableSvs: {
       type: Boolean,
       default: false
-    },
-    showProfile: {
-      type: Boolean,
-      default: false
     }
   },
 
@@ -73,14 +61,12 @@ export default {
       return this.modelValue === "ssms" ? "ssms"
            : this.modelValue === "cnvs" ? "cnvs"
            : this.modelValue === "svs" ? "svs"
-           : this.modelValue === "profile" ? "profile"
            : null;
     },
     icon() {
       return this.modelValue === "ssms" ? "svguse:/icons.svg#u-ssm"
            : this.modelValue === "cnvs" ? "svguse:/icons.svg#u-cnv"
            : this.modelValue === "svs" ? "svguse:/icons.svg#u-sv"
-           : this.modelValue === "profile" ? "las la-chart-bar"
            : "svguse:/icons.svg#u-ssm";
     }
   }

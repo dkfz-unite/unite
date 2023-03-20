@@ -17,6 +17,7 @@
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="ancestry" label="Ancestry" icon="las la-sitemap" />
+              <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
                 v-model="tab"
@@ -38,6 +39,10 @@
 
               <q-tab-panel name="ancestry" class="q-py-sm q-px-none">
                 <u-ancestry-tab :specimen="specimen" />
+              </q-tab-panel>
+
+              <q-tab-panel name="profile" class="q-py-sm q-px-none">
+                <u-profile-tab :specimen="specimen" />
               </q-tab-panel>
 
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
@@ -71,6 +76,7 @@
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
+import UProfileTab from "../_shared/components/specimen/ProfileTab.vue";
 import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
 import USsmsTab from "../_shared/components/specimen/SSMsTab.vue";
 import UCnvsTab from "../_shared/components/specimen/CNVsTab.vue";
@@ -84,6 +90,7 @@ export default {
     UVariantsTabHeader,
     USummaryTab,
     UAncestryTab,
+    UProfileTab,
     UGenesTab,
     USsmsTab,
     UCnvsTab,
