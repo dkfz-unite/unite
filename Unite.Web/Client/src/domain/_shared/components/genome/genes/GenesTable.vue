@@ -34,22 +34,6 @@
           </q-td>
         </template>
 
-        <!-- <template v-slot:header-cell-expressions="props">
-          <q-th :props="props">
-              Expression ( <span>Raw</span> / <span class="text-teal">TPM</span> / <span class="text-purple">FPKM</span> )
-          </q-th>
-        </template>
-
-        <template v-slot:body-cell-expressions="props">
-          <q-td :props="props">
-            <template v-if="props.value?.some(sample => sample.expression != null)">
-              <u-specimen v-for="(specimen, i) in props.value" :specimen="specimen">
-                <span v-if="specimen.expression">( <u-expression :expression="specimen.expression" /> )</span>
-              </u-specimen>
-            </template>
-          </q-td>
-        </template> -->
-
       </q-table>
     </div>
   </template>
@@ -131,22 +115,6 @@
           align: "right"
         });
       }
-
-      // if (["donor", "mri", "ct"].includes(this.$route.name)){
-      //   this.columns.splice(3, 0, {
-      //     name: "expressions",
-      //     field: (row) => row.specimens,
-      //     sortable: false,
-      //     align: "left"
-      //   });
-      // } else if (["tissue", "cell", "organoid", "xenograft"].includes(this.$route.name)){
-      //   this.columns.splice(3, 0, {
-      //     name: "expression",
-      //     field: (row) => row.expression,
-      //     sortable: false,
-      //     align: "right"
-      //   });
-      // }
     },
   
     methods: {
@@ -156,9 +124,6 @@
         } else {
           return null;
         }
-      },
-
-      orderSpecimens(specimens) {
       }
     }
   }
