@@ -8,6 +8,7 @@ const mixin = {
     return {
       loading: false,
       specimen: null,
+      samples: null,
       donor: null
     };
   },
@@ -67,9 +68,11 @@ const mixin = {
     try {
       this.loading = true;
       this.specimen = await specimenApi.get(this.$route.params.id);
+      this.samples = await specimenApi.getSamples(this.$route.params.id);
       this.donor = await donorApi.get(this.specimen.donorId);
     } catch (error) {
       this.specimen = null;
+      this.samples = null;
       this.donor = null;
     } finally {
       this.loading = false;

@@ -56,23 +56,23 @@
               </q-tab-panel>
 
               <q-tab-panel name="profile" class="q-py-sm q-px-none">
-                <u-profile-tab :specimen="specimen" />
+                <u-profile-tab :specimen="specimen" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :specimen="specimen" />
+                <u-genes-tab :specimen="specimen" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab :specimen="specimen" />
+                <u-ssms-tab :specimen="specimen" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab :specimen="specimen" />
+                <u-cnvs-tab :specimen="specimen" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab :specimen="specimen" />
+                <u-svs-tab :specimen="specimen" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>

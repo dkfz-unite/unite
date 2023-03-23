@@ -4,14 +4,14 @@
       <span class="text-h5 u-text-title">Genomic Profile</span>
     </div>
 
-    <!-- <div class="row">
+    <div class="row">
       <u-samples
         v-model="sample"
         :options="samples"
         @update:modelValue="fetchData"
         style="min-width: 200px;"
       />
-    </div> -->
+    </div>
     
     <div class="row">
       <u-profile v-if="profile" :profile="profile" :density="density" @fetch="fetchData" />
@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      sample: this.specimen,
+      sample: this.sample,
       profile: null,
       density: 512
     }
@@ -49,6 +49,7 @@ export default {
   methods: {
     async fetchData(payload) {
       try {
+        if (!this.sample) return;
         let criteria = payload || { chrStart: 0, start: 0, chrEnd: 0, end: 0 };
         let data = profileCacheService.read(this.sample.id, criteria);
         if (data) {

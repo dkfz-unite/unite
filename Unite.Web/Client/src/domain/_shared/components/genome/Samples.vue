@@ -1,6 +1,6 @@
 <template>
   <q-select
-    label="Specimen"
+    label="Sample"
     option-label="referenceId"
     v-model="modelValue"
     :options="options"

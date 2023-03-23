@@ -161,7 +161,7 @@ export default {
     },
 
     showGenes() {
-      return !!this.donor?.numberOfGenes;
+      return !!this.donor?.numberOfGenes || !!this.donor.hasGeneExpressions;
     },
 
     showProfile() {

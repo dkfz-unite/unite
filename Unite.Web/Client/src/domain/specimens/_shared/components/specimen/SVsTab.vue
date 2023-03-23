@@ -7,7 +7,16 @@
     <div class="row">
       <div class="col">
         <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2">
+          <div class="col-12 col-sm-3 col-md-2 q-gutter-sm">
+            <div class="row">
+              <div class="col">
+                <u-samples
+                  v-model="sample"
+                  :options="samples"
+                  @update:modelValue="filterData"
+                />
+              </div>
+            </div>
             <div class="row">
               <u-filters
                 v-model="filtersCriteria.structuralVariantFiltersCriteria"
@@ -42,7 +51,9 @@
 <script>
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
+import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/variants/SVsTable.vue";
+import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/_shared/components/filters/domain/genome/variants/sv/sv-filters";
 
@@ -52,10 +63,11 @@ export default {
   components: {
     UFilters,
     UFiltersButtonClear,
+    USamples,
     UDataTable
   },
 
-  mixins: [tablePageMixin],
+  mixins: [samplePageMixin, tablePageMixin],
 
   props: {
     specimen: Object
@@ -86,7 +98,8 @@ export default {
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.searchVariants(this.specimen.id, "sv", searchCriteria);
+      if (!this.sample) return;
+      return await api.searchVariants(this.specimen.id, this.sample.id, "sv", searchCriteria);
     }
   }
 }

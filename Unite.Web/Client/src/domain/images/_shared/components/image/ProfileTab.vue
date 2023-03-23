@@ -48,6 +48,7 @@ export default {
   methods: {
     async fetchData(payload) {
       try {
+        if (!this.sample) return;
         let criteria = payload || { chrStart: 0, start: 0, chrEnd: 0, end: 0 };
         let data = profileCacheService.read(this.sample.id, criteria);
         if (data) {

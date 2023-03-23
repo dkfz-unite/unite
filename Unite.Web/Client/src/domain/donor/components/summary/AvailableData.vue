@@ -6,64 +6,20 @@
 
     <div class="row">
       <div class="col">
-        <q-markup-table class="table-strip" separator="cell" dense flat bordered>
-          <colgroup>
-            <col span="1" :style="{ width: $q.screen.lt.md ? '50%' : '30%' }" />
-            <col span="1" :style="{ width: $q.screen.lt.md ? '50%' : '70%' }" />
-          </colgroup>
-
-          <tbody>
-            <tr>
-              <td class="u-text-key">Clinical Data</td>
-              <td>
-                <q-icon v-if="hasClinicalData" color="green" size="sm" name="las la-check" />
-                <q-icon v-else color="grey" size="sm" name="las la-minus" />
-              </td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Treatment Data</td>
-              <td>
-                <q-icon v-if="hasTreatmentData" color="green" size="sm" name="las la-check" />
-                <q-icon v-else color="grey" size="sm" name="las la-minus" />
-              </td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Images</td>
-              <td>
-                <q-icon v-if="hasImages" color="green" size="sm" name="las la-check" />
-                <q-icon v-else color="grey" size="sm" name="las la-minus" />
-              </td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Simple Somatic Mutations (SSM)</td>
-              <td>
-                <q-icon v-if="hasMutations" color="green" size="sm" name="las la-check" />
-                <q-icon v-else color="grey" size="sm" name="las la-minus" />
-              </td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Copy Number Variants (CNV)</td>
-              <td>
-                <q-icon v-if="hasCopyNumberVariants" color="green" size="sm" name="las la-check" />
-                <q-icon v-else color="grey" size="sm" name="las la-minus" />
-              </td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Structural Variants (SV)</td>
-              <td>
-                <q-icon v-if="hasStructuralVariants" color="green" size="sm" name="las la-check" />
-                <q-icon v-else color="grey" size="sm" name="las la-minus" />
-              </td>
-            </tr>
-          </tbody>
-        </q-markup-table>
+        <u-available-data :types="availableDataTypes" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import UAvailableData from "@/domain/_shared/components/summary/AvailableData.vue";
+
 export default {
+  components: {
+    UAvailableData
+  },
+
   props: {
     donor: {
       type: Object,
@@ -73,29 +29,19 @@ export default {
     }
   },
 
-  computed:{
-    hasClinicalData(){
-      return this.donor?.clinicalData;
-    },
+  computed: {
+    availableDataTypes() {
+      if (!this.donor) return [];
 
-    hasTreatmentData(){
-      return this.donor?.treatments?.length;
-    },
-
-    hasMutations(){
-      return this.donor?.numberOfMutations;
-    },
-
-    hasCopyNumberVariants(){
-      return this.donor?.numberOfCopyNumberVariants;
-    },
-
-    hasStructuralVariants(){
-      return this.donor?.numberOfStructuralVariants;
-    },
-
-    hasImages(){
-      return this.donor?.numberOfImages;
+      return [
+        { title: "Clinical Data", available: !!this.donor.clinicalData },
+        { title: "Treatment Data", available: !!this.donor.treatments?.length },
+        { title: "Images", available: !!this.donor.numberOfImages },
+        { title: "Simple Somatic Mutations (SSM)", available: !!this.donor.numberOfMutations },
+        { title: "Copy Number Variants (CNV)", available: !!this.donor.numberOfCopyNumberVariants },
+        { title: "Structural Variants (SV)", available: !!this.donor.numberOfStructuralVariants },
+        { title: "Gene Expressions (Transcriptomics)", available: !!this.donor.hasGeneExpressions }
+      ];
     }
   }
 }
