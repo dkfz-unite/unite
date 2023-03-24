@@ -1,4 +1,4 @@
-import { sanitiseArray, sanitiseRange, copy } from "../../filter-criteria-helpers";
+import { sanitiseArray, sanitiseRange, sanitiseThreshold, copy } from "../../filter-criteria-helpers";
 
 export default class DonorFiltersCriteria {
     id = [];
@@ -8,6 +8,9 @@ export default class DonorFiltersCriteria {
     age = { from: null, to: null };
     diagnosis = [];
     vitalStatus = null;
+    vitalStatusChangeDay = { from: null, to: null };
+    progressionStatus = null;
+    progressionStatusChangeDay = { from: null, to: null };
     therapy = [];
 
     mtaProtected = null;
@@ -23,6 +26,11 @@ export default class DonorFiltersCriteria {
         number += this.age?.to != null ? 1 : 0;
         number += this.diagnosis?.length || 0;
         number += this.vitalStatus != null ? 1 : 0;
+        number += this.vitalStatusChangeDay.from != null ? 1 : 0;
+        number += this.vitalStatusChangeDay.to != null ? 1 : 0;
+        number += this.progressionStatus != null ? 1 : 0;
+        number += this.progressionStatusChangeDay.from != null ? 1 : 0;
+        number += this.progressionStatusChangeDay.to != null ? 1 : 0;
         number += this.therapy?.length || 0;
         number += this.mtaProtected != null ? 1 : 0;
         number += this.project?.length || 0;
@@ -37,6 +45,9 @@ export default class DonorFiltersCriteria {
         this.age = criteria?.age || { from: null, to: null };
         this.diagnosis = criteria?.diagnosis || [];
         this.vitalStatus = criteria?.vitalStatus || null;
+        this.vitalStatusChangeDay = criteria?.vitalStatusChangeDay || { from: null, to: null };
+        this.progressionStatus = criteria?.progressionStatus || null;
+        this.progressionStatusChangeDay = criteria?.progressionStatusChangeDay || { from: null, to: null };
         this.therapy = criteria?.therapy || [];
         this.mtaProtected = criteria?.mtaProtected || null;
         this.project = criteria?.project || [];
@@ -48,6 +59,8 @@ export default class DonorFiltersCriteria {
 
         this.age = sanitiseRange(this.age);
         this.diagnosis = sanitiseArray(this.diagnosis);
+        this.vitalStatusChangeDay = sanitiseRange(this.vitalStatusChangeDay);
+        this.progressionStatusChangeDay = sanitiseRange(this.progressionStatusChangeDay);
         this.therapy = sanitiseArray(this.therapy);
         
         this.project = sanitiseArray(this.project);
@@ -61,6 +74,9 @@ export default class DonorFiltersCriteria {
         this.age = { from: null, to: null };
         this.diagnosis = [];
         this.vitalStatus = null;
+        this.vitalStatusChangeDay = { from: null, to: null };
+        this.progressionStatus = null;
+        this.progressionStatusChangeDay = { from: null, to: null };
         this.therapy = [];
 
         this.mtaProtected = null;

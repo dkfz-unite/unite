@@ -48,32 +48,23 @@
       :labelTo="filter.labelTo"
       :placeholderFrom="filter.placeholderFrom"
       :placeholderTo="filter.placeholderTo"
+      :showFrom="filter.showFrom"
+      :showTo="filter.showTo"
       :expandable="filter.expandable"
       @update:modelValue="onUpdate"
     />
-
-    <!-- <q-expansion-item :model-value="true" :label="filter.label" dense dense-toggle>
-      <div class="col q-pt-xs q-gutter-y-sm">
-        <div>
-          <u-number-filter
-            :label="filter.labelFrom || 'From'"
-            :placeholder="filter.placeholderFrom"
-            v-model="filterValue.from"
-            @update:modelValue="onUpdate"
-          />
-        </div>
-
-        <div>
-          <u-number-filter
-            :label="filter.labelTo || 'To'"
-            :placeholder="filter.placeholderTo"
-            v-model="filterValue.to"
-            @update:modelValue="onUpdate"
-          />
-        </div>
-      </div>
-    </q-expansion-item> -->
   </template>
+
+  <!-- Threshold filter -->
+  <template v-else-if="filter.type == FilterType.Threshold">
+    <u-threshold-filter
+      v-model="filterValue"
+      :label="filter.label"
+      :placeholder="filter.placeholder"
+      @update:modelValue="onUpdate"
+    />
+  </template>
+  
 </template>
 
 <script>
@@ -83,6 +74,7 @@ import USelectManyFilter from "./base/SelectFilter.vue";
 import UBooleanFilter from "./base/BooleanFilter.vue";
 import UNumberFilter from "./base/NumberFilter.vue";
 import URangeFilter from "./base/RangeFilter.vue";
+import UThresholdFilter from "./base/ThresholdFilter.vue";
 
 import FilterType from "./filter-type";
 import ValueType from "./filter-value-type";
@@ -94,7 +86,8 @@ export default {
     USelectManyFilter,
     UBooleanFilter,
     UNumberFilter,
-    URangeFilter
+    URangeFilter,
+    UThresholdFilter
   },
 
   props: {

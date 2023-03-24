@@ -17,6 +17,13 @@ export function sanitiseRange(range) {
     return { from: from, to: to };
 }
 
+export function sanitiseThreshold(model) {
+    var value = !!model?.value && !isNaN(model.value) ? +model.value : null;
+    var mode = model?.mode != null ? model.mode : true;
+
+    return { value: value, mode: mode };
+}
+
 export function copy(source) {
     const criteria = {};
 
@@ -49,5 +56,6 @@ export function copy(source) {
 export default {
     sanitiseArray: sanitiseArray,
     sanitiseRange: sanitiseRange,
+    sanitiseThreshold: sanitiseThreshold,
     copy: copy
 }

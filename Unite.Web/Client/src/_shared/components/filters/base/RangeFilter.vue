@@ -8,11 +8,13 @@
       dense dense-toggle>
       <div class="col q-pt-xs q-gutter-y-sm">
         <u-number-filter
+          v-show="showFrom"
           :label="labelFrom || 'From'"
           :placeholder="placeholderFrom"
           v-model="from"
         />
         <u-number-filter
+          v-show="showTo"
           :label="labelTo || 'To'"
           :placeholder="placeholderTo"
           v-model="to"
@@ -24,11 +26,13 @@
   <!-- Solid -->
   <template v-else>
     <u-number-filter
+      v-show="showFrom"
       :label="labelFrom || 'From'"
       :placeholder="placeholderFrom"
       v-model="from"
     />
     <u-number-filter
+      v-show="showTo"
       :label="labelTo || 'To'"
       :placeholder="placeholderTo"
       v-model="to"
@@ -68,6 +72,14 @@ export default {
     placeholderTo: {
       type: String,
       default: null
+    },
+    showFrom: {
+      type: Boolean,
+      default: true
+    },
+    showTo: {
+      type: Boolean,
+      default: true
     },
     expandable: {
       type: Boolean,

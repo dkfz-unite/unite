@@ -4,4 +4,5 @@ export default class FilterType {
   static Options = "Options";
   static Boolean = "Boolean";
   static Range = "Range";
+  static Threshold = "Threshold";
 }
