@@ -102,19 +102,16 @@ export default {
 
 
     async onZoom({ start, end }) {
-      console.log("onZoom", start, end);
       let location = this.getLocation(Math.ceil(start), Math.floor(end), this.profile.ranges, this.location);
       await this.fetchData(location, this.density);
     },
 
     async onReset() {
-      console.log("onReset");
       let location = { start: { chr: 0, start: 0 }, end: { chr: 0, end: 0 } };
       await this.fetchData(location, this.density);
     },
 
     async fetchData(location, density = 512) {
-      console.log("fetchData", location, density);
       let criteria = this.getCriteria(location, density);
       this.$emit("fetch", criteria);
     },
