@@ -8,7 +8,7 @@ const mixin = {
 
   data() {
     return {
-      sample: null
+      sample: this.samples?.length ? this.samples[0] : null
     }
   }
 }

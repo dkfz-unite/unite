@@ -9,6 +9,8 @@ export default class GeneFiltersCriteria {
     hasMutations = false;
     hasCopyNumberVariants = false;
     hasStructuralVariants = false;
+    hasVariants = false;
+    hasExpressions = false;
 
     get numberOfFilters() {
         let number = 0;
@@ -22,6 +24,8 @@ export default class GeneFiltersCriteria {
         number += this.hasMutations ? 1 : 0;
         number += this.hasCopyNumberVariants ? 1 : 0;
         number += this.hasStructuralVariants ? 1 : 0;
+        number += this.hasVariants ? 1 : 0;
+        number += this.hasExpressions ? 1 : 0;
 
         return number;
     }
@@ -35,6 +39,8 @@ export default class GeneFiltersCriteria {
         this.hasMutations = criteria?.hasMutations || false;
         this.hasCopyNumberVariants = criteria?.hasCopyNumberVariants || false;
         this.hasStructuralVariants = criteria?.hasStructuralVariants || false;
+        this.hasVariants = criteria?.hasVariants || false;
+        this.hasExpressions = criteria?.hasExpressions || false;
     }
 
     sanitise(){
@@ -53,6 +59,8 @@ export default class GeneFiltersCriteria {
         this.hasMutations = false;
         this.hasCopyNumberVariants = false;
         this.hasStructuralVariants = false;
+        this.hasVariants = false;
+        this.hasExpressions = false;
     };
 
     clone() {

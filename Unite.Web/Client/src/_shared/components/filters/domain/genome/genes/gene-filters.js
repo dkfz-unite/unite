@@ -57,7 +57,39 @@ const filters = [
         show: (value, criteria, context) => criteria.chromosome?.length == 1
       }
     ]
-  }
+  },
+  // {
+  //   field: "hasMutations",
+  //   label: "Has Mutations",
+  //   type: FilterType.Boolean,
+  //   default: null,
+  // },
+  // {
+  //   field: "hasCopyNumberVariants",
+  //   label: "Has Copy Number Variants",
+  //   type: FilterType.Boolean,
+  //   default: null,
+  // },
+  // {
+  //   field: "hasStructuralVariants",
+  //   label: "Has Structural Variants",
+  //   type: FilterType.Boolean,
+  //   default: null,
+  // },
+  // {
+  //   field: "hasVariants",
+  //   label: "Has Variants",
+  //   type: FilterType.Boolean,
+  //   nullable: false,
+  //   default: false,
+  // },
+  // {
+  //   field: "hasExpressions",
+  //   label: "Has Expressions",
+  //   type: FilterType.Boolean,
+  //   nullable: false,
+  //   default: false,
+  // }
 ];
 
 export default filters;

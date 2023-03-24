@@ -4,7 +4,10 @@
     <div class="row">
       <div class="col">
         <q-card class="q-mx-xs q-pa-xs">
-          <div id="profile" ref="plot" style="min-height: 55vh"></div>
+          <u-plotly
+            id="profile" style="min-height: 55vh" 
+            :data="data" :layout="layout" :config="config"
+            @zoom="onZoom" @reset="onReset" />
         </q-card>
       </div>
     </div>
@@ -13,21 +16,24 @@
       <u-location :location="location" />
       <u-stats title="#SSM" :stats="ssms?.data" />
       <u-stats title="#CNV" :stats="cnvs?.data" />
+      <q-space />
+      <q-btn dense flat color="red" @click="onClearCache">Clear Cache</q-btn>
     </div>
   </div>
 </template>
 
 <script>
-import Plotly from "plotly.js-dist-min";
+import UPlotly from "../../_shared/Plotly.vue";
 import ULocation from "./Location.vue";
 import UStats from "./Stats.vue";
 import ssmDataService from "./profile-data-service-ssm";
 import cnvDataService from "./profile-data-service-cnv";
 import expDataService from "./profile-data-service-exp";
+import cacheDataService from "./profile-data-service-cache";
 
 
 export default {
-  components: { UStats, ULocation },
+  components: { UPlotly, UStats, ULocation },
 
   props: {
     profile: {
@@ -45,8 +51,7 @@ export default {
       ranges: [],
       hasSsm: false,
       hasCnv: false,
-      hasExp: false,
-      created: false
+      hasExp: false
     }
   },
 
@@ -57,7 +62,7 @@ export default {
   },
 
   computed: {
-    datasets() { return this.getDatasets(); },
+    data() { return this.getDatasets(); },
     layout() { return this.getScales(); },
     config() { return this.getConfig(); },
 
@@ -84,41 +89,34 @@ export default {
   },
 
   methods: {
+    onClearCache() {
+      cacheDataService.clear();
+    },
+
     async setData(profile) {
       this.ranges = profile?.ranges || [];
       this.hasSsm = profile?.hasSsm || false;
       this.hasCnv = profile?.hasCnv || false;
       this.hasExp = profile?.hasExp || false;
-
-      if (!this.created) {
-        await this.createPlot();
-      } else {
-        await this.updatePlot();
-      }
     },
 
-    async createPlot() {
-      let plot = await Plotly.newPlot("profile", this.datasets, this.layout, this.config);
-      plot.on("plotly_relayout", this.onZoom);
-      this.created = true;
+
+    async onZoom({ start, end }) {
+      console.log("onZoom", start, end);
+      let location = this.getLocation(Math.ceil(start), Math.floor(end), this.profile.ranges, this.location);
+      await this.fetchData(location, this.density);
     },
 
-    async updatePlot() {
-      await Plotly.react("profile", this.datasets, this.layout);
+    async onReset() {
+      console.log("onReset");
+      let location = { start: { chr: 0, start: 0 }, end: { chr: 0, end: 0 } };
+      await this.fetchData(location, this.density);
     },
 
-    async onZoom(payload) {
-      const reset = payload["xaxis.autorange"] || payload["yaxis.autorange"];
-      const start = payload["xaxis.range[0]"];
-      const end = payload["xaxis.range[1]"];
-
-      if (start && end) {
-        let location = this.getLocation(Math.ceil(start), Math.floor(end), this.profile.ranges, this.location);
-        await this.fetchData(location, this.density);
-      } else if (reset) {
-        let location = { start: { chr: 0, start: 0 }, end: { chr: 0, end: 0 } };
-        await this.fetchData(location, this.density);
-      }
+    async fetchData(location, density = 512) {
+      console.log("fetchData", location, density);
+      let criteria = this.getCriteria(location, density);
+      this.$emit("fetch", criteria);
     },
 
     getLocation(min, max, ranges, current) {
@@ -135,11 +133,6 @@ export default {
         end: location?.end.end || 0,
         density: density
       };
-    },
-
-    async fetchData(location, density = 512) {
-      let criteria = this.getCriteria(location, density);
-      this.$emit("fetch", criteria);
     },
 
     getSsmDomain() {
@@ -170,7 +163,7 @@ export default {
     },
 
     getDatasets() {
-      if (!this.ranges.length) return null;
+      if (!this.ranges?.length) return null;
 
       let datasets = [];
 
@@ -194,7 +187,7 @@ export default {
     },
 
     getScales() {
-      if (!this.ranges.length) return null;
+      if (!this.ranges?.length) return null;
       let length = this.ranges.length;
 
       let scales = {
@@ -202,10 +195,6 @@ export default {
         legend: { orientation: "h", y: 1.1, x: 0.25 },
         margin:  { l: 60, t: 0, r: 60, b: 60 },
         barmode: "relative",
-        xaxis1: null,
-        yaxis1: null,
-        yaxis2: null,
-        yaxis3: null,
         grid: {
           rows: 3,
           columns: 1,
@@ -221,7 +210,7 @@ export default {
         showgrid: true,
         ticklen: 5,
         tickwidth: 2,
-        range: [0, length-1]
+        range: [0, length -1]
       }
 
       if (this.hasSsm) {
@@ -232,7 +221,7 @@ export default {
 
       if (this.hasCnv) {
         let domain = this.getCnvDomain();
-        scales.yaxis2 = this.cnvs.hasTcn
+        scales.yaxis2 = this.cnvs?.hasTcn
           ? cnvDataService.getScaleTcn("y2", domain)
           : cnvDataService.getScaleCna("y2", domain);
       }
