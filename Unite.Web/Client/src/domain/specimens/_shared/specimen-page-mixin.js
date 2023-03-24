@@ -23,7 +23,7 @@ const mixin = {
     },
 
     showDrugs() {
-      return !!this.specimen?.numberOfDrugs;
+      return !!this.specimen?.hasDrugScreenings;
     },
 
     showProfile() {
@@ -31,7 +31,7 @@ const mixin = {
     },
 
     showGenes() {
-      return !!this.specimen?.numberOfGenes;
+      return !!this.specimen?.numberOfGenes || !!this.specimen?.hasGeneExpressions;
     },
 
     showVariants() {

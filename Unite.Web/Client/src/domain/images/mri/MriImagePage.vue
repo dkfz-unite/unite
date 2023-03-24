@@ -118,7 +118,7 @@ export default {
     },
 
     showGenes() {
-      return !!this.image?.numberOfGenes;
+      return !!this.image?.numberOfGenes || !!this.image?.hasGeneExpressions;
     },
 
     showVariants() {
