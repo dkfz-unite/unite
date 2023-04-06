@@ -54,6 +54,10 @@
               <td class="u-text-key">Structural variants (SV)</td>
               <td>{{ project.data?.sv || "-" }}</td>
             </tr>
+            <tr>
+              <td class="u-text-key">Gene expressions (Transcriptomics)</td>
+              <td>{{ project.data?.tra || "-" }}</td>
+            </tr>
           </tbody>
         </q-markup-table>
       </div>
