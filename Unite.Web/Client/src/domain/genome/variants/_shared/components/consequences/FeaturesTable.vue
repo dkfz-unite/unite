@@ -11,21 +11,15 @@
   
         <template v-slot:body-cell-gene="props">
           <q-td :props="props">
-            <router-link v-if="props.value" class="u-link" :to="{ name: 'gene', params: { id: props.value.id }}">
-              {{ props.value.symbol }}
-            </router-link>
+            <u-link :to="{ name: 'gene', params: { id: props.value.id }}">{{ props.value.symbol }}</u-link>
           </q-td>
         </template>
   
         <template v-slot:body-cell-feature="props">
           <q-td :props="props">
             <div class="row">
-              <a class="u-link" :href="getFeatureId(props.value)" target="blank">
-                <div class="row">
-                  <q-icon name="las la-external-link-alt" size="xs"/> 
-                  {{ getFeatureName(props.value) }}
-                </div>
-              </a>
+              <u-link-external :to="getFeatureId(props.value)">{{ getFeatureName(props.value) }}</u-link-external>
+              <div v-if="getIsCanonical(props.value)" title="Canonical" style="cursor:default ; padding-left: 2px; font-size: 8px;">C</div>
             </div>
           </q-td>
         </template>
@@ -153,6 +147,12 @@
           return null;
         
         return this.$helpers.content.toBooleanString(base.strand, false, "+", "-");
+      },
+
+      getIsCanonical(feature) {
+        return feature.transcript?.feature.isCanonical ||
+               feature.regulator?.feature.isCanonical ||
+               feature.motif?.feature.isCanonical;
       },
   
       getFeatureType(feature) {

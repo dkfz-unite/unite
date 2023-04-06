@@ -35,20 +35,20 @@
           <tbody>
             <tr v-for="(affectedFeature, i) in orderedFeatures" :key="i">
               <td>
-                <router-link class="u-link" :to="{ name: 'gene', params: { id: affectedFeature.gene.id }}">
-                  {{affectedFeature.gene.symbol}}
-                </router-link>
+                <u-link :to="{ name: 'gene', params: { id: affectedFeature.gene.id }}">
+                  {{ affectedFeature.gene.symbol }}
+                </u-link>
               </td>
               <td>
-                <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=' + affectedFeature.transcript.feature.stableId" target="blank">
-                  <div class="row">
-                    <q-icon name="las la-external-link-alt" size="xs"/> 
-                    {{affectedFeature.transcript.feature.symbol}}
-                  </div>
-                </a>
+                <div class="row">
+                  <u-link-external :to="getTranscriptLink(affectedFeature.transcript.feature.stableId)">
+                    {{ affectedFeature.transcript.feature.symbol }}
+                  </u-link-external>
+                  <div v-if="affectedFeature.transcript.feature.isCanonical" title="Canonical" style="cursor:default ; padding-left: 2px; font-size: 8px;">C</div>
+                </div>
               </td>
               <td>
-                <span>{{affectedFeature.transcript.strand ? '+' : '-'}}</span>
+                <span>{{affectedFeature.transcript.feature.strand ? '+' : '-'}}</span>
               </td>
               <td>
                 <div v-for="(consequence, i) in affectedFeature.consequences" :key="i">
@@ -102,6 +102,10 @@ export default {
 
     getConsequenceLabel(value){
       return this.$helpers.enum.getLabel(value, ConsequenceType.values);
+    },
+
+    getTranscriptLink(id) {
+      return `http://feb2014.archive.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=${id}`;
     }
   }
 }
