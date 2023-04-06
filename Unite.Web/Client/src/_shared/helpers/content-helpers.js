@@ -16,6 +16,14 @@ export function toBooleanString(value, inverse = false, yes = "Yes", no = "No") 
         : value ? yes : no;
 }
 
+export function toDoubleString(value, decimals = 3, empty = "") {
+    if (value == null || value == undefined) {
+        return empty;
+    }
+
+    return value.toFixed(decimals);
+}
+
 /**
  * Converts json date string to locale date string
  * @param {*} jsonDate Json date string to convert
@@ -78,6 +86,7 @@ export function toTimespanString(startDay, durationDays) {
 
 export default {
     toBooleanString,
+    toDoubleString,
     toDateString,
     toDateTimeString,
     toDataRangeString,

@@ -21,24 +21,6 @@
           </q-td>
         </template>
 
-        <template v-slot:body-cell-c1Mean="props">
-          <q-td :props="props">
-            <span v-if="!!props.value">{{props.value}}</span><span v-else class="text-grey">N/A</span>
-          </q-td>
-        </template>
-
-        <template v-slot:body-cell-c2Mean="props">
-          <q-td :props="props">
-            <span v-if="!!props.value">{{props.value}}</span><span v-else class="text-grey">N/A</span>
-          </q-td>
-        </template>
-
-        <template v-slot:body-cell-genotype="props">
-          <q-td :props="props">
-            <span v-if="!!props.value">{{props.value}}</span><span v-else class="text-grey">N/A</span>
-          </q-td>
-        </template>
-
         <template v-slot:body-cell-type="props">
           <q-td :props="props">
             <span v-if="!!props.value.type">{{props.value.type}}</span><span v-else class="text-grey">N/A</span>
@@ -95,21 +77,32 @@
           {
             name: "c1Mean",
             label: "C1 Mean",
-            field: (row) => row.copyNumberVariant.c1Mean,
+            field: (row) => this.$helpers.content.toDoubleString(row.copyNumberVariant.c1Mean, 2, "N/A"),
+            classes: (row) => !row.copyNumberVariant.c1Mean ? "text-grey" : null,
             sortable: false,
             align: "left",
           },
           {
             name: "c2Mean",
             label: "C2 Mean",
-            field: (row) => row.copyNumberVariant.c2Mean,
+            field: (row) => this.$helpers.content.toDoubleString(row.copyNumberVariant.c2Mean, 2, "N/A"),
+            classes: (row) => !row.copyNumberVariant.c2Mean ? "text-grey" : null,
             sortable: false,
             align: "left"
           },
           {
+            name: "tcnMean",
+            label: "TCN Mean",
+            field: (row) => this.$helpers.content.toDoubleString(row.copyNumberVariant.tcnMean, 2, "N/A"),
+            classes: (row) => !row.copyNumberVariant.tcnMean ? "text-grey" : null,
+            sortable: false,
+            align: "left",
+          },
+          {
             name: "genotype",
             label: "Genotype",
-            field: (row) => this.getGenotype(row.copyNumberVariant),
+            field: (row) => this.getGenotype(row.copyNumberVariant) || "N/A",
+            classes: (row) => !this.getGenotype(row.copyNumberVariant) ? "text-grey" : null,
             sortable: false,
             align: "left"
           },
