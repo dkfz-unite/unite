@@ -32,6 +32,12 @@ export default {
     }
   },
 
+  watch: {
+    modelValue(value) {
+      this.permissions = this.mapPermissionsFromArray(value);
+    }
+  },
+
   computed: {
     permissionsSelected() {
       return Object.keys(this.permissions)

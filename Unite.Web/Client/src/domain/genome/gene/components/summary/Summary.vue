@@ -18,6 +18,10 @@
               <td>{{ gene.symbol }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Description</td>
+              <td>{{ gene.description }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Biotype</td>
               <td>{{ getBiotypeLabel(gene.biotype) }}</td>
             </tr>
@@ -29,9 +33,17 @@
               <td class="u-text-key">Start</td>
               <td>{{ gene.start }}</td>
             </tr>
-             <tr>
+            <tr>
               <td class="u-text-key">End</td>
               <td>{{ gene.end }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Length</td>
+              <td>{{ gene.end - gene.start + 1 }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Exonic Length</td>
+              <td>{{ gene.exonicLength }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Strand</td>

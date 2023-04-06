@@ -1,65 +1,37 @@
 <template>
-  <div class="col q-gutter-y-sm">
-    <div class="row">
-      <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Admin" />
-        <q-breadcrumbs-el label="Users" />
-      </q-breadcrumbs>
-    </div>
-    
-    <div class="row">
-      <div class="col">
-        <q-table
-          title="Users"
-          :loading="loading"
-          :rows="rows"
-          :columns="columns"
-          :pagination="{rowsPerPage: 15}"
-          row-key="id"
-          separator="cell"
-          class="u-sticky-header-admin"
-          dense>
-          <template v-slot:body-cell-permissions="props">
-            <q-td :props="props">
-              <u-permissions-cell :permissions="props.value" />
-            </q-td>
-          </template>
+  <div class="col">
+    <q-table title="Users" :loading="loading" :rows="rows" :columns="columns" :pagination="{ rowsPerPage: 15 }" 
+      row-key="id" separator="cell" class="u-sticky-header-admin" flat bordered dense>
+      <template v-slot:body-cell-permissions="props">
+        <q-td :props="props">
+          <u-permissions-cell :permissions="props.value" />
+        </q-td>
+      </template>
 
-          <template v-slot:body-cell-actions="props">
-            <q-td :props="props">
-              <div class="row items-center">
-                <q-btn
-                  label="Delete"
-                  title="Delete"
-                  icon="las la-trash" 
-                  color="orange"
-                  size="sm"
-                  align="left"
-                  class="q-pl-none"
-                  dense no-caps flat 
-                  @click="deleteUser(props.value)"/>
-              </div>
-            </q-td>
-          </template>
+      <template v-slot:body-cell-actions="props">
+        <q-td :props="props">
+          <div class="row items-center">
+            <q-btn label="Delete" title="Delete" icon="las la-trash" color="orange" size="sm" align="left"
+              class="q-pl-none" dense no-caps flat @click="deleteUser(props.value)" />
+          </div>
+        </q-td>
+      </template>
 
-          <template v-slot:top>
+      <template v-slot:top>
+        <div class="col">
+          <div class="row justify-between">
             <div class="col">
-            <div class="row justify-between">
-              <div class="col">
-                <div class="q-pt-xs">
-                  <span class="text-h6 text-weight-regular">Users</span>
-                </div>
-              </div>
-              <div class="col-auto">
-                <u-user-add-form @submit="onAddUser"/>
+              <div class="q-pt-xs">
+                <span class="text-h6 text-weight-regular">Users</span>
               </div>
             </div>
+            <div class="col-auto">
+              <u-user-add-form @submit="onAddUser" />
             </div>
-          </template>
-        </q-table>
-      </div>
-    </div>
+          </div>
+        </div>
+      </template>
+    </q-table>
   </div>
 </template>
 

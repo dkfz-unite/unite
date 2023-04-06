@@ -1,40 +1,57 @@
 <template>
-  <div class="row">
+  <q-drawer :model-value="true" bordered elevated>
     <div class="col-12 col-md-1 col-sm-2">
       <q-tabs vertical dense v-model="tab" indicator-color="transparent" active-color="primary" no-caps>
         <q-tab label="Users" name="users" />
-        <q-tab label="Other" name="roles" />
+        <q-tab label="Tasks" name="tasks" />
       </q-tabs>
     </div>
-    <div class="col-12 col-md-11 col-sm-10">
-      <q-tab-panels v-model="tab">
-        <q-tab-panel class="q-py-xs" name="users">
-          <div class="col">
+  </q-drawer>
+
+  <div class="col q-gutter-y-sm">
+    <div class="row">
+      <q-breadcrumbs gutter="xs" class="text-subtitle1">
+        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
+        <q-breadcrumbs-el label="Admin" />
+        <q-breadcrumbs-el :label="tabLabel" />
+      </q-breadcrumbs>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <q-tab-panels v-model="tab">
+          <q-tab-panel name="users" class="q-ma-none q-pa-none">
             <u-users-tab />
-          </div>
-        </q-tab-panel>
-        <q-tab-panel class="q-py-xs" name="roles">
-          <div class="col">
-           <u-roles-tab />
-          </div>
-        </q-tab-panel>
-      </q-tab-panels>
+          </q-tab-panel>
+          <q-tab-panel name="tasks" class="q-ma-none q-pa-none">
+            <u-tasks-tab />
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import UUsersTab from "./components/UsersTab.vue";
-import URolesTab from "./components/RolesTab.vue";
+import UTasksTab from "./components/TasksTab.vue";
 import tabPageMixin from "./tab-page-mixin";
 
 export default {
   components: {
     UUsersTab,
-    URolesTab
+    UTasksTab
   },
 
-  mixins: [tabPageMixin]
+  mixins: [tabPageMixin],
+
+  computed: {
+    tabLabel() {
+      return this.tab == "users" ? "Users"
+           : this.tab == "tasks" ? "Tasks"
+           : this.tab;
+    }
+  }
 }
 </script>
 

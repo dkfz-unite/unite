@@ -27,7 +27,7 @@
               <!-- No group -->
               <q-th colspan="2"></q-th>
               <!-- Donors -->
-              <q-th colspan="10">#Donors</q-th>
+              <q-th colspan="12" title="Number of donors with specified data">#Donors</q-th>
             </q-tr>
 
             <!-- Headers row -->
@@ -155,6 +155,13 @@ export default {
           name: "sv",
           label: "SV",
           field: row => row.data.sv || "-",
+          style: "width: 2%;",
+          align: "center",
+        },
+        {
+          name: "tra",
+          label: "Transcriptomics",
+          field: row => row.data.tra || "-",
           style: "width: 2%;",
           align: "center",
         }
