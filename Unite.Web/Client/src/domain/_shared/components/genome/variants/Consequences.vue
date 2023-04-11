@@ -20,7 +20,7 @@
         </span>
       </div>
       <div v-if="consequence.genes?.length > 4">
-        <span class="text-italic">... and {{consequence.genes.length - 4}} other</span>
+        <span class="text-italic">... and {{(consequence.genes.length - 4).toLocaleString()}} other</span>
       </div>
     </div>
   </div>

@@ -128,19 +128,19 @@ export default {
         {
           name: "numberOfSsms",
           label: "#SSMs",
-          field: (row) => row.numberOfMutations,
+          field: (row) => row.numberOfMutations?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfCnvs",
           label: "#CNVs",
-          field: (row) => row.numberOfCopyNumberVariants,
+          field: (row) => row.numberOfCopyNumberVariants?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfSvs",
           label: "#SVs",
-          field: (row) => row.numberOfStructuralVariants,
+          field: (row) => row.numberOfStructuralVariants?.toLocaleString(),
           sortable: false
         }
       ]

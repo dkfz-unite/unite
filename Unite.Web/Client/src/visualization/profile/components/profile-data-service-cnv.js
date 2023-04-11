@@ -1,13 +1,14 @@
-import { colors, dom } from "quasar";
+import { colors } from "quasar";
+import CnvType from "@/_models/domain/genome/variants/cnv/enums/cnv-type";
 
 const props = {
     code: (range) => range.code,
     tcn: (range) => range.cnv?.tcn,
     cna: (range) => range.cnv?.cna,
-    gain: (range) => range.cnv?.cna == "Gain",
-    loss: (range) => range.cnv?.cna == "Loss",
-    neutral: (range) => range.cnv?.cna == "Neutral",
-    undetermined: (range) => range.cnv?.cna == "Undetermined",
+    gain: (range) => range.cnv?.cna == CnvType.Gain,
+    loss: (range) => range.cnv?.cna == CnvType.Loss,
+    neutral: (range) => range.cnv?.cna == CnvType.Neutral,
+    undetermined: (range) => range.cnv?.cna == CnvType.Undetermined,
     loh: (range) => range.cnv?.loh == true,
     del: (range) => range.cnv?.del == true,
     color: (range) => getColor(range.cnv?.cna),
@@ -16,10 +17,10 @@ const props = {
 const names = {
     tcn: "TCN",
     cna: "CNA",
-    gain: "Gain",
-    loss: "Loss",
-    neutral: "Neutral",
-    undetermined: "Undetermined"
+    gain: CnvType.Gain,
+    loss: CnvType.Loss,
+    neutral: CnvType.Neutral,
+    undetermined: CnvType.Undetermined
 };
 
 const colours = {
@@ -66,7 +67,7 @@ export function getStats(ranges) {
         data: [
             { number: loss, percent: share(loss, sum), text: names.loss, color: colours.loss },
             { number: neutral, percent: share(neutral, sum), text: names.neutral, color: colours.neutral },
-            { number: undetermined, percent: share(undetermined, sum), text: names.undefined, color: colours.undetermined },
+            { number: undetermined, percent: share(undetermined, sum), text: names.undetermined, color: colours.undetermined },
             { number: gain, percent: share(gain, sum), text: names.gain, color: colours.gain }
         ]
     };

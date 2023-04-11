@@ -78,7 +78,7 @@
           {
             name: "length",
             label: "Length",
-            field: (row) => row.length,
+            field: (row) => row.length?.toLocaleString(),
             sortable: false,
             align: "left"
           },
@@ -99,7 +99,7 @@
           {
             name: "numberOfGenes",
             label: "#Affected Genes",
-            field: (row) => row.numberOfGenes,
+            field: (row) => row.numberOfGenes?.toLocaleString(),
             sortable: false
           }
         ]

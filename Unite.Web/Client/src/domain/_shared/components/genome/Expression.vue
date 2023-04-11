@@ -1,6 +1,6 @@
 <template>
   <span v-if="expression">
-    <span>{{ expression.reads }}</span> / <span class="text-teal">{{ expression.tpm }}</span> / <span class="text-purple">{{ expression.fpkm }}</span>
+    <span>{{ expression.reads?.toLocaleString() }}</span> / <span class="text-teal">{{ expression.tpm?.toLocaleString() }}</span> / <span class="text-purple">{{ expression.fpkm?.toLocaleString() }}</span>
   </span>
 </template>
 

@@ -19,11 +19,11 @@
             </tr>
             <tr>
               <td class="u-text-key">Start</td>
-              <td>{{ variant.start }}</td>
+              <td>{{ variant.start.toLocaleString() }}</td>
             </tr>
              <tr>
               <td class="u-text-key">End</td>
-              <td>{{ variant.end }}</td>
+              <td>{{ variant.end.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Reference Base</td>
@@ -35,7 +35,7 @@
             </tr>
             <tr v-if="(variant.mutation.length > 1)">
               <td class="u-text-key">Length</td>
-              <td>{{ variant.mutation.length }}</td>
+              <td>{{ variant.mutation.length.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>

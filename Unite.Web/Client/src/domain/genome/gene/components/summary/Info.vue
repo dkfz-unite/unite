@@ -8,24 +8,17 @@
 
         <div class="row">
           <div class="col">
-            <q-markup-table
-              class="table-strip" separator="cell"
-              dense flat bordered
-            >
+            <q-markup-table class="table-strip" separator="cell" dense flat bordered>
               <colgroup>
                 <col span="1" style="width: 100%" />
               </colgroup>
 
               <tbody>
-                <tr v-if="gene.stableId">
-                  <td>
-                    <a class="u-link" :href="'http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=' + gene.stableId" target="blank">
-                      <div class="row">
-                        <q-icon name="las la-external-link-alt" size="xs" />
-                        Ensembl
-                      </div>
-                    </a>
-                  </td>
+                <tr v-if="hasEnsemblId(gene.stableId)">
+                  <td><u-link-external :to="getEnsemblLink(gene.stableId)">Ensembl</u-link-external></td>
+                </tr>
+                <tr v-if="hasHgncId(gene.description)">
+                  <td><u-link-external :to="getHgncLink(gene.description)">HGNC</u-link-external></td>
                 </tr>
               </tbody>
             </q-markup-table>
@@ -44,7 +37,33 @@ export default {
 
   computed: {
     hasLinks() {
-      return !!this.gene.stableId;
+      return !!this.gene.stableId
+          || !!this.getHgncId(this.gene.description)
+    }
+  },
+
+  methods: {
+    hasEnsemblId(stableId) {
+      return !!stableId;
+    },
+
+    getEnsemblLink(stableId) {
+      if (!stableId) return null;
+      else return "http://feb2014.archive.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=" + stableId;
+    },
+
+    hasHgncId(description) {
+      return description?.includes("Source:HGNC");
+    },
+
+    getHgncId(description) {
+      if (!this.hasHgncId(description)) return null;
+      else return description.match(/Acc:(\d+)/)[1];
+    },
+
+    getHgncLink(description) {
+      if (!this.hasHgncId(description)) return null;
+      else return "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:" + this.getHgncId(description);
     }
   }
 }

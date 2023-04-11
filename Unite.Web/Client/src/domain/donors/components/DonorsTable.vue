@@ -137,37 +137,37 @@ export default {
         {
           name: "numberOfImages",
           label: "#Images",
-          field: (row) => row.numberOfImages,
+          field: (row) => row.numberOfImages?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfSpecimens",
           label: "#Specimens",
-          field: (row) => row.numberOfSpecimens,
+          field: (row) => row.numberOfSpecimens?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfGenes",
           label: "#Genes",
-          field: (row) => row.numberOfGenes,
+          field: (row) => row.numberOfGenes?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfSsms",
           label: "#SSMs",
-          field: (row) => row.numberOfMutations,
+          field: (row) => row.numberOfMutations?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfCnvs",
           label: "#CNVs",
-          field: (row) => row.numberOfCopyNumberVariants,
+          field: (row) => row.numberOfCopyNumberVariants?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfSvs",
           label: "#SVs",
-          field: (row) => row.numberOfStructuralVariants,
+          field: (row) => row.numberOfStructuralVariants?.toLocaleString(),
           sortable: false
         }
       ]

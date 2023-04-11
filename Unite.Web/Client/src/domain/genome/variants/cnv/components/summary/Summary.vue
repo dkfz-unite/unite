@@ -19,15 +19,15 @@
             </tr>
             <tr>
               <td class="u-text-key">Start</td>
-              <td>{{ variant.start }}</td>
+              <td>{{ variant.start.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">End</td>
-              <td>{{ variant.end }}</td>
+              <td>{{ variant.end.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Length</td>
-              <td>{{ variant.end - variant.start }}</td>
+              <td>{{ (variant.end - variant.start + 1).toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
@@ -43,19 +43,19 @@
             </tr>
             <tr>
               <td class="u-text-key">C1 Mean</td>
-              <td>{{ variant.copyNumberVariant.c1Mean }}</td>
+              <td>{{ variant.copyNumberVariant.c1Mean?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">C2 Mean</td>
-              <td>{{ variant.copyNumberVariant.c2Mean }}</td>
+              <td>{{ variant.copyNumberVariant.c2Mean?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">TCN Mean</td>
-              <td>{{ variant.copyNumberVariant.tcnMean }}</td>
+              <td>{{ variant.copyNumberVariant.tcnMean?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">DH Max</td>
-              <td>{{ variant.copyNumberVariant.dhMax }}</td>
+              <td>{{ variant.copyNumberVariant.dhMax?.toLocaleString() }}</td>
             </tr>
           </tbody>
         </q-markup-table>

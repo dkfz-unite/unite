@@ -130,13 +130,13 @@ export default {
         {
           name: "numberOfGenes",
           label: "#Genes",
-          field: (row) => row.numberOfGenes,
+          field: (row) => row.numberOfGenes?.toLocaleString(),
           sortable: false
         },
         {
           name: "numberOfMutations",
           label: "#Mutations",
-          field: (row) => row.numberOfMutations,
+          field: (row) => row.numberOfMutations?.toLocaleString(),
           sortable: false
         }
       ]

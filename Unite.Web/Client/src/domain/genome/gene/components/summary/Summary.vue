@@ -19,7 +19,8 @@
             </tr>
             <tr>
               <td class="u-text-key">Description</td>
-              <td>{{ gene.description }}</td>
+              <td>{{ getDescription(gene.description) }}</td>
+              <!-- <td>{{ gene.description }}</td> -->
             </tr>
             <tr>
               <td class="u-text-key">Biotype</td>
@@ -31,19 +32,19 @@
             </tr>
             <tr>
               <td class="u-text-key">Start</td>
-              <td>{{ gene.start }}</td>
+              <td>{{ gene.start.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">End</td>
-              <td>{{ gene.end }}</td>
+              <td>{{ gene.end.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Length</td>
-              <td>{{ gene.end - gene.start + 1 }}</td>
+              <td>{{ (gene.end - gene.start + 1).toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Exonic Length</td>
-              <td>{{ gene.exonicLength }}</td>
+              <td>{{ gene.exonicLength.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Strand</td>
@@ -67,7 +68,15 @@ export default {
   methods: {
     getBiotypeLabel(value) {
       return this.$helpers.enum.getLabel(value, Biotype.values);
-    }
+    },
+
+    getDescription() {
+      if (!this.gene.description) return null;
+
+      return this.gene.description
+        .replace(/\[.*\]/, "")
+        .replace(/^[a-z]/, match => match.toUpperCase());
+    },
   }
 }
 </script>

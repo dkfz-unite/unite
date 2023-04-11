@@ -98,17 +98,17 @@
           {
             name: "overlapLength",
             label: "Overlap Length",
-            field: (row) => this.getOverlapLength(row)
+            field: (row) => this.getOverlapLength(row)?.toLocaleString()
           },
           {
             name: "overlapPercentage",
             label: "Overlap Percentage",
-            field: (row) => this.getOverlapPercentage(row)
+            field: (row) => this.getOverlapPercentage(row)?.toLocaleString()
           },
           {
             name: "distance",
             label: "Distance",
-            field: (row) => this.getDistance(row)
+            field: (row) => this.getDistance(row)?.toLocaleString()
           },
         ]
       }

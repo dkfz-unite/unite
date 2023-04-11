@@ -19,11 +19,11 @@
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - Start</td>
-              <td>{{ variant.structuralVariant.start }}</td>
+              <td>{{ variant.structuralVariant.start.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - End</td>
-              <td>{{ variant.structuralVariant.end }}</td>
+              <td>{{ variant.structuralVariant.end.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - Flanking Sequences</td>
@@ -35,11 +35,11 @@
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Start</td>
-              <td>{{ variant.structuralVariant.otherStart }}</td>
+              <td>{{ variant.structuralVariant.otherStart.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - End</td>
-              <td>{{ variant.structuralVariant.otherEnd }}</td>
+              <td>{{ variant.structuralVariant.otherEnd.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Flanking Sequences</td>
@@ -47,7 +47,7 @@
             </tr>
             <tr v-if="!!variant.structuralVariant.length">
               <td class="u-text-key">Length</td>
-              <td>{{ variant.structuralVariant.length }}</td>
+              <td>{{ variant.structuralVariant.length.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
