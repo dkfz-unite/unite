@@ -39,7 +39,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Vital Status Changed After (Days)</td>
-              <td>{{ clinicalData.vitalStatusChangeDay }}</td>
+              <td>{{ clinicalData.vitalStatusChangeDay?.toLocaleString() }}</td>
             </tr>
 
             <tr>
@@ -48,7 +48,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Progression Status Changed After (Days)</td>
-              <td>{{ clinicalData.progressionStatusChangeDay }}</td>
+              <td>{{ clinicalData.progressionStatusChangeDay?.toLocaleString() }}</td>
             </tr>
             
             <tr>
