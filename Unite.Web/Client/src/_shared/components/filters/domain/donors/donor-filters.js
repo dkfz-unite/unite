@@ -70,6 +70,7 @@ const filters = [
   },
   {
     field: "vitalStatusChangeDay",
+    label: "Vital Status Change Day",
     labelFrom: "Survival Revised After (From)",
     labelTo: " Survival Revised After (To)",
     placeholderFrom: "e.g. 100 days",
@@ -91,6 +92,7 @@ const filters = [
   },
   {
     field: "progressionStatusChangeDay",
+    label: "Progression Status Change Day",
     labelFrom: "Progression Revised After (From)",
     labelTo: "Progression Revised After (To)",
     placeholderFrom: "e.g. 100 days",

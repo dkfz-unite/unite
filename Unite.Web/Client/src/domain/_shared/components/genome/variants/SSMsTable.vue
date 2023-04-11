@@ -10,6 +10,7 @@
         :rows="data"
         v-model:selected="selected"
         v-model:pagination="pagination"
+        :rows-per-page-options="pageOptions"
         :filter="filter"
         :loading="loading"
         @request="onRequest"

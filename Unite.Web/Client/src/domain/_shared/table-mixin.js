@@ -58,6 +58,7 @@ const tableMixin = {
         data: this.rows || [],
         selected: this.rowsSelected || [],
         filter: this.filters?.query || null,
+        pageOptions: [20, 50, 70, 100, 150, 200, 250, 500],
         pagination: {
           page: this.getPage(this.filters?.from, this.filters?.size),
           rowsPerPage: this.getPageSize(this.filters?.size),
@@ -124,7 +125,7 @@ const tableMixin = {
   
       getSize(pageSize) {
         if (pageSize != null) {
-          return pageSize == 0 ? 10000 : pageSize;
+          return pageSize;
         } else {
           return 20;
         }
@@ -140,7 +141,7 @@ const tableMixin = {
 
       getPageSize(size) {
         if (size != null) {
-          return size == 10000 ? 0 : size;
+          return size;
         } else {
           return 20;
         }

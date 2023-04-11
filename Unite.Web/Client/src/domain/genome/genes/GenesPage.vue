@@ -43,7 +43,7 @@
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Donors"
+          title="Genes"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"

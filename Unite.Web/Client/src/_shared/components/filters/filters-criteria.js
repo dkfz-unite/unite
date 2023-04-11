@@ -19,6 +19,10 @@ class Filters {
     constructor(filters = null) {
         this.query = filters?.query || null;
     }
+
+    resetPage() {
+        this.from = 0;
+    }
 }
 
 export default class FiltersCriteria {
