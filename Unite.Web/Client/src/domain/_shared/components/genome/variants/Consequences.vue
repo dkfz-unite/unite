@@ -2,25 +2,29 @@
   <div v-if="consequences?.length" class="column">
     <div v-for="(consequence, i) in consequences" :key="i" class="row justify-left q-gutter-x-xs">
       <div>
-        <span :class="getImpactColor(consequence.impact)">{{getConsequenceLabel(consequence.term)}}: </span>
+        <span :class="getImpactColor(consequence.impact)">{{ getConsequenceLabel(consequence.term) }}: </span>
       </div>
-      <div v-for="(gene, j) in consequence.genes?.slice(0, 4)" :key="j">
+      <!-- <div v-for="(gene, j) in consequence.genes?.slice(0, 4)" :key="j"> -->
+        <div v-for="(gene, j) in consequence.genes" :key="j">
         <span>
-          <router-link 
+          <u-link class="text-italic" :to="{ name: 'gene', params: { id: gene.id.toString() }}">
+            {{ gene.symbol }}
+          </u-link>
+          <!-- <router-link 
             class="u-link text-italic" 
             :to="{ name: 'gene', params: { id: gene.id.toString() }}">
             {{gene.symbol}}
-          </router-link>
-          <span v-if="gene.transcripts?.length">
-            (<span v-for="(transcript, k) in gene.transcripts" :key="k">
-              <span>{{transcript}}</span>
-              <span v-if="k < gene.transcripts.length - 1">, </span>
+          </router-link> -->
+          <span v-if="gene.translations?.length">
+            (<span v-for="(translation, k) in gene.translations" :key="k">
+              <span>{{ translation }}</span>
+              <span v-if="k < gene.translations.length - 1">, </span>
             </span>)
           </span>
         </span>
       </div>
-      <div v-if="consequence.genes?.length > 4">
-        <span class="text-italic">... and {{(consequence.genes.length - 4).toLocaleString()}} other</span>
+      <div v-if="consequence.genesNumber > 5">
+        <span class="text-italic">... and {{ (consequence.genesNumber - consequence.genes.length).toLocaleString() }} other</span>
       </div>
     </div>
   </div>
