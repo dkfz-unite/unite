@@ -81,12 +81,8 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.donor;
+      return this.$store.state.donor.genes;
     },
-
-    criteriaPropertyName: () => "genesFiltersCriteria",
-    contextPropertyName: () => "genesFiltersContext",
-    selectionPropertyName: () => "genesSelected"
   },
 
   methods: {

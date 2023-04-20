@@ -1,22 +1,21 @@
-import FiltersCriteria from "../../../../../_shared/components/filters/filters-criteria";
-import FiltersContext from "../../../../../_shared/components/filters/filters-context";
+import SearchPageStore from "@/_shared/store/search-page-store";
 
-const module = {
-    namespaced: true,
+class SsmStore {
+  namespaced = true;
 
-    state: () => ({
-        donorsFiltersCriteria: new FiltersCriteria(),
-        donorsFiltersContext: new FiltersContext(),
-        donorsSelected: []
-    }),
+  modules = {
+    donors: new SearchPageStore()
+  };
 
-    actions: {
-        clearState({state}) {
-            state.donorsFiltersCriteria = new FiltersCriteria();
-            state.donorsFiltersContext = new FiltersContext();
-            state.donorsSelected = [];
-        }
+  state = () => ({
+
+  });
+
+  actions = {
+    clearState({ state, dispatch }) {
+      dispatch("donors/clear")
     }
+  }
 }
 
-export default module;
+export default SsmStore;

@@ -1,41 +1,26 @@
-import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
-import FiltersContext from "@/_shared/components/filters/filters-context";
+import SearchPageStore from "@/_shared/store/search-page-store";
 
-const module = {
-  namespaced: true,
+class GeneStore {
+  namespaced = true;
 
-  state: () => ({
-    donorsFiltersCriteria: new FiltersCriteria(),
-    donorsFiltersContext: new FiltersContext(),
-    donorsSelected: [],
-    ssmsFiltersCriteria: new FiltersCriteria(),
-    ssmsFiltersCriteria: new FiltersCriteria(),
-    ssmsFiltersContext: new FiltersContext(),
-    ssmsSelected: [],
-    cnvsFiltersCriteria: new FiltersCriteria(),
-    cnvsFiltersContext: new FiltersContext(),
-    cnvsSelected: [],
-    svsFiltersCriteria: new FiltersCriteria(),
-    svsFiltersContext: new FiltersContext(),
-    svsSelected: []
-  }),
+  modules = {
+    donors: new SearchPageStore(),
+    ssms: new SearchPageStore(),
+    cnvs: new SearchPageStore(),
+    svs: new SearchPageStore()
+  };
 
-  actions: {
-      clearState({state}) {
-        state.donorsFiltersCriteria = new FiltersCriteria();
-        state.donorsFiltersContext = new FiltersContext();
-        state.donorsSelected = [];
-        state.ssmsFiltersCriteria = new FiltersCriteria();
-        state.ssmsFiltersContext = new FiltersContext();
-        state.ssmsSelected = [];
-        state.cnvsFiltersCriteria = new FiltersCriteria();
-        state.cnvsFiltersContext = new FiltersContext();
-        state.cnvsSelected = [];
-        state.svsFiltersCriteria = new FiltersCriteria();
-        state.svsFiltersContext = new FiltersContext();
-        state.svsSelected = [];
+  state = () => ({
+  });
+
+  actions = {
+      clearState({state, dispatch}) {
+        dispatch("donors/clear");
+        dispatch("ssms/clear");
+        dispatch("cnvs/clear");
+        dispatch("svs/clear");
       }
   }
 }
 
-export default module;
+export default GeneStore;

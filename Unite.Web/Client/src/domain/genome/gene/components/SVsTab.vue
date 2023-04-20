@@ -71,12 +71,8 @@
   
     computed: {
       domain() {
-        return this.$store.state.gene;
-      },
-  
-      criteriaPropertyName: () => "svsFiltersCriteria",
-      contextPropertyName: () => "svsFiltersContext",
-      selectionPropertyName: () => "svsSelected"
+        return this.$store.state.gene.svs;
+      }
     },
   
     methods: {

@@ -1,8 +1,8 @@
-const module = {
-  namespaced: true,
+class FiltersStore {
+  namespaced = true;
 
-  state: () => ({
-  })
+  state = () => ({
+  });
 }
 
-export default module;
+export default FiltersStore;

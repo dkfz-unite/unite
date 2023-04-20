@@ -82,18 +82,14 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.specimen.tissue ? this.$store.state.tissue :
-        this.specimen.cellLine ? this.$store.state.cell :
-        this.specimen.organoid ? this.$store.state.organoid :
-        this.specimen.xenograft ? this.$store.state.xenograft :
+        this.specimen.tissue ? this.$store.state.tissue.svs :
+        this.specimen.cellLine ? this.$store.state.cell.svs :
+        this.specimen.organoid ? this.$store.state.organoid.svs :
+        this.specimen.xenograft ? this.$store.state.xenograft.svs :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "svsFiltersCriteria",
-    contextPropertyName: () => "svsFiltersContext",
-    selectionPropertyName: () => "svsSelected"
+    }
   },
 
   methods: {

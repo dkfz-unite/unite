@@ -82,16 +82,12 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.image.mriImage ? this.$store.state.mri :
-        this.image.ctImage ? this.$store.state.ct :
+        this.image.mriImage ? this.$store.state.mri.cnvs :
+        this.image.ctImage ? this.$store.state.ct.cnvs :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "cnvsFiltersCriteria",
-    contextPropertyName: () => "cnvsFiltersContext",
-    selectionPropertyName: () => "cnvsSelected"
+    }
   },
 
   methods: {

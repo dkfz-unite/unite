@@ -68,17 +68,13 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.donor;
-    },
-
-    criteriaPropertyName: () => "mriImagesFiltersCriteria",
-    contextPropertyName: () => "mriImagesFiltersContext",
-    selectionPropertyName: () => "mriImagesSelected"
+      return this.$store.state.donor.mris;
+    }
   },
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.searchImages(this.donor.id, "MRI", searchCriteria);
+      return await api.searchImages(this.donor.id, "mri", searchCriteria);
     }
   }
 }

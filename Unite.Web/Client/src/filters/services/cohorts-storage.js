@@ -1,7 +1,7 @@
 const SUFFIX = "cohorts";
 
 function getNamespace(identity) {
-  return `${identity}_${SUFFIX}`;
+  return `${identity}-${SUFFIX}`;
 }
 
 function loadCohorts(identity) {

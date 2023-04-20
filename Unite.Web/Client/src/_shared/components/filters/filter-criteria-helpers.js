@@ -1,3 +1,7 @@
+export function sanitizeString(value) {
+    return value?.trim();
+}
+
 export function sanitiseArray(values, numbers = false) {
     if (numbers === true) {
         let numberValues = values
@@ -54,6 +58,7 @@ export function copy(source) {
 }
 
 export default {
+    sanitizeString: sanitizeString,
     sanitiseArray: sanitiseArray,
     sanitiseRange: sanitiseRange,
     sanitiseThreshold: sanitiseThreshold,

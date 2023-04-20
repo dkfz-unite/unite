@@ -70,17 +70,12 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.ssm;
-    },
-
-    criteriaPropertyName: () => "donorsFiltersCriteria",
-    contextPropertyName: () => "donorsFiltersContext",
-    selectionPropertyName: () => "donorsSelected"
+      return this.$store.state.ssm.donors;
+    }
   },
 
   methods: {
     async fetchData(searchCriteria) {
-      console.log(this.variant.id);
       return await api.searchDonors(this.variant.id, searchCriteria);
     }
   }

@@ -71,12 +71,8 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.gene;
-    },
-
-    criteriaPropertyName: () => "ssmsFiltersCriteria",
-    contextPropertyName: () => "ssmsFiltersContext",
-    selectionPropertyName: () => "ssmsSelected"
+      return this.$store.state.gene.ssms;
+    }
   },
 
   methods: {

@@ -81,12 +81,8 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.donor;
-    },
-
-    criteriaPropertyName: () => "cnvsFiltersCriteria",
-    contextPropertyName: () => "cnvsFiltersContext",
-    selectionPropertyName: () => "cnvsSelected"
+      return this.$store.state.donor.cnvs;
+    }
   },
 
   methods: {

@@ -1,12 +1,12 @@
 import FilterType from "../../filter-type";
 import ValueType from "../../filter-value-type";
 
-import Gender from "../../../../../_models/domain/donors/enums/gender";
-import VitalStatus from "../../../../../_models/domain/donors/enums/vital-status";
-import ProgressionStatus from "../../../../../_models/domain/donors/enums/progression-status";
+import Gender from "@/_models/domain/donors/enums/gender";
+import VitalStatus from "@/_models/domain/donors/enums/vital-status";
+import ProgressionStatus from "@/_models/domain/donors/enums/progression-status";
 
 import { mapOptions } from "../../filter-options-helpers";
-import { sanitiseArray, sanitiseRange, sanitiseThreshold } from "../../filter-criteria-helpers";
+import { sanitiseArray, sanitiseRange, sanitizeString, sanitiseThreshold } from "../../filter-criteria-helpers";
 
 const filters = [
   {
@@ -70,9 +70,9 @@ const filters = [
   },
   {
     field: "vitalStatusChangeDay",
-    label: "Vital Status Change Day",
-    labelFrom: "Survival Revised After (From)",
-    labelTo: " Survival Revised After (To)",
+    label: "Survival (Days)",
+    labelFrom: "Survival (From)",
+    labelTo: " Survival (To)",
     placeholderFrom: "e.g. 100 days",
     placeholderTo: "e.g. 300 days",
     type: FilterType.Range,
@@ -92,9 +92,9 @@ const filters = [
   },
   {
     field: "progressionStatusChangeDay",
-    label: "Progression Status Change Day",
-    labelFrom: "Progression Revised After (From)",
-    labelTo: "Progression Revised After (To)",
+    label: "Progression Free Survival (Days)",
+    labelFrom: "Progression Free Survival (From)",
+    labelTo: "Progression Free Survival (To)",
     placeholderFrom: "e.g. 100 days",
     placeholderTo: "e.g. 300 days",
     type: FilterType.Range,

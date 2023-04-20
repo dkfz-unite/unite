@@ -82,18 +82,14 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.specimen.tissue ? this.$store.state.tissue :
-        this.specimen.cellLine ? this.$store.state.cell :
-        this.specimen.organoid ? this.$store.state.organoid :
-        this.specimen.xenograft ? this.$store.state.xenograft :
+        this.specimen.tissue ? this.$store.state.tissue.ssms :
+        this.specimen.cellLine ? this.$store.state.cell.ssms :
+        this.specimen.organoid ? this.$store.state.organoid.ssms :
+        this.specimen.xenograft ? this.$store.state.xenograft.ssms :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "ssmsFiltersCriteria",
-    contextPropertyName: () => "ssmsFiltersContext",
-    selectionPropertyName: () => "ssmsSelected"
+    }
   },
   
   methods: {

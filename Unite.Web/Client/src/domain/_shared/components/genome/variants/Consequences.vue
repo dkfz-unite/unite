@@ -1,20 +1,14 @@
 <template>
-  <div v-if="consequences?.length" class="column">
-    <div v-for="(consequence, i) in consequences" :key="i" class="row justify-left q-gutter-x-xs">
-      <div>
-        <span :class="getImpactColor(consequence.impact)">{{ getConsequenceLabel(consequence.term) }}: </span>
+  <div v-if="consequences?.length">
+    <div v-for="(consequence, i) in consequences" :key="i" class="row q-gutter-xs">
+      <div :class="getImpactColor(consequence.impact)">
+        {{ getConsequenceLabel(consequence.term) }}:
       </div>
-      <!-- <div v-for="(gene, j) in consequence.genes?.slice(0, 4)" :key="j"> -->
-        <div v-for="(gene, j) in consequence.genes" :key="j">
+      <div v-for="(gene, j) in consequence.genes" :key="j">
         <span>
-          <u-link class="text-italic" :to="{ name: 'gene', params: { id: gene.id.toString() }}">
+          <u-gene-link class="text-italic" :id="gene.id">
             {{ gene.symbol }}
-          </u-link>
-          <!-- <router-link 
-            class="u-link text-italic" 
-            :to="{ name: 'gene', params: { id: gene.id.toString() }}">
-            {{gene.symbol}}
-          </router-link> -->
+          </u-gene-link>
           <span v-if="gene.translations?.length">
             (<span v-for="(translation, k) in gene.translations" :key="k">
               <span>{{ translation }}</span>
@@ -31,9 +25,11 @@
 </template>
 
 <script>
+import UGeneLink from "../GeneLink.vue";
 import ConsequenceType from "@/_models/domain/genome/variants/enums/consequence-type";
 
 export default {
+  components: { UGeneLink },
   props: {
     consequences: {
       type: Array,

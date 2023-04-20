@@ -82,18 +82,14 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.specimen.tissue ? this.$store.state.tissue :
-        this.specimen.cellLine ? this.$store.state.cell :
-        this.specimen.organoid ? this.$store.state.organoid :
-        this.specimen.xenograft ? this.$store.state.xenograft :
+        this.specimen.tissue ? this.$store.state.tissue.genes :
+        this.specimen.cellLine ? this.$store.state.cell.genes :
+        this.specimen.organoid ? this.$store.state.organoid.genes :
+        this.specimen.xenograft ? this.$store.state.xenograft.genes :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "genesFiltersCriteria",
-    contextPropertyName: () => "genesFiltersContext",
-    selectionPropertyName: () => "genesSelected"
+    }
   },
 
   methods: {

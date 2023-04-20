@@ -81,12 +81,8 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.donor;
-    },
-
-    criteriaPropertyName: () => "ssmsFiltersCriteria",
-    contextPropertyName: () => "ssmsFiltersContext",
-    selectionPropertyName: () => "ssmsSelected"
+      return this.$store.state.donor.ssms;
+    }
   },
 
   methods: {

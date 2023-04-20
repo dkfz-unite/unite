@@ -82,16 +82,12 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.image.mriImage ? this.$store.state.mri :
-        this.image.ctImage ? this.$store.state.ct :
+        this.image.mriImage ? this.$store.state.mri.svs :
+        this.image.ctImage ? this.$store.state.ct.svs :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "svsFiltersCriteria",
-    contextPropertyName: () => "svsFiltersContext",
-    selectionPropertyName: () => "svsSelected"
+    }
   },
 
   methods: {

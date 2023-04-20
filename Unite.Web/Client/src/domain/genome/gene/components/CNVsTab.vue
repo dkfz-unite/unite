@@ -71,12 +71,8 @@
   
     computed: {
       domain() {
-        return this.$store.state.gene;
-      },
-  
-      criteriaPropertyName: () => "cnvsFiltersCriteria",
-      contextPropertyName: () => "cnvsFiltersContext",
-      selectionPropertyName: () => "cnvsSelected"
+        return this.$store.state.gene.cnvs;
+      }
     },
   
     methods: {

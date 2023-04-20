@@ -3,17 +3,32 @@
     :title="title"
     :class="class" separator="cell" dense flat bordered selection="multiple" row-key="id"
     :columns="columns"
+    :visible-columns="visible"
     :rows="data" 
     v-model:selected="selected"
-    v-bind:pagination="pagination"
+    v-model:pagination="pagination"
     v-bind:rows-per-page-options="paginationOptions" 
-    v-bind:loading="loading" 
+    v-bind:loading="loading"
     @request="onRequest">
+    <template v-slot:top-right>
+      <div class="row items-center q-gutter-x-sm">
+        <slot name="header-right" />
+        <u-columns-selector v-model="visible" :columns="columns" />
+      </div>
+    </template>
+    <template v-for="(_, name) in $slots" v-slot:[name]="scope">
+      <slot :name="name" v-bind="scope" />
+    </template>
   </q-table>
 </template>
 
 <script>
+import UColumnsSelector from "./ColumnsSelector.vue";
 export default {
+  components: {
+    UColumnsSelector
+  },
+
   props: {
     title: {
       type: String,
@@ -23,6 +38,13 @@ export default {
     class: {
       type: String,
       default: null
+    },
+
+    columns: {
+      type: Array,
+      default() {
+        return [];
+      }
     },
 
     rows: {
@@ -44,14 +66,19 @@ export default {
       default: 0
     },
 
-    page: {
+    from: {
       type: Number,
       default: 1
     },
 
-    pageSize: {
+    size: {
       type: Number,
       default: 20
+    },
+
+    query: {
+      type: String,
+      default: null
     },
 
     loading: {
@@ -61,77 +88,90 @@ export default {
   },
 
   emits: [
-    "update:rowsSelected",
-    "update:page",
-    "update:pageSize",
-    // "update:filters",
-    // "clear-criteria",
-    // "clear-selection"
+    "update",
+    "update:from",
+    "update:size",
+    "update:rowsSelected"
   ],
 
   data() {
     return {
       data: this.rows || [],
+      visible: this.loadColumns(),
       selected: this.rowsSelected || [],
       paginationOptions: [20, 50, 70, 100, 150, 200, 250, 500],
       pagination: {
-        page: this.getPage(this.page, this.pageSize),
-        rowsPerPage: this.getPageSize(this.pageSize),
+        page: this.getPage(this.from, this.size),
+        rowsPerPage: this.getPageSize(this.size),
         rowsNumber: this.rowsTotal || 0,
       }
     }
   },
 
-  
-
   watch: {
+    // In
     rows(value) {
       this.data = value;
-    },
-
-    rowsTotal(value) {
-      this.pagination.rowsNumber = value;
     },
 
     rowsSelected(value) {
       this.selected = value;
     },
 
-    page(value) {
-      this.pagination.page = this.getPage(value, this.pagination.rowsPerPage);
+    rowsTotal(value) {
+      this.pagination.rowsNumber = value;
     },
 
-    pageSize(value) {
+    from(value) {
+      this.pagination.page = this.getPage(value, this.size);
+    },
+
+    size(value) {
       this.pagination.rowsPerPage = this.getSize(value);
     },
 
+    // Out
     selected(value) {
-      this.$emit("update:rowsSelected", value);
+      const payload = value;
+      this.$emit("update:rowsSelected", payload);
+    },
+
+    visible(value) {
+      this.saveColumns(value);
     }
   },
 
   methods: {
     onRequest(props) {
       const { page, rowsPerPage } = props.pagination;
-      const { filter } = props;
 
-      if (page == this.pagination.page && rowsPerPage == this.pagination.rowsPerPage) {
-        this.selected = [];
-        this.pagination.page = 1;
-        this.pagination.rowsPerPage = rowsPerPage;
-        const from = this.getFrom(this.pagination.page, this.pagination.rowsPerPage);
-        const size = this.getSize(this.pagination.rowsPerPage);
-        const query = filter;
-        this.$emit("update:rowsSelected", []);
-        this.$emit("update:filters", { query, from, size });
-      } else {
+      if(this.pagination.page != page) {
         this.pagination.page = page;
-        this.pagination.rowsPerPage = rowsPerPage;
         const from = this.getFrom(this.pagination.page, this.pagination.rowsPerPage);
+        this.$emit("update:from", from);
+        this.$emit("update");
+      } else if (this.pagination.rowsPerPage != rowsPerPage) {
+        this.pagination.rowsPerPage = rowsPerPage;
         const size = this.getSize(this.pagination.rowsPerPage);
-        const query = filter;
-        this.$emit("update:filters", { query, from, size });
+        this.$emit("update:size", size);
+        this.$emit("update");
       }
+    },
+
+    getColumnsKey() {
+      const identity = this.$store.state.identity.account?.email || "anonymous";
+      const domain = this.$route.params?.tab ? `${this.$route.name}_${this.$route.params.tab}` : this.$route.name;
+      return `${identity}-columns-${domain}`;
+    },
+
+    loadColumns() {
+      const json = localStorage.getItem(this.getColumnsKey());
+      return json ? JSON.parse(json) : this.columns.map(column => column.name);
+    },
+
+    saveColumns(value) {
+      const json = JSON.stringify(value);
+      localStorage.setItem(this.getColumnsKey(), json);
     },
 
     getFrom(page, pageSize) {

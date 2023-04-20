@@ -82,16 +82,12 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.image.mriImage ? this.$store.state.mri :
-        this.image.ctImage ? this.$store.state.ct :
+        this.image.mriImage ? this.$store.state.mri.genes :
+        this.image.ctImage ? this.$store.state.ct.genes :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "genesFiltersCriteria",
-    contextPropertyName: () => "genesFiltersContext",
-    selectionPropertyName: () => "genesSelected"
+    }
   },
 
   methods: {

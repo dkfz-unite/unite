@@ -8,6 +8,7 @@ import store from "./app/store";
 
 import ULink from "./_shared/components/base/Link.vue";
 import ULinkExternal from "./_shared/components/base/LinkExternal.vue";
+import UArray from "./_shared/components/base/Array.vue";
 
 createApp(App)
 .use(Quasar, quasarOptions)
@@ -16,4 +17,5 @@ createApp(App)
 .use(router)
 .component("u-link", ULink)
 .component("u-link-external", ULinkExternal)
+.component("u-array", UArray)
 .mount('#app');

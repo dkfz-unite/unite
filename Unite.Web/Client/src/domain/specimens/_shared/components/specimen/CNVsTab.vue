@@ -82,18 +82,14 @@ export default {
   computed: {
     domain() {
       const state = 
-        this.specimen.tissue ? this.$store.state.tissue :
-        this.specimen.cellLine ? this.$store.state.cell :
-        this.specimen.organoid ? this.$store.state.organoid :
-        this.specimen.xenograft ? this.$store.state.xenograft :
+        this.specimen.tissue ? this.$store.state.tissue.cnvs :
+        this.specimen.cellLine ? this.$store.state.cell.cnvs :
+        this.specimen.organoid ? this.$store.state.organoid.cnvs :
+        this.specimen.xenograft ? this.$store.state.xenograft.cnvs :
         null;
 
       return state;
-    },
-
-    criteriaPropertyName: () => "cnvsFiltersCriteria",
-    contextPropertyName: () => "cnvsFiltersContext",
-    selectionPropertyName: () => "cnvsSelected"
+    }
   },
 
   methods: {

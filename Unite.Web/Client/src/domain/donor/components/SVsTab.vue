@@ -81,12 +81,8 @@ export default {
 
   computed: {
     domain() {
-      return this.$store.state.donor;
-    },
-
-    criteriaPropertyName: () => "svsFiltersCriteria",
-    contextPropertyName: () => "svsFiltersContext",
-    selectionPropertyName: () => "svsSelected"
+      return this.$store.state.donor.svs;
+    }
   },
 
   methods: {
