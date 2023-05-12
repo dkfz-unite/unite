@@ -1,5 +1,6 @@
 export default {
     urls: {
+        identity: "/identity",
         composer: "/composer",
         donors: "/donors-feed",
         specimens: "/specimens-feed",
