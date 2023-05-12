@@ -3,11 +3,12 @@ import ApiClient from "@/_shared/api/api-client";
 import tokenHelpers from "@/_shared/helpers/token-helpers";
 
 const client = new ApiClient();
-const signUpUrl = `${settings.urls.composer}/api/identity/signup`;
-const signInUrl = `${settings.urls.composer}/api/identity/signin`;
-const signOutUrl = `${settings.urls.composer}/api/identity/signout`;
-const accountUrl = `${settings.urls.composer}/api/identity/account`;
-const accessibilityUrl = `${settings.urls.composer}/api/accessibility`;
+const signUpUrl = `${settings.urls.identity}/api/default/register`;
+const signInUrl = `${settings.urls.identity}/api/default/login`;
+const signOutUrl = `${settings.urls.identity}/api/default/logout`;
+const changePasswordUrl = `${settings.urls.identity}/api/default/change-password`
+const accountUrl = `${settings.urls.identity}/api/account`;
+const accessibilityUrl = `${settings.urls.identity}/api/access`;
 
 async function signUp(email, password, passwordRepeat) {
   var url = signUpUrl;
@@ -47,7 +48,7 @@ async function getAccount() {
 }
 
 async function changePassword(oldPassword, newPassword, newPasswordRepeat) {
-  var url = accountUrl;
+  var url = changePasswordUrl;
 
   var data = {
     OldPassword: oldPassword,
