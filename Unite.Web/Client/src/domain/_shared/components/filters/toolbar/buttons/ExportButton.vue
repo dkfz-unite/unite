@@ -95,7 +95,7 @@ export default {
         const json = JSON.stringify(content);
         await navigator.clipboard.writeText(json);
         this.notifySuccess("Filters exported", "Filters were exported to clipboard");
-      } catch {
+      } catch (error) {
         this.notifyError("Couldn't export filters");
       }
     },

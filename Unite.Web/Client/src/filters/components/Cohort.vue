@@ -27,8 +27,10 @@
       </div>
     </div>
     
-    <!-- Filters -->
+    
     <q-separator v-if="cohort.criteria" />
+
+    <!-- Filters -->
     <div class="row q-pa-sm" v-if="cohort.criteria">
       <div class="col q-gutter-y-sm">
         <!-- Query -->
@@ -140,17 +142,17 @@
 <script>
 import UFiltersData from "./data/FiltersData.vue";
 
-import FilterType from "../../_shared/components/filters/filter-type";
-import donorFilters from "../../_shared/components/filters/domain/donors/donor-filters";
-import mriFilters from "../../_shared/components/filters/domain/images/mris/mri-filters";
-import tissueFilters from "../../_shared/components/filters/domain/specimens/tissues/tissue-filters";
-import cellFilters from "../../_shared/components/filters/domain/specimens/cells/cell-filters";
-import organoidFilters from "../../_shared/components/filters/domain/specimens/organoids/organoid-filters";
-import xenograftFilters from "../../_shared/components/filters/domain/specimens/xenografts/xenograft-filters";
-import geneFilters from "../../_shared/components/filters/domain/genome/genes/gene-filters";
-import ssmFilters from "../../_shared/components/filters/domain/genome/variants/ssm/ssm-filters";
-import cnvFilters from "../../_shared/components/filters/domain/genome/variants/cnv/cnv-filters";
-import svFilters from "../../_shared/components/filters/domain/genome/variants/sv/sv-filters";
+import FilterType from "@/_shared/components/filters/filter-type";
+import donorFilters from "@/_shared/components/filters/domain/donors/donor-filters";
+import mriFilters from "@/_shared/components/filters/domain/images/mris/mri-filters";
+import tissueFilters from "@/_shared/components/filters/domain/specimens/tissues/tissue-filters";
+import cellFilters from "@/_shared/components/filters/domain/specimens/cells/cell-filters";
+import organoidFilters from "@/_shared/components/filters/domain/specimens/organoids/organoid-filters";
+import xenograftFilters from "@/_shared/components/filters/domain/specimens/xenografts/xenograft-filters";
+import geneFilters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
+import ssmFilters from "@/_shared/components/filters/domain/genome/variants/ssm/ssm-filters";
+import cnvFilters from "@/_shared/components/filters/domain/genome/variants/cnv/cnv-filters";
+import svFilters from "@/_shared/components/filters/domain/genome/variants/sv/sv-filters";
 
 export default {
   components: {

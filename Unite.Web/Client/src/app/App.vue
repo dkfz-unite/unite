@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import ULogo from "./components/header/Logo.vue";
 import UNavigation from "./components/header/navigation/Navigation.vue";
 import UMenuButton from "./components/header/menu/MenuButton.vue";
@@ -52,6 +52,7 @@ export default {
 
   computed: {
     ...mapState("identity", ["account"]),
+    ...mapGetters("filters", ["domains", "domain", "cohorts", "cohort"]),
 
     authorized() {
       const route = this.$route;
@@ -64,6 +65,18 @@ export default {
         return true;
       }
     }
+  },
+
+  watch: {
+    account(value) {
+      this.$store.dispatch("filters/initialize", value?.email);
+
+      // console.log("Filters", this.$store.state.filters);
+    }
+  },
+
+  unmounted() {
+    // this.$store.dispatch("filters/dispose");
   }
 }
 </script>

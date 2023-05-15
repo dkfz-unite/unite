@@ -1,70 +1,64 @@
 <template>
-  <q-dialog
-    v-model="dialog"
-    @keyup.esc="dialog = false"
+  <q-dialog 
+    v-model="dialog" 
+    @keyup.esc="dialog = false" 
     @hide="onClose"
     persistent>
 
     <q-card style="min-width: 300px">
       <q-card-section>
-        <div class="text-h6">Save filters</div>
+        <div class="text-h6">Save as Cohort</div>
       </q-card-section>
 
       <q-card-section class="q-gutter-y-sm">
-        <q-input
+        <q-input 
           label="Name"
-          type="text"
-          v-model="name.value"
-          :rules="name.rules"
-          lazy-rules
+          placeholder="Enter cohort name"
+          type="text" 
+          v-model="name.value" 
+          :rules="name.rules" 
           square outlined dense
         />
 
-        <q-input
+        <q-input 
           label="Description (optional)"
-          type="text"
-          v-model="description.value"
-          autogrow
-          square outlined dense
+          placeholder="Enter cohort description"
+          type="text" 
+          v-model="description.value" 
+          autogrow square outlined dense 
         />
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
-        <q-btn
+        <q-btn 
           label="Cancel" 
-          dense flat no-caps 
-          v-close-popup 
+          dense flat no-caps v-close-popup 
         />
 
         <q-btn 
           label="Save" 
           :disable="!canSave" 
           @click="onSave" 
-          dense flat no-caps 
-          v-close-popup
+          dense flat no-caps v-close-popup 
         />
       </q-card-actions>
     </q-card>
   </q-dialog>
 
-  <q-btn
-    v-if="criteria?.numberOfFilters || selected?.length"
-    label="Save"
-    title="Save filters"
+  <q-btn 
+    v-if="criteria?.numberOfFilters || selected?.length" 
+    label="Save" 
+    title="Save as cohort" 
     icon="las la-save"
-    color="primary"
+    color="secondary"
+    @click="dialog=true"
     dense flat no-caps 
-    @click="dialog = true">
-  </q-btn>
+    />
 </template>
 
 <script>
-import cohortsStorage from "../../../../../../filters/services/cohorts-storage";
-
 export default {
-  emits: ["save"],
-
-  inject: ["domain", "identity"],
+  inject: ["domain"],
 
   data() {
     return {
@@ -73,8 +67,8 @@ export default {
       name: {
         value: null,
         rules: [
-          (val) => !!val || "Please, enter preset name",
-          (val) => this.nameIsUnique(this.domain, val) || "Preset with given name already exists"
+          (val) => this.nameIsNotEmpty(val) || "Please, enter preset name",
+          (val) => this.nameIsNotReserved(val) || "Preset with given name already exists"
         ]
       },
 
@@ -85,40 +79,14 @@ export default {
   },
 
   computed: {
-    criteria() {
-      return this.$store.state[this.domain].filtersCriteria;
+    selected: {
+      get() { return this.$store.state[this.domain].rowsSelected; },
+      set(value) { this.$store.state[this.domain].rowsSelected = value }
     },
 
-    selected() {
-      return this.$store.state[this.domain].selected;
-    },
-
-    mergedCriteria() {
-      const criteria = this.criteria.clone();
-
-      if (this.selected?.length) {
-        if (this.domain == "donors") {
-          criteria.donorFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "tissues") {
-          criteria.tissueFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "cells") {
-          criteria.cellFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "organoids") {
-          criteria.organoidFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "xenografts") {
-          criteria.xenograftFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "genes") {
-          criteria.geneFiltersCriteria.symbol = this.selected.map(item => item.symbol);
-        } else if (this.domain == "ssms") {
-          criteria.mutationFiltersCriteria.code = this.selected.map(item => item.id);
-        } else if (this.domain == "cnvs") {
-          criteria.copyNumberVariantFiltersCriteria.code = this.selected.map(item => item.id);
-        } else if (this.domain == "svs") {
-          criteria.structuralVariantFiltersCriteria.code = this.selected.map(item => item.id);
-        }
-      }
-
-      return criteria;
+    criteria: {
+      get() { return this.$store.state[this.domain].filtersCriteria; },
+      set(value) { this.$store.state[this.domain].filtersCriteria = value }
     },
 
     canSave() {
@@ -132,16 +100,13 @@ export default {
 
   methods: {
     onSave() {
-      const cohort = {
-        domain: this.domain,
+      const domainName = this.domain;
+      const cohortData = {
         name: this.name.value,
         description: this.description.value,
-        criteria: this.mergedCriteria
+        criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
       };
-
-      cohortsStorage.saveCohort(this.identity, cohort);
-      
-      this.$emit("save");
+      this.$store.dispatch("filters/addCohort", { domainName, cohortData });
     },
 
     onClose() {
@@ -149,8 +114,41 @@ export default {
       this.description.value = null;
     },
 
-    nameIsUnique(domain, cohort) {
-      return cohortsStorage.canSaveCohort(this.identity, domain, cohort);
+    nameIsNotEmpty(cohortName) {
+      return !!cohortName?.length;
+    },
+
+    nameIsNotReserved(cohortName) {
+      const domainName = this.domain;
+      const existing = this.$store.getters["filters/cohort"](domainName, cohortName);
+      return existing == null;
+    },
+
+    mergeCriteriaWithSelection(criteria, selected) {
+      if (!selected?.length) {
+        return criteria;
+      } else {
+        if (this.domain == "donors") {
+          criteria.donorFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+        } else if (this.domain == "tissues") {
+          criteria.tissueFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+        } else if (this.domain == "cells") {
+          criteria.cellFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+        } else if (this.domain == "organoids") {
+          criteria.organoidFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+        } else if (this.domain == "xenografts") {
+          criteria.xenograftFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+        } else if (this.domain == "genes") {
+          criteria.geneFiltersCriteria.symbol = selected.map(item => item.symbol);
+        } else if (this.domain == "ssms") {
+          criteria.mutationFiltersCriteria.code = selected.map(item => item.id);
+        } else if (this.domain == "cnvs") {
+          criteria.copyNumberVariantFiltersCriteria.code = selected.map(item => item.id);
+        } else if (this.domain == "svs") {
+          criteria.structuralVariantFiltersCriteria.code = selected.map(item => item.id);
+        }
+        return criteria;
+      }
     }
   }
 }

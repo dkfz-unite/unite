@@ -1,7 +1,7 @@
 <template>
   <!-- Values filter -->
   <template v-if="filter.type == FilterType.Values">
-    <u-chips-filter
+    <u-values-filter
       v-model="filterValue"
       :label="filter.label"
       :placeholder="filter.placeholder"
@@ -11,7 +11,7 @@
   
   <!-- Option filter -->
   <template v-else-if="filter.type == FilterType.Option">
-    <u-select-one-filter
+    <u-option-filter
       v-model="filterValue"
       :label="filter.label"
       :options="filterOptions"
@@ -21,7 +21,7 @@
 
   <!-- Options filter -->
   <template v-else-if="filter.type == FilterType.Options">
-    <u-select-many-filter
+    <u-options-filter
       v-model="filterValue"
       :label="filter.label"
       :options="filterOptions"
@@ -68,9 +68,9 @@
 </template>
 
 <script>
-import UChipsFilter from "./base/ChipsFilter.vue";
-import USelectOneFilter from "./base/SelectSingleFilter.vue";
-import USelectManyFilter from "./base/SelectFilter.vue";
+import UValuesFilter from "./base/ValuesFilter.vue";
+import UOptionFilter from "./base/OptionFilter.vue";
+import UOptionsFilter from "./base/OptionsFilter.vue";
 import UBooleanFilter from "./base/BooleanFilter.vue";
 import UNumberFilter from "./base/NumberFilter.vue";
 import URangeFilter from "./base/RangeFilter.vue";
@@ -81,9 +81,9 @@ import ValueType from "./filter-value-type";
 
 export default {
   components: {
-    UChipsFilter,
-    USelectOneFilter,
-    USelectManyFilter,
+    UValuesFilter,
+    UOptionFilter,
+    UOptionsFilter,
     UBooleanFilter,
     UNumberFilter,
     URangeFilter,

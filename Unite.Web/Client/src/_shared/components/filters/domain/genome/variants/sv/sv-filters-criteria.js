@@ -1,4 +1,5 @@
 import VariantFiltersCriteria from "../variant-filters-criteria";
+import { copy } from "../../../../filter-criteria-helpers";
 
 export default class StructuralVariantFiltersCriteria extends VariantFiltersCriteria {
     type = [];

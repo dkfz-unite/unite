@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import FiltersCriteria from '../../../../../../_shared/components/filters/filters-criteria';
+import FiltersCriteria from '@/_shared/components/filters/filters-criteria';
 
 export default {
   inject: ["domain"],
@@ -93,8 +93,9 @@ export default {
   },
 
   computed: {
-    criteria() {
-      return this.$store.state[this.domain].filtersCriteria;
+    criteria: {
+      get() { return this.$store.state[this.domain].filtersCriteria; },
+      set(value) { this.$store.state[this.domain].filtersCriteria = value }
     },
 
     selected() {
@@ -130,7 +131,7 @@ export default {
         const validation = await this.filtersAreValid(cohort);
 
         if (validation === true) {
-          this.$store.state[this.domain].filtersCriteria = new FiltersCriteria(cohort.criteria);
+          this.criteria = new FiltersCriteria(cohort.criteria);
           this.notifySuccess("Filters imported", "Filters were imported from clipboard");
         } else {
           this.notifyError("Couldn't import filters", validation);
@@ -145,7 +146,7 @@ export default {
       try {
         const json = await this.file.value.text();
         const cohort = JSON.parse(json);
-        this.$store.state[this.domain].filtersCriteria = new FiltersCriteria(cohort.criteria);
+        this.criteria = new FiltersCriteria(cohort.criteria);
         this.notifySuccess("Filters imported", "Filters were imported from file");
       } catch {
         this.notifyError("Couldn't import filters");

@@ -1,9 +1,9 @@
 <template>
   <q-btn 
     label="Show"
-    title="Apply filters"
+    title="Show cohort data"
     icon="las la-search"
-    color="primary"
+    color="secondary"
     dense flat no-caps
     @click="applyFilters">
   </q-btn>
@@ -13,7 +13,7 @@
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
-  props: ["identity", "domain", "cohort"],
+  props: ["domain", "cohort"],
 
   methods: {
     applyFilters() {

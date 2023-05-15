@@ -1,10 +1,10 @@
 <template>
   <div class="row q-px-xs">
-    <u-clear-button @clear="$emit('clear')" />
+    <u-clear-button />
     <u-import-button />
     <u-export-button />
-    <u-save-button @save="$refs.filters.loadCohorts()" />
-    <u-load-button ref="filters" />
+    <u-save-button />
+    <u-load-button />
   </div>
 </template>
 
@@ -31,28 +31,9 @@ export default {
     }
   },
 
-  emits: ["clear"],
-
-  computed: {
-    identity() {
-      return this.$store.state.identity.account?.email;
-    },
-
-    criteria() {
-      return this.$store.state[this.domain].filtersCriteria;
-    },
-
-    selected() {
-      return this.$store.state[this.domain].selected;
-    }
-  },
-
   provide() {
     return {
-      domain: this.domain,
-      criteria: this.criteria,
-      selected: this.selected,
-      identity: this.identity
+      domain: this.domain
     };
   }
 }

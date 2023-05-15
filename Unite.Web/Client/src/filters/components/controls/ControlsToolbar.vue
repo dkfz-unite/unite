@@ -1,30 +1,26 @@
 <template>
   <div class="row">
-    <u-show-button 
-      :identity="identity" 
+    <u-export-button  
       :domain="domain" 
       :cohort="cohort"
       class="q-px-sm"
     />
 
-    <u-export-button 
-      :identity="identity" 
+    <u-show-button 
       :domain="domain" 
       :cohort="cohort"
       class="q-px-sm"
     />
 
     <u-download-button 
-      :identity="identity" 
       :domain="domain" 
       :cohort="cohort"
       class="q-px-sm"
     />
 
-    <q-separator vertical />
+    <!-- <q-separator vertical /> -->
 
     <u-delete-buttomn 
-      :identity="identity" 
       :domain="domain" 
       :cohort="cohort"
       class="q-px-sm"
@@ -49,11 +45,6 @@ export default {
   },
 
   props: {
-    identity: {
-      type: String,
-      required: true
-    },
-
     domain: {
       type: Object,
       required: true
@@ -65,6 +56,6 @@ export default {
     }
   },
 
-  emits: ["deleted"]
+  emits: ["deleted"],
 }
 </script>

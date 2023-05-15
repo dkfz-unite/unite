@@ -1,7 +1,7 @@
 <template>
   <q-btn 
     label="Export"
-    title="Export filters"
+    title="Export cohort filters"
     icon="las la-file-export"
     color="primary"
     dense flat no-caps>
@@ -30,7 +30,7 @@
 
 <script>
 import { exportFile } from "quasar";
-import FiltersCriteria from "../../../../_shared/components/filters/filters-criteria";
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
   props: ["identity", "domain", "cohort"],
@@ -59,7 +59,6 @@ export default {
         await navigator.clipboard.writeText(content);
         this.notifySuccess("Filters exported", "Filters were exported to clipboard");
       } catch(error) {
-        console.log(error);
         this.notifyError("Couldn't export filters");
       }
     },

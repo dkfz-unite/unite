@@ -83,7 +83,6 @@ import UCohortsMini from "./components/CohortsMini.vue";
 import UCohort from "./components/Cohort.vue";
 import FiltersCriteria from "../_shared/components/filters/filters-criteria";
 
-import cohortsStorage from "./services/cohorts-storage";
 import donorsApi from "../domain/donors/api";
 import imagesApi from "../domain/images/_shared/api/images";
 import specimensApi from "../domain/specimens/_shared/api/specimens";
@@ -103,7 +102,7 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domains: [],
+      // domains: [],
       domain: null,
       cohort: null
     };
@@ -112,11 +111,16 @@ export default {
   computed: {
     identity() {
       return this.$store.state.identity.account?.email;
-    }
+    },
+
+    domains() {
+      return this.$store.getters["filters/domains"];
+    },
   },
 
   mounted() {
-    this.loadCohorts();
+    this.domain = this.domains?.length ? this.domains[0] : null;
+    this.cohort = this.domain?.cohorts?.length ? this.domain.cohorts[0] : null;
   },
 
   watch: {
@@ -129,8 +133,6 @@ export default {
 
   methods: {
     loadCohorts() {
-      this.domains = cohortsStorage.loadCohorts(this.identity);
-
       this.domain = this.domains?.length
         ? this.domains.find(domain => domain.name == this.domain?.name) || this.domains[0]
         : null;

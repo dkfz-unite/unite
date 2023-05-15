@@ -6,16 +6,15 @@
     icon="las la-times-circle"
     color="orange"
     dense flat no-caps 
-    @click="clear">
+    @click="onClear">
   </q-btn>
 </template>
 
 <script>
-import FiltersCriteria from "../../../../../../_shared/components/filters/filters-criteria";
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
   inject: ["domain"],
-  emits: ["clear"],
 
   computed: {
     criteria: {
@@ -25,7 +24,7 @@ export default {
   },
 
   methods: {
-    clear() {
+    onClear() {
       this.criteria = new FiltersCriteria();
     }
   }

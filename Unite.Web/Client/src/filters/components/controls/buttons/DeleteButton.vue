@@ -1,31 +1,25 @@
 <template>
   <q-btn
     label="Delete"
-    title="Delete filters"
+    title="Delete cohort"
     icon="las la-trash"
-    color="orange"
+    color="red"
     dense flat no-caps
-    @click="deleteFilters">
+    @click="onDelete">
   </q-btn>
 </template>
 
 <script>
-import cohortsStorage from "../../../services/cohorts-storage";
+import { mapActions } from "vuex";
 
 export default {
-  props: ["identity", "domain", "cohort"],
-  emits: ["deleted"],
+  props: ["domain", "cohort"],
 
   methods: {
-    deleteFilters() {
-      const data = {
-        domain: this.domain.name,
-        cohort: this.cohort.name
-      };
+    ...mapActions("filters", ["deleteCohort"]),
 
-      cohortsStorage.deleteCohort(this.identity, data);
-      
-      this.$emit("deleted");
+    onDelete() {
+      this.deleteCohort({ domainName: this.domain.name, cohortName: this.cohort.name });
     }
   }
 }

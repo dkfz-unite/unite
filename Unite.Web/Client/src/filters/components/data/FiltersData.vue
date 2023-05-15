@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import FilterType from "../../../_shared/components/filters/filter-type";
+import FilterType from "@/_shared/components/filters/filter-type";
 import UOptionFilterData from "./base/OptionFilterData.vue";
 import UOptionsFilterData from "./base/OptionsFilterData.vue";
 import URangeFilterData from "./base/RangeFilterData.vue";
