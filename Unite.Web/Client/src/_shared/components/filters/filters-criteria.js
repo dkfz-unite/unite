@@ -86,6 +86,16 @@ export default class FiltersCriteria {
     this.oncogrid?.sanitise();
   }
 
+  resetPage() {
+    let filters = new Filters();
+    filters.query = this.filters.query;
+    filters.size = this.filters.size;
+    filters.from = 0;
+    
+    this.filters = filters;
+  }
+
+
   clone() {
     var criteria = new FiltersCriteria();
 

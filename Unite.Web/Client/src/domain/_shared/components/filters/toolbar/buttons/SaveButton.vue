@@ -1,7 +1,7 @@
 <template>
   <q-dialog 
-    v-model="dialog" 
-    @keyup.esc="dialog = false" 
+    v-model="showDialog" 
+    @keyup.esc="showDialog = false" 
     @hide="onClose"
     persistent>
 
@@ -51,9 +51,9 @@
     title="Save as cohort" 
     icon="las la-save"
     color="secondary"
-    @click="dialog=true"
+    @click="showDialog=true"
     dense flat no-caps 
-    />
+  />
 </template>
 
 <script>
@@ -62,13 +62,13 @@ export default {
 
   data() {
     return {
-      dialog: false,
+      showDialog: false,
 
       name: {
         value: null,
         rules: [
-          (val) => this.nameIsNotEmpty(val) || "Please, enter preset name",
-          (val) => this.nameIsNotReserved(val) || "Preset with given name already exists"
+          (val) => this.nameIsNotEmpty(val) || "Please, enter cohort name",
+          (val) => this.nameIsNotReserved(val) || "Cohort with given name already exists"
         ]
       },
 

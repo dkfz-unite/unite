@@ -61,11 +61,11 @@ export default {
         } else if (this.domain == "genes") {
           criteria.geneFiltersCriteria.symbol = this.selected.map(item => item.symbol);
         } else if (this.domain == "ssms") {
-          criteria.mutationFiltersCriteria.code = this.selected.map(item => item.id);
+          criteria.mutationFiltersCriteria.id = this.selected.map(item => item.id);
         } else if (this.domain == "cnvs") {
-          criteria.copyNumberVariantFiltersCriteria.code = this.selected.map(item => item.id);
+          criteria.copyNumberVariantFiltersCriteria.id = this.selected.map(item => item.id);
         } else if (this.domain == "svs") {
-          criteria.structuralVariantFiltersCriteria.code = this.selected.map(item => item.id);
+          criteria.structuralVariantFiltersCriteria.id = this.selected.map(item => item.id);
         }
       }
 

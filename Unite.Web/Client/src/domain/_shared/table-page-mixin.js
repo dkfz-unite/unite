@@ -57,6 +57,7 @@ const mixin = {
   methods: {
     async filterData() {
       this.filtersCriteria?.sanitise();
+      this.filtersCriteria?.resetPage();
       this.rowsSelected = [];
       this.loadData();
     },
