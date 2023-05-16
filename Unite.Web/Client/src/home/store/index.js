@@ -14,7 +14,7 @@ import FiltersStore from "@/cohorts/store";
 import OncogridStore from "@/visualization/oncogrid/store";
 import SearchPageStore from "@/_shared/store/search-page-store";
 
-export default createStore({
+const store = createStore({
   modules: {
     leftDrawer: leftDrawerModule,
     rightDrawer: rightDrawerModule,
@@ -45,4 +45,6 @@ export default createStore({
 
   state: {
   }
-})
+});
+
+export default store;

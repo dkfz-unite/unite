@@ -143,11 +143,11 @@ export default {
         } else if (this.domain == "genes") {
           criteria.gene.symbol = selected.map(item => item.symbol);
         } else if (this.domain == "ssms") {
-          criteria.ssm.code = selected.map(item => item.id);
+          criteria.ssm.id = selected.map(item => item.id);
         } else if (this.domain == "cnvs") {
-          criteria.cnv.code = selected.map(item => item.id);
+          criteria.cnv.id = selected.map(item => item.id);
         } else if (this.domain == "svs") {
-          criteria.sv.code = selected.map(item => item.id);
+          criteria.sv.id = selected.map(item => item.id);
         }
         return criteria;
       }

@@ -58,7 +58,7 @@
           <q-item :to="{ name: 'xenografts' }" :active="$route.name == 'xenografts'">
             <q-item-section>
               <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-mouse" size="sm" />
+                <q-icon name="svguse:/icons.svg#u-xenograft" size="sm" />
                 <span>Xenografts</span>
               </div>
             </q-item-section>
@@ -129,7 +129,7 @@ export default {
         case "tissues": return "svguse:/icons.svg#u-tissue";
         case "cells": return "las la-microscope";
         case "organoids": return "svguse:/icons.svg#u-organoid";
-        case "xenografts": return "svguse:/icons.svg#u-mouse";
+        case "xenografts": return "svguse:/icons.svg#u-xenograft";
         default: return "svguse:/icons.svg#u-tissue";
       }
     },

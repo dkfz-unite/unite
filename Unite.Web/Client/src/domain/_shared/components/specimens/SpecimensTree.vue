@@ -127,7 +127,7 @@ export default {
       } else if (!!node?.organoid) {
         return "svguse:/icons.svg#u-organoid";
       } else if (!!node?.xenograft) {
-        return "svguse:/icons.svg#u-mouse";
+        return "svguse:/icons.svg#u-xenograft";
       }
     },
 

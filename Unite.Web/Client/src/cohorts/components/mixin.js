@@ -67,7 +67,7 @@ const mixin = {
         case "tissues": return "svguse:/icons.svg#u-tissue";
         case "cells": return "las la-microscope";
         case "organoids": return "svguse:/icons.svg#u-organoid";
-        case "xenografts": return "svguse:/icons.svg#u-mouse";
+        case "xenografts": return "svguse:/icons.svg#u-xenograft";
         case "genes": return "svguse:/icons.svg#u-gene";
         case "ssms": return "svguse:/icons.svg#u-ssm";
         case "cnvs": return "svguse:/icons.svg#u-cnv";

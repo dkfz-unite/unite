@@ -34,7 +34,7 @@ export default {
       return this.sample.specimen.type == "Tissue" ? "svguse:/icons.svg#u-tissue"
            : this.sample.specimen.type == "CellLine" ? "las la-microscope"
            : this.sample.specimen.type == "Organoid" ? "svguse:/icons.svg#u-organoid"
-           : this.sample.specimen.type == "Xenograft" ? "svguse:/icons.svg#u-mouse"
+           : this.sample.specimen.type == "Xenograft" ? "svguse:/icons.svg#u-xenograft"
            : null;
     }
   }

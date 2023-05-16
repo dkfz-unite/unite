@@ -87,7 +87,7 @@ import donorsApi from "../domain/donors/api";
 import imagesApi from "../domain/images/_shared/api/images";
 import specimensApi from "../domain/specimens/_shared/api/specimens";
 import genesApi from "../domain/genome/genes/api";
-import mutationsApi from "../domain/genome/variants/ssms/api";
+import variantsApi from "../domain/genome/variants/_shared/api/variants";
 
 export default {
   components: {
@@ -145,7 +145,7 @@ export default {
     async loadCohortSize() {
       let searchCriteria = new FiltersCriteria(this.cohort.criteria).toSearchCriteria();
       searchCriteria.from = 0;
-      searchCriteria.size = 1;
+      searchCriteria.size = 0;
 
       let data = null;
 
@@ -165,11 +165,11 @@ export default {
         } else if (this.domain.name == "genes") {
           data = await genesApi.search(searchCriteria);
         } else if (this.domain.name == "ssms") {
-          data = await mutationsApi.search("ssm", searchCriteria);
+          data = await variantsApi.search("ssm", searchCriteria);
         } else if (this.domain.name == "cnvs") {
-          data = await mutationsApi.search("cnv", searchCriteria);
+          data = await variantsApi.search("cnv", searchCriteria);
         } else if (this.domain.name == "svs") {
-          data = await mutationsApi.search("sv", searchCriteria);
+          data = await variantsApi.search("sv", searchCriteria);
         }
 
         this.cohort.size = data?.total;

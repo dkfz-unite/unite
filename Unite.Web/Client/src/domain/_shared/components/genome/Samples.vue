@@ -56,7 +56,7 @@ export default {
       return specimenType == "Tissue" ? "svguse:/icons.svg#u-tissue"
            : specimenType == "CellLine" ? "las la-microscope"
            : specimenType == "Organoid" ? "svguse:/icons.svg#u-organoid"
-           : "svguse:/icons.svg#u-mouse";
+           : "svguse:/icons.svg#u-xenograft";
     }
   }
 }

@@ -73,7 +73,7 @@
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('xenograft')" name="xenograft" icon="svguse:/icons.svg#u-mouse">
+          <q-tab v-if="showFilters('xenograft')" name="xenograft" icon="svguse:/icons.svg#u-xenograft">
             <q-badge v-if="filtersCriteria.xenograft.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
               {{filtersCriteria.xenograft.numberOfFilters}}
             </q-badge>
