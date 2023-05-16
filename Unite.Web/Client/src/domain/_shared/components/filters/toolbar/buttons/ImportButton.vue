@@ -180,15 +180,16 @@ export default {
         return `Filters should match current context '${this.domain}'`;
       }
 
-      if (cohort?.criteria?.donorFiltersCriteria == null
-        && cohort?.criteria?.tissueFiltersCriteria == null
-        && cohort?.criteria?.cellFiltersCriteria == null
-        && cohort?.criteria?.organoidFiltersCriteria == null
-        && cohort?.criteria?.xenograftFiltersCriteria == null
-        && cohort?.criteria?.geneFiltersCriteria == null
-        && cohort?.criteria?.mutationFiltersCriteria == null
-        && cohort?.criteria?.copyNumberVariantFiltersCriteria == null
-        && cohort?.criteria?.structuralVariantFiltersCriteria == null) {
+      if (cohort?.criteria?.donor == null
+        && cohort?.criteria?.mri == null
+        && cohort?.criteria?.tissue == null
+        && cohort?.criteria?.cell == null
+        && cohort?.criteria?.organoid == null
+        && cohort?.criteria?.xenograft == null
+        && cohort?.criteria?.gene == null
+        && cohort?.criteria?.ssm == null
+        && cohort?.criteria?.cnv == null
+        && cohort?.criteria?.sv == null) {
         return `Filters criteria should be specified`;
       }
       

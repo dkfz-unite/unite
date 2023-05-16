@@ -128,7 +128,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.donor"
                   v-model="filtersCriteria.donor"
-                  :context="filtersContext.donorFiltersContext"
+                  :context="filtersContext.donor"
                   :filters="donorFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -145,7 +145,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.mri"
                   v-model="filtersCriteria.mri"
-                  :context="filtersContext.mriFiltersContext"
+                  :context="filtersContext.mri"
                   :filters="mriFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -162,7 +162,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.tissue"
                   v-model="filtersCriteria.tissue"
-                  :context="filtersContext.tissueFiltersContext"
+                  :context="filtersContext.tissue"
                   :filters="tissueFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -179,7 +179,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.cell"
                   v-model="filtersCriteria.cell"
-                  :context="filtersContext.cellFiltersContext"
+                  :context="filtersContext.cell"
                   :filters="cellFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -196,7 +196,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.organoid"
                   v-model="filtersCriteria.organoid"
-                  :context="filtersContext.organoidFiltersContext"
+                  :context="filtersContext.organoid"
                   :filters="organoidFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -213,7 +213,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.xenograft"
                   v-model="filtersCriteria.xenograft"
-                  :context="filtersContext.xenograftFiltersContext"
+                  :context="filtersContext.xenograft"
                   :filters="xenograftFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -230,7 +230,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.gene"
                   v-model="filtersCriteria.gene"
-                  :context="filtersContext.geneFiltersContext"
+                  :context="filtersContext.gene"
                   :filters="geneFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -247,7 +247,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.ssm"
                   v-model="filtersCriteria.ssm"
-                  :context="filtersContext.mutationFiltersContext"
+                  :context="filtersContext.ssm"
                   :filters="mutationFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -264,7 +264,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.cnv"
                   v-model="filtersCriteria.cnv"
-                  :context="filtersContext.copyNumberVariantFiltersContext"
+                  :context="filtersContext.cnv"
                   :filters="copyNumberVariantFilters"
                   @update:modelValue="onUpdate"
                 />
@@ -281,7 +281,7 @@
                 <u-criteria-filters
                   v-if="filtersCriteria?.sv"
                   v-model="filtersCriteria.sv"
-                  :context="filtersContext.structuralVariantFiltersContext"
+                  :context="filtersContext.sv"
                   :filters="structuralVariantFilters"
                   @update:modelValue="onUpdate"
                 />

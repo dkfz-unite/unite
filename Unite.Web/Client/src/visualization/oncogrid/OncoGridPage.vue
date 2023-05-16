@@ -96,14 +96,14 @@ export default {
 
     if (mode == "donors") {
       filtersCriteria = this.$store.state.donors.filtersCriteria.clone();
-      filtersCriteria.donorFiltersCriteria.referenceId = donors?.map(donor => donor.referenceId);
+      filtersCriteria.donor.referenceId = donors?.map(donor => donor.referenceId);
     } else if (mode == "genes") {
       filtersCriteria = this.$store.state.genes.filtersCriteria.clone();
-      filtersCriteria.geneFiltersCriteria.symbol = genes?.map(gene => gene.symbol);
+      filtersCriteria.gene.symbol = genes?.map(gene => gene.symbol);
     }
 
-    if (!filtersCriteria.mutationFiltersCriteria.impact.length){
-      filtersCriteria.mutationFiltersCriteria.impact = [
+    if (!filtersCriteria.ssm.impact.length){
+      filtersCriteria.ssm.impact = [
         ConsequenceImpact.High, 
         ConsequenceImpact.Moderate, 
         ConsequenceImpact.Low
