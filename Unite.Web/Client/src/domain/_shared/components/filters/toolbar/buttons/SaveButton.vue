@@ -129,23 +129,25 @@ export default {
         return criteria;
       } else {
         if (this.domain == "donors") {
-          criteria.donorFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+          criteria.donor.referenceId = selected.map(item => item.referenceId);
+        } else if (this.domain == "mris") {
+          criteria.mri.referenceId = selected.map(item => item.mriImage.referenceId);
         } else if (this.domain == "tissues") {
-          criteria.tissueFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+          criteria.tissue.referenceId = selected.map(item => item.tissue.referenceId);
         } else if (this.domain == "cells") {
-          criteria.cellFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+          criteria.cell.referenceId = selected.map(item => item.cellLine.referenceId);
         } else if (this.domain == "organoids") {
-          criteria.organoidFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+          criteria.organoid.referenceId = selected.map(item => item.organoid.referenceId);
         } else if (this.domain == "xenografts") {
-          criteria.xenograftFiltersCriteria.referenceId = selected.map(item => item.referenceId);
+          criteria.xenograft.referenceId = selected.map(item => item.xenograft.referenceId);
         } else if (this.domain == "genes") {
-          criteria.geneFiltersCriteria.symbol = selected.map(item => item.symbol);
+          criteria.gene.symbol = selected.map(item => item.symbol);
         } else if (this.domain == "ssms") {
-          criteria.mutationFiltersCriteria.code = selected.map(item => item.id);
+          criteria.ssm.code = selected.map(item => item.id);
         } else if (this.domain == "cnvs") {
-          criteria.copyNumberVariantFiltersCriteria.code = selected.map(item => item.id);
+          criteria.cnv.code = selected.map(item => item.id);
         } else if (this.domain == "svs") {
-          criteria.structuralVariantFiltersCriteria.code = selected.map(item => item.id);
+          criteria.sv.code = selected.map(item => item.id);
         }
         return criteria;
       }

@@ -27,63 +27,63 @@ class Filters {
 
 export default class FiltersCriteria {
   filters = new Filters();
-  donorFiltersCriteria = new DonorFiltersCriteria();
-  tissueFiltersCriteria = new TissueFiltersCriteria();
-  cellFiltersCriteria = new CellFiltersCriteria();
-  organoidFiltersCriteria = new OrganoidFiltersCriteria();
-  xenograftFiltersCriteria = new XenograftFiltersCriteria();
-  geneFiltersCriteria = new GeneFiltersCriteria();
-  mutationFiltersCriteria = new MutationFiltersCriteria();
-  copyNumberVariantFiltersCriteria = new CopyNumberVariantFiltersCriteria();
-  structuralVariantFiltersCriteria = new StructuralVariantFiltersCriteria();
-  mriFiltersCriteria = new MriFiltersCriteria();
-  oncogridFiltersCriteria = new OncogirdFiltersCriteria();
+  donor = new DonorFiltersCriteria();
+  mri = new MriFiltersCriteria();
+  tissue = new TissueFiltersCriteria();
+  cell = new CellFiltersCriteria();
+  organoid = new OrganoidFiltersCriteria();
+  xenograft = new XenograftFiltersCriteria();
+  gene = new GeneFiltersCriteria();
+  ssm = new MutationFiltersCriteria();
+  cnv = new CopyNumberVariantFiltersCriteria();
+  sv = new StructuralVariantFiltersCriteria();
+  oncogrid = new OncogirdFiltersCriteria();
 
   get numberOfFilters() {
     let number = 0;
 
     number += this.filters.query != null ? 1 : 0;
-    number += this.donorFiltersCriteria.numberOfFilters;
-    number += this.tissueFiltersCriteria.numberOfFilters;
-    number += this.cellFiltersCriteria.numberOfFilters;
-    number += this.organoidFiltersCriteria.numberOfFilters;
-    number += this.xenograftFiltersCriteria.numberOfFilters;
-    number += this.geneFiltersCriteria.numberOfFilters;
-    number += this.mutationFiltersCriteria.numberOfFilters;
-    number += this.copyNumberVariantFiltersCriteria.numberOfFilters;
-    number += this.structuralVariantFiltersCriteria.numberOfFilters;
-    number += this.mriFiltersCriteria.numberOfFilters;
+    number += this.donor.numberOfFilters;
+    number += this.mri.numberOfFilters;
+    number += this.tissue.numberOfFilters;
+    number += this.cell.numberOfFilters;
+    number += this.organoid.numberOfFilters;
+    number += this.xenograft.numberOfFilters;
+    number += this.gene.numberOfFilters;
+    number += this.ssm.numberOfFilters;
+    number += this.cnv.numberOfFilters;
+    number += this.sv.numberOfFilters;
 
     return number;
   }
 
   constructor(criteria = null) {
     this.filters = new Filters(criteria?.filters);
-    this.donorFiltersCriteria = new DonorFiltersCriteria(criteria?.donorFiltersCriteria);
-    this.tissueFiltersCriteria = new TissueFiltersCriteria(criteria?.tissueFiltersCriteria);
-    this.cellFiltersCriteria = new CellFiltersCriteria(criteria?.cellFiltersCriteria);
-    this.organoidFiltersCriteria = new OrganoidFiltersCriteria(criteria?.organoidFiltersCriteria);
-    this.xenograftFiltersCriteria = new XenograftFiltersCriteria(criteria?.xenograftFiltersCriteria);
-    this.geneFiltersCriteria = new GeneFiltersCriteria(criteria?.geneFiltersCriteria);
-    this.mutationFiltersCriteria = new MutationFiltersCriteria(criteria?.mutationFiltersCriteria);
-    this.copyNumberVariantFiltersCriteria = new CopyNumberVariantFiltersCriteria(criteria?.copyNumberVariantFiltersCriteria);
-    this.structuralVariantFiltersCriteria = new StructuralVariantFiltersCriteria(criteria?.structuralVariantFiltersCriteria);
-    this.mriFiltersCriteria = new MriFiltersCriteria(criteria?.mriFiltersCriteria);
-    this.oncogridFiltersCriteria = new OncogirdFiltersCriteria(criteria?.oncogridFiltersCriteria);
+    this.donor = new DonorFiltersCriteria(criteria?.donor);
+    this.mri = new MriFiltersCriteria(criteria?.mri);
+    this.tissue = new TissueFiltersCriteria(criteria?.tissue);
+    this.cell = new CellFiltersCriteria(criteria?.cell);
+    this.organoid = new OrganoidFiltersCriteria(criteria?.organoid);
+    this.xenograft = new XenograftFiltersCriteria(criteria?.xenograft);
+    this.gene = new GeneFiltersCriteria(criteria?.gene);
+    this.ssm = new MutationFiltersCriteria(criteria?.ssm);
+    this.cnv = new CopyNumberVariantFiltersCriteria(criteria?.cnv);
+    this.sv = new StructuralVariantFiltersCriteria(criteria?.sv);
+    this.oncogrid = new OncogirdFiltersCriteria(criteria?.oncogrid);
   }
 
   sanitise() {
-    this.donorFiltersCriteria?.sanitise();
-    this.tissueFiltersCriteria?.sanitise();
-    this.cellFiltersCriteria?.sanitise();
-    this.organoidFiltersCriteria?.sanitise();
-    this.xenograftFiltersCriteria?.sanitise();
-    this.geneFiltersCriteria?.sanitise();
-    this.mutationFiltersCriteria?.sanitise();
-    this.copyNumberVariantFiltersCriteria.sanitise();
-    this.structuralVariantFiltersCriteria.sanitise();
-    this.mriFiltersCriteria?.sanitise();
-    this.oncogridFiltersCriteria?.sanitise();
+    this.donor?.sanitise();
+    this.mri?.sanitise();
+    this.tissue?.sanitise();
+    this.cell?.sanitise();
+    this.organoid?.sanitise();
+    this.xenograft?.sanitise();
+    this.gene?.sanitise();
+    this.ssm?.sanitise();
+    this.cnv.sanitise();
+    this.sv.sanitise();
+    this.oncogrid?.sanitise();
   }
 
   clone() {
@@ -94,23 +94,22 @@ export default class FiltersCriteria {
       from: this.filters.from,
       size: this.filters.size
     };
-    criteria.donorFiltersCriteria = this.donorFiltersCriteria?.clone();
-    criteria.tissueFiltersCriteria = this.tissueFiltersCriteria?.clone();
-    criteria.cellFiltersCriteria = this.cellFiltersCriteria?.clone();
-    criteria.organoidFiltersCriteria = this.organoidFiltersCriteria?.clone();
-    criteria.xenograftFiltersCriteria = this.xenograftFiltersCriteria?.clone();
-    criteria.geneFiltersCriteria = this.geneFiltersCriteria?.clone();
-    criteria.mutationFiltersCriteria = this.mutationFiltersCriteria?.clone();
-    criteria.copyNumberVariantFiltersCriteria = this.copyNumberVariantFiltersCriteria.clone();
-    criteria.structuralVariantFiltersCriteria = this.structuralVariantFiltersCriteria.clone();
-    criteria.mriFiltersCriteria = this.mriFiltersCriteria?.clone();
-    criteria.oncogridFiltersCriteria = this.oncogridFiltersCriteria?.clone();
+    criteria.donor = this.donor?.clone();
+    criteria.mri = this.mri?.clone();
+    criteria.tissue = this.tissue?.clone();
+    criteria.cell = this.cell?.clone();
+    criteria.organoid = this.organoid?.clone();
+    criteria.xenograft = this.xenograft?.clone();
+    criteria.gene = this.gene?.clone();
+    criteria.ssm = this.ssm?.clone();
+    criteria.cnv = this.cnv.clone();
+    criteria.sv = this.sv.clone();
+    criteria.oncogrid = this.oncogrid?.clone();
 
     return criteria;
   }
 
   copy() {
-    console.log("FiltersCriteria.copy()");
     const criteria = {};
 
     for (const property in this) {
@@ -128,16 +127,16 @@ export default class FiltersCriteria {
   clear() {
     this.filters.from = 0;
     this.filters.query = null;
-    this.donorFiltersCriteria.clear();
-    this.tissueFiltersCriteria.clear();
-    this.cellFiltersCriteria.clear();
-    this.organoidFiltersCriteria.clear();
-    this.xenograftFiltersCriteria.clear();
-    this.geneFiltersCriteria.clear();
-    this.mutationFiltersCriteria.clear();
-    this.copyNumberVariantFiltersCriteria.clear();
-    this.structuralVariantFiltersCriteria.clear();
-    this.mriFiltersCriteria.clear();
+    this.donor.clear();
+    this.mri.clear();
+    this.tissue.clear();
+    this.cell.clear();
+    this.organoid.clear();
+    this.xenograft.clear();
+    this.gene.clear();
+    this.ssm.clear();
+    this.cnv.clear();
+    this.sv.clear();
   }
 
   toSearchCriteria() {
@@ -145,28 +144,17 @@ export default class FiltersCriteria {
       from: this.filters.from,
       size: this.filters.size,
       term: this.filters.query,
-      // donorFilters: this.donorFiltersCriteria,
-      // tissueFilters: this.tissueFiltersCriteria,
-      // cellLineFilters: this.cellFiltersCriteria,
-      // organoidFilters: this.organoidFiltersCriteria,
-      // xenograftFilters: this.xenograftFiltersCriteria,
-      // geneFilters: this.geneFiltersCriteria,
-      // mutationFilters: this.mutationFiltersCriteria,
-      // copyNumberVariantFilters: this.copyNumberVariantFiltersCriteria,
-      // structuralVariantFilters: this.structuralVariantFiltersCriteria,
-      // mriImageFilters: this.mriFiltersCriteria,
-      // oncoGridFilters: this.oncogridFiltersCriteria
-      donor: this.donorFiltersCriteria,
-      mri: this.mriFiltersCriteria,
-      tissue: this.tissueFiltersCriteria,
-      cell: this.cellFiltersCriteria,
-      organoid: this.organoidFiltersCriteria,
-      xenograft: this.xenograftFiltersCriteria,
-      gene: this.geneFiltersCriteria,
-      ssm: this.mutationFiltersCriteria,
-      cnv: this.copyNumberVariantFiltersCriteria,
-      sv: this.structuralVariantFiltersCriteria,
-      oncoGrid: this.oncogridFiltersCriteria
+      donor: this.donor,
+      mri: this.mri,
+      tissue: this.tissue,
+      cell: this.cell,
+      organoid: this.organoid,
+      xenograft: this.xenograft,
+      gene: this.gene,
+      ssm: this.ssm,
+      cnv: this.cnv,
+      sv: this.sv,
+      oncoGrid: this.oncogrid
     };
   }
 }

@@ -46,91 +46,91 @@
         </div>
 
         <!-- Donor filters -->
-        <div class="row" v-if="hasGroupFilters(donorFilters, cohort.criteria.donorFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(donorFilters, cohort.criteria.donor)">
           <u-filters-data
             title="Donor filters"
-            :criteria="cohort.criteria.donorFiltersCriteria"
+            :criteria="cohort.criteria.donor"
             :filters="donorFilters"
           />
         </div>
 
         <!-- MRI filters -->
-        <div class="row" v-if="hasGroupFilters(mriFilters, cohort.criteria.mriFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(mriFilters, cohort.criteria.mri)">
           <u-filters-data
             title="MRI filters"
-            :criteria="cohort.criteria.mriFiltersCriteria"
+            :criteria="cohort.criteria.mri"
             :filters="mriFilters"
           />
         </div>
 
         <!-- Tissue filters -->
-        <div class="row" v-if="hasGroupFilters(tissueFilters, cohort.criteria.tissueFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(tissueFilters, cohort.criteria.tissue)">
           <u-filters-data
             title="Tissue filters"
-            :criteria="cohort.criteria.tissueFiltersCriteria"
+            :criteria="cohort.criteria.tissue"
             :filters="tissueFilters"
           />
         </div>
 
         <!-- Cell filters -->
-        <div class="row" v-if="hasGroupFilters(cellFilters, cohort.criteria.cellFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(cellFilters, cohort.criteria.cell)">
           <u-filters-data
             title="Cell line filters"
-            :criteria="cohort.criteria.cellFiltersCriteria"
+            :criteria="cohort.criteria.cell"
             :filters="cellFilters"
           />
         </div>
 
         <!-- Organoid filters -->
-        <div class="row" v-if="hasGroupFilters(organoidFilters, cohort.criteria.organoidFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(organoidFilters, cohort.criteria.organoid)">
           <u-filters-data
             title="Organoid filters"
-            :criteria="cohort.criteria.organoidFiltersCriteria"
+            :criteria="cohort.criteria.organoid"
             :filters="organoidFilters"
           />
         </div>
 
         <!-- Xenograft filters -->
-        <div class="row" v-if="hasGroupFilters(xenograftFilters, cohort.criteria.xenograftFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(xenograftFilters, cohort.criteria.xenograft)">
           <u-filters-data
             title="Xenograft filters"
-            :criteria="cohort.criteria.xenograftFiltersCriteria"
+            :criteria="cohort.criteria.xenograft"
             :filters="xenograftFilters"
           />
         </div>
 
         <!-- Gene filters -->
-        <div class="row" v-if="hasGroupFilters(geneFilters, cohort.criteria.geneFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(geneFilters, cohort.criteria.gene)">
           <u-filters-data
             title="Gene filters"
-            :criteria="cohort.criteria.geneFiltersCriteria"
+            :criteria="cohort.criteria.gene"
             :filters="geneFilters"
           />
         </div>
 
         <!-- SSM filters -->
-        <div class="row" v-if="hasGroupFilters(ssmFilters, cohort.criteria.mutationFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(ssmFilters, cohort.criteria.ssm)">
           <u-filters-data
             title="SSM filters"
-            :criteria="cohort.criteria.mutationFiltersCriteria"
+            :criteria="cohort.criteria.ssm"
             :filters="ssmFilters"
           />
         </div>
 
         <!-- CNV filters -->
-        <div class="row" v-if="hasGroupFilters(cnvFilters, cohort.criteria.copyNumberVariantFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(cnvFilters, cohort.criteria.cnv)">
           <u-filters-data
             title="CNV filters"
-            :criteria="cohort.criteria.copyNumberVariantFiltersCriteria"
+            :criteria="cohort.criteria.cnv"
             :filters="cnvFilters"
           />
         </div>
 
         <!-- SV filters -->
-        <div class="row" v-if="hasGroupFilters(svFilters, cohort.criteria.structuralVariantFiltersCriteria)">
+        <div class="row" v-if="hasGroupFilters(svFilters, cohort.criteria.sv)">
           <u-filters-data
             title="SV filters"
-            :criteria="cohort.criteria.structuralVariantFiltersCriteria"
+            :criteria="cohort.criteria.sv"
             :filters="svFilters"
           />
         </div>

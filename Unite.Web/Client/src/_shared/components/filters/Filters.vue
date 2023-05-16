@@ -37,69 +37,69 @@
 
           <!-- Visualisation -->
           <q-tab v-if="showFilters('oncogrid')" name="oncogrid" icon="las la-chart-area">
-            <q-badge v-if="filtersCriteria.oncogridFiltersCriteria.numberOfFilters" :color="getBadgeColor('oncogrid')" rounded>
-              {{filtersCriteria.oncogridFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.oncogrid.numberOfFilters" :color="getBadgeColor('oncogrid')" rounded>
+              {{filtersCriteria.oncogrid.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <!-- Data types -->
           <q-tab v-if="showFilters('donor')" name="donor" icon="las la-user-circle">
-            <q-badge v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters" :color="getBadgeColor('donor')" rounded>
-              {{filtersCriteria.donorFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.donor.numberOfFilters" :color="getBadgeColor('donor')" rounded>
+              {{filtersCriteria.donor.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('mri')" name="mri" icon="las la-x-ray">
-            <q-badge v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters" :color="getBadgeColor('mri')" rounded>
-              {{filtersCriteria.mriFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.mri.numberOfFilters" :color="getBadgeColor('mri')" rounded>
+              {{filtersCriteria.mri.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('tissue')" name="tissue" icon="svguse:/icons.svg#u-tissue">
-            <q-badge v-if="filtersCriteria.tissueFiltersCriteria.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
-              {{filtersCriteria.tissueFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.tissue.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
+              {{filtersCriteria.tissue.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('cell')" name="cell" icon="las la-microscope">
-            <q-badge v-if="filtersCriteria.cellFiltersCriteria.numberOfFilters" :color="getBadgeColor('cell')" rounded>
-              {{filtersCriteria.cellFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.cell.numberOfFilters" :color="getBadgeColor('cell')" rounded>
+              {{filtersCriteria.cell.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('organoid')" name="organoid" icon="svguse:/icons.svg#u-organoid">
-            <q-badge v-if="filtersCriteria.organoidFiltersCriteria.numberOfFilters" :color="getBadgeColor('organoid')" rounded>
-              {{filtersCriteria.organoidFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.organoid.numberOfFilters" :color="getBadgeColor('organoid')" rounded>
+              {{filtersCriteria.organoid.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('xenograft')" name="xenograft" icon="svguse:/icons.svg#u-mouse">
-            <q-badge v-if="filtersCriteria.xenograftFiltersCriteria.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
-              {{filtersCriteria.xenograftFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.xenograft.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
+              {{filtersCriteria.xenograft.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('gene')" name="gene" icon="svguse:/icons.svg#u-gene">
-            <q-badge v-if="filtersCriteria.geneFiltersCriteria.numberOfFilters" :color="getBadgeColor('gene')" rounded>
-              {{filtersCriteria.geneFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.gene.numberOfFilters" :color="getBadgeColor('gene')" rounded>
+              {{filtersCriteria.gene.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('ssm')" name="ssm" icon="svguse:/icons.svg#u-ssm">
-            <q-badge v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters" :color="getBadgeColor('ssm')" rounded>
-              {{filtersCriteria.mutationFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.ssm.numberOfFilters" :color="getBadgeColor('ssm')" rounded>
+              {{filtersCriteria.ssm.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-cnv">
-            <q-badge v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
-              {{filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.cnv.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.cnv.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-sv">
-            <q-badge v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
-              {{filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.sv.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.sv.numberOfFilters}}
             </q-badge>
           </q-tab>
         </q-tabs>
@@ -114,7 +114,7 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-oncogrid-filters
-                  v-model="filtersCriteria.oncogridFiltersCriteria"
+                  v-model="filtersCriteria.oncogrid"
                   @update:modelValue="onUpdate"
                 />
               </div>
@@ -126,15 +126,15 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-criteria-filters
-                  v-if="filtersCriteria?.donorFiltersCriteria"
-                  v-model="filtersCriteria.donorFiltersCriteria"
+                  v-if="filtersCriteria?.donor"
+                  v-model="filtersCriteria.donor"
                   :context="filtersContext.donorFiltersContext"
                   :filters="donorFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.donorFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.donor.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.donor.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -143,15 +143,15 @@
             <div class="col q-gutter-y-sm">
               <div>
                 <u-criteria-filters
-                  v-if="filtersCriteria?.mriFiltersCriteria"
-                  v-model="filtersCriteria.mriFiltersCriteria"
+                  v-if="filtersCriteria?.mri"
+                  v-model="filtersCriteria.mri"
                   :context="filtersContext.mriFiltersContext"
                   :filters="mriFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.mriFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.mri.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.mri.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -160,15 +160,15 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-criteria-filters
-                  v-if="filtersCriteria?.tissueFiltersCriteria"
-                  v-model="filtersCriteria.tissueFiltersCriteria"
+                  v-if="filtersCriteria?.tissue"
+                  v-model="filtersCriteria.tissue"
                   :context="filtersContext.tissueFiltersContext"
                   :filters="tissueFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.tissueFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.tissueFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.tissue.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.tissue.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -177,15 +177,15 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-criteria-filters
-                  v-if="filtersCriteria?.cellFiltersCriteria"
-                  v-model="filtersCriteria.cellFiltersCriteria"
+                  v-if="filtersCriteria?.cell"
+                  v-model="filtersCriteria.cell"
                   :context="filtersContext.cellFiltersContext"
                   :filters="cellFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.cellFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.cellFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.cell.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.cell.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -194,15 +194,15 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-criteria-filters
-                  v-if="filtersCriteria?.organoidFiltersCriteria"
-                  v-model="filtersCriteria.organoidFiltersCriteria"
+                  v-if="filtersCriteria?.organoid"
+                  v-model="filtersCriteria.organoid"
                   :context="filtersContext.organoidFiltersContext"
                   :filters="organoidFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.organoidFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.organoidFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.organoid.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.organoid.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -211,15 +211,15 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-criteria-filters
-                  v-if="filtersCriteria?.xenograftFiltersCriteria"
-                  v-model="filtersCriteria.xenograftFiltersCriteria"
+                  v-if="filtersCriteria?.xenograft"
+                  v-model="filtersCriteria.xenograft"
                   :context="filtersContext.xenograftFiltersContext"
                   :filters="xenograftFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.xenograftFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.xenograftFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.xenograft.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.xenograft.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -228,15 +228,15 @@
             <div class="col q-gutter-y-sm">
               <div class="row">
                 <u-criteria-filters
-                  v-if="filtersCriteria?.geneFiltersCriteria"
-                  v-model="filtersCriteria.geneFiltersCriteria"
+                  v-if="filtersCriteria?.gene"
+                  v-model="filtersCriteria.gene"
                   :context="filtersContext.geneFiltersContext"
                   :filters="geneFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.geneFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.geneFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.gene.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.gene.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -245,15 +245,15 @@
             <div class="col q-gutter-y-sm">
               <div>
                 <u-criteria-filters
-                  v-if="filtersCriteria?.mutationFiltersCriteria"
-                  v-model="filtersCriteria.mutationFiltersCriteria"
+                  v-if="filtersCriteria?.ssm"
+                  v-model="filtersCriteria.ssm"
                   :context="filtersContext.mutationFiltersContext"
                   :filters="mutationFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.mutationFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.ssm.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.ssm.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -262,15 +262,15 @@
             <div class="col q-gutter-y-sm">
               <div>
                 <u-criteria-filters
-                  v-if="filtersCriteria?.copyNumberVariantFiltersCriteria"
-                  v-model="filtersCriteria.copyNumberVariantFiltersCriteria"
+                  v-if="filtersCriteria?.cnv"
+                  v-model="filtersCriteria.cnv"
                   :context="filtersContext.copyNumberVariantFiltersContext"
                   :filters="copyNumberVariantFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.copyNumberVariantFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.cnv.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.cnv.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -279,15 +279,15 @@
             <div class="col q-gutter-y-sm">
               <div>
                 <u-criteria-filters
-                  v-if="filtersCriteria?.structuralVariantFiltersCriteria"
-                  v-model="filtersCriteria.structuralVariantFiltersCriteria"
+                  v-if="filtersCriteria?.sv"
+                  v-model="filtersCriteria.sv"
                   :context="filtersContext.structuralVariantFiltersContext"
                   :filters="structuralVariantFilters"
                   @update:modelValue="onUpdate"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.structuralVariantFiltersCriteria.clear(); onUpdate();" />
+              <div class="row" v-if="filtersCriteria.sv.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.sv.clear(); onUpdate();" />
               </div>
             </div>
           </q-tab-panel>
@@ -369,6 +369,7 @@ export default {
     title() {
       switch (this.filtersCategory) {
         case "donor": return "Donor Filters";
+        case "mri": return "MRI Filters";
         case "tissue": return "Tissue Filters";
         case "cell": return "Cell Line Filters";
         case "organoid": return "Organoid Filters";
@@ -377,7 +378,6 @@ export default {
         case "ssm": return "SSM Filters";
         case "cnv": return "CNV Filters";
         case "sv": return "SV Filters";
-        case "mri": return "MRI Filters";
         case "oncogrid": return "Oncogrid Filters";
         default: return "Filters";
       }

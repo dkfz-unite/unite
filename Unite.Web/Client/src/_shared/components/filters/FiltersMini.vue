@@ -22,69 +22,69 @@
 
           <!-- Visualisation -->
           <q-tab v-if="showFilters('oncogrid')" name="oncogrid" icon="las la-chart-area">
-            <q-badge v-if="filtersCriteria.oncogridFiltersCriteria.numberOfFilters" :color="getBadgeColor('oncogrid')" rounded>
-              {{filtersCriteria.oncogridFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.oncogrid.numberOfFilters" :color="getBadgeColor('oncogrid')" rounded>
+              {{filtersCriteria.oncogrid.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <!-- Data types -->
           <q-tab v-if="showFilters('donor')" name="donor" icon="las la-user-circle">
-            <q-badge v-if="filtersCriteria.donorFiltersCriteria.numberOfFilters" :color="getBadgeColor('donor')" rounded>
-              {{filtersCriteria.donorFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.donor.numberOfFilters" :color="getBadgeColor('donor')" rounded>
+              {{filtersCriteria.donor.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('mri')" name="mri" icon="las la-x-ray">
-            <q-badge v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters" :color="getBadgeColor('mri')" rounded>
-              {{filtersCriteria.mriFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.mri.numberOfFilters" :color="getBadgeColor('mri')" rounded>
+              {{filtersCriteria.mri.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('tissue')" name="tissue" icon="svguse:/icons.svg#u-tissue">
-            <q-badge v-if="filtersCriteria.tissueFiltersCriteria.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
-              {{filtersCriteria.tissueFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.tissue.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
+              {{filtersCriteria.tissue.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('cell')" name="cell" icon="las la-microscope">
-            <q-badge v-if="filtersCriteria.cellFiltersCriteria.numberOfFilters" :color="getBadgeColor('cell')" rounded>
-              {{filtersCriteria.cellFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.cell.numberOfFilters" :color="getBadgeColor('cell')" rounded>
+              {{filtersCriteria.cell.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('organoid')" name="organoid" icon="svguse:/icons.svg#u-organoid">
-            <q-badge v-if="filtersCriteria.organoidFiltersCriteria.numberOfFilters" :color="getBadgeColor('organoid')" rounded>
-              {{filtersCriteria.organoidFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.organoid.numberOfFilters" :color="getBadgeColor('organoid')" rounded>
+              {{filtersCriteria.organoid.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('xenograft')" name="xenograft" icon="svguse:/icons.svg#u-mouse">
-            <q-badge v-if="filtersCriteria.xenograftFiltersCriteria.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
-              {{filtersCriteria.xenograftFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.xenograft.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
+              {{filtersCriteria.xenograft.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('gene')" name="gene" icon="svguse:/icons.svg#u-gene">
-            <q-badge v-if="filtersCriteria.geneFiltersCriteria.numberOfFilters" :color="getBadgeColor('gene')" rounded>
-              {{filtersCriteria.geneFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.gene.numberOfFilters" :color="getBadgeColor('gene')" rounded>
+              {{filtersCriteria.gene.numberOfFilters}}
             </q-badge>
           </q-tab>
 
-          <q-tab v-if="showFilters('mutation')" name="mutation" icon="svguse:/icons.svg#u-ssm">
-            <q-badge v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters" :color="getBadgeColor('mutation')" rounded>
-              {{filtersCriteria.mutationFiltersCriteria.numberOfFilters}}
+          <q-tab v-if="showFilters('ssm')" name="ssm" icon="svguse:/icons.svg#u-ssm">
+            <q-badge v-if="filtersCriteria.ssm.numberOfFilters" :color="getBadgeColor('mutation')" rounded>
+              {{filtersCriteria.ssm.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-cnv">
-            <q-badge v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
-              {{filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.cnv.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.cnv.numberOfFilters}}
             </q-badge>
           </q-tab>
 
           <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-sv">
-            <q-badge v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
-              {{filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters}}
+            <q-badge v-if="filtersCriteria.sv.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
+              {{filtersCriteria.sv.numberOfFilters}}
             </q-badge>
           </q-tab>
         </q-tabs>
@@ -139,7 +139,7 @@ export default {
       let general = ["donor", "gene"];
       let images = ["mri"];
       let specimens = ["tissue", "cell", "organoid", "xenograft"];
-      let variants = ["mutation", "cnv", "sv"];
+      let variants = ["ssm", "cnv", "sv"];
       switch (category) {
         case "donor": return true;
         case "mri": return [...general, "mri", ...variants, "tissue"].includes(this.mode);
@@ -148,7 +148,7 @@ export default {
         case "organoid": return [...general, "organoid", ...variants].includes(this.mode);
         case "xenograft": return [...general, "xenograft", ...variants].includes(this.mode);
         case "gene": return true;
-        case "mutation": return [...general, ...specimens, ...images, "mutation"].includes(this.mode);
+        case "ssm": return [...general, ...specimens, ...images, "ssm"].includes(this.mode);
         case "cnv": return [...general, ...specimens, ...images, "cnv"].includes(this.mode);
         case "sv": return [...general, ...specimens, ...images, "sv"].includes(this.mode);
         case "oncogrid": return ["oncogrid"].includes(this.mode);
