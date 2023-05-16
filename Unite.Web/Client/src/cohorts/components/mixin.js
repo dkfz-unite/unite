@@ -1,48 +1,10 @@
-<template>
-  <div class="q-gutter-sm">
-    <!-- Header -->
-    <div class="row justify-between q-pl-xs">
-      <div>
-        <q-btn
-          icon="las la-filter"
-          dense rounded unelevated
-          @click="false"
-        />
-      </div>
-    </div>
-
-    <!-- Filters -->
-    <div class="row">
-      <div class="col-auto">
-        <q-tabs 
-          v-model="tab"
-          indicator-color="transparent" 
-          active-color="primary" 
-          align="left" 
-          dense vertical>
-          <q-tab
-            v-for="tabItem in domains"
-            :key="tabItem.name"
-            :name="tabItem.name"
-            :icon="getIcon(tabItem.name)">
-            <q-badge :color="getBadgeColor(tabItem.name)" rounded>
-              {{tabItem.cohorts.length}}
-            </q-badge>
-          </q-tab>
-        </q-tabs>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
+const mixin = {
   props: {
     domains: {
       type: Array,
       required: true
     },
-    
+
     domain: {
       type: Object,
       default: () => null
@@ -80,8 +42,12 @@ export default {
     },
 
     tab(value) {
-      const domain = this.domains.find(domain => domain.name == value);
-      const cohort = domain.cohorts[0];
+      let domain = this.domains.find(domain => domain.name == value);
+      if (!domain && this.domains.length) {
+        domain = this.domains.slice(-1)[0];
+        this.tab = domain.name;
+      }
+      let cohort = domain.cohorts[0];
       this.$emit("update:domain", domain);
       this.$emit("update:cohort", cohort);
     },
@@ -116,5 +82,6 @@ export default {
         : "grey-5";
     }
   }
-}
-</script>
+};
+
+export default mixin;

@@ -19,18 +19,13 @@ class FiltersStore {
 
       let domains = getters.domains;
       let domain = domains.find(domain => domain.name == domainName);
-      
-      if (!domain ) {
-        domain = { name: domainName, cohorts: [] };
-        domains.push(domain);
-      }
 
       return domain;
     },
 
     cohorts: (state, getters) => (domainName) => {
       let domain = getters.domain(domainName);
-      return domain.cohorts;
+      return domain?.cohorts;
     },
 
     cohort: (state, getters) => (domainName, cohortName) => {
@@ -52,17 +47,10 @@ class FiltersStore {
     },
 
     dispose({state, dispatch}) {
-      let domains = state.domains;
+      const domains = state.domains.filter(domain => domain.cohorts.length);
       
-      for (const i = 0; i < state.domains.length; i++) {
-        if (!state.domains[i].cohorts.length) {
-          domains = state.domains.filter(domain => domain.name !== state.domains[i].name);
-        }
-      }
-
-      if (!domains.length) {
-        dispatch("deleteDomains");
-      }
+      state.domains = domains;
+      dispatch("saveDomains");
     },
 
     loadDomains({state}) {
@@ -71,15 +59,22 @@ class FiltersStore {
     },
 
     saveDomains({state}) {
-      const json = JSON.stringify(state.domains);
-      localStorage.setItem(state.namespace, json);
-    },
-
-    deleteDomains({state}) {
-      localStorage.removeItem(state.namespace);
+      if (state.domains.length) {
+        const json = JSON.stringify(state.domains);
+        localStorage.setItem(state.namespace, json);
+      } else {
+        localStorage.removeItem(state.namespace);
+      }
     },
 
     addCohort({state, getters, dispatch}, {domainName, cohortData}) {
+      let domain = getters.domain(domainName);
+
+      if (!domain) {
+        domain = { name: domainName, cohorts: [] };
+        state.domains.push(domain);
+      }
+
       let cohorts = getters.cohorts(domainName);
       let cohort = getters.cohort(domainName, cohortData.name);
       
@@ -93,6 +88,7 @@ class FiltersStore {
         };
 
         cohorts.push(cohort);
+
         dispatch("saveDomains");
       }
     },
@@ -100,7 +96,12 @@ class FiltersStore {
     deleteCohort({state, getters, dispatch}, {domainName, cohortName}) {
       let domain = getters.domain(domainName);
       
-      domain.cohorts = domain.cohorts.filter(cohort => cohort.name !== cohortName)
+      domain.cohorts = domain.cohorts.filter(cohort => cohort.name !== cohortName);
+
+      if (!domain.cohorts.length) {
+        state.domains = state.domains.filter(domain => domain.name !== domainName);
+      }
+
       dispatch("saveDomains");
     }
   };

@@ -1,7 +1,7 @@
 <template>
   <!-- Cohorts button -->
   <teleport v-if="domains?.length && $q.screen.lt.md" to="#top-left-placeholder">
-    <u-cohorts-button @click="$refs.drawer.open()" />
+    <u-cohorts-button-show @click="$refs.drawer.open()" />
   </teleport>
 
   <!-- Cohorts drawer -->
@@ -16,7 +16,7 @@
         :domains="domains" 
         v-model:domain="domain"
         v-model:cohort="cohort"
-        @close="$refs.drawer.minimize()"
+        @hide="$refs.drawer.minimize()"
       />
     </template>
 
@@ -34,7 +34,7 @@
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
-        <q-breadcrumbs-el label="Filters" />
+        <q-breadcrumbs-el label="Cohorts" />
       </q-breadcrumbs>
     </div>
 
@@ -67,7 +67,7 @@
     <div v-else class="row">
       <div class="col">
         <div class="absolute-center">
-          No filters have been saved
+          No cohorts have been saved
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
 
 <script>
 import UDrawer from "../_shared/components/drawers/Drawer.vue";
-import UCohortsButton from "./components/CohortsButton.vue";
+import UCohortsButtonShow from "./components/CohortsButtonShow.vue";
 import UControlsToolbar from "./components/controls/ControlsToolbar.vue";
 import UCohorts from "./components/Cohorts.vue";
 import UCohortsMini from "./components/CohortsMini.vue";
@@ -92,7 +92,7 @@ import mutationsApi from "../domain/genome/variants/ssms/api";
 export default {
   components: {
     UDrawer,
-    UCohortsButton,
+    UCohortsButtonShow,
     UControlsToolbar,
     UCohorts,
     UCohortsMini,

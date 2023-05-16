@@ -10,7 +10,7 @@ import GeneStore from "@/domain/genome/gene/store";
 import SsmStore from "@/domain/genome/variants/ssm/store";
 import CnvStore from "@/domain/genome/variants/cnv/store";
 import SvStore from "@/domain/genome/variants/sv/store";
-import FiltersStore from "@/filters/store";
+import FiltersStore from "@/cohorts/store";
 import OncogridStore from "@/visualization/oncogrid/store";
 import SearchPageStore from "@/_shared/store/search-page-store";
 

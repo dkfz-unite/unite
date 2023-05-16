@@ -8,7 +8,7 @@ import MutationFiltersCriteria from "./domain/genome/variants/ssm/ssm-filters-cr
 import CopyNumberVariantFiltersCriteria from "./domain/genome/variants/cnv/cnv-filters-criteria";
 import StructuralVariantFiltersCriteria from "./domain/genome/variants/sv/sv-filters-criteria";
 import MriFiltersCriteria from "./domain/images/mris/mri-filters-criteria";
-import OncogirdFiltersCriteria from "./visualization/oncogrid/oncogrid-filters-criteria";
+import OncogirdFiltersCriteria from "./analysis/oncogrid/oncogrid-filters-criteria";
 
 // This class is used only inside this file, all side assignments still use object.
 class Filters {

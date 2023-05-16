@@ -299,7 +299,7 @@
 
 <script>
 import UFiltersButtonClear from "./FiltersButtonClear.vue";
-import UOncogridFilters from "./visualization/oncogrid/OncoGridFilters.vue";
+import UOncogridFilters from "./analysis/oncogrid/OncoGridFilters.vue";
 import filtersMixin from "./filters-mixin";
 
 import FiltersCriteria from "./filters-criteria";

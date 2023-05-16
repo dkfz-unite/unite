@@ -1,7 +1,7 @@
 <template>
   <q-btn
-    id="presets-button"
-    icon="las la-filter"
+    id="cohorts-button-show"
+    icon="las la-archive"
     rounded flat dense
     @click="$emit('click')"
   />

@@ -70,13 +70,11 @@ export default {
   watch: {
     account(value) {
       this.$store.dispatch("filters/initialize", value?.email);
-
-      // console.log("Filters", this.$store.state.filters);
     }
   },
 
   unmounted() {
-    // this.$store.dispatch("filters/dispose");
+    this.$store.dispatch("filters/dispose");
   }
 }
 </script>
