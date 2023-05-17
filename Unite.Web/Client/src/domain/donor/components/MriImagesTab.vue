@@ -10,14 +10,14 @@
           <div class="col-12 col-sm-3 col-md-2 q-gutter-y-sm">
             <div class="row">
               <u-filters 
-                v-model="filtersCriteria.mriFiltersCriteria"
-                :context="filtersContext.mriFiltersContext"
+                v-model="filtersCriteria.mri"
+                :context="filtersContext.mri"
                 :filters="filters"
                 @update:modelValue="filterData"
               />
             </div>
-            <div class="row" v-if="filtersCriteria.mriFiltersCriteria.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.mriFiltersCriteria.clear(); filterData();" />
+            <div class="row" v-if="filtersCriteria.mri.numberOfFilters">
+              <u-filters-button-clear @click="filtersCriteria.mri.clear(); filterData();" />
             </div>
           </div>
 

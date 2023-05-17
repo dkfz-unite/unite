@@ -19,14 +19,14 @@
             </div>
             <div class="row">
               <u-filters
-                v-model="filtersCriteria.structuralVariantFiltersCriteria"
-                :context="filtersContext.structuralVariantFiltersContext"
+                v-model="filtersCriteria.sv"
+                :context="filtersContext.sv"
                 :filters="filters"
                 @update:modelValue="filterData"
               />
             </div>
-            <div class="row" v-if="filtersCriteria.structuralVariantFiltersCriteria.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.structuralVariantFiltersCriteria.clear(); filterData();" />
+            <div class="row" v-if="filtersCriteria.sv.numberOfFilters">
+              <u-filters-button-clear @click="filtersCriteria.sv.clear(); filterData();" />
             </div>
           </div>
 

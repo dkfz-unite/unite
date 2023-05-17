@@ -19,14 +19,14 @@
             </div>
             <div class="row">
               <u-filters
-                v-model="filtersCriteria.geneFiltersCriteria"
-                :context="filtersContext.geneFiltersContext"
+                v-model="filtersCriteria.gene"
+                :context="filtersContext.gene"
                 :filters="geneFilters"
                 @update:modelValue="filterData"
               />
             </div>
-            <div class="row" v-if="filtersCriteria.geneFiltersCriteria.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.geneFiltersCriteria.clear(); filterData();" />
+            <div class="row" v-if="filtersCriteria.gene.numberOfFilters">
+              <u-filters-button-clear @click="filtersCriteria.gene.clear(); filterData();" />
             </div>
           </div>
 

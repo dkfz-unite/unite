@@ -12,14 +12,14 @@
             <div class="col-12 col-sm-3 col-md-2">
               <div class="row">
                 <u-filters
-                  v-model="filtersCriteria.copyNumberVariantFiltersCriteria"
-                  :context="filtersContext.copyNumberVariantFiltersContext"
+                  v-model="filtersCriteria.cnv"
+                  :context="filtersContext.cnv"
                   :filters="filters"
                   @update:modelValue="filterData"
                 />
               </div>
-              <div class="row" v-if="filtersCriteria.copyNumberVariantFiltersCriteria.numberOfFilters">
-                <u-filters-button-clear @click="filtersCriteria.copyNumberVariantFiltersCriteria.clear(); filterData();" />
+              <div class="row" v-if="filtersCriteria.cnv.numberOfFilters">
+                <u-filters-button-clear @click="filtersCriteria.cnv.clear(); filterData();" />
               </div>
             </div>
   

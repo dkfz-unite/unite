@@ -12,14 +12,14 @@
           <div class="col-12 col-sm-3 col-md-2">
             <div class="row">
               <u-filters
-                v-model="filtersCriteria.mutationFiltersCriteria"
-                :context="filtersContext.mutationFiltersContext"
+                v-model="filtersCriteria.ssm"
+                :context="filtersContext.ssm"
                 :filters="filters"
                 @update:modelValue="filterData"
               />
             </div>
-            <div class="row" v-if="filtersCriteria.mutationFiltersCriteria.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.mutationFiltersCriteria.clear(); filterData();" />
+            <div class="row" v-if="filtersCriteria.ssm.numberOfFilters">
+              <u-filters-button-clear @click="filtersCriteria.ssm.clear(); filterData();" />
             </div>
           </div>
 

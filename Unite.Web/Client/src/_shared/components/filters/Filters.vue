@@ -307,6 +307,7 @@ import FiltersContext from "./filters-context";
 
 import UCriteriaFilters from "./CriteriaFilters.vue";
 import donorFilters from "./domain/donors/donor-filters";
+import mriFilters from "./domain/images/mris/mri-filters";
 import tissueFilters from "./domain/specimens/tissues/tissue-filters";
 import cellFilters from "./domain/specimens/cells/cell-filters";
 import organoidFilters from "./domain/specimens/organoids/organoid-filters";
@@ -315,7 +316,6 @@ import geneFilters from "./domain/genome/genes/gene-filters";
 import ssmFilters from "./domain/genome/variants/ssm/ssm-filters";
 import cnvFilters from "./domain/genome/variants/cnv/cnv-filters";
 import svFilters from "./domain/genome/variants/sv/sv-filters";
-import mriFilters from "./domain/images/mris/mri-filters";
 
 export default {
   components: {
