@@ -1,7 +1,7 @@
 import axios from "axios";
 import settings from "@/settings";
 
-const tokenUrl = `${settings.urls.identity}/api/refresh-token`;
+const tokenUrl = `${settings.urls.identity}/api/token`;
 
 export async function refresh(login) {
     const url = `${tokenUrl}?login=${login}`;
