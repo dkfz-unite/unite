@@ -23,6 +23,10 @@ app.UseProxy(options =>
     //    (path, query) => $"{EnvironmentConfig.ComposerHost}{path}{query}"
     //);
     options.Map(
+        (path, query) => path.StartsWith("/identity"),
+        (path, query) => $"{path.Replace("/identity", EnvironmentConfig.IdentityHost)}{query}"
+    );
+    options.Map(
         (path, query) => path.StartsWith("/composer"),
         (path, query) => $"{path.Replace("/composer", EnvironmentConfig.ComposerHost)}{query}"
     );

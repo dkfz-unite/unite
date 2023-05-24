@@ -2,14 +2,15 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings.js";
 
 const client = new ApiClient();
-const usersUrl = `${settings.urls.composer}/api/admin/users`;
-const userUrl = `${settings.urls.composer}/api/admin/user`;
+const usersUrl = `${settings.urls.identity}/api/users`;
+const userUrl = `${settings.urls.identity}/api/user`;
 
 export async function search() {
     const url = usersUrl;
     return await client.get(url);
 }
 
+// TODO: Analyse if thats obolete:
 export async function check(email) {
     const url = `${userUrl}?email=${email}`;
     return await client.get(url);
