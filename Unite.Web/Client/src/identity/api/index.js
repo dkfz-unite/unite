@@ -6,7 +6,7 @@ const client = new ApiClient();
 const signUpUrl = `${settings.urls.identity}/api/default/register`;
 const signInUrl = `${settings.urls.identity}/api/default/login`;
 const signOutUrl = `${settings.urls.identity}/api/default/logout`;
-const changePasswordUrl = `${settings.urls.identity}/api/default/change-password`
+const changePasswordUrl = `${settings.urls.identity}/api/default/password`
 const accountUrl = `${settings.urls.identity}/api/account`;
 const accessibilityUrl = `${settings.urls.identity}/api/access`;
 
