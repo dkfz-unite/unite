@@ -250,6 +250,7 @@ export default {
       this.$refs.changePasswordForm.resetValidation();
 
       if (!this.changingPasswordError) {
+        await this.$store.dispatch("identity/load");
         setTimeout(() => {
           this.changePasswordSuccess = false;
         }, 3000);
