@@ -251,6 +251,9 @@ export default {
 
       if (!this.changingPasswordError) {
         await this.$store.dispatch("identity/load");
+        this.oldPassword.value = null;
+        this.newPassword.value = null;
+        this.newPasswordRepeat.value = null;
         setTimeout(() => {
           this.changePasswordSuccess = false;
         }, 3000);
