@@ -1,90 +1,19 @@
 <template>
-  <div class="q-gutter-sm">
+  <div class="q-gutter-sm" v-if="filtersCriteria">
     <!-- Header -->
-    <div class="row q-pl-xs">
+    <div class="row justify-between q-pl-xs">
       <div>
-        <q-btn
-          icon="las la-filter"
-          dense rounded unelevated
-        />
+        <u-filters-button @click="false" />
       </div>
     </div>
 
     <!-- Filters -->
     <div class="row">
       <div class="col-auto">
-        <q-tabs 
-          v-model="filtersCategory"
-          indicator-color="transparent" 
-          active-color="primary" 
-          align="left" 
-          dense vertical>
-
-          <!-- Visualisation -->
-          <q-tab v-if="showFilters('oncogrid')" name="oncogrid" icon="las la-chart-area">
-            <q-badge v-if="filtersCriteria.oncogrid.numberOfFilters" :color="getBadgeColor('oncogrid')" rounded>
-              {{filtersCriteria.oncogrid.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <!-- Data types -->
-          <q-tab v-if="showFilters('donor')" name="donor" icon="las la-user-circle">
-            <q-badge v-if="filtersCriteria.donor.numberOfFilters" :color="getBadgeColor('donor')" rounded>
-              {{filtersCriteria.donor.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('mri')" name="mri" icon="las la-x-ray">
-            <q-badge v-if="filtersCriteria.mri.numberOfFilters" :color="getBadgeColor('mri')" rounded>
-              {{filtersCriteria.mri.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('tissue')" name="tissue" icon="svguse:/icons.svg#u-tissue">
-            <q-badge v-if="filtersCriteria.tissue.numberOfFilters" :color="getBadgeColor('tissue')" rounded>
-              {{filtersCriteria.tissue.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('cell')" name="cell" icon="las la-microscope">
-            <q-badge v-if="filtersCriteria.cell.numberOfFilters" :color="getBadgeColor('cell')" rounded>
-              {{filtersCriteria.cell.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('organoid')" name="organoid" icon="svguse:/icons.svg#u-organoid">
-            <q-badge v-if="filtersCriteria.organoid.numberOfFilters" :color="getBadgeColor('organoid')" rounded>
-              {{filtersCriteria.organoid.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('xenograft')" name="xenograft" icon="svguse:/icons.svg#u-xenograft">
-            <q-badge v-if="filtersCriteria.xenograft.numberOfFilters" :color="getBadgeColor('xenograft')" rounded>
-              {{filtersCriteria.xenograft.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('gene')" name="gene" icon="svguse:/icons.svg#u-gene">
-            <q-badge v-if="filtersCriteria.gene.numberOfFilters" :color="getBadgeColor('gene')" rounded>
-              {{filtersCriteria.gene.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('ssm')" name="ssm" icon="svguse:/icons.svg#u-ssm">
-            <q-badge v-if="filtersCriteria.ssm.numberOfFilters" :color="getBadgeColor('mutation')" rounded>
-              {{filtersCriteria.ssm.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('cnv')" name="cnv" icon="svguse:/icons.svg#u-cnv">
-            <q-badge v-if="filtersCriteria.cnv.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
-              {{filtersCriteria.cnv.numberOfFilters}}
-            </q-badge>
-          </q-tab>
-
-          <q-tab v-if="showFilters('sv')" name="sv" icon="svguse:/icons.svg#u-sv">
-            <q-badge v-if="filtersCriteria.sv.numberOfFilters" :color="getBadgeColor('cnv')" rounded>
-              {{filtersCriteria.sv.numberOfFilters}}
+        <q-tabs v-model="filtersModel" indicator-color="transparent" active-color="primary" align="left" dense vertical>
+          <q-tab v-for="model in models" :name="model" :icon="getIcon(model)">
+            <q-badge v-if="filtersCriteria[model].numberOfFilters" :color="getBadgeColor(model)" rounded>
+              {{filtersCriteria[model].numberOfFilters}}
             </q-badge>
           </q-tab>
         </q-tabs>
@@ -94,73 +23,9 @@
 </template>
 
 <script>
-import filtersMixin from "./filters-mixin";
-
-import FiltersCriteria from "./filters-criteria";
-import FiltersContext from "./filters-context";
+import mixin from "./mixin";
 
 export default {
-  mixins: [filtersMixin],
-
-  props: {
-    category: {
-      type: String,
-      default: "donor"
-    },
-    
-    mode: {
-      type: String,
-      default: "donor"
-    }
-  },
-
-  emits: ["update:category"],
-
-  data() {
-    return {
-      filtersCriteria: this.modelValue || new FiltersCriteria(),
-      filtersContext: this.context || new FiltersContext(),
-      filtersCategory: this.category
-    };
-  },
-
-  watch: {
-    modelValue(value) {
-      this.filtersCriteria = value || new FiltersCriteria();
-    },
-    
-    filtersCategory(value) {
-      this.$emit('update:category', value);
-    }
-  },
-
-  methods: {
-    showFilters(category) {
-      let general = ["donor", "gene"];
-      let images = ["mri"];
-      let specimens = ["tissue", "cell", "organoid", "xenograft"];
-      let variants = ["ssm", "cnv", "sv"];
-      switch (category) {
-        case "donor": return true;
-        case "mri": return [...general, "mri", ...variants, "tissue"].includes(this.mode);
-        case "tissue": return [...general, "mri", "tissue", ...variants].includes(this.mode);
-        case "cell": return [...general, "cell", ...variants].includes(this.mode);
-        case "organoid": return [...general, "organoid", ...variants].includes(this.mode);
-        case "xenograft": return [...general, "xenograft", ...variants].includes(this.mode);
-        case "gene": return true;
-        case "ssm": return [...general, ...specimens, ...images, "ssm"].includes(this.mode);
-        case "cnv": return [...general, ...specimens, ...images, "cnv"].includes(this.mode);
-        case "sv": return [...general, ...specimens, ...images, "sv"].includes(this.mode);
-        case "oncogrid": return ["oncogrid"].includes(this.mode);
-        default: return false;
-      }
-    },
-
-    getBadgeColor(filtersCategory) {
-      return this.filtersCategory == filtersCategory
-        ? "primary"
-        : "grey-5";
-    }
-  }
-}
+  mixins: [mixin]
+};
 </script>

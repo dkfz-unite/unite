@@ -44,35 +44,35 @@ export default {
   },
 
   props: {
-    modelValue: {
+    criteria: {
       type: Object,
-      required: true
-    },
-    filters: {
-      type: Array,
       required: true
     },
     context: {
       type: Object,
       required: false
+    },
+    filters: {
+      type: Array,
+      required: true
     }
   },
 
-  emits: ["update:modelValue"],
+  emits: ["update"],
 
   data() {
     return {
-      filtersCriteria: this.modelValue,
+      filtersCriteria: this.criteria,
       filtersContext: this.context
     };
   },
 
   watch: {
-    modelValue(value) {
+    criteria(value) {
       this.filtersCriteria = value;
     },
 
-    filtersContext: {
+    context: {
       deep: true,
       handler(value) {
         this.filtersContext = value;
@@ -93,8 +93,8 @@ export default {
       if (filter.watch != null) {
         filter.watch(event?.target, this.filtersCriteria, this.filtersContext);
       }
-
-      this.$emit("update:modelValue", this.filtersCriteria);
+      
+      this.$emit("update", this.filtersCriteria);
     }
   }
 }

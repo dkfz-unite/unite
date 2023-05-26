@@ -39,6 +39,16 @@
     />
   </template>
 
+  <!-- Boolean filter -->
+  <template v-else-if="filter.type == FilterType.Number">
+    <u-number-filter
+      v-model="filterValue"
+      :label="filter.label"
+      :default="filter.default"
+      @update:modelValue="onUpdate"
+    />
+  </template>
+
   <!-- Range filter -->
   <template v-else-if="filter.type == FilterType.Range">
     <u-range-filter

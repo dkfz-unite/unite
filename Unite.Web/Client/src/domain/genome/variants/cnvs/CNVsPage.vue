@@ -1,100 +1,111 @@
 <template>
-    <!-- Filters button -->
-    <teleport v-if="$q.screen.lt.md" to="#top-left-placeholder">
-      <u-filters-button @click="$refs.drawer.open()" />
-    </teleport>
-  
-    <!-- Filters drawer -->
-    <u-drawer
-      ref="drawer"
-      side="left"
-      v-model:shown="drawer.show"
-      v-model:minimized="drawer.mini">
-      <template #default>
-        <u-filters
-          :mode="filtersMode"
-          :context="filtersContext"
-          v-model="filtersCriteria"
-          v-model:category="filtersCategory"
-          @update:modelValue="filterData"
-          @close="$refs.drawer.minimize()"
-        />
-      </template>
-  
-      <template #mini>
-        <u-filters-mini
-          :mode="filtersMode"
-          :context="filtersContext"
-          v-model="filtersCriteria"
-          v-model:category="filtersCategory"
-        />
-      </template>
-    </u-drawer>
-  
-    <!-- Page content -->
-    <div class="col q-gutter-y-sm">
-      <div class="row">
-        <q-breadcrumbs gutter="xs" class="text-subtitle1">
-          <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-          <q-breadcrumbs-el label="CNVs" />
-        </q-breadcrumbs>
-      </div>
-  
-      <div class="row">
-        <div class="col">
-          <u-data-table
-            title="Copy Number Variants (CNV)"
-            :loading="loading"
-            :rows="rows"
-            :rows-total="rowsTotal"
-            v-model:rows-selected="rowsSelected"
-            v-model:filters="filtersCriteria.filters"
-            @update:filters="loadData"
-          />
-        </div>
+  <!-- Filters button -->
+  <teleport v-if="$q.screen.lt.md" to="#top-left-placeholder">
+    <u-filters-button @click="$refs.drawer.open()" />
+  </teleport>
+
+  <!-- Filters drawer -->
+  <u-drawer
+    ref="drawer"
+    side="left"
+    v-model:shown="drawer.show"
+    v-model:minimized="drawer.mini">
+    <template #default>
+      <u-filters
+        :criteria="filtersCriteria"
+        :context="filtersContext"
+        :models="models"
+        v-model:model="model"
+        @update="updateFilters"
+        @hide="$refs.drawer.minimize()"
+      />
+    </template>
+
+    <template #mini>
+      <u-filters-mini
+        :criteria="filtersCriteria"
+        :context="filtersContext"
+        :models="models"
+        v-model:model="model"
+      />
+    </template>
+  </u-drawer>
+
+  <!-- Page content -->
+  <div class="col q-gutter-y-sm">
+    <div class="row">
+      <q-breadcrumbs gutter="xs" class="text-subtitle1">
+        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
+        <q-breadcrumbs-el label="CNVs" />
+      </q-breadcrumbs>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <u-data-table
+          title="Copy Number Variants (CNV)"
+          class="sticky-header"
+          :loading="loading"
+          :rows="rows"
+          :rows-total="rowsTotal"
+          v-model:rows-selected="rowsSelected"
+          v-model:from="filtersCriteria.from"
+          v-model:size="filtersCriteria.size"
+          @update:from="updateFrom"
+          @update:size="updateSize">
+          <template #header-right>
+            <div class="row q-gutter-x-xs">
+              <u-filters-toolbar :domain="domain" />
+              <u-cohorts-toolbar :domain="domain" />
+              <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
+            </div>
+          </template>
+        </u-data-table>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script>
-  import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
-  import UFilters from "@/_shared/components/filters/Filters.vue";
-  import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-  import UDrawer from "@/_shared/components/drawers/Drawer.vue";
-  import UDataTable from "./components/CNVsTable.vue";
-  import tablePageMixin from "@/domain/_shared/table-page-mixin";
-  
-  import api from "../_shared/api/variants";
-  
-  export default {
-    components: {
-      UFiltersButton,
-      UFilters,
-      UFiltersMini,
-      UDrawer,
-      UDataTable
-    },
-  
-    mixins: [tablePageMixin],
-  
-    data() {
-      return {
-        drawer: this.$store.state.leftDrawer,
-        filtersCategory: "cnv",
-        filtersMode: "cnv"
-      };
-    },
-  
-    computed: {
-      domain() {
-        return this.$store.state.cnvs;
-      }
-    },
-  
-    methods: {
-      async fetchData(searchCriteria) {
-        return await api.search("cnv", searchCriteria);
-      }
+<script>
+import UDrawer from "@/_shared/components/base/Drawer.vue";
+import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
+import UFilters from "@/_shared/components/filters/Filters.vue";
+import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
+import UDataTable from "@/domain/_shared/components/genome/variants/CNVsTable.vue";
+import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
+import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
+import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import tablePageMixin from "@/domain/_shared/table-page-mixin";
+
+import api from "../_shared/api/variants";
+
+export default {
+  components: {
+    UDrawer,
+    UFiltersButton,
+    UFilters,
+    UFiltersMini,
+    UDataTable,
+    UFiltersToolbar,
+    UCohortsToolbar,
+    USearchBar
+  },
+
+  mixins: [tablePageMixin],
+
+  data() {
+    return {
+      drawer: this.$store.state.leftDrawer,
+      domain: "cnvs",
+      model: "cnv",
+      models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "cnv"]
+    };
+  },
+
+  methods: {
+    async fetchData(searchCriteria) {
+      return await api.search("cnv", searchCriteria);
     }
   }
-  </script>
+}
+</script>

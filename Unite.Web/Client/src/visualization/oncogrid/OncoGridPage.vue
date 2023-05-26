@@ -12,23 +12,21 @@
     v-model:minimized="drawer.mini">
     <template #default>
       <u-filters
-        v-if="filtersCriteria"
-        :mode="filtersMode"
+        :criteria="filtersCriteria"
         :context="filtersContext"
-        v-model="filtersCriteria"
-        v-model:category="filtersCategory"
-        @update:modelValue="loadData"
-        @close="$refs.drawer.minimize()"
+        :models="models"
+        v-model:model="model"
+        @update="updateFilters"
+        @hide="$refs.drawer.minimize()"
       />
     </template>
 
     <template #mini>
       <u-filters-mini
-        v-if="filtersCriteria"
-        :mode="filtersMode"
+        :criteria="filtersCriteria"
         :context="filtersContext"
-        v-model="filtersCriteria"
-        v-model:category="filtersCategory"
+        :models="models"
+        v-model:model="model"
       />
     </template>
   </u-drawer>
@@ -43,8 +41,11 @@
     </div>
 
     <div class="row">
-      <div class="col">
+      <div v-if="!empty" class="col">
         <u-oncogrid v-if="data" :data="data" />
+      </div>
+      <div v-else class="col">
+        <div class="fixed-center">No observations found.</div>
       </div>
     </div>
 
@@ -55,14 +56,16 @@
 </template>
 
 <script>
+import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDrawer from "@/_shared/components/drawers/Drawer.vue";
 import UOncogrid from "./components/OncoGrid.vue";
 
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
+import FiltersContext from "@/_shared/components/filters/filters-context";
 import ConsequenceImpact from '@/_models/domain/genome/variants/enums/consequence-impact';
+import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 
 import api from "./api";
 
@@ -78,21 +81,26 @@ export default {
   data() {
     return {
       loading: true,
+      empty: false,
       data: null,
 
       drawer: this.$store.state.leftDrawer,
+      domain: "oncogrid",
+      model: "oncogrid",
+      models: ["donor", "gene", "ssm", "oncogrid"],
+
       filtersCriteria: null,
       filtersContext: null,
-      filtersCategory: "oncogrid",
-      filtersMode: "oncogrid"
+      allowedImpacts: [ConsequenceImpact.High, ConsequenceImpact.Moderate, ConsequenceImpact.Low]
     };
   },
 
   mounted() {
     let mode = this.$route.params.mode;
-    let donors = this.$store.state.donors.selected;
-    let genes = this.$store.state.genes.selected;
+    let donors = this.$store.state.donors.rowsSelected;
+    let genes = this.$store.state.genes.rowsSelected;
     let filtersCriteria = new FiltersCriteria();
+    let filtersContext = new FiltersContext();
 
     if (mode == "donors") {
       filtersCriteria = this.$store.state.donors.filtersCriteria.clone();
@@ -102,24 +110,43 @@ export default {
       filtersCriteria.gene.symbol = genes?.map(gene => gene.symbol);
     }
 
+    if (!filtersCriteria.ssm.consequenceImpactOptions?.length) {
+      let allowedOptions = this.allowedImpacts.map(impact => ({ value: impact, label: impact }));
+      filtersContext.ssm.consequenceImpactOptions = mapOptions(allowedOptions, ConsequenceImpact.values);
+    }
+
     if (!filtersCriteria.ssm.impact.length){
-      filtersCriteria.ssm.impact = [
-        ConsequenceImpact.High, 
-        ConsequenceImpact.Moderate, 
-        ConsequenceImpact.Low
-      ];
+      filtersCriteria.ssm.impact = this.allowedImpacts;
+    } else {
+      filtersCriteria.ssm.impact = filtersCriteria.ssm.impact.filter(impact => this.allowedImpacts.includes(impact));
     }
 
     this.filtersCriteria = filtersCriteria;
+    this.filtersContext = filtersContext;
     this.loadData();
   },
 
   methods: {
+    async updateFilters() {
+      if (!this.filtersCriteria.ssm.impact.length) {
+        this.filtersCriteria.ssm.impact = this.allowedImpacts;
+      }
+      await this.loadData();
+    },
+
     async loadData() {
       try {
         this.loading = true;
+        this.empty = false;
         this.data = null;
-        this.data = await this.fetchData();
+
+        const response = await this.fetchData();
+        
+        if (response?.observations?.length) {
+          this.data = response;
+        } else {
+          this.empty = true;
+        }
       } catch (error) {
         this.data = null;
       } finally {

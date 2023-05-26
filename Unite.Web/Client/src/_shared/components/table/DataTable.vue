@@ -1,9 +1,9 @@
 <template>
-  <q-table 
+  <q-table
     :title="title"
     :class="class" separator="cell" dense flat bordered selection="multiple" row-key="id"
-    :columns="columns"
     :visible-columns="visible"
+    :columns="columns"
     :rows="data" 
     v-model:selected="selected"
     v-model:pagination="pagination"
@@ -13,7 +13,7 @@
     <template v-slot:top-right>
       <div class="row items-center q-gutter-x-sm">
         <slot name="header-right" />
-        <u-columns-selector v-model="visible" :columns="columns" />
+        <u-columns-picker v-model="visible" :columns="columns" />
       </div>
     </template>
     <template v-for="(_, name) in $slots" v-slot:[name]="scope">
@@ -23,19 +23,18 @@
 </template>
 
 <script>
-import UColumnsSelector from "./ColumnsSelector.vue";
+import UColumnsPicker from "./header/ColumnsPicker.vue";
 export default {
   components: {
-    UColumnsSelector
+    UColumnsPicker
   },
 
   props: {
-    title: {
+    scope: {
       type: String,
-      default: null
+      required: true
     },
-
-    class: {
+    title: {
       type: String,
       default: null
     },
@@ -76,14 +75,14 @@ export default {
       default: 20
     },
 
-    query: {
-      type: String,
-      default: null
-    },
-
     loading: {
       type: Boolean,
       default: false
+    },
+
+    class: {
+      type: String,
+      default: null
     }
   },
 
@@ -149,24 +148,27 @@ export default {
         this.pagination.page = page;
         const from = this.getFrom(this.pagination.page, this.pagination.rowsPerPage);
         this.$emit("update:from", from);
-        this.$emit("update");
-      } else if (this.pagination.rowsPerPage != rowsPerPage) {
+      }
+      if(this.pagination.rowsPerPage != rowsPerPage) {
         this.pagination.rowsPerPage = rowsPerPage;
         const size = this.getSize(this.pagination.rowsPerPage);
         this.$emit("update:size", size);
-        this.$emit("update");
       }
+      
+      this.$emit("update");
     },
 
     getColumnsKey() {
       const identity = this.$store.state.identity.account?.email || "anonymous";
-      const domain = this.$route.params?.tab ? `${this.$route.name}_${this.$route.params.tab}` : this.$route.name;
-      return `${identity}-columns-${domain}`;
+      const scope = `${this.scope}`;
+      return `${identity}-columns-${scope}`;
+      // const domain = this.$route.params?.tab ? `${this.$route.name}_${this.$route.params.tab}` : this.$route.name;
+      // return `${identity}-columns-${domain}`;
     },
 
     loadColumns() {
       const json = localStorage.getItem(this.getColumnsKey());
-      return json ? JSON.parse(json) : this.columns.map(column => column.name);
+      return json ? JSON.parse(json) : this.columns.filter(column => column.show == false ? false : true).map(column => column.name);
     },
 
     saveColumns(value) {

@@ -3,6 +3,7 @@ export default class FilterType {
   static Option = "Option";
   static Options = "Options";
   static Boolean = "Boolean";
+  static Number = "Number";
   static Range = "Range";
   static Threshold = "Threshold";
 }

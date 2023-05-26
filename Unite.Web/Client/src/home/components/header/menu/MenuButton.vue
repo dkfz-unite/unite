@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import UDrawer from "../../../../_shared/components/drawers/Drawer.vue";
+import UDrawer from "../../../../_shared/components/base/Drawer.vue";
 import UMenuContent from "./MenuContent.vue";
 
 export default {

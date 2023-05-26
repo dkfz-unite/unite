@@ -4,45 +4,43 @@
       <span class="text-h5 u-text-title">Genes</span>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2 q-gutter-sm">
-            <div class="row">
-              <div class="col">
-                <u-samples
-                  v-model="sample"
-                  :options="samples"
-                  @update:modelValue="filterData"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <u-filters
-                v-model="filtersCriteria.gene"
-                :context="filtersContext.gene"
-                :filters="geneFilters"
-                @update:modelValue="filterData"
-              />
-            </div>
-            <div class="row" v-if="filtersCriteria.gene.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.gene.clear(); filterData();" />
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-9 col-md-10">
-            <u-data-table
-              title="Specimen Genes"
-              class="sticky-header-slim"
-              :loading="loading"
-              :rows="rows"
-              :rows-total="rowsTotal"
-              v-model:rows-selected="rowsSelected"
-              v-model:filters="filtersCriteria.filters"
-              @update:filters="loadData"
+    <div class="row q-col-gutter-sm q-pt-sm">
+      <div class="col-12 col-sm-3 col-md-2 q-gutter-y-sm">
+        <div class="row">
+          <div class="col">
+            <u-samples
+              v-model="sample"
+              :options="samples"
+              @update:modelValue="updateFilters"
             />
           </div>
         </div>
+        <div class="row">
+          <u-filters
+            :criteria="filtersCriteria[model]"
+            :context="filtersContext[model]"
+            :filters="filters"
+            @update="updateFilters"
+          />
+        </div>
+        <div class="row" v-if="filtersCriteria[model].numberOfFilters">
+          <u-filters-button-clear @click="filtersCriteria[model].clear(); updateFilters();" />
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-9 col-md-10">
+        <u-data-table
+          title="Specimen Genes"
+          class="sticky-header-slim"
+          :loading="loading"
+          :rows="rows"
+          :rows-total="rowsTotal"
+          v-model:rows-selected="rowsSelected"
+          v-model:from="filtersCriteria.from"
+          v-model:size="filtersCriteria.size"
+          @update:from="updateFrom"
+          @update:size="updateSize"
+        />
       </div>
     </div>
   </div>
@@ -55,7 +53,8 @@ import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
-import geneFilters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
+import specimenTabMixin from "./specimen-tab-mixin";
+import filters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
 
 import api from "../../api/specimen";
 
@@ -67,28 +66,17 @@ export default {
     UDataTable
   },
 
-  mixins: [samplePageMixin, tablePageMixin],
+  mixins: [samplePageMixin, tablePageMixin, specimenTabMixin],
 
   props: {
     specimen: Object
   },
 
-  setup() {
+  data() {
     return {
-      geneFilters: geneFilters
-    }
-  },
-
-  computed: {
-    domain() {
-      const state = 
-        this.specimen.tissue ? this.$store.state.tissue.genes :
-        this.specimen.cellLine ? this.$store.state.cell.genes :
-        this.specimen.organoid ? this.$store.state.organoid.genes :
-        this.specimen.xenograft ? this.$store.state.xenograft.genes :
-        null;
-
-      return state;
+      domain: this.getDomain("genes"),
+      model: "gene",
+      filters: filters
     }
   },
 

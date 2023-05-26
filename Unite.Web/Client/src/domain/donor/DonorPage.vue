@@ -126,6 +126,14 @@ export default {
       loading: false,
       donor: null,
       samples: null,
+      sample: null
+    };
+  },
+
+  provide() {
+    return {
+      donor: this.donor,
+      samples: this.samples,
     };
   },
 

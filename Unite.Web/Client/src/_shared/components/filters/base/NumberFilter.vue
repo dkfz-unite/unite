@@ -3,7 +3,7 @@
     :label="label"
     :placeholder="placeholder"
     :disable="disable"
-    v-model.number="modelValue"
+    v-model.number="value"
     @update:modelValue="onUpdate"
     type="number"
     debounce="500"
@@ -30,14 +30,43 @@ export default {
     disable: {
       type: Boolean,
       default: false
+    },
+    min: {
+      type: Number,
+      default: null
+    },
+    max: {
+      type: Number,
+      default: null
+    },
+    default: {
+      type: Number,
+      default: null
     }
   },
   
   emits: ["update:modelValue"],
 
+  data() {
+    return {
+      value: this.modelValue
+    }
+  },
+
+  watch: {
+    modelValue(value) {
+      this.value = value;
+    }
+  },
+
   methods:{
-    onUpdate(value){
-      this.$emit("update:modelValue", value);
+    onUpdate(value) {
+      if (value == null || value == "") {
+        if (this.default != null) {
+          this.value = this.default;
+        }
+      };
+      this.$emit("update:modelValue", this.value);
     }
   }
 }

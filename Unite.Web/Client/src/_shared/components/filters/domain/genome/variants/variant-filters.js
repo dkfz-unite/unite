@@ -63,14 +63,14 @@ const filters = [
         label: "Impact",
         type: FilterType.Options,
         valueType: ValueType.String,
-        options: (context) => mapOptions(context?.impactOptions, ConsequenceImpact.values)
+        options: (context) => mapOptions(context?.consequenceImpactOptions, ConsequenceImpact.values)
       },
       {
         field: "consequence",
         label: "Consequence",
         type: FilterType.Options,
         valueType: ValueType.String,
-        options: (context) => mapOptions(context?.consequenceOptions, ConsequenceType.values)
+        options: (context) => mapOptions(context?.consequenceTypeOptions, ConsequenceType.values)
       }
     ]
   }

@@ -1,41 +1,37 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <div class="col">
-        <div class="text-h5 u-text-title">Mutations (SSM)</div>
-      </div>
+      <span class="text-h5 u-text-title">Mutations (SSM)</span>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2">
-            <div class="row">
-              <u-filters
-                v-model="filtersCriteria.ssm"
-                :context="filtersContext.ssm"
-                :filters="filters"
-                @update:modelValue="filterData"
-              />
-            </div>
-            <div class="row" v-if="filtersCriteria.ssm.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.ssm.clear(); filterData();" />
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-9 col-md-10">
-            <u-data-table
-              title="Gene Mutations (SSM)"
-              class="sticky-header-slim"
-              :loading="loading"
-              :rows="rows"
-              :rows-total="rowsTotal"
-              v-model:rows-selected="rowsSelected"
-              v-model:filters="filtersCriteria.filters"
-              @update:filters="loadData"
-            />
-          </div>
+    <div class="row q-col-gutter-sm q-pt-sm">
+      <div class="col-12 col-sm-3 col-md-2 q-gutter-y-xs">
+        <div class="row">
+          <u-filters
+            :criteria="filtersCriteria[model]"
+            :context="filtersContext[model]"
+            :filters="filters"
+            @update="updateFilters"
+          />
         </div>
+        <div class="row" v-if="filtersCriteria[model].numberOfFilters">
+          <u-filters-button-clear @click="filtersCriteria[model].clear(); filterData();" />
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-9 col-md-10">
+        <u-data-table
+          title="Gene Mutations"
+          class="sticky-header-slim"
+          :loading="loading"
+          :rows="rows"
+          :rows-total="rowsTotal"
+          v-model:rows-selected="rowsSelected"
+          v-model:from="filtersCriteria.from"
+          v-model:size="filtersCriteria.size"
+          @update:from="updateFrom"
+          @update:size="updateSize"
+        />
       </div>
     </div>
   </div>
@@ -63,15 +59,11 @@ export default {
     gene: Object
   },
 
-  setup() {
+  data() {
     return {
+      domain: this.$store.state.gene.ssms,
+      model: "ssm",
       filters: filters
-    }
-  },
-
-  computed: {
-    domain() {
-      return this.$store.state.gene.ssms;
     }
   },
 
@@ -80,5 +72,5 @@ export default {
       return await api.searchVariants(this.gene.id, "ssm", searchCriteria);
     }
   }
-}
+};
 </script>

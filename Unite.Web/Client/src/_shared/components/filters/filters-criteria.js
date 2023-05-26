@@ -10,23 +10,10 @@ import StructuralVariantFiltersCriteria from "./domain/genome/variants/sv/sv-fil
 import MriFiltersCriteria from "./domain/images/mris/mri-filters-criteria";
 import OncogirdFiltersCriteria from "./analysis/oncogrid/oncogrid-filters-criteria";
 
-// This class is used only inside this file, all side assignments still use object.
-class Filters {
-  query = null;
+export default class FiltersCriteria {
   from = 0;
   size = 20;
-
-  constructor(filters = null) {
-    this.query = filters?.query || null;
-  }
-
-  resetPage() {
-    this.from = 0;
-  }
-}
-
-export default class FiltersCriteria {
-  filters = new Filters();
+  query = null;
   donor = new DonorFiltersCriteria();
   mri = new MriFiltersCriteria();
   tissue = new TissueFiltersCriteria();
@@ -42,7 +29,7 @@ export default class FiltersCriteria {
   get numberOfFilters() {
     let number = 0;
 
-    number += this.filters.query != null ? 1 : 0;
+    number += !!this.query ? 1 : 0;
     number += this.donor.numberOfFilters;
     number += this.mri.numberOfFilters;
     number += this.tissue.numberOfFilters;
@@ -58,7 +45,9 @@ export default class FiltersCriteria {
   }
 
   constructor(criteria = null) {
-    this.filters = new Filters(criteria?.filters);
+    this.from = criteria?.from || 0;
+    this.size = criteria?.size || 20;
+    this.query = criteria?.query || null;
     this.donor = new DonorFiltersCriteria(criteria?.donor);
     this.mri = new MriFiltersCriteria(criteria?.mri);
     this.tissue = new TissueFiltersCriteria(criteria?.tissue);
@@ -73,6 +62,7 @@ export default class FiltersCriteria {
   }
 
   sanitise() {
+    this.query = this.query?.trim();
     this.donor?.sanitise();
     this.mri?.sanitise();
     this.tissue?.sanitise();
@@ -87,23 +77,15 @@ export default class FiltersCriteria {
   }
 
   resetPage() {
-    let filters = new Filters();
-    filters.query = this.filters.query;
-    filters.size = this.filters.size;
-    filters.from = 0;
-    
-    this.filters = filters;
+    this.from = 0;
   }
-
-
+  
   clone() {
     var criteria = new FiltersCriteria();
 
-    criteria.filters = {
-      query: this.filters.query,
-      from: this.filters.from,
-      size: this.filters.size
-    };
+    criteria.from = this.from;
+    criteria.size = this.size;
+    criteria.query = this.query;
     criteria.donor = this.donor?.clone();
     criteria.mri = this.mri?.clone();
     criteria.tissue = this.tissue?.clone();
@@ -135,8 +117,8 @@ export default class FiltersCriteria {
   }
 
   clear() {
-    this.filters.from = 0;
-    this.filters.query = null;
+    this.from = 0;
+    this.query = null;
     this.donor.clear();
     this.mri.clear();
     this.tissue.clear();
@@ -151,9 +133,9 @@ export default class FiltersCriteria {
 
   toSearchCriteria() {
     return {
-      from: this.filters.from,
-      size: this.filters.size,
-      term: this.filters.query,
+      from: this.from,
+      size: this.size,
+      term: this.query,
       donor: this.donor,
       mri: this.mri,
       tissue: this.tissue,

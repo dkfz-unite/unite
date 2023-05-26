@@ -1,35 +1,19 @@
 const specimensTableMixin = {
   methods: {
-    getSpecimenLink(specimen) {
-      if (!specimen) {
-        return null;
-      } else if (!!specimen.tissue) {
-        return { name: "tissue", params: { id: specimen.id.toString() } }
-      } else if (!!specimen.cellLine) {
-        return { name: "cell", params: { id: specimen.id.toString() } }
-      } else if (!!specimen.organoid) {
-        return { name: "organoid", params: { id: specimen.id.toString() } }
-      } else if (!!specimen.xenograft) {
-        return { name: "xenograft", params: { id: specimen.id.toString() } }
-      } else {
-        return null;
-      }
+    getSpecimenType(specimen) {
+      if (!!specimen?.tissue) return "tissue";
+      else if (!!specimen?.cellLine) return "cell";
+      else if (!!specimen?.organoid) return "organoid";
+      else if (!!specimen?.xenograft) return "xenograft";
+      else null;
     },
 
     getSpecimenTypeName(specimen) {
-      if (!specimen) {
-        return null;
-      } else if (!!specimen.tissue) {
-        return `Tissue (${specimen.tissue.tumorType ?? specimen.tissue.type})`;
-      } else if (!!specimen.cellLine) {
-        return "Cell Line"
-      } else if (!!specimen.organoid) {
-        return "Organoid"
-      } else if (!!specimen.xenograft) {
-        return "Xenograft"
-      } else {
-        return null;
-      }
+      if (!!specimen?.tissue) return `Tissue (${specimen.tissue.tumorType ?? specimen.tissue.type})`;
+      else if (!!specimen?.cellLine) return "Cell Line";
+      else if (!!specimen?.organoid) return "Organoid";
+      else if (!!specimen?.xenograft) return "Xenograft";
+      else null;
     },
 
     getIdh(idhStatus, idhMutation) {

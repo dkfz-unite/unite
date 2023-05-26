@@ -1,190 +1,198 @@
 <template>
   <div class="col">
-    <q-table
-      class="sticky-header"
-      separator="cell" dense flat bordered
-      selection="multiple"
-      row-key="id"
+    <u-data-table
+      :class="class"
       :title="title"
-      :columns="columns"
-      :rows="data"
-      v-model:selected="selected"
-      v-model:pagination="pagination"
-      :rows-per-page-options="pageOptions"
-      :filter="filter"
       :loading="loading"
-      @request="onRequest"
-    >
-      <template v-slot:top-right>
-        <div class="row q-gutter-x-sm">
-          <u-filters-toolbar domain="organoids" />
-
-          <q-input v-model="filter" placeholder="Search" dense debounce="300" style="width: 300px">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </div>
+      :scope="scope"
+      :columns="columns"
+      :rows="rows"
+      :rows-total="rowsTotal"
+      v-model:rows-selected="dataSelected"
+      v-model:from="dataFrom"
+      v-model:size="dataSize">
+      <template v-slot:header-right>
+        <slot name="header-right">
+        </slot>
       </template>
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <router-link class="u-link" :to="{ name: 'organoid', params: { id: props.value.toString() }}">
-            {{ props.value }}
-          </router-link>
+          <u-specimen-link :id="props.value" type="organoid" />
         </q-td>
       </template>
 
       <template v-slot:body-cell-donorId="props">
         <q-td :props="props">
-          <router-link class="u-link" :to="{ name: 'donor', params: { id: props.value.toString() }}">
-            {{ props.value }}
-          </router-link>
+          <u-donor-link :id="props.value" />
         </q-td>
       </template>
 
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
-          <router-link v-if="props.value" class="u-link" :to="getSpecimenLink(props.value)">
-            {{ props.value.id }}
-          </router-link>
+          <u-specimen-link :id="props.value" :type="getSpecimenType(props.value)" />
         </q-td>
       </template>
-    </q-table>
+    </u-data-table>
   </div>
 </template>
 
 <script>
-import UFiltersToolbar from "../../../_shared/components/filters/toolbar/FiltersToolbar.vue";
+import UDataTable from "@/_shared/components/table/DataTable.vue";
+import UDonorLink from "@/_shared/components/DonorLink.vue";
+import USpecimenLink from "@/_shared/components/SpecimenLink.vue";
 import tableMixin from "../../../_shared/table-mixin";
 import specimensTableMixin from "../../_shared/specimens-table-mixin";
 
 export default {
   components: {
-    UFiltersToolbar
+    UDataTable,
+    UDonorLink,
+    USpecimenLink
   },
   
   mixins: [tableMixin, specimensTableMixin],
 
-  data() {
-    return {
-      columns: [
-        {
-          name: "id",
-          label: "ID",
-          field: (row) => row.id,
-          sortable: false,
-          required: true,
-          align: "left"
-        },
-        {
-          name: "donorId",
-          label: "Donor Id",
-          field: (row) => row.donorId,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "parentId",
-          label: "Parent ID",
-          field: (row) => row.parent,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "parentType",
-          label: "Parent Type",
-          field: (row) => this.getSpecimenTypeName(row.parent),
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "implantedCells",
-          label: "#Implanted Cells",
-          field: (row) => row.organoid?.implantedCellsNumber,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "medium",
-          label: "Medium",
-          field: (row) => row.organoid?.medium,
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "tumorigenicity",
-          label: "Tumorigenicity",
-          field: (row) => this.$helpers.content.toBooleanString(row.organoid?.tumorigenicity),
-          sortable: false,
-          align: "left"
-        },
-        {
-          name: "mgmt",
-          label: "MGMT",
-          field: (row) => row.organoid?.molecularData?.mgmtStatus,
-          sortable: false,
-          align: "left",
-          headerClasses: "bg-grey-2"
-        },
-        {
-          name: "idh",
-          label: "IDH",
-          field: (row) => this.getIdh(row.organoid?.molecularData?.idhStatus, row.organoid?.molecularData?.idhMutation),
-          sortable: false,
-          align: "left",
-          headerClasses: "bg-grey-2"
-        },
-        {
-          name: "geneExpressionSubtype",
-          label: "Gene Expression Subtype",
-          field: (row) => row.organoid?.molecularData?.geneExpressionSubtype,
-          sortable: false,
-          align: "left",
-          headerClasses: "bg-grey-2"
-        },
-        {
-          name: "methylationSubtype",
-          label: "Methylation Subtype",
-          field: (row) => row.organoid?.molecularData?.methylationSubtype,
-          sortable: false,
-          align: "left",
-          headerClasses: "bg-grey-2"
-        },
-        {
-          name: "gCimpMethylation",
-          label: "G-CIMP Methylation",
-          field: (row) => this.$helpers.content.toBooleanString(row.organoid?.molecularData?.gcimpMethylation),
-          sortable: false,
-          align: "left",
-          headerClasses: "bg-grey-2"
-        },
-        {
-          name: "numberOfGenes",
-          label: "#Genes",
-          field: (row) => row.numberOfGenes?.toLocaleString(),
-          sortable: false
-        },
-        {
-          name: "numberOfSsms",
-          label: "#SSMs",
-          field: (row) => row.numberOfMutations?.toLocaleString(),
-          sortable: false
-        },
-        {
-          name: "numberOfCnvs",
-          label: "#CNVs",
-          field: (row) => row.numberOfCopyNumberVariants?.toLocaleString(),
-          sortable: false
-        },
-        {
-          name: "numberOfSVs",
-          label: "#SVs",
-          field: (row) => row.numberOfStructuralVariants?.toLocaleString(),
-          sortable: false
-        }
-      ]
-    };
+  computed: {
+    scope() {
+      return "organoids";
+    },
+    
+    columns() {
+      let columns = [];
+
+      columns.push({
+        name: "id",
+        label: "ID",
+        field: (row) => row.id,
+        sortable: false,
+        required: true,
+        align: "left"
+      });
+
+      columns.push({
+        name: "donorId",
+        label: "Donor Id",
+        field: (row) => row.donorId,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "parentId",
+        label: "Parent ID",
+        field: (row) => row.parent,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "parentType",
+        label: "Parent Type",
+        field: (row) => this.getSpecimenTypeName(row.parent),
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "implantedCells",
+        label: "#Implanted Cells",
+        field: (row) => row.organoid?.implantedCellsNumber,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "medium",
+        label: "Medium",
+        field: (row) => row.organoid?.medium,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "tumorigenicity",
+        label: "Tumorigenicity",
+        field: (row) => this.$helpers.content.toBooleanString(row.organoid?.tumorigenicity),
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "mgmt",
+        label: "MGMT",
+        field: (row) => row.organoid?.molecularData?.mgmtStatus,
+        sortable: false,
+        align: "left",
+        headerClasses: "bg-grey-2"
+      });
+
+      columns.push({
+        name: "idh",
+        label: "IDH",
+        field: (row) => this.getIdh(row.organoid?.molecularData?.idhStatus, row.organoid?.molecularData?.idhMutation),
+        sortable: false,
+        align: "left",
+        headerClasses: "bg-grey-2"
+      });
+
+      columns.push({
+        name: "geneExpressionSubtype",
+        label: "Gene Expression Subtype",
+        field: (row) => row.organoid?.molecularData?.geneExpressionSubtype,
+        sortable: false,
+        align: "left",
+        headerClasses: "bg-grey-2"
+      });
+
+      columns.push({
+        name: "methylationSubtype",
+        label: "Methylation Subtype",
+        field: (row) => row.organoid?.molecularData?.methylationSubtype,
+        sortable: false,
+        align: "left",
+        headerClasses: "bg-grey-2"
+      });
+
+      columns.push({
+        name: "gCimpMethylation",
+        label: "G-CIMP Methylation",
+        field: (row) => this.$helpers.content.toBooleanString(row.organoid?.molecularData?.gcimpMethylation),
+        sortable: false,
+        align: "left",
+        headerClasses: "bg-grey-2"
+      });
+
+      columns.push({
+        name: "numberOfGenes",
+        label: "#Genes",
+        field: (row) => row.numberOfGenes?.toLocaleString(),
+        sortable: false
+      });
+
+      columns.push({
+        name: "numberOfSsms",
+        label: "#SSMs",
+        field: (row) => row.numberOfMutations?.toLocaleString(),
+        sortable: false
+      });
+
+      columns.push({
+        name: "numberOfCnvs",
+        label: "#CNVs",
+        field: (row) => row.numberOfCopyNumberVariants?.toLocaleString(),
+        sortable: false
+      });
+
+      columns.push({
+        name: "numberOfSVs",
+        label: "#SVs",
+        field: (row) => row.numberOfStructuralVariants?.toLocaleString(),
+        sortable: false
+      });
+
+      return columns;
+    }
   }
-}
+};
 </script>

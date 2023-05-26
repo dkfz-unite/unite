@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import UDrawer from "../_shared/components/drawers/Drawer.vue";
+import UDrawer from "../_shared/components/base/Drawer.vue";
 import UCohortsButtonShow from "./components/CohortsButtonShow.vue";
 import UControlsToolbar from "./components/controls/ControlsToolbar.vue";
 import UCohorts from "./components/Cohorts.vue";

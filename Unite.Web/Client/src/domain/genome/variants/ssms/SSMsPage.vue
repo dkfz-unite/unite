@@ -12,21 +12,21 @@
     v-model:minimized="drawer.mini">
     <template #default>
       <u-filters
-        :mode="filtersMode"
+        :criteria="filtersCriteria"
         :context="filtersContext"
-        v-model="filtersCriteria"
-        v-model:category="filtersCategory"
-        @update:modelValue="filterData"
-        @close="$refs.drawer.minimize()"
+        :models="models"
+        v-model:model="model"
+        @update="updateFilters"
+        @hide="$refs.drawer.minimize()"
       />
     </template>
 
     <template #mini>
       <u-filters-mini
-        :mode="filtersMode"
+        :criteria="filtersCriteria"
         :context="filtersContext"
-        v-model="filtersCriteria"
-        v-model:category="filtersCategory"
+        :models="models"
+        v-model:model="model"
       />
     </template>
   </u-drawer>
@@ -43,36 +43,52 @@
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Mutations (SSM)"
+          title="Simple Somatic Mutations (SSM)"
+          class="sticky-header"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
           v-model:rows-selected="rowsSelected"
-          v-model:filters="filtersCriteria.filters"
-          @update:filters="loadData"
-        />
+          v-model:from="filtersCriteria.from"
+          v-model:size="filtersCriteria.size"
+          @update:from="updateFrom"
+          @update:size="updateSize">
+          <template #header-right>
+            <div class="row q-gutter-x-xs">
+              <u-filters-toolbar :domain="domain" />
+              <u-cohorts-toolbar :domain="domain" />
+              <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
+            </div>
+          </template>
+        </u-data-table>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDrawer from "@/_shared/components/drawers/Drawer.vue";
-import UDataTable from "./components/SSMsTable.vue";
+import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vue";
+import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
+import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
+import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
 import api from "./api";
 
 export default {
   components: {
+    UDrawer,
     UFiltersButton,
     UFilters,
     UFiltersMini,
-    UDrawer,
-    UDataTable
+    UDataTable,
+    UFiltersToolbar,
+    UCohortsToolbar,
+    USearchBar
   },
 
   mixins: [tablePageMixin],
@@ -80,15 +96,10 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      filtersCategory: "ssm",
-      filtersMode: "ssm"
+      domain: "ssms",
+      model: "ssm",
+      models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm"]
     };
-  },
-
-  computed: {
-    domain() {
-      return this.$store.state.ssms;
-    }
   },
 
   methods: {

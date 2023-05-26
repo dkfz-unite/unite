@@ -4,45 +4,43 @@
       <span class="text-h5 u-text-title">Mutations (SSM)</span>
     </div>
 
-    <div class="row">
-      <div class="col">
-        <div class="row q-col-gutter-sm">
-          <div class="col-12 col-sm-3 col-md-2 q-gutter-sm">
-            <div class="row">
-              <div class="col">
-                <u-samples 
-                  v-model="sample"
-                  :options="samples"
-                  @update:modelValue="filterData"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <u-filters
-                v-model="filtersCriteria.ssm"
-                :context="filtersContext.ssm"
-                :filters="filters"
-                @update:modelValue="filterData"
-              />
-            </div>
-            <div class="row" v-if="filtersCriteria.ssm.numberOfFilters">
-              <u-filters-button-clear @click="filtersCriteria.ssm.clear(); filterData();" />
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-9 col-md-10">
-            <u-data-table
-              title="Image Mutations (SSM)"
-              class="sticky-header-slim"
-              :loading="loading"
-              :rows="rows"
-              :rows-total="rowsTotal"
-              v-model:rows-selected="rowsSelected"
-              v-model:filters="filtersCriteria.filters"
-              @update:filters="loadData"
+    <div class="row q-col-gutter-sm q-pt-sm">
+      <div class="col-12 col-sm-3 col-md-2 q-gutter-y-sm">
+        <div class="row">
+          <div class="col">
+            <u-samples
+              v-model="sample"
+              :options="samples"
+              @update:modelValue="updateFilters"
             />
           </div>
         </div>
+        <div class="row">
+          <u-filters
+            :criteria="filtersCriteria[model]"
+            :context="filtersContext[model]"
+            :filters="filters"
+            @update="updateFilters"
+          />
+        </div>
+        <div class="row" v-if="filtersCriteria[model].numberOfFilters">
+          <u-filters-button-clear @click="filtersCriteria[model].clear(); updateFilters();" />
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-9 col-md-10">
+        <u-data-table
+          title="Image Mutations"
+          class="sticky-header-slim"
+          :loading="loading"
+          :rows="rows"
+          :rows-total="rowsTotal"
+          v-model:rows-selected="rowsSelected"
+          v-model:from="filtersCriteria.from"
+          v-model:size="filtersCriteria.size"
+          @update:from="updateFrom"
+          @update:size="updateSize"
+        />
       </div>
     </div>
   </div>
@@ -55,6 +53,7 @@ import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vue";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import imageTabMixin from "./image-tab-mixin";
 import filters from "@/_shared/components/filters/domain/genome/variants/ssm/ssm-filters";
 
 import api from "../../api/image";
@@ -67,26 +66,13 @@ export default {
     UDataTable
   },
 
-  mixins: [samplePageMixin, tablePageMixin],
+  mixins: [samplePageMixin, tablePageMixin, imageTabMixin],
 
-  props: {
-    image: Object
-  },
-
-  setup() {
+  data() {
     return {
+      domain: this.getDomain("ssms"),
+      model: "ssm",
       filters: filters
-    }
-  },
-
-  computed: {
-    domain() {
-      const state = 
-        this.image.mriImage ? this.$store.state.mri.ssms :
-        this.image.ctImage ? this.$store.state.ct.ssms :
-        null;
-
-      return state;
     }
   },
 

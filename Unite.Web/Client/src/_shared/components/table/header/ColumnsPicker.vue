@@ -31,8 +31,7 @@ export default {
         label: column.label || column.name,
         required: column.required || false,
         show: this.modelValue.includes(column.name)
-      })),
-      
+      }))
     }
   },
 

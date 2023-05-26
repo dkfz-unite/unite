@@ -1,46 +1,45 @@
 const mixin = {
   data() {
     return {
-      loading: false,
-      // rows: [],
-      // rowsTotal: 0
+      loading: false
     };
   },
 
   computed: {
-    /**
-     * Store module to use as base.
-     * Should be implemented in component.
-     * @returns Given domain store module.
-     */
-    domain() {
-      // Should be implemented in component
-      throw "Property 'domain' (this.$store.state[domain]) should be implemented in component";
+
+    state() {
+      if (typeof(this.domain) === "string") {
+        return this.$store.state[this.domain];
+      } else if (typeof(this.domain) === "object") {
+        return this.domain;
+      } else {
+        throw "Property 'domain' should be a string or an object";
+      }
     },
 
     filtersCriteria: {
-      get() { return this.domain.filtersCriteria },
-      set(value) { this.domain.filtersCriteria = value }
+      get() { return this.state.filtersCriteria },
+      set(value) { this.state.filtersCriteria = value }
     },
 
     filtersContext: {
-      get() { return this.domain.filtersContext },
-      set(value) { this.domain.filtersContext = value }
+      get() { return this.state.filtersContext },
+      set(value) { this.state.filtersContext = value }
     },
 
     rows: {
-      get() { return this.domain.rows; },
-      set(value) { this.domain.rows = value; }
+      get() { return this.state.rows; },
+      set(value) { this.state.rows = value; }
     },
 
     rowsTotal: {
-      get() { return this.domain.rowsTotal; },
-      set(value) { this.domain.rowsTotal = value; }
+      get() { return this.state.rowsTotal; },
+      set(value) { this.state.rowsTotal = value; }
     },
 
     rowsSelected: {
-      get() { return this.domain.rowsSelected; },
-      set(value) { this.domain.rowsSelected = value; }
+      get() { return this.state.rowsSelected; },
+      set(value) { this.state.rowsSelected = value; }
     }
   },
 
@@ -55,11 +54,35 @@ const mixin = {
   },
 
   methods: {
-    async filterData() {
-      this.filtersCriteria?.sanitise();
-      this.filtersCriteria?.resetPage();
-      this.rowsSelected = [];
-      this.loadData();
+    async updateFrom() {
+      if (this.filtersCriteria.from !== 0) {
+        // Calling 'loadData' if page has changed
+        this.loadData();
+      }
+    },
+
+    async updateSize() {
+      if (this.filtersCriteria.from !== 0) {
+        // Reseting page will call 'loadData'
+        this.filtersCriteria?.resetPage();
+      } else {
+        // Calling 'loadData' directly
+        this.loadData();
+      }
+    },
+
+    async updateFilters() {
+      if (this.filtersCriteria.from !== 0) {
+        // Reseting page will call 'loadData'
+        this.rowsSelected = [];
+        this.filtersCriteria?.sanitise();
+        this.filtersCriteria?.resetPage();
+      } else {
+        // Calling 'loadData' directly
+        this.rowsSelected = [];
+        this.filtersCriteria?.sanitise();
+        this.loadData();
+      }
     },
 
     async loadData() {

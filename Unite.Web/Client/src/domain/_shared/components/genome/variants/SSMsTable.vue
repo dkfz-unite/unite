@@ -1,133 +1,123 @@
 <template>
-    <div>
-      <q-table
-        separator="cell" dense flat bordered
-        selection="multiple"
-        row-key="id"
-        :class="class"
-        :title="title"
-        :columns="columns"
-        :rows="data"
-        v-model:selected="selected"
-        v-model:pagination="pagination"
-        :rows-per-page-options="pageOptions"
-        :filter="filter"
-        :loading="loading"
-        @request="onRequest"
-      >
-        <template v-slot:body-cell-id="props">
-          <q-td :props="props">
-            <router-link class="u-link" :to="{ name: 'ssm', params: { id: props.value.toString() }}">
-              {{ props.value }}
-            </router-link>
-          </q-td>
-        </template>
+  <div class="col">
+    <u-data-table
+      :class="class"
+      :title="title"
+      :loading="loading"
+      :scope="scope"
+      :columns="columns"
+      :rows="rows"
+      :rows-total="rowsTotal"
+      v-model:rows-selected="dataSelected"
+      v-model:from="dataFrom"
+      v-model:size="dataSize">
+      <template v-slot:header-right>
+        <slot name="header-right">
+        </slot>
+      </template>
+
+      <template v-slot:body-cell-id="props">
+        <q-td :props="props">
+          <u-variant-link :id="props.value" type="ssm" />
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-consequences="props">
+        <q-td :props="props">
+          <u-consequences :consequences="props.value" />
+        </q-td>
+      </template>
+    </u-data-table>
+  </div>
+</template>
   
-        <template v-slot:body-cell-consequences="props">
-          <q-td :props="props">
-            <u-consequences :consequences="props.value" />
-          </q-td>
-        </template>
+<script>
+import UDataTable from "@/_shared/components/table/DataTable.vue";
+import UVariantLink from "@/_shared/components/VariantLink.vue";
+import UConsequences from "./cells/Consequences.vue";
+import tableMixin from "@/domain/_shared/table-mixin";
   
-        <!-- <template v-slot:body-cell-specimens="props">
-          <q-td :props="props">
-            <u-specimens :specimens="props.value" />
-          </q-td>
-        </template> -->
-      </q-table>
-    </div>
-  </template>
-  
-  <script>
-  import UConsequences from "./Consequences.vue";
-  // import USpecimens from "../Specimens.vue";
-  import tableMixin from "@/domain/_shared/table-mixin";
-  
-  export default {
-    components: {
-      UConsequences,
-      // USpecimens
+export default {
+  components: {
+    UDataTable,
+    UVariantLink,
+    UConsequences
+  },
+
+  mixins: [tableMixin],
+
+  computed: {
+    scope() {
+      return "ssms";
     },
-  
-    mixins: [tableMixin],
-  
-    data() {
-      return {
-        columns: [
-          {
-            name: "id",
-            label: "ID",
-            field: (row) => row.id,
-            sortable: false,
-            required: true,
-            align: "left"
-          },
-          {
-            name: "location",
-            label: "Location",
-            field: (row) => this.getLocationView(row.mutation),
-            sortable: false,
-            align: "left"
-          },
-          {
-            name: "change",
-            label: "DNA change",
-            field: (row) => this.getDnaChangeView(row.mutation),
-            sortable: false,
-            align: "left"
-          },
-          {
-            name: "type",
-            label: "Type",
-            field: (row) => row.mutation.type,
-            sortable: false,
-            align: "left"
-          },
-          {
-            name: "consequences",
-            label: "Consequences",
-            field: row => row.transcriptConsequences,
-            sortable: false,
-            align: "left"
-          },
-          // {
-          //   name: "specimens",
-          //   label: "Specimens",
-          //   field: row => this.getSpecimensView(row.specimens),
-          //   sortable: false,
-          //   align: "left"
-          // },
-          {
-            name: "numberOfDonors",
-            label: "#Affected Donors",
-            field: (row) => row.numberOfDonors,
-            sortable: false
-          }
-        ]
-      };
-    },
-  
-    methods: {
-      getLocationView(variant) {
-        return `chr${variant.chromosome}:${variant.start}-${variant.end}`;
-      },
-  
-      getDnaChangeView(variant) {
-        return `${variant.ref || "-"}>${variant.alt || "-"}`;
-      },
-  
-      // getSpecimensView(specimens) {
-      //   if (specimens?.length) {
-      //     return {
-      //       tissues: specimens.filter(specimen => !!specimen.tissue),
-      //       cells: specimens.filter(specimen => !!specimen.cellLine),
-      //       organoids: specimens.filter(specimen => !!specimen.organoid),
-      //       xenografts: specimens.filter(specimen => !!specimen.xenograft)
-      //     };
-      //   } else {
-      //     return null;
-      //   }
-      // }
+
+    columns() {
+      let columns = [];
+
+      columns.push({
+        name: "id",
+        label: "ID",
+        field: (row) => row.id,
+        sortable: false,
+        required: true,
+        align: "left"
+      });
+
+      columns.push({
+        name: "location",
+        label: "Location",
+        field: (row) => this.getLocationView(row.mutation),
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "change",
+        label: "DNA change",
+        field: (row) => this.getDnaChangeView(row.mutation),
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "type",
+        label: "Type",
+        field: (row) => row.mutation.type,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "consequences",
+        label: "Consequences",
+        field: row => row.transcriptConsequences,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "numberOfDonors",
+        label: "#Affected Donors",
+        field: (row) => row.numberOfDonors,
+        sortable: false
+      });
+
+      return columns;
     }
+  },
+
+  methods: {
+    getLocationView(variant) {
+      if (variant.start == variant.end) {
+        return `chr${variant.chromosome}:${variant.start}`;
+      } else {
+        return `chr${variant.chromosome}:${variant.start}-${variant.end}`;
+      }
+    },
+
+    getDnaChangeView(variant) {
+      return `${variant.ref || "-"}>${variant.alt || "-"}`;
+    },
   }
-  </script>
+}
+</script>

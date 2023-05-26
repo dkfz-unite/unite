@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import UGeneLink from "../GeneLink.vue";
+import UGeneLink from "@/_shared/components/GeneLink.vue";
 import ConsequenceType from "@/_models/domain/genome/variants/enums/consequence-type";
 
 export default {

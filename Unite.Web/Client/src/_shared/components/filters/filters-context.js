@@ -8,6 +8,7 @@ import GeneFiltersContext from "./domain/genome/genes/gene-filters-context";
 import MutationFiltersContext from "./domain/genome/variants/ssm/ssm-filters-context";
 import CopyNumberVariantFiltersContext from "./domain/genome/variants/cnv/cnv-filters-context";
 import StructuralVariantFiltersContext from "./domain/genome/variants/sv/sv-filters-context";
+import OncogridFiltersContext from "./analysis/oncogrid/oncogrid-filters-context";
 
 export default class FiltersContext {
     donor = new DonorFiltersContext();
@@ -20,4 +21,5 @@ export default class FiltersContext {
     ssm = new MutationFiltersContext();
     cnv = new CopyNumberVariantFiltersContext();
     sv = new StructuralVariantFiltersContext();
+    oncogrid = new OncogridFiltersContext();
 }

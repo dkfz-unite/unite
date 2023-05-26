@@ -6,8 +6,8 @@
         <u-cohorts-button-show @click="false" />
       </div>
 
-      <div>
-        <span class="text-subtitle1">{{ title }}</span>
+      <div class="text-subtitle1">
+        {{ title }}
       </div>
 
       <div>
