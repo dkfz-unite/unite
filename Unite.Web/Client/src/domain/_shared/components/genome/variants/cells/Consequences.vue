@@ -26,10 +26,12 @@
 
 <script>
 import UGeneLink from "@/_shared/components/GeneLink.vue";
+import ImpactColor from "@/_settings/genome/impact-color";
 import ConsequenceType from "@/_models/domain/genome/variants/enums/consequence-type";
 
 export default {
   components: { UGeneLink },
+
   props: {
     consequences: {
       type: Array,
@@ -39,12 +41,7 @@ export default {
 
   methods: {
     getImpactColor(impact) {
-      switch(impact){
-        case "High": return "text-red-8";
-        case "Moderate": return "text-orange-8";
-        case "Low": return "text-green-8";
-        default: return "text-grey-8";
-      }
+      return ImpactColor.Text[impact];
     },
 
     getConsequenceLabel(value){
