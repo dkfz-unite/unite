@@ -2,17 +2,17 @@
   <div>
     <div>
       <span>Creation Day: </span>
-      <span v-if="cellLine.creationDay" class="text-black">{{cellLine.creationDay}}</span>
+      <span v-if="cell.creationDay" class="text-black">{{cell.creationDay}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
     <div>
       <span>Type: </span>
-      <span v-if="cellLine.type" class="text-black">{{cellLine.type}}</span>
+      <span v-if="cell.type" class="text-black">{{cell.type}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
     <div>
       <span>Culture Type: </span>
-      <span v-if="cellLine.cultureType" class="text-black">{{cellLine.cultureType}}</span>
+      <span v-if="cell.cultureType" class="text-black">{{cell.cultureType}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
   </div>
@@ -21,7 +21,7 @@
 <script>
 export default {
   props: {
-    cellLine: {
+    cell: {
       type: Object,
       required: true
     }

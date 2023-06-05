@@ -35,6 +35,7 @@
 import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UImageLink from "@/_shared/components/ImageLink.vue";
 import UDonorLink from "@/_shared/components/DonorLink.vue";
+import availableDataMixin from "@/domain/_shared/available-data-mixin";
 import tableMixin from "@/domain/_shared/table-mixin";
 
 export default {
@@ -44,7 +45,7 @@ export default {
     UDonorLink
   },
 
-  mixins: [tableMixin],
+  mixins: [tableMixin, availableDataMixin],
 
   computed: {
     scope() {
@@ -66,7 +67,7 @@ export default {
       columns.push({
         name: "referenceId",
         label: "Reference ID",
-        field: (row) => row.mriImage?.referenceId,
+        field: (row) => row.mri?.referenceId,
         sortable: false,
         align: "left",
         show: false
@@ -85,28 +86,28 @@ export default {
       columns.push({
         name: "wholeTumor",
         label: "Whole Tumor (cm³)",
-        field: (row) => row.mriImage?.wholeTumor?.toFixed(3),
+        field: (row) => row.mri?.wholeTumor?.toFixed(3),
         sortable: false
       });
 
       columns.push({
         name: "contrastEnhancing",
         label: "Contrast Enhancing (cm³)",
-        field: (row) => row.mriImage?.contrastEnhancing?.toFixed(3),
+        field: (row) => row.mri?.contrastEnhancing?.toFixed(3),
         sortable: false
       });
 
       columns.push({
         name: "nonContrastEnhancing",
         label: "Non Contrast Enhancing (cm³)",
-        field: (row) => row.mriImage?.nonContrastEnhancing?.toFixed(3),
+        field: (row) => row.mri?.nonContrastEnhancing?.toFixed(3),
         sortable: false
       });
 
       columns.push({
         name: "medianAdcCe",
         label: "Median ADC CE",
-        field: (row) => row.mriImage?.medianAdcCe?.toFixed(3),
+        field: (row) => row.mri?.medianAdcCe?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -115,7 +116,7 @@ export default {
       columns.push({
         name: "medianAdcEdema",
         label: "Median ADC Edema",
-        field: (row) => row.mriImage?.medianAdcEdema?.toFixed(3),
+        field: (row) => row.mri?.medianAdcEdema?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -124,7 +125,7 @@ export default {
       columns.push({
         name: "medianAdcTumor",
         label: "Median ADC Tumor",
-        field: (row) => row.mriImage?.medianAdcTumor?.toFixed(3),
+        field: (row) => row.mri?.medianAdcTumor?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -133,7 +134,7 @@ export default {
       columns.push({
         name: "medianCbfCe",
         label: "Median CBF CE",
-        field: (row) => row.mriImage?.medianCbfCe?.toFixed(3),
+        field: (row) => row.mri?.medianCbfCe?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -142,7 +143,7 @@ export default {
       columns.push({
         name: "medianCbfEdema",
         label: "Median CBF Edema",
-        field: (row) => row.mriImage?.medianCbfEdema?.toFixed(3),
+        field: (row) => row.mri?.medianCbfEdema?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -151,7 +152,7 @@ export default {
       columns.push({
         name: "medianCbfTumor",
         label: "Median CBF Tumor",
-        field: (row) => row.mriImage?.medianCbfTumor?.toFixed(3),
+        field: (row) => row.mri?.medianCbfTumor?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -160,7 +161,7 @@ export default {
       columns.push({
         name: "medianMttCe",
         label: "Median MTT CE",
-        field: (row) => row.mriImage?.medianMttCe?.toFixed(3),
+        field: (row) => row.mri?.medianMttCe?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -169,7 +170,7 @@ export default {
       columns.push({
         name: "medianMttEdema",
         label: "Median MTT Edema",
-        field: (row) => row.mriImage?.medianMttEdema?.toFixed(3),
+        field: (row) => row.mri?.medianMttEdema?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
@@ -178,11 +179,83 @@ export default {
       columns.push({
         name: "medianMttTumor",
         label: "Median MTT Tumor",
-        field: (row) => row.mriImage?.medianMttTumor?.toFixed(3),
+        field: (row) => row.mri?.medianMttTumor?.toFixed(3),
         sortable: false,
         align: "right",
         show: false
       });
+
+      if (["mris"].includes(this.$route.name)){
+        columns.push({
+          name: "hasSsms",
+          label: "SSM",
+          field: (row) => this.dataView(row.data.ssms),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.ssms),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasCnvs",
+          label: "CNV",
+          field: (row) => this.dataView(row.data.cnvs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.cnvs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasSvs",
+          label: "SV",
+          field: (row) => this.dataView(row.data.svs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.svs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasGeneExp",
+          label: "RNA",
+          field: (row) => this.dataView(row.data.geneExp),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.geneExp),
+          headerClasses: this.dataHeaderClass()
+        });
+      }
+
+      if (["mris"].includes(this.$route.name)){
+        columns.push({
+          name: "numberOfGenes",
+          label: "#Genes",
+          field: (row) => row.numberOfGenes?.toLocaleString(),
+          sortable: false
+        });
+        
+        columns.push({
+          name: "numberOfSsms",
+          label: "#SSMs",
+          field: (row) => row.numberOfSsms?.toLocaleString(),
+          sortable: false
+        });
+
+        columns.push({
+          name: "numberOfCnvs",
+          label: "#CNVs",
+          field: (row) => row.numberOfCnvs?.toLocaleString(),
+          sortable: false
+        });
+
+        columns.push({
+          name: "numberOfSvs",
+          label: "#SVs",
+          field: (row) => row.numberOfSvs?.toLocaleString(),
+          sortable: false
+        }); 
+      }
 
       return columns;
     }

@@ -74,7 +74,7 @@ export default {
       columns.push({
         name: "location",
         label: "Location",
-        field: (row) => this.getLocationView(row.copyNumberVariant),
+        field: (row) => this.getLocationView(row.cnv),
         sortable: false,
         align: "left"
       });
@@ -90,8 +90,8 @@ export default {
       columns.push({
         name: "c1Mean",
         label: "C1 Mean",
-        field: (row) => this.$helpers.content.toDoubleString(row.copyNumberVariant.c1Mean, 2, "N/A"),
-        classes: (row) => !row.copyNumberVariant.c1Mean ? "text-grey" : null,
+        field: (row) => this.$helpers.content.toDoubleString(row.cnv.c1Mean, 2, "N/A"),
+        classes: (row) => !row.cnv.c1Mean ? "text-grey" : null,
         sortable: false,
         align: "left",
       });
@@ -99,8 +99,8 @@ export default {
       columns.push({
         name: "c2Mean",
         label: "C2 Mean",
-        field: (row) => this.$helpers.content.toDoubleString(row.copyNumberVariant.c2Mean, 2, "N/A"),
-        classes: (row) => !row.copyNumberVariant.c2Mean ? "text-grey" : null,
+        field: (row) => this.$helpers.content.toDoubleString(row.cnv.c2Mean, 2, "N/A"),
+        classes: (row) => !row.cnv.c2Mean ? "text-grey" : null,
         sortable: false,
         align: "left"
       });
@@ -108,8 +108,8 @@ export default {
       columns.push({
         name: "tcnMean",
         label: "TCN Mean",
-        field: (row) => this.$helpers.content.toDoubleString(row.copyNumberVariant.tcnMean, 2, "N/A"),
-        classes: (row) => !row.copyNumberVariant.tcnMean ? "text-grey" : null,
+        field: (row) => this.$helpers.content.toDoubleString(row.cnv.tcnMean, 2, "N/A"),
+        classes: (row) => !row.cnv.tcnMean ? "text-grey" : null,
         sortable: false,
         align: "left",
       });
@@ -117,8 +117,8 @@ export default {
       columns.push({
         name: "c1",
         label: "C1",
-        field: (row) => this.getCopyNumber(row.copyNumberVariant.c1) || "N/A",
-        classes: (row) => !this.getCopyNumber(row.copyNumberVariant.c1) ? "text-grey" : null,
+        field: (row) => this.getCopyNumber(row.cnv.c1) || "N/A",
+        classes: (row) => !this.getCopyNumber(row.cnv.c1) ? "text-grey" : null,
         sortable: false,
         align: "left",
         show: false
@@ -127,8 +127,8 @@ export default {
       columns.push({
         name: "c2",
         label: "C2",
-        field: (row) => this.getCopyNumber(row.copyNumberVariant.c2) || "N/A",
-        classes: (row) => !this.getCopyNumber(row.copyNumberVariant.c2) ? "text-grey" : null,
+        field: (row) => this.getCopyNumber(row.cnv.c2) || "N/A",
+        classes: (row) => !this.getCopyNumber(row.cnv.c2) ? "text-grey" : null,
         sortable: false,
         align: "left",
         show: false
@@ -137,8 +137,8 @@ export default {
       columns.push({
         name: "tcn",
         label: "TCN",
-        field: (row) => this.getCopyNumber(row.copyNumberVariant.tcn) || "N/A",
-        classes: (row) => !this.getCopyNumber(row.copyNumberVariant.tcn) ? "text-grey" : null,
+        field: (row) => this.getCopyNumber(row.cnv.tcn) || "N/A",
+        classes: (row) => !this.getCopyNumber(row.cnv.tcn) ? "text-grey" : null,
         sortable: false,
         align: "left",
         show: false
@@ -147,8 +147,8 @@ export default {
       columns.push({
         name: "genotype",
         label: "Genotype",
-        field: (row) => this.getGenotype(row.copyNumberVariant) || "N/A",
-        classes: (row) => !this.getGenotype(row.copyNumberVariant) ? "text-grey" : null,
+        field: (row) => this.getGenotype(row.cnv) || "N/A",
+        classes: (row) => !this.getGenotype(row.cnv) ? "text-grey" : null,
         sortable: false,
         align: "left"
       });
@@ -156,7 +156,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.copyNumberVariant,
+        field: (row) => row.cnv,
         sortable: false,
         align: "left"
       });
@@ -171,7 +171,7 @@ export default {
 
       columns.push({
         name: "numberOfGenes",
-        label: "#Affected Genes",
+        label: "#Genes",
         field: (row) => row.numberOfGenes?.toLocaleString(),
         sortable: false
       });

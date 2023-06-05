@@ -96,11 +96,11 @@ export default {
     getSpecimenRank(specimen) {
       if (specimen.tissue) {
         return specimen.tissue.type == "Control" ? 1
-             : specimen.tumorType == "Primary" ? 2
-             : specimen.tumorType == "Metastasis" ? 3
-             : specimen.tumorType == "Recurrent" ? 4
+             : specimen.tissue.tumorType == "Primary" ? 2
+             : specimen.tissue.tumorType == "Metastasis" ? 3
+             : specimen.tissue.tumorType == "Recurrent" ? 4
              : 5;
-      } else if (specimen.cellLine) {
+      } else if (specimen.cell) {
         return 11;
       } else if (specimen.organoid) {
         return 21;
