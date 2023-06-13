@@ -13,6 +13,11 @@ export default class SpecimenFiltersCriteria {
     dss = { from: null, to: null };
     dssSelective = { from: null, to: null };
 
+    hasSsms = null;
+    hasCnvs = null;
+    hasSvs = null;
+    hasGeneExp = null;
+
     get numberOfFilters() {
         let number = 0;
         
@@ -29,6 +34,10 @@ export default class SpecimenFiltersCriteria {
         number += this.dss?.to != null ? 1 : 0;
         number += this.dssSelective?.from != null ? 1 : 0;
         number += this.dssSelective?.to != null ? 1 : 0;
+        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasCnvs != null ? 1 : 0;
+        number += this.hasSvs != null ? 1 : 0;
+        number += this.hasGeneExp != null ? 1 : 0;
 
         return number;
     }
@@ -45,6 +54,10 @@ export default class SpecimenFiltersCriteria {
         this.drug = criteria?.drug || [];
         this.dss = criteria?.dss || { from: null, to: null };
         this.dssSelective = criteria?.dssSelective || { from: null, to: null };
+        this.hasSsms = criteria?.hasSsms || null;
+        this.hasCnvs = criteria?.hasCnvs || null;
+        this.hasSvs = criteria?.hasSvs || null;
+        this.hasGeneExp = criteria?.hasGeneExp || null;
     }
 
     sanitise(){
@@ -65,6 +78,10 @@ export default class SpecimenFiltersCriteria {
         this.drug = [];
         this.dss = { from: null, to: null };
         this.dssSelective = { from: null, to: null };
+        this.hasSsms = null;
+        this.hasCnvs = null;
+        this.hasSvs = null;
+        this.hasGeneExp = null;
     }
 
     clone() {

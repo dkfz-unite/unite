@@ -26,18 +26,25 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "project",
-    label: "Project",
-    placeholder: "e.g. PBCA-DE",
-    type: FilterType.Values,
-    valueType: ValueType.String,
-    sanitize: (value) => sanitiseArray(value),
-    // show: (value, criteria, context) => criteria.mtaProtected == true
-  },
-  {
     field: "diagnosis",
     label: "Diagnosis",
     placeholder: "e.g. Glioblastoma",
+    type: FilterType.Values,
+    valueType: ValueType.String,
+    sanitize: (value) => sanitiseArray(value)
+  },
+  {
+    field: "primarySite",
+    label: "Primary Site",
+    placeholder: "e.g. Brain",
+    type: FilterType.Values,
+    valueType: ValueType.String,
+    sanitize: (value) => sanitiseArray(value)
+  },
+  {
+    field: "localization",
+    label: "Localization",
+    placeholder: "e.g. Frontal Lobe",
     type: FilterType.Values,
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
@@ -62,48 +69,6 @@ const filters = [
     sanitize: (value) => sanitiseRange(value)
   },
   {
-    field: "vitalStatus",
-    label: "Vital Status",
-    type: FilterType.Option,
-    valueType: ValueType.Boolean,
-    options: (context) => mapOptions(context?.vitalStatusOptions, VitalStatus.values)
-  },
-  {
-    field: "vitalStatusChangeDay",
-    label: "Survival (Days)",
-    labelFrom: "Survival (From)",
-    labelTo: " Survival (To)",
-    placeholderFrom: "e.g. 100 days",
-    placeholderTo: "e.g. 300 days",
-    type: FilterType.Range,
-    valueType: ValueType.Number,
-    expandable: false,
-    sanitize: (value) => sanitiseRange(value)
-  },
-  {
-    field: "progressionStatus",
-    label: "Progression Status",
-    type: FilterType.Option,
-    valueType: ValueType.Boolean,
-    options: (context) => mapOptions(context?.vitalStatusOptions, ProgressionStatus.values),
-    // watch: (value, criteria, context) => {
-    //   criteria.progressionStatusChangeDay = null;
-    // }
-  },
-  {
-    field: "progressionStatusChangeDay",
-    label: "Progression Free Survival (Days)",
-    labelFrom: "Progression Free Survival (From)",
-    labelTo: "Progression Free Survival (To)",
-    placeholderFrom: "e.g. 100 days",
-    placeholderTo: "e.g. 300 days",
-    type: FilterType.Range,
-    valueType: ValueType.Number,
-    expandable: false,
-    sanitize: (value) => sanitiseRange(value),
-    // show: (value, criteria, context) => criteria.progressionStatus != null
-  },
-  {
     field: "therapy",
     label: "Therapy",
     placeholder: "e.g. Temodal therapy",
@@ -112,14 +77,96 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "mtaProtected",
-    label: "MTA Protected",
-    type: FilterType.Boolean,
-    default: null,
-    // watch: (value, criteria, context) => {
-    //   criteria.workPackage = [];
-    // }
-  }
+    group: "survival",
+    label: "Survival",
+    expand: false,
+    filters: [
+      {
+        field: "vitalStatus",
+        label: "Vital Status",
+        type: FilterType.Option,
+        valueType: ValueType.Boolean,
+        options: (context) => mapOptions(context?.vitalStatusOptions, VitalStatus.values)
+      },
+      {
+        field: "vitalStatusChangeDay",
+        label: "Survival (Days)",
+        labelFrom: "Survival (From)",
+        labelTo: " Survival (To)",
+        placeholderFrom: "e.g. 100 days",
+        placeholderTo: "e.g. 300 days",
+        type: FilterType.Range,
+        valueType: ValueType.Number,
+        expandable: false,
+        sanitize: (value) => sanitiseRange(value)
+      },
+    ]
+  },
+  {
+    group: "progression",
+    label: "Progression",
+    expand: false,
+    filters: [
+      {
+        field: "progressionStatus",
+        label: "Progression Status",
+        type: FilterType.Option,
+        valueType: ValueType.Boolean,
+        options: (context) => mapOptions(context?.vitalStatusOptions, ProgressionStatus.values),
+        // watch: (value, criteria, context) => {
+        //   criteria.progressionStatusChangeDay = null;
+        // }
+      },
+      {
+        field: "progressionStatusChangeDay",
+        label: "Progression Free Survival (Days)",
+        labelFrom: "Progression Free Survival (From)",
+        labelTo: "Progression Free Survival (To)",
+        placeholderFrom: "e.g. 100 days",
+        placeholderTo: "e.g. 300 days",
+        type: FilterType.Range,
+        valueType: ValueType.Number,
+        expandable: false,
+        sanitize: (value) => sanitiseRange(value),
+        // show: (value, criteria, context) => criteria.progressionStatus != null
+      },
+    ]
+  },
+  {
+    group: "project",
+    label: "Project",
+    expand: false,
+    filters: [
+      {
+        field: "mtaProtected",
+        label: "MTA Protected",
+        type: FilterType.Boolean,
+        default: null,
+        // watch: (value, criteria, context) => {
+        //   criteria.workPackage = [];
+        // }
+      },
+      {
+        field: "project",
+        label: "Project",
+        placeholder: "e.g. PBCA-DE",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value),
+        // show: (value, criteria, context) => criteria.mtaProtected == true
+      },
+      {
+        field: "study",
+        label: "Study",
+        placeholder: "e.g. PCAWG",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value),
+        // show: (value, criteria, context) => criteria.mtaProtected == true
+      },
+    ]
+  },
+  
 ];
 
 export default filters;
