@@ -1,11 +1,14 @@
 import api from "../api";
 import Account from "./models/account";
+import Provider from "./models/provider";
 
 const module = {
   namespaced: true,
 
   state: () => ({
-    account: null
+    account: null,
+    providers: null,
+    loggedInProviderCode: null,
   }),
 
   actions: {
@@ -18,9 +21,10 @@ const module = {
       }
     },
 
-    async signIn({state}, {email, password}) {
+    async signIn({state}, {email, password, providerCode}) {
       try {
-        await api.signIn(email, password);
+        await api.signIn(email, password, providerCode);
+        state.loggedInProviderCode = providerCode;
         return null;
       } catch (error) {
         return error.status; 
@@ -30,7 +34,8 @@ const module = {
     async signOut({state}) {
       try {
         state.account = null;
-        await api.signOut();
+        await api.signOut(state.loggedInProviderCode);
+        state.loggedInProviderCode = null;
         return null;
       } catch (error) {
         return error.status;
@@ -58,7 +63,18 @@ const module = {
         state.account = null;
         return error.status;
       }
-    }
+    },
+
+    async loadProviders({state}) {
+      try {
+        const providersData = await api.getProviders();
+        const providers = providersData.map(provider => new Provider(provider));
+        state.providers = providers;
+        return null;
+      } catch (error) {
+        return error.status;
+      }
+    },
   }
 }
 

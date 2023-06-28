@@ -4,11 +4,12 @@ import tokenHelpers from "@/_shared/helpers/token-helpers";
 
 const client = new ApiClient();
 const signUpUrl = `${settings.urls.identity}/api/default/register`;
-const signInUrl = `${settings.urls.identity}/api/default/login`;
-const signOutUrl = `${settings.urls.identity}/api/default/logout`;
+const signInUrl = (providerCode) => `${settings.urls.identity}/api/${providerCode}/login`;
+const signOutUrl = (providerCode) => `${settings.urls.identity}/api/${providerCode}/logout`;
 const changePasswordUrl = `${settings.urls.identity}/api/default/password`
 const accountUrl = `${settings.urls.identity}/api/account`;
 const accessibilityUrl = `${settings.urls.identity}/api/access`;
+const providersUrl = `${settings.urls.identity}/api/settings/providers`;
 
 async function signUp(email, password, passwordRepeat) {
   var url = signUpUrl;
@@ -22,8 +23,8 @@ async function signUp(email, password, passwordRepeat) {
   return await client.post(url, data);
 }
 
-async function signIn(email, password) {
-  var url = signInUrl;
+async function signIn(email, password, providerCode) {
+  var url = signInUrl(providerCode);
 
   var data = {
     Email: email,
@@ -34,8 +35,8 @@ async function signIn(email, password) {
   tokenHelpers.set(token);
 }
 
-async function signOut() {
-  var url = signOutUrl;
+async function signOut(providerCode) {
+  var url = signOutUrl(providerCode);
 
   await client.post(url, null);
   tokenHelpers.remove();
@@ -65,11 +66,18 @@ async function checkAccess(email) {
   return await client.get(url);
 }
 
+async function getProviders() {
+  var url = providersUrl;
+
+  return await client.get(url);
+}
+
 export default {
   signUp,
   signIn,
   signOut,
   getAccount,
   changePassword,
-  checkAccess
+  checkAccess,
+  getProviders,
 }
