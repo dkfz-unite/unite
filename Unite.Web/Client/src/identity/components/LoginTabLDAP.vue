@@ -107,7 +107,7 @@ export default {
   methods: {
     async onSubmit() {
       const payload = {
-        login: this.login.value,
+        email: this.login.value,
         password: this.password.value,
         providerCode: 'ldap',
       };
