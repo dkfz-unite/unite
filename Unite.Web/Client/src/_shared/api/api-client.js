@@ -12,9 +12,9 @@ axios.interceptors.response.use(
 );
 
 class ApiClient {
-    async get(url) {
+    async get(url, config = null) {
         try {
-            var response = await axios.get(url);
+            var response = await axios.get(url, config);
             return response.data;
         }
         catch (error) {
@@ -22,9 +22,9 @@ class ApiClient {
         }
     }
 
-    async post(url, body) {
+    async post(url, body, config = null) {
         try {
-            var response = await axios.post(url, body);
+            var response = await axios.post(url, body, config);
             return response.data;
         }
         catch (error) {
@@ -32,9 +32,9 @@ class ApiClient {
         }
     }
 
-    async put(url, body) {
+    async put(url, body, config = null) {
         try {
-            var response = await axios.put(url, body);
+            var response = await axios.put(url, body, config);
             return response.data;
         }
         catch (error) {
@@ -42,9 +42,9 @@ class ApiClient {
         }
     }
 
-    async delete (url) {
+    async delete (url, config = null) {
         try {
-            var response = await axios.delete(url);
+            var response = await axios.delete(url, config);
             return response.data;
         }
         catch (error) {

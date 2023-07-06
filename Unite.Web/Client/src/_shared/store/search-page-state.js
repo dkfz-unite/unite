@@ -6,8 +6,8 @@ class SearchPageState {
   filtersContext = new FiltersContext();
   
   rows = [];
-  rowsTotal = 0;
   rowsSelected = [];
+  rowsTotal = 0;
 }
 
 export default SearchPageState;

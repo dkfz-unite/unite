@@ -151,17 +151,17 @@ export default {
 
       try {
         if (this.domain.name == "donors") {
-          data = await donorsApi.search(searchCriteria);
+          data = await donorsApi.stats(searchCriteria);
         } else if (this.domain.name == "mris") {
-          data = await imagesApi.search("MRI", searchCriteria);
+          data = await imagesApi.stats("MRI", searchCriteria);
         } else if (this.domain.name == "tissues") {
-          data = await specimensApi.search("Tissue", searchCriteria);
+          data = await specimensApi.stats("Tissue", searchCriteria);
         } else if (this.domain.name == "cells") {
-          data = await specimensApi.search("CellLine", searchCriteria);
+          data = await specimensApi.stats("CellLine", searchCriteria);
         } else if (this.domain.name == "organoids") {
-          data = await specimensApi.search("Organoid", searchCriteria);
+          data = await specimensApi.stats("Organoid", searchCriteria);
         } else if (this.domain.name == "xenografts") {
-          data = await specimensApi.search("Xenograft", searchCriteria);
+          data = await specimensApi.stats("Xenograft", searchCriteria);
         } else if (this.domain.name == "genes") {
           data = await genesApi.search(searchCriteria);
         } else if (this.domain.name == "ssms") {
@@ -172,6 +172,7 @@ export default {
           data = await variantsApi.search("sv", searchCriteria);
         }
 
+        this.cohort.data = data;
         this.cohort.size = data?.total;
       } catch {
         // Do nothing
