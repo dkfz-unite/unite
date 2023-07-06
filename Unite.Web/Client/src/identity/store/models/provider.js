@@ -1,4 +1,5 @@
 export default class Provider {
+  id = null;
   name = null;
   label = null;
   priority = null;
@@ -8,6 +9,7 @@ export default class Provider {
   }
 
   constructor(data) {
+      this.id = data.id;
       this.name = data.name;
       this.label = data.label;
       this.priority = data.priority;

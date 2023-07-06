@@ -22,6 +22,17 @@
         />
       </div>
 
+      <div>
+        <q-select
+          label="Identity Provider"
+          dense
+          outlined
+          style="min-width: 200px"
+          v-model="provider.value"
+          :options="providerOptions"
+        />
+      </div>
+
       <div class="u-pt-1">
         <u-permissions-select v-model="permissions.value" />
       </div>
@@ -41,6 +52,7 @@
 <script>
 import UPermissionsSelect from "./PermissionsSelect.vue";
 import api from "../../api/api-users";
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -68,12 +80,33 @@ export default {
           this.valid = false;
         }
       },
+      provider: {
+        value: null,
+        clear: () => {
+          this.provider.value = null;
+        }
+      },
       permissions: {
         value: null,
         clear: () => {
           this.permissions.value = null;
         }
       }
+    }
+  },
+
+  computed: {
+    ...mapState('identity', [
+      'providers',
+    ]),
+    providerOptions() {
+      return this.providers?.map(provider => ({ label: provider.title, value: provider.id }));
+    },
+  },
+
+  async mounted() {
+    if (!this.providers) {
+      await this.$store.dispatch("identity/loadProviders");
     }
   },
 
@@ -116,13 +149,18 @@ export default {
 
     async resetForm() {
       this.email.clear();
+      this.provider.clear();
       this.permissions.clear();
     },
 
     async submitForm() {
       try {
         this.loading = true;
-        await api.create({ email: this.email.value, permissions: this.permissions.value });
+        await api.create({
+          email: this.email.value,
+          providerId: this.provider.value.value,
+          permissions: this.permissions.value
+        });
         await this.resetForm();
         this.$emit("submit");
       } catch (error) {
