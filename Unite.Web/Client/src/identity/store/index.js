@@ -8,7 +8,6 @@ const module = {
   state: () => ({
     account: null,
     providers: null,
-    loggedInProviderCode: null,
   }),
 
   actions: {
@@ -24,7 +23,6 @@ const module = {
     async signIn({state}, {email, password, providerCode}) {
       try {
         await api.signIn(email, password, providerCode);
-        state.loggedInProviderCode = providerCode;
         return null;
       } catch (error) {
         return error.status; 
@@ -34,8 +32,7 @@ const module = {
     async signOut({state}) {
       try {
         state.account = null;
-        await api.signOut(state.loggedInProviderCode);
-        state.loggedInProviderCode = null;
+        await api.signOut();
         return null;
       } catch (error) {
         return error.status;

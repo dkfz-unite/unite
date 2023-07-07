@@ -35,8 +35,9 @@ async function signIn(email, password, providerCode) {
   tokenHelpers.set(token);
 }
 
-async function signOut(providerCode) {
-  var url = signOutUrl(providerCode);
+async function signOut() {
+  const token = tokenHelpers.get();
+  var url = signOutUrl(token.data.authmethod ?? 'default');
 
   await client.post(url, null);
   tokenHelpers.remove();
