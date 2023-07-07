@@ -22,9 +22,9 @@
               <u-variants-tab-header 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showMutations"
-                :disableCnvs="!showCopyNumberVariants"
-                :disableSvs="!showStructuralVariants" />
+                :disableSsms="!showSsms"
+                :disableCnvs="!showCnvs"
+                :disableSvs="!showSvs" />
             </q-tabs>
             <q-separator />
           </div>

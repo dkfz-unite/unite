@@ -6,6 +6,9 @@
         <div class="row">
           <u-summary :image="image" />
         </div>
+        <div class="row">
+          <u-available-data :image="image" />
+        </div>
       </div>
     </div>
   </div>
@@ -13,10 +16,12 @@
 
 <script>
 import USummary from "./summary/Summary.vue";
+import UAvailableData from "./summary/AvailableData.vue";
 
 export default {
   components: {
-    USummary
+    USummary,
+    UAvailableData
   },
 
   props: {

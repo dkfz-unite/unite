@@ -34,13 +34,13 @@ export default {
       if (!this.donor) return [];
 
       return [
-        { title: "Clinical Data", available: !!this.donor.clinicalData },
-        { title: "Treatment Data", available: !!this.donor.treatments?.length },
-        { title: "Images", available: !!this.donor.numberOfImages },
-        { title: "Simple Somatic Mutations (SSM)", available: !!this.donor.numberOfMutations },
-        { title: "Copy Number Variants (CNV)", available: !!this.donor.numberOfCopyNumberVariants },
-        { title: "Structural Variants (SV)", available: !!this.donor.numberOfStructuralVariants },
-        { title: "Gene Expressions (Transcriptomics)", available: !!this.donor.hasGeneExpressions }
+        { title: "Clinical", available: !!this.donor.data.clinical },
+        { title: "Treatments", available: !!this.donor.data.treatments },
+        { title: "MRI Images", available: !!this.donor.data.mris },
+        { title: "Simple Somatic Mutations (SSM)", available: !!this.donor.data.ssms },
+        { title: "Copy Number Variants (CNV)", available: !!this.donor.data.cnvs },
+        { title: "Structural Variants (SV)", available: !!this.donor.data.svs },
+        { title: "Bulk Gene Expressions (Transcriptomics)", available: !!this.donor.data.geneExp }
       ];
     }
   }

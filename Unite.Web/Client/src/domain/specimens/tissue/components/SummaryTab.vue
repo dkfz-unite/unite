@@ -9,6 +9,9 @@
         <div class="row">
           <u-molecular-data :specimen="specimen" />
         </div>
+        <div class="row">
+          <u-available-data :specimen="specimen" />
+        </div>
       </div>
     </div>
   </div>
@@ -17,11 +20,13 @@
 <script>
 import USummary from "./summary/Summary.vue";
 import UMolecularData from "../../_shared/components/specimen/summary/MolecularData.vue";
+import UAvailableData from "../../_shared/components/specimen/summary/AvailableData.vue";
 
 export default {
   components: {
     USummary,
-    UMolecularData
+    UMolecularData,
+    UAvailableData
   },
 
   props: {

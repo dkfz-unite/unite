@@ -6,11 +6,14 @@ import UFiltersButtonClear from "./FiltersButtonClear.vue";
 import FiltersCriteria from "./filters-criteria";
 import FiltersContext from "./filters-context";
 import donorFilters from "./domain/donors/donor-filters";
+import donorDataFilters from "./domain/donors/donor-data-filters";
 import mriFilters from "./domain/images/mris/mri-filters";
+import imageDataFilters from "./domain/images/image-data-filters";
 import tissueFilters from "./domain/specimens/tissues/tissue-filters";
 import cellFilters from "./domain/specimens/cells/cell-filters";
 import organoidFilters from "./domain/specimens/organoids/organoid-filters";
 import xenograftFilters from "./domain/specimens/xenografts/xenograft-filters";
+import specimenDataFilters from "./domain/specimens/specimen-data-filters";
 import geneFilters from "./domain/genome/genes/gene-filters";
 import ssmFilters from "./domain/genome/variants/ssm/ssm-filters";
 import cnvFilters from "./domain/genome/variants/cnv/cnv-filters";
@@ -57,7 +60,8 @@ const mixin = {
     return {
       filtersCriteria: this.criteria || new FiltersCriteria(),
       filtersContext: this.context || new FiltersContext(),
-      filtersModel: this.model
+      filtersModel: this.model,
+      route: this.$route.name
     };
   },
 
@@ -114,12 +118,12 @@ const mixin = {
 
     getFilters(model) {
       switch (model) {
-        case "donor": return donorFilters;
-        case "mri": return mriFilters;
-        case "tissue": return tissueFilters;
-        case "cell": return cellFilters;
-        case "organoid": return organoidFilters;
-        case "xenograft": return xenograftFilters;
+        case "donor": return this.route == "donors" ? [...donorFilters, ...donorDataFilters] : donorFilters;
+        case "mri": return this.route == "mris" ? [...mriFilters, ...imageDataFilters] : mriFilters;
+        case "tissue": return this.route == "tissues" ? [...tissueFilters, ...specimenDataFilters] : tissueFilters;
+        case "cell": return this.route == "cells" ? [...cellFilters, ...specimenDataFilters] : cellFilters;
+        case "organoid": return this.route == "organoids" ? [...organoidFilters, ...specimenDataFilters] : organoidFilters;
+        case "xenograft": return this.route == "xenografts" ? [...xenograftFilters, ...specimenDataFilters] : xenograftFilters;
         case "gene": return geneFilters;
         case "ssm": return ssmFilters;
         case "cnv": return cnvFilters;

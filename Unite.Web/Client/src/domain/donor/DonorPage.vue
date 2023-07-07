@@ -16,7 +16,7 @@
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
-              <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" :disable="!showClinicalData" />
+              <q-tab name="clinical" label="Clinical Data" icon="las la-stethoscope" :disable="!showClinical" />
               <q-tab name="treatments" label="Treatments" icon="las la-pills" :disable="!showTreatments" />
               <q-tab name="specimens" label="Specimens" icon="las la-microscope" :disable="!showSpecimens" />
               <q-tab name="mris" label="Images" icon="las la-x-ray" :disable="!showImages" />
@@ -25,10 +25,9 @@
               <u-variants-tab-header 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showMutations"
-                :disableCnvs="!showCopyNumberVariants"
-                :disableSvs="!showStructuralVariants"
-                :showProfile="showMutations || showCopyNumberVariants" />
+                :disableSsms="!showSsms"
+                :disableCnvs="!showCnvs"
+                :disableSvs="!showSvs" />
             </q-tabs>
             <q-separator />
           </div>
@@ -152,44 +151,44 @@ export default {
            : this.tab;
     },
 
-    showClinicalData() {
-      return !!this.donor?.clinicalData;
+    showClinical() {
+      return this.donor?.data?.clinical;
     },
 
     showTreatments() {
-      return !!this.donor?.treatments?.length
+      return this.donor?.data?.treatments
     },
 
     showSpecimens() {
-      return !!this.donor?.numberOfSpecimens;
+      return this.donor?.data?.tissues || this.donor?.data?.cells || this.donor?.data?.organoids || this.donor?.data?.xenografts;
     },
 
     showImages() {
-      return !!this.donor?.numberOfImages;
-    },
-
-    showGenes() {
-      return !!this.donor?.numberOfGenes || !!this.donor?.hasGeneExpressions;
+      return this.donor?.data?.mris || this.donor?.data?.cts;
     },
 
     showProfile() {
-      return this.showVariants || this.showGenes;
+      return this.showVariants || this.donor?.data?.geneExp;
+    },
+
+    showGenes() {
+      return this.donor?.numberOfGenes || this.donor?.data?.geneExp;
     },
 
     showVariants() {
-      return this.showMutations || this.showCopyNumberVariants || this.showStructuralVariants;
+      return this.showSsms || this.showCnvs || this.showSvs;
     },
 
-    showMutations() {
-      return !!this.donor?.numberOfMutations;
+    showSsms() {
+      return this.donor?.numberOfSsms;
     },
 
-    showCopyNumberVariants() {
-      return !!this.donor?.numberOfCopyNumberVariants;
+    showCnvs() {
+      return this.donor?.numberOfCnvs;
     },
 
-    showStructuralVariants() {
-      return !!this.donor?.numberOfStructuralVariants;
+    showSvs() {
+      return this.donor?.numberOfSvs;
     }
   },
 

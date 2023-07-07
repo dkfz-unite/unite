@@ -21,9 +21,9 @@
               <u-variants-tab-header 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showMutations"
-                :disableCnvs="!showCopyNumberVariants"
-                :disableSvs="!showStructuralVariants" />
+                :disableSsms="!showSsms"
+                :disableCnvs="!showCnvs"
+                :disableSvs="!showSvs" />
             </q-tabs>
             <q-separator />
           </div>
@@ -111,21 +111,19 @@ export default {
     },
 
     showVariants() {
-      return !!this.gene?.numberOfMutations
-          || !!this.gene?.numberOfCopyNumberVariants
-          || !!this.gene?.numberOfStructuralVariants;
+      return this.showSsms || this.showCnvs || this.showSvs;
     },
 
-    showMutations() {
-      return !!this.gene?.numberOfMutations;
+    showSsms() {
+      return this.gene?.numberOfSsms;
     },
 
-    showCopyNumberVariants() {
-      return !!this.gene?.numberOfCopyNumberVariants;
+    showCnvs() {
+      return this.gene?.numberOfCnvs;
     },
 
-    showStructuralVariants() {
-      return !!this.gene?.numberOfStructuralVariants;
+    showSvs() {
+      return this.gene?.numberOfSvs;
     }
   },
 

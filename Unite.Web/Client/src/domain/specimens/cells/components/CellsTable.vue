@@ -42,6 +42,7 @@ import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UDonorLink from "@/_shared/components/DonorLink.vue";
 import USpecimenLink from "@/_shared/components/SpecimenLink.vue";
 import tableMixin from "../../../_shared/table-mixin";
+import availableDataMixin from "../../../_shared/available-data-mixin";
 import specimensTableMixin from "../../_shared/specimens-table-mixin";
 
 export default {
@@ -51,7 +52,7 @@ export default {
     USpecimenLink
   },
 
-  mixins: [tableMixin, specimensTableMixin],
+  mixins: [tableMixin, availableDataMixin, specimensTableMixin],
 
   computed: {
     scope() {
@@ -96,7 +97,7 @@ export default {
       columns.push({
         name: "species",
         label: "Species",
-        field: (row) => row.cellLine?.species,
+        field: (row) => row.cell?.species,
         sortable: false,
         align: "left"
       });
@@ -104,7 +105,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.cellLine?.type,
+        field: (row) => row.cell?.type,
         sortable: false,
         align: "left"
       });
@@ -112,7 +113,7 @@ export default {
       columns.push({
         name: "cultureType",
         label: "Culture Type",
-        field: (row) => row.cellLine?.cultureType,
+        field: (row) => row.cell?.cultureType,
         sortable: false,
         align: "left"
       });
@@ -120,47 +121,99 @@ export default {
       columns.push({
         name: "mgmt",
         label: "MGMT",
-        field: (row) => row.cellLine?.molecularData?.mgmtStatus,
+        field: (row) => row.cell?.molecularData?.mgmtStatus,
         sortable: false,
         align: "left",
-        headerClasses: "bg-grey-2"
+        show: false
       });
 
       columns.push({
         name: "idh",
         label: "IDH",
-        field: (row) => this.getIdh(row.cellLine?.molecularData?.idhStatus, row.cellLine?.molecularData?.idhMutation),
+        field: (row) => this.getIdh(row.cell?.molecularData?.idhStatus, row.cell?.molecularData?.idhMutation),
         sortable: false,
         align: "left",
-        headerClasses: "bg-grey-2"
+        show: false
       });
 
       columns.push({
         name: "geneExpressionSubtype",
         label: "Gene Expression Subtype",
-        field: (row) => row.cellLine?.molecularData?.geneExpressionSubtype,
+        field: (row) => row.cell?.molecularData?.geneExpressionSubtype,
         sortable: false,
         align: "left",
-        headerClasses: "bg-grey-2"
+        show: false
       });
 
       columns.push({
         name: "methylationSubtype",
         label: "Methylation Subtype",
-        field: (row) => row.cellLine?.molecularData?.methylationSubtype,
+        field: (row) => row.cell?.molecularData?.methylationSubtype,
         sortable: false,
         align: "left",
-        headerClasses: "bg-grey-2"
+        show: false
       });
 
       columns.push({
         name: "gCimpMethylation",
         label: "G-CIMP Methylation",
-        field: (row) => this.$helpers.content.toBooleanString(row.cellLine?.molecularData?.gcimpMethylation),
+        field: (row) => this.$helpers.content.toBooleanString(row.cell?.molecularData?.gcimpMethylation),
         sortable: false,
         align: "left",
-        headerClasses: "bg-grey-2"
+        show: false
       });
+
+      if (["cells"].includes(this.$route.name)){
+        columns.push({
+          name: "hasDrugs",
+          label: "Drugs",
+          field: (row) => this.dataView(row.data.drugs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.drugs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasSsms",
+          label: "SSM",
+          field: (row) => this.dataView(row.data.ssms),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.ssms),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasCnvs",
+          label: "CNV",
+          field: (row) => this.dataView(row.data.cnvs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.cnvs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasSvs",
+          label: "SV",
+          field: (row) => this.dataView(row.data.svs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.svs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasGeneExp",
+          label: "RNA",
+          field: (row) => this.dataView(row.data.geneExp),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.geneExp),
+          headerClasses: this.dataHeaderClass()
+        });
+      }
 
       columns.push({
         name: "numberOfGenes",
@@ -172,21 +225,21 @@ export default {
       columns.push({
         name: "numberOfSsms",
         label: "#SSMs",
-        field: (row) => row.numberOfMutations?.toLocaleString(),
+        field: (row) => row.numberOfSsms?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfCnvs",
         label: "#CNVs",
-        field: (row) => row.numberOfCopyNumberVariants?.toLocaleString(),
+        field: (row) => row.numberOfCnvs?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfSVs",
         label: "#SVs",
-        field: (row) => row.numberOfStructuralVariants?.toLocaleString(),
+        field: (row) => row.numberOfSvs?.toLocaleString(),
         sortable: false
       });
 

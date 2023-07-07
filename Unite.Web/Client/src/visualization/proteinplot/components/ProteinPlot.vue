@@ -54,7 +54,6 @@ export default {
 
   async mounted() {
     this.initializePlot();
-    console.log("Loaded");
   },
 
   methods: {

@@ -3,7 +3,7 @@
     <div class="row" v-if="variant">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Mutations" :to="{ name: 'ssms' }" />
+        <q-breadcrumbs-el label="SSMs" :to="{ name: 'ssms' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>

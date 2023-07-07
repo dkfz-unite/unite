@@ -13,7 +13,7 @@
       <u-upload-button
         v-if="specimen && donor && canUpload"
         :donorId="donor.referenceId"
-        :specimenId="specimen.cellLine.referenceId"
+        :specimenId="specimen.cell.referenceId"
         specimenType="CellLine">
       </u-upload-button>
     </div>
@@ -32,9 +32,9 @@
               <u-variants-tab-header 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showMutations"
-                :disableCnvs="!showCopyNumberVariants"
-                :disableSvs="!showStructuralVariants" />
+                :disableSsms="!showSsms"
+                :disableCnvs="!showCnvs"
+                :disableSvs="!showSvs" />
             </q-tabs>
             <q-separator />
           </div>

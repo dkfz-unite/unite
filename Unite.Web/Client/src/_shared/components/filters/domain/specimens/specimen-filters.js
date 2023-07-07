@@ -30,6 +30,7 @@ const filters = [
   {
     group: "molecular",
     label: "Molecular Data",
+    expand: false,
     filters: [
       {
         field: "mgmtStatus",
@@ -94,6 +95,7 @@ const filters = [
   {
     group: "drugs",
     label: "Drug Screening",
+    expand: false,
     filters: [
       {
         field: "drug",

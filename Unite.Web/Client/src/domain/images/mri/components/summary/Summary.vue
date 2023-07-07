@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td class="u-text-key">External ID</td>
-              <td class="text-bold">{{ image.mriImage.referenceId }}</td>
+              <td class="text-bold">{{ image.mri.referenceId }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Scanning Day</td>
@@ -45,67 +45,67 @@
           <tbody>
             <tr>
               <td class="u-text-key">Whole Tumor (cm³)</td>
-              <td>{{ image.mriImage.wholeTumor?.toFixed(3) }}</td>
+              <td>{{ image.mri.wholeTumor?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Contrast Enhancing (cm³)</td>
-              <td>{{ image.mriImage.contrastEnhancing?.toFixed(3) }}</td>
+              <td>{{ image.mri.contrastEnhancing?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Non Contrast Enhancing (cm³)</td>
-              <td>{{ image.mriImage.nonContrastEnhancing?.toFixed(3) }}</td>
+              <td>{{ image.mri.nonContrastEnhancing?.toFixed(3) }}</td>
             </tr>
 
             <tr>
               <td class="u-text-key">Median ADC Tumor</td>
-              <td>{{ image.mriImage.medianAdcTumor?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianAdcTumor?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median ADC CE</td>
-              <td>{{ image.mriImage.medianAdcCe?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianAdcCe?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median ADC Edema</td>
-              <td>{{ image.mriImage.medianAdcEdema?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianAdcEdema?.toFixed(3) }}</td>
             </tr>
 
             <tr>
               <td class="u-text-key">Median CBF Tumor</td>
-              <td>{{ image.mriImage.medianCbfTumor?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianCbfTumor?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median CBF CE</td>
-              <td>{{ image.mriImage.medianCbfCe?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianCbfCe?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median CBF Edema</td>
-              <td>{{ image.mriImage.medianCbfEdema?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianCbfEdema?.toFixed(3) }}</td>
             </tr>
 
             <tr>
               <td class="u-text-key">Median CBV Tumor</td>
-              <td>{{ image.mriImage.medianCbvTumor?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianCbvTumor?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median CBV CE</td>
-              <td>{{ image.mriImage.medianCbvCe?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianCbvCe?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median CBV Edema</td>
-              <td>{{ image.mriImage.medianCbvEdema?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianCbvEdema?.toFixed(3) }}</td>
             </tr>
 
             <tr>
               <td class="u-text-key">Median MTT Tumor</td>
-              <td>{{ image.mriImage.medianMttTumor?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianMttTumor?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median MTT CE</td>
-              <td>{{ image.mriImage.medianMttCe?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianMttCe?.toFixed(3) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Median MTT Edema</td>
-              <td>{{ image.mriImage.medianMttEdema?.toFixed(3) }}</td>
+              <td>{{ image.mri.medianMttEdema?.toFixed(3) }}</td>
             </tr>
           </tbody>
         </q-markup-table>

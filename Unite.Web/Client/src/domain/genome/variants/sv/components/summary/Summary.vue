@@ -15,43 +15,43 @@
           <tbody>
             <tr>
               <td class="u-text-key">1st Breakpoint - Chromosome</td>
-              <td>{{ variant.structuralVariant.chromosome }}</td>
+              <td>{{ variant.sv.chromosome }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - Start</td>
-              <td>{{ variant.structuralVariant.start.toLocaleString() }}</td>
+              <td>{{ variant.sv.start.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - End</td>
-              <td>{{ variant.structuralVariant.end.toLocaleString() }}</td>
+              <td>{{ variant.sv.end.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - Flanking Sequences</td>
-              <td>{{ variant.structuralVariant.flankingSequenceFrom }}</td>
+              <td>{{ variant.sv.flankingSequenceFrom }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Chromosome</td>
-              <td>{{ variant.structuralVariant.otherChromosome }}</td>
+              <td>{{ variant.sv.otherChromosome }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Start</td>
-              <td>{{ variant.structuralVariant.otherStart.toLocaleString() }}</td>
+              <td>{{ variant.sv.otherStart.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - End</td>
-              <td>{{ variant.structuralVariant.otherEnd.toLocaleString() }}</td>
+              <td>{{ variant.sv.otherEnd.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Flanking Sequences</td>
-              <td>{{ variant.structuralVariant.flankingSequenceTo }}</td>
+              <td>{{ variant.sv.flankingSequenceTo }}</td>
             </tr>
-            <tr v-if="!!variant.structuralVariant.length">
+            <tr v-if="!!variant.sv.length">
               <td class="u-text-key">Length</td>
-              <td>{{ variant.structuralVariant.length.toLocaleString() }}</td>
+              <td>{{ variant.sv.length.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
-              <td>{{ variant.structuralVariant.type }}</td>
+              <td>{{ variant.sv.type }}</td>
             </tr>
           </tbody>
         </q-markup-table>

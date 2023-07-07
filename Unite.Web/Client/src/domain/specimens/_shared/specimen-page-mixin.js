@@ -23,31 +23,31 @@ const mixin = {
     },
 
     showDrugs() {
-      return !!this.specimen?.hasDrugScreenings;
+      return this.specimen?.data?.drugs;
     },
 
     showProfile() {
-      return this.showVariants || this.showGenes;
+      return this.specimen?.data?.ssms || this.specimen?.data?.cnvs || this.specimen?.data?.svs || this.specimen?.data?.geneExp;
     },
 
     showGenes() {
-      return !!this.specimen?.numberOfGenes || !!this.specimen?.hasGeneExpressions;
+      return this.specimen?.numberOfGenes || this.specimen?.data?.geneExp;
     },
 
     showVariants() {
-      return !!this.showMutations || this.showCopyNumberVariants || this.showStructuralVariants;
+      return this.showSsms || this.showCnvs || this.showSvs;
     },
 
-    showMutations() {
-      return !!this.specimen?.numberOfMutations;
+    showSsms() {
+      return !!this.specimen?.numberOfSsms;
     },
 
-    showCopyNumberVariants() {
-      return !!this.specimen?.numberOfCopyNumberVariants;
+    showCnvs() {
+      return !!this.specimen?.numberOfCnvs;
     },
 
-    showStructuralVariants() {
-      return !!this.specimen?.numberOfStructuralVariants;
+    showSvs() {
+      return !!this.specimen?.numberOfSvs;
     },
 
     tabName() {

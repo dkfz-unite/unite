@@ -3,7 +3,7 @@
     <div class="row" v-if="image">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
-        <q-breadcrumbs-el label="MRI Images" :to="{ name: 'mris' }" />
+        <q-breadcrumbs-el label="MRIs" :to="{ name: 'mris' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
@@ -21,9 +21,9 @@
               <u-variants-tab-header 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showMutations"
-                :disableCnvs="!showCopyNumberVariants"
-                :disableSvs="!showStructuralVariants" />
+                :disableSsms="!showSsms"
+                :disableCnvs="!showCnvs"
+                :disableSvs="!showSvs" />
             </q-tabs>
             <q-separator />
           </div>
@@ -114,27 +114,27 @@ export default {
     },
 
     showProfile() {
-      return this.showVariants || this.showGenes;
+      return this.showVariants || this.image?.data?.geneExp;
     },
 
     showGenes() {
-      return !!this.image?.numberOfGenes || !!this.image?.hasGeneExpressions;
+      return this.image?.numberOfGenes || this.image?.data?.geneExp;
     },
 
     showVariants() {
-      return this.showMutations || this.showCopyNumberVariants || this.showStructuralVariants;
+      return this.showSsms || this.showCnvs || this.showSvs;
     },
 
-    showMutations() {
-      return !!this.donor?.numberOfMutations;
+    showSsms() {
+      return this.donor?.numberOfSsms;
     },
 
-    showCopyNumberVariants() {
-      return !!this.donor?.numberOfCopyNumberVariants;
+    showCnvs() {
+      return this.donor?.numberOfCnvs;
     },
 
-    showStructuralVariants() {
-      return !!this.donor?.numberOfStructuralVariants;
+    showSvs() {
+      return this.donor?.numberOfSvs;
     }
   },
 

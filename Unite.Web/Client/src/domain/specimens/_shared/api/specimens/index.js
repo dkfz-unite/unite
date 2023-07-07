@@ -9,6 +9,19 @@ async function search(type, criteria) {
   return await client.post(url, criteria);
 }
 
+async function stats(type, criteria) {
+  let url = `${specimensUrl}/${type}/stats`;
+  return await client.post(url, criteria);
+}
+
+async function data(type, data, criteria) {
+  let url = `${specimensUrl}/${type}/data`;
+  let model = { data: data, criteria: criteria };
+  return await client.post(url, model, { responseType: 'blob' });
+}
+
 export default {
-  search
+  search,
+  stats,
+  data
 }

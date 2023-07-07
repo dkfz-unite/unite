@@ -5,8 +5,8 @@ const mixin = {
   
   methods: {
     getDomain(name) {
-      return this.image.mriImage ? this.$store.state.mri[name] :
-             this.image.ctImage ? this.$store.state.ct[name] :
+      return this.image.mri ? this.$store.state.mri[name] :
+             this.image.ct ? this.$store.state.ct[name] :
              null;
     }
   }

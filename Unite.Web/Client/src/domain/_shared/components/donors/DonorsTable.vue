@@ -43,6 +43,7 @@ import UDonorLink from "@/_shared/components/DonorLink.vue";
 import UProjects from "./cells/Projects.vue";
 import UStudies from "./cells/Studies.vue";
 import tableMixin from "../../table-mixin";
+import availableDataMixin from "../../available-data-mixin";
 
 export default {
   components: {
@@ -52,7 +53,7 @@ export default {
     UStudies
   },
 
-  mixins: [tableMixin],
+  mixins: [tableMixin, availableDataMixin],
 
   computed: {
     scope() {
@@ -179,53 +180,144 @@ export default {
         align: "left"
       });
 
-      if (!["gene"].includes(this.$route.name)){
+      if (["donors"].includes(this.$route.name)){
+        // columns.push({
+        //   name: "hasClinical",
+        //   label: "Clinical",
+        //   field: (row) => this.dataView(row.data.clinical),
+        //   sortable: false,
+        //   align: "center",
+        //   classes: (row) => this.dataCellClass(row.data.clinical),
+        //   headerClasses: this.dataHeaderClass()
+        // });
+
+        // columns.push({
+        //   name: "hasTreatments",
+        //   label: "Treatment",
+        //   field: (row) => this.dataView(row.data.treatments),
+        //   sortable: false,
+        //   align: "center",
+        //   classes: (row) => this.dataCellClass(row.data.treatments),
+        //   headerClasses: this.dataHeaderClass()
+        // });
+
+        // columns.push({
+        //   name: "hasMris",
+        //   label: "MRI",
+        //   field: (row) => this.hasDataView(row.data.mris),
+        //   sortable: false,
+        //   align: "center",
+        //   classes: (row) => this.hasDataClass(row.data.mris)
+        // });
+
+        // columns.push({
+        //   name: "hasCts",
+        //   label: "CT",
+        //   field: (row) => this.hasDataView(row.data.cts),
+        //   sortable: false,
+        //   align: "center"
+        // });
+
+        // columns.push({
+        //   name: "hasTissues",
+        //   label: "Tissues",
+        //   field: (row) => this.$helpers.content.toBooleanString(row.data.tissues),
+        //   sortable: false
+        // });
+
+        // columns.push({
+        //   name: "hasCells",
+        //   label: "Cells",
+        //   field: (row) => this.$helpers.content.toBooleanString(row.data.cells),
+        //   sortable: false
+        // });
+
+        // columns.push({
+        //   name: "hasOrganoids",
+        //   label: "Organoids",
+        //   field: (row) => this.$helpers.content.toBooleanString(row.data.organoids),
+        //   sortable: false
+        // });
+
+        // columns.push({
+        //   name: "hasXenografts",
+        //   label: "Xenografts",
+        //   field: (row) => this.$helpers.content.toBooleanString(row.data.xenografts),
+        //   sortable: false
+        // });
+
         columns.push({
-          name: "numberOfImages",
-          label: "#Images",
-          field: (row) => row.numberOfImages?.toLocaleString(),
-          sortable: false
+          name: "hasSsms",
+          label: "SSM",
+          field: (row) => this.dataView(row.data.ssms),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.ssms),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasCnvs",
+          label: "CNV",
+          field: (row) => this.dataView(row.data.cnvs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.cnvs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasSvs",
+          label: "SV",
+          field: (row) => this.dataView(row.data.svs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.svs),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
+          name: "hasGeneExp",
+          label: "RNA",
+          field: (row) => this.dataView(row.data.geneExp),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.geneExp),
+          headerClasses: this.dataHeaderClass()
         });
       }
 
-      if (!["gene"].includes(this.$route.name)) {
-        columns.push({
-          name: "numberOfSpecimens",
-          label: "#Specimens",
-          field: (row) => row.numberOfSpecimens?.toLocaleString(),
-          sortable: false
-        });
-      }
-
-      if (!["gene"].includes(this.$route.name)) {
+      if (["donors", "cnvs", "svs"].includes(this.$route.name)){
         columns.push({
           name: "numberOfGenes",
           label: "#Genes",
           field: (row) => row.numberOfGenes?.toLocaleString(),
           sortable: false
-        }); 
+        });
       }
 
-      columns.push({
-        name: "numberOfSsms",
-        label: "#SSMs",
-        field: (row) => row.numberOfMutations?.toLocaleString(),
-        sortable: false
-      });
+      if (["donors"].includes(this.$route.name)){
+        columns.push({
+          name: "numberOfSsms",
+          label: "#SSMs",
+          field: (row) => row.numberOfSsms?.toLocaleString(),
+          sortable: false
+        });
 
-      columns.push({
-        name: "numberOfCnvs",
-        label: "#CNVs",
-        field: (row) => row.numberOfCopyNumberVariants?.toLocaleString(),
-        sortable: false
-      });
+        columns.push({
+          name: "numberOfCnvs",
+          label: "#CNVs",
+          field: (row) => row.numberOfCnvs?.toLocaleString(),
+          sortable: false
+        });
 
-      columns.push({
-        name: "numberOfSvs",
-        label: "#SVs",
-        field: (row) => row.numberOfStructuralVariants?.toLocaleString(),
-        sortable: false
-      });
+        columns.push({
+          name: "numberOfSvs",
+          label: "#SVs",
+          field: (row) => row.numberOfSvs?.toLocaleString(),
+          sortable: false
+        }); 
+      }
 
       return columns;
     }

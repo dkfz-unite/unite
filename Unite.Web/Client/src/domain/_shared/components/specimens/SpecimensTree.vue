@@ -28,7 +28,7 @@
       <template v-slot:default-body="prop">
         <u-specimens-tree-donor v-if="prop.node.donor" :donor="prop.node.donor" />
         <u-specimens-tree-tissue v-else-if="prop.node.tissue" :tissue="prop.node.tissue" />
-        <u-specimens-tree-cell v-else-if="prop.node.cellLine" :cellLine="prop.node.cellLine" />
+        <u-specimens-tree-cell v-else-if="prop.node.cell" :cell="prop.node.cell" />
         <u-specimens-tree-organoid v-else-if="prop.node.organoid" :organoid="prop.node.organoid" />
         <u-specimens-tree-xenograft v-else-if="prop.node.xenograft" :xenograft="prop.node.xenograft" />
       </template>
@@ -78,7 +78,7 @@ export default {
         return "Donor";
       } else if (!!node?.tissue) {
         return "Tissue";
-      } else if (!!node?.cellLine) {
+      } else if (!!node?.cell) {
         return "Cell Line";
       } else if (!!node?.organoid) {
         return "Organoid";
@@ -94,7 +94,7 @@ export default {
         return { name: 'donor', params: params};
       } else if (!!node?.tissue) {
         return { name: 'tissue', params: params};
-      } else if (!!node?.cellLine) {
+      } else if (!!node?.cell) {
         return { name: 'cell', params: params};
       } else if (!!node?.organoid) {
         return { name: 'organoid', params: params};
@@ -108,8 +108,8 @@ export default {
         return node.donor.referenceId;
       } else if (!!node?.tissue) {
         return node.tissue.referenceId;
-      } else if (!!node?.cellLine) {
-        return node.cellLine.referenceId;
+      } else if (!!node?.cell) {
+        return node.cell.referenceId;
       } else if (!!node?.organoid) {
         return node.organoid.referenceId;
       } else if (!!node?.xenograft) {
@@ -122,7 +122,7 @@ export default {
         return "las la-user-circle";
       } else if (!!node?.tissue) {
         return "svguse:/icons.svg#u-tissue";
-      } else if (!!node?.cellLine) {
+      } else if (!!node?.cell) {
         return "las la-microscope";
       } else if (!!node?.organoid) {
         return "svguse:/icons.svg#u-organoid";
@@ -164,8 +164,8 @@ export default {
       
       if (!!specimen.tissue) {
         node.tissue = specimen.tissue;
-      } else if (!!specimen.cellLine) {
-        node.cellLine = specimen.cellLine;
+      } else if (!!specimen.cell) {
+        node.cell = specimen.cell;
       } else if (!!specimen.organoid) {
         node.organoid = specimen.organoid;
       } else if (!!specimen.xenograft) {

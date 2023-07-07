@@ -73,7 +73,7 @@ export default {
       columns.push({
         name: "breakpoint1",
         label: "1st Breakpoint",
-        field: (row) => this.getBreakpoint1View(row.structuralVariant),
+        field: (row) => this.getBreakpoint1View(row.sv),
         sortable: false,
         align: "left"
       });
@@ -81,7 +81,7 @@ export default {
       columns.push({
         name: "breakpoint2",
         label: "2nd Breakpoint",
-        field: (row) => this.getBreakpoint2View(row.structuralVariant),
+        field: (row) => this.getBreakpoint2View(row.sv),
         sortable: false,
         align: "left"
       });
@@ -97,7 +97,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.structuralVariant.type,
+        field: (row) => row.sv.type,
         sortable: false,
         align: "left"
       });
@@ -112,7 +112,7 @@ export default {
 
       columns.push({
         name: "numberOfGenes",
-        label: "#Affected Genes",
+        label: "#Genes",
         field: (row) => row.numberOfGenes?.toLocaleString(),
         sortable: false
       });
