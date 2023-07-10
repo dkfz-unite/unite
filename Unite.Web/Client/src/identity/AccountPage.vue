@@ -37,6 +37,21 @@
                   </div>
                 </div>
 
+                <!-- Provider -->
+                <div class="row">
+                  <div class="col-12 col-sm-3">
+                    <span class="text-subtitle1 text-bold">
+                      Provider
+                    </span>
+                  </div>
+
+                  <div class="col-12 col-sm-9">
+                    <span class="text-subtitle1">
+                      {{ account.provider }}
+                    </span>
+                  </div>
+                </div>
+
                 <!-- Permissions -->
                 <div class="row">
                   <div class="col-12 col-sm-3">
