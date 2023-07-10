@@ -63,7 +63,7 @@
         </div>
 
         <!-- Password change -->
-        <div>
+        <div v-if="showChangePassword">
           <q-form @submit="onChangePassword" ref="changePasswordForm">
             <q-card>
               <q-card-section>
@@ -210,7 +210,12 @@ export default {
       return this.$store.state.identity.account;
     },
 
-    canChangePassword(){
+    showChangePassword() {
+      const token = this.$helpers.token.get();
+      return token.data.authmethod && token.data.authmethod != 'ldap';
+    },
+
+    canChangePassword() {
       let oldPasswordIsValid = this.oldPassword.rules.every(rule => 
         rule(this.oldPassword.value) === true);
 
