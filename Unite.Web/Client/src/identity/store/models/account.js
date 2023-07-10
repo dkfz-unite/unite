@@ -5,6 +5,7 @@ export default class Account {
     email = null;
     sessions = null;
     permissions = null;
+    provider = null;
 
     get permissionsGrouped() {
         return this.permissions?.reduce((groups, permission) => {
@@ -36,5 +37,6 @@ export default class Account {
         this.email = data.email;
         this.sessions = data.devices;
         this.permissions = data.permissions;
+        this.provider = data.provider;
     }
 }
