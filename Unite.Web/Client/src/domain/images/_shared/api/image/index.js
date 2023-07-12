@@ -29,10 +29,17 @@ async function getProfile(id, sampleId, criteria){
   return await await client.post(url, criteria);
 }
 
+async function downloadData(id, data) {
+  let url = `${imageUrl}/${id}/data`;
+  let model = { data: data };
+  return await client.post(url, model, { responseType: 'blob' });
+}
+
 export default {
   get,
   searchGenes,
   searchVariants,
   getSamples,
-  getProfile
+  getProfile,
+  downloadData
 }

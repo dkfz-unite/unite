@@ -7,6 +7,16 @@
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
+
+      <q-space />
+
+      <u-download-button
+        v-if="donor"
+        :id="donor.id"
+        :reference="donor.referenceId"
+        :data="donor.data"
+        :domain="DomainNames.Donors">
+      </u-download-button>
     </div>
 
     <div class="row" v-if="donor">
@@ -88,6 +98,7 @@
 </template>
 
 <script>
+import UDownloadButton from "../_shared/components/download/DownloadButton.vue";
 import UVariantsTabHeader from "../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UClinicalDataTab from "./components/ClinicalDataTab.vue";
@@ -101,10 +112,12 @@ import UCnvsTab from "./components/CNVsTab.vue";
 import USvsTab from "./components/SVsTab.vue";
 import tabPageMixin from "../_shared/tab-page-mixin";
 
+import DomainNames from "@/_models/domain/domain-names";
 import api from "./api";
 
 export default {
   components: {
+    UDownloadButton,
     UVariantsTabHeader,
     USummaryTab,
     UClinicalDataTab,
@@ -119,6 +132,12 @@ export default {
   },
 
   mixins: [tabPageMixin],
+
+  setup() {
+    return {
+      DomainNames
+    };
+  },
 
   data() {
     return {

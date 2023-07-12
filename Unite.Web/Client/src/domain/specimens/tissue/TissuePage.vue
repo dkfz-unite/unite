@@ -7,6 +7,16 @@
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
+
+      <q-space />
+
+      <u-download-button
+        v-if="specimen"
+        :id="specimen.id"
+        :reference="specimen.tissue.referenceId"
+        :data="specimen.data"
+        :domain="DomainNames.Tissues">
+      </u-download-button>
     </div>
 
     <div class="row" v-if="specimen">
@@ -73,6 +83,7 @@
 </template>
 
 <script>
+import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
@@ -87,6 +98,7 @@ import specimenPageMixin from "../_shared/specimen-page-mixin";
 
 export default {
   components: {
+    UDownloadButton,
     UVariantsTabHeader,
     USummaryTab,
     UAncestryTab,

@@ -6,7 +6,6 @@ const mixin = {
   },
 
   computed: {
-
     state() {
       if (typeof(this.domain) === "string") {
         return this.$store.state[this.domain];
@@ -50,7 +49,12 @@ const mixin = {
   },
 
   mounted() {
+    // this.$store.dispatch(`${this.domain}/initialize`);
     this.loadData();
+  },
+
+  unmounted() {
+    // this.$store.dispatch(`${this.domain}/dispose`);
   },
 
   methods: {

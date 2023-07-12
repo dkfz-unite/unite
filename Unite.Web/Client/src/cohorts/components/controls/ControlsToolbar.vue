@@ -13,6 +13,7 @@
     />
 
     <u-download-button 
+      v-if="canDownload"
       :domain="domain" 
       :cohort="cohort"
       class="q-px-sm"
@@ -30,11 +31,11 @@
 </template>
 
 <script>
-// import Vue from "vue";
 import UShowButton from "./buttons/ShowButton.vue";
 import UExportButton from "./buttons/ExportButton.vue";
 import UDownloadButton from "./buttons/DownloadButton.vue";
 import UDeleteButtomn from "./buttons/DeleteButton.vue";
+import DomainNames from "@/_models/domain/domain-names.js";
 
 export default {
   components: {
@@ -57,5 +58,12 @@ export default {
   },
 
   emits: ["deleted"],
+
+  computed: {
+    canDownload() {
+      const domains = [DomainNames.Donors, DomainNames.Mris, DomainNames.Cts, DomainNames.Tissues, DomainNames.Cells, DomainNames.Organoids, DomainNames.Xenografts];
+      return domains.includes(this.domain?.name);
+    }
+  }
 }
 </script>

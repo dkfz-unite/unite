@@ -41,7 +41,6 @@ export default {
         data.push({ title: "Interventions", available: this.specimen.data?.interventions });
       }
 
-      console.log(this.specimen);
       if (this.specimen.type != "Tissue") {
         data.push({ title: "Drug Screenings", available: this.specimen.data?.drugs });
       }

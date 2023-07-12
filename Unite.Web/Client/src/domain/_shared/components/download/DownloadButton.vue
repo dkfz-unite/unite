@@ -1,0 +1,94 @@
+<template>
+  <q-dialog v-model="dialog" @keyup.esc="onCancel" persistent>
+    <u-download-form
+      :domain="domain" 
+      :data="data" 
+      :loading="loading" 
+      @submit="onDownload" 
+      @cancel="onCancel" />
+  </q-dialog>
+
+  <q-btn
+    label="Download"
+    icon="las la-file-download"
+    color="primary"
+    dense flat no-caps
+    @click="dialog = true">
+  </q-btn>
+</template>
+
+<script>
+import { exportFile } from "quasar";
+import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
+import DomainNames from "@/_models/domain/domain-names";
+import ImageTypes from "@/_models/domain/images/image-types";
+import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
+import donorApi from "@/domain/donor/api";
+import imageApi from "@/domain/images/_shared/api/image";
+import specimenApi from "@/domain/specimens/_shared/api/specimen";
+
+export default {
+  props: {
+    id: {
+      type: [String, Number],
+      required: true
+    },
+    reference: {
+      type: String,
+      required: true
+    },
+    data: {
+      type: Object,
+      required: true
+    },
+    domain: {
+      type: String,
+      required: true
+    }
+  },
+
+  components: {
+    UDownloadForm
+  },
+
+  data() {
+    return {
+      dialog: false,
+      loading: false
+    };
+  },
+
+  methods: {
+    async onDownload(model) {
+      try {
+        this.loading = true;
+        const name = `${this.domain}-${this.reference}`;
+        const format = "application/zip";
+        const content = await this.fetchData(model, this.id);
+        exportFile(`${name}.zip`, content, format);
+        this.dialog = false;
+      } catch(error) {
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async onCancel() {
+      this.dialog = false;
+    },
+
+    async fetchData(model, id) {
+      switch (this.domain) {
+        case DomainNames.Donors: return await donorApi.downloadData(id, model);
+        case DomainNames.Mris: return await imageApi.downloadData(id, model);
+        // case DomainNames.Cts: return await imageApi.downloadData(id, model);
+        case DomainNames.Tissues: return await specimenApi.downloadData(id, model);
+        case DomainNames.Cells: return await specimenApi.downloadData(id, model);
+        case DomainNames.Organoids: return await specimenApi.downloadData(id, model);
+        case DomainNames.Xenografts: return await specimenApi.downloadData(id, model);
+        default: return null;
+      }
+    }
+  }
+};
+</script>

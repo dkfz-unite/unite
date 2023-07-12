@@ -40,6 +40,12 @@ async function getProfile(id, sampleId, criteria){
   return await await client.post(url, criteria);
 }
 
+async function downloadData(id, data){
+  let url = `${specimenUrl}/${id}/data`;
+  let model = { data: data };
+  return await client.post(url, model, { responseType: 'blob' });
+}
+
 export default {
   get,
   searchGenes,
@@ -47,5 +53,6 @@ export default {
   searchDrugs,
   uploadDrugs,
   getSamples,
-  getProfile
+  getProfile,
+  downloadData
 }

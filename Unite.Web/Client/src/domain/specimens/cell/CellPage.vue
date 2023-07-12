@@ -16,6 +16,14 @@
         :specimenId="specimen.cell.referenceId"
         specimenType="CellLine">
       </u-upload-button>
+
+      <u-download-button
+        v-if="specimen"
+        :id="specimen.id"
+        :reference="specimen.cell.referenceId"
+        :data="specimen.data"
+        :domain="DomainNames.Cells">
+      </u-download-button>
     </div>
 
     <div class="row" v-if="specimen && donor">
@@ -87,6 +95,8 @@
 </template>
 
 <script>
+import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vue";
+import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
@@ -96,13 +106,14 @@ import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
 import USsmsTab from "../_shared/components/specimen/SSMsTab.vue";
 import UCnvsTab from "../_shared/components/specimen/CNVsTab.vue";
 import USvsTab from "../_shared/components/specimen/SVsTab.vue";
-import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vue";
 
 import tabPageMixin from "../../_shared/tab-page-mixin";
 import specimenPageMixin from "../_shared/specimen-page-mixin";
 
 export default {
   components: {
+    UUploadButton,
+    UDownloadButton,
     UVariantsTabHeader,
     USummaryTab,
     UAncestryTab,
@@ -111,9 +122,8 @@ export default {
     UGenesTab,
     USsmsTab,
     UCnvsTab,
-    USvsTab,
-    UUploadButton
-},
+    USvsTab
+  },
 
   mixins: [tabPageMixin, specimenPageMixin],
 

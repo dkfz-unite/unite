@@ -1,3 +1,5 @@
+import DomainNames from "@/_models/domain/domain-names";
+
 import specimenApi from "./api/specimen";
 import donorApi from "@/domain/donor/api";
 
@@ -6,6 +8,8 @@ import Permissions from "@/_models/admin/enums/permissions";
 const mixin = {
   data() {
     return {
+      DomainNames,
+
       loading: false,
       specimen: null,
       samples: null,

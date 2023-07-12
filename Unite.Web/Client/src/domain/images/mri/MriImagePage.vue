@@ -7,6 +7,16 @@
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
+
+      <q-space />
+
+      <u-download-button
+        v-if="image"
+        :id="image.id"
+        :reference="image.mri.referenceId"
+        :data="image.data"
+        :domain="DomainNames.Mris">
+      </u-download-button>
     </div>
 
     <div class="row" v-if="image">
@@ -68,6 +78,7 @@
 </template>
 
 <script>
+import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UProfileTab from "../_shared/components/image/ProfileTab.vue";
@@ -77,11 +88,13 @@ import UCnvsTab from "../_shared/components/image/CNVsTab.vue";
 import USvsTab from "../_shared/components/image/SVsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
+import DomainNames from "@/_models/domain/domain-names";
 import imageApi from "../_shared/api/image";
 import donorApi from "../../donor/api";
 
 export default {
   components: {
+    UDownloadButton,
     UVariantsTabHeader,
     USummaryTab,
     UProfileTab,
@@ -92,6 +105,12 @@ export default {
   },
 
   mixins: [tabPageMixin],
+
+  setup() {
+    return {
+      DomainNames
+    };
+  },
 
   data() {
     return {

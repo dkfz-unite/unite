@@ -106,6 +106,7 @@ export default {
         description: this.description.value,
         criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
       };
+      // this.$store.dispatch(domainName + "/addCohort", cohortData);
       this.$store.dispatch("filters/addCohort", { domainName, cohortData });
     },
 
@@ -115,7 +116,7 @@ export default {
     },
 
     nameIsNotEmpty(cohortName) {
-      return !!cohortName?.length;
+      return cohortName?.length > 0;
     },
 
     nameIsNotReserved(cohortName) {
