@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import LoginTabLDAP from "./components/LoginTabLDAP";
+import LoginTabLdap from "./components/LoginTabLdapRENAME";
 import LoginTabDefault from "./components/LoginTabDefault";
 import { mapState } from "vuex";
 
 export default {
   components: {
-    LoginTabLDAP,
+    LoginTabLdap,
     LoginTabDefault,
   },
   data() {
