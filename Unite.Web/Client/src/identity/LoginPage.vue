@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import LoginTabLdap from "./components/LoginTabLdapRENAME";
+import LoginTabLdap from "./components/LoginTabLdap";
 import LoginTabDefault from "./components/LoginTabDefault";
 import { mapState } from "vuex";
 
