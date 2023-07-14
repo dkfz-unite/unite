@@ -6,7 +6,7 @@
         <div class="text-center">
           <div class="text-h4">Login</div>
           <div
-            v-if="providers && providers.length > 1"
+            v-if="providers?.length > 1"
             class="text-subtitle1 text-grey-8">
             Choose identity provider
           </div>
@@ -17,7 +17,7 @@
           dense
           indicator-color="parimary"
           active-color="primary"
-          :class="{ hidden: providers && providers.length === 1 }"
+          :class="{ hidden: providers?.length === 1 }"
         >
           <q-tab v-for="(provider, index) in providers"
             :key="`tab-${index}-${provider.name}`"
