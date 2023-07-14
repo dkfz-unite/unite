@@ -1,6 +1,5 @@
 import api from "../api";
 import Account from "./models/account";
-import Provider from "./models/provider";
 
 const module = {
   namespaced: true,
@@ -64,9 +63,7 @@ const module = {
 
     async loadProviders({state}) {
       try {
-        const providersData = await api.getProviders();
-        const providers = providersData.map(provider => new Provider(provider));
-        state.providers = providers;
+        state.providers = await api.getProviders();
         return null;
       } catch (error) {
         return error.status;
