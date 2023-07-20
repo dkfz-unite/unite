@@ -5,32 +5,35 @@ const module = {
   namespaced: true,
 
   state: () => ({
-    account: null
+    account: null,
+    providers: null,
   }),
 
   actions: {
-    async signUp({state}, {email, password, passwordRepeat}) {
+    async loadProviders({state}) {
       try {
-        await api.signUp(email, password, passwordRepeat);
+        state.providers = await api.getProviders();
         return null;
       } catch (error) {
         return error.status;
       }
     },
 
-    async signIn({state}, {email, password}) {
+    async loadAccount({state}) {
       try {
-        await api.signIn(email, password);
+        const accountData = await api.getAccount();
+        const account = new Account(accountData);
+        state.account = account;
         return null;
       } catch (error) {
-        return error.status; 
+        state.account = null;
+        return error.status;
       }
     },
 
-    async signOut({state}) {
+    async createAccount({state}, {email, password, passwordRepeat}) {
       try {
-        state.account = null;
-        await api.signOut();
+        await api.createAccount(email, password, passwordRepeat);
         return null;
       } catch (error) {
         return error.status;
@@ -48,14 +51,21 @@ const module = {
       }
     },
 
-    async load({state}) {
+    async logIn({state}, {email, password, provider}) {
       try {
-        const accountData = await api.getAccount();
-        const account = new Account(accountData);
-        state.account = account;
+        await api.logIn(email, password, provider);
         return null;
       } catch (error) {
+        return error.status; 
+      }
+    },
+
+    async logOut({state}) {
+      try {
         state.account = null;
+        await api.logOut();
+        return null;
+      } catch (error) {
         return error.status;
       }
     }

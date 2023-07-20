@@ -17,7 +17,7 @@ export const beforeEach = {
             } else {
                 // Refreshing token
                 tokenHelpers.remove();
-                const newValue = await tokenApi.refresh(oldToken.data.email);
+                const newValue = await tokenApi.refresh(oldToken.data.email, oldToken.data.authmethod);
                 const newToken = tokenHelpers.parse(newValue);
                 
                 // Using new token

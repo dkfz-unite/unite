@@ -116,8 +116,6 @@
 </template>
 
 <script>
-import api from "./api";
-
 export default {
   data() {
     return {
@@ -173,8 +171,6 @@ export default {
   },
 
   mounted() {
-    // this.$store.state.leftDrawer.display = false;
-    // this.$store.state.rightDrawer.display = false;
     this.$refs.registerForm.resetValidation();
   },
 
@@ -188,7 +184,7 @@ export default {
 
       this.error = null;
       this.submitting = true;
-      this.error = await this.$store.dispatch("identity/signUp", payload);
+      this.error = await this.$store.dispatch("identity/createAccount", payload);
       this.submitting = false;
 
       if (!this.error) {

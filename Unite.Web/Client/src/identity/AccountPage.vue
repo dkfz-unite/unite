@@ -37,6 +37,21 @@
                   </div>
                 </div>
 
+                <!-- Provider -->
+                <div class="row">
+                  <div class="col-12 col-sm-3">
+                    <span class="text-subtitle1 text-bold">
+                      Provider
+                    </span>
+                  </div>
+
+                  <div class="col-12 col-sm-9">
+                    <span class="text-subtitle1">
+                      {{ account.provider }}
+                    </span>
+                  </div>
+                </div>
+
                 <!-- Permissions -->
                 <div class="row">
                   <div class="col-12 col-sm-3">
@@ -63,7 +78,7 @@
         </div>
 
         <!-- Password change -->
-        <div>
+        <div v-if="showChangePassword">
           <q-form @submit="onChangePassword" ref="changePasswordForm">
             <q-card>
               <q-card-section>
@@ -169,8 +184,6 @@
 </template>
 
 <script>
-import api from "./api";
-
 export default {
   data() {
     return {
@@ -210,7 +223,12 @@ export default {
       return this.$store.state.identity.account;
     },
 
-    canChangePassword(){
+    showChangePassword() {
+      const token = this.$helpers.token.get();
+      return token.data.authmethod === 'default';
+    },
+
+    canChangePassword() {
       let oldPasswordIsValid = this.oldPassword.rules.every(rule => 
         rule(this.oldPassword.value) === true);
 
@@ -230,7 +248,7 @@ export default {
 
   methods: {
     async onLogOut() {
-      await this.$store.dispatch("identity/signOut");
+      await this.$store.dispatch("identity/logOut");
       this.$router.push({ name: 'home' });
     },
 
@@ -250,7 +268,7 @@ export default {
       this.$refs.changePasswordForm.resetValidation();
 
       if (!this.changingPasswordError) {
-        await this.$store.dispatch("identity/load");
+        await this.$store.dispatch("identity/loadAccount");
         this.oldPassword.value = null;
         this.newPassword.value = null;
         this.newPasswordRepeat.value = null;

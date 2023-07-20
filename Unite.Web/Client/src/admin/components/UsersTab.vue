@@ -60,11 +60,18 @@ export default {
           sortable: true
         },
         {
-          name: "registered",
-          label: "Registered",
-          field: row => this.$helpers.content.toBooleanString(row.isRegistered),
+          name: "active",
+          label: "Active",
+          field: row => this.$helpers.content.toBooleanString(row.isActive),
           align: "left",
           sortable: true
+        },
+        {
+          name: 'provider',
+          label: 'Provider',
+          field: row => row.provider,
+          align: 'left',
+          sortable: false
         },
         {
           name: "permissions",

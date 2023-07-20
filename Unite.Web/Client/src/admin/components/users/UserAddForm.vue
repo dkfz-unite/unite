@@ -22,6 +22,17 @@
         />
       </div>
 
+      <div>
+        <q-select
+          ref="provider"
+          label="Provider"
+          style="min-width: 200px"
+          v-model="provider.value"
+          :options="providers"
+          dense options-dense outlined
+        />
+      </div>
+
       <div class="u-pt-1">
         <u-permissions-select v-model="permissions.value" />
       </div>
@@ -41,6 +52,7 @@
 <script>
 import UPermissionsSelect from "./PermissionsSelect.vue";
 import api from "../../api/api-users";
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -68,6 +80,12 @@ export default {
           this.valid = false;
         }
       },
+      provider: {
+        value: null,
+        clear: () => {
+          this.provider.value = this.providers[0];
+        }
+      },
       permissions: {
         value: null,
         clear: () => {
@@ -75,6 +93,17 @@ export default {
         }
       }
     }
+  },
+
+  computed: {
+    ...mapState("identity", ["providers",]),
+  },
+
+  async mounted() {
+    if (!this.providers) {
+      await this.$store.dispatch("identity/loadProviders");
+    }
+    this.provider.value = this.providers[0];
   },
 
   methods: {
@@ -91,9 +120,14 @@ export default {
       if (isValid !== true) 
         return false;
 
+      let provider = this.provider.value;
+      if (!provider) 
+        return "Please, select provider";
+
       try {
         this.email.loading = true;
-        let unique = await api.check(email);
+        let user = { providerId: this.provider.value.id,  email: email };
+        let unique = await api.check(user);
         return unique || "Email address is already in use";
       } catch (error) {
         return "Could not check email availability";
@@ -116,13 +150,18 @@ export default {
 
     async resetForm() {
       this.email.clear();
+      this.provider.clear();
       this.permissions.clear();
     },
 
     async submitForm() {
       try {
         this.loading = true;
-        await api.create({ email: this.email.value, permissions: this.permissions.value });
+        await api.create({
+          providerId: this.provider.value.id,
+          email: this.email.value,
+          permissions: this.permissions.value
+        });
         await this.resetForm();
         this.$emit("submit");
       } catch (error) {
