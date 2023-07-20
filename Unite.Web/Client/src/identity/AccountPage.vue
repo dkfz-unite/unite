@@ -184,8 +184,6 @@
 </template>
 
 <script>
-import api from "./api";
-
 export default {
   data() {
     return {
@@ -227,7 +225,7 @@ export default {
 
     showChangePassword() {
       const token = this.$helpers.token.get();
-      return token.data.authmethod && token.data.authmethod != 'ldap';
+      return token.data.authmethod === 'default';
     },
 
     canChangePassword() {
@@ -250,7 +248,7 @@ export default {
 
   methods: {
     async onLogOut() {
-      await this.$store.dispatch("identity/signOut");
+      await this.$store.dispatch("identity/logOut");
       this.$router.push({ name: 'home' });
     },
 
@@ -270,7 +268,7 @@ export default {
       this.$refs.changePasswordForm.resetValidation();
 
       if (!this.changingPasswordError) {
-        await this.$store.dispatch("identity/load");
+        await this.$store.dispatch("identity/loadAccount");
         this.oldPassword.value = null;
         this.newPassword.value = null;
         this.newPasswordRepeat.value = null;

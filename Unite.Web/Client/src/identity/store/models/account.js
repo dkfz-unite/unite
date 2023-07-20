@@ -3,9 +3,9 @@ import Permissions from "@/_models/admin/enums/permissions";
 export default class Account {
     id = null;
     email = null;
+    provider = null;
     sessions = null;
     permissions = null;
-    provider = null;
 
     get permissionsGrouped() {
         return this.permissions?.reduce((groups, permission) => {
@@ -29,14 +29,14 @@ export default class Account {
     }
 
     hasPermissions(permissions) {
-        return this.permissions.some(permission => permissions.includes(permission));
+        return permissions.every(permission => this.hasPermission(permission));
     }
 
     constructor(data) {
         this.id = data.id;
         this.email = data.email;
+        this.provider = data.provider;
         this.sessions = data.devices;
         this.permissions = data.permissions;
-        this.provider = data.provider;
     }
 }

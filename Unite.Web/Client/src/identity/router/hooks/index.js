@@ -15,7 +15,7 @@ export async function authorize(hook, store) {
     } else {
       // If no account is present, load account
       if (!store.state["identity"].account) {
-        const error = await store.dispatch("identity/load");
+        const error = await store.dispatch("identity/loadAccount");
         if (error) {
           // If account load fails, redirect to login
           return { name: "login" };

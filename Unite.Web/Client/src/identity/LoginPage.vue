@@ -1,36 +1,26 @@
 <template>
-  <div class="col q-pa-md">
+  <div v-if="providers?.length" class="col q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-sm-6 col-md-4 q-gutter-md">
         <!-- Header -->
         <div class="text-center">
           <div class="text-h4">Login</div>
-          <div
-            v-if="providers?.length > 1"
-            class="text-subtitle1 text-grey-8">
-            Choose identity provider
+          <div class="text-subtitle1 text-grey-8">
+            Log in to your account
           </div>
-          <div class="text-subtitle1 text-grey-8">Log in to your account</div>
         </div>
+
         <q-tabs
           v-model="tab"
-          dense
-          indicator-color="parimary"
-          active-color="primary"
-          :class="{ hidden: providers?.length === 1 }"
-        >
-          <q-tab v-for="(provider, index) in providers"
-            :key="`tab-${index}-${provider.name}`"
-            :name="provider.name"
-            :label="provider.title"
-          />
+          v-show="providers.length > 1"
+          indicator-color="parimary" active-color="primary" dense>
+          <q-tab v-for="provider in providers" :name="provider.name" :label="provider.title"/>
         </q-tabs>
+
         <q-tab-panels v-model="tab">
-          <q-tab-panel
-            v-for="(provider, index) in providers"
-            :key="`tabPanel-${index}-${provider.name}`"
-            :name="provider.name">
-            <component :is="`LoginTab${provider.name}`" />
+          <q-tab-panel v-for="(provider) in providers" :name="provider.name">
+            <u-login-tab-default v-if="provider.name === 'default'" />
+            <u-login-tab-ldap v-else-if="provider.name === 'ldap'" />
           </q-tab-panel>
         </q-tab-panels>
       </div>
@@ -39,42 +29,44 @@
 </template>
 
 <script>
-import LoginTabLdap from "./components/LoginTabLdap";
-import LoginTabDefault from "./components/LoginTabDefault";
+import ULoginTabDefault from "./components/LoginTabDefault";
+import ULoginTabLdap from "./components/LoginTabLdap";
 import { mapState } from "vuex";
 
 export default {
   components: {
-    LoginTabLdap,
-    LoginTabDefault,
+    ULoginTabDefault,
+    ULoginTabLdap
   },
+
   data() {
     return {
-      tab: '',
+      tab: null
     };
   },
 
   computed: {
-    ...mapState('identity', [
-      'providers',
-    ]),
+    ...mapState("identity", ["providers"]),
   },
 
   async mounted() {
     if (!this.providers) {
       await this.$store.dispatch("identity/loadProviders");
     }
-    this.tab = this.providers.reduce((a, b) => {
-      const higherPrio = Math.min(a.priority, b.priority);
-      switch (higherPrio) {
-        case a.priority:
-          return a.name;
-        case b.priority:
-          return b.name;
-        default:
-          return '';
-      }
-    });
-  },
+
+    this.tab = this.providers[0].name;
+    
+    // this.tab = this.providers.reduce((a, b) => {
+    //   const higherPrio = Math.min(a.priority, b.priority);
+    //   switch (higherPrio) {
+    //     case a.priority:
+    //       return a.name;
+    //     case b.priority:
+    //       return b.name;
+    //     default:
+    //       return "";
+    //   }
+    // });
+  }
 }
 </script>

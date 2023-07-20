@@ -10,9 +10,8 @@ export async function search() {
     return await client.get(url);
 }
 
-// TODO: Analyse if thats obolete:
-export async function check(email) {
-    const url = `${userUrl}?email=${email}`;
+export async function check(user) {
+    const url = `${userUrl}?provider=${user.providerId}&email=${user.email}`;
     return await client.get(url);
 }
 

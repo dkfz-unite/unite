@@ -109,12 +109,12 @@ export default {
       const payload = {
         email: this.login.value,
         password: this.password.value,
-        providerCode: 'ldap',
+        provider: 'ldap',
       };
 
       this.error = null;
       this.submitting = true;
-      this.error = await this.$store.dispatch("identity/signIn", payload);
+      this.error = await this.$store.dispatch("identity/logIn", payload);
       this.submitting = false;
 
       if (!this.error) {

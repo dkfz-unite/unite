@@ -1,10 +1,14 @@
 import axios from "axios";
 import settings from "@/settings";
 
-const tokenUrl = `${settings.urls.identity}/api/token`;
+const tokenUrl = `${settings.urls.identity}/api/realm`;
 
-export async function refresh(login) {
-    const url = `${tokenUrl}?login=${login}`;
+function getTokenUrl(email, provider) {
+    return `${tokenUrl}/${provider}/token?email=${email}`;
+}
+
+export async function refresh(email, provider) {
+    const url = getTokenUrl(email, provider);
     try {
         const response = await axios.post(url);
         return response.data;

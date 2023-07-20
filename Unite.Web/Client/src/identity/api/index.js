@@ -1,20 +1,37 @@
 import settings from '@/settings';
-import ApiClient from "@/_shared/api/api-client";
 import tokenHelpers from "@/_shared/helpers/token-helpers";
+import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const signUpUrl = `${settings.urls.identity}/api/default/register`;
-const signInUrl = (providerCode) => `${settings.urls.identity}/api/${providerCode}/login`;
-const signOutUrl = (providerCode) => `${settings.urls.identity}/api/${providerCode}/logout`;
-const changePasswordUrl = `${settings.urls.identity}/api/default/password`
+const providersUrl = `${settings.urls.identity}/api/providers`;
 const accountUrl = `${settings.urls.identity}/api/account`;
-const accessibilityUrl = `${settings.urls.identity}/api/access`;
-const providersUrl = `${settings.urls.identity}/api/settings/providers`;
+const identityUrl = `${settings.urls.identity}/api/realm`;
 
-async function signUp(email, password, passwordRepeat) {
-  var url = signUpUrl;
+function getIdentityProvider() {
+  const token = tokenHelpers.get();
+  return token.data.authmethod;
+}
 
-  var data = {
+function getIdentityUrl(provider, action) {
+  return `${identityUrl}/${provider}/${action}`;
+}
+
+export async function getProviders() {
+  var url = providersUrl;
+
+  return await client.get(url);
+}
+
+export async function getAccount() {
+  const url = accountUrl;
+
+  return await client.get(url);
+}
+
+export async function createAccount(email, password, passwordRepeat) {
+  const url = accountUrl;
+
+  const data = {
     Email: email,
     Password: password,
     PasswordRepeat: passwordRepeat
@@ -23,36 +40,10 @@ async function signUp(email, password, passwordRepeat) {
   return await client.post(url, data);
 }
 
-async function signIn(email, password, providerCode) {
-  var url = signInUrl(providerCode);
+export async function changePassword(oldPassword, newPassword, newPasswordRepeat) {
+  const url = `${accountUrl}/password`;
 
-  var data = {
-    Email: email,
-    Password: password
-  };
-
-  var token = await client.post(url, data);
-  tokenHelpers.set(token);
-}
-
-async function signOut() {
-  const token = tokenHelpers.get();
-  var url = signOutUrl(token.data.authmethod ?? 'default');
-
-  await client.post(url, null);
-  tokenHelpers.remove();
-}
-
-async function getAccount() {
-  var url = accountUrl;
-
-  return await client.get(url);
-}
-
-async function changePassword(oldPassword, newPassword, newPasswordRepeat) {
-  var url = changePasswordUrl;
-
-  var data = {
+  const data = {
     OldPassword: oldPassword,
     NewPassword: newPassword,
     NewPasswordRepeat: newPasswordRepeat
@@ -61,24 +52,39 @@ async function changePassword(oldPassword, newPassword, newPasswordRepeat) {
   return await client.put(url, data);
 }
 
-async function checkAccess(email) {
-  var url = accessibilityUrl + "?email=" + email;
+// export async function checkAccess(email) {
+//   const provider = getIdentityProvider();
+//   const accessUrl = getIdentityUrl(provider, "access");
+//   const url = `${accessUrl}?email=${email}`;
 
-  return await client.get(url);
+//   return await client.get(url);
+// }
+
+export async function logIn(email, password, provider) {
+  const url = getIdentityUrl(provider, "login");
+
+  const data = {
+    Email: email,
+    Password: password
+  };
+
+  const token = await client.post(url, data);
+  tokenHelpers.set(token);
 }
 
-async function getProviders() {
-  var url = providersUrl;
+export async function logOut() {
+  const provider = getIdentityProvider();
+  const url = getIdentityUrl(provider, "logout");
 
-  return await client.get(url);
+  await client.post(url, null);
+  tokenHelpers.remove();
 }
 
 export default {
-  signUp,
-  signIn,
-  signOut,
-  getAccount,
-  changePassword,
-  checkAccess,
   getProviders,
+  getAccount,
+  createAccount,
+  changePassword,
+  logIn,
+  logOut
 }

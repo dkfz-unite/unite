@@ -24,12 +24,12 @@
 
       <div>
         <q-select
-          label="Identity Provider"
-          dense
-          outlined
+          ref="provider"
+          label="Provider"
           style="min-width: 200px"
           v-model="provider.value"
-          :options="providerOptions"
+          :options="providers"
+          dense options-dense outlined
         />
       </div>
 
@@ -83,7 +83,7 @@ export default {
       provider: {
         value: null,
         clear: () => {
-          this.provider.value = null;
+          this.provider.value = this.providers[0];
         }
       },
       permissions: {
@@ -96,18 +96,14 @@ export default {
   },
 
   computed: {
-    ...mapState('identity', [
-      'providers',
-    ]),
-    providerOptions() {
-      return this.providers?.map(provider => ({ label: provider.title, value: provider.id }));
-    },
+    ...mapState("identity", ["providers",]),
   },
 
   async mounted() {
     if (!this.providers) {
       await this.$store.dispatch("identity/loadProviders");
     }
+    this.provider.value = this.providers[0];
   },
 
   methods: {
@@ -124,9 +120,14 @@ export default {
       if (isValid !== true) 
         return false;
 
+      let provider = this.provider.value;
+      if (!provider) 
+        return "Please, select provider";
+
       try {
         this.email.loading = true;
-        let unique = await api.check(email);
+        let user = { providerId: this.provider.value.id,  email: email };
+        let unique = await api.check(user);
         return unique || "Email address is already in use";
       } catch (error) {
         return "Could not check email availability";
@@ -157,8 +158,8 @@ export default {
       try {
         this.loading = true;
         await api.create({
+          providerId: this.provider.value.id,
           email: this.email.value,
-          providerId: this.provider.value.value,
           permissions: this.permissions.value
         });
         await this.resetForm();
