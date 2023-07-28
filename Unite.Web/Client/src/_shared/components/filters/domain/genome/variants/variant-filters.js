@@ -6,17 +6,9 @@ import ConsequenceImpact from "@/_models/domain/genome/variants/enums/consequenc
 import ConsequenceType from "@/_models/domain/genome/variants/enums/consequence-type";
 
 import { mapOptions } from "../../../filter-options-helpers";
-import { sanitiseArray, sanitiseRange } from "../../../filter-criteria-helpers";
+import { sanitiseRange } from "../../../filter-criteria-helpers";
 
 const filters = [
-  {
-    field: "id",
-    label: "ID",
-    placeholder: "e.g. SSM11033",
-    type: FilterType.Values,
-    valueType: ValueType.String,
-    sanitize: (value) => sanitiseArray(value)
-  },
   {
     group: "location",
     label: "Location",

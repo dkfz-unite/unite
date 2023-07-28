@@ -19,7 +19,7 @@ export async function stats(criteria) {
 export async function data(data, criteria) {
   let url = donorsDataUrl;
   let model = { data: data, criteria: criteria };
-  return await client.post(url, model, { responseType: 'blob' });
+  return await client.post(url, model, { responseType: "blob" });
 }
 
 export default {

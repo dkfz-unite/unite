@@ -162,25 +162,18 @@ export default {
     },
 
     hasMrisData() {
-      const mrisDomain = this.domain === DomainNames.Mris;
-      return this.data?.mris === true
-          || mrisDomain;
+      return this.data?.mris === true;
     },
 
     hasCtsData() {
-      const ctsDomain = this.domain === DomainNames.Cts;
       return this.data?.cts === true
-          || ctsDomain;
     },
 
     hasSpecimensData() {
-      const specimensDomain = specimenDomains.includes(this.domain);
-
       return this.data?.tissues === true
           || this.data?.cells === true
           || this.data?.organoids === true
-          || this.data?.xenografts === true
-          || specimensDomain;
+          || this.data?.xenografts === true;
     },
 
     hasInterventionsData() {
@@ -207,21 +200,15 @@ export default {
     },
 
     hasSsmsData() {
-      const ssmsDomain = this.domain === DomainNames.Ssms;
-      return this.data?.ssms === true
-          || ssmsDomain;
+      return this.data?.ssms === true;
     },
 
     hasCnvsData() {
-      const cnvsDomain = this.domain === DomainNames.Cnvs;
-      return this.data?.cnvs === true
-          || cnvsDomain;
+      return this.data?.cnvs === true;
     },
 
     hasSvsData() {
-      const svsDomain = this.domain === DomainNames.Svs;
-      return this.data?.svs === true
-          || svsDomain;
+      return this.data?.svs === true;
     },
 
     hasGeneExpData() {

@@ -14,7 +14,14 @@ async function searchDonors(id, criteria){
   return await client.post(url, criteria);
 }
 
+async function downloadData(id, data){
+  let url = `${variantUrl}/${id}/data`;
+  var model = { data: data };
+  return await client.post(url, model, { responseType: "blob" });
+}
+
 export default {
   get,
-  searchDonors
+  searchDonors,
+  downloadData
 }

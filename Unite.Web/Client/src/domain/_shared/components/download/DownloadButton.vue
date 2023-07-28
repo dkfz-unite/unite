@@ -26,6 +26,8 @@ import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/api/image";
 import specimenApi from "@/domain/specimens/_shared/api/specimen";
+import geneApi from "@/domain/genome/gene/api";
+import variantApi from "@/domain/genome/variants/_shared/api/variant";
 
 export default {
   props: {
@@ -86,6 +88,10 @@ export default {
         case DomainNames.Cells: return await specimenApi.downloadData(id, model);
         case DomainNames.Organoids: return await specimenApi.downloadData(id, model);
         case DomainNames.Xenografts: return await specimenApi.downloadData(id, model);
+        case DomainNames.Genes: return await geneApi.downloadData(id, model);
+        case DomainNames.Ssms: return await variantApi.downloadData(id, model);
+        case DomainNames.Cnvs: return await variantApi.downloadData(id, model);
+        case DomainNames.Svs: return await variantApi.downloadData(id, model);
         default: return null;
       }
     }

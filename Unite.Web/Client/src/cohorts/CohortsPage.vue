@@ -163,13 +163,13 @@ export default {
         } else if (this.domain.name == "xenografts") {
           data = await specimensApi.stats("Xenograft", searchCriteria);
         } else if (this.domain.name == "genes") {
-          data = await genesApi.search(searchCriteria);
+          data = await genesApi.stats(searchCriteria);
         } else if (this.domain.name == "ssms") {
-          data = await variantsApi.search("ssm", searchCriteria);
+          data = await variantsApi.stats("ssm", searchCriteria);
         } else if (this.domain.name == "cnvs") {
-          data = await variantsApi.search("cnv", searchCriteria);
+          data = await variantsApi.stats("cnv", searchCriteria);
         } else if (this.domain.name == "svs") {
-          data = await variantsApi.search("sv", searchCriteria);
+          data = await variantsApi.stats("sv", searchCriteria);
         }
 
         this.cohort.data = data;

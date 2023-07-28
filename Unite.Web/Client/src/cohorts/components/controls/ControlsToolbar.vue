@@ -61,7 +61,20 @@ export default {
 
   computed: {
     canDownload() {
-      const domains = [DomainNames.Donors, DomainNames.Mris, DomainNames.Cts, DomainNames.Tissues, DomainNames.Cells, DomainNames.Organoids, DomainNames.Xenografts];
+      const domains = [
+        DomainNames.Donors, 
+        DomainNames.Mris, 
+        DomainNames.Cts, 
+        DomainNames.Tissues, 
+        DomainNames.Cells, 
+        DomainNames.Organoids, 
+        DomainNames.Xenografts,
+        DomainNames.Genes,
+        DomainNames.Ssms,
+        DomainNames.Cnvs,
+        DomainNames.Svs
+      ];
+
       return domains.includes(this.domain?.name);
     }
   }

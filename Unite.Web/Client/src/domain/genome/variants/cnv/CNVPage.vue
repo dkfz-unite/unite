@@ -7,6 +7,16 @@
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
+
+      <q-space />
+
+      <u-download-button
+        v-if="variant"
+        :id="variant.id"
+        :reference="variant.id"
+        :data="variant.data"
+        :domain="DomainNames.Cnvs">
+      </u-download-button>
     </div>
 
     <div class="row" v-if="variant">
@@ -44,19 +54,28 @@
 </template>
   
 <script>
+import UDownloadButton from "../../../_shared/components/download/DownloadButton.vue";
 import USummaryTab from "./components/SummaryTab.vue";
 import UConsequencesTab from "../_shared/components/ConsequencesTab.vue";
 import tabPageMixin from "../../../_shared/tab-page-mixin";
 
+import DomainNames from "@/_models/domain/domain-names";
 import api from "../_shared/api/variant";
 
 export default {
   components:{
+    UDownloadButton,
     USummaryTab,
     UConsequencesTab
   },
 
   mixins: [tabPageMixin],
+
+  setup() {
+    return {
+      DomainNames
+    };
+  },
 
   data() {
     return {

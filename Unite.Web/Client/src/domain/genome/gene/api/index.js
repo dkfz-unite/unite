@@ -19,8 +19,15 @@ async function searchVariants(id, type, criteria){
   return await client.post(url, criteria);
 }
 
+async function downloadData(id, data){
+  let url = `${geneUrl}/${id}/data`;
+  let model = { data: data };
+  return await client.post(url, model, { responseType: "blob" });
+}
+
 export default {
   get,
   searchDonors,
-  searchVariants
+  searchVariants,
+  downloadData
 }
