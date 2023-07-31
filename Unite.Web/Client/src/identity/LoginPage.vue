@@ -14,7 +14,7 @@
           v-model="tab"
           v-show="providers.length > 1"
           indicator-color="parimary" active-color="primary" dense>
-          <q-tab v-for="provider in providers" :name="provider.name" :label="provider.title"/>
+          <q-tab v-for="provider in providers" :name="provider.name" :label="provider.label"/>
         </q-tabs>
 
         <q-tab-panels v-model="tab">
