@@ -1,0 +1,39 @@
+[
+  {
+      "id": "",
+      "mtaProtected": true,
+      "clinicalData": {
+          "Sex": "Male/Female/Other",
+          "age": 0,
+          "diagnosis": "",
+          "diagnosisDate": "1970-01-01T00:00:00",
+          "primarySite": "",
+          "localization": "",
+          "vitalStatus": true,
+          "vitalStatusChangeDate": "1970-01-01T00:00:00",
+          "vitalStatusChangeDay": 0,
+          "progressionStatus": false,
+          "progressionStatusChangeDate": "1970-01-01T00:00:00",
+          "progressionStatusChangeDay": 0,
+          "kpsBaseline": 0,
+          "steroidsBaseline": true
+      },
+      "treatments": [
+          {
+              "therapy": "",
+              "details": "",
+              "startDate": "1970-01-01T00:00:00",
+              "startDay": 0,
+              "endDate": "1970-01-01T00:00:00",
+              "durationDays": 0,
+              "results": ""
+          }
+      ],
+      "workPackages": [
+          ""
+      ],
+      "studies": [
+          ""
+      ]
+  }
+]
