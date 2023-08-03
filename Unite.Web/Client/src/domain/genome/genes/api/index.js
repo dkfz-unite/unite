@@ -2,9 +2,9 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const genesurl = `${settings.urls.composer}/api/genes`;
-const genesStatsUrl = `${settings.urls.composer}/api/genes/stats`;
-const genesDataUrl = `${settings.urls.composer}/api/genes/data`;
+const genesurl = `${settings.urls.composer}/genes`;
+const genesStatsUrl = `${genesurl}/stats`;
+const genesDataUrl = `${genesurl}/data`;
 
 export async function search(criteria) {
   let url = genesurl;

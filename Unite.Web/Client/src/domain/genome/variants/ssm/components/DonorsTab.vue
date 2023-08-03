@@ -44,7 +44,7 @@ import UDataTable from "@/domain/_shared/components/donors/DonorsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/_shared/components/filters/domain/donors/donor-filters";
 
-import api from "../api";
+import api from "../../_shared/api/variant";
 
 export default {
   components: {

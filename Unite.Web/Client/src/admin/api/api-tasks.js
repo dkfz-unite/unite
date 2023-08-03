@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings.js";
 
 const client = new ApiClient();
-const tasksUrl = `${settings.urls.composer}/api/admin/tasks`;
+const tasksUrl = `${settings.urls.composer}/admin/tasks`;
 
 export async function getGeneralStats() {
     const url = `${tasksUrl}/stats`;
