@@ -4,8 +4,8 @@
 Wep portal giving access to data providing the follwoing functionality:
 - Cross reference search queries
 - Detailed overview of data entries
-- Cohort management functionality
-- Cohort data download
+- Cohort management tools
+- Data export tools
 - Data visualisation
 - Data analysis
 
