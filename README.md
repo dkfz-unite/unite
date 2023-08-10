@@ -20,19 +20,19 @@ Web portal includes several components:
 ## Access
 Environment|Address|Port
 -----------|-------|----
-Host|https://localhost|433
-Docker|https://portal.unite.net|443
+Host|https://localhost|80;433
+Docker|https://portal.unite.net|80;443
 
 ## Configuration
 To configure the application, change environment variables:
 Variable|Description|Default(Local)|Default(Docker)
 --------|-----------|--------------|---------------
 ASPNETCORE_ENVIRONMENT|ASP.NET environment|Debug|Release
-UNITE_IDENTITY_HOST|Identity web api|http://localhost:5004|http://identity.unite.net
+UNITE_IDENTITY_HOST|Identity web api|http://localhost:5000|http://identity.unite.net
 UNITE_COMPOSER_HOST|Composer web api|http://localhost:5002|http://composer.unite.net
 UNITE_DONORS_FEED_HOST|Donors feed web api|http://localhost:5100|http://feed.donors.unite.net
-UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5102|http://feed.specimens.unite.net
-UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5104|http://feed.images.unite.net
+UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5102|http://feed.images.unite.net
+UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5104|http://feed.specimens.unite.net
 UNITE_GENOME_FEED_HOST|Genome feed web api|http://localhost:5106|http://feed.genome.unite.net
 
 ## Installation
@@ -94,4 +94,4 @@ Frontend source code is located in `Unite.Web/Client` folder.
 2. Install dependencies: `npm install`
 3. Run development server: `npm run serve`
 
-Composer web api proxy can be configured in vue [config](https://github.com/dkfz-unite/unite/blob/main/Unite.Web/Client/vue.config.js) file.
+Composer web api proxy can be configured in vue [config](Unite.Web/Client/vue.config.js) file.
