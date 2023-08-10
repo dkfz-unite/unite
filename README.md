@@ -35,6 +35,15 @@ UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5102|http://feed.ima
 UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5104|http://feed.specimens.unite.net
 UNITE_GENOME_FEED_HOST|Genome feed web api|http://localhost:5106|http://feed.genome.unite.net
 
+## Proxy
+Application serves as a reverse proxy and redirects requests from web portal to other protected services.
+- [api/identity](https://localhost/api/identity) -> [`UNITE_IDENTITY_HOST`]/api - identity web api
+- [api/composer](https://localhost/api/composer) -> [`UNITE_COMPOSER_HOST`]/api - composer web api
+- [api/donors-feed](https://localhost/api/donors-feed) -> [`UNITE_DONORS_FEED_HOST`]/api - donors feed web api
+- [api/images-feed](https://localhost/api/images-feed) -> [`UNITE_IMAGES_FEED_HOST`]/api - images feed web api
+- [api/specimens-feed](https://localhost/api/specimens-feed) -> [`UNITE_SPECIMENS_FEED_HOST`]/api - specimens feed web api
+- [api/genome-feed](https://localhost/api/genome-feed) -> [`UNITE_GENOME_FEED_HOST`]/api - genome feed web api
+
 ## Installation
 Application requires valid SSL certificate.
 Self signed development certificate can be used:
@@ -77,8 +86,8 @@ docker run \
 -e UNITE_IDENTITY_HOST=http://identity.unite.net \
 -e UNITE_COMPOSER_HOST=http://composer.unite.net \
 -e UNITE_DONORS_FEED_HOST=http://feed.donors.unite.net \
--e UNITE_SPECIMENS_FEED_HOST=http://feed.specimens.unite.net \
 -e UNITE_IMAGES_FEED_HOST=http://feed.images.unite.net \
+-e UNITE_SPECIMENS_FEED_HOST=http://feed.specimens.unite.net \
 -e UNITE_GENOME_FEED_HOST=http://feed.genome.unite.net \
 -d \
 unite.portal:latest
