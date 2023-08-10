@@ -28,7 +28,12 @@ To configure the application, change environment variables:
 Variable|Description|Default(Local)|Default(Docker)
 --------|-----------|--------------|---------------
 ASPNETCORE_ENVIRONMENT|ASP.NET environment|Debug|Release
+UNITE_IDENTITY_HOST|Identity web api|http://localhost:5004|http://identity.unite.net
 UNITE_COMPOSER_HOST|Composer web api|http://localhost:5002|http://composer.unite.net
+UNITE_DONORS_FEED_HOST|Donors feed web api|http://localhost:5100|http://feed.donors.unite.net
+UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5102|http://feed.specimens.unite.net
+UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5104|http://feed.images.unite.net
+UNITE_GENOME_FEED_HOST|Genome feed web api|http://localhost:5106|http://feed.genome.unite.net
 
 ## Installation
 Application requires valid SSL certificate.
@@ -69,7 +74,12 @@ docker run \
 -e ASPNETCORE_URLS="https://+:443;http://+:80" \
 -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/unite-cert.pem \
 -e ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/https/unite-key.pem \
+-e UNITE_IDENTITY_HOST=http://identity.unite.net \
 -e UNITE_COMPOSER_HOST=http://composer.unite.net \
+-e UNITE_DONORS_FEED_HOST=http://feed.donors.unite.net \
+-e UNITE_SPECIMENS_FEED_HOST=http://feed.specimens.unite.net \
+-e UNITE_IMAGES_FEED_HOST=http://feed.images.unite.net \
+-e UNITE_GENOME_FEED_HOST=http://feed.genome.unite.net \
 -d \
 unite.portal:latest
 ```
