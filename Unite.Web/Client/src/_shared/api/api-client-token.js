@@ -1,7 +1,7 @@
 import axios from "axios";
 import settings from "@/settings";
 
-const tokenUrl = `${settings.urls.identity}/api/realm`;
+const tokenUrl = `${settings.urls.identity}/realm`;
 
 function getTokenUrl(email, provider) {
     return `${tokenUrl}/${provider}/token?email=${email}`;
