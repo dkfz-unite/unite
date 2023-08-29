@@ -1,37 +1,43 @@
 <template>
   <div class="col q-gutter-y-sm">
-    <div class="row" v-if="transcriptOptions?.length">
-      <div class="col">
-        <q-btn-group>
-          <q-select
-            label="Transcript"
-            title="Choose transcript"
-            v-model="transcriptOption"
-            :options="transcriptOptions"
-            map-options emit-value
-            filled square outlined dense options-dense
-          />
-          <q-btn
-            icon="las la-undo-alt"
-            title="Reset zoom"
-            @click="resetPlot"
-          />
-          <q-btn 
-            icon="las la-chart-bar"
-            title="Toggle stats box"
-            :class="{ 'bg-grey-3 text-blue-8': showStats }"
-            @click="toggleStats" 
-          />
-        </q-btn-group>
-      </div>
+    <div class="row q-gutter-x-sm" v-if="transcriptOptions?.length">
+      <q-btn-group>
+        <q-select
+          label="Transcript"
+          title="Choose transcript"
+          v-model="transcriptOption"
+          :options="transcriptOptions"
+          map-options emit-value
+          filled square outlined dense options-dense
+        />
+      </q-btn-group>
+
+      <q-btn-group>
+        <q-select
+          label="Grouping"
+          title="Choose grouping"
+          v-model="groupingOption"
+          :options="groupingOptions"
+          style="min-width: 150px;"
+          map-options emit-value
+          filled square outlined dense options-dense
+        />
+        <q-btn 
+          icon="las la-chart-bar"
+          title="Toggle stats box"
+          :class="{ 'bg-grey-3 text-blue-8': showStats }"
+          @click="showStats = !showStats" 
+        />
+      </q-btn-group>
     </div>
 
     <div class="row" v-if="!loading && transcriptOptions?.length">
-      <div class="col q-pa-sm">
+      <div class="col">
         <u-protein-plot 
-          ref="lolliplot" 
           v-if="plotData"
           :data="plotData"
+          :stats="showStats"
+          :grouping="grouping"
         />
       </div>
     </div>
@@ -69,21 +75,17 @@ export default {
 
       transcripts: null,
       transcript: null,
+      grouping: "impact",
       data: null
     }
   },
 
   computed: {
     transcriptOptions() {
-      if (!this.transcripts) 
-        return null;
-
-      return this.transcripts?.map(transcript => {
-        return {
-          value: transcript.id,
-          label: `${transcript.symbol} (${transcript.protein.length} aa)`
-        }
-      });
+      return this.transcripts?.map(transcript => ({
+        value: transcript.id,
+        label: `${transcript.symbol} (${transcript.protein.length} aa)`
+      }));
     },
 
     transcriptOption: {
@@ -95,6 +97,20 @@ export default {
         this.transcript = this.transcripts?.find(transcript => transcript.id == value);
         this.fetchData();
       }
+    },
+
+    groupingOptions() {
+      if (!this.transcripts) return null;
+
+      return [
+        { value: "impact", label: "Impact" },
+        { value: "consequence", label: "Consequence"}
+      ];
+    },
+
+    groupingOption: {
+      get() { return this.grouping; },
+      set(value) { this.grouping = value; }
     },
 
     plotData() {
@@ -140,15 +156,6 @@ export default {
       } finally {
         this.loading = false;
       }
-    },
-
-    resetPlot() {
-      this.$refs.lolliplot.resetPlot();
-    },
-
-    toggleStats() {
-      this.showStats = !this.showStats;
-      this.$refs.lolliplot.setShowStats(this.showStats);
     }
   }
 }

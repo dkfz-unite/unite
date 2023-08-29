@@ -1,5 +1,5 @@
 <template>
-  <div v-if="providers?.length" class="col q-pa-md">
+  <div v-if="true" class="col q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-sm-6 col-md-4 q-gutter-md">
         <!-- Header -->
@@ -12,7 +12,7 @@
 
         <q-tabs
           v-model="tab"
-          v-show="providers.length > 1"
+          v-show="providers?.length > 1"
           indicator-color="parimary" active-color="primary" dense>
           <q-tab v-for="provider in providers" :name="provider.name" :label="provider.label"/>
         </q-tabs>
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import ULoginTabDefault from "./components/LoginTabDefault";
-import ULoginTabLdap from "./components/LoginTabLdap";
+import ULoginTabDefault from "./components/LoginTabDefault.vue";
+import ULoginTabLdap from "./components/LoginTabLdap.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -55,18 +55,6 @@ export default {
     }
 
     this.tab = this.providers[0].name;
-    
-    // this.tab = this.providers.reduce((a, b) => {
-    //   const higherPrio = Math.min(a.priority, b.priority);
-    //   switch (higherPrio) {
-    //     case a.priority:
-    //       return a.name;
-    //     case b.priority:
-    //       return b.name;
-    //     default:
-    //       return "";
-    //   }
-    // });
   }
 }
 </script>

@@ -9,6 +9,10 @@ import store from "./home/store";
 import ULink from "./_shared/components/base/Link.vue";
 import ULinkExternal from "./_shared/components/base/LinkExternal.vue";
 import UArray from "./_shared/components/base/Array.vue";
+import "./styles/app.scss"
+
+import '@quasar/extras/material-icons/material-icons.css'
+import '@quasar/extras/line-awesome/line-awesome.css'
 
 createApp(HomePage)
 .use(Quasar, quasarOptions)

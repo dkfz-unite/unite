@@ -93,6 +93,18 @@ export default {
   
   emits: ["update:modelValue"],
 
+  data() {
+    return {
+      value: this.modelValue
+    }
+  },
+
+  watch: {
+    modelValue(value) {
+      this.value = value;
+    }
+  },
+
   computed: {
     from: {
       get() { return this.modelValue?.from },

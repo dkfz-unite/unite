@@ -3,7 +3,7 @@
     :label="label"
     :placeholder="placeholder"
     :disable="disable"
-    v-model="modelValue"
+    v-model="value"
     @update:modelValue="onUpdate"
     new-value-mode="add-unique"
     multiple clearable use-input use-chips
@@ -35,6 +35,18 @@ export default {
   },
 
   emits: ["update:modelValue"],
+
+  data() {
+    return {
+      value: this.modelValue
+    }
+  },
+
+  watch: {
+    modelValue(value) {
+      this.value = value;
+    }
+  },
 
   methods: {
     onUpdate(value) {

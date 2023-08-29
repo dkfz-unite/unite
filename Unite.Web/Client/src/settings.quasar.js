@@ -1,8 +1,7 @@
-import { Notify, LoadingBar } from 'quasar';
-import './styles/app.scss'
-import './styles/quasar.scss'
-import '@quasar/extras/material-icons/material-icons.css'
+import { Notify, LoadingBar } from 'quasar'
+
 import '@quasar/extras/line-awesome/line-awesome.css'
+import 'quasar/src/css/index.sass'
 
 // To be used on app.use(Quasar, { ... })
 export default {
@@ -12,5 +11,6 @@ export default {
   },
   config: {
     // notify: { }
+    // loadingBar: { }
   },
 }

@@ -2,7 +2,7 @@
   <q-select
     label="Sample"
     option-label="referenceId"
-    v-model="modelValue"
+    v-model="value"
     :options="options"
     :disable="!options?.length"
     @update:model-value="$emit('update:modelValue', modelValue)"
@@ -37,6 +37,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      value: this.modelValue
+    }
+  },
+
   mounted() {
     if (!this.modelValue) {
       var option = this.options?.length ? this.options[0] : null;
@@ -45,6 +51,10 @@ export default {
   },
 
   watch: {
+    modelValue(value) {
+      this.value = value;
+    },
+
     options(options) {
       var option = options?.length ? options[0] : null;
       this.$emit("update:modelValue", option);
