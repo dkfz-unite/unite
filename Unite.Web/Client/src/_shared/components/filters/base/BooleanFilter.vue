@@ -1,7 +1,7 @@
 <template>
   <div class="column q-pa-sm u-check-box">
     <q-checkbox
-      v-model="modelValue"
+      v-model="value"
       :label="label"
       :disable="disable"
       :toggle-indeterminate="nullable"
@@ -33,6 +33,18 @@
     },
     
     emits: ["update:modelValue"],
+
+    data() {
+      return {
+        value: this.modelValue
+      }
+    },
+
+    watch: {
+      modelValue(value) {
+        this.value = value;
+      }
+    },
 
     methods: {
       onUpdate(value) {

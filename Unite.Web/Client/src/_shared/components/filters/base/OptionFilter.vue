@@ -3,7 +3,7 @@
     :label="label"
     :disable="disable || !hasOptions"
     :options="options"
-    v-model="modelValue"
+    v-model="value"
     @update:modelValue="onUpdate"
     clearable emit-value map-options
     square outlined dense options-dense hide-dropdown-icon
@@ -35,6 +35,18 @@ export default {
   },
   
   emits: ["update:modelValue"],
+
+  data() {
+    return {
+      value: this.modelValue
+    }
+  },
+
+  watch: {
+    modelValue(value) {
+      this.value = value;
+    }
+  },
 
   computed: {
     hasOptions() {

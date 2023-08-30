@@ -128,7 +128,7 @@ export default {
 
   methods: {
     async updateFilters() {
-      if (!this.filtersCriteria.ssm.impact.length) {
+      if (!this.filtersCriteria.ssm.impact?.length) {
         this.filtersCriteria.ssm.impact = this.allowedImpacts;
       }
       await this.loadData();

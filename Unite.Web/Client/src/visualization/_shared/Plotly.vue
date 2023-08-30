@@ -34,10 +34,6 @@ export default {
     };
   },
 
-  // async mounted() {
-  //   await this.create();
-  // },
-
   async updated() {
     if (!this.created){
       await this.create();
@@ -49,11 +45,20 @@ export default {
   methods: {
     async create() {
       const plot = await Plotly.newPlot(this.id, this.data, this.layout, this.config);
+      const dragLayers = [...document.getElementsByClassName("nsewdrag")];
 
       // Interaction events
-      plot.on("plotly_click", (data) => this.$emit("click", data));
-      plot.on("plotly_hover", (data) => this.$emit("hover", data));
-      plot.on("plotly_unhover", (data) => this.$emit("unhover", data));
+      plot.on("plotly_click", (data) => {
+        this.$emit("click", data);
+      });
+      plot.on("plotly_hover", (data) => {
+        dragLayers.forEach(layer => layer.style.cursor = "pointer");
+        this.$emit("hover", data);
+      });
+      plot.on("plotly_unhover", (data) => {
+        dragLayers.forEach(layer => layer.style.cursor = "");
+        this.$emit("unhover", data);
+      });
 
       // Zoom events
       plot.on("plotly_relayout", (data) => this.onZoom(data));
@@ -63,7 +68,8 @@ export default {
     },
 
     async update() {
-      await Plotly.react(this.id, this.data, this.layout, this.config);
+      // await Plotly.react(this.id, this.data, this.layout, this.config);
+      await Plotly.react(this.id, this.data, this.layout);
     },
 
     onZoom(data) {

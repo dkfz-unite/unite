@@ -63,7 +63,6 @@
 
 <script>
 import { colors } from "quasar";
-import OncoGrid from "oncogrid";
 
 import UHistogramBarTooltip from "./tooltips/HistogramBarTooltip.vue";
 import UGridCellTolltip from "./tooltips/GridCellTooltip.vue";
@@ -71,8 +70,11 @@ import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
 import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 
 import consequences from "../../_shared/consequences.js";
+import impactsMap from "../../_shared/impacts-map.js";
+import consequencesMap from "../../_shared/consequences-map.js";
 import oncogridColors from "./oncogrid-colors.js";
 import donorTracks from "./oncogrid-tracks-donor";
+import * as d3 from "d3";
 
 export default {
   components: {
@@ -86,7 +88,7 @@ export default {
 
   data() {
     return {
-      oncogrid: null,
+      oncoGrid: null,
       showGridLines: true,
       crosshairMode: false,
       heatMapMode: false,
@@ -143,31 +145,55 @@ export default {
       this.oncoGrid = new OncoGrid(parameters);
       this.oncoGrid.setGridLines(this.showGridLines);
       this.oncoGrid.render();
+      this.addEvents();
 
-      this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
-      this.oncoGrid.on("histogramClick", this.onHistogramClick);
-      this.oncoGrid.on("gridMouseOver", this.onGridCellHover);
-      this.oncoGrid.on("gridClick", this.onGridCellClick);
-      this.oncoGrid.on("trackLegendMouseOver", this.onTrackGroupHover);
-      this.oncoGrid.on("trackMouseOver", this.onTrackCellHover);
-      this.oncoGrid.on("trackClick", this.onTrackCellClick);
+      // NOTE: These events are legacy and do not work in moder JS with Vite package manager
+      // this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
+      // this.oncoGrid.on("histogramClick", this.onHistogramClick);
+      // this.oncoGrid.on("gridMouseOver", this.onGridCellHover);
+      // this.oncoGrid.on("gridClick", this.onGridCellClick1);
+      // this.oncoGrid.on("trackLegendMouseOver", this.onTrackGroupHover);
+      // this.oncoGrid.on("trackMouseOver", this.onTrackCellHover);
+      // this.oncoGrid.on("trackClick", this.onTrackCellClick);
+    },
+
+    addEvents() {
+      const parseEvent = function(event) {
+        return {
+          target: event.target,
+          data: event.target.__data__
+        };
+      };
+
+      setTimeout(() => {
+        const itemBars = d3.selectAll("[data-domain-index]");
+        const gridCells = d3.selectAll("[data-obs-index]"); 
+        const trackCells = d3.selectAll("[data-track-data-index]");
+        const trackLabels = d3.selectAll(".og-track-group-label");
+
+        itemBars.on("mouseover", (event) => this.onItemBarHover(parseEvent(event)));
+        gridCells.on("mouseover", (event) => this.onGridCellHover(parseEvent(event)));
+        trackCells.on("mouseover", (event) => this.onTrackCellHover(parseEvent(event)));
+        trackLabels.on("mouseover", (event) => this.onTrackLabelHover(parseEvent(event)));
+
+        itemBars.on("click", (event) => this.onItemBarClick(parseEvent(event)));
+        gridCells.on("click", (event) => this.onGridCellClick(parseEvent(event)));
+        trackCells.on("click", (event) => this.onTrackCellClick(parseEvent(event)));
+      }, 0);
     },
 
     toggleGridLines() {
       this.showGridLines = !this.showGridLines;
-
       this.oncoGrid.setGridLines(this.showGridLines);
     },
 
     toggleHeatMap() {
       this.heatMapMode = !this.heatMapMode;
-
       this.oncoGrid.setHeatmap(this.heatMapMode);
     },
 
     toggleCrosshair() {
       this.crosshairMode = !this.crosshairMode;
-
       this.oncoGrid.setCrosshair(this.crosshairMode);
     },
 
@@ -184,22 +210,22 @@ export default {
       this.oncoGrid.setGridLines(this.showGridLines);
       this.oncoGrid.setCrosshair(this.crosshairMode);
       this.oncoGrid.setHeatmap(this.heatMapMode);
+      this.addEvents();
     },
 
-
-    onHistogramHover(data) {
-      let element = this.getHoverElement();
+    onItemBarHover(event) {
+      let element = event.target;
       let properties = null;
 
-      if (data.domain.x != undefined) {
+      if (event.data.x != undefined) {
         properties = [
-          { key: "Donor", value: data.domain.displayId },
-          { key: "Mutations", value: data.domain.count },
+          { key: "Donor", value: event.data.displayId },
+          { key: "Mutations", value: event.data.count },
         ];
-      } else {
+      } else if (event.data.y != undefined) {
         properties = [
-          { key: "Gene", value: data.domain.symbol },
-          { key: "Mutations", value: data.domain.count },
+          { key: "Gene", value: event.data.symbol },
+          { key: "Mutations", value: event.data.count },
         ];
       }
 
@@ -207,65 +233,64 @@ export default {
       this.targetHistogramBar = element;
     },
 
-    onHistogramClick(data) {
-      if (data.type === "donor") {
-        this.$router.push({ name: "donor", params: { id: data.domain.id }});
-      } else if (data.type === "gene") {
-        this.$router.push({ name: "gene", params: { id: data.domain.id }});
+    onItemBarClick(event) {
+      if (event.data.x != undefined) {
+        this.$router.push({ name: "donor", params: { id: event.data.id }});
+      } else if (event.data.y != undefined) {
+        this.$router.push({ name: "gene", params: { id: event.data.id }});
       }
     },
 
+    onGridCellHover(event) {
+      let element = event.target;
 
-    onGridCellHover(data) {
-      let element = this.getHoverElement();
-
-      let consequence = consequences.find(consequence => consequence.type == data.observation.consequence);
+      let donor = this.data.donors.find(donor => donor.id == event.data.donorId)?.displayId;
+      let gene = this.data.genes.find(gene => gene.id == event.data.geneId)?.symbol;
+      let impact = impactsMap.get(event.data.impact);
+      let consequence = consequencesMap.get(event.data.consequence);
 
       let properties = [
-        { key: "Donor", value: data.donor?.displayId },
-        { key: "Gene", value: data.gene?.symbol },
-        { key: "Mutation", value: data.observation?.code },
-        { key: "Consequence", value: consequence.name, color: this.getImpactColor(consequence.impact) },
+        { key: "Donor", value: donor},
+        { key: "Gene", value: gene },
+        { key: "Mutation", value: event.data?.code },
+        { key: "Impact", value: impact.name, color: impact.color },
+        { key: "Consequence", value: consequence.name, color: consequence.color },
       ];
 
       this.targetGridCellData = properties;
       this.targetGridCell = element;
     },
 
-    onGridCellClick(data) {
-      this.$router.push({ name: "ssm", params: { id: data.observation.id }});
+    onGridCellClick(event) {
+      this.$router.push({ name: "ssm", params: { id: event.data.id }});
     },
 
+    onTrackCellHover(event) {
+      let element = event.target;
 
-    onTrackGroupHover(data) {
-      var element = this.getHoverElement();
+      let donor = this.data.donors.find(donor => donor.id == event.data.id)?.displayId;
+      let key = event.data.displayName;
+      let value = event.data.type === "vitalStatus" ? event.data.value ? "Living" : "Deceased" : event.data.value;
 
-      if (data.group == "Clinical Data") {
+      let properties = [
+        { key: "Donor", value: donor },
+        { key: key, value: value }
+      ];
+
+      this.targetTrackCellData = properties;
+      this.targetTrackCell = element;
+    },
+
+    onTrackCellClick(event) {
+      this.$router.push({ name: "donor", params: { id: event.data.id, tab: "clinical" }});
+    },
+
+    onTrackLabelHover(data) {
+      var element = data.target;
+
+      if (data.target.innerHTML == "Clinical Data") {
         this.clinicalDataTrack = element;
       }
-    },
-
-    onTrackCellHover(data) {
-      var element = this.getHoverElement();
-
-      if(data.type === "donor") {
-        let properties = [{ key: "Donor", value: data.domain.displayId }];
-
-        if (data.domain.type === "age") {
-          properties.push({ key: "Age", value: data.domain.value });
-        } else if (data.domain.type === "vital") {
-          properties.push({key: "Vital status", value: data.domain.value ? "Living" : "Deceased" });
-        } else if (data.domain.type === "gender") {
-          properties.push({key: "Sex", value: data.domain.value });
-        }
-
-        this.targetTrackCellData = properties;
-        this.targetTrackCell = element;
-      }
-    },
-
-    onTrackCellClick(data) {
-      this.$router.push({ name: "donor", params: { id: data.domain.id }});
     },
 
     getDonorTrackCellColor(trackCell) {
@@ -416,5 +441,10 @@ export default {
   /* Track grid cell (hover) */
   #oncoGrid .og-track-data:hover {
     fill-opacity: 0.5;
+  }
+
+  /* Hides bug */
+  #oncoGrid .og-tooltip-oncogrid {
+    display: none;
   }
 </style>
