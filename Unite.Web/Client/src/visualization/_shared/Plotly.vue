@@ -45,18 +45,18 @@ export default {
   methods: {
     async create() {
       const plot = await Plotly.newPlot(this.id, this.data, this.layout, this.config);
-      const dragLayers = [...document.getElementsByClassName("nsewdrag")];
+      // const dragLayers = [...document.getElementsByClassName("nsewdrag")];
 
       // Interaction events
       plot.on("plotly_click", (data) => {
         this.$emit("click", data);
       });
       plot.on("plotly_hover", (data) => {
-        dragLayers.forEach(layer => layer.style.cursor = "pointer");
+        // dragLayers.forEach(layer => layer.style.cursor = "pointer");
         this.$emit("hover", data);
       });
       plot.on("plotly_unhover", (data) => {
-        dragLayers.forEach(layer => layer.style.cursor = "");
+        // dragLayers.forEach(layer => layer.style.cursor = "");
         this.$emit("unhover", data);
       });
 
