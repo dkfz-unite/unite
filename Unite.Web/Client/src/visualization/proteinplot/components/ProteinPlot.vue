@@ -96,20 +96,21 @@ export default {
     this.layout = this.getLayout();
     this.traces = this.getTraces();
     this.config = this.getConfig();
-    this.groups = this.getGroups();
+    this.groups = this.getGroupKeys();
   },
 
   async updated() {
     this.layout = this.getLayout();
     this.traces = this.getTraces();
     this.config = this.getConfig();
-    this.groups = this.getGroups();
+    this.groups = this.getGroupKeys();
   },
 
   methods: {
     onHover(data) {
       if (!data?.points?.length) return;
-      const pointData = data.points[0].data.customdata;
+      const pointIndex = data.points[0].pointIndex;
+      const pointData = data.points[0].data.customdata[pointIndex] || data.points[0].data.customdata;
 
       if (pointData?.track === this.tracks.ssm) {
         this.hoverVariantId = pointData?.id;
@@ -148,6 +149,7 @@ export default {
         xaxis1: this.getVariantsScale(),
         yaxis1: this.getFrequenciesScale(),
         yaxis2: this.getDomainsScale(),
+        shapes: this.getFrequenciesShapes(),
         barmode: "overlay",
         grid: {
           rows: 2,
@@ -180,7 +182,8 @@ export default {
         showgrid: false,
         mirror: true,
         fixedrange: true,
-        dtick: 1
+        dtick: this.data.mutations.length > 100 ? 10 :
+               this.data.mutations.length > 10 ? 5 : 1
       };
     },
 
@@ -198,6 +201,24 @@ export default {
       }
     },
 
+    getFrequenciesShapes() {
+      return this.data.mutations.map(variant => ({
+        type: "line",
+        layer: "below",
+        xref: "x1",
+        yref: "y1",
+        x0: variant.x,
+        y0: 0,
+        x1: variant.x,
+        y1: variant.y,
+        line: {
+          color: colors.getPaletteColor("grey"),
+          opacity: 0.5,
+          width: 1,
+        }
+      }));
+    },
+
     getTraces() {
       let traces = [];
 
@@ -208,88 +229,165 @@ export default {
     },
 
     getVariantsSeries() {
+      if (!this.grouping) return [];
       let series = [];
+      let groups = this.groupBy(this.data.mutations, m => this.grouping === "impact" ? m.impact : m.consequence);
 
-      this.data.mutations.forEach(variant => {
-        const consequence = consequencesMap.get(variant.consequence).name;
+      for (const [key, values] of groups) {
         series.push({
-          name: this.getVariantName(variant),
-          customdata: { track: this.tracks.ssm, id: variant.id },
+          name: this.getGroupName(key),
+          type: "scatter",
+          mode: "markers",
+          showlegend: false,
           xaxis: "x1",
           yaxis: "y1",
-          x: [variant.x, variant.x],
-          y: [0, variant.y],
-          hovertemplate: [
-            `AA: ${variant.x}<extra></extra>`, 
+          x: values.map(variant => variant.x),
+          y: values.map(variant => variant.y),
+          customdata: values.map(variant => ({track: this.tracks.ssm, id: variant.id})),
+          meta: values.map(variant => ({ variant: variant, consequence: consequencesMap.get(variant.consequence).name })),
+          hoverinfo: "text",
+          hovertext: values.map(variant => 
+            // `AA: ${variant.x}<br>` +
             `Variant: SSM${variant.id}<br>` +
             `AA Change: ${variant.aminoAcidChange}<br>` +
             `Affected Donors: ${variant.y}<br>` +
             `Imact: ${variant.impact}<br>` +
-            `Consequence: ${consequence}` +
-            "<extra></extra>"],
+            `Consequence: ${consequencesMap.get(variant.consequence).name}`),
           hoverlabel: {
             bgcolor: colors.getPaletteColor("white"),
-            bordercolor: this.getVariantColor(variant),
+            bordercolor: this.getVariantColor1(key),
             font: { color: colors.getPaletteColor("black") }
           },
           marker: {
-            size: this.currentVariantId === variant.id || this.hoverVariantId === variant.id ? 12 : 10,
-            color: this.getVariantColor(variant),
-            opacity: [0, 1],
+            size: values.map(variant => this.currentVariantId === variant.id || this.hoverVariantId === variant.id ? 12 : 10),
+            opacity: 1,
+            color: this.getVariantColor1(key),
             line: {
               color: colors.getPaletteColor("black"),
-              width: this.currentVariantId === variant.id ? 1 : 0
+              width: values.map(variant => this.currentVariantId === variant.id ? 1 : 0)
             }
           },
-          line: {
-            color: colors.getPaletteColor("grey"),
-            width: 1
-          },
-          showlegend: false
         });
-      });
+      }
+
+      // this.data.mutations.forEach(variant => {
+      //   const consequence = consequencesMap.get(variant.consequence).name;
+      //   series.push({
+      //     name: this.getVariantName(variant),
+      //     customdata: { track: this.tracks.ssm, id: variant.id },
+      //     xaxis: "x1",
+      //     yaxis: "y1",
+      //     x: [variant.x, variant.x],
+      //     y: [0, variant.y],
+      //     hovertemplate: [
+      //       `AA: ${variant.x}<extra></extra>`, 
+      //       `Variant: SSM${variant.id}<br>` +
+      //       `AA Change: ${variant.aminoAcidChange}<br>` +
+      //       `Affected Donors: ${variant.y}<br>` +
+      //       `Imact: ${variant.impact}<br>` +
+      //       `Consequence: ${consequence}` +
+      //       "<extra></extra>"],
+      //     hoverlabel: {
+      //       bgcolor: colors.getPaletteColor("white"),
+      //       bordercolor: this.getVariantColor(variant),
+      //       font: { color: colors.getPaletteColor("black") }
+      //     },
+      //     marker: {
+      //       size: this.currentVariantId === variant.id || this.hoverVariantId === variant.id ? 12 : 10,
+      //       color: this.getVariantColor(variant),
+      //       opacity: [0, 1],
+      //       line: {
+      //         color: colors.getPaletteColor("black"),
+      //         width: this.currentVariantId === variant.id ? 1 : 0
+      //       }
+      //     },
+      //     line: {
+      //       color: colors.getPaletteColor("grey"),
+      //       width: 1
+      //     },
+      //     showlegend: false
+      //   });
+      // });
 
       return series;
     },
 
     getDomainsSeries() {
-      let series = [];
-      let map = new Map();
+      if (!this.data.proteins) return [];
 
-      this.data.proteins.forEach(domain => {
-        let color = map.get(domain.id);
-        if (!color) {
-          color = randomColors.next();
-          map.set(domain.id, color);
-        }
+      let series = [];
+      let groups = this.groupBy(this.data.proteins, p => p.id);
+
+      for (const [key, values] of groups) {
+        let domainColor = randomColors.next();
+
         series.push({
-          name: domain.id,
-          customdata: { track: this.tracks.pfam, id: domain.id },
+          name: key,
           type: "bar",
           xaxis: "x1",
           yaxis: "y2",
           orientation: "h",
-          base: [domain.start],
+          base: values.map(domain => domain.start),
           width: 1,
-          x: [domain.end - domain.start],
-          y: ["Pfam"],
-          hovertemplate:
+          x: values.map(domain => domain.end - domain.start),
+          y: values.map(domain => "Pfam"),
+          customdata: values.map(domain => ({track: this.tracks.pfam, id: domain.id})),
+          hoverinfo: "text",
+          hovertext: values.map(domain => 
             `Domain: ${domain.id}<br>` + 
-            `Location: ${domain.start} - ${domain.end}<br>` +
-            `<extra></extra>`,
+            `Location: ${domain.start} - ${domain.end}<br>`),
           hoverlabel: {
             bgcolor: colors.getPaletteColor("white"),
-            bordercolor: color,
+            bordercolor: domainColor,
             font: { color: colors.getPaletteColor("black") }
           },
           marker: {
-            color: color,
-            opacity: this.hoverDomainId === domain.id ? 0.5 : 0.3,
+            color: domainColor,
+            opacity: values.map(domain => this.currentDomainId === domain.id || this.hoverDomainId === domain.id ? 0.5 : 0.3),
+            // opacity: values.map(domain => this.currentDomainId === domain.id || this.hoverDomainId === domain.id ? 0.5 : 0.3),
           },
           showlegend: false,
           showtick: false,
         });
-      });
+      }
+
+
+      // let map = new Map();
+
+      // this.data.proteins.forEach(domain => {
+      //   let color = map.get(domain.id);
+      //   if (!color) {
+      //     color = randomColors.next();
+      //     map.set(domain.id, color);
+      //   }
+      //   series.push({
+      //     name: domain.id,
+      //     customdata: { track: this.tracks.pfam, id: domain.id },
+      //     type: "bar",
+      //     xaxis: "x1",
+      //     yaxis: "y2",
+      //     orientation: "h",
+      //     base: [domain.start],
+      //     width: 1,
+      //     x: [domain.end - domain.start],
+      //     y: ["Pfam"],
+      //     hovertemplate:
+      //       `Domain: ${domain.id}<br>` + 
+      //       `Location: ${domain.start} - ${domain.end}<br>` +
+      //       `<extra></extra>`,
+      //     hoverlabel: {
+      //       bgcolor: colors.getPaletteColor("white"),
+      //       bordercolor: color,
+      //       font: { color: colors.getPaletteColor("black") }
+      //     },
+      //     marker: {
+      //       color: color,
+      //       opacity: this.hoverDomainId === domain.id ? 0.5 : 0.3,
+      //     },
+      //     showlegend: false,
+      //     showtick: false,
+      //   });
+      // });
 
       randomColors.reset();
       return series;
@@ -315,7 +413,13 @@ export default {
         : consequencesMap.get(variant.consequence).color;
     },
 
-    getGroups() {
+    getVariantColor1(group) {
+      return this.grouping === "impact" 
+        ? impactsMap.get(group)?.color
+        : consequencesMap.get(group)?.color;
+    },
+
+    getGroupKeys() {
       return this.grouping === "impact" 
         ? Array.from(this.groupBy(this.data.mutations, m => m.impact).keys()) 
         : Array.from(this.groupBy(this.data.mutations, m => m.consequence).keys());
