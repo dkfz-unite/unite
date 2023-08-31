@@ -119,7 +119,7 @@ export default {
   },
 
   mounted() {
-    this.domain = this.domains?.length ? this.domains[0] : null;
+    this.domain = this.domains?.find(domain => domain.name == this.$route.params.domain) || this.domains[0] || null;
     this.cohort = this.domain?.cohorts?.length ? this.domain.cohorts[0] : null;
   },
 
