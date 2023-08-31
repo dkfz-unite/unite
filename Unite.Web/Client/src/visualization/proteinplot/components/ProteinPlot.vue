@@ -38,7 +38,7 @@
 
 <script>
 import { colors } from "quasar";
-import randomColors from "../../_shared/random-colors";
+import RandomColors from "../../_shared/random-colors";
 import impactsMap from "../../_shared/impacts-map";
 import consequencesMap from "../../_shared/consequences-map";
 import settings from "../../_shared/settings";
@@ -96,14 +96,14 @@ export default {
     this.layout = this.getLayout();
     this.traces = this.getTraces();
     this.config = this.getConfig();
-    this.groups = this.getGroupKeys();
+    this.groups = this.getGroups();
   },
 
   async updated() {
     this.layout = this.getLayout();
     this.traces = this.getTraces();
     this.config = this.getConfig();
-    this.groups = this.getGroupKeys();
+    this.groups = this.getGroups();
   },
 
   methods: {
@@ -130,7 +130,8 @@ export default {
 
     onClick(data) {
       if (!data?.points?.length) return;
-      const pointData = data.points[0].data.customdata;
+      const pointIndex = data.points[0].pointIndex;
+      const pointData = data.points[0].data.customdata[pointIndex] || data.points[0].data.customdata;
       
       if (pointData?.track === this.tracks.ssm) {
         if (pointData.id === this.currentVariantId) return;
@@ -247,7 +248,6 @@ export default {
           meta: values.map(variant => ({ variant: variant, consequence: consequencesMap.get(variant.consequence).name })),
           hoverinfo: "text",
           hovertext: values.map(variant => 
-            // `AA: ${variant.x}<br>` +
             `Variant: SSM${variant.id}<br>` +
             `AA Change: ${variant.aminoAcidChange}<br>` +
             `Affected Donors: ${variant.y}<br>` +
@@ -255,13 +255,13 @@ export default {
             `Consequence: ${consequencesMap.get(variant.consequence).name}`),
           hoverlabel: {
             bgcolor: colors.getPaletteColor("white"),
-            bordercolor: this.getVariantColor1(key),
+            bordercolor: this.getVariantColor(key),
             font: { color: colors.getPaletteColor("black") }
           },
           marker: {
             size: values.map(variant => this.currentVariantId === variant.id || this.hoverVariantId === variant.id ? 12 : 10),
             opacity: 1,
-            color: this.getVariantColor1(key),
+            color: this.getVariantColor(key),
             line: {
               color: colors.getPaletteColor("black"),
               width: values.map(variant => this.currentVariantId === variant.id ? 1 : 0)
@@ -269,45 +269,6 @@ export default {
           },
         });
       }
-
-      // this.data.mutations.forEach(variant => {
-      //   const consequence = consequencesMap.get(variant.consequence).name;
-      //   series.push({
-      //     name: this.getVariantName(variant),
-      //     customdata: { track: this.tracks.ssm, id: variant.id },
-      //     xaxis: "x1",
-      //     yaxis: "y1",
-      //     x: [variant.x, variant.x],
-      //     y: [0, variant.y],
-      //     hovertemplate: [
-      //       `AA: ${variant.x}<extra></extra>`, 
-      //       `Variant: SSM${variant.id}<br>` +
-      //       `AA Change: ${variant.aminoAcidChange}<br>` +
-      //       `Affected Donors: ${variant.y}<br>` +
-      //       `Imact: ${variant.impact}<br>` +
-      //       `Consequence: ${consequence}` +
-      //       "<extra></extra>"],
-      //     hoverlabel: {
-      //       bgcolor: colors.getPaletteColor("white"),
-      //       bordercolor: this.getVariantColor(variant),
-      //       font: { color: colors.getPaletteColor("black") }
-      //     },
-      //     marker: {
-      //       size: this.currentVariantId === variant.id || this.hoverVariantId === variant.id ? 12 : 10,
-      //       color: this.getVariantColor(variant),
-      //       opacity: [0, 1],
-      //       line: {
-      //         color: colors.getPaletteColor("black"),
-      //         width: this.currentVariantId === variant.id ? 1 : 0
-      //       }
-      //     },
-      //     line: {
-      //       color: colors.getPaletteColor("grey"),
-      //       width: 1
-      //     },
-      //     showlegend: false
-      //   });
-      // });
 
       return series;
     },
@@ -317,6 +278,7 @@ export default {
 
       let series = [];
       let groups = this.groupBy(this.data.proteins, p => p.id);
+      let randomColors = new RandomColors();
 
       for (const [key, values] of groups) {
         let domainColor = randomColors.next();
@@ -344,52 +306,12 @@ export default {
           marker: {
             color: domainColor,
             opacity: values.map(domain => this.currentDomainId === domain.id || this.hoverDomainId === domain.id ? 0.5 : 0.3),
-            // opacity: values.map(domain => this.currentDomainId === domain.id || this.hoverDomainId === domain.id ? 0.5 : 0.3),
           },
           showlegend: false,
           showtick: false,
         });
       }
 
-
-      // let map = new Map();
-
-      // this.data.proteins.forEach(domain => {
-      //   let color = map.get(domain.id);
-      //   if (!color) {
-      //     color = randomColors.next();
-      //     map.set(domain.id, color);
-      //   }
-      //   series.push({
-      //     name: domain.id,
-      //     customdata: { track: this.tracks.pfam, id: domain.id },
-      //     type: "bar",
-      //     xaxis: "x1",
-      //     yaxis: "y2",
-      //     orientation: "h",
-      //     base: [domain.start],
-      //     width: 1,
-      //     x: [domain.end - domain.start],
-      //     y: ["Pfam"],
-      //     hovertemplate:
-      //       `Domain: ${domain.id}<br>` + 
-      //       `Location: ${domain.start} - ${domain.end}<br>` +
-      //       `<extra></extra>`,
-      //     hoverlabel: {
-      //       bgcolor: colors.getPaletteColor("white"),
-      //       bordercolor: color,
-      //       font: { color: colors.getPaletteColor("black") }
-      //     },
-      //     marker: {
-      //       color: color,
-      //       opacity: this.hoverDomainId === domain.id ? 0.5 : 0.3,
-      //     },
-      //     showlegend: false,
-      //     showtick: false,
-      //   });
-      // });
-
-      randomColors.reset();
       return series;
     },
 
@@ -407,19 +329,13 @@ export default {
         : consequencesMap.get(variant.consequence).name;
     },
 
-    getVariantColor(variant) {
-      return this.grouping === "impact" 
-        ? impactsMap.get(variant.impact).color
-        : consequencesMap.get(variant.consequence).color;
-    },
-
-    getVariantColor1(group) {
+    getVariantColor(group) {
       return this.grouping === "impact" 
         ? impactsMap.get(group)?.color
         : consequencesMap.get(group)?.color;
     },
 
-    getGroupKeys() {
+    getGroups() {
       return this.grouping === "impact" 
         ? Array.from(this.groupBy(this.data.mutations, m => m.impact).keys()) 
         : Array.from(this.groupBy(this.data.mutations, m => m.consequence).keys());
