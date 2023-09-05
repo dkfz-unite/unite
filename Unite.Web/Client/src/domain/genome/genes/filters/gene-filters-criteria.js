@@ -1,4 +1,4 @@
-import { sanitiseArray, sanitiseRange, copy } from "../../../filter-criteria-helpers";
+import { sanitiseArray, sanitiseRange, copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
 export default class GeneFiltersCriteria {
     id = [];

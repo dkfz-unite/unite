@@ -1,11 +1,11 @@
-import FilterType from "../../../filter-type";
-import ValueType from "../../../filter-value-type";
+import FilterType from "@/_shared/components/filters/filter-type";
+import ValueType from "@/_shared/components/filters/filter-value-type"
 
-import Chromosome from "../../../../../../_models/domain/genome/enums/chromosome";
-import Biotype from "../../../../../../_models/domain/genome/genes/enums/biotype";
+import Chromosome from "@/_models/domain/genome/enums/chromosome";
+import Biotype from "@/_models/domain/genome/genes/enums/biotype";
 
-import { mapOptions } from "../../../filter-options-helpers";
-import { sanitiseArray, sanitiseRange } from "../../../filter-criteria-helpers";
+import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
+import { sanitiseArray, sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
 
 const filters = [
   {

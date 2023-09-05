@@ -54,7 +54,7 @@ import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vu
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import specimenTabMixin from "./specimen-tab-mixin";
-import filters from "@/_shared/components/filters/domain/genome/variants/ssm/ssm-filters";
+import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
 
 import api from "../../api/specimen";
 

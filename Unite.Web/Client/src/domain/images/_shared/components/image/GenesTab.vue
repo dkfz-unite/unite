@@ -54,7 +54,7 @@ import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue"
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import imageTabMixin from "./image-tab-mixin";
-import filters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
+import filters from "@/domain/genome/genes/filters/gene-filters";
 
 import api from "../../api/image";
 

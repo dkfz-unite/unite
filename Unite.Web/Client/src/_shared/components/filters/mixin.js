@@ -2,23 +2,22 @@ import UCriteriaFilters from "./CriteriaFilters.vue";
 import UFiltersButton from "./FiltersButton.vue";
 import UFiltersButtonHide from "./FiltersButtonHide.vue";
 import UFiltersButtonClear from "./FiltersButtonClear.vue";
-
 import FiltersCriteria from "./filters-criteria";
 import FiltersContext from "./filters-context";
-import donorFilters from "./domain/donors/donor-filters";
-import donorDataFilters from "./domain/donors/donor-data-filters";
-import mriFilters from "./domain/images/mris/mri-filters";
-import imageDataFilters from "./domain/images/image-data-filters";
-import tissueFilters from "./domain/specimens/tissues/tissue-filters";
-import cellFilters from "./domain/specimens/cells/cell-filters";
-import organoidFilters from "./domain/specimens/organoids/organoid-filters";
-import xenograftFilters from "./domain/specimens/xenografts/xenograft-filters";
-import specimenDataFilters from "./domain/specimens/specimen-data-filters";
-import geneFilters from "./domain/genome/genes/gene-filters";
-import ssmFilters from "./domain/genome/variants/ssm/ssm-filters";
-import cnvFilters from "./domain/genome/variants/cnv/cnv-filters";
-import svFilters from "./domain/genome/variants/sv/sv-filters";
-import oncogridFilters from "./analysis/oncogrid/oncogrid-filters";
+import donorFilters from "@/domain/donors/filters/donor-filters";
+import donorDataFilters from "@/domain/donors/filters/donor-data-filters";
+import mriFilters from "@/domain/images/mris/filters/mri-filters";
+import imageDataFilters from "@/domain/images/_shared/filters/image-data-filters";
+import tissueFilters from "@/domain/specimens/tissues/filters/tissue-filters";
+import cellFilters from "@/domain/specimens/cells/filters/cell-filters";
+import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
+import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
+import specimenDataFilters from "@/domain/specimens/_shared/filters/specimen-data-filters";
+import geneFilters from "@/domain/genome/genes/filters/gene-filters";
+import ssmFilters from "@/domain/genome/variants/ssms/filters/ssm-filters";
+import cnvFilters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
+import svFilters from "@/domain/genome/variants/svs/filters/sv-filters";
+import oncogridFilters from "@/visualization/oncogrid/filters/oncogrid-filters";
 
 const models = ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm", "cnv", "sv", "oncogrid"];
 

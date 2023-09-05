@@ -53,7 +53,7 @@ import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/variants/SVsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
-import filters from "@/_shared/components/filters/domain/genome/variants/sv/sv-filters";
+import filters from "@/domain/genome/variants/svs/filters/sv-filters";
 
 import api from "../api";
 

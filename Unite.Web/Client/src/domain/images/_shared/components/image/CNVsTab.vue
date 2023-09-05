@@ -54,7 +54,7 @@ import UDataTable from "@/domain/_shared/components/genome/variants/CNVsTable.vu
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import imageTabMixin from "./image-tab-mixin";
-import filters from "@/_shared/components/filters/domain/genome/variants/cnv/cnv-filters";
+import filters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
 
 import api from "../../api/image";
 

@@ -42,7 +42,7 @@ import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "@/domain/_shared/components/images/MRIsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
-import filters from "@/_shared/components/filters/domain/images/mris/mri-filters";
+import filters from "@/domain/images/mris/filters/mri-filters";
 
 import api from "../api";
 

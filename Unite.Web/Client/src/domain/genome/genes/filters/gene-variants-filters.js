@@ -1,4 +1,4 @@
-import FilterType from "../../../filter-type";
+import FilterType from "@/_shared/components/filters/filter-type";
 
 const filters = [
   {
