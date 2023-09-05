@@ -6,13 +6,11 @@ class SearchPageStore {
 	namespaced = true;
 
 	state = () => {};
-	getters = {};
-	actions = {};
+	getters = searchPageGetters;
+	actions = searchPageActions;
 
 	constructor(domain = null) {
 		this.state = () => new SearchPageState(domain);
-		this.getters = searchPageGetters;
-		this.actions = searchPageActions;
 	}
 }
 

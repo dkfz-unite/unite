@@ -21,4 +21,6 @@ export default class DomainNames {
   static Cnv = "cnv";
   static Svs = "svs";
   static Sv = "sv";
+
+  static WithCohorts = [this.Donors, this.Mris, this.Tissues, this.Cells, this.Organoids, this.Xenografts, this.Genes, this.Ssms, this.Cnvs, this.Svs];
 };

@@ -49,17 +49,10 @@ const mixin = {
   },
 
   mounted() {
-    if (this.state?.domain) {
-      this.$store.dispatch(`${this.state.domain}/loadCohorts`);
-    }
-
     this.loadData();
   },
 
   unmounted() {
-    if (this.state?.domain) {
-      this.$store.dispatch(`${this.state.domain}/saveCohorts`);
-    }
   },
 
   methods: {
@@ -95,41 +88,12 @@ const mixin = {
     },
 
     async loadData() {
-      if (this.state?.domain) {
-        return await this.loadDataUsingStore();
-      } else {
-        return await this.loadDataUsingApi();
-      }
-      // try {
-      //   this.loading = true;
-      //   await this.$store.dispatch(`${this.state.domain}/search`);
-      //   // let data = await this.fetchData(this.filtersCriteria.toSearchCriteria());
-      //   // this.rows = data ? data.rows : [];
-      //   // this.rowsTotal = data ? data.total : 0;
-      // } catch (error) {
-      //   // this.rows = [];
-      //   // this.rowsTotal = 0;
-      // } finally {
-      //   this.loading = false;
-      // }
-    },
-
-    async loadDataUsingStore() {
       try {
         this.loading = true;
-        await this.$store.dispatch(`${this.state.domain}/search`);
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    async loadDataUsingApi() {
-      try {
-        this.loading = true;
-        const data = await this.fetchData(this.filtersCriteria.toSearchCriteria());
+        let data = await this.fetchData(this.filtersCriteria.toSearchCriteria());
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
-      } catch {
+      } catch (error) {
         this.rows = [];
         this.rowsTotal = 0;
       } finally {

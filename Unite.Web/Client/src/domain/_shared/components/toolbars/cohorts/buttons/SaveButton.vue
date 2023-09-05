@@ -103,11 +103,11 @@ export default {
       const domainName = this.domain;
       const cohortData = {
         name: this.name.value,
+        date: new Date(),
         description: this.description.value,
         criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
       };
-      // this.$store.dispatch(domainName + "/addCohort", cohortData);
-      this.$store.dispatch("filters/addCohort", { domainName, cohortData });
+      this.$store.dispatch(domainName + "/addCohort", cohortData);
     },
 
     onClose() {

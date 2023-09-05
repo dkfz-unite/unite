@@ -1,32 +1,29 @@
-import FiltersContext from "../components/filters/filters-context.js";
-import FiltersCriteria from "../components/filters/filters-criteria.js";
+import searchTabActions from "./search-tab-actions.js";
 
 const actions = {
-  clear({state}) {
-    state.filtersCriteria = new FiltersCriteria();
-    state.filtersContext = new FiltersContext();
-    state.rows = [];
-    state.rowsTotal = 0;
-    state.rowsSelected = [];
+  ...searchTabActions,
+
+  getCohort({state, getters}, name) {
+    return state.cohorts?.find(cohort => cohort.name == name);
   },
 
   addCohort({state, getters, dispatch}, data) {
     state.cohorts.push(data);
+    dispatch("saveCohorts");
   },
 
   deleteCohort({state, getters, dispatch}, name) {
     state.cohorts = state.cohorts.filter(cohort => cohort.name !== name);
+    dispatch("saveCohorts");
   },
 
-  //TODO: rename to loadCohorts
-  initialize({state, getters}) {
+  loadCohorts({state, getters}) {
     const json = localStorage.getItem(getters.namespace);
     const cohorts = json ? JSON.parse(json) : [];
     state.cohorts = cohorts;
   },
 
-  //TODO: rename to saveCohorts
-  dispose({state, getters}) {
+  saveCohorts({state, getters}) {
     if (state.cohorts?.length) {
       const json = JSON.stringify(state.cohorts);
       localStorage.setItem(getters.namespace, json);

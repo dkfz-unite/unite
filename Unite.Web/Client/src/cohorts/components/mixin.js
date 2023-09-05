@@ -4,15 +4,13 @@ const mixin = {
       type: Array,
       required: true
     },
-
     domain: {
       type: Object,
-      default: () => null
+      default: null
     },
-
     cohort: {
       type: Object,
-      default: () => null
+      default: null
     }
   },
 
@@ -20,47 +18,45 @@ const mixin = {
 
   data() {
     return {
-      tabs: this.domains,
-      tab: this.domain?.name || this.domains[0].name,
-      item: this.cohort?.name || this.domains[0].cohorts[0].name
+      tab: this.domain?.name || null,
+      item: this.cohort?.name || null
     };
   },
 
   watch: {
     domains(value) {
-      this.tabs = value;
-      this.tab = null;
-      this.item = null;
     },
 
     domain(value) {
-      this.tab = value?.name;
+      this.tab = value.name;
     },
 
     cohort(value) {
-      this.item = value?.name;
+      this.item = value.name;
     },
 
     tab(value) {
-      let domain = this.domains.find(domain => domain.name == value);
-      if (!domain && this.domains.length) {
-        domain = this.domains.slice(-1)[0];
-        this.tab = domain.name;
-      }
-      let cohort = domain.cohorts[0];
+      const domain = this.domains.find(domain => domain.name == value) || this.domains[0] || null;
       this.$emit("update:domain", domain);
-      this.$emit("update:cohort", cohort);
     },
 
     item(value) {
-      const domain = this.domains.find(domain => domain.name == this.tab);
-      const cohort = domain.cohorts.find(cohort => cohort.name == value);
+      const domain = this.domains.find(domain => domain.name == this.tab) || this.domains[0] || null;
+      const cohort = domain?.cohorts.find(cohort => cohort.name == value) || domain.cohorts[0] || null;
       this.$emit("update:cohort", cohort);
     }
   },
 
+  mounted() {
+    // console.log("mounted");
+  },
+
+  updated() {
+    // console.log("updated");
+  },
+
   methods: {
-    getIcon(domain) {
+    getDomainIcon(domain) {
       switch (domain) {
         case "donors": return "las la-user-circle";
         case "mris": return "las la-x-ray";
@@ -76,7 +72,7 @@ const mixin = {
       }
     },
 
-    getBadgeColor(domain) {
+    getDomainBadgeColor(domain) {
       return domain == this.tab
         ? "primary"
         : "grey-5";

@@ -107,7 +107,7 @@ export default class FiltersCriteria {
     for (const property in this) {
       if (Object.hasOwnProperty.call(this, property)) {
         const value = this[property];
-        if (value.copy != null) {
+        if (value?.copy != null) {
           criteria[property] = value.copy();
         }
       }

@@ -33,7 +33,7 @@ import { exportFile } from "quasar";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
-  props: ["identity", "domain", "cohort"],
+  props: ["domain", "cohort"],
 
   computed: {
     clipboardWriteAvailable() {
@@ -48,7 +48,8 @@ export default {
         const content = JSON.stringify(this.getContent());
         const options = { mimeType: "application/json" };
         exportFile(name, content, options);
-      } catch {
+      } catch (error) {
+        console.log(error);
         this.notifyError("Couldn't export filters");
       }
     },
@@ -85,11 +86,11 @@ export default {
 
     getContent() {
       const domain = this.domain.name;
-      const criteria = new FiltersCriteria(this.cohort.criteria).copy();
+      const criteria = new FiltersCriteria(this.cohort.criteria);
 
       return {
         domain: domain,
-        criteria: criteria
+        criteria: criteria.copy()
       };
     }
   }

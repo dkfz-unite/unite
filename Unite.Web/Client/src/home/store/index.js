@@ -13,6 +13,7 @@ import SvStore from "@/domain/genome/variants/sv/store";
 import FiltersStore from "@/cohorts/store";
 import OncogridStore from "@/visualization/oncogrid/store";
 import SearchPageStore from "@/_shared/store/search-page-store";
+import DomainStore from "@/domain/_shared/store/domain-store";
 
 const store = createStore({
   modules: {
@@ -20,25 +21,25 @@ const store = createStore({
     rightDrawer: rightDrawerModule,
     identity: identityModule,
     donor: new DonorStore(),
-    donors: new SearchPageStore("donors"),
+    donors: new DomainStore("donors", "donors"),
     mri: new ImageStore(),
-    mris: new SearchPageStore("mris"),
+    mris: new DomainStore("mris", "images/mri"),
     tissue: new SpecimenStore(),
-    tissues: new SearchPageStore("tissues"),
+    tissues: new DomainStore("tissues", "specimens/tissue"),
     cell: new SpecimenStore(),
-    cells: new SearchPageStore("cells"),
+    cells: new DomainStore("cells", "specimens/cellline"),
     organoid: new SpecimenStore(),
-    organoids: new SearchPageStore("organoids"),
+    organoids: new DomainStore("organoids", "specimens/organoid"),
     xenograft: new SpecimenStore(),
-    xenografts: new SearchPageStore("xenografts"),
+    xenografts: new DomainStore("xenografts", "specimens/xenograft"),
     gene: new GeneStore(),
-    genes: new SearchPageStore("genes"),
+    genes: new DomainStore("genes", "genes"),
     ssm: new SsmStore(),
-    ssms: new SearchPageStore("ssms"),
+    ssms: new DomainStore("ssms", "variants/ssm"),
     cnv: new CnvStore(),
-    cnvs: new SearchPageStore("cnvs"),
+    cnvs: new DomainStore("cnvs", "variants/cnv"),
     sv: new SvStore(),
-    svs: new SearchPageStore("svs"),
+    svs: new DomainStore("svs", "variants/sv"),
     filters: new FiltersStore(),
     oncogrid: new OncogridStore()
   },

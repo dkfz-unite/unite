@@ -47,6 +47,7 @@
 </template>
 
 <script>
+// TODO: pass service base url ot api to STORE
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";

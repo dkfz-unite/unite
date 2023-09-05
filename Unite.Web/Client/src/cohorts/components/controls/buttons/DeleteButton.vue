@@ -10,16 +10,15 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   props: ["domain", "cohort"],
 
-  methods: {
-    ...mapActions("filters", ["deleteCohort"]),
+  emits: ["click"],
 
+  methods: {
     onDelete() {
-      this.deleteCohort({ domainName: this.domain.name, cohortName: this.cohort.name });
+      this.$store.dispatch(`${this.domain.name}/deleteCohort`, this.cohort.name);
+      this.$emit("click");
     }
   }
 }

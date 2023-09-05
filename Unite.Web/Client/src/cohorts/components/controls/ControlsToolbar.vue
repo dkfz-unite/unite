@@ -1,31 +1,30 @@
 <template>
   <div class="row">
-    <u-export-button  
+    <u-export-button
+      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
-      class="q-px-sm"
     />
 
-    <u-show-button 
+    <u-show-button
+      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
-      class="q-px-sm"
     />
 
-    <u-download-button 
-      v-if="canDownload"
+    <u-download-button
+      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
-      class="q-px-sm"
     />
 
     <!-- <q-separator vertical /> -->
 
-    <u-delete-buttomn 
+    <u-delete-buttomn
+      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
-      class="q-px-sm"
-      @deleted="$emit('deleted')" 
+      @click="$emit('deleted')" 
     />
   </div>
 </template>
@@ -35,7 +34,6 @@ import UShowButton from "./buttons/ShowButton.vue";
 import UExportButton from "./buttons/ExportButton.vue";
 import UDownloadButton from "./buttons/DownloadButton.vue";
 import UDeleteButtomn from "./buttons/DeleteButton.vue";
-import DomainNames from "@/_models/domain/domain-names.js";
 
 export default {
   components: {
@@ -58,25 +56,5 @@ export default {
   },
 
   emits: ["deleted"],
-
-  computed: {
-    canDownload() {
-      const domains = [
-        DomainNames.Donors, 
-        DomainNames.Mris, 
-        DomainNames.Cts, 
-        DomainNames.Tissues, 
-        DomainNames.Cells, 
-        DomainNames.Organoids, 
-        DomainNames.Xenografts,
-        DomainNames.Genes,
-        DomainNames.Ssms,
-        DomainNames.Cnvs,
-        DomainNames.Svs
-      ];
-
-      return domains.includes(this.domain?.name);
-    }
-  }
 }
 </script>

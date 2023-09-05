@@ -21,13 +21,24 @@
         <div>
           <span class="text-caption q-gutter-x-lg">
             <span class="text-weight-bold">{{$helpers.content.toDateTimeString(cohort.date)}}</span>
-            <span class="text-weight-bold" v-if="cohort.size != null">{{cohort.size }} rows of data</span>
+            <span class="text-weight-bold" v-if="cohort.data != null">{{cohort.data.total }} rows of data</span>
           </span>
         </div>
       </div>
     </div>
     
-    
+    <q-separator v-if="cohort.data" />
+
+    <!-- Sub Header -->
+    <div v-if="cohort.data" class="row q-pa-sm">
+      <div class="col">
+        <div class="row">
+          <span class="text-subtitle1 text-weight-medium">Available data</span>
+        </div>
+        <u-cohort-data :data="cohort.data" />
+      </div>
+    </div>
+
     <q-separator v-if="cohort.criteria" />
 
     <!-- Filters -->
@@ -140,8 +151,8 @@
 </template>
 
 <script>
-import UFiltersData from "./data/FiltersData.vue";
-
+import UCohortData from "./data/CohortData.vue";
+import UFiltersData from "./filters/FiltersData.vue";
 import FilterType from "@/_shared/components/filters/filter-type";
 import donorFilters from "@/_shared/components/filters/domain/donors/donor-filters";
 import mriFilters from "@/_shared/components/filters/domain/images/mris/mri-filters";
@@ -156,6 +167,7 @@ import svFilters from "@/_shared/components/filters/domain/genome/variants/sv/sv
 
 export default {
   components: {
+    UCohortData,
     UFiltersData
   },
 
@@ -163,6 +175,10 @@ export default {
     cohort: {
       type: Object,
       required: true
+    },
+    data: {
+      type: Object,
+      default: () => null
     }
   },
 
