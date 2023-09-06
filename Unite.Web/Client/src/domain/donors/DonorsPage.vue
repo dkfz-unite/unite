@@ -55,6 +55,7 @@
           @update:size="updateSize">
           <template #header-right>
             <div class="row q-gutter-x-xs">
+              <u-upload-button />
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
               <u-oncogrid-link :mode="domain" :disable="!rowsTotal" />
@@ -77,6 +78,7 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import UUploadButton from "./components/UploadButton.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
 import api from "./api";
@@ -91,7 +93,8 @@ export default {
     UFiltersToolbar,
     UCohortsToolbar,
     UOncogridLink,
-    USearchBar
+    USearchBar,
+    UUploadButton
   },
 
   mixins: [tablePageMixin],
