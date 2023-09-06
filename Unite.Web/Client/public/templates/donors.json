@@ -1,35 +1,35 @@
 [
   {
-      "id": "",
-      "mtaProtected": true,
+      "donor_id": "",
+      "mta": true,
       "clinicalData": {
-          "Sex": "Male/Female/Other",
+          "gender": "Male/Female/Other",
           "age": 0,
           "diagnosis": "",
-          "diagnosisDate": "1970-01-01T00:00:00",
-          "primarySite": "",
+          "diagnosis_date": "1970-01-01T00:00:00",
+          "primary_site": "",
           "localization": "",
-          "vitalStatus": true,
-          "vitalStatusChangeDate": "1970-01-01T00:00:00",
-          "vitalStatusChangeDay": 0,
-          "progressionStatus": false,
-          "progressionStatusChangeDate": "1970-01-01T00:00:00",
-          "progressionStatusChangeDay": 0,
-          "kpsBaseline": 0,
-          "steroidsBaseline": true
+          "vital_status": true,
+          "vital_status_change_date": "1970-01-01T00:00:00",
+          "vital_status_change_day": 0,
+          "progression_status": false,
+          "progression_status_change_date": "1970-01-01T00:00:00",
+          "progression_status_change_day": 0,
+          "kps_baseline": 0,
+          "steroids_baseline": true
       },
       "treatments": [
           {
               "therapy": "",
               "details": "",
-              "startDate": "1970-01-01T00:00:00",
-              "startDay": 0,
-              "endDate": "1970-01-01T00:00:00",
-              "durationDays": 0,
+              "start_date": "1970-01-01T00:00:00",
+              "start_day": 0,
+              "end_date": "1970-01-01T00:00:00",
+              "duration_days": 0,
               "results": ""
           }
       ],
-      "workPackages": [
+      "work_packages": [
           ""
       ],
       "studies": [
