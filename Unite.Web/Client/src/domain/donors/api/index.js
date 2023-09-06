@@ -25,7 +25,7 @@ export async function data(data, criteria) {
 
 export async function uploadDonors(data) {
   const url = donorsUploadTsv;
-  return await client.post(url, data);
+  return await client.post(url, data, { headers: {'Content-Type': 'text/plain'} });
 }
 
 export default {
