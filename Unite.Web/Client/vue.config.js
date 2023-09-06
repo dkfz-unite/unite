@@ -17,12 +17,12 @@ module.exports = {
   ],
   devServer: {
     proxy: {
-      "/identity": { target: "http://127.0.0.1:5004", pathRewrite: { '^/identity': '' } },
-      "/composer": { target: "http://127.0.0.1:5002", pathRewrite: { '^/composer': '' } },
-      "/donors-feed": {target: "http://127.0.0.1:5100", pathRewrite: { '^/donors-feed': '' } },
-      "/specimens-feed": { target: "http://127.0.0.1:5102", pathRewrite: { '^/specimens-feed': '' } },
-      "/images-feed": { target: "http://127.0.0.1:5104", pathRewrite: { '^/images-feed': '' } },
-      "/genome-feed": { target: "http://127.0.0.1:5106", pathRewrite: { '^/genome-feed': '' } }
+      "/api/identity": { target: "http://127.0.0.1:5000", pathRewrite: { '^/api/identity': 'api' } },
+      "/api/composer": { target: "http://127.0.0.1:5002", pathRewrite: { '^/api/composer': 'api' } },
+      "/api/donors-feed": {target: "http://127.0.0.1:5100", pathRewrite: { '^/api/donors-feed': 'api' } },
+      "/api/images-feed": { target: "http://127.0.0.1:5102", pathRewrite: { '^/api/images-feed': 'api' } },
+      "/api/specimens-feed": { target: "http://127.0.0.1:5104", pathRewrite: { '^/api/specimens-feed': 'api' } },
+      "/api/genome-feed": { target: "http://127.0.0.1:5106", pathRewrite: { '^/api/genome-feed': 'api' } }
     }
   }
 }

@@ -405,3 +405,5 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 Unite.Web/Client/dist
+
+.vscode/*

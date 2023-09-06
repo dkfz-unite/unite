@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const variantUrl = `${settings.urls.composer}/api/variant`;
+const variantUrl = `${settings.urls.composer}/variant`;
 
 async function get(id){
   let url = `${variantUrl}/${id}`;

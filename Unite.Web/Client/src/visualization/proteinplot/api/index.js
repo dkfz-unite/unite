@@ -2,9 +2,9 @@ import settings from "@/settings";
 import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const geneUrl = `${settings.urls.composer}/api/gene`;
-const variantUrl = `${settings.urls.composer}/api/variant`;
-const lolliplotUrl = `${settings.urls.composer}/api/lolliplot`;
+const geneUrl = `${settings.urls.composer}/gene`;
+const variantUrl = `${settings.urls.composer}/variant`;
+const lolliplotUrl = `${settings.urls.composer}/lolliplot`;
 
 /**
  * Retrieves protein plot data for given transcript

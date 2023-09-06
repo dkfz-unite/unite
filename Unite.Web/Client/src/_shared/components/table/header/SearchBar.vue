@@ -1,6 +1,6 @@
 <template>
   <q-input
-    v-model="modelValue"
+    v-model="value"
     @update:modelValue="onUpdate"
     placeholder="Search" 
     debounce="300" 
@@ -22,6 +22,18 @@ export default {
   },
 
   emits: ["update:modelValue"],
+
+  data() {
+    return {
+      value: this.modelValue
+    }
+  },
+
+  watch: {
+    modelValue(value) {
+      this.value = value;
+    }
+  },
 
   methods: {
     onUpdate(value) {

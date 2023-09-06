@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const geneUrl = `${settings.urls.composer}/api/gene`;
+const geneUrl = `${settings.urls.composer}/gene`;
 
 async function get(id){
   let url = `${geneUrl}/${id}`;

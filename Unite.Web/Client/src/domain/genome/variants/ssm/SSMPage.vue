@@ -67,7 +67,7 @@ import UDonorsTab from "./components/DonorsTab.vue";
 import tabPageMixin from "../../../_shared/tab-page-mixin";
 
 import DomainNames from "@/_models/domain/domain-names";
-import api from "./api";
+import api from "../_shared/api/variant";
 
 export default {
   components:{

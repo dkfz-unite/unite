@@ -9,7 +9,7 @@
     
     <q-menu max-height="200px">
       <q-list style="width: 250px">
-        <q-item :to="{ name: 'cohorts' }" clickable v-close-popup>
+        <q-item :to="{ name: 'cohorts', params: { domain: domain} }" clickable v-close-popup>
           <q-item-section>
             Show saved cohorts
           </q-item-section>

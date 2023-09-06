@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const specimensUrl = `${settings.urls.composer}/api/specimens`;
+const specimensUrl = `${settings.urls.composer}/specimens`;
 
 async function search(type, criteria) {
   let url = `${specimensUrl}/${type}`;

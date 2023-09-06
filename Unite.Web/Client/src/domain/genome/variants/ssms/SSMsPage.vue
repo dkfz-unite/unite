@@ -77,7 +77,7 @@ import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/Cohort
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-import api from "./api";
+import api from "../_shared/api/variants";
 
 export default {
   components: {

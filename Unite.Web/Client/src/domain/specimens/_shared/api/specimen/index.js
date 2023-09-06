@@ -2,8 +2,8 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const specimenUrl = `${settings.urls.composer}/api/specimen`;
-const specimensFeedUrl = `${settings.urls.specimens}/api`;
+const specimenUrl = `${settings.urls.composer}/specimen`;
+const specimensFeedUrl = `${settings.urls.specimens}`;
 
 async function get(id){
   let url = `${specimenUrl}/${id}`;

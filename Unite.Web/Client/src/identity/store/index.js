@@ -15,7 +15,8 @@ const module = {
         state.providers = await api.getProviders();
         return null;
       } catch (error) {
-        return error.status;
+        state.providers = null;
+        return error?.status || error;
       }
     },
 

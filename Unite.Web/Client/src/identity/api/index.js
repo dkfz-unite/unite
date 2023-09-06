@@ -3,9 +3,9 @@ import tokenHelpers from "@/_shared/helpers/token-helpers";
 import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const providersUrl = `${settings.urls.identity}/api/providers`;
-const accountUrl = `${settings.urls.identity}/api/account`;
-const identityUrl = `${settings.urls.identity}/api/realm`;
+const providersUrl = `${settings.urls.identity}/providers`;
+const accountUrl = `${settings.urls.identity}/account`;
+const identityUrl = `${settings.urls.identity}/realm`;
 
 function getIdentityProvider() {
   const token = tokenHelpers.get();

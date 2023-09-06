@@ -1,190 +1,371 @@
 <template>
-  <div class="col" v-if="data">
-    <u-mutation-tooltip :target="targetMutation" :data="targetMutationData" />
-    <u-protein-domain-tooltip :target="targetProteinDomain" :data="targetProteinDomainData" />
-
+  <div class="col">
     <div class="row">
-      <div class="col-12">
-        <div class="q-pa-sm">
-          <div id="lolliplot" />
-        </div>
+      <div class="col">
+        <q-card class="q-ma-xs">
+          <u-plotly
+            :data="traces" 
+            :layout="layout" 
+            :config="config"
+            @hover="onHover"
+            @unhover="onUnhover"
+            @click="onClick" 
+          />
+        </q-card>
+      </div>
+      <div v-if="stats" class="col-2">
+        <q-card v-if="grouping" class="q-ma-xs q-px-sm">
+          <q-card-section class="q-py-sm">
+            <div class="text-h6"> {{ this.grouping === "impact" ? "Impacts" : "Consequences" }}</div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <template v-if="groups?.length">
+              <div v-for="group in groups" class="row items-center q-gutter-x-sm">
+                <div style="width: 10px; height: 10px;" :style="{ backgroundColor: getGroupColor(group) }"></div>
+                <div>{{ getGroupName(group) }}</div>
+              </div>
+            </template>
+            <template v-else>
+              <div class="text-body">No mutations affecting protein.</div>
+            </template>
+          </q-card-section>
+        </q-card>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import * as d3 from "d3v4";
-import Lolliplot from "@oncojs/lolliplot";
-import UMutationTooltip from "./tooltips/MutationTooltip.vue";
-import UProteinDomainTooltip from "./tooltips/ProteinDomainTooltip.vue";
-import consequences from "../../_shared/consequences.js";
+import { colors } from "quasar";
+import RandomColors from "../../_shared/random-colors";
+import impactsMap from "../../_shared/impacts-map";
+import consequencesMap from "../../_shared/consequences-map";
+import settings from "../../_shared/settings";
+import UPlotly from "../../_shared/Plotly.vue";
 
 export default {
   components: {
-    UMutationTooltip,
-    UProteinDomainTooltip
+    UPlotly
   },
 
-  props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      required: true
+    },
+    stats: {
+      type: Boolean,
+      default: true
+    },
+    grouping: {
+      type: String,
+      default: "impact",
+      validator: value => ["impact", "consequence"].includes(value)
+    }
+  },
+
+  setup() {
+    return {
+      tracks: {
+        ssm: "ssm",
+        pfam: "pfam"
+      }
+    }
+  },
 
   data() {
     return {
-      lolliplot: this.Lolliplot,
-      showStats: true,
+      groups: null,
+      groupsToHide: null,
+      maxX: this.data.transcript.protein.length,
+      maxY: Math.max(...this.data.mutations.map(m => m.y)) + 1,
 
-      targetMutation: false,
-      targetMutationData: null,
-      targetProteinDomain: false,
-      targetProteinDomainData: null
+      currentVariantId: this.data?.mutation?.ssm?.id,
+      hoverVariantId: null,
+      currentDomainId: null,
+      hoverDomainId: null,
+
+      traces: null,
+      layout: null,
+      config: null
     };
   },
 
-  computed: {
-    screenWidth() {
-      return this.$q.screen.width;
-    }
-  },
-
-  watch: {
-    screenWidth() {
-      this.initializePlot();
-    }
-  },
-
   async mounted() {
-    this.initializePlot();
+    this.layout = this.getLayout();
+    this.traces = this.getTraces();
+    this.config = this.getConfig();
+    this.groups = this.getGroups();
+  },
+
+  async updated() {
+    this.layout = this.getLayout();
+    this.traces = this.getTraces();
+    this.config = this.getConfig();
+    this.groups = this.getGroups();
   },
 
   methods: {
-    initializePlot() {
-      d3.select("#lolliplot").html(null);
+    onHover(data) {
+      if (!data?.points?.length) return;
+      const pointIndex = data.points[0].pointIndex;
+      const pointData = data.points[0].data.customdata[pointIndex] || data.points[0].data.customdata;
 
-      let width = d3.select("#lolliplot").node().clientWidth;
-      let height = this.$q.screen.height * 0.55;
+      if (pointData?.track === this.tracks.ssm) {
+        this.hoverVariantId = pointData?.id;
+      } else if (pointData?.track === this.tracks.pfam) {
+        this.hoverDomainId = pointData?.id;
+      }
 
-      let args = {
-        d3: d3,
-        selector: "#lolliplot",
-        width: width < 1000 ? 1000 : width,
-        height: height < 300 ? 300 : height,
-        hideStats: !this.showStats,
-        statsBoxWidth: this.showStats ? 300 : 0,
-        data: this.data,
-        domainWidth: this.data.transcript.protein.length,
-        mutationId: this.data.mutation.id,
+      this.traces = this.getTraces();
+    },
 
-        onMutationClick: this.onMutationClick,
-        onMutationMouseover: this.onMutationHover,
-        onProteinMouseover: this.onProteinDomainHover,
+    onUnhover(data) {
+      this.hoverVariantId = null;
+      this.hoverDomainId = null;
 
-        onInit: function() {
-          // Remove minimap label
-          d3.selectAll("text")
-            .filter(function() {
-              let element = d3.select(this);
-              let matches = element.attr("class") == "minimap-label";
-              return matches;
-            })
-            .remove();
+      this.traces = this.getTraces();
+    },
 
-          // Remove domains hint text
-          d3.selectAll("text")
-            .filter(function() {
-              let element = d3.select(this);
-              let matches = element.text().startsWith("This track represents");
-              return matches;
-            })
-            .text("Canonical protein pfam domains");
-        }
+    onClick(data) {
+      if (!data?.points?.length) return;
+      const pointIndex = data.points[0].pointIndex;
+      const pointData = data.points[0].data.customdata[pointIndex] || data.points[0].data.customdata;
+      
+      if (pointData?.track === this.tracks.ssm) {
+        if (pointData.id === this.currentVariantId) return;
+        window.location.href = `/ssms/SSM${pointData?.id}/protein`;
+      } else if (pointData?.track === this.tracks.pfam) {
+        this.currentDomainId = pointData?.id;
+      }
+
+      this.traces = this.getTraces();
+    },
+
+    getLayout() {
+      return {
+        title: `${this.data.transcript.symbol} (${this.data.transcript.protein.length} aa)`,
+        modebar: settings.modebar,
+        xaxis1: this.getVariantsScale(),
+        yaxis1: this.getFrequenciesScale(),
+        yaxis2: this.getDomainsScale(),
+        shapes: this.getFrequenciesShapes(),
+        barmode: "overlay",
+        grid: {
+          rows: 2,
+          columns: 1
+        },
+      }
+    },
+
+    getVariantsScale() {
+      return {
+        title: "Mutations",
+        type: "linear",
+        anchor: "x1",
+        range: [1, this.maxX],
+        showline: true,
+        showgrid: false,
+        mirror: true,
+        fixedrange: false
+      }
+    },
+
+    getFrequenciesScale() {
+      return {
+        title: "#Affected Donors",
+        type: "linear",
+        anchor: "y1",
+        range: [0, this.maxY],
+        domain: [0.2, 1],
+        showline: true,
+        showgrid: false,
+        mirror: true,
+        fixedrange: true,
+        dtick: this.data.mutations.length > 100 ? 10 :
+               this.data.mutations.length > 10 ? 5 : 1
       };
-
-      this.lolliplot = new Lolliplot(args);
     },
 
-    resetPlot() {
-      this.lolliplot.reset();
-    },
-
-    setShowStats(value) {
-      this.showStats = value;
-      this.initializePlot();
-    },
-
-    onMutationClick(data) {
-      if (this.$route.params.id != data.id.toString()){
-        window.location.assign(`/ssms/SSM${data.id.toString()}/protein`);
+    getDomainsScale() {
+      return {
+        title: "Pfam",
+        type: "category",
+        anchor: "y2",
+        domain: [0, 0.2],
+        showline: true,
+        showgrid: false,
+        mirror: true,
+        showticklabels: false,
+        fixedrange: true
       }
-      // Router push doesn't work here
-      // this.$router.push({ name: "mutation", params: { id: data.id.toString(), tab: "protein" } });
-      // this.$router.go(0);
     },
 
-    onMutationHover(data) {
-      let element = this.getHoverElement();
-
-      let consequence = consequences.find(consequence => consequence.type == data.consequence);
-
-      let properties = [
-        { key: "Mutation", value: data.code },
-        { key: "Affected donors", value: data.numberOfDonors },
-        { key: "AA change", value: data.aminoAcidChange },
-        { key: "Consequence", value: consequence.name },
-        { key: "Imapct", value: consequence.impact, color: this.getImpactColor(consequence.impact) }
-      ];
-
-      this.targetMutationData = properties;
-      this.targetMutation = element;
+    getFrequenciesShapes() {
+      return this.data.mutations.map(variant => ({
+        type: "line",
+        layer: "below",
+        xref: "x1",
+        yref: "y1",
+        x0: variant.x,
+        y0: 0,
+        x1: variant.x,
+        y1: variant.y,
+        line: {
+          color: colors.getPaletteColor("grey"),
+          opacity: 0.5,
+          width: 1,
+        }
+      }));
     },
 
-    onProteinDomainHover(data) {
-      let element = this.getHoverElement();
+    getTraces() {
+      let traces = [];
 
-      let properties = [
-        { key: "ID", value: data.id }, 
-        { key: "Name", value: data.symbol },
-        { key: "Description", value: data.description },
-        { key: "Start", value: data.start - data.startOffset },
-        { key: "End", value: data.end + data.endOffset }
-      ];
+      traces.push(...this.getVariantsSeries());
+      traces.push(...this.getDomainsSeries());
 
-      this.targetProteinDomainData = properties;
-      this.targetProteinDomain = element;
-    },    
-
-    getHoverElement() {
-      var elements = document.querySelectorAll(":hover");
-      var element = elements[elements.length - 1];
-      return element;
+      return traces;
     },
 
-    getImpactColor(impact) {
-      switch (impact) {
-        case "High":
-          return "red";
-        case "Moderate":
-          return "orange";
-        case "Low":
-          return "green";
-        default:
-          return "grey";
+    getVariantsSeries() {
+      if (!this.grouping) return [];
+      let series = [];
+      let groups = this.groupBy(this.data.mutations, m => this.grouping === "impact" ? m.impact : m.consequence);
+
+      for (const [key, values] of groups) {
+        series.push({
+          name: this.getGroupName(key),
+          type: "scatter",
+          mode: "markers",
+          showlegend: false,
+          xaxis: "x1",
+          yaxis: "y1",
+          x: values.map(variant => variant.x),
+          y: values.map(variant => variant.y),
+          customdata: values.map(variant => ({track: this.tracks.ssm, id: variant.id})),
+          meta: values.map(variant => ({ variant: variant, consequence: consequencesMap.get(variant.consequence).name })),
+          hoverinfo: "text",
+          hovertext: values.map(variant => 
+            `Variant: SSM${variant.id}<br>` +
+            `AA Change: ${variant.aminoAcidChange}<br>` +
+            `Affected Donors: ${variant.y}<br>` +
+            `Imact: ${variant.impact}<br>` +
+            `Consequence: ${consequencesMap.get(variant.consequence).name}`),
+          hoverlabel: {
+            bgcolor: colors.getPaletteColor("white"),
+            bordercolor: this.getVariantColor(key),
+            font: { color: colors.getPaletteColor("black") }
+          },
+          marker: {
+            size: values.map(variant => this.currentVariantId === variant.id || this.hoverVariantId === variant.id ? 12 : 10),
+            opacity: 1,
+            color: this.getVariantColor(key),
+            line: {
+              color: colors.getPaletteColor("black"),
+              width: values.map(variant => this.currentVariantId === variant.id ? 1 : 0)
+            }
+          },
+        });
       }
-    }
+
+      return series;
+    },
+
+    getDomainsSeries() {
+      if (!this.data.proteins) return [];
+
+      let series = [];
+      let groups = this.groupBy(this.data.proteins, p => p.id);
+      let randomColors = new RandomColors();
+
+      for (const [key, values] of groups) {
+        let domainColor = randomColors.next();
+
+        series.push({
+          name: key,
+          type: "bar",
+          xaxis: "x1",
+          yaxis: "y2",
+          orientation: "h",
+          base: values.map(domain => domain.start),
+          width: 1,
+          x: values.map(domain => domain.end - domain.start),
+          y: values.map(domain => "Pfam"),
+          customdata: values.map(domain => ({track: this.tracks.pfam, id: domain.id})),
+          hoverinfo: "text",
+          hovertext: values.map(domain => 
+            `Domain: ${domain.id}<br>` + 
+            `Location: ${domain.start} - ${domain.end}<br>`),
+          hoverlabel: {
+            bgcolor: colors.getPaletteColor("white"),
+            bordercolor: domainColor,
+            font: { color: colors.getPaletteColor("black") }
+          },
+          marker: {
+            color: domainColor,
+            opacity: values.map(domain => this.currentDomainId === domain.id || this.hoverDomainId === domain.id ? 0.5 : 0.3),
+          },
+          showlegend: false,
+          showtick: false,
+        });
+      }
+
+      return series;
+    },
+
+    getConfig() {
+      return {
+        displayModeBar: true,
+        displaylogo: false,
+        responsive: true,
+      }
+    },
+
+    getVariantName(variant) {
+      return this.grouping === "impact" 
+        ? impactsMap.get(variant.impact).name
+        : consequencesMap.get(variant.consequence).name;
+    },
+
+    getVariantColor(group) {
+      return this.grouping === "impact" 
+        ? impactsMap.get(group)?.color
+        : consequencesMap.get(group)?.color;
+    },
+
+    getGroups() {
+      return this.grouping === "impact" 
+        ? Array.from(this.groupBy(this.data.mutations, m => m.impact).keys()) 
+        : Array.from(this.groupBy(this.data.mutations, m => m.consequence).keys());
+    },
+
+    getGroupColor(group) {
+      return this.grouping === "impact" 
+        ? impactsMap.get(group)?.color
+        : consequencesMap.get(group)?.color;
+    },
+
+    getGroupName(group) {
+      return this.grouping === "impact" 
+        ? impactsMap.get(group)?.name
+        : consequencesMap.get(group)?.name;
+    },
+
+    groupBy(items, property = (item) => item) {
+      const map = new Map();
+      items.forEach((item) => {
+        const key = property(item);
+        const collection = map.get(key);
+        if (!collection) {
+            map.set(key, [item]);
+        } else {
+            collection.push(item);
+        }
+      });
+      return map;
+    },
   }
 }
 </script>
-
-<style lang="scss">
-  .chart-zoom-area {
-    stroke: none;
-    stroke-width: 0px;
-  }
-
-  circle[class^='mutation-circle']:hover {
-    cursor: pointer;
-  }
-
-  text[class^='protein-name'] {
-    padding-left: 1px;
-  }
-</style>

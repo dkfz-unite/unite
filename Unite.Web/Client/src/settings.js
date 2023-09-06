@@ -1,10 +1,10 @@
 export default {
     urls: {
-        identity: "/identity",
-        composer: "/composer",
-        donors: "/donors-feed",
-        specimens: "/specimens-feed",
-        images: "/images-feed",
-        genome: "/genome-feed"
+        identity: "/api/identity",
+        composer: "/api/composer",
+        donors: "/api/donors-feed",
+        images: "/api/images-feed",
+        specimens: "/api/specimens-feed",
+        genome: "/api/genome-feed"
     }
 }

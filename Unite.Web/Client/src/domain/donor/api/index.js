@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const donorUrl = `${settings.urls.composer}/api/donor`;
+const donorUrl = `${settings.urls.composer}/donor`;
 
 async function get(id){
   let url = `${donorUrl}/${id}`;

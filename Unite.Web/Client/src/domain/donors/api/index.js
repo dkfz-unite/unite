@@ -2,9 +2,9 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const donorsUrl = `${settings.urls.composer}/api/donors`;
-const donorsStatsUrl = `${settings.urls.composer}/api/donors/stats`;
-const donorsDataUrl = `${settings.urls.composer}/api/donors/data`;
+const donorsUrl = `${settings.urls.composer}/donors`;
+const donorsStatsUrl = `${donorsUrl}/stats`;
+const donorsDataUrl = `${donorsUrl}/data`;
 const donorsUploadTsv = `${settings.urls.donors}/donors/tsv`;
 
 export async function search(criteria) {

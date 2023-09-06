@@ -1,5 +1,5 @@
 <template>
-  <q-tab :name="tab" label="Variants" :icon="icon" :disable="disable" @click.prevent="null">
+  <q-btn flat stretch label="Variants" :disable="disable" :icon="icon" :class="{ 'active': active }" stack>
     <q-menu fit>
       <q-list dense>
         <q-item clickable @click="$emit('update:modelValue', 'ssms')" :active="modelValue == 'ssms'" :disable="disableSsms">
@@ -28,7 +28,7 @@
         </q-item>
       </q-list>
     </q-menu>
-  </q-tab>
+  </q-btn>
 </template>
 
 <script>
@@ -68,7 +68,17 @@ export default {
            : this.modelValue === "cnvs" ? "svguse:/icons.svg#u-cnv"
            : this.modelValue === "svs" ? "svguse:/icons.svg#u-sv"
            : "svguse:/icons.svg#u-ssm";
+    },
+    active() {
+      return ["ssms", "cnvs", "svs"].includes(this.modelValue);
     }
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .q-btn.active {
+    border-bottom: 2px solid black;
+    padding-bottom: 1px;
+  }
+</style>

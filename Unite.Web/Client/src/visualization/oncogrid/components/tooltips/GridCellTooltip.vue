@@ -12,7 +12,7 @@
           </span>
         </div>
         <div>
-          <span class="text-weight-medium" :style="{ color: getColor(property.color)}">
+          <span class="text-weight-medium" :style="{ color: property.color}">
             {{property.value}}
           </span>
         </div>
@@ -23,15 +23,7 @@
 </template>
 
 <script>
-import { colors } from "quasar";
-
 export default {
   props: ["target", "data"],
-
-  methods: {
-    getColor(name) {
-      return name ? colors.getPaletteColor(name) : null;
-    }
-  }
 }
 </script>

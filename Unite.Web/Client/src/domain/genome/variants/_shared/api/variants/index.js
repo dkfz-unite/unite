@@ -2,7 +2,7 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const variantsUrl = `${settings.urls.composer}/api/variants`;
+const variantsUrl = `${settings.urls.composer}/variants`;
 
 export async function search(type, criteria) {
   let url = `${variantsUrl}/${type}`;
