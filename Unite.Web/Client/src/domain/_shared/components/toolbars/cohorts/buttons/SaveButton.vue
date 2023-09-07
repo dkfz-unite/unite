@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import DomainNames from '@/_models/domain/domain-names';
+
 export default {
   inject: ["domain"],
 
@@ -107,7 +109,7 @@ export default {
         description: this.description.value,
         criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
       };
-      this.$store.dispatch(domainName + "/addCohort", cohortData);
+      this.$store.dispatch(`${domainName}/addCohort`, cohortData);
     },
 
     onClose() {
@@ -121,33 +123,33 @@ export default {
 
     nameIsNotReserved(cohortName) {
       const domainName = this.domain;
-      const existing = this.$store.getters["filters/cohort"](domainName, cohortName);
-      return existing == null;
+      const existing = this.$store.state[domainName].cohorts?.some(cohort => cohort.name == cohortName);
+      return existing == false;
     },
 
     mergeCriteriaWithSelection(criteria, selected) {
       if (!selected?.length) {
         return criteria;
       } else {
-        if (this.domain == "donors") {
+        if (this.domain == DomainNames.Donors) {
           criteria.donor.referenceId = selected.map(item => item.referenceId);
-        } else if (this.domain == "mris") {
+        } else if (this.domain == DomainNames.Mris) {
           criteria.mri.referenceId = selected.map(item => item.mriImage.referenceId);
-        } else if (this.domain == "tissues") {
+        } else if (this.domain == DomainNames.Tissues) {
           criteria.tissue.referenceId = selected.map(item => item.tissue.referenceId);
-        } else if (this.domain == "cells") {
+        } else if (this.domain == DomainNames.Cells) {
           criteria.cell.referenceId = selected.map(item => item.cellLine.referenceId);
-        } else if (this.domain == "organoids") {
+        } else if (this.domain == DomainNames.Organoids) {
           criteria.organoid.referenceId = selected.map(item => item.organoid.referenceId);
-        } else if (this.domain == "xenografts") {
+        } else if (this.domain == DomainNames.Xenografts) {
           criteria.xenograft.referenceId = selected.map(item => item.xenograft.referenceId);
-        } else if (this.domain == "genes") {
+        } else if (this.domain == DomainNames.Genes) {
           criteria.gene.symbol = selected.map(item => item.symbol);
-        } else if (this.domain == "ssms") {
+        } else if (this.domain == DomainNames.Ssms) {
           criteria.ssm.id = selected.map(item => item.id);
-        } else if (this.domain == "cnvs") {
+        } else if (this.domain == DomainNames.Cnvs) {
           criteria.cnv.id = selected.map(item => item.id);
-        } else if (this.domain == "svs") {
+        } else if (this.domain == DomainNames.Svs) {
           criteria.sv.id = selected.map(item => item.id);
         }
         return criteria;

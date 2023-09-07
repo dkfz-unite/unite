@@ -1,27 +1,7 @@
-import ApiClient from "@/_shared/api/api-client";
-import settings from "@/settings";
+import DomainApi from "@/domain/_shared/api/domain-api";
 
-const client = new ApiClient();
-const imagesUrl = `${settings.urls.composer}/images`;
-
-async function search(type, criteria) {
-  let url = `${imagesUrl}/${type}`;
-  return await client.post(url, criteria);
-}
-
-async function stats(type, criteria) {
-  let url = `${imagesUrl}/${type}/stats`;
-  return await client.post(url, criteria);
-}
-
-async function data(type, data, criteria) {
-  let url = `${imagesUrl}/${type}/data`;
-  let model = { data: data, criteria: criteria };
-  return await client.post(url, model, { responseType: 'blob' });
-}
-
-export default {
-  search,
-  stats,
-  data
+export default class ImagesApi extends DomainApi {
+  constructor(type) {
+    super(`images/${type}`);
+  }
 }

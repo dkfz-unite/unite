@@ -77,9 +77,11 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import DomainNames from "@/_models/domain/domain-names";
+import GenesApi from "./api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-import api from "./api";
+const api = new GenesApi();
 
 export default {
   components: {
@@ -99,7 +101,7 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: "genes",
+      domain: DomainNames.Genes,
       model: "gene",
       models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm", "cnv", "sv"]
     };

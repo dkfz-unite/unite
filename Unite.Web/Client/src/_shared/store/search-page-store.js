@@ -9,7 +9,7 @@ class SearchPageStore {
 	getters = searchPageGetters;
 	actions = searchPageActions;
 
-	constructor(domain = null) {
+	constructor(domain = null) {;
 		this.state = () => new SearchPageState(domain);
 	}
 }

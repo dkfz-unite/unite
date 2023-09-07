@@ -82,6 +82,7 @@ import UCohortsMini from "./components/CohortsMini.vue";
 import UCohort from "./components/Cohort.vue";
 import FiltersCriteria from "../_shared/components/filters/filters-criteria";
 import DomainNames from "@/_models/domain/domain-names";
+import api from "./api";
 
 export default {
   components: {
@@ -117,7 +118,8 @@ export default {
 
   watch: {
     domain(value) {
-      // Do nothing
+      this.cohort = value.cohorts[0];
+      this.$router.replace({ params: { domain: value.name }});
     },
 
     cohort(value) {
@@ -156,7 +158,7 @@ export default {
 
       try {
         const criteria = new FiltersCriteria(this.cohort.criteria).toSearchCriteria();
-        this.cohort.data = await this.$store.dispatch(`${this.domain.name}/stats`, criteria);
+        this.cohort.data = await api[this.domain.name].loadStats(criteria);
       } catch {
         // Do nothing
       }

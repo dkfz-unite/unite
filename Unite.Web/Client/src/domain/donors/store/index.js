@@ -1,12 +1,19 @@
 import SearchPageStore from "@/_shared/store/search-page-store";
-import createActions from "@/domain/_shared/store/domain-actions";
+import DonorsApi from "../api";
+import searchPageActions from "@/_shared/store/search-page-actions";
+import createDomainActions from "@/domain/_shared/store/domain-actions";
+import createCustomActions from "./actions";
 
-const domain = "donors";
+const api = new DonorsApi("donors");
 
 export default class DonorsStore extends SearchPageStore {
-  actions = createActions(domain);
+  actions = {
+    ...searchPageActions,
+    ...createDomainActions(api),
+    ...createCustomActions(api),
+  };
 
   constructor() {
-    super(domain);
+    super("donors");
   }
 }

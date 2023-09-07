@@ -1,5 +1,9 @@
-import consequences from "../../_shared/consequences.js";
+import consequencesMap from "../../_shared/genome/consequences-map.js";
 
-const colors = consequences.reduce((self, item) => { return { ...self, [item["type"]]: item.color } });
+const colors = {};
+
+consequencesMap.forEach((value, key) => {
+  colors[key] = value.color;
+});
 
 export default colors;

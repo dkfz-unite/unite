@@ -16,6 +16,7 @@
 <script>
 import { exportFile } from "quasar";
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
+import api from "../../../api";
 
 export default {
   props: ["domain", "cohort", "class"],
@@ -52,7 +53,7 @@ export default {
     },
 
     async fetchData(model, criteria) {
-      return await this.$store.dispatch(`${this.domain.name}/data`, { data: model, criteria: criteria });
+      return await api[this.domain.name].downloadData(model, criteria);
     }
   }
 };

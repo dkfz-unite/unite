@@ -75,9 +75,12 @@ import UDataTable from "./components/CellsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import DomainNames from "@/_models/domain/domain-names";
+import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
+import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-import api from "../_shared/api/specimens";
+const api = new SpecimensApi(SpecimenTypes.CellLine);
 
 export default {
   components: {
@@ -96,7 +99,7 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: "cells",
+      domain: DomainNames.Cells,
       model: "cell",
       models: ["donor", "cell", "gene", "ssm", "cnv", "sv"]
     };
@@ -104,7 +107,7 @@ export default {
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.search("CellLine", searchCriteria);
+      return await api.search(searchCriteria);
     }
   }
 }

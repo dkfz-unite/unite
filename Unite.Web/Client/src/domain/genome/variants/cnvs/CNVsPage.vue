@@ -75,9 +75,12 @@ import UDataTable from "@/domain/_shared/components/genome/variants/CNVsTable.vu
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import DomainNames from "@/_models/domain/domain-names";
+import VariantTypes from "@/_models/domain/genome/variants/variant-types";
+import VariantsApi from "../_shared/api/variants";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-import api from "../_shared/api/variants";
+const api = new VariantsApi(VariantTypes.CNV);
 
 export default {
   components: {
@@ -96,7 +99,7 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: "cnvs",
+      domain: DomainNames.Cnvs,
       model: "cnv",
       models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "cnv"]
     };
@@ -104,7 +107,7 @@ export default {
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.search("cnv", searchCriteria);
+      return await api.search(searchCriteria);
     }
   }
 }

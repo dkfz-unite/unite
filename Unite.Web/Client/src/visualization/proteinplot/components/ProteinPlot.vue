@@ -14,23 +14,7 @@
         </q-card>
       </div>
       <div v-if="stats" class="col-2">
-        <q-card v-if="grouping" class="q-ma-xs q-px-sm">
-          <q-card-section class="q-py-sm">
-            <div class="text-h6"> {{ this.grouping === "impact" ? "Impacts" : "Consequences" }}</div>
-          </q-card-section>
-          <q-separator />
-          <q-card-section>
-            <template v-if="groups?.length">
-              <div v-for="group in groups" class="row items-center q-gutter-x-sm">
-                <div style="width: 10px; height: 10px;" :style="{ backgroundColor: getGroupColor(group) }"></div>
-                <div>{{ getGroupName(group) }}</div>
-              </div>
-            </template>
-            <template v-else>
-              <div class="text-body">No mutations affecting protein.</div>
-            </template>
-          </q-card-section>
-        </q-card>
+        <u-color-legend v-if="groups?.length" :title="grouping === 'impact' ? 'Impacts' : 'Consequences'" :items="groups" class="q-mx-sm" />
       </div>
     </div>
   </div>
@@ -39,14 +23,16 @@
 <script>
 import { colors } from "quasar";
 import RandomColors from "../../_shared/random-colors";
-import impactsMap from "../../_shared/impacts-map";
-import consequencesMap from "../../_shared/consequences-map";
+import impactsMap from "../../_shared/genome/impacts-map";
+import consequencesMap from "../../_shared/genome/consequences-map";
 import settings from "../../_shared/settings";
 import UPlotly from "../../_shared/Plotly.vue";
+import UColorLegend from "../../_shared/genome/ColorLegend.vue";
 
 export default {
   components: {
-    UPlotly
+    UPlotly,
+    UColorLegend
   },
 
   props: {
@@ -92,18 +78,18 @@ export default {
     };
   },
 
-  async mounted() {
-    this.layout = this.getLayout();
-    this.traces = this.getTraces();
-    this.config = this.getConfig();
-    this.groups = this.getGroups();
+  watch: {
+    grouping() {
+      this.groups = this.getGroups();
+      this.traces = this.getTraces();
+    }
   },
 
-  async updated() {
+  async mounted() {
+    this.groups = this.getGroups();
     this.layout = this.getLayout();
     this.traces = this.getTraces();
     this.config = this.getConfig();
-    this.groups = this.getGroups();
   },
 
   methods: {
@@ -232,7 +218,7 @@ export default {
     getVariantsSeries() {
       if (!this.grouping) return [];
       let series = [];
-      let groups = this.groupBy(this.data.mutations, m => this.grouping === "impact" ? m.impact : m.consequence);
+      let groups = this.data.mutations.groupBy(m => this.grouping === "impact" ? m.impact : m.consequence);
 
       for (const [key, values] of groups) {
         series.push({
@@ -277,7 +263,7 @@ export default {
       if (!this.data.proteins) return [];
 
       let series = [];
-      let groups = this.groupBy(this.data.proteins, p => p.id);
+      let groups = this.data.proteins.groupBy(p => p.id);
       let randomColors = new RandomColors();
 
       for (const [key, values] of groups) {
@@ -337,14 +323,8 @@ export default {
 
     getGroups() {
       return this.grouping === "impact" 
-        ? Array.from(this.groupBy(this.data.mutations, m => m.impact).keys()) 
-        : Array.from(this.groupBy(this.data.mutations, m => m.consequence).keys());
-    },
-
-    getGroupColor(group) {
-      return this.grouping === "impact" 
-        ? impactsMap.get(group)?.color
-        : consequencesMap.get(group)?.color;
+        ? [...this.data.mutations.groupBy(m => m.impact).keys()].map(key => impactsMap.get(key))
+        : [...this.data.mutations.groupBy(m => m.consequence).keys()].map(key => consequencesMap.get(key));
     },
 
     getGroupName(group) {
@@ -353,18 +333,10 @@ export default {
         : consequencesMap.get(group)?.name;
     },
 
-    groupBy(items, property = (item) => item) {
-      const map = new Map();
-      items.forEach((item) => {
-        const key = property(item);
-        const collection = map.get(key);
-        if (!collection) {
-            map.set(key, [item]);
-        } else {
-            collection.push(item);
-        }
-      });
-      return map;
+    getGroupColor(group) {
+      return this.grouping === "impact" 
+        ? impactsMap.get(group)?.color
+        : consequencesMap.get(group)?.color;
     },
   }
 }
