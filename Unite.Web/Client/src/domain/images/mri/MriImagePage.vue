@@ -88,7 +88,7 @@ import UCnvsTab from "../_shared/components/image/CNVsTab.vue";
 import USvsTab from "../_shared/components/image/SVsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import imageApi from "../_shared/api/image";
 import donorApi from "../../donor/api";
 

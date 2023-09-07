@@ -77,7 +77,7 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import GenesApi from "./api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 

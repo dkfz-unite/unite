@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import DomainNames from '@/_models/domain/domain-names';
+import DomainNames from '@/_settings/domain-names';
 
 export default {
   inject: ["domain"],

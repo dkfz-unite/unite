@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 
 const specimenDomains = [DomainNames.Tissues, DomainNames.Cells, DomainNames.Organoids, DomainNames.Xenografts];
 

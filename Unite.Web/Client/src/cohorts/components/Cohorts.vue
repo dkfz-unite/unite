@@ -57,7 +57,7 @@
 <script>
 import UCohortsButtonShow from "./CohortsButtonShow.vue";
 import UCohortsButtonHide from "./CohortsButtonHide.vue";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import mixin from "./mixin";
 
 export default {

@@ -81,7 +81,7 @@ import UCohorts from "./components/Cohorts.vue";
 import UCohortsMini from "./components/CohortsMini.vue";
 import UCohort from "./components/Cohort.vue";
 import FiltersCriteria from "../_shared/components/filters/filters-criteria";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import api from "./api";
 
 export default {

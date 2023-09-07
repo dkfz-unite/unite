@@ -1,4 +1,4 @@
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import DonorsApi from "@/domain/donors/api";
 import ImagesApi from "@/domain/images/_shared/api/images";
 import SpecimensApi from "@/domain/specimens/_shared/api/specimens";

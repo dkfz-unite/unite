@@ -12,7 +12,7 @@ import SsmStore from "@/domain/genome/variants/ssm/store";
 import CnvStore from "@/domain/genome/variants/cnv/store";
 import SvStore from "@/domain/genome/variants/sv/store";
 import OncogridStore from "@/visualization/oncogrid/store";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 
 const store = createStore({
   modules: {

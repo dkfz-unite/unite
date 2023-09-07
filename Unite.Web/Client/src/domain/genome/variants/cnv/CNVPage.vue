@@ -59,7 +59,7 @@ import USummaryTab from "./components/SummaryTab.vue";
 import UConsequencesTab from "../_shared/components/ConsequencesTab.vue";
 import tabPageMixin from "../../../_shared/tab-page-mixin";
 
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import api from "../_shared/api/variant";
 
 export default {

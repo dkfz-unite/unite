@@ -75,7 +75,7 @@ import UDataTable from "@/domain/_shared/components/genome/variants/SVsTable.vue
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import VariantTypes from "@/_models/domain/genome/variants/variant-types";
 import VariantsApi from "../_shared/api/variants";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";

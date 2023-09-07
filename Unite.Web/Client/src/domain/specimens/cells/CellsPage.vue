@@ -75,7 +75,7 @@ import UDataTable from "./components/CellsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";

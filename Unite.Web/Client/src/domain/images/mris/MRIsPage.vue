@@ -75,7 +75,7 @@ import UDataTable from "@/domain/_shared/components/images/MRIsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import ImageTypes from "@/_models/domain/images/image-types";
 import ImagesApi from "../_shared/api/images";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
