@@ -49,12 +49,17 @@ const mixin = {
   },
 
   mounted() {
-    // this.$store.dispatch(`${this.domain}/initialize`);
+    if (this.state?.domain) {
+      this.$store.dispatch(`${this.state.domain}/loadCohorts`);
+    }
+
     this.loadData();
   },
 
   unmounted() {
-    // this.$store.dispatch(`${this.domain}/dispose`);
+    if (this.state?.domain) {
+      this.$store.dispatch(`${this.state.domain}/saveCohorts`);
+    }
   },
 
   methods: {
@@ -92,12 +97,13 @@ const mixin = {
     async loadData() {
       try {
         this.loading = true;
-        let data = await this.fetchData(this.filtersCriteria.toSearchCriteria());
+        const data = await this.fetchData(this.filtersCriteria.toSearchCriteria());
         this.rows = data ? data.rows : [];
         this.rowsTotal = data ? data.total : 0;
       } catch (error) {
         this.rows = [];
         this.rowsTotal = 0;
+        throw error;
       } finally {
         this.loading = false;
       }

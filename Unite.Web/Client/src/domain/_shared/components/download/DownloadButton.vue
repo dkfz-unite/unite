@@ -20,7 +20,7 @@
 <script>
 import { exportFile } from "quasar";
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import ImageTypes from "@/_models/domain/images/image-types";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import donorApi from "@/domain/donor/api";

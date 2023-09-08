@@ -75,9 +75,12 @@ import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vu
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import DomainNames from "@/_settings/domain-names";
+import VariantTypes from "@/_models/domain/genome/variants/variant-types";
+import VariantsApi from "../_shared/api/variants";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-import api from "../_shared/api/variants";
+const api = new VariantsApi(VariantTypes.SSM);
 
 export default {
   components: {
@@ -96,7 +99,7 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: "ssms",
+      domain: DomainNames.Ssms,
       model: "ssm",
       models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm"]
     };
@@ -104,7 +107,7 @@ export default {
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.search("ssm", searchCriteria);
+      return await api.search(searchCriteria);
     }
   }
 }

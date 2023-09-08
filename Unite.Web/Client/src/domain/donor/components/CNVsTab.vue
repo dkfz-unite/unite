@@ -47,13 +47,14 @@
 </template>
 
 <script>
+// TODO: pass service base url ot api to STORE
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/variants/CNVsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
-import filters from "@/_shared/components/filters/domain/genome/variants/cnv/cnv-filters";
+import filters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
 
 import api from "../api";
 

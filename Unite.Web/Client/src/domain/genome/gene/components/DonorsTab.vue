@@ -15,7 +15,7 @@
           />
         </div>
         <div class="row" v-if="filtersCriteria[model].numberOfFilters">
-          <u-filters-button-clear @click="filtersCriteria[model].clear(); filterData();" />
+          <u-filters-button-clear @click="filtersCriteria[model].clear(); updateFilters();" />
         </div>
       </div>
 
@@ -43,7 +43,7 @@ import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "@/domain/_shared/components/donors/DonorsTable.vue";
 import tablePageMixin from "../../../_shared/table-page-mixin";
-import filters from "@/_shared/components/filters/domain/donors/donor-filters";
+import filters from "@/domain/donors/filters/donor-filters";
 
 import api from "../api";
 

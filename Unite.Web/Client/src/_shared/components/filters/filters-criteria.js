@@ -1,14 +1,14 @@
-import DonorFiltersCriteria from "./domain/donors/donor-filters-criteria";
-import TissueFiltersCriteria from "./domain/specimens/tissues/tissue-filters-criteria";
-import CellFiltersCriteria from "./domain/specimens/cells/cell-filters-criteria";
-import OrganoidFiltersCriteria from "./domain/specimens/organoids/organoid-filters-criteria";
-import XenograftFiltersCriteria from "./domain/specimens/xenografts/xenograft-filters-criteria";
-import GeneFiltersCriteria from "./domain/genome/genes/gene-filters-criteria";
-import MutationFiltersCriteria from "./domain/genome/variants/ssm/ssm-filters-criteria";
-import CopyNumberVariantFiltersCriteria from "./domain/genome/variants/cnv/cnv-filters-criteria";
-import StructuralVariantFiltersCriteria from "./domain/genome/variants/sv/sv-filters-criteria";
-import MriFiltersCriteria from "./domain/images/mris/mri-filters-criteria";
-import OncogirdFiltersCriteria from "./analysis/oncogrid/oncogrid-filters-criteria";
+import DonorFiltersCriteria from "@/domain/donors/filters/donor-filters-criteria";
+import MriFiltersCriteria from "@/domain/images/mris/filters/mri-filters-criteria";
+import TissueFiltersCriteria from "@/domain/specimens/tissues/filters/tissue-filters-criteria";
+import CellFiltersCriteria from "@/domain/specimens/cells/filters/cell-filters-criteria";
+import OrganoidFiltersCriteria from "@/domain/specimens/organoids/filters/organoid-filters-criteria";
+import XenograftFiltersCriteria from "@/domain/specimens/xenografts/filters/xenograft-filters-criteria";
+import GeneFiltersCriteria from "@/domain/genome/genes/filters/gene-filters-criteria";
+import MutationFiltersCriteria from "@/domain/genome/variants/ssms/filters/ssm-filters-criteria";
+import CopyNumberVariantFiltersCriteria from "@/domain/genome/variants/cnvs/filters/cnv-filters-criteria";
+import StructuralVariantFiltersCriteria from "@/domain/genome/variants/svs/filters/sv-filters-criteria";
+import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {
   from = 0;
@@ -107,7 +107,7 @@ export default class FiltersCriteria {
     for (const property in this) {
       if (Object.hasOwnProperty.call(this, property)) {
         const value = this[property];
-        if (value.copy != null) {
+        if (value?.copy != null) {
           criteria[property] = value.copy();
         }
       }

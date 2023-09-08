@@ -21,13 +21,24 @@
         <div>
           <span class="text-caption q-gutter-x-lg">
             <span class="text-weight-bold">{{$helpers.content.toDateTimeString(cohort.date)}}</span>
-            <span class="text-weight-bold" v-if="cohort.size != null">{{cohort.size }} rows of data</span>
+            <span class="text-weight-bold" v-if="cohort.data != null">{{cohort.data.total }} rows of data</span>
           </span>
         </div>
       </div>
     </div>
     
-    
+    <q-separator v-if="cohort.data" />
+
+    <!-- Sub Header -->
+    <div v-if="cohort.data" class="row q-pa-sm">
+      <div class="col">
+        <div class="row">
+          <span class="text-subtitle1 text-weight-medium">Available data</span>
+        </div>
+        <u-cohort-data :data="cohort.data" />
+      </div>
+    </div>
+
     <q-separator v-if="cohort.criteria" />
 
     <!-- Filters -->
@@ -140,22 +151,23 @@
 </template>
 
 <script>
-import UFiltersData from "./data/FiltersData.vue";
-
+import UCohortData from "./data/CohortData.vue";
+import UFiltersData from "./filters/FiltersData.vue";
 import FilterType from "@/_shared/components/filters/filter-type";
-import donorFilters from "@/_shared/components/filters/domain/donors/donor-filters";
-import mriFilters from "@/_shared/components/filters/domain/images/mris/mri-filters";
-import tissueFilters from "@/_shared/components/filters/domain/specimens/tissues/tissue-filters";
-import cellFilters from "@/_shared/components/filters/domain/specimens/cells/cell-filters";
-import organoidFilters from "@/_shared/components/filters/domain/specimens/organoids/organoid-filters";
-import xenograftFilters from "@/_shared/components/filters/domain/specimens/xenografts/xenograft-filters";
-import geneFilters from "@/_shared/components/filters/domain/genome/genes/gene-filters";
-import ssmFilters from "@/_shared/components/filters/domain/genome/variants/ssm/ssm-filters";
-import cnvFilters from "@/_shared/components/filters/domain/genome/variants/cnv/cnv-filters";
-import svFilters from "@/_shared/components/filters/domain/genome/variants/sv/sv-filters";
+import donorFilters from "@/domain/donors/filters/donor-filters";
+import mriFilters from "@/domain/images/mris/filters/mri-filters";
+import tissueFilters from "@/domain/specimens/tissues/filters/tissue-filters";
+import cellFilters from "@/domain/specimens/cells/filters/cell-filters";
+import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
+import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
+import geneFilters from "@/domain/genome/genes/filters/gene-filters";
+import ssmFilters from "@/domain/genome/variants/ssms/filters/ssm-filters";
+import cnvFilters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
+import svFilters from "@/domain/genome/variants/svs/filters/sv-filters";
 
 export default {
   components: {
+    UCohortData,
     UFiltersData
   },
 
@@ -163,6 +175,10 @@ export default {
     cohort: {
       type: Object,
       required: true
+    },
+    data: {
+      type: Object,
+      default: () => null
     }
   },
 

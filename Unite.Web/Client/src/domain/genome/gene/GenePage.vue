@@ -88,7 +88,7 @@ import UCnvsTab from "./components/CNVsTab.vue";
 import USvsTab from "./components/SVsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
-import DomainNames from "@/_models/domain/domain-names";
+import DomainNames from "@/_settings/domain-names";
 import api from "./api";
 
 export default {

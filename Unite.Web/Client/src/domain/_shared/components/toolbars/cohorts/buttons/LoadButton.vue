@@ -32,16 +32,21 @@
 
 <script>
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   inject: ["domain"],
 
   computed: {
-    ...mapGetters("filters", {
-      getCohorts: "cohorts",
-      getCohort: "cohort"
-    }),
+    // ...mapGetters("filters", {
+    //   getCohorts: "cohorts",
+    //   getCohort: "cohort"
+    // }),
+
+    cohorts: {
+      get() { return this.$store.state[this.domain].cohorts; },
+      set(value) { this.$store.state[this.domain].cohorts = value }
+    },
 
     criteria: {
       get() { return this.$store.state[this.domain].filtersCriteria; },
@@ -54,7 +59,8 @@ export default {
     },
 
     options() {
-      return this.getCohorts(this.domain)?.sort(this.compareDates)?.map(cohort => {
+      // return this.getCohorts(this.domain)?.sort(this.compareDates)?.map(cohort => {
+      return this.cohorts?.sort(this.compareDates)?.map(cohort => {
         return {
           name: cohort.name,
           date: cohort.date
@@ -65,7 +71,7 @@ export default {
 
   methods: {
     showCohort(option) {
-      const cohort = this.getCohort(this.domain, option.name);
+      const cohort = this.cohorts.find(cohort => cohort.name === option.name);
       this.criteria = new FiltersCriteria(cohort.criteria);
       this.selected = [];
     },
@@ -76,7 +82,7 @@ export default {
 
       return aDate < bDate ? -1
         : aDate > bDate ? 1
-          : 0;
+        : 0;
     }
   }
 }

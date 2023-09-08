@@ -77,11 +77,14 @@ import UDataTable from "@/domain/_shared/components/donors/DonorsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
+import FilterModels from "@/_shared/components/filters/filter-models";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import DomainNames from "@/_settings/domain-names";
 import UUploadButton from "./components/UploadButton.vue";
+import DonorsApi from "./api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-import api from "./api";
+const api = new DonorsApi();
 
 export default {
   components: {
@@ -102,9 +105,9 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: "donors",
-      model: "donor",
-      models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm", "cnv", "sv"]
+      domain: DomainNames.Donors,
+      model: FilterModels.Donor,
+      models: [FilterModels.Donor, ...FilterModels.Images, ...FilterModels.Specimens, ...FilterModels.Genome]
     };
   },
 

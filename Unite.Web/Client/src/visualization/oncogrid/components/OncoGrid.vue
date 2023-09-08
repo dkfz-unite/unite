@@ -46,16 +46,7 @@
       </div>
 
       <div class="col-2">
-        <div class="col q-px-md q-py-sm">
-          <div class="row q-col-gutter-xs">
-            <div class="col-12" v-for="(paletteColor, index) in colorPalette" :key="index">
-              <div class="row q-gutter-x-xs justyfy-left content-center no-wrap">
-                <div style="height: 20px; width: 20px" v-bind:style="{ backgroundColor: paletteColor.color }"></div>
-                <span class="text-body2">{{ paletteColor.name }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <u-color-legend class="q-px-md" title="Consequences" :items="colorPalette" />
       </div>
     </div>
   </div>
@@ -68,10 +59,11 @@ import UHistogramBarTooltip from "./tooltips/HistogramBarTooltip.vue";
 import UGridCellTolltip from "./tooltips/GridCellTooltip.vue";
 import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
 import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
+import UColorLegend from "../../_shared/genome/ColorLegend.vue";
 
-import consequences from "../../_shared/consequences.js";
-import impactsMap from "../../_shared/impacts-map.js";
-import consequencesMap from "../../_shared/consequences-map.js";
+// import consequences from "../../_shared/consequences.js";
+import impactsMap from "../../_shared/genome/impacts-map.js";
+import consequencesMap from "../../_shared/genome/consequences-map.js";
 import oncogridColors from "./oncogrid-colors.js";
 import donorTracks from "./oncogrid-tracks-donor";
 import * as d3 from "d3";
@@ -81,7 +73,8 @@ export default {
     UHistogramBarTooltip,
     UGridCellTolltip,
     UTrackCellTooltip,
-    UClinicalDataTrackTooltip  
+    UClinicalDataTrackTooltip,
+    UColorLegend
   },
 
   props: ["data"],
@@ -105,18 +98,11 @@ export default {
 
   computed: {
     colorPalette() {
-      if (!!this.data) {
-        let uniqueConsequences = this.data.observations
-          .filter((value, index, self) => self.findIndex((uniqueValue) => uniqueValue.consequence === value.consequence) === index)
-          .map((value) => value.consequence);
+      const groups = this.data?.observations.groupBy(observation => observation.consequence);
+      const keys = [...groups.keys()];
+      const pallete = keys.map(key => consequencesMap.get(key));
 
-        let palette = consequences
-          .filter((value) => uniqueConsequences.includes(value.type));
-
-        return palette;
-      } else {
-        return null;
-      }
+      return pallete;
     }
   },
 
