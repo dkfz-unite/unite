@@ -224,7 +224,7 @@ export default {
         // const content = JSON.parse(json);
         // this.criteria = new FiltersCriteria(content.criteria);
         console.log('onApplyDonors -> api.uploadDonors:', api.uploadDonors);
-        const response = await api.uploadDonors(tsv);
+        const response = await api.uploadDonors(this.file.value);
         console.log('onApplyDonors -> response:', response);
         this.notifySuccess("Filters imported", "Filters were imported from file");
       } catch (error) {
