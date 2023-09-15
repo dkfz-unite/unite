@@ -126,7 +126,7 @@
         <q-item @click="uploadDonors" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
-              <div><q-icon name="las la-file-upload" size="sm" /></div>
+              <div><q-icon name="las la-user-circle" size="sm" /></div>
               <div>Donors</div>
             </div>
           </q-item-section>
@@ -135,7 +135,7 @@
         <q-item @click="uploadTreatments" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
-              <div><q-icon name="las la-file-upload" size="sm" /></div>
+              <div><q-icon name="las la-pills" size="sm" /></div>
               <div>Treatments</div>
             </div>
           </q-item-section>
@@ -147,9 +147,11 @@
 
 <script>
 // import FiltersCriteria from '@/_shared/components/filters/filters-criteria';
-import api from '../api/index';
+import DonorsApi from '../api/index';
 const defaultErrorMessage = 'Something went terribly wrong, sorry!';
 const defaultFileType = 'json';
+
+const api = new DonorsApi();
 
 export default {
   // inject: ["domain"],
@@ -165,7 +167,7 @@ export default {
         value: null,
         rules: [
           (val) => this.fileIsNotEmpty(val),
-          (val) => this.fileIsValid(val)
+          // (val) => this.fileIsValid(val)
         ]
       },
     };
@@ -185,8 +187,8 @@ export default {
   watch: {
     async theFile(file) {
       let fileIsNotEmpty = await this.fileIsNotEmpty(file) === true;
-      let fileIsValid = await this.fileIsValid(file) === true;
-      this.canApply = fileIsNotEmpty && fileIsValid;
+      // let fileIsValid = await this.fileIsValid(file) === true;
+      this.canApply = fileIsNotEmpty /* && fileIsValid */;
     }
   },
 
@@ -224,7 +226,7 @@ export default {
         // const content = JSON.parse(json);
         // this.criteria = new FiltersCriteria(content.criteria);
         console.log('onApplyDonors -> api.uploadDonors:', api.uploadDonors);
-        const response = await api.uploadDonors(this.file.value);
+        const response = await api.uploadDonors(this.file.value, 'tsv');
         console.log('onApplyDonors -> response:', response);
         this.notifySuccess("Filters imported", "Filters were imported from file");
       } catch (error) {
@@ -247,21 +249,21 @@ export default {
       return file != null || "Please, choose the file";
     },
 
-    async fileIsValid(file) {
-      try {
-        const content = await file.text();
-        // const content = JSON.parse(json);
-        return this.contentValid(content);
-      } catch {
-        return "Upload content not valid.";
-      }
-    },
+    // async fileIsValid(file) {
+    //   try {
+    //     const content = await file.text();
+    //     // const content = JSON.parse(json);
+    //     return this.contentValid(content);
+    //   } catch {
+    //     return "Upload content not valid.";
+    //   }
+    // },
 
-    async contentValid(content) {
-      // validation call to be implemented
+    // async contentValid(content) {
+    //   // validation call to be implemented
       
-      return true;
-    },
+    //   return true;
+    // },
 
     // fileValidation() {
     //   if (this.dialogDonors) {
