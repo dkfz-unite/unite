@@ -226,17 +226,33 @@ export default {
         // const content = JSON.parse(json);
         // this.criteria = new FiltersCriteria(content.criteria);
         console.log('onApplyDonors -> api.uploadDonors:', api.uploadDonors);
-        const response = await api.uploadDonors(this.file.value, 'tsv');
+        console.log('onApplyDonors -> this.fileType:', this.fileType);
+        const response = await api.uploadDonors(this.file.value, this.fileType);
         console.log('onApplyDonors -> response:', response);
-        this.notifySuccess("Filters imported", "Filters were imported from file");
+        this.notifySuccess("Donors uploaded", "Donors were imported from file");
       } catch (error) {
         // error contains Code and messages
+        console.log('onApplyDonors', error);
         this.notifyError("Couldn't upload donors");
       }
     },
 
     async onApplyTreatments() {
-
+      try {
+        const tsv = await this.file.value.text();
+        console.log('onApplyTreatments -> tsv:', tsv);
+        // const content = JSON.parse(json);
+        // this.criteria = new FiltersCriteria(content.criteria);
+        console.log('onApplyTreatments -> api.uploadDonors:', api.uploadDonors);
+        console.log('onApplyTreatments -> this.fileType:', this.fileType);
+        const response = await api.uploadTreatments(this.file.value, this.fileType);
+        console.log('onApplyTreatments -> response:', response);
+        this.notifySuccess("Treatments uploaded", "Treatments were imported from file");
+      } catch (error) {
+        // error contains Code and messages
+        console.log('onApplyTreatments', error);
+        this.notifyError("Couldn't upload treatments");
+      }
     },
 
     async onClose() {
