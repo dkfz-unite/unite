@@ -1,9 +1,9 @@
 [
   {
-      "donor_id": "",
+      "id": "",
       "mta": true,
       "clinicalData": {
-          "gender": "Male/Female/Other",
+          "sex": "Male/Female/Other",
           "age": 0,
           "diagnosis": "",
           "diagnosis_date": "1970-01-01T00:00:00",
