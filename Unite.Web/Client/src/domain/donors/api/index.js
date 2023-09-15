@@ -2,7 +2,7 @@ import settings from '@/settings';
 import DomainApi from '@/domain/_shared/api/domain-api';
 
 const formats = {
-  json: { name: 'json', path: '', headers: { 'Content-Type': 'multipart/form-data' } },
+  json: { name: 'json', path: 'json', headers: { 'Content-Type': 'application/json' } },
   tsv: { name: 'tsv', path: 'tsv', headers: { 'Content-Type': 'text/tab-separated-values' } },
 };
 
@@ -52,7 +52,7 @@ export default class DonorsApi extends DomainApi {
 
     const url = `${this.feedUrl}/treatments/${formats[format].path}`;
     const body = data;
-    const config = { headers: headers };
+    const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
   }
