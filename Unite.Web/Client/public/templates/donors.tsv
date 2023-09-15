@@ -1,2 +1,2 @@
-donor_id	mta	work_packages	studies	gender	age	diagnosis	diagnosis_date	primary_site	localization	vital_status	vital_status_change_date	vital_status_change_day	progression_status	progression_status_change_date	progression_status_change_day	kps_baseline	steroids_baseline	therapy	details	start_date	start_day	end_date	duration_days	results
+id	mta	work_packages	studies	sex	age	diagnosis	diagnosis_date	primary_site	localization	vital_status	vital_status_change_date	vital_status_change_day	progression_status	progression_status_change_date	progression_status_change_day	kps_baseline	steroids_baseline	therapy	details	start_date	start_day	end_date	duration_days	results
 																								
