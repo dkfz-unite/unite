@@ -130,6 +130,7 @@ export default {
         await this.uploadMethod(this.file.value, this.fileType);
         this.notifySuccess(`${this.subjectTitle}  uploaded`, `${this.subjectTitle} were imported from file`);
       } catch (error) {
+        // TODO: show errors somewhere
         // error contains Code and messages
         console.log('onApply', error);
         this.notifyError(`Couldn't upload ${this.subjectLower}`);
