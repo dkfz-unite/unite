@@ -1,119 +1,46 @@
 [
   // This objects can be duplicated to build a list of donors
   {
+    // For more information about the values check the documentation:
+    // https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-donors-models.md
+
     // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
     // --- These are example values, please replace them with your real values ---
     // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
-
-    // 'id' should be the PID of the donor. Alphanumeric value as string
-    "id": "ABC123",
-    // 'mta' indicates if the donor is mta protected. Boolean value: true or false
+    "id": "DO1",
     "mta": true,
-    "clinicalData": {
-      // 'sex' means the biological sex. Valid values: "Male", "Female" and "Other" as string
-      "sex": "Other",
-      // 'age' is the donor's age as number
-      "age": 32,
-      "diagnosis": "C71.9",
-      // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-      "diagnosis_date": "1970-01-01",
-      "primary_site": "Brain",
-      "localization": "Parietal Lobe",
-      // Boolean values: true or false
-      "vital_status": true,
-      // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-      "vital_status_change_date": "2019-12-30",
-      // Number
-      "vital_status_change_day": 365,
-      // Boolean values: true or false
-      "progression_status": false,
-      // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-      "progression_status_change_date": "2000-08-20",
-      // Number
-      "progression_status_change_day": 236,
-      "kps_baseline": 7,
-      // Boolean values: true or false
-      "steroids_baseline": true
-    },
-    "treatments": [
-      // This objects can be duplicated to build a list of treatments
-      {
-        "therapy": "music",
-        "details": "alternative",
-        // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-        "start_date": "1970-01-01",
-        // Number
-        "start_day": 3,
-        // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-        "end_date": "2019-12-30",
-        // Number
-        "duration_days": 10000,
-        "results": "dances with joy"
-      },
-      {
-        "therapy": "music",
-        "details": "rock",
-        // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-        "start_date": "1970-01-02",
-        // Number
-        "start_day": 5,
-        // Dates format: YYYY-MM-DD as string. Example: "2023-05-27"
-        "end_date": "2019-12-27",
-        // Number
-        "duration_days": 8000,
-        "results": "head moves"
-      }
-    ],
-    "work_packages": [
-      // work packages or projects can be a single string or a list of strings for multiple values
-      "Shiny work package 2",
-      "Shiny work package 4"
+    "projects": [
+      "WP1"
     ],
     "studies": [
-      // studies can be a single string or a list of strings for multiple values
-      "Fancy study 3"
-    ]
-  },
-  {
-    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
-    // --- These are example values, please replace them with your real values ---
-    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
-
-    "id": "DEF123",
-    "mta": false,
-    "clinicalData": {
+      "ST1"
+    ],
+    "clinical_data": {
       "sex": "Other",
-      "age": 50,
-      "diagnosis": "C71.9",
-      "diagnosis_date": "1970-01-02",
+      "age": 56,
+      "diagnosis": "Glioblastoma",
+      "diagnosis_date": "2020-01-01",
       "primary_site": "Brain",
-      "localization": "Parietal Lobe",
-      "vital_status": false,
-      "vital_status_change_date": "2019-12-28",
-      "vital_status_change_day": 360,
-      "progression_status": true,
-      "progression_status_change_date": "2000-08-21",
-      "progression_status_change_day": 136,
-      "kps_baseline": 8,
+      "localization": "Left",
+      "vital_status": true,
+      "vital_status_change_date": "2021-01-01",
+      "vital_status_change_day": 365,
+      "progression_status": false,
+      "progression_status_change_date": "2020-02-12",
+      "progression_status_change_day": 37,
+      "kps_baseline": 90,
       "steroids_baseline": false
     },
     "treatments": [
       {
-        "therapy": "music",
-        "details": "alternative",
-        "start_date": "1970-01-01",
-        "start_day": 3,
-        "end_date": "2019-12-30",
-        "duration_days": 10000,
-        "results": "dances with joy"
+        "therapy": "Radiotherapy",
+        "details": "Patient specific therapy details.",
+        "start_date": "2020-01-07",
+        "start_day": 7,
+        "end_date": "2020-01-27",
+        "duration_days": 20,
+        "results": "Patient specific therapy results."
       }
-    ],
-    "work_packages": [
-      "Shiny work package 2"
-    ],
-    "studies": [
-      "Fancy study 3",
-      "Fancy study 7"
     ]
   }
 ]
