@@ -1,4 +1,4 @@
-import settings from '@/settings';
+import settings from "@/settings";
 import tokenHelpers from "@/_shared/helpers/token-helpers";
 import ApiClient from "@/_shared/api/api-client";
 
