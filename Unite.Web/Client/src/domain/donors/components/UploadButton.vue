@@ -23,7 +23,7 @@
     dense flat no-caps>
     <q-menu>
       <q-list>
-        <q-item @click="showUploadDonors" clickable v-close-popup dense>
+        <q-item @click="onUploadDonors" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
               <div><q-icon name="las la-user-circle" size="sm" /></div>
@@ -32,7 +32,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item @click="showUploadTreatments" clickable v-close-popup dense>
+        <q-item @click="onUploadTreatments" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
               <div><q-icon name="las la-pills" size="sm" /></div>
@@ -68,7 +68,7 @@ export default {
   },
 
   methods: {
-    async showUploadDonors() {
+    async onUploadDonors() {
       this.dialogDonors = true;
     },
 
@@ -76,7 +76,7 @@ export default {
       return await this.donorsApi.uploadDonors(data, format);
     },
 
-    async showUploadTreatments() {
+    async onUploadTreatments() {
       this.dialogTreatments = true;
     },
 
