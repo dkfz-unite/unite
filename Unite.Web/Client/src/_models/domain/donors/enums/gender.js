@@ -1,6 +1,6 @@
 export default class Gender {
     static values = {
-        "Female": 'Female',
+        "Female": "Female",
         "Male": "Male",
         "Other": "Other"
     };
