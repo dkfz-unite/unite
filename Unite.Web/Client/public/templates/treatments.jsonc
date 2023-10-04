@@ -1,0 +1,19 @@
+[
+  // This objects can be duplicated to build a list of treatments
+  {
+    // For more information about the values check the documentation:
+    // https://github.com/dkfz-unite/unite-donors-feed/blob/upload-donors/Docs/api-donors-models.md#treatment
+
+    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
+    // --- These are example values, please replace them with your real values ---
+    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
+    "donor_id": "DO1",
+    "therapy": "Radiotherapy",
+    "details": "Patient specific therapy details.",
+    "start_date": "2020-01-07",
+    "start_day": 7,
+    "end_date": "2020-01-27",
+    "duration_days": 20,
+    "results": "Patient specific therapy results."
+  }
+]

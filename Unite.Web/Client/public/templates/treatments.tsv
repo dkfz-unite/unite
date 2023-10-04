@@ -1,0 +1,2 @@
+donor_id	therapy	details	start_date	start_day	end_date	duration_days	results
+DO1	Radiotherapy	Patient specific therapy details.	2020-01-07	7	2020-01-27	20	Patient specific therapy results.

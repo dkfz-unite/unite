@@ -1,0 +1,46 @@
+[
+  // This objects can be duplicated to build a list of donors
+  {
+    // For more information about the values check the documentation:
+    // https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-donors-models.md
+
+    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
+    // --- These are example values, please replace them with your real values ---
+    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
+    "id": "DO1",
+    "mta": true,
+    "projects": [
+      "WP1"
+    ],
+    "studies": [
+      "ST1"
+    ],
+    "clinical_data": {
+      "sex": "Other",
+      "age": 56,
+      "diagnosis": "Glioblastoma",
+      "diagnosis_date": "2020-01-01",
+      "primary_site": "Brain",
+      "localization": "Left",
+      "vital_status": true,
+      "vital_status_change_date": "2021-01-01",
+      "vital_status_change_day": 365,
+      "progression_status": false,
+      "progression_status_change_date": "2020-02-12",
+      "progression_status_change_day": 37,
+      "kps_baseline": 90,
+      "steroids_baseline": false
+    },
+    "treatments": [
+      {
+        "therapy": "Radiotherapy",
+        "details": "Patient specific therapy details.",
+        "start_date": "2020-01-07",
+        "start_day": 7,
+        "end_date": "2020-01-27",
+        "duration_days": 20,
+        "results": "Patient specific therapy results."
+      }
+    ]
+  }
+]

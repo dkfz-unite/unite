@@ -55,6 +55,7 @@
           @update:size="updateSize">
           <template #header-right>
             <div class="row q-gutter-x-xs">
+              <u-upload-button v-if="canUpload" />
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
               <u-oncogrid-link :mode="domain" :disable="!rowsTotal" />
@@ -79,8 +80,10 @@ import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
+import UUploadButton from "./components/UploadButton.vue";
 import DonorsApi from "./api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import Permissions from "@/_models/admin/enums/permissions";
 
 const api = new DonorsApi();
 
@@ -94,7 +97,8 @@ export default {
     UFiltersToolbar,
     UCohortsToolbar,
     UOncogridLink,
-    USearchBar
+    USearchBar,
+    UUploadButton
   },
 
   mixins: [tablePageMixin],
@@ -106,6 +110,13 @@ export default {
       model: FilterModels.Donor,
       models: [FilterModels.Donor, ...FilterModels.Images, ...FilterModels.Specimens, ...FilterModels.Genome]
     };
+  },
+
+  computed: {
+    canUpload() {
+      const account = this.$store.state.identity.account;
+      return account.hasPermission(Permissions.Data.Write);
+    },
   },
 
   methods: {
