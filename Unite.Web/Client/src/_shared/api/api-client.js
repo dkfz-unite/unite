@@ -1,5 +1,5 @@
-import axios from 'axios';
-import interceptors from './api-client-interceptors';
+import axios from "axios";
+import interceptors from "./api-client-interceptors";
 
 axios.interceptors.request.use(
     interceptors.beforeEach.onFulfilled, 
