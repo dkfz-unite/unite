@@ -30,7 +30,6 @@
           label="File"
           v-model="file.value"
           :rules="file.rules"
-          @rejected="notifyError(errorMessage)"
           clearable
           square outlined dense>
           <template #prepend>
@@ -59,8 +58,7 @@
 </template>
 
 <script>
-const defaultErrorMessage = 'Something went terribly wrong, sorry!';
-const defaultFileType = 'json';
+const defaultFileType = "json";
 
 export default {
   props: {
@@ -79,7 +77,6 @@ export default {
   data() {
     return {
       canApply: false,
-      errorMessage: defaultErrorMessage,
       fileType: defaultFileType,
       file: {
         value: null,
@@ -132,7 +129,7 @@ export default {
       } catch (error) {
         // TODO: show errors somewhere
         // error contains Code and messages
-        console.log('onApply', error);
+        console.log("onApply", error);
         this.notifyError(`Couldn't upload ${this.subjectLower}`);
       }
     },
@@ -140,7 +137,6 @@ export default {
     async onClose() {
       this.file.value = null;
       this.fileType = defaultFileType;
-      this.errorMessage = defaultErrorMessage;
     },
 
     async fileIsNotEmpty(file) {
