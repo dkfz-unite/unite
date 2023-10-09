@@ -6,12 +6,6 @@ const formats = {
   tsv: { name: "tsv", path: "/tsv", headers: { "Content-Type": "text/tab-separated-values" } },
 };
 
-const headers = {
-  "Content-Type": "multipart/form-data", // Upload as file
-  // "Content-Type": "application/json", // Upload as json string
-  // "Content-Type": "text/tab-separated-values", // Upload as tsv string
-};
-
 function validateFormat(format) {
   if (!formats[format]) {
     throw new Error(`Invalid format: ${format}`);
