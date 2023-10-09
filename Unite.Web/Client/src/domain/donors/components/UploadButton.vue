@@ -2,7 +2,7 @@
   <u-upload-dialog
     v-model="dialogDonors"
     :subject="'donors'"
-    :templatePathJson="'/templates/donors.json'"
+    :templatePathJsonc="'/templates/donors.jsonc'"
     :templatePathTsv="'/templates/donors.tsv'"
     :uploadMethod="uploadDonors"
   />
@@ -10,7 +10,7 @@
   <u-upload-dialog
     v-model="dialogTreatments"
     :subject="'treatments'"
-    :templatePathJson="'/templates/treatments.json'"
+    :templatePathJsonc="'/templates/treatments.jsonc'"
     :templatePathTsv="'/templates/treatments.tsv'"
     :uploadMethod="uploadTreatments"
   />
