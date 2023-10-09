@@ -2,7 +2,7 @@
   <u-upload-dialog
     v-model="dialog"
     :subject="'Images'"
-    :templatePathJson="'/templates/images.jsonc'"
+    :templatePathJsonc="'/templates/images.jsonc'"
     :templatePathTsv="'/templates/images.tsv'"
     :uploadMethod="uploadImages"
   />
