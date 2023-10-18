@@ -1,9 +1,9 @@
 <template>
   <u-upload-dialog
     v-model="dialog"
-    :subject="'Images'"
-    :templatePathJsonc="'/templates/images.jsonc'"
-    :templatePathTsv="'/templates/images.tsv'"
+    :subject="'Mri-Images'"
+    :templatePathJsonc="'/templates/mri-images.jsonc'"
+    :templatePathTsv="'/templates/mri-images.tsv'"
     :uploadMethod="uploadImages"
   />
 
