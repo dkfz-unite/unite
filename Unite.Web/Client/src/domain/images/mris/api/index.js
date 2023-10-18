@@ -28,7 +28,7 @@ export default class ImagesApi extends DomainApi {
   async uploadImages(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}${formats[format].path ?? ""}`;
+    const url = `${this.feedUrl}/images${formats[format].path ?? ""}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
