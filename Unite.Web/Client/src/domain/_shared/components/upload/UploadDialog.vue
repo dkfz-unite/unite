@@ -36,6 +36,18 @@
             <q-icon name="las la-paperclip" size="sm" />
           </template>
         </q-file>
+
+        <div v-if="isValidationError" class="row">
+          <div class="col">
+            <div class="text-body1">The file content has issues:</div>
+            <q-scroll-area style="height: 120px; border: 1px solid lightgrey">
+              <div v-for="dataItem in Object.entries(error.data)" class="row q-pa-xs">
+                <div class="col">{{ dataItem[0] }}</div>
+                <div class="col" v-for="message in dataItem[1]"> {{ message }}</div>
+              </div>
+            </q-scroll-area>
+          </div>
+        </div>
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
@@ -50,7 +62,6 @@
           :disable="!canApply"
           @click="onApply"
           dense flat no-caps
-          v-close-popup
         />
       </q-card-actions>
     </q-card>
@@ -59,6 +70,11 @@
 
 <script>
 const defaultFileType = "json";
+const defaultError = {
+  status: 200,
+  statusText: "",
+  data: null,
+};
 
 export default {
   props: {
@@ -84,6 +100,7 @@ export default {
           (val) => this.fileIsNotEmpty(val),
         ]
       },
+      error: defaultError,
     };
   },
 
@@ -108,10 +125,15 @@ export default {
     subjectLower() {
       return this.subject.toLowerCase();
     },
+
+    isValidationError() {
+      return this.error.status === 400 && Object.entries(this.error.data).length > 0
+    },
   },
 
   watch: {
     async theFile(file) {
+      this.error = defaultError;
       let fileIsNotEmpty = await this.fileIsNotEmpty(file) === true;
       this.canApply = fileIsNotEmpty;
     }
@@ -123,13 +145,14 @@ export default {
     },
 
     async onApply() {
+      this.error = defaultError;
+
       try {
         await this.uploadMethod(this.file.value, this.fileType);
         this.notifySuccess(`${this.subjectTitle}  uploaded`, `${this.subjectTitle} were imported from file`);
+        this.dialog = false;
       } catch (error) {
-        // TODO: show errors somewhere
-        // error contains Code and messages
-        console.log("onApply", error);
+        this.error = error;
         this.notifyError(`Couldn't upload ${this.subjectLower}`);
       }
     },
