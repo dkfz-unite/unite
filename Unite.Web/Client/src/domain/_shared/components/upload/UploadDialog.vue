@@ -27,6 +27,7 @@
         </div>
 
         <q-file
+          ref="uploadInput"
           label="File"
           v-model="file.value"
           :rules="file.rules"
@@ -39,7 +40,7 @@
 
         <div v-if="isValidationError" class="row">
           <div class="col">
-            <div class="text-body1">The file content has issues:</div>
+            <div class="text-body1">There are validation errors:</div>
             <q-scroll-area style="height: 120px; border: 1px solid lightgrey">
               <div v-for="dataItem in Object.entries(error.data)" class="row q-pa-xs">
                 <div class="col">{{ dataItem[0] }}</div>
@@ -98,6 +99,7 @@ export default {
         value: null,
         rules: [
           (val) => this.fileIsNotEmpty(val),
+          (val) => this.fileIsValid(val)
         ]
       },
       error: defaultError,
@@ -133,10 +135,11 @@ export default {
 
   watch: {
     async theFile(file) {
-      this.error = defaultError;
-      let fileIsNotEmpty = await this.fileIsNotEmpty(file) === true;
-      this.canApply = fileIsNotEmpty;
-    }
+      this.fileInputHandler(file);
+    },
+    async fileType() {
+      this.fileInputHandler(this.file.value);
+    },
   },
 
   methods: {
@@ -164,6 +167,24 @@ export default {
 
     async fileIsNotEmpty(file) {
       return file != null || "Please, choose the file";
+    },
+
+    async fileIsValid(file) {
+      if (this.fileType === "json") {
+        const fileValid = file != null && (file.name.endsWith(".jsonc") || file.name.endsWith(".json"));
+        return fileValid || "Invalid filetype";
+      }
+      if (this.fileType === "tsv") {
+        return file != null && file.name.endsWith(".tsv") || "Invalid filetype";
+      }
+    },
+
+    async fileInputHandler(file) {
+      this.error = defaultError;
+      const fileIsNotEmpty = await this.fileIsNotEmpty(file) === true;
+      const fileIsValid = await this.fileIsValid(file) === true;
+      this.$refs.uploadInput.validate();
+      this.canApply = fileIsNotEmpty && fileIsValid;
     },
 
     async notifyError(message, caption = undefined) {
