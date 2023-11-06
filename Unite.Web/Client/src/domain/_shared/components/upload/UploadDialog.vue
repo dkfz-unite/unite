@@ -5,7 +5,7 @@
     @hide="onClose"
     persistent>
 
-    <q-card style="min-width: 300px">
+    <q-card style="width: 450px">
       <q-card-section>
         <div class="text-h6">Upload {{ subjectLower }} data</div>
       </q-card-section>
@@ -27,6 +27,7 @@
         </div>
 
         <q-file
+          class="ellipsis"
           ref="uploadInput"
           label="File"
           v-model="file.value"
@@ -41,10 +42,15 @@
         <div v-if="isValidationError" class="row">
           <div class="col">
             <div class="text-body1">There are validation errors:</div>
-            <q-scroll-area style="height: 120px; border: 1px solid lightgrey">
+            <q-scroll-area
+              ref="errorsScrollArea"
+              style="height: 120px; border: 1px solid lightgrey"
+            >
               <div v-for="dataItem in Object.entries(error.data)" class="row q-pa-xs">
-                <div class="col">{{ dataItem[0] }}</div>
-                <div class="col" v-for="message in dataItem[1]"> {{ message }}</div>
+                <div class="col">
+                  <div class="row text-weight-bold">{{ dataItem[0] }}</div>
+                  <div class="row" v-for="message in dataItem[1]"> {{ message }}</div>
+                </div>
               </div>
             </q-scroll-area>
           </div>
@@ -183,7 +189,7 @@ export default {
       this.error = defaultError;
       const fileIsNotEmpty = await this.fileIsNotEmpty(file) === true;
       const fileIsValid = await this.fileIsValid(file) === true;
-      this.$refs.uploadInput.validate();
+      this.$refs.uploadInput?.validate();
       this.canApply = fileIsNotEmpty && fileIsValid;
     },
 
