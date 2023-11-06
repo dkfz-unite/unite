@@ -34,17 +34,21 @@
           <q-tab-panel v-for="domain in domains" :name="domain.name" class="q-pa-none">
             <div class="col">
               <q-list>
-                <q-item v-for="cohort in domain.cohorts" :active="cohort.name == item" @click="item = cohort.name" clickable>
-                  <q-item-section>
-                    <q-item-label lines="1">
-                      {{ cohort.name }}
-                    </q-item-label>
-                    <q-item-label lines="1" caption>
-                      {{ $helpers.content.toDateTimeString(cohort.date) }}
-                    </q-item-label>
-                  </q-item-section>
-                  <q-checkbox v-model="cohort.selected" class="q-mr-sm" dense />
-                </q-item>
+                <template v-for="cohort in domain.cohorts">
+                  <q-item :active="cohort.name == item" @click="item = cohort.name" class="q-px-sm q-py-xs" clickable>
+                    <q-item-section>
+                      <q-item-label lines="1">
+                        {{ cohort.name }}
+                      </q-item-label>
+                      <q-item-label lines="1" caption>
+                        {{ $helpers.content.toDateTimeString(cohort.date) }}
+                      </q-item-label>
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-checkbox v-model="cohort.selected" @click="onSelect(cohort)" dense />
+                    </q-item-section>
+                  </q-item>
+                </template>
               </q-list>
             </div>
           </q-tab-panel>
@@ -87,5 +91,14 @@ export default {
       }
     }
   },
+
+  methods: {
+    onSelect(cohort) {
+      if (cohort.selected) {
+        const orders = this.domains.flatMap(domain => domain.cohorts).map(cohort => cohort.order || 0);
+        cohort.order = Math.max(...orders) + 1;
+      }
+    }
+  }
 }
 </script>

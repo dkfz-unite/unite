@@ -1,19 +1,16 @@
 <template>
-  <div class="row">
+  <div class="row q-gutter-sm">
     <u-export-button
-      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
     />
 
     <u-show-button
-      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
     />
 
     <u-download-button
-      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
     />
@@ -21,7 +18,6 @@
     <!-- <q-separator vertical /> -->
 
     <u-delete-buttomn
-      class="q-px-sm"
       :domain="domain" 
       :cohort="cohort"
       @click="$emit('deleted')" 
@@ -48,7 +44,7 @@ export default {
       type: Object,
       required: true
     },
-
+    
     cohort: {
       type: Object,
       required: true

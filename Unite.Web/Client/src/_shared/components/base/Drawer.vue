@@ -1,6 +1,7 @@
 <template>
   <q-drawer 
     v-model="show"
+    :width="width"
     :mini="mini"
     :side="side"
     :overlay="overlay"
@@ -53,6 +54,11 @@ export default {
     autoClose: {
       type: Boolean,
       default: false
+    },
+
+    width: {
+      type: Number,
+      default: 300
     }
   },
 

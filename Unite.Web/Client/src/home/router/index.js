@@ -26,6 +26,7 @@ import cnvsRoutes from "../../domain/genome/variants/cnvs/router";
 import svRoutes from "../../domain/genome/variants/sv/router";
 import svsRoutes from "../../domain/genome/variants/svs/router";
 import filtersRoutes from "../../cohorts/router";
+import analysisRoutes from "../../analysis/router";
 import oncogridRoutes from "../../visualization/oncogrid/router";
 import adminRoutes from "../../admin/router";
 import store from "../store";
@@ -56,6 +57,7 @@ const routes = [
   ...svRoutes,
   ...svsRoutes,
   ...filtersRoutes,
+  ...analysisRoutes,
   ...oncogridRoutes,
   ...adminRoutes
 ];

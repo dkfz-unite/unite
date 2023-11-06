@@ -1,6 +1,6 @@
 const routes = [
   {
-    path: '/cohorts/:domain?',
+    path: '/cohorts/:domain?/:key?',
     name: "cohorts",
     meta: { title: "UNITE.Cohorts", authorize: true },
     component: () => import(/* webpackChunkName: "filters" */ '../CohortsPage.vue')

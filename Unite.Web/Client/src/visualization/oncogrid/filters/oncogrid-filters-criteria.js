@@ -7,6 +7,15 @@ export default class OncogridFiltersCriteria {
   numberOfDonors = DEFAULT_DONORS;
   numberOfGenes = DEFAULT_GENES;
 
+  get numberOfFilters() {
+    let number = 0;
+
+    number += this.numberOfDonors !== DEFAULT_DONORS ? 1 : 0;
+    number += this.numberOfGenes !== DEFAULT_GENES ? 1 : 0;
+
+    return number;
+  }
+
   sanitise() {
     if (this.numberOfDonors == null || this.numberOfDonors <= 0) {
       this.numberOfDonors = DEFAULT_DONORS;

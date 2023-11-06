@@ -12,6 +12,7 @@ import SsmStore from "@/domain/genome/variants/ssm/store";
 import CnvStore from "@/domain/genome/variants/cnv/store";
 import SvStore from "@/domain/genome/variants/sv/store";
 import OncogridStore from "@/visualization/oncogrid/store";
+import AnalysisStore from "@/analysis/store";
 import DomainNames from "@/_settings/domain-names";
 
 const store = createStore({
@@ -40,7 +41,8 @@ const store = createStore({
     sv: new SvStore(),
     svs: new SearchPageStore(DomainNames.Svs),
     // filters: new FiltersStore(),
-    oncogrid: new OncogridStore()
+    oncogrid: new OncogridStore(),
+    analysis: new AnalysisStore()
   },
 
   state: {
