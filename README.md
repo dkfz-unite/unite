@@ -104,3 +104,4 @@ Frontend source code is located in `Unite.Web/Client` folder.
 3. Run development server: `npm run serve`
 
 Composer web api proxy can be configured in vue [config](Unite.Web/Client/vue.config.js) file.
+
