@@ -12,40 +12,23 @@ function validateFormat(format) {
   }
 }
 
-export default class DonorsApi extends DomainApi {
-  feedUrl = `${settings.urls.donors}`;
+export default class ImagesApi extends DomainApi {
+  feedUrl = `${settings.urls.images}`;
 
   constructor() {
-    super("donors");
+    super("images");
   }
 
   /**
-   * Uploads donors data.
+   * Uploads images data.
    * @param {Object} data data to upload.
    * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadDonors(data, format = formats.json.name) {
+  async uploadImages(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/donors${formats[format].path ?? ""}`;
-    const body = data;
-    const config = { headers: formats[format].headers };
-
-    return this.client.post(url, body, config);
-  }
-
-  /**
-   * Uploads treatments data.
-   * @param {Object} data data to upload. 
-   * @param {"json"|"tsv"} format data format (default: "json").
-   * @returns {Promise<Object>} A promise that resolves with the upload results.
-   */
-  async uploadTreatments(data, format = formats.json.name) {
-    validateFormat(format);
-
-
-    const url = `${this.feedUrl}/treatments${formats[format].path ?? ""}`;
+    const url = `${this.feedUrl}/images${formats[format].path ?? ""}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
