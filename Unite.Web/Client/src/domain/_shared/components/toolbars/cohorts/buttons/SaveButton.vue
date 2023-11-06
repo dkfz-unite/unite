@@ -134,7 +134,7 @@ export default {
         if (this.domain == DomainNames.Donors) {
           criteria.donor.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == DomainNames.Mris) {
-          criteria.mri.referenceId = selected.map(item => item.mriImage.referenceId);
+          criteria.mri.referenceId = selected.map(item => item.mri.referenceId);
         } else if (this.domain == DomainNames.Tissues) {
           criteria.tissue.referenceId = selected.map(item => item.tissue.referenceId);
         } else if (this.domain == DomainNames.Cells) {

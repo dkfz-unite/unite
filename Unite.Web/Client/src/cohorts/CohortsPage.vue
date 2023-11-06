@@ -31,11 +31,15 @@
 
   <!-- Page content -->
   <div class="col q-gutter-y-sm">
-    <div class="row">
+    <!-- <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
         <q-breadcrumbs-el label="Cohorts" />
       </q-breadcrumbs>
+    </div> -->
+
+    <div v-if="domains?.length" class="row">
+      <u-analysis-button :cohorts="selectedCohorts" />
     </div>
 
     <div v-if="domains?.length" class="row">
@@ -76,6 +80,7 @@
 <script>
 import UDrawer from "../_shared/components/base/Drawer.vue";
 import UCohortsButtonShow from "./components/CohortsButtonShow.vue";
+import UAnalysisButton from "./components/analysis/AnalysisButton.vue";
 import UControlsToolbar from "./components/controls/ControlsToolbar.vue";
 import UCohorts from "./components/Cohorts.vue";
 import UCohortsMini from "./components/CohortsMini.vue";
@@ -88,6 +93,7 @@ export default {
   components: {
     UDrawer,
     UCohortsButtonShow,
+    UAnalysisButton,
     UControlsToolbar,
     UCohorts,
     UCohortsMini,
@@ -107,23 +113,29 @@ export default {
     availableDomains() {
       DomainNames.WithCohorts.forEach(domain => this.$store.dispatch(`${domain}/loadCohorts`));
       return DomainNames.WithCohorts.filter(domain => this.$store.state[domain].cohorts?.length);
+    },
+
+    selectedCohorts() {
+      return this.domains?.flatMap(domain => domain.cohorts.filter(cohort => cohort.selected));
     }
   },
 
   mounted() {
     this.domains = this.getDomainOptions(this.availableDomains);
     this.domain = this.domains.find(domain => domain.name == this.$route.params.domain) || this.domains[0] || null;
-    this.cohort = this.domain?.cohorts[0];
+    this.cohort = this.domain?.cohorts[0] || null;
+    // this.loadDomainData(this.domain);
   },
 
   watch: {
     domain(value) {
-      this.cohort = value.cohorts[0];
-      this.$router.replace({ params: { domain: value.name }});
+      this.cohort = value?.cohorts[0] || null;
+      this.$router.replace({ params: { domain: value?.name || "" }});
+      this.loadDomainData(value);
     },
 
     cohort(value) {
-      this.loadCohortSize();
+      this.loadCohortData(this.domain, value);
     },
   },
 
@@ -142,7 +154,9 @@ export default {
     },
 
     getCohortOptions(domain) {
-      return this.$store.state[domain]?.cohorts?.map(cohort => ({ 
+      return this.$store.state[domain]?.cohorts?.map(cohort => ({
+        domain: domain,
+        key: cohort.key,
         name: cohort.name,
         date: cohort.date,
         description: cohort.description,
@@ -152,15 +166,25 @@ export default {
       }));
     },
 
-    async loadCohortSize() {
-      if (!this.cohort) return;
-      if (this.cohort.data != null) return;
+    async loadDomainData(domain) {
+      if (!domain) return;
+
+      for (const cohort of domain.cohorts) {
+        await this.loadCohortData(domain, cohort);
+      }
+    },
+
+    async loadCohortData(domain, cohort) {
+      if (!domain) return;
+      if (!cohort) return;
+      if (!!cohort.data || !!cohort.loading) return;
 
       try {
-        const criteria = new FiltersCriteria(this.cohort.criteria).toSearchCriteria();
-        this.cohort.data = await api[this.domain.name].loadStats(criteria);
-      } catch {
-        // Do nothing
+        const criteria = new FiltersCriteria(cohort.criteria).toSearchCriteria();
+        cohort.loading = true;
+        cohort.data = await api[domain.name].loadStats(criteria);
+      } finally {
+        cohort.loading = false;
       }
     }
   }

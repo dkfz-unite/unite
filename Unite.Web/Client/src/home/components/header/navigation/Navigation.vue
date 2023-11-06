@@ -110,6 +110,20 @@
         </q-list>
       </q-menu>
     </q-route-tab>
+
+    <q-space />
+
+    <q-route-tab
+      label="Cohorts"
+      icon="las la-archive"
+      :to="{ name: 'cohorts' }"
+    />
+
+    <q-route-tab
+      label="Analysis"
+      icon="las la-chart-pie"
+      :to="{ name: 'analysis' }"
+    />
   </q-tabs>
 </template>
 

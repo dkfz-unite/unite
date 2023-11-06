@@ -1,6 +1,6 @@
 const layout = {
   modebar: { 
-    remove: ["pan", "select", "lasso", "zoomin", "zoomout", "resetscale"] 
+    remove: ["pan", "select", "lasso", "zoomin", "zoomout"] 
   }
 }
 

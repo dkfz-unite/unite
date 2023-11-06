@@ -132,21 +132,21 @@ export default class FiltersCriteria {
   }
 
   toSearchCriteria() {
-    return {
-      from: this.from,
-      size: this.size,
-      term: this.query,
-      donor: this.donor,
-      mri: this.mri,
-      tissue: this.tissue,
-      cell: this.cell,
-      organoid: this.organoid,
-      xenograft: this.xenograft,
-      gene: this.gene,
-      ssm: this.ssm,
-      cnv: this.cnv,
-      sv: this.sv,
-      oncoGrid: this.oncogrid
-    };
+    let criteria = {};
+    if (this.from != null) criteria.from = this.from;
+    if (this.size != null) criteria.size = this.size;
+    if (!!this.query) criteria.query = this.query;
+    if (this.donor?.numberOfFilters > 0) criteria.donor = this.donor;
+    if (this.mri?.numberOfFilters > 0) criteria.mri = this.mri;
+    if (this.tissue?.numberOfFilters > 0) criteria.tissue = this.tissue;
+    if (this.cell?.numberOfFilters > 0) criteria.cell = this.cell;
+    if (this.organoid?.numberOfFilters > 0) criteria.organoid = this.organoid;
+    if (this.xenograft?.numberOfFilters > 0) criteria.xenograft = this.xenograft;
+    if (this.gene?.numberOfFilters > 0) criteria.gene = this.gene;
+    if (this.ssm?.numberOfFilters > 0) criteria.ssm = this.ssm;
+    if (this.cnv?.numberOfFilters > 0) criteria.cnv = this.cnv;
+    if (this.sv?.numberOfFilters > 0) criteria.sv = this.sv;
+    if (this.oncogrid?.numberOfFilters > 0) criteria.oncoGrid = this.oncogrid;
+    return criteria;
   }
 }

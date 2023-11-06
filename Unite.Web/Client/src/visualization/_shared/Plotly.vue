@@ -42,6 +42,10 @@ export default {
     }
   },
 
+  async beforeUnmount() {
+    await this.destroy();
+  },
+
   methods: {
     async create() {
       const plot = await Plotly.newPlot(this.id, this.data, this.layout, this.config);
@@ -70,6 +74,10 @@ export default {
     async update() {
       // await Plotly.react(this.id, this.data, this.layout, this.config);
       await Plotly.react(this.id, this.data, this.layout);
+    },
+
+    async destroy() {
+      await Plotly.purge(this.id);
     },
 
     onZoom(data) {

@@ -4,6 +4,7 @@ const actions = {
   },
 
   addCohort({state, getters, dispatch}, data) {
+    data.key = crypto.randomUUID();
     state.cohorts.push(data);
     dispatch("saveCohorts");
   },
