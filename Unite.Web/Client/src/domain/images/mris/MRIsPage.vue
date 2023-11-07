@@ -55,9 +55,9 @@
           @update:size="updateSize">
           <template #header-right>
             <div class="row q-gutter-x-xs">
-              <u-upload-button v-if="canUpload" />
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
+              <u-upload-button v-if="canUpload" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>

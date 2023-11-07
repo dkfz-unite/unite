@@ -19,10 +19,15 @@
 
         <div class="row">
           <div v-if="fileType === 'json'" class="col">
-            Download json file <a :href="templatePathJsonc" :download="`${subjectLower}-template.jsonc`" class="u-link">template</a>
+            Download json file <a :href="templatePathJson" :download="`${subjectLower}-template.json`" class="u-link">template</a>
           </div>
           <div v-if="fileType === 'tsv'" class="col">
             Download tsv file <a :href="templatePathTsv" :download="`${subjectLower}-template.tsv`" class="u-link">template</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            Data model <a :href="modelDocs" target="_blank" class="u-link">documentation</a>
           </div>
         </div>
 
@@ -90,7 +95,8 @@ export default {
       default: false,
     },
     subject: String,
-    templatePathJsonc: String,
+    templatePathJson: String,
+    modelDocs: String,
     templatePathTsv: String,
     uploadMethod: Function,
   },

@@ -1,9 +1,10 @@
 <template>
   <u-upload-dialog
     v-model="dialog"
-    :subject="'Mri-Images'"
-    :templatePathJsonc="'/templates/mri-images.jsonc'"
-    :templatePathTsv="'/templates/mri-images.tsv'"
+    subject="Mri-Images"
+    templatePathJson="/templates/mri-images.json"
+    templatePathTsv="/templates/mri-images.tsv"
+    modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-images-models.md"
     :uploadMethod="uploadImages"
   />
 

@@ -1,12 +1,5 @@
 [
-  // This objects can be duplicated to build a list of donors
   {
-    // For more information about the values check the documentation:
-    // https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-donors-models.md
-
-    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
-    // --- These are example values, please replace them with your real values ---
-    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
     "id": "DO1",
     "mta": true,
     "projects": [

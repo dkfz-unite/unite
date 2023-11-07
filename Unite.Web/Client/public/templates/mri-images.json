@@ -1,12 +1,5 @@
 [
-  // This objects can be duplicated to build a list of images
   {
-    // For more information about the values check the documentation:
-    // https://github.com/dkfz-unite/unite-images-feed/blob/upload-images/Docs/api-images-models.md
-
-    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
-    // --- These are example values, please replace them with your real values ---
-    // !!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!---!!!
     "id": "IM1",
     "donor_id": "DO1",
     "scanning_date": null,
