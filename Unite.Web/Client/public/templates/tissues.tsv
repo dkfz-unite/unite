@@ -1,0 +1,2 @@
+id	donorId	parentId	parentType	creationDate	creationDay	type	tumorType	source	mgmtStatus	idhStatus	idhMutation	geneExpressionSubtype	methylationSubtype	gcimpMethylation
+TI1	DO1			2020-02-01		Tumor	Primary	Solid tissue	Methylated	Wild Type		Classical	H3-K27	true
