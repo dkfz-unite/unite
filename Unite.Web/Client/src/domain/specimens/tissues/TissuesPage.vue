@@ -57,6 +57,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
+              <u-upload-button v-if="canUpload" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -78,7 +79,9 @@ import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
+import UUploadButton from "./components/UploadButton.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import Permissions from "@/_models/admin/enums/permissions";
 
 const api = new SpecimensApi(SpecimenTypes.Tissue);
 
@@ -91,7 +94,8 @@ export default {
     UDataTable,
     UFiltersToolbar,
     UCohortsToolbar,
-    USearchBar
+    USearchBar,
+    UUploadButton
   },
 
   mixins: [tablePageMixin],
@@ -103,6 +107,13 @@ export default {
       model: "tissue",
       models: ["donor", "mri", "tissue", "gene", "ssm", "cnv", "sv"]
     };
+  },
+
+  computed: {
+    canUpload() {
+      const account = this.$store.state.identity.account;
+      return account.hasPermission(Permissions.Data.Write);
+    },
   },
 
   methods: {
