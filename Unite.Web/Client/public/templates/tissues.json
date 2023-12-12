@@ -1,23 +1,23 @@
 [
   {
       "id": "TI1",
-      "donorId": "DO1",
-      "parentId": null,
-      "parentType": null,
-      "creationDate": "2020-02-01",
-      "creationDay": null,
+      "donor_id": "DO1",
+      "parent_id": null,
+      "parent_type": null,
+      "creation_date": "2020-02-01",
+      "creation_day": null,
       "tissue": {
           "type": "Tumor",
-          "tumorType": "Primary",
+          "tumor_type": "Primary",
           "source": "Solid tissue"
       },
-      "molecularData": {
-          "mgmtStatus": "Methylated",
-          "idhStatus": "Wild Type",
-          "idhMutation": null,
-          "geneExpressionSubtype": "Classical",
-          "methylationSubtype": "H3-K27",
-          "gcimpMethylation": true
+      "molecular_data": {
+          "mgmt_status": "Methylated",
+          "idh_status": "Wild Type",
+          "idh_mutation": null,
+          "gene_expression_subtype": "Classical",
+          "methylation_subtype": "H3-K27",
+          "gcimp_methylation": true
       }
   }
 ]
