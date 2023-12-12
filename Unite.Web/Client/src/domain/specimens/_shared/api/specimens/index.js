@@ -29,7 +29,6 @@ export default class SpecimensApi extends DomainApi {
   /**
    * Uploads tissues data.
    * @param {Object} data data to upload.
-   * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadTissues(data) {
