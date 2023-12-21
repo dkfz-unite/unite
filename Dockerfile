@@ -1,5 +1,7 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+ENV ASPNETCORE_HTTP_PORTS=80
+ENV ASPNETCORE_HTTPS_PORTS=443
 EXPOSE 80
 EXPOSE 443
 
@@ -12,7 +14,7 @@ FROM restore-client as build-client
 COPY ["Unite.Web/Client/", "./"]
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS restore
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS restore
 WORKDIR /src
 COPY ["Unite.Web/Unite.Web.csproj", "Unite.Web/"]
 RUN dotnet restore "Unite.Web/Unite.Web.csproj"
