@@ -56,13 +56,13 @@ export default {
 
   methods: {
     buildNodes(nodes, allNodes) {
-      nodes = nodes || allNodes.filter(node => !node.parent).map(node => this.copyNode(node));
+      nodes = nodes || allNodes.filter(node => !node.parentId).map(node => this.copyNode(node));
 
       for (let i = 0; i < nodes.length; i++) {
         const currentNode = nodes[i];
 
         let childNodes = allNodes
-          .filter(node => node.parent?.id == currentNode.id)
+          .filter(node => node.parentId == currentNode.id)
           .map(node => this.copyNode(node));
 
         if (childNodes?.length) {
