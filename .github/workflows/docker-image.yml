@@ -15,10 +15,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Log repository
-        run: echo ${{ github.repository }}
-      - name: Log Image name
-        run: echo ${{env.REGISTRY}}/${{github.repository}}:latest
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Log in to the Container registry
@@ -44,5 +40,7 @@ jobs:
           push: true
           # tags: ${{ steps.meta.outputs.tags }}
           # tags: ${{ github.sha }}
-          tags: ghcr.io/dkfz-unite/unite:latest
+          tags: |
+            ${{env.REGISTRY}}/${{github.repository}}
+            ${{env.REGISTRY}}/${{github.repository}}:${{github.sha}}
           labels: ${{ steps.meta.outputs.labels }}
