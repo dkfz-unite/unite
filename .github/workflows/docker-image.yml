@@ -37,5 +37,5 @@ jobs:
             TOKEN=${{ secrets.GITHUB_TOKEN }}
           push: true
           # tags: ${{ steps.meta.outputs.tags }}
-          tags: latest
+          tags: unite:latest
           labels: ${{ steps.meta.outputs.labels }}
