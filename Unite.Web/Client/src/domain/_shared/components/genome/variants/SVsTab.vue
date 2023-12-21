@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Genes</span>
+      <span class="text-h5 u-text-title">Structural Variants (SV)</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -30,8 +30,8 @@
 
       <div class="col-12 col-sm-9 col-md-10">
         <u-data-table
-          title="Image Genes"
           class="sticky-header-slim"
+          :title="title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -50,13 +50,16 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";
-import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
+import UDataTable from "@/domain/_shared/components/genome/variants/SVsTable.vue";
+
+import DomainNames from "@/_settings/domain-names";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
-import imageTabMixin from "./image-tab-mixin";
-import filters from "@/domain/genome/genes/filters/gene-filters";
+import filters from "@/domain/genome/variants/svs/filters/sv-filters";
 
-import api from "../../api/image";
+import api from "@/domain/specimens/_shared/api/specimen";
+
+var domainNames = [DomainNames.Donor, DomainNames.Mri, DomainNames.Tissue, DomainNames.Cell, DomainNames.Organoid, DomainNames.Xenograft, DomainNames.Gene];
 
 export default {
   components: {
@@ -66,20 +69,36 @@ export default {
     UDataTable
   },
 
-  mixins: [samplePageMixin, tablePageMixin, imageTabMixin],
+  mixins: [samplePageMixin, tablePageMixin],
+
+  props: {
+    area: {
+      type: String,
+      required: true,
+      validator: value => ![domainNames].includes(value)
+    },
+    title: {
+      type: String,
+      default: "Structural Variants (SV)"
+    }
+  },
 
   data() {
     return {
-      domain: this.getDomain("genes"),
-      model: "gene",
+      domain: this.getDomain(this.area),
+      model: "sv",
       filters: filters
     }
   },
 
   methods: {
+    getDomain(name) {
+      return this.$store.state[name][DomainNames.Svs];
+    },
+
     async fetchData(searchCriteria) {
       if (!this.sample) return;
-      return await api.searchGenes(this.image.id, this.sample.id, searchCriteria);
+      return await api.searchVariants(this.sample.id, "sv", searchCriteria);
     }
   }
 }

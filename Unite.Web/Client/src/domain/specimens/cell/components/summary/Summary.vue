@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Creation Day</td>
-              <td>{{ specimen.creationDay }}</td>
+              <td>{{ specimen.cell.creationDay }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Species</td>

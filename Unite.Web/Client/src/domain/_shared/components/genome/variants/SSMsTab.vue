@@ -30,8 +30,8 @@
 
       <div class="col-12 col-sm-9 col-md-10">
         <u-data-table
-          title="Donor Mutations"
           class="sticky-header-slim"
+          :title="title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -51,11 +51,15 @@ import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vue";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
+
+import DomainNames from "@/_settings/domain-names";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
+import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
 
-import api from "../api";
+import api from "@/domain/specimens/_shared/api/specimen";
+
+var domainNames = [DomainNames.Donor, DomainNames.Mri, DomainNames.Tissue, DomainNames.Cell, DomainNames.Organoid, DomainNames.Xenograft, DomainNames.Gene];
 
 export default {
   components: {
@@ -65,24 +69,36 @@ export default {
     UDataTable
   },
 
-  mixins: [tablePageMixin, samplePageMixin],
+  mixins: [samplePageMixin, tablePageMixin],
 
   props: {
-    donor: Object
+    area: {
+      type: String,
+      required: true,
+      validator: value => ![domainNames].includes(value)
+    },
+    title: {
+      type: String,
+      default: "Mutations (SSM)"
+    }
   },
 
   data() {
     return {
-      domain: this.$store.state.donor.ssms,
+      domain: this.getDomain(this.area),
       model: "ssm",
       filters: filters
     }
   },
 
   methods: {
+    getDomain(name) {
+      return this.$store.state[name][DomainNames.Ssms];
+    },
+
     async fetchData(searchCriteria) {
       if (!this.sample) return;
-      return await api.searchVariants(this.donor.id, this.sample.id, "ssm", searchCriteria);
+      return await api.searchVariants(this.sample.id, "ssm", searchCriteria);
     }
   }
 }

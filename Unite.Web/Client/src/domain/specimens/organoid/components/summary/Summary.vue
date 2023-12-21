@@ -25,7 +25,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Creation Day</td>
-              <td>{{ specimen.creationDay }}</td>
+              <td>{{ specimen.organoid.creationDay }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Implanted Cells Number</td>

@@ -10,13 +10,13 @@ async function get(id){
   return await client.get(url);
 }
 
-async function searchGenes(id, sampleId, criteria){
-  let url = `${specimenUrl}/${id}/genes/${sampleId}`;
+async function searchGenes(id, criteria){
+  let url = `${specimenUrl}/${id}/genes`;
   return await client.post(url, criteria);
 }
 
-async function searchVariants(id, sampleId, type, criteria){
-  let url = `${specimenUrl}/${id}/variants/${sampleId}/${type}`;
+async function searchVariants(id, type, criteria){
+  let url = `${specimenUrl}/${id}/variants/${type}`;
   return await client.post(url, criteria);
 }
 
@@ -30,13 +30,8 @@ async function uploadDrugs(data){
   return await client.post(url, data);
 }
 
-async function getSamples(id) {
-  let url = `${specimenUrl}/${id}/samples`;
-  return await client.get(url);
-}
-
-async function getProfile(id, sampleId, criteria){
-  let url = `${specimenUrl}/${id}/profile/${sampleId}`;
+async function getProfile(id, criteria){
+  let url = `${specimenUrl}/${id}/profile`;
   return await await client.post(url, criteria);
 }
 
@@ -52,7 +47,6 @@ export default {
   searchVariants,
   searchDrugs,
   uploadDrugs,
-  getSamples,
   getProfile,
   downloadData
 }

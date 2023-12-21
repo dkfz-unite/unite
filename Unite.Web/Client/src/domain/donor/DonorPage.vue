@@ -67,23 +67,23 @@
               </q-tab-panel>
 
               <q-tab-panel name="profile" class="q-py-sm q-px-none">
-                <u-profile-tab :donor="donor" :samples="samples" />
+                <u-profile-tab :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :donor="donor" :samples="samples" />
+                <u-genes-tab title="Donor Genes" :area="DomainNames.Donor" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab :donor="donor" :samples="samples" />
+                <u-ssms-tab title="Donor Mutations" :area="DomainNames.Donor" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab :donor="donor" :samples="samples" />
+                <u-cnvs-tab title="Donor Copy Number Variants" :area="DomainNames.Donor" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab :donor="donor" :samples="samples" />
+                <u-svs-tab title="Donor Structural Variants" :area="DomainNames.Donor" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -105,14 +105,14 @@ import UClinicalDataTab from "./components/ClinicalDataTab.vue";
 import UTreatmentsTab from "./components/TreatmentsTab.vue";
 import USpecimensTab from "./components/SpecimensTab.vue";
 import UMrisTab from "./components/MriImagesTab.vue";
-import UProfileTab from "./components/ProfileTab.vue";
-import UGenesTab from "./components/GenesTab.vue";
-import USsmsTab from "./components/SSMsTab.vue";
-import UCnvsTab from "./components/CNVsTab.vue";
-import USvsTab from "./components/SVsTab.vue";
-import tabPageMixin from "../_shared/tab-page-mixin";
+import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
+import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
+import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
+import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
+import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
 
 import DomainNames from "@/_settings/domain-names";
+import tabPageMixin from "../_shared/tab-page-mixin";
 import api from "./api";
 
 export default {
@@ -187,7 +187,7 @@ export default {
     },
 
     showProfile() {
-      return this.showVariants || this.donor?.data?.geneExp;
+      return this.showGenes || this.showVariants;
     },
 
     showGenes() {
@@ -199,15 +199,15 @@ export default {
     },
 
     showSsms() {
-      return this.donor?.numberOfSsms;
+      return this.donor?.data?.ssms;
     },
 
     showCnvs() {
-      return this.donor?.numberOfCnvs;
+      return this.donor?.data?.cnvs;
     },
 
     showSvs() {
-      return this.donor?.numberOfSvs;
+      return this.donor?.data?.svs;
     }
   },
 
@@ -220,7 +220,7 @@ export default {
       try {
         this.loading = true;
         this.donor = await api.get(this.$route.params.id);
-        this.samples = await api.getSamples(this.$route.params.id);
+        this.samples = this.donor.samples;
       } catch (error) {
         this.donor = null;
         this.samples = null;

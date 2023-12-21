@@ -16,8 +16,8 @@
 
 <script>
 import UAncestry from "@/domain/_shared/components/specimens/Ancestry.vue";
-import specimenApi from "@/domain/specimens/_shared/api/specimen";
 import donorApi from "@/domain/donor/api";
+
 export default {
   components: {
     UAncestry
@@ -28,28 +28,30 @@ export default {
       type: Object,
       required: true,
       default: null
+    },
+
+    donor: {
+      type: Object,
+      required: true,
+      default: null
     }
   },
 
   data() {
     return {
-      donor: null,
       specimens: null,
       current: null
     }
   },
 
   async mounted() {
-    let specimen = this.specimen ?? await specimenApi.get(this.$route.params.id);
-    let donor = await donorApi.get(specimen.donorId);
-    let specimens = await donorApi.searchSpecimens(donor.id, { from: 0, size: 1000 });
+    let specimens = await donorApi.searchSpecimens(this.specimen.donorId, { from: 0, size: 1000 });
     specimens = specimens.rows;
     specimens = this.buildNodes(null, specimens);
-    specimens = this.filterNodes(specimens, specimen.id);
+    specimens = this.filterNodes(specimens, this.specimen.id);
 
-    this.donor = donor;
     this.specimens = specimens;
-    this.current = specimen.id;
+    this.current = this.specimen.id;
   },
 
   methods: {

@@ -51,19 +51,19 @@
               </q-tab-panel>
 
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :image="image" :samples="samples" />
+                <u-genes-tab title="Image Genes" :area="DomainNames.Mri" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab :image="image" :samples="samples" />
+                <u-ssms-tab title="Image Mutations" :area="DomainNames.Mri" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab :image="image" :samples="samples" />
+                <u-cnvs-tab title="Image Copy Number Variants" :area="DomainNames.Mri" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab :image="image" :samples="samples" />
+                <u-svs-tab title="Image Structural Variants" :area="DomainNames.Mri" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -81,16 +81,15 @@
 import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
-import UProfileTab from "../_shared/components/image/ProfileTab.vue";
-import UGenesTab from "../_shared/components/image/GenesTab.vue";
-import USsmsTab from "../_shared/components/image/SSMsTab.vue";
-import UCnvsTab from "../_shared/components/image/CNVsTab.vue";
-import USvsTab from "../_shared/components/image/SVsTab.vue";
-import tabPageMixin from "../../_shared/tab-page-mixin";
+import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
+import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
+import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
+import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
+import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
 
 import DomainNames from "@/_settings/domain-names";
+import tabPageMixin from "../../_shared/tab-page-mixin";
 import imageApi from "../_shared/api/image";
-import donorApi from "../../donor/api";
 
 export default {
   components: {
@@ -115,7 +114,6 @@ export default {
   data() {
     return {
       loading: false,
-      donor: null,
       image: null,
       samples: null
     };
@@ -133,7 +131,7 @@ export default {
     },
 
     showProfile() {
-      return this.showVariants || this.image?.data?.geneExp;
+      return this.showGenes || this.showVariants;
     },
 
     showGenes() {
@@ -145,15 +143,15 @@ export default {
     },
 
     showSsms() {
-      return this.donor?.numberOfSsms;
+      return this.image?.data?.ssms;
     },
 
     showCnvs() {
-      return this.donor?.numberOfCnvs;
+      return this.image?.data?.cnvs;
     },
 
     showSvs() {
-      return this.donor?.numberOfSvs;
+      return this.image?.data?.svs;
     }
   },
 
@@ -161,8 +159,7 @@ export default {
     try {
       this.loading = true;
       this.image = await imageApi.get(this.$route.params.id);
-      this.donor = await donorApi.get(this.image.donorId);
-      this.samples = await imageApi.getSamples(this.image.id);
+      this.samples = this.image.samples;
     } catch (error) {
       this.image = null;
     } finally {

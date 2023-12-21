@@ -25,7 +25,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Creation Day</td>
-              <td>{{ specimen.creationDay }}</td>
+              <td>{{ specimen.xenograft.creationDay }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Mouse Strain</td>
