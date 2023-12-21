@@ -32,6 +32,3 @@ jobs:
             TOKEN=${{ secrets.GITHUB_TOKEN }}
           push: true
           tags: ${{env.REGISTRY}}/${{github.repository}}
-          # tags: |
-          #   ${{env.REGISTRY}}/${{github.repository}}
-          #   ${{env.REGISTRY}}/${{github.repository}}:${{github.sha}}
