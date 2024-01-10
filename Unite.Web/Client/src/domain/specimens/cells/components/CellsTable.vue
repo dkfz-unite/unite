@@ -30,7 +30,7 @@
 
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
-          <u-specimen-link v-if="props.value.id" :id="props.value.id" :type="getSpecimenType(props.value)" />
+          <u-specimen-link v-if="props.value.parentId" :id="props.value.parentId" :type="getSpecimenType(props.value.parentType)" />
         </q-td>
       </template>
     </u-data-table>
@@ -81,7 +81,7 @@ export default {
       columns.push({
         name: "parentId",
         label: "Parent ID",
-        field: (row) => row.parent,
+        field: (row) => row,
         sortable: false,
         align: "left"
       });
@@ -89,7 +89,7 @@ export default {
       columns.push({
         name: "parentType",
         label: "Parent Type",
-        field: (row) => this.getSpecimenTypeName(row.parent),
+        field: (row) => this.getSpecimenTypeName(row.parentType),
         sortable: false,
         align: "left"
       });

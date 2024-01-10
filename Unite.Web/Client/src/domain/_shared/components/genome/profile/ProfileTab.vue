@@ -23,19 +23,21 @@ import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UProfile from "@/visualization/profile/components/Profile.vue";
 import profileCacheService from "@/visualization/profile/components/profile-data-service-cache";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
-import api from "../api";
+import api from "@/domain/specimens/_shared/api/specimen";
 
 
 export default {
-  components: { USamples, UProfile },
+  components: 
+  { 
+    USamples, 
+    UProfile 
+  },
 
   mixins: [samplePageMixin],
 
-  props: ["donor"],
 
   data() {
     return {
-      sample: null,
       profile: null,
       density: 512
     }
@@ -47,14 +49,14 @@ export default {
 
   methods: {
     async fetchData(payload) {
+      if (!this.sample) return;
       try {
-        if (!this.sample) return;
         let criteria = payload || { chrStart: 0, start: 0, chrEnd: 0, end: 0 };
         let data = profileCacheService.read(this.sample.id, criteria);
         if (data) {
           this.profile = data;
         } else {
-          data = await api.getProfile(this.donor.id, this.sample.id, criteria);
+          data = await api.getProfile(this.sample.id, criteria);
           profileCacheService.write(this.sample.id, criteria, data);
           this.profile = data;
         }

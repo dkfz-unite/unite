@@ -155,7 +155,10 @@ export default {
     },
 
     async fetchData() {
-      return await api.search(this.filtersCriteria.toSearchCriteria());
+      let donors = this.filtersCriteria.oncogrid?.numberOfDonors;
+      let genes = this.filtersCriteria.oncogrid?.numberOfGenes;
+      let criteria = this.filtersCriteria.toSearchCriteria();
+      return await api.search(donors, genes, criteria);
     }
   }
 }

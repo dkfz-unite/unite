@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Scanning Day</td>
-              <td>{{ image.scanningDay }}</td>
+              <td>{{ image.mri.creationDay }}</td>
             </tr>
           </tbody>
         </q-markup-table>

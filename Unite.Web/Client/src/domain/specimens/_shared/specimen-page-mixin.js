@@ -1,19 +1,19 @@
 import DomainNames from "@/_settings/domain-names";
+import Permissions from "@/_models/admin/enums/permissions";
 
 import specimenApi from "./api/specimen";
 import donorApi from "@/domain/donor/api";
 
-import Permissions from "@/_models/admin/enums/permissions";
-
 const mixin = {
+
   data() {
     return {
       DomainNames,
 
       loading: false,
       specimen: null,
+      donor: null,
       samples: null,
-      donor: null
     };
   },
 
@@ -72,11 +72,10 @@ const mixin = {
     try {
       this.loading = true;
       this.specimen = await specimenApi.get(this.$route.params.id);
-      this.samples = await specimenApi.getSamples(this.$route.params.id);
+      this.samples = [this.specimen.sample];
       this.donor = await donorApi.get(this.specimen.donorId);
     } catch (error) {
       this.specimen = null;
-      this.samples = null;
       this.donor = null;
     } finally {
       this.loading = false;

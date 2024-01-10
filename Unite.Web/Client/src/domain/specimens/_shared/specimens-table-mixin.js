@@ -1,19 +1,22 @@
 const specimensTableMixin = {
   methods: {
-    getSpecimenType(specimen) {
-      if (!!specimen?.tissue) return "tissue";
-      else if (!!specimen?.cellLine) return "cell";
-      else if (!!specimen?.organoid) return "organoid";
-      else if (!!specimen?.xenograft) return "xenograft";
-      else null;
+    getSpecimenType(type) {
+      switch (type) {
+        case "Tissue": return "tissue";
+        case "CellLine": return "cell";
+        case "Organoid": return "organoid";
+        case "Xenograft": return "xenograft";
+        default: return null;
+      }
     },
 
-    getSpecimenTypeName(specimen) {
-      if (!!specimen?.tissue) return `Tissue (${specimen.tissue.tumorType ?? specimen.tissue.type})`;
-      else if (!!specimen?.cellLine) return "Cell Line";
-      else if (!!specimen?.organoid) return "Organoid";
-      else if (!!specimen?.xenograft) return "Xenograft";
-      else null;
+    getSpecimenTypeName(type) {
+      switch (type) {
+        case "Tissue": return "Tissue";
+        case "CellLine": return "Cell Line";
+        case "Organoid": return "Organoid";
+        case "Xenograft": return "Xenograft";
+      }
     },
 
     getIdh(idhStatus, idhMutation) {

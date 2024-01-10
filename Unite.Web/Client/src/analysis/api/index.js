@@ -2,7 +2,7 @@ import settings from "@/settings";
 import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const analysisUrl = `${settings.urls.composer}/analysis`;
+const analysisUrl = `${settings.urls.analysis}/tasks`;
 
 export async function getAnalysisStatus(key) {
   const url = `${analysisUrl}/${key}`;

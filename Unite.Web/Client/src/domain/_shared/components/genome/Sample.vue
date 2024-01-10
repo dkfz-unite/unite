@@ -6,8 +6,8 @@
       </div>
       <div>
         <q-item-label>
-          <div class="row justify-center">
-            <div>{{ sample.specimen.referenceId }} - {{ sample.referenceId }}</div>
+          <div class="row justify-left">
+            <div> {{ sample.referenceId }}</div>
           </div>
         </q-item-label>
         <q-item-label v-if="showAnalyses" caption>{{ sample.analyses.join(", ") }}</q-item-label>
@@ -31,10 +31,10 @@ export default {
 
   computed: {
     icon() {
-      return this.sample.specimen.type == "Tissue" ? "svguse:/icons.svg#u-tissue"
-           : this.sample.specimen.type == "CellLine" ? "las la-microscope"
-           : this.sample.specimen.type == "Organoid" ? "svguse:/icons.svg#u-organoid"
-           : this.sample.specimen.type == "Xenograft" ? "svguse:/icons.svg#u-xenograft"
+      return this.sample.type == "Tissue" ? "svguse:/icons.svg#u-tissue"
+           : this.sample.type == "CellLine" ? "las la-microscope"
+           : this.sample.type == "Organoid" ? "svguse:/icons.svg#u-organoid"
+           : this.sample.type == "Xenograft" ? "svguse:/icons.svg#u-xenograft"
            : null;
     }
   }

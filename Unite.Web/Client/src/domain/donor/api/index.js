@@ -29,11 +29,6 @@ async function searchVariants(id, sampleId, type, criteria){
   return await client.post(url, criteria);
 }
 
-async function getSamples(id) {
-  let url = `${donorUrl}/${id}/samples`;
-  return await client.get(url);
-}
-
 async function getProfile(id, sampleId, criteria){
   let url = `${donorUrl}/${id}/profile/${sampleId}`;
   return await await client.post(url, criteria);
@@ -51,7 +46,6 @@ export default {
   searchSpecimens,
   searchGenes,
   searchVariants,
-  getSamples,
   getProfile,
   downloadData
 }

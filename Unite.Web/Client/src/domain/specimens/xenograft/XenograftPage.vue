@@ -57,7 +57,7 @@
               </q-tab-panel>
 
               <q-tab-panel name="ancestry" class="q-py-sm q-px-none">
-                <u-ancestry-tab :specimen="specimen" />
+                <u-ancestry-tab :specimen="specimen" :donor="donor" />
               </q-tab-panel>
 
               <q-tab-panel name="drugs" class="q-py-sm q-px-none">
@@ -69,23 +69,23 @@
               </q-tab-panel>
 
               <q-tab-panel name="profile" class="q-py-sm q-px-none">
-                <u-profile-tab :specimen="specimen" :samples="samples" />
+                <u-profile-tab :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab :specimen="specimen" :samples="samples" />
+                <u-genes-tab title="Specimen Genes" :area="DomainNames.Xenograft" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab :specimen="specimen" :samples="samples" />
+                <u-ssms-tab title="Specimen Mutations" :area="DomainNames.Xenograft" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab :specimen="specimen" :samples="samples" />
+                <u-cnvs-tab title="Specimen Copy Number Variants" :area="DomainNames.Xenograft" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab :specimen="specimen" :samples="samples" />
+                <u-svs-tab title="Specimen Structural Variants" :area="DomainNames.Xenograft" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -107,11 +107,11 @@ import USummaryTab from "./components//SummaryTab.vue";
 import UInterventionsTab from "./components/InterventionsTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
 import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
-import UProfileTab from "../_shared/components/specimen/ProfileTab.vue";
-import UGenesTab from "../_shared/components/specimen/GenesTab.vue";
-import USsmsTab from "../_shared/components/specimen/SSMsTab.vue";
-import UCnvsTab from "../_shared/components/specimen/CNVsTab.vue";
-import USvsTab from "../_shared/components/specimen/SVsTab.vue";
+import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
+import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
+import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
+import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
+import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
 
 import tabPageMixin from "../../_shared/tab-page-mixin";
 import specimenPageMixin from "../_shared/specimen-page-mixin";
