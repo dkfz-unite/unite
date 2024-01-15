@@ -1,0 +1,24 @@
+[
+  {
+    "donor_id": "DO1",
+    "specimen_id": "CL1TI1",
+    "specimen_type": "CellLine",
+    "data": [
+      {
+        "drug": "A-1155463",
+        "dss": 33.56,
+        "dss_selective": 28.03,
+        "gof": 0.99,
+        "min_concentration": 1,
+        "max_concentration": 10000,
+        "abs_ic_25": 2.82,
+        "abs_ic_50": 9.86,
+        "abs_ic_75": 48.74,
+        "concentration": [1, 10, 100, 1000, 10000],
+        "inhibition": [6.76, 50.25, 82.32, 94.10, 97.42],
+        "concentration_line": [6.76, 50.25, 82.32, 94.10, 97.42],
+        "inhibition_line": [6.76, 50.25, 82.32, 94.10, 97.42]
+      }
+    ]
+  }
+]
