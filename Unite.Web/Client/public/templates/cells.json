@@ -6,44 +6,44 @@
     "parent_type": "Tissue",
     "creation_date": "2020-02-05",
     "creation_day": null,
-    "cell_line": {
-        "species": "Human",
-        "type": "Stem Cell",
-        "culture_type": "Both",
-        "info": {
-            "name": "CLP_CL1TI1",
-            "depositor_name": "Erica Polden",
-            "depositor_establishment": "Colonord Research Centre",
-            "establishment_date": "2020-02-05",
-            "pub_med_link": "https://pubmed.ncbi.nlm.nih.gov",
-            "atcc_link": "https://www.atcc.org/",
-            "ex_pasy_link": "https://www.expasy.org/"
-        }
+    "line": {
+      "cells_species": "Human",
+      "cells_type": "Stem Cell",
+      "cells_culture_type": "Both",
+      "info": {
+        "name": "CLP_CL1TI1",
+        "depositor_name": "Erica Polden",
+        "depositor_establishment": "Colonord Research Centre",
+        "establishment_date": "2020-02-05",
+        "pubmed_link": "https://pubmed.ncbi.nlm.nih.gov",
+        "atcc_link": "https://www.atcc.org/",
+        "expasy_link": "https://www.expasy.org/"
+      }
     },
-    "drugs_screening_data": [
-        {
-          "drug": "A-1155463",
-          "dss": 33.56,
-          "dss_selective": 28.03,
-          "gof": 0.99,
-          "min_concentration": 1,
-          "max_concentration": 10000,
-          "abs_ic_25": 2.82,
-          "abs_ic_50": 9.86,
-          "abs_ic_75": 48.74,
-          "concentration": [1, 10, 100, 1000, 10000],
-          "inhibition": [6.76, 50.25, 82.32, 94.10, 97.42],
-          "concentration_line": [6.76, 50.25, 82.32, 94.10, 97.42],
-          "inhibition_line": [6.76, 50.25, 82.32, 94.10, 97.42]
-        }
+    "drug_screenings": [
+      {
+        "drug": "A-1155463",
+        "dss": 33.56,
+        "dss_selective": 28.03,
+        "gof": 0.99,
+        "min_concentration": 1,
+        "max_concentration": 10000,
+        "abs_ic_25": 2.82,
+        "abs_ic_50": 9.86,
+        "abs_ic_75": 48.74,
+        "concentration": [1, 10, 100, 1000, 10000],
+        "inhibition": [6.76, 50.25, 82.32, 94.10, 97.42],
+        "concentration_line": [6.76, 50.25, 82.32, 94.10, 97.42],
+        "inhibition_line": [6.76, 50.25, 82.32, 94.10, 97.42]
+      }
     ],
     "molecular_data": {
-        "mgmt_status": "Methylated",
-        "idh_status": "Wild Type",
-        "idh_mutation": null,
-        "gene_expression_subtype": "Classical",
-        "methylation_subtype": "H3-K27",
-        "gcimp_methylation": true
+      "mgmt_status": "Methylated",
+      "idh_status": "Wild Type",
+      "idh_mutation": null,
+      "gene_expression_subtype": "Classical",
+      "methylation_subtype": "H3-K27",
+      "gcimp_methylation": true
     }
   }
 ]
