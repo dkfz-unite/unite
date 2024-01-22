@@ -2,7 +2,7 @@
   {
     "donor_id": "DO1",
     "specimen_id": "CL1TI1",
-    "specimen_type": "CellLine",
+    "specimen_type": "Line",
     "data": [
       {
         "drug": "A-1155463",
