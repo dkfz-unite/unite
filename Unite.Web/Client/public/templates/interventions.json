@@ -1,0 +1,25 @@
+{
+  "donor_id": "Donor1",
+  "specimen_id": "Organoid1",
+  "specimen_type": "Organoid",
+  "data": [
+    {
+      "type": "Intervention1",
+      "details": "Specimen specific intervention details",
+      "start_date": "2018-01-01",
+      "start_day": 1,
+      "end_date": "2018-01-01",
+      "duration_days": 1,
+      "results": "Specimen specific intervention results"
+    },
+    {
+      "type": "Intervention2",
+      "details": "Specimen specific intervention details",
+      "start_date": "2018-01-01",
+      "start_day": 1,
+      "end_date": "2018-01-01",
+      "duration_days": 1,
+      "results": "Specimen specific intervention results"
+    }
+  ]
+}

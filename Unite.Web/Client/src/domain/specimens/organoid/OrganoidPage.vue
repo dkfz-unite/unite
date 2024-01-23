@@ -13,14 +13,14 @@
       <u-upload-button
         v-if="specimen && donor && canUpload"
         :donorId="donor.referenceId"
-        :specimenId="specimen.organoid.referenceId"
+        :specimenId="specimen.referenceId"
         specimenType="Organoid">
       </u-upload-button>
 
       <u-download-button
         v-if="specimen"
         :id="specimen.id"
-        :reference="specimen.organoid.referenceId"
+        :reference="specimen.referenceId"
         :data="specimen.data"
         :domain="DomainNames.Organoids">
       </u-download-button>
@@ -35,7 +35,7 @@
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="ancestry" label="Ancestry" icon="las la-sitemap" />
               <q-tab name="drugs" label="Drugs" icon="las la-capsules" :disable="!showDrugs" />
-              <q-tab name="interventions" label="Interventions" icon="las la-biohazard" :disable="!showInterventions" />
+              <q-tab name="interventions" label="Interventions" icon="las la-syringe" :disable="!showInterventions" />
               <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 

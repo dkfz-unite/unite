@@ -1,0 +1,3 @@
+donor_id	specime_id	specimen_type	type	details	start_date	start_day	end_date	duration_days	results
+Donor1	Xenograft1	Line1	Intervention1	Specimen specific intervention details	2020-02-05	1	2020-02-05	1	Specimen specific intervention results
+Donor1	Xenograft1	Line1	Intervention2	Specimen specific intervention details	2020-02-05	1	2020-02-05	1	Specimen specific intervention results
