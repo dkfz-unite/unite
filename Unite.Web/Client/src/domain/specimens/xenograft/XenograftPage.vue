@@ -35,7 +35,7 @@
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="ancestry" label="Ancestry" icon="las la-sitemap" />
               <q-tab name="drugs" label="Drugs" icon="las la-capsules" :disable="!showDrugs" />
-              <q-tab name="interventions" label="Interventions" icon="las la-biohazard" :disable="!showInterventions" />
+              <q-tab name="interventions" label="Interventions" icon="las la-syringe" :disable="!showInterventions" />
               <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
