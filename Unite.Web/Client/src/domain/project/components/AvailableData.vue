@@ -22,17 +22,17 @@
               <td class="u-text-key">MRI images</td>
               <td>{{ project.data?.mri || "-" }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="u-text-key">CT images</td>
               <td>{{ project.data?.ct || "-" }}</td>
-            </tr>
+            </tr> -->
             <tr>
-              <td class="u-text-key">Tissues</td>
-              <td>{{ project.data?.tissues || "-" }}</td>
+              <td class="u-text-key">Materials</td>
+              <td>{{ project.data?.materials || "-" }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Cell lines</td>
-              <td>{{ project.data?.cells || "-" }}</td>
+              <td>{{ project.data?.lines || "-" }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Organoids</td>
@@ -55,7 +55,7 @@
               <td>{{ project.data?.sv || "-" }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Gene expressions (Transcriptomics)</td>
+              <td class="u-text-key">Bulk Gene expressions</td>
               <td>{{ project.data?.tra || "-" }}</td>
             </tr>
           </tbody>

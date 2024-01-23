@@ -1,9 +1,9 @@
 const routes = [
     {
-      path: '/projects',
-      name: 'projects',
+      path: "/projects",
+      name: "projects",
       meta: { title: "UNITE.Projects", authorize: true },
-      component: () => import(/* webpackChunkName: "projects" */ '../ProjectsPage.vue')
+      component: () => import(/* webpackChunkName: "projects" */ "../ProjectsPage.vue")
     }
   ];
 

@@ -8,12 +8,12 @@
       <u-cohort-data-item title="MRI" :show="!!data.mris" />
       <u-cohort-data-item title="CT" :show="!!data.cts" />
     </u-cohort-data-group>
-    <u-cohort-data-group title="Tissues" :show="!!data.tissues">
-      <u-cohort-data-item title="Molecular data" :show="!!data.tissuesMolecular" />
+    <u-cohort-data-group title="Materials" :show="!!data.materials">
+      <u-cohort-data-item title="Molecular data" :show="!!data.materialsMolecular" />
     </u-cohort-data-group>
-    <u-cohort-data-group title="Cells" :show="!!data.cells">
-      <u-cohort-data-item title="Molecular data" :show="!!data.cellsMolecular" />
-      <u-cohort-data-item title="Drug screenings" :show="!!data.cellsDrugs" />
+    <u-cohort-data-group title="Cell Lines" :show="!!data.lines">
+      <u-cohort-data-item title="Molecular data" :show="!!data.linesMolecular" />
+      <u-cohort-data-item title="Drug screenings" :show="!!data.linesDrugs" />
     </u-cohort-data-group>
     <u-cohort-data-group title="Organoids" :show="!!data.organoids">
       <u-cohort-data-item title="Molecular data" :show="!!data.organoidsMolecular" />
@@ -30,7 +30,7 @@
       <u-cohort-data-item title="CNV" :show="!!data.cnvs" />
       <u-cohort-data-item title="SV" :show="!!data.svs" />
     </u-cohort-data-group>
-    <u-cohort-data-group title="Transcriptomics" :show="!!data.geneExp || !!geneExpSc">
+    <u-cohort-data-group title="Transcriptomics" :show="!!data.geneExp || !!data.geneExpSc">
       <u-cohort-data-item title="Bulk" :show="!!data.geneExp" />
       <u-cohort-data-item title="Single cell" :show="!!data.geneExpSc" />
     </u-cohort-data-group>

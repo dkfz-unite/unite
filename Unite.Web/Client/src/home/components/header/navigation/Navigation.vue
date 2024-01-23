@@ -32,7 +32,7 @@
               <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
               <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
                 <q-icon name="svguse:/icons.svg#u-tissue" size="sm" />
-                <span>Tissues</span>
+                <span>Materials</span>
               </div>
             </q-item-section>
           </q-item>

@@ -5,10 +5,10 @@ export default class DomainNames {
   static Mri = "mri";
   static Cts = "cts";
   static Ct = "ct";
-  static Tissues = "tissues";
-  static Tissue = "tissue";
-  static Cells = "cells";
-  static Cell = "cell";
+  static Tissues = "materials";
+  static Tissue = "material";
+  static Cells = "lines";
+  static Cell = "line";
   static Organoids = "organoids";
   static Organoid = "organoid";
   static Xenografts = "xenografts";

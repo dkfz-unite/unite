@@ -76,6 +76,7 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
+import FilterModels from "@/_shared/components/filters/filter-models";
 import VariantTypes from "@/_models/domain/genome/variants/variant-types";
 import VariantsApi from "../_shared/api/variants";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
@@ -100,8 +101,8 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Ssms,
-      model: "ssm",
-      models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm"]
+      model: FilterModels.Ssm,
+      models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Gene, FilterModels.Ssm]
     };
   },
 

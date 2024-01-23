@@ -41,11 +41,11 @@ export default {
         data.push({ title: "Interventions", available: this.specimen.data?.interventions });
       }
 
-      if (this.specimen.type != "Tissue") {
+      if (this.specimen.type != "Material") {
         data.push({ title: "Drug Screenings", available: this.specimen.data?.drugs });
       }
 
-      if (this.specimen.type == "Tissue" && this.specimen.tissue?.tumorType != "Control") {
+      if (this.specimen.type == "Material" && this.specimen.material?.tumorType != "Normal") {
         data.push({ title: "MRI Images", available: !!this.specimen.data?.mris });
       }
 

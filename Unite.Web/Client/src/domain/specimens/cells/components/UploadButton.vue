@@ -37,8 +37,8 @@
         <q-item @click="onUploadCellDrugs" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
-              <div><q-icon name="" size="sm" /></div>
-              <div>Drug Screening</div>
+              <div><q-icon name="las la-capsules" size="sm" /></div>
+              <div>Drug Screenings</div>
             </div>
           </q-item-section>
         </q-item>

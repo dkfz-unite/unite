@@ -2,7 +2,7 @@
   <div>
     <div>
       <span>Creation Day: </span>
-      <span v-if="xenograft.creationDay" class="text-black">{{xenograft.creationDay}}</span>
+      <span v-if="specimen.creationDay" class="text-black">{{specimen.creationDay}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
     <div>
@@ -12,7 +12,7 @@
     </div>
     <div>
       <span>Tumorigenicity: </span>
-      <span v-if="xenograft.tumorigenicity" class="text-black">{{$helpers.content.toBooleanString(xenograft.tumorigenicity)}}</span>
+      <span v-if="specimen.tumorigenicity" class="text-black">{{$helpers.content.toBooleanString(specimen.tumorigenicity)}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
   </div>
@@ -21,7 +21,7 @@
 <script>
 export default {
   props: {
-    xenograft: {
+    specimen: {
       type: Object,
       required: true
     }
@@ -29,12 +29,12 @@ export default {
 
   computed: {
     mice() {
-      if (this.xenograft.groupSize && this.xenograft.mouseStrain) {
-        return `${this.xenograft.mouseStrain} / ${this.xenograft.groupSize}`;
-      } else if (this.xenograft.groupSize) {
-        return this.xenograft.groupSize;
-      } else if (this.xenograft.mouseStrain) {
-        return this.xenograft.mouseStrain;
+      if (this.specimen.groupSize && this.specimen.mouseStrain) {
+        return `${this.specimen.mouseStrain} / ${this.specimen.groupSize}`;
+      } else if (this.specimen.groupSize) {
+        return this.specimen.groupSize;
+      } else if (this.specimen.mouseStrain) {
+        return this.specimen.mouseStrain;
       } else {
         return null;
       }

@@ -13,14 +13,14 @@
       <u-upload-button
         v-if="specimen && donor && canUpload"
         :donorId="donor.referenceId"
-        :specimenId="specimen.cell.referenceId"
-        specimenType="CellLine">
+        :specimenId="specimen.referenceId"
+        specimenType="Line">
       </u-upload-button>
 
       <u-download-button
         v-if="specimen"
         :id="specimen.id"
-        :reference="specimen.cell.referenceId"
+        :reference="specimen.referenceId"
         :data="specimen.data"
         :domain="DomainNames.Cells">
       </u-download-button>
@@ -128,7 +128,7 @@ export default {
   mixins: [tabPageMixin, specimenPageMixin],
 
   async unmounted() {
-    this.$store.dispatch("cell/clearState");
+    this.$store.dispatch("line/clearState");
   }
 }
 </script>

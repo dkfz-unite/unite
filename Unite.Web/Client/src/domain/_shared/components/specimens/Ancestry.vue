@@ -19,6 +19,8 @@
 
 <script>
 import USpecimensTree from "./SpecimensTree.vue";
+import TissueType from "@/_models/domain/specimens/tissues/enums/tissue-type";
+import TumorType from "@/_models/domain/specimens/tissues/enums/tumor-type";
 
 export default {
   components: {
@@ -94,13 +96,13 @@ export default {
     },
 
     getSpecimenRank(specimen) {
-      if (specimen.tissue) {
-        return specimen.tissue.type == "Control" ? 1
-             : specimen.tissue.tumorType == "Primary" ? 2
-             : specimen.tissue.tumorType == "Metastasis" ? 3
-             : specimen.tissue.tumorType == "Recurrent" ? 4
+      if (specimen.material) {
+        return specimen.material.type === TissueType.Normal ? 1
+             : specimen.material.tumorType === TumorType.Primary ? 2
+             : specimen.material.tumorType === TumorType.Metastasis ? 3
+             : specimen.material.tumorType === TumorType.Recurrent ? 4
              : 5;
-      } else if (specimen.cell) {
+      } else if (specimen.line) {
         return 11;
       } else if (specimen.organoid) {
         return 21;

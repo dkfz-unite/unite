@@ -1,7 +1,7 @@
 <template>
   <u-upload-dialog
     v-model="dialog"
-    subject="Tissues"
+    subject="Materials"
     templatePathJson="/templates/tissues.json"
     templatePathTsv="/templates/tissues.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"

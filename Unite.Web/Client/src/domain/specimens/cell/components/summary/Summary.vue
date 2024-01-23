@@ -19,23 +19,23 @@
             </tr>
             <tr>
               <td class="u-text-key">External ID</td>
-              <td class="text-bold">{{ specimen.cell.referenceId }}</td>
+              <td class="text-bold">{{ specimen.referenceId }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Creation Day</td>
-              <td>{{ specimen.cell.creationDay }}</td>
+              <td>{{ specimen.line.creationDay }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Species</td>
-              <td>{{ specimen.cell.species }}</td>
+              <td>{{ specimen.line.cellsSpecies }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
-              <td>{{ specimen.cell.type }}</td>
+              <td>{{ specimen.line.cellsType }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Culture Type</td>
-              <td>{{ specimen.cell.cultureType }}</td>
+              <td>{{ specimen.line.cellsCultureType }}</td>
             </tr>
           </tbody>
         </q-markup-table>

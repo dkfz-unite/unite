@@ -78,6 +78,7 @@ import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/Cohort
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import UUploadButton from "./components/UploadButton.vue";
 import DomainNames from "@/_settings/domain-names";
+import FilterModels from "@/_shared/components/filters/filter-models";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
@@ -104,8 +105,8 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Cells,
-      model: "cell",
-      models: ["donor", "cell", "gene", "ssm", "cnv", "sv"]
+      model: FilterModels.Cell,
+      models: [FilterModels.Donor, FilterModels.Cell, ...FilterModels.Genome]
     };
   },
 
