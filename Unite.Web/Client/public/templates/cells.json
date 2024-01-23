@@ -1,9 +1,9 @@
 [
   {
-    "id": "CL1TI1",
-    "donor_id": "DO1",
-    "parent_id": "TI1",
-    "parent_type": "Tissue",
+    "id": "Line1",
+    "donor_id": "Donor1",
+    "parent_id": "Material1",
+    "parent_type": "Material",
     "creation_date": "2020-02-05",
     "creation_day": null,
     "line": {
@@ -11,7 +11,7 @@
       "cells_type": "Stem Cell",
       "cells_culture_type": "Both",
       "info": {
-        "name": "CLP_CL1TI1",
+        "name": "CL1",
         "depositor_name": "Erica Polden",
         "depositor_establishment": "Colonord Research Centre",
         "establishment_date": "2020-02-05",
@@ -20,23 +20,6 @@
         "expasy_link": "https://www.expasy.org/"
       }
     },
-    "drug_screenings": [
-      {
-        "drug": "A-1155463",
-        "dss": 33.56,
-        "dss_selective": 28.03,
-        "gof": 0.99,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "abs_ic_25": 2.82,
-        "abs_ic_50": 9.86,
-        "abs_ic_75": 48.74,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [6.76, 50.25, 82.32, 94.10, 97.42],
-        "concentration_line": [6.76, 50.25, 82.32, 94.10, 97.42],
-        "inhibition_line": [6.76, 50.25, 82.32, 94.10, 97.42]
-      }
-    ],
     "molecular_data": {
       "mgmt_status": "Methylated",
       "idh_status": "Wild Type",
@@ -44,6 +27,23 @@
       "gene_expression_subtype": "Classical",
       "methylation_subtype": "H3-K27",
       "gcimp_methylation": true
-    }
+    },
+    "drug_screenings": [
+      {
+        "drug": "Drug1",
+        "dss": 33.56,
+        "dss_selective": 28.03,
+        "gof": 0.99,
+        "abs_ic_25": 2.82,
+        "abs_ic_50": 9.86,
+        "abs_ic_75": 48.74,
+        "min_concentration": 1,
+        "max_concentration": 10000,
+        "concentration": [1, 10, 100, 1000, 10000],
+        "inhibition": [6.76, 50.25, 82.32, 94.10, 97.42],
+        "concentration_line": [6.76, 50.25, 82.32, 94.10, 97.42],
+        "inhibition_line": [6.76, 50.25, 82.32, 94.10, 97.42]
+      }
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 [
   {
-    "id": "IM1",
-    "donor_id": "DO1",
+    "id": "MRI1",
+    "donor_id": "Donor1",
     "scanning_date": null,
     "scanning_day": 14,
     "mri_image": {
@@ -22,7 +22,7 @@
         "median_mtt_edema": 2631.357421875
     },
     "analysis": {
-        "id": "IA1IM1",
+        "id": "MRI1-Analysis1",
         "type": "RFE",
         "parameters": {
             "param_a1": "value_a1",

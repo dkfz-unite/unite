@@ -1,7 +1,7 @@
 [
   {
-    "donor_id": "DO1",
-    "therapy": "Radiotherapy",
+    "donor_id": "Donor1",
+    "therapy": "Surgery",
     "details": "Patient specific therapy details.",
     "start_date": "2020-01-07",
     "start_day": 7,
