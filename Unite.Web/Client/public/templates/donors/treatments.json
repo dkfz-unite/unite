@@ -1,0 +1,16 @@
+[
+  {
+    "donor_id": "Donor1",
+    "data": [
+      {
+        "therapy": "Medication",
+        "details": "Patient specific therapy details.",
+        "start_date": "2020-01-27",
+        "start_day": 27,
+        "end_date": "2020-03-27",
+        "duration_days": 90,
+        "results": "Patient specific therapy results."
+      }
+    ]
+  }
+]
