@@ -46,7 +46,10 @@ export default {
     },
 
     async uploadImages(data, format) {
-      return await this.imagesApi.uploadImages(data, format);
+      if (format === "json")
+        return await this.imagesApi.uploadImages(data, format);
+      else
+        return await this.imagesApi.uploadMris(data);
     },
   }
 }

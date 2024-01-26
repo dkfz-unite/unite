@@ -22,16 +22,26 @@ export default class ImagesApi extends DomainApi {
   /**
    * Uploads images data.
    * @param {Object} data data to upload.
-   * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadImages(data, format = formats.json.name) {
-    validateFormat(format);
-
-    const url = `${this.feedUrl}/images${formats[format].path ?? ""}`;
+  async uploadImages(data) {
+    const url = `${this.feedUrl}/images`;
     const body = data;
-    const config = { headers: formats[format].headers };
+    const config = { headers: formats.json.headers };
 
+    return this.client.post(url, body, config);
+  }
+
+  /**
+   * Uploads MRI images data.
+   * @param {Object} data data to upload.
+   * @returns {Promise<Object>} A promise that resolves with the upload results.
+   */
+  async uploadMris(data) {
+    const url = `${this.feedUrl}/mris/tsv`;
+    const body = data;
+    const config = { headers: formats.tsv.headers };
+    
     return this.client.post(url, body, config);
   }
 }
