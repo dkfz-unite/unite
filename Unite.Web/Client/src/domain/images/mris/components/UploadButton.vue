@@ -4,7 +4,7 @@
     subject="Mri-Images"
     templatePathJson="/templates/mri-images.json"
     templatePathTsv="/templates/mri-images.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-images-models.md"
+    modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-models-images.md"
     :uploadMethod="uploadImages"
   />
 
