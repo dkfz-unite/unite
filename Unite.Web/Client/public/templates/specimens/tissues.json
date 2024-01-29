@@ -5,7 +5,7 @@
       "parent_id": null,
       "parent_type": null,
       "creation_date": "2020-02-01",
-      "creation_day": null,
+      "creation_day": 31,
       "material": {
           "type": "Tumor",
           "tumor_type": "Primary",
