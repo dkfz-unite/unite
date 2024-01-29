@@ -189,11 +189,15 @@ export default {
 
     async validate() {
       this.error = null;
-
-      if (this.file.value)
-        this.$refs.uploadInput?.validate();
-
-      this.canApply = this.$refs.uploadInput?.hasError;
+      this.canApply = false;
+      if (this.file.value) {
+        await this.$refs.uploadInput?.resetValidation();
+        await this.$refs.uploadInput?.validate();
+        this.canApply = this.$refs.uploadInput?.hasError == false;
+      } else {
+        await this.$refs.uploadInput?.resetValidation();
+        this.canApply = false;
+      }
     },
 
     async notifyError(message, caption = undefined) {
