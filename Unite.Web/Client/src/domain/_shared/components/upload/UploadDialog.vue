@@ -179,7 +179,7 @@ export default {
 
     async fileIsValid(file) {
       if (this.fileType === "json") {
-        return file?.name.endsWith(".jsonc") || file?.name.endsWith(".json") || "Invalid file type";
+        return file?.name.endsWith(".json") || "Invalid file type";
       } else if (this.fileType === "tsv") {
         return file?.name.endsWith(".tsv") || "Invalid file type";
       }
