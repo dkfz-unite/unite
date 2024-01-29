@@ -2,7 +2,7 @@
   {
     "id": "MRI1",
     "donor_id": "Donor1",
-    "scanning_date": null,
+    "scanning_date": "2020-01-07",
     "scanning_day": 14,
     "mri_image": {
         "whole_tumor": 111.393,
