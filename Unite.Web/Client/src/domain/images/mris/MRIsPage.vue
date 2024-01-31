@@ -82,6 +82,7 @@ import ImageTypes from "@/_models/domain/images/image-types";
 import ImagesApi from "../_shared/api/images";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import Permissions from "@/_models/admin/enums/permissions";
+import FilterModels from "@/_shared/components/filters/filter-models";
 
 const api = new ImagesApi(ImageTypes.Mri);
 
@@ -104,8 +105,8 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Mris,
-      model: "mri",
-      models: ["donor", "mri", "tissue", "gene", "ssm", "cnv", "sv"]
+      model: FilterModels.Mri,
+      models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Tissue, ...FilterModels.Genome]
     };
   },
 

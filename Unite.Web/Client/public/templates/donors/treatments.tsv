@@ -1,0 +1,5 @@
+donor_id	therapy	details	start_date	start_day	end_date	duration_days	results
+Donor1	Therapy1	Patient specific therapy details.	2020-01-15		2020-01-15		Patient specific therapy results.
+Donor1	Therapy2	Patient specific therapy details.	2020-02-01		2020-03-01		Patient specific therapy results.
+Donor2	Therapy1	Patient specific therapy details.	2020-01-15		2020-01-15		Patient specific therapy results.
+Donor2	Therapy2	Patient specific therapy details.	2020-02-01		2020-03-01		Patient specific therapy results.

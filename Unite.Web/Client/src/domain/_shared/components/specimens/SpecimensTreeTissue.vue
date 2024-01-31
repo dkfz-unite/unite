@@ -2,51 +2,54 @@
   <div>
     <div>
       <span>Creation Day: </span>
-      <span v-if="tissue.creationDay" class="text-black">{{tissue.creationDay}}</span>
+      <span v-if="specimen.creationDay" class="text-black">{{specimen.creationDay}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
     <div>
       <span>Type: </span>
-      <span :class="getColor(tissue)">{{getType(tissue)}}</span>
+      <span :class="getColor(specimen)">{{getType(specimen)}}</span>
     </div>
     <div>
       <span>Source: </span>
-      <span v-if="!!tissue.source" class="text-black">{{tissue.source}}</span>
+      <span v-if="!!specimen.source" class="text-black">{{specimen.source}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
   </div>
 </template>
 
 <script>
+import TissueType from '@/_models/domain/specimens/tissues/enums/tissue-type';
+import TumorType from '@/_models/domain/specimens/tissues/enums/tumor-type';
+
 export default {
   props: {
-    tissue: {
+    specimen: {
       type: Object,
       required: true
     }
   },
 
   methods: {
-    getType(tissue) {
-      if (tissue.type == "Control") {
-        return tissue.type;
-      } else if (tissue.type == "Tumor") {
-        return tissue.tumorType ?? tissue.type;
+    getType(specimen) {
+      if (specimen.type === TissueType.Normal) {
+        return specimen.type;
+      } else if (specimen.type === TissueType.Tumor) {
+        return specimen.tumorType ?? specimen.type;
       } else {
         return "Unknown";
       }
     },
 
-    getColor(tissue) {
-      if (tissue.type == "Control") {
+    getColor(specimen) {
+      if (specimen.type === TissueType.Normal) {
         return "text-green";
-      } else if (tissue.tumorType == "Primary") {
+      } else if (specimen.tumorType === TumorType.Primary) {
         return "text-blue-5";
-      } else if (tissue.tumorType == "Metastasis") {
+      } else if (specimen.tumorType === TumorType.Metastasis) {
         return "text-blue-7";
-      } else if (tissue.tumorType == "Recurrent") {
+      } else if (specimen.tumorType === TumorType.Recurrent) {
         return "text-blue-9";
-      } else if (tissue.type == "Tumor") {
+      } else if (specimen.type === TissueType.Tumor) {
         return "text-blue-5";
       } else {
         return "text-black";

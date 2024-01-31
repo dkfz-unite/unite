@@ -57,6 +57,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
+              <u-upload-button v-if="canUpload" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -75,10 +76,13 @@ import UDataTable from "./components/CellsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import UUploadButton from "./components/UploadButton.vue";
 import DomainNames from "@/_settings/domain-names";
+import FilterModels from "@/_shared/components/filters/filter-models";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import Permissions from "@/_models/admin/enums/permissions";
 
 const api = new SpecimensApi(SpecimenTypes.CellLine);
 
@@ -91,7 +95,8 @@ export default {
     UDataTable,
     UFiltersToolbar,
     UCohortsToolbar,
-    USearchBar
+    USearchBar,
+    UUploadButton
   },
 
   mixins: [tablePageMixin],
@@ -100,9 +105,16 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Cells,
-      model: "cell",
-      models: ["donor", "cell", "gene", "ssm", "cnv", "sv"]
+      model: FilterModels.Cell,
+      models: [FilterModels.Donor, FilterModels.Cell, ...FilterModels.Genome]
     };
+  },
+
+  computed: {
+    canUpload() {
+      const account = this.$store.state.identity.account;
+      return account.hasPermission(Permissions.Data.Write);
+    },
   },
 
   methods: {

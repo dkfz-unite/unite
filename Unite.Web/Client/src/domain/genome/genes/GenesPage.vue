@@ -78,6 +78,7 @@ import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/Cohort
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
+import FilterModels from "@/_shared/components/filters/filter-models";
 import GenesApi from "./api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
@@ -102,8 +103,8 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Genes,
-      model: "gene",
-      models: ["donor", "mri", "tissue", "cell", "organoid", "xenograft", "gene", "ssm", "cnv", "sv"]
+      model: FilterModels.Gene,
+      models: FilterModels.All
     };
   },
 

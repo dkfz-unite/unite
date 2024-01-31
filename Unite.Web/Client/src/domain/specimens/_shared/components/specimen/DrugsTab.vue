@@ -125,8 +125,8 @@ export default {
     },
 
     hasDrugResponseData(screening) {
-      return (screening.dose?.length && screening.response?.length)
-          || (screening.inhibition?.length && screening.concentration?.length);
+      return (screening.concentration?.length && screening.inhibition?.length)
+          || (screening.concentrationLine?.length && screening.inhibitionLine?.length);
     },
 
     async fetchData() {

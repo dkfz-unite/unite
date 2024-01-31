@@ -19,12 +19,13 @@
 
         <div class="row">
           <div v-if="fileType === 'json'" class="col">
-            Download json file <a :href="templatePathJson" :download="`${subjectLower}-template.json`" class="u-link">template</a>
+            Download json file <a :href="templatePathJson" :download="`${subjectLowerFillWhiteSpaces}-template.json`" class="u-link">template</a>
           </div>
           <div v-if="fileType === 'tsv'" class="col">
-            Download tsv file <a :href="templatePathTsv" :download="`${subjectLower}-template.tsv`" class="u-link">template</a>
+            Download tsv file <a :href="templatePathTsv" :download="`${subjectLowerFillWhiteSpaces}-template.tsv`" class="u-link">template</a>
           </div>
         </div>
+
         <div class="row">
           <div class="col">
             Data model <a :href="modelDocs" target="_blank" class="u-link">documentation</a>
@@ -44,20 +45,22 @@
           </template>
         </q-file>
 
-        <div v-if="isValidationError" class="row">
+        <div v-if="error?.status == 400" class="row">
           <div class="col">
-            <div class="text-body1">There are validation errors:</div>
-            <q-scroll-area
-              ref="errorsScrollArea"
-              style="height: 120px; border: 1px solid lightgrey"
-            >
-              <div v-for="dataItem in Object.entries(error.data)" class="row q-pa-xs">
+            <div class="text-negative">There are validation errors:</div>
+            <q-scroll-area style="height: 120px; border: 1px solid lightgrey">
+              <div v-for="fieldError in Object.entries(error.data)" class="row q-pa-xs">
                 <div class="col">
-                  <div class="row text-weight-bold">{{ dataItem[0] }}</div>
-                  <div class="row" v-for="message in dataItem[1]"> {{ message }}</div>
+                  <div class="row text-weight-bold">{{ fieldError[0] }}</div>
+                  <div class="row" v-for="fieldErrorMessage in fieldError[1]"> {{ fieldErrorMessage }}</div>
                 </div>
               </div>
             </q-scroll-area>
+          </div>
+        </div>
+        <div v-else-if="error" class="row">
+          <div class="col">
+            <span class="text-negative">{{ error.data }}</span>
           </div>
         </div>
       </q-card-section>
@@ -82,11 +85,6 @@
 
 <script>
 const defaultFileType = "json";
-const defaultError = {
-  status: 200,
-  statusText: "",
-  data: null,
-};
 
 export default {
   props: {
@@ -96,8 +94,8 @@ export default {
     },
     subject: String,
     templatePathJson: String,
-    modelDocs: String,
     templatePathTsv: String,
+    modelDocs: String,
     uploadMethod: Function,
   },
 
@@ -109,12 +107,13 @@ export default {
       fileType: defaultFileType,
       file: {
         value: null,
+        valid: false,
         rules: [
           (val) => this.fileIsNotEmpty(val),
           (val) => this.fileIsValid(val)
         ]
       },
-      error: defaultError,
+      error: null,
     };
   },
 
@@ -140,27 +139,23 @@ export default {
       return this.subject.toLowerCase();
     },
 
-    isValidationError() {
-      return this.error.status === 400 && Object.entries(this.error.data).length > 0
+    subjectLowerFillWhiteSpaces() {
+      return this.subjectLower.replace(" ", "-");
     },
   },
 
   watch: {
     async theFile(file) {
-      this.fileInputHandler(file);
+      this.validate(file);
     },
     async fileType() {
-      this.fileInputHandler(this.file.value);
+      this.validate();
     },
   },
 
   methods: {
-    async uploadDonors() {
-      this.dialogDonors = true;
-    },
-
     async onApply() {
-      this.error = defaultError;
+      this.error = null;
 
       try {
         await this.uploadMethod(this.file.value, this.fileType);
@@ -168,6 +163,7 @@ export default {
         this.dialog = false;
       } catch (error) {
         this.error = error;
+        this.canApply = false;
         this.notifyError(`Couldn't upload ${this.subjectLower}`);
       }
     },
@@ -183,20 +179,25 @@ export default {
 
     async fileIsValid(file) {
       if (this.fileType === "json") {
-        const fileValid = file != null && (file.name.endsWith(".jsonc") || file.name.endsWith(".json"));
-        return fileValid || "Invalid filetype";
+        return file?.name.endsWith(".json") || "Invalid file type";
+      } else if (this.fileType === "tsv") {
+        return file?.name.endsWith(".tsv") || "Invalid file type";
       }
-      if (this.fileType === "tsv") {
-        return file != null && file.name.endsWith(".tsv") || "Invalid filetype";
-      }
+
+      return false;
     },
 
-    async fileInputHandler(file) {
-      this.error = defaultError;
-      const fileIsNotEmpty = await this.fileIsNotEmpty(file) === true;
-      const fileIsValid = await this.fileIsValid(file) === true;
-      this.$refs.uploadInput?.validate();
-      this.canApply = fileIsNotEmpty && fileIsValid;
+    async validate() {
+      this.error = null;
+      this.canApply = false;
+      if (this.file.value) {
+        await this.$refs.uploadInput?.resetValidation();
+        await this.$refs.uploadInput?.validate();
+        this.canApply = this.$refs.uploadInput?.hasError == false;
+      } else {
+        await this.$refs.uploadInput?.resetValidation();
+        this.canApply = false;
+      }
     },
 
     async notifyError(message, caption = undefined) {

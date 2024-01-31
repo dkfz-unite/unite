@@ -1,9 +1,9 @@
 export default class TissueType {
     static values = {
-        "Control": "Control",
+        "Normal": "Normal",
         "Tumor": "Tumor"
     };
 
+    static Normal = this.values["Normal"];
     static Tumor = this.values["Tumor"];
-    static Control = this.values["Control"];
 }

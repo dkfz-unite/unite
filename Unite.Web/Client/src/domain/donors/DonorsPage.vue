@@ -108,7 +108,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Donors,
       model: FilterModels.Donor,
-      models: [FilterModels.Donor, ...FilterModels.Images, ...FilterModels.Specimens, ...FilterModels.Genome]
+      models: FilterModels.All
     };
   },
 

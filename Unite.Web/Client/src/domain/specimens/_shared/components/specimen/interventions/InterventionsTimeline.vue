@@ -1,9 +1,9 @@
 <template>
   <q-timeline>
     <q-timeline-entry
-      v-if="interventions[0].startDay > 0"
-      title="Observation" 
-      subtitle="Day 0" 
+      v-if="interventions[0].startDay > 1"
+      title="Creation" 
+      subtitle="Day 1" 
     />
 
     <q-timeline-entry

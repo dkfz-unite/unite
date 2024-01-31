@@ -4,4 +4,8 @@ export default class TumorType {
         "Metastasis": "Metastasis",
         "Recurrent": "Recurrent"
     };
+
+    static Primary = this.values["Primary"];
+    static Metastasis = this.values["Metastasis"];
+    static Recurrent = this.values["Recurrent"];
 }

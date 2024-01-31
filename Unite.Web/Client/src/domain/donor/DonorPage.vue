@@ -179,7 +179,7 @@ export default {
     },
 
     showSpecimens() {
-      return this.donor?.data?.tissues || this.donor?.data?.cells || this.donor?.data?.organoids || this.donor?.data?.xenografts;
+      return this.donor?.data?.materials || this.donor?.data?.lines || this.donor?.data?.organoids || this.donor?.data?.xenografts;
     },
 
     showImages() {

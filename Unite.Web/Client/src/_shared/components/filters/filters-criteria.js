@@ -16,8 +16,8 @@ export default class FiltersCriteria {
   query = null;
   donor = new DonorFiltersCriteria();
   mri = new MriFiltersCriteria();
-  tissue = new TissueFiltersCriteria();
-  cell = new CellFiltersCriteria();
+  material = new TissueFiltersCriteria();
+  line = new CellFiltersCriteria();
   organoid = new OrganoidFiltersCriteria();
   xenograft = new XenograftFiltersCriteria();
   gene = new GeneFiltersCriteria();
@@ -32,8 +32,8 @@ export default class FiltersCriteria {
     number += !!this.query ? 1 : 0;
     number += this.donor.numberOfFilters;
     number += this.mri.numberOfFilters;
-    number += this.tissue.numberOfFilters;
-    number += this.cell.numberOfFilters;
+    number += this.material.numberOfFilters;
+    number += this.line.numberOfFilters;
     number += this.organoid.numberOfFilters;
     number += this.xenograft.numberOfFilters;
     number += this.gene.numberOfFilters;
@@ -50,8 +50,8 @@ export default class FiltersCriteria {
     this.query = criteria?.query || null;
     this.donor = new DonorFiltersCriteria(criteria?.donor);
     this.mri = new MriFiltersCriteria(criteria?.mri);
-    this.tissue = new TissueFiltersCriteria(criteria?.tissue);
-    this.cell = new CellFiltersCriteria(criteria?.cell);
+    this.material = new TissueFiltersCriteria(criteria?.material);
+    this.line = new CellFiltersCriteria(criteria?.line);
     this.organoid = new OrganoidFiltersCriteria(criteria?.organoid);
     this.xenograft = new XenograftFiltersCriteria(criteria?.xenograft);
     this.gene = new GeneFiltersCriteria(criteria?.gene);
@@ -65,8 +65,8 @@ export default class FiltersCriteria {
     this.query = this.query?.trim();
     this.donor?.sanitise();
     this.mri?.sanitise();
-    this.tissue?.sanitise();
-    this.cell?.sanitise();
+    this.material?.sanitise();
+    this.line?.sanitise();
     this.organoid?.sanitise();
     this.xenograft?.sanitise();
     this.gene?.sanitise();
@@ -88,8 +88,8 @@ export default class FiltersCriteria {
     criteria.query = this.query;
     criteria.donor = this.donor?.clone();
     criteria.mri = this.mri?.clone();
-    criteria.tissue = this.tissue?.clone();
-    criteria.cell = this.cell?.clone();
+    criteria.material = this.material?.clone();
+    criteria.line = this.line?.clone();
     criteria.organoid = this.organoid?.clone();
     criteria.xenograft = this.xenograft?.clone();
     criteria.gene = this.gene?.clone();
@@ -121,8 +121,8 @@ export default class FiltersCriteria {
     this.query = null;
     this.donor.clear();
     this.mri.clear();
-    this.tissue.clear();
-    this.cell.clear();
+    this.material.clear();
+    this.line.clear();
     this.organoid.clear();
     this.xenograft.clear();
     this.gene.clear();
@@ -138,8 +138,8 @@ export default class FiltersCriteria {
     if (!!this.query) criteria.query = this.query;
     if (this.donor?.numberOfFilters > 0) criteria.donor = this.donor;
     if (this.mri?.numberOfFilters > 0) criteria.mri = this.mri;
-    if (this.tissue?.numberOfFilters > 0) criteria.tissue = this.tissue;
-    if (this.cell?.numberOfFilters > 0) criteria.cell = this.cell;
+    if (this.material?.numberOfFilters > 0) criteria.material = this.material;
+    if (this.line?.numberOfFilters > 0) criteria.line = this.line;
     if (this.organoid?.numberOfFilters > 0) criteria.organoid = this.organoid;
     if (this.xenograft?.numberOfFilters > 0) criteria.xenograft = this.xenograft;
     if (this.gene?.numberOfFilters > 0) criteria.gene = this.gene;
