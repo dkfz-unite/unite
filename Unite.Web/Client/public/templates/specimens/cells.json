@@ -2,22 +2,22 @@
   {
     "id": "Line1",
     "donor_id": "Donor1",
-    "parent_id": "Material1",
+    "parent_id": "Material2",
     "parent_type": "Material",
-    "creation_date": "2020-02-05",
-    "creation_day": 36,
+    "creation_date": "2020-02-01",
+    "creation_day": null,
     "line": {
       "cells_species": "Human",
       "cells_type": "Stem Cell",
-      "cells_culture_type": "Both",
+      "cells_culture_type": "Suspension",
       "info": {
-        "name": "CL1",
-        "depositor_name": "Erica Polden",
-        "depositor_establishment": "Colonord Research Centre",
-        "establishment_date": "2020-02-05",
+        "name": "D1M2L1",
+        "depositor_name": "Depositor Golden",
+        "depositor_establishment": "Line Deposition Centre",
+        "establishment_date": "2020-02-01",
         "pubmed_link": "https://pubmed.ncbi.nlm.nih.gov",
-        "atcc_link": "https://www.atcc.org/",
-        "expasy_link": "https://www.expasy.org/"
+        "atcc_link": "https://www.atcc.org",
+        "expasy_link": "https://www.expasy.org"
       }
     },
     "molecular_data": {
@@ -27,23 +27,36 @@
       "gene_expression_subtype": "Classical",
       "methylation_subtype": "H3-K27",
       "gcimp_methylation": true
-    },
-    "drug_screenings": [
-      {
-        "drug": "Drug1",
-        "dss": 33.56,
-        "dss_selective": 28.03,
-        "gof": 0.99,
-        "abs_ic_25": 2.82,
-        "abs_ic_50": 9.86,
-        "abs_ic_75": 48.74,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [6.76, 50.25, 82.32, 94.10, 97.42],
-        "concentration_line": [6.76, 50.25, 82.32, 94.10, 97.42],
-        "inhibition_line": [6.76, 50.25, 82.32, 94.10, 97.42]
+    }
+  },
+  {
+    "id": "Line1",
+    "donor_id": "Donor2",
+    "parent_id": "Material2",
+    "parent_type": "Material",
+    "creation_date": "2020-02-01",
+    "creation_day": null,
+    "line": {
+      "cells_species": "Human",
+      "cells_type": "Differentiated",
+      "cells_culture_type": "Adherent",
+      "info": {
+        "name": "D2M2L1",
+        "depositor_name": "Depositor Golden",
+        "depositor_establishment": "Line Deposition Centre",
+        "establishment_date": "2020-02-01",
+        "pubmed_link": "https://pubmed.ncbi.nlm.nih.gov",
+        "atcc_link": "https://www.atcc.org",
+        "expasy_link": "https://www.expasy.org"
       }
-    ]
+    },
+    "molecular_data": {
+      "mgmt_status": "Unmethylated",
+      "idh_status": "Mutant",
+      "idh_mutation": "IDH1 R132H",
+      "gene_expression_subtype": null,
+      "methylation_subtype": null,
+      "gcimp_methylation": false
+    }
   }
 ]

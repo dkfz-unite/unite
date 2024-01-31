@@ -10,6 +10,11 @@
       <span v-if="specimen.medium" class="text-black">{{specimen.medium}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
+    <div>
+      <span>Tumorigenicity: </span>
+      <span v-if="specimen.tumorigenicity" class="text-black">{{$helpers.content.toBooleanString(specimen.tumorigenicity)}}</span>
+      <span v-else class="text-black">Unknown</span>
+    </div>
   </div>
 </template>
 
