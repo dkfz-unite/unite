@@ -13,14 +13,14 @@
       <u-upload-button
         v-if="specimen && donor && canUpload"
         :donorId="donor.referenceId"
-        :specimenId="specimen.organoid.referenceId"
+        :specimenId="specimen.referenceId"
         specimenType="Organoid">
       </u-upload-button>
 
       <u-download-button
         v-if="specimen"
         :id="specimen.id"
-        :reference="specimen.organoid.referenceId"
+        :reference="specimen.referenceId"
         :data="specimen.data"
         :domain="DomainNames.Organoids">
       </u-download-button>
@@ -34,8 +34,8 @@
             <q-tabs v-model="tab" dense align="left">
               <q-tab name="summary" label="Summary" icon="las la-info-circle" />
               <q-tab name="ancestry" label="Ancestry" icon="las la-sitemap" />
+              <q-tab name="interventions" label="Interventions" icon="las la-syringe" :disable="!showInterventions" />
               <q-tab name="drugs" label="Drugs" icon="las la-capsules" :disable="!showDrugs" />
-              <q-tab name="interventions" label="Interventions" icon="las la-biohazard" :disable="!showInterventions" />
               <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
               <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
               <u-variants-tab-header 
@@ -60,12 +60,12 @@
                 <u-ancestry-tab :specimen="specimen" :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel name="drugs" class="q-py-sm q-px-none">
-                <u-drugs-tab :specimen="specimen" />
-              </q-tab-panel>
-
               <q-tab-panel name="interventions" class="q-py-sm q-px-none">
                 <u-interventions-tab :specimen="specimen" />
+              </q-tab-panel>
+
+              <q-tab-panel name="drugs" class="q-py-sm q-px-none">
+                <u-drugs-tab :specimen="specimen" />
               </q-tab-panel>
 
               <q-tab-panel name="profile" class="q-py-sm q-px-none">
@@ -104,8 +104,8 @@ import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vu
 import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/SummaryTab.vue";
-import UInterventionsTab from "./components/InterventionsTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
+import UInterventionsTab from "../_shared/components/specimen/InterventionsTab.vue";
 import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
 import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
@@ -123,8 +123,8 @@ export default {
     UVariantsTabHeader,
     USummaryTab,
     UAncestryTab,
-    UDrugsTab,
     UInterventionsTab,
+    UDrugsTab,
     UProfileTab,
     UGenesTab,
     USsmsTab,
@@ -133,12 +133,6 @@ export default {
   },
 
   mixins: [tabPageMixin, specimenPageMixin],
-
-  computed: {
-    showInterventions() {
-      return this.specimen?.data?.interventions;
-    }
-  },
 
   async unmounted() {
     this.$store.dispatch("organoid/clearState");

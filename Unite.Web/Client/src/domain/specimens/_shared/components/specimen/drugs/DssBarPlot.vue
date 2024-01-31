@@ -57,7 +57,7 @@ export default {
       },
       xaxis: {
         // title: "Drug",
-        showline: true,
+        showline: false,
         tickfont: {
           size: this.drugs.length > 50 ? 9 : 12,
         }

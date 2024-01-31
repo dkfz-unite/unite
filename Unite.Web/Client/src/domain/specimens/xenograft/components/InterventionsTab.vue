@@ -2,7 +2,7 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <div class="col-12">
-        <u-interventions :interventions="specimen.xenograft.interventions" />
+        <u-interventions :interventions="specimen.interventions" />
       </div>
     </div>
   </div>

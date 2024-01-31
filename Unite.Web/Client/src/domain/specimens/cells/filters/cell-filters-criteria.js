@@ -2,17 +2,17 @@ import SpecimenFiltersCriteria from "../../_shared/filters/specimen-filters-crit
 import { sanitiseArray, copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
 export default class CellFiltersCriteria extends SpecimenFiltersCriteria {
-    species = [];
-    type = [];
-    cultureType = [];
+    cellsSpecies = [];
+    cellsType = [];
+    cellsCultureType = [];
     name = [];
 
     get numberOfFilters() {
         let number = super.numberOfFilters;
         
-        number += this.species?.length || 0;
-        number += this.type?.length || 0;
-        number += this.cultureType?.length || 0;
+        number += this.cellsSpecies?.length || 0;
+        number += this.cellsType?.length || 0;
+        number += this.cellsCultureType?.length || 0;
         number += this.name?.length || 0;
 
         return number;
@@ -21,9 +21,9 @@ export default class CellFiltersCriteria extends SpecimenFiltersCriteria {
     constructor(criteria = null) {
         super(criteria);
 
-        this.species = criteria?.species || [];
-        this.type = criteria?.type || [];
-        this.cultureType = criteria?.cultureType || [];
+        this.cellsSpecies = criteria?.cellsSpecies || [];
+        this.cellsType = criteria?.cellsType || [];
+        this.cellsCultureType = criteria?.cellsCultureType || [];
         this.name = criteria?.name || [];
     }
 
@@ -36,9 +36,9 @@ export default class CellFiltersCriteria extends SpecimenFiltersCriteria {
     clear() {
         super.clear();
 
-        this.species = [];
-        this.type = [];
-        this.cultureType = [];
+        this.cellsSpecies = [];
+        this.cellsType = [];
+        this.cellsCultureType = [];
         this.name = [];
     }
 

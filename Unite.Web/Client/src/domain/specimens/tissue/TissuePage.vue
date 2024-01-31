@@ -3,7 +3,7 @@
     <div class="row" v-if="specimen">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
-        <q-breadcrumbs-el label="Tissues" :to="{ name: 'tissues' }" />
+        <q-breadcrumbs-el label="Materials" :to="{ name: 'tissues' }" />
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="tabName" />
       </q-breadcrumbs>
@@ -13,7 +13,7 @@
       <u-download-button
         v-if="specimen"
         :id="specimen.id"
-        :reference="specimen.tissue.referenceId"
+        :reference="specimen.referenceId"
         :data="specimen.data"
         :domain="DomainNames.Tissues">
       </u-download-button>
@@ -112,7 +112,7 @@ export default {
   mixins: [tabPageMixin, specimenPageMixin],
 
   async unmounted() {
-    this.$store.dispatch("tissue/clearState");
+    this.$store.dispatch("material/clearState");
   }
 }
 </script>

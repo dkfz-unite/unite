@@ -57,6 +57,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
+              <u-upload-button v-if="canUpload" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -74,9 +75,11 @@ import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
 import UDataTable from "./components/XenograftsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
+import UUploadButton from "./components/UploadButton.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
+import Permissions from "@/_models/admin/enums/permissions";
 import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
@@ -91,6 +94,7 @@ export default {
     UDataTable,
     UFiltersToolbar,
     UCohortsToolbar,
+    UUploadButton,
     USearchBar
   },
 
@@ -103,6 +107,13 @@ export default {
       model: "xenograft",
       models: ["donor", "xenograft", "gene", "ssm", "cnv", "sv"]
     };
+  },
+
+  computed: {
+    canUpload() {
+      const account = this.$store.state.identity.account;
+      return account.hasPermission(Permissions.Data.Write);
+    },
   },
 
   methods: {

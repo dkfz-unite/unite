@@ -27,10 +27,10 @@
 
       <template v-slot:default-body="prop">
         <u-specimens-tree-donor v-if="prop.node.donor" :donor="prop.node.donor" />
-        <u-specimens-tree-tissue v-else-if="prop.node.tissue" :tissue="prop.node.tissue" />
-        <u-specimens-tree-cell v-else-if="prop.node.cell" :cell="prop.node.cell" />
-        <u-specimens-tree-organoid v-else-if="prop.node.organoid" :organoid="prop.node.organoid" />
-        <u-specimens-tree-xenograft v-else-if="prop.node.xenograft" :xenograft="prop.node.xenograft" />
+        <u-specimens-tree-tissue v-else-if="prop.node.material" :specimen="prop.node.material" />
+        <u-specimens-tree-cell v-else-if="prop.node.line" :specimen="prop.node.line" />
+        <u-specimens-tree-organoid v-else-if="prop.node.organoid" :specimen="prop.node.organoid" />
+        <u-specimens-tree-xenograft v-else-if="prop.node.xenograft" :specimen="prop.node.xenograft" />
       </template>
     </q-tree>
   </div>
@@ -76,9 +76,9 @@ export default {
     getName(node) {
       if (!!node?.donor) {
         return "Donor";
-      } else if (!!node?.tissue) {
-        return "Tissue";
-      } else if (!!node?.cell) {
+      } else if (!!node?.material) {
+        return "Material";
+      } else if (!!node?.line) {
         return "Cell Line";
       } else if (!!node?.organoid) {
         return "Organoid";
@@ -92,9 +92,9 @@ export default {
 
       if (!!node?.donor) {
         return { name: 'donor', params: params};
-      } else if (!!node?.tissue) {
+      } else if (!!node?.material) {
         return { name: 'tissue', params: params};
-      } else if (!!node?.cell) {
+      } else if (!!node?.line) {
         return { name: 'cell', params: params};
       } else if (!!node?.organoid) {
         return { name: 'organoid', params: params};
@@ -106,10 +106,10 @@ export default {
     getLinkName(node) {
       if (!!node?.donor) {
         return node.donor.referenceId;
-      } else if (!!node?.tissue) {
-        return node.tissue.referenceId;
-      } else if (!!node?.cell) {
-        return node.cell.referenceId;
+      } else if (!!node?.material) {
+        return node.material.referenceId;
+      } else if (!!node?.line) {
+        return node.line.referenceId;
       } else if (!!node?.organoid) {
         return node.organoid.referenceId;
       } else if (!!node?.xenograft) {
@@ -120,9 +120,9 @@ export default {
     getIcon(node) {
       if (!!node?.donor) {
         return "las la-user-circle";
-      } else if (!!node?.tissue) {
+      } else if (!!node?.material) {
         return "svguse:/icons.svg#u-tissue";
-      } else if (!!node?.cell) {
+      } else if (!!node?.line) {
         return "las la-microscope";
       } else if (!!node?.organoid) {
         return "svguse:/icons.svg#u-organoid";
@@ -162,10 +162,10 @@ export default {
         active: specimen.id == current && type === "specimen",
       };
       
-      if (!!specimen.tissue) {
-        node.tissue = specimen.tissue;
-      } else if (!!specimen.cell) {
-        node.cell = specimen.cell;
+      if (!!specimen.material) {
+        node.material = specimen.material;
+      } else if (!!specimen.line) {
+        node.line = specimen.line;
       } else if (!!specimen.organoid) {
         node.organoid = specimen.organoid;
       } else if (!!specimen.xenograft) {

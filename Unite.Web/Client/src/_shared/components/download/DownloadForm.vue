@@ -170,10 +170,16 @@ export default {
     },
 
     hasSpecimensData() {
-      return this.data?.tissues === true
-          || this.data?.cells === true
-          || this.data?.organoids === true
-          || this.data?.xenografts === true;
+      const specimensDomain = specimenDomains.includes(this.domain);
+
+      if (specimensDomain) {
+        return true;
+      } else {
+        return this.data?.materials === true
+            || this.data?.lines === true
+            || this.data?.organoids === true
+            || this.data?.xenografts === true;
+      }
     },
 
     hasInterventionsData() {
@@ -193,7 +199,7 @@ export default {
       if (specimensDomain) {
         return this.data?.drugs === true;
       } else {
-        return this.data?.cellsDrugs === true
+        return this.data?.linesDrugs === true
             || this.data?.organoidsDrugs === true
             || this.data?.xenograftsDrugs === true;
       }

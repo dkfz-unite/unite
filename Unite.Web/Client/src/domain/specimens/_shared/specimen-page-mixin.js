@@ -26,6 +26,10 @@ const mixin = {
       return this.account.hasPermission(Permissions.Data.Write);
     },
 
+    showInterventions() {
+      return this.specimen?.data?.interventions;
+    },
+
     showDrugs() {
       return this.specimen?.data?.drugs;
     },

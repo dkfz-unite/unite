@@ -36,14 +36,14 @@
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Tissues" />
+        <q-breadcrumbs-el label="Materials" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Tissues"
+          title="Materials"
           class="sticky-header"
           :loading="loading"
           :rows="rows"
@@ -57,6 +57,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-cohorts-toolbar :domain="domain" />
+              <u-upload-button v-if="canUpload" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -78,7 +79,10 @@ import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
+import UUploadButton from "./components/UploadButton.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import Permissions from "@/_models/admin/enums/permissions";
+import FilterModels from "@/_shared/components/filters/filter-models";
 
 const api = new SpecimensApi(SpecimenTypes.Tissue);
 
@@ -91,7 +95,8 @@ export default {
     UDataTable,
     UFiltersToolbar,
     UCohortsToolbar,
-    USearchBar
+    USearchBar,
+    UUploadButton
   },
 
   mixins: [tablePageMixin],
@@ -100,9 +105,16 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: DomainNames.Tissues,
-      model: "tissue",
-      models: ["donor", "mri", "tissue", "gene", "ssm", "cnv", "sv"]
+      model: FilterModels.Tissue,
+      models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Tissue, ...FilterModels.Genome]
     };
+  },
+
+  computed: {
+    canUpload() {
+      const account = this.$store.state.identity.account;
+      return account.hasPermission(Permissions.Data.Write);
+    },
   },
 
   methods: {

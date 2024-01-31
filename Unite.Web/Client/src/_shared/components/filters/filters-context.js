@@ -13,8 +13,8 @@ import OncogridFiltersContext from "@/visualization/oncogrid/filters/oncogrid-fi
 export default class FiltersContext {
     donor = new DonorFiltersContext();
     mri = new MriFilterContext();
-    tissue = new TissueFiltersContext();
-    cell = new CellFiltersContext();
+    material = new TissueFiltersContext();
+    line = new CellFiltersContext();
     organoid = new OrganoidFiltersContext();
     xenograft = new XenograftFiltersContext();
     gene = new GeneFiltersContext();

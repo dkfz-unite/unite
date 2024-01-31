@@ -2,8 +2,8 @@ const specimensTableMixin = {
   methods: {
     getSpecimenType(type) {
       switch (type) {
-        case "Tissue": return "tissue";
-        case "CellLine": return "cell";
+        case "Material": return "tissue";
+        case "Line": return "cell";
         case "Organoid": return "organoid";
         case "Xenograft": return "xenograft";
         default: return null;
@@ -12,8 +12,8 @@ const specimensTableMixin = {
 
     getSpecimenTypeName(type) {
       switch (type) {
-        case "Tissue": return "Tissue";
-        case "CellLine": return "Cell Line";
+        case "Material": return "Material";
+        case "Line": return "Cell Line";
         case "Organoid": return "Organoid";
         case "Xenograft": return "Xenograft";
       }

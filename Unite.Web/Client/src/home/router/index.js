@@ -9,10 +9,10 @@ import donorRoutes from "../../domain/donor/router";
 import donorsRoutes from "../../domain/donors/router";
 import mriRoutes from "../../domain/images/mri/router";
 import mrisRoutes from "../../domain/images/mris/router";
-import tissueRoutes from "../../domain/specimens/tissue/router";
-import tissuesRoutes from "../../domain/specimens/tissues/router";
-import cellRoutes from "../../domain/specimens/cell/router";
-import cellsRoutes from "../../domain/specimens/cells/router";
+import materialRoutes from "../../domain/specimens/tissue/router";
+import materialsRoutes from "../../domain/specimens/tissues/router";
+import lineRoutes from "../../domain/specimens/cell/router";
+import linesRoutes from "../../domain/specimens/cells/router";
 import organoidRoutes from "../../domain/specimens/organoid/router";
 import organoidsRoutes from "../../domain/specimens/organoids/router";
 import xenograftRoutes from "../../domain/specimens/xenograft/router";
@@ -40,10 +40,10 @@ const routes = [
   ...donorsRoutes,
   ...mriRoutes,
   ...mrisRoutes,
-  ...tissueRoutes,
-  ...tissuesRoutes,
-  ...cellRoutes,
-  ...cellsRoutes,
+  ...materialRoutes,
+  ...materialsRoutes,
+  ...lineRoutes,
+  ...linesRoutes,
   ...organoidRoutes,
   ...organoidsRoutes,
   ...xenograftRoutes,

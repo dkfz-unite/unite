@@ -52,17 +52,7 @@ export default {
 
   computed:{
     molecularData(){
-      if (this.specimen.tissue) {
-        return this.specimen.tissue.molecularData;
-      } else if (this.specimen.cell) {
-        return this.specimen.cell.molecularData;
-      } else if (this.specimen.organoid) {
-        return this.specimen.organoid.molecularData;
-      } else if (this.specimen.xenograft) {
-        return this.specimen.xenograft.molecularData;
-      } else {
-        return null;
-      }
+      return this.specimen.molecularData;
     }
   }
 }

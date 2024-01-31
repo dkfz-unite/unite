@@ -1,0 +1,54 @@
+[
+  {
+    "id": "Xenograft1",
+    "donor_id": "Donor1",
+    "parent_id": "Line1",
+    "parent_type": "Line",
+    "creation_date": "2020-02-05",
+    "creation_day": null,
+    "xenograft": {
+      "mouse_strain": "Nude",
+      "group_size": 20,
+      "implant_type": "Orhtotopical",
+      "implant_location": "Striatal",
+      "implanted_cells_number": 750000,
+      "tumorigenicity": true,
+      "tumor_growth_form": "Invasive",
+      "survival_days": "20-30"
+    },
+    "molecular_data": {
+      "mgmt_status": "Methylated",
+      "idh_status": "Wild Type",
+      "idh_mutation": null,
+      "gene_expression_subtype": "Classical",
+      "methylation_subtype": "H3-K27",
+      "gcimp_methylation": true
+    }
+  },
+  {
+    "id": "Xenograft1",
+    "donor_id": "Donor2",
+    "parent_id": "Line1",
+    "parent_type": "Line",
+    "creation_date": "2020-02-05",
+    "creation_day": null,
+    "xenograft": {
+      "mouse_strain": "Nude",
+      "group_size": 30,
+      "implant_type": "Orhtotopical",
+      "implant_location": "Cortical",
+      "implanted_cells_number": 550000,
+      "tumorigenicity": true,
+      "tumor_growth_form": "Invasive",
+      "survival_days": "15-20"
+    },
+    "molecular_data": {
+      "mgmt_status": "Unmethylated",
+      "idh_status": "Mutant",
+      "idh_mutation": "IDH1 R132H",
+      "gene_expression_subtype": null,
+      "methylation_subtype": null,
+      "gcimp_methylation": false
+    }
+  }
+]

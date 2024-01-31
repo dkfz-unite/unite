@@ -79,6 +79,8 @@ export function toTimespanString(startDay, durationDays) {
         return `Day ${startDay}`;
     } else if (!startDay && durationDays) {
         return `${durationDays} days long`;
+    } else if (durationDays == 1) {
+        return `Day ${startDay}`;
     } else {
         return `Days ${startDay} - ${startDay + durationDays}`;
     }

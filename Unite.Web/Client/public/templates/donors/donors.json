@@ -1,0 +1,46 @@
+[
+  {
+    "id": "Donor1",
+    "mta": true,
+    "projects": [ "Project1" ],
+    "studies": [ "Study1" ],
+    "clinical_data": {
+      "sex": "Female",
+      "age": 45,
+      "diagnosis": "Diagnosis1",
+      "diagnosis_date": "2020-01-01",
+      "primary_site": "Brain",
+      "localization": "Left",
+      "vital_status": true,
+      "vital_status_change_date": "2021-01-01",
+      "vital_status_change_day": null,
+      "progression_status": false,
+      "progression_status_change_date": "2021-01-01",
+      "progression_status_change_day": null,
+      "kps_baseline": 90,
+      "steroids_baseline": true
+    }
+  },
+  {
+    "id": "Donor2",
+    "mta": true,
+    "projects": [ "Project1" ],
+    "studies": [ "Study1" ],
+    "clinical_data": {
+      "sex": "Female",
+      "age": 75,
+      "diagnosis": "Diagnosis1",
+      "diagnosis_date": "2020-01-01",
+      "primary_site": "Brain",
+      "localization": "Right",
+      "vital_status": false,
+      "vital_status_change_date": "2021-01-01",
+      "vital_status_change_day": null,
+      "progression_status": true,
+      "progression_status_change_date": "2020-03-01",
+      "progression_status_change_day": null,
+      "kps_baseline": 50,
+      "steroids_baseline": false
+    }
+  }
+]

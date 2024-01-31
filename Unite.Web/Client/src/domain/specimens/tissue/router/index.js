@@ -2,7 +2,7 @@ const routes = [
   {
     path: '/tissues/:id/:tab?',
     name: 'tissue',
-    meta: { title: "UNITE.Tissue", authorize: true, tab: "summary" },
+    meta: { title: "UNITE.Material", authorize: true, tab: "summary" },
     component: () => import(/* webpackChunkName: "tissue" */ '../TissuePage.vue')
   }
 ];

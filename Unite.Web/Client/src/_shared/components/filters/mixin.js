@@ -9,8 +9,8 @@ import donorFilters from "@/domain/donors/filters/donor-filters";
 import donorDataFilters from "@/domain/donors/filters/donor-data-filters";
 import mriFilters from "@/domain/images/mris/filters/mri-filters";
 import imageDataFilters from "@/domain/images/_shared/filters/image-data-filters";
-import tissueFilters from "@/domain/specimens/tissues/filters/tissue-filters";
-import cellFilters from "@/domain/specimens/cells/filters/cell-filters";
+import materialFilters from "@/domain/specimens/tissues/filters/tissue-filters";
+import lineFilters from "@/domain/specimens/cells/filters/cell-filters";
 import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
 import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
 import specimenDataFilters from "@/domain/specimens/_shared/filters/specimen-data-filters";
@@ -86,7 +86,7 @@ const mixin = {
       switch (model) {
         case FilterModels.Donor: return "Donor Filters";
         case FilterModels.Mri: return "MRI Filters";
-        case FilterModels.Tissue: return "Tissue Filters";
+        case FilterModels.Tissue: return "Material Filters";
         case FilterModels.Cell: return "Cell Line Filters";
         case FilterModels.Organoid: return "Organoid Filters";
         case FilterModels.Xenograft: return "Xenograft Filters";
@@ -120,8 +120,8 @@ const mixin = {
       switch (model) {
         case FilterModels.Donor: return this.route == "donors" ? [...donorFilters, ...donorDataFilters] : donorFilters;
         case FilterModels.Mri: return this.route == "mris" ? [...mriFilters, ...imageDataFilters] : mriFilters;
-        case FilterModels.Tissue: return this.route == "tissues" ? [...tissueFilters, ...specimenDataFilters] : tissueFilters;
-        case FilterModels.Cell: return this.route == "cells" ? [...cellFilters, ...specimenDataFilters] : cellFilters;
+        case FilterModels.Tissue: return this.route == "tissues" ? [...materialFilters, ...specimenDataFilters] : materialFilters;
+        case FilterModels.Cell: return this.route == "cells" ? [...lineFilters, ...specimenDataFilters] : lineFilters;
         case FilterModels.Organoid: return this.route == "organoids" ? [...organoidFilters, ...specimenDataFilters] : organoidFilters;
         case FilterModels.Xenograft: return this.route == "xenografts" ? [...xenograftFilters, ...specimenDataFilters] : xenograftFilters;
         case FilterModels.Gene: return geneFilters;

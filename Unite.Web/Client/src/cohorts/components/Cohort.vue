@@ -74,21 +74,21 @@
           />
         </div>
 
-        <!-- Tissue filters -->
-        <div class="row" v-if="hasGroupFilters(tissueFilters, cohort.criteria.tissue)">
+        <!-- Material filters -->
+        <div class="row" v-if="hasGroupFilters(materialFilters, cohort.criteria.material)">
           <u-filters-data
-            title="Tissue filters"
-            :criteria="cohort.criteria.tissue"
-            :filters="tissueFilters"
+            title="Material filters"
+            :criteria="cohort.criteria.material"
+            :filters="materialFilters"
           />
         </div>
 
-        <!-- Cell filters -->
-        <div class="row" v-if="hasGroupFilters(cellFilters, cohort.criteria.cell)">
+        <!-- Cell Line filters -->
+        <div class="row" v-if="hasGroupFilters(lineFilters, cohort.criteria.line)">
           <u-filters-data
             title="Cell line filters"
-            :criteria="cohort.criteria.cell"
-            :filters="cellFilters"
+            :criteria="cohort.criteria.line"
+            :filters="lineFilters"
           />
         </div>
 
@@ -156,8 +156,8 @@ import UFiltersData from "./filters/FiltersData.vue";
 import FilterType from "@/_shared/components/filters/filter-type";
 import donorFilters from "@/domain/donors/filters/donor-filters";
 import mriFilters from "@/domain/images/mris/filters/mri-filters";
-import tissueFilters from "@/domain/specimens/tissues/filters/tissue-filters";
-import cellFilters from "@/domain/specimens/cells/filters/cell-filters";
+import materialFilters from "@/domain/specimens/tissues/filters/tissue-filters";
+import lineFilters from "@/domain/specimens/cells/filters/cell-filters";
 import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
 import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
 import geneFilters from "@/domain/genome/genes/filters/gene-filters";
@@ -186,8 +186,8 @@ export default {
     return {
       donorFilters: donorFilters,
       mriFilters: mriFilters,
-      tissueFilters: tissueFilters,
-      cellFilters: cellFilters,
+      materialFilters: materialFilters,
+      lineFilters: lineFilters,
       organoidFilters: organoidFilters,
       xenograftFilters: xenograftFilters,
       geneFilters: geneFilters,

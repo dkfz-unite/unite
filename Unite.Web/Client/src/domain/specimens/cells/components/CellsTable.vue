@@ -97,7 +97,7 @@ export default {
       columns.push({
         name: "species",
         label: "Species",
-        field: (row) => row.cell?.species,
+        field: (row) => row.line?.cellsSpecies,
         sortable: false,
         align: "left"
       });
@@ -105,7 +105,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.cell?.type,
+        field: (row) => row.line?.cellsType,
         sortable: false,
         align: "left"
       });
@@ -113,7 +113,7 @@ export default {
       columns.push({
         name: "cultureType",
         label: "Culture Type",
-        field: (row) => row.cell?.cultureType,
+        field: (row) => row.line?.cellsCultureType,
         sortable: false,
         align: "left"
       });
@@ -121,7 +121,7 @@ export default {
       columns.push({
         name: "mgmt",
         label: "MGMT",
-        field: (row) => row.cell?.molecularData?.mgmtStatus,
+        field: (row) => row.molecularData?.mgmtStatus,
         sortable: false,
         align: "left",
         show: false
@@ -130,7 +130,7 @@ export default {
       columns.push({
         name: "idh",
         label: "IDH",
-        field: (row) => this.getIdh(row.cell?.molecularData?.idhStatus, row.cell?.molecularData?.idhMutation),
+        field: (row) => this.getIdh(row.molecularData?.idhStatus, row.molecularData?.idhMutation),
         sortable: false,
         align: "left",
         show: false
@@ -139,7 +139,7 @@ export default {
       columns.push({
         name: "geneExpressionSubtype",
         label: "Gene Expression Subtype",
-        field: (row) => row.cell?.molecularData?.geneExpressionSubtype,
+        field: (row) => row.molecularData?.geneExpressionSubtype,
         sortable: false,
         align: "left",
         show: false
@@ -148,7 +148,7 @@ export default {
       columns.push({
         name: "methylationSubtype",
         label: "Methylation Subtype",
-        field: (row) => row.cell?.molecularData?.methylationSubtype,
+        field: (row) => row.molecularData?.methylationSubtype,
         sortable: false,
         align: "left",
         show: false
@@ -157,7 +157,7 @@ export default {
       columns.push({
         name: "gCimpMethylation",
         label: "G-CIMP Methylation",
-        field: (row) => this.$helpers.content.toBooleanString(row.cell?.molecularData?.gcimpMethylation),
+        field: (row) => this.$helpers.content.toBooleanString(row.molecularData?.gcimpMethylation),
         sortable: false,
         align: "left",
         show: false

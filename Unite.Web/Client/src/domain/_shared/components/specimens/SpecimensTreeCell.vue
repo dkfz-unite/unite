@@ -2,17 +2,17 @@
   <div>
     <div>
       <span>Creation Day: </span>
-      <span v-if="cell.creationDay" class="text-black">{{cell.creationDay}}</span>
+      <span v-if="specimen.creationDay" class="text-black">{{specimen.creationDay}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
     <div>
-      <span>Type: </span>
-      <span v-if="cell.type" class="text-black">{{cell.type}}</span>
+      <span>Cells Type: </span>
+      <span v-if="specimen.cellsType" class="text-black">{{specimen.cellsType}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
     <div>
-      <span>Culture Type: </span>
-      <span v-if="cell.cultureType" class="text-black">{{cell.cultureType}}</span>
+      <span>Cells Culture Type: </span>
+      <span v-if="specimen.cellsCultureType" class="text-black">{{specimen.cellsCultureType}}</span>
       <span v-else class="text-black">Unknown</span>
     </div>
   </div>
@@ -21,7 +21,7 @@
 <script>
 export default {
   props: {
-    cell: {
+    specimen: {
       type: Object,
       required: true
     }

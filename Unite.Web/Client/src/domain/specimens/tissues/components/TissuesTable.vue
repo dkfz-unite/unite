@@ -98,7 +98,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.tissue?.tumorType ?? row.tissue?.type,
+        field: (row) => row.material?.tumorType ?? row.material?.type,
         sortable: false,
         align: "left"
       });
@@ -106,7 +106,7 @@ export default {
       columns.push({
         name: "source",
         label: "Source",
-        field: (row) => row.tissue?.source,
+        field: (row) => row.material?.source,
         sortable: false,
         align: "left"
       });
@@ -114,7 +114,7 @@ export default {
       columns.push({
         name: "mgmt",
         label: "MGMT",
-        field: (row) => row.tissue?.molecularData?.mgmtStatus,
+        field: (row) => row.molecularData?.mgmtStatus,
         sortable: false,
         align: "left",
         show: false
@@ -123,7 +123,7 @@ export default {
       columns.push({
         name: "idh",
         label: "IDH",
-        field: (row) => this.getIdh(row.tissue?.molecularData?.idhStatus, row.tissue?.molecularData?.idhMutation),
+        field: (row) => this.getIdh(row.molecularData?.idhStatus, row.molecularData?.idhMutation),
         sortable: false,
         align: "left",
         show: false
@@ -132,7 +132,7 @@ export default {
       columns.push({
         name: "geneExpressionSubtype",
         label: "Gene Expression Subtype",
-        field: (row) => row.tissue?.molecularData?.geneExpressionSubtype,
+        field: (row) => row.molecularData?.geneExpressionSubtype,
         sortable: false,
         align: "left",
         show: false
@@ -141,7 +141,7 @@ export default {
       columns.push({
         name: "methylationSubtype",
         label: "Methylation Subtype",
-        field: (row) => row.tissue?.molecularData?.methylationSubtype,
+        field: (row) => row.molecularData?.methylationSubtype,
         sortable: false,
         align: "left",
         show: false
@@ -150,7 +150,7 @@ export default {
       columns.push({
         name: "gCimpMethylation",
         label: "G-CIMP Methylation",
-        field: (row) => this.$helpers.content.toBooleanString(row.tissue?.molecularData?.gcimpMethylation),
+        field: (row) => this.$helpers.content.toBooleanString(row.molecularData?.gcimpMethylation),
         sortable: false,
         align: "left",
         show: false
