@@ -9,9 +9,9 @@
     
     <!-- :class="{'q-px-none' : $q.screen.gt.md}" -->
     <q-route-tab
-      label="Donors"
-      icon="las la-user-circle"
-      :to="{ name: 'donors' }"
+      :label="Settings.donors.title"
+      :icon="Settings.donors.icon"
+      :to="{ name: Settings.donors.domain }"
     />
 
     <q-route-tab
@@ -27,7 +27,7 @@
       @click.prevent="null">
       <q-menu fit>
         <q-list dense>
-          <q-item :to="{ name: 'tissues' }" :active="$route.name == 'tissues'">
+          <q-item :to="{ name: 'tissues' }" :active="$route.name == 'tissues' || $route.name == 'tissue'">
             <q-item-section>
               <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
               <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
@@ -128,7 +128,15 @@
 </template>
 
 <script>
+import Settings from "@/_settings/settings";
+
 export default {
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   methods: {
     getSpecimensRoute() {
       if (["tissues", "cells", "organoids", "xenografts"].includes(this.$route.name)) {

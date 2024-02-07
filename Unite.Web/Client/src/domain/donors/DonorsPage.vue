@@ -43,8 +43,8 @@
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Donors"
           class="sticky-header"
+          :title="Settings.donors.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -79,7 +79,6 @@ import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/Cohort
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_settings/domain-names";
 import UUploadButton from "./components/UploadButton.vue";
 import DonorsApi from "./api";
 import Permissions from "@/_models/admin/enums/permissions";

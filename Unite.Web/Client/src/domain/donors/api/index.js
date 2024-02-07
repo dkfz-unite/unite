@@ -28,7 +28,7 @@ export default class DonorsApi extends DomainApi {
   async uploadDonors(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/donors${formats[format].path ?? ""}`;
+    const url = `${this.feedUrl}/donors${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -44,8 +44,7 @@ export default class DonorsApi extends DomainApi {
   async uploadTreatments(data, format = formats.json.name) {
     validateFormat(format);
 
-
-    const url = `${this.feedUrl}/treatments${formats[format].path ?? ""}`;
+    const url = `${this.feedUrl}/treatments${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
