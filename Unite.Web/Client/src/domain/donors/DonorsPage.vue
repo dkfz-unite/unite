@@ -35,8 +35,8 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Donors" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: 'home' }" />
+        <q-breadcrumbs-el :label="Settings.donors.crumb" />
       </q-breadcrumbs>
     </div>
 
@@ -82,8 +82,9 @@ import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import DomainNames from "@/_settings/domain-names";
 import UUploadButton from "./components/UploadButton.vue";
 import DonorsApi from "./api";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import Permissions from "@/_models/admin/enums/permissions";
+import Settings from "@/_settings/settings";
+import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
 const api = new DonorsApi();
 
@@ -103,10 +104,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    };
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Donors,
+      domain: Settings.donors.domain,
       model: FilterModels.Donor,
       models: FilterModels.All
     };
