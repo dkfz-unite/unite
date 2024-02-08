@@ -33,12 +33,12 @@ export default class SpecimensApi extends DomainApi {
   }
 
   /**
-   * Uploads tissues data in tsv format.
+   * Uploads materials data in tsv format.
    * @param {Object} data data to upload.
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadTissues(data) {
-    const url = `${this.feedUrl}/materials/tsv`;
+  async uploadMaterials(data) {
+    const url = `${this.feedUrl}/materials${formats.tsv.path}`;
     const body = data;
     const config = { headers: formats.tsv.headers };
 
@@ -46,12 +46,12 @@ export default class SpecimensApi extends DomainApi {
   }
 
   /**
-   * Uploads cells data in tsv format.
+   * Uploads cell lines data in tsv format.
    * @param {Object} data data to upload.
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadCells(data) {
-    const url = `${this.feedUrl}/lines/tsv`;
+    const url = `${this.feedUrl}/lines${formats.tsv.path}`;
     const body = data;
     const config = { headers: formats.tsv.headers };
 
@@ -64,7 +64,7 @@ export default class SpecimensApi extends DomainApi {
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadOrganoids(data) {
-    const url = `${this.feedUrl}/organoids/tsv`;
+    const url = `${this.feedUrl}/organoids${formats.tsv.path}`;
     const body = data;
     const config = { headers: formats.tsv.headers };
 
@@ -77,7 +77,7 @@ export default class SpecimensApi extends DomainApi {
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadXenografts(data) {
-    const url = `${this.feedUrl}/xenografts/tsv`;
+    const url = `${this.feedUrl}/xenografts${formats.tsv.path}`;
     const body = data;
     const config = { headers: formats.tsv.headers };
 
@@ -93,7 +93,7 @@ export default class SpecimensApi extends DomainApi {
   async uploadInterventions(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/interventions${formats[format].path ?? ""}`;
+    const url = `${this.feedUrl}/interventions${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -101,7 +101,7 @@ export default class SpecimensApi extends DomainApi {
   }
 
   /**
-   * Uploads drugs data.
+   * Uploads drugs screening data.
    * @param {Object} data data to upload.
    * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
@@ -109,7 +109,7 @@ export default class SpecimensApi extends DomainApi {
   async uploadDrugs(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/drugs${formats[format].path ?? ""}`;
+    const url = `${this.feedUrl}/drugs${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 

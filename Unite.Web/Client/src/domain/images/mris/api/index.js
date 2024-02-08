@@ -16,7 +16,7 @@ export default class ImagesApi extends DomainApi {
   feedUrl = `${settings.urls.images}`;
 
   constructor() {
-    super("images");
+    super("images"); // domain <- settings
   }
 
   /**
@@ -25,7 +25,7 @@ export default class ImagesApi extends DomainApi {
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadImages(data) {
-    const url = `${this.feedUrl}/images`;
+    const url = `${this.feedUrl}/images${formats.json.path}`;
     const body = data;
     const config = { headers: formats.json.headers };
 
@@ -38,7 +38,7 @@ export default class ImagesApi extends DomainApi {
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadMris(data) {
-    const url = `${this.feedUrl}/mris/tsv`;
+    const url = `${this.feedUrl}/mris${formats.tsv.path}`;
     const body = data;
     const config = { headers: formats.tsv.headers };
     

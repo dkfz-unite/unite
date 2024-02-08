@@ -16,7 +16,7 @@ export default class DonorsApi extends DomainApi {
   feedUrl = `${settings.urls.donors}`;
 
   constructor() {
-    super("donors");
+    super("donors"); // domain <- settings
   }
 
   /**

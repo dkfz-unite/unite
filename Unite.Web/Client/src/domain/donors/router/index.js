@@ -2,7 +2,7 @@ import Settings from "../settings";
 
 const routes = [
   {
-    path: "/donors",
+    path: `/${Settings.domain}`,
     name: Settings.domain,
     meta: { title: "UNITE.Donors", authorize: true },
     component: () => import(/* webpackChunkName: "donors" */ "../DonorsPage.vue")

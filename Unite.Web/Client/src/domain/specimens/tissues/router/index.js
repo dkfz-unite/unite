@@ -1,9 +1,11 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: '/tissues',
-    name: 'tissues',
-    meta: { title: "UNITE.Tissues", authorize: true },
-    component: () => import(/* webpackChunkName: "tissues" */ '../TissuesPage.vue')
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
+    meta: { title: "UNITE.Materials", authorize: true },
+    component: () => import(/* webpackChunkName: "materials" */ "../TissuesPage.vue")
   }
 ];
 

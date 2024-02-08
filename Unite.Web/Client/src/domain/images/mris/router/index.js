@@ -1,9 +1,11 @@
+import Settings from '../settings';
+
 const routes = [
   {
-    path: '/mris',
-    name: 'mris',
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
     meta: { title: "UNITE.MRIs", authorize: true },
-    component: () => import(/* webpackChunkName: "mris" */ '../MRIsPage.vue')
+    component: () => import(/* webpackChunkName: "mris" */ "../MRIsPage.vue")
   }
 ];
 

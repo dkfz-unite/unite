@@ -15,9 +15,9 @@
     />
 
     <q-route-tab
-      label="Images"
-      icon="las la-x-ray"
-      :to="{ name: 'mris' }"
+      :label="Settings.mris.title"
+      :icon="Settings.mris.icon"
+      :to="{ name: Settings.mris.domain }"
     />
 
     <q-route-tab
@@ -27,12 +27,12 @@
       @click.prevent="null">
       <q-menu fit>
         <q-list dense>
-          <q-item :to="{ name: 'tissues' }" :active="$route.name == 'tissues' || $route.name == 'tissue'">
+          <q-item :to="{ name: Settings.materials.domain }" :active="$route.name == Settings.materials.domain">
             <q-item-section>
               <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
               <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-tissue" size="sm" />
-                <span>Materials</span>
+                <q-icon :name="Settings.materials.icon" size="sm" />
+                <span>{{ Settings.materials.title }}</span>
               </div>
             </q-item-section>
           </q-item>
@@ -139,7 +139,8 @@ export default {
 
   methods: {
     getSpecimensRoute() {
-      if (["tissues", "cells", "organoids", "xenografts"].includes(this.$route.name)) {
+      const routes = [Settings.materials.domain, "cells", "organoids", "xenografts"];
+      if (routes.includes(this.$route.name)) {
         return this.$route.name;
       } else {
         return null;
@@ -148,7 +149,7 @@ export default {
 
     getSpecimensIcon() {
       switch (this.$route.name) {
-        case "tissues": return "svguse:/icons.svg#u-tissue";
+        case Settings.materials.domain: return Settings.materials.icon;
         case "cells": return "las la-microscope";
         case "organoids": return "svguse:/icons.svg#u-organoid";
         case "xenografts": return "svguse:/icons.svg#u-xenograft";

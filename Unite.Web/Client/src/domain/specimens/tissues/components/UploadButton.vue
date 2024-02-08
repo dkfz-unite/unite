@@ -49,7 +49,7 @@ export default {
       if (format === "json") {
         return await this.specimensApi.uploadSpecimens(data);
       }
-      return await this.specimensApi.uploadTissues(data);
+      return await this.specimensApi.uploadMaterials(data);
     },
   }
 }

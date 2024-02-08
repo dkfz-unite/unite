@@ -35,16 +35,16 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Materials" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.materials.crumb" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Materials"
           class="sticky-header"
+          :title="Settings.materials.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -76,11 +76,11 @@ import UDataTable from "./components/TissuesTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_settings/domain-names";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
 import UUploadButton from "./components/UploadButton.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import Settings from "@/_settings/settings";
 import Permissions from "@/_models/admin/enums/permissions";
 import FilterModels from "@/_shared/components/filters/filter-models";
 
@@ -101,10 +101,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Tissues,
+      domain: Settings.materials.domain,
       model: FilterModels.Tissue,
       models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Tissue, ...FilterModels.Genome]
     };
