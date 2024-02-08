@@ -35,16 +35,16 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Organoids" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.organoids.crumb" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Organoids"
           class="sticky-header"
+          :title="Settings.organoids.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -77,9 +77,9 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UUploadButton from "./components/UploadButton.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_settings/domain-names";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import Permissions from "@/_models/admin/enums/permissions";
+import Settings from "@/_settings/settings";
 import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
@@ -100,10 +100,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Organoids,
+      domain: Settings.organoids.domain,
       model: "organoid",
       models: ["donor", "organoid", "gene", "ssm", "cnv", "sv"]
     };

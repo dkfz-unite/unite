@@ -1,7 +1,9 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: '/organoids',
-    name: 'organoids',
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
     meta: { title: "UNITE.Organoids", authorize: true },
     component: () => import(/* webpackChunkName: "organoids" */ '../OrganoidsPage.vue')
   }
