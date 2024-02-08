@@ -27,42 +27,29 @@
       @click.prevent="null">
       <q-menu fit>
         <q-list dense>
-          <q-item :to="{ name: Settings.materials.domain }" :active="$route.name == Settings.materials.domain">
-            <q-item-section>
-              <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon :name="Settings.materials.icon" size="sm" />
-                <span>{{ Settings.materials.title }}</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.materials.title"
+            :icon="Settings.materials.icon"
+            :to="{ name: Settings.materials.domain }"
+          />
 
-          <q-item :to="{ name: Settings.lines.domain }" :active="$route.name == Settings.lines.domain">
-            <q-item-section>
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon :name="Settings.lines.icon" size="sm" />
-                <span>{{ Settings.lines.title }}</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.lines.title"
+            :icon="Settings.lines.icon"
+            :to="{ name: Settings.lines.domain }"
+          />
 
-          <q-item :to="{ name: 'organoids' }" :active="$route.name == 'organoids'">
-            <q-item-section>
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-organoid" size="sm" />
-                <span>Organoids</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.organoids.title"
+            :icon="Settings.organoids.icon"
+            :to="{ name: Settings.organoids.domain }"
+          />
 
-          <q-item :to="{ name: 'xenografts' }" :active="$route.name == 'xenografts'">
-            <q-item-section>
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-xenograft" size="sm" />
-                <span>Xenografts</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.xenografts.title"
+            :icon="Settings.xenografts.icon"
+            :to="{ name: Settings.xenografts.domain }"
+          />
         </q-list>
       </q-menu>
     </q-route-tab>
@@ -128,9 +115,14 @@
 </template>
 
 <script>
+import UNavigationMenuItem from "./NavigationMenuItem.vue";
 import Settings from "@/_settings/settings";
 
 export default {
+  components: {
+    UNavigationMenuItem
+  },
+
   setup() {
     return {
       Settings
@@ -139,12 +131,14 @@ export default {
 
   methods: {
     getSpecimensRoute() {
-      const routes = [Settings.materials.domain, Settings.lines.domain, "organoids", "xenografts"];
-      if (routes.includes(this.$route.name)) {
-        return this.$route.name;
-      } else {
-        return null;
-      }
+      const routes = [
+        Settings.materials.domain, 
+        Settings.lines.domain, 
+        Settings.organoids.domain, 
+        Settings.xenografts.domain
+      ];
+
+      return routes.includes(this.$route.name) ? this.$route.name : null;
     },
 
     getSpecimensIcon() {
@@ -153,16 +147,18 @@ export default {
         case Settings.lines.domain: return Settings.lines.icon;
         case Settings.organoids.domain: return Settings.organoids.icon;
         case Settings.xenografts.domain: return Settings.xenografts.icon;
-        default: return "svguse:/icons.svg#u-tissue";
+        default: return Settings.materials.icon;
       }
     },
 
     getVariantsRoute() {
-      if (["ssms", "cnvs", "svs"].includes(this.$route.name)) {
-        return this.$route.name;
-      } else {
-        return null;
-      }
+      const routes = [
+        "ssms", 
+        "cnvs", 
+        "svs"
+      ];
+
+      return routes.includes(this.$route.name) ? this.$route.name : null;
     },
 
     getVariantsIcon() {
