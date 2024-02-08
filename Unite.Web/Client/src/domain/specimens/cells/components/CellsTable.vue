@@ -41,6 +41,7 @@
 import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UDonorLink from "@/_shared/components/DonorLink.vue";
 import USpecimenLink from "@/_shared/components/SpecimenLink.vue";
+import Settings from "../settings";
 import tableMixin from "../../../_shared/table-mixin";
 import availableDataMixin from "../../../_shared/available-data-mixin";
 import specimensTableMixin from "../../_shared/specimens-table-mixin";
@@ -163,7 +164,7 @@ export default {
         show: false
       });
 
-      if (["cells"].includes(this.$route.name)){
+      if ([Settings.domain].includes(this.$route.name)){
         columns.push({
           name: "hasDrugs",
           label: "Drugs",

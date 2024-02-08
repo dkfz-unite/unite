@@ -35,16 +35,16 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Cell Lines" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.lines.crumb" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Cell Lines"
           class="sticky-header"
+          :title="Settings.lines.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -77,12 +77,12 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import UUploadButton from "./components/UploadButton.vue";
-import DomainNames from "@/_settings/domain-names";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import SpecimensApi from "../_shared/api/specimens";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import Permissions from "@/_models/admin/enums/permissions";
+import Settings from "@/_settings/settings";
 
 const api = new SpecimensApi(SpecimenTypes.CellLine);
 
@@ -101,10 +101,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Cells,
+      domain: Settings.lines.domain,
       model: FilterModels.Cell,
       models: [FilterModels.Donor, FilterModels.Cell, ...FilterModels.Genome]
     };

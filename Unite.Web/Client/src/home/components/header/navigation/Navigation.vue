@@ -37,11 +37,11 @@
             </q-item-section>
           </q-item>
 
-          <q-item :to="{ name: 'cells' }" :active="$route.name == 'cells'">
+          <q-item :to="{ name: Settings.lines.domain }" :active="$route.name == Settings.lines.domain">
             <q-item-section>
               <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="las la-microscope" size="sm" />
-                <span>Cell Lines</span>
+                <q-icon :name="Settings.lines.icon" size="sm" />
+                <span>{{ Settings.lines.title }}</span>
               </div>
             </q-item-section>
           </q-item>
@@ -139,7 +139,7 @@ export default {
 
   methods: {
     getSpecimensRoute() {
-      const routes = [Settings.materials.domain, "cells", "organoids", "xenografts"];
+      const routes = [Settings.materials.domain, Settings.lines.domain, "organoids", "xenografts"];
       if (routes.includes(this.$route.name)) {
         return this.$route.name;
       } else {
@@ -150,7 +150,7 @@ export default {
     getSpecimensIcon() {
       switch (this.$route.name) {
         case Settings.materials.domain: return Settings.materials.icon;
-        case "cells": return "las la-microscope";
+        case Settings.lines.domain: return Settings.lines.icon;
         case "organoids": return "svguse:/icons.svg#u-organoid";
         case "xenografts": return "svguse:/icons.svg#u-xenograft";
         default: return "svguse:/icons.svg#u-tissue";

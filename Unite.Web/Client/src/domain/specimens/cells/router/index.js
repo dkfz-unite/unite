@@ -1,9 +1,11 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: "/cells",
-    name: "cells",
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
     meta: { title: "UNITE.Lines", authorize: true },
-    component: () => import(/* webpackChunkName: "cells" */ "../CellsPage.vue")
+    component: () => import(/* webpackChunkName: "lines" */ "../CellsPage.vue")
   }
 ];
 
