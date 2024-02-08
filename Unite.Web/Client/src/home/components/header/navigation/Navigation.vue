@@ -151,8 +151,8 @@ export default {
       switch (this.$route.name) {
         case Settings.materials.domain: return Settings.materials.icon;
         case Settings.lines.domain: return Settings.lines.icon;
-        case "organoids": return "svguse:/icons.svg#u-organoid";
-        case "xenografts": return "svguse:/icons.svg#u-xenograft";
+        case Settings.organoids.domain: return Settings.organoids.icon;
+        case Settings.xenografts.domain: return Settings.xenografts.icon;
         default: return "svguse:/icons.svg#u-tissue";
       }
     },

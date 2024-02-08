@@ -1,7 +1,9 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: '/xenografts',
-    name: 'xenografts',
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
     meta: { title: "UNITE.Xenografts", authorize: true },
     component: () => import(/* webpackChunkName: "xenografts" */ '../XenograftsPage.vue')
   }
