@@ -10,6 +10,7 @@ import SsmsSettings from "@/domain/genome/variants/ssms/settings";
 import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 import SvsSettings from "@/domain/genome/variants/svs/settings";
 import AnalysisSettings from "@/analysis/settings";
+import DatasetsSettings from "@/cohorts/settings";
 
 
 export default class Settings {
@@ -25,4 +26,5 @@ export default class Settings {
   static cnvs = CnvsSettings;
   static svs = SvsSettings;
   static analysis = AnalysisSettings;
+  static datasets = DatasetsSettings;
 }

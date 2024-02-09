@@ -90,9 +90,9 @@
     <q-space />
 
     <q-route-tab
-      label="Cohorts"
-      icon="las la-archive"
-      :to="{ name: 'cohorts' }"
+      :label="Settings.datasets.title"
+      :icon="Settings.datasets.icon"
+      :to="{ name: Settings.datasets.domain }"
     />
 
     <q-route-tab

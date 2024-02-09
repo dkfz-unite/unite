@@ -1,9 +1,11 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: '/cohorts/:domain?/:key?',
-    name: "cohorts",
-    meta: { title: "UNITE.Cohorts", authorize: true },
-    component: () => import(/* webpackChunkName: "filters" */ '../CohortsPage.vue')
+    path: `/${Settings.domain}/:domain?/:key?`,
+    name: Settings.domain,
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true },
+    component: () => import(/* webpackChunkName: "filters" */ "../CohortsPage.vue")
   }
 ];
 

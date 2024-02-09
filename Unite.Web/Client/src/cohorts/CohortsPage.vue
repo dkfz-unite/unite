@@ -70,7 +70,7 @@
     <div v-else class="row">
       <div class="col">
         <div class="absolute-center">
-          No cohorts have been saved
+          No datasets have been saved
         </div>
       </div>
     </div>
