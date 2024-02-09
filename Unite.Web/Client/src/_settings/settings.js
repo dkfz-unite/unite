@@ -9,6 +9,8 @@ import GenesSettings from "@/domain/genome/genes/settings";
 import SsmsSettings from "@/domain/genome/variants/ssms/settings";
 import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 import SvsSettings from "@/domain/genome/variants/svs/settings";
+import AnalysisSettings from "@/analysis/settings";
+
 
 export default class Settings {
   static home = HomeSettings;
@@ -22,4 +24,5 @@ export default class Settings {
   static ssms = SsmsSettings;
   static cnvs = CnvsSettings;
   static svs = SvsSettings;
+  static analysis = AnalysisSettings;
 }

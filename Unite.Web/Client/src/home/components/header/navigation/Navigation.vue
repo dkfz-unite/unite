@@ -96,9 +96,9 @@
     />
 
     <q-route-tab
-      label="Analysis"
-      icon="las la-chart-pie"
-      :to="{ name: 'analysis' }"
+      :label="Settings.analysis.title"
+      :icon="Settings.analysis.icon"
+      :to="{ name: Settings.analysis.domain }"
     />
   </q-tabs>
 </template>
