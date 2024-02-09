@@ -7,7 +7,6 @@
     inline-label
     outside-arrows>
     
-    <!-- :class="{'q-px-none' : $q.screen.gt.md}" -->
     <q-route-tab
       :label="Settings.donors.title"
       :icon="Settings.donors.icon"
@@ -79,14 +78,11 @@
             :to="{ name: Settings.cnvs.domain }"
           />
 
-          <q-item :to="{ name: 'svs' }" :active="$route.name == 'svs'">
-            <q-item-section>
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-sv" size="sm" />
-                <span>Structural Variants (SV)</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.svs.title"
+            :icon="Settings.svs.icon"
+            :to="{ name: Settings.svs.domain }"
+          />
         </q-list>
       </q-menu>
     </q-route-tab>
@@ -147,8 +143,8 @@ export default {
     getVariantsRoute() {
       const routes = [
         Settings.ssms.domain, 
-        "cnvs", 
-        "svs"
+        Settings.cnvs.domain, 
+        Settings.svs.domain
       ];
 
       return routes.includes(this.$route.name) ? this.$route.name : null;
@@ -157,8 +153,8 @@ export default {
     getVariantsIcon() {
       switch (this.$route.name) {
         case Settings.ssms.domain: return Settings.ssms.icon;
-        case "cnvs": return "svguse:/icons.svg#u-cnv";
-        case "svs": return "svguse:/icons.svg#u-sv";
+        case Settings.cnvs.domain: return Settings.cnvs.icon;
+        case Settings.svs.domain: return Settings.svs.icon;
         default: return Settings.ssms.icon;
       }
     }

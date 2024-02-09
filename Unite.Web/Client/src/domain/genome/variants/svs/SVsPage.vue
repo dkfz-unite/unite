@@ -35,16 +35,16 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="SVs" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.svs.crumb" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Structural Variants (SV)"
           class="sticky-header"
+          :title="Settings.svs.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -71,12 +71,12 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDataTable from "@/domain/_shared/components/genome/variants/SVsTable.vue";
+import UDataTable from "./components/SVsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_settings/domain-names";
 import FilterModels from "@/_shared/components/filters/filter-models";
+import Settings from "@/_settings/settings";
 import VariantTypes from "@/_models/domain/genome/variants/variant-types";
 import VariantsApi from "../_shared/api/variants";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
@@ -97,10 +97,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    };
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Svs,
+      domain: Settings.svs.domain,
       model: FilterModels.Sv,
       models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Gene, FilterModels.Sv]
     };
