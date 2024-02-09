@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import UDnaSequence from '@/domain/_shared/components/genome/variants/DnaSequence.vue';
+import UDnaSequence from '@/domain/genome/variants/_shared/components/DnaSequence.vue';
 
 export default {
   components: {

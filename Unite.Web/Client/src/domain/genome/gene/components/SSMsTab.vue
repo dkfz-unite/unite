@@ -40,7 +40,7 @@
 <script>
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
-import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vue";
+import UDataTable from "@/domain/genome/variants/ssms/components/SSMsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
 
