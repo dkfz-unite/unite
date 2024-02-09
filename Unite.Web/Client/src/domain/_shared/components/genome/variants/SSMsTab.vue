@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Mutations (SSM)</span>
+      <span class="text-h5 u-text-title">Simple Somatic Mutations (SSM)</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -50,16 +50,16 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";
-import UDataTable from "@/domain/_shared/components/genome/variants/SSMsTable.vue";
+import UDataTable from "@/domain/genome/variants/ssms/components/SSMsTable.vue";
 
-import DomainNames from "@/_settings/domain-names";
+import Settings from "@/domain/genome/variants/ssms/settings";
+import FilterModel from "@/_shared/components/filters/filter-models";
+import VariantType from "@/domain/genome/variants/_models/enums/variant-type";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
 
 import api from "@/domain/specimens/_shared/api/specimen";
-
-var domainNames = [DomainNames.Donor, DomainNames.Mri, DomainNames.Tissue, DomainNames.Cell, DomainNames.Organoid, DomainNames.Xenograft, DomainNames.Gene];
 
 export default {
   components: {
@@ -74,31 +74,30 @@ export default {
   props: {
     area: {
       type: String,
-      required: true,
-      validator: value => ![domainNames].includes(value)
+      required: true
     },
     title: {
       type: String,
-      default: "Mutations (SSM)"
+      default: Settings.title
     }
   },
 
   data() {
     return {
       domain: this.getDomain(this.area),
-      model: "ssm",
+      model: FilterModel.Ssm,
       filters: filters
     }
   },
 
   methods: {
     getDomain(name) {
-      return this.$store.state[name][DomainNames.Ssms];
+      return this.$store.state[name][Settings.domain];
     },
 
     async fetchData(searchCriteria) {
       if (!this.sample) return;
-      return await api.searchVariants(this.sample.id, "ssm", searchCriteria);
+      return await api.searchVariants(this.sample.id, VariantType.SSM, searchCriteria);
     }
   }
 }

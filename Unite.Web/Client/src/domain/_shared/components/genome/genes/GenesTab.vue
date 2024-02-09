@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">{{ Settings.genes.title }}</span>
+      <span class="text-h5 u-text-title">Genes</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -35,6 +35,8 @@
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
+          :show-expressions="true"
+          :show-stats="true"
           v-model:rows-selected="rowsSelected"
           v-model:from="filtersCriteria.from"
           v-model:size="filtersCriteria.size"
@@ -50,17 +52,15 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";
-import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
+import UDataTable from "@/domain/genome/genes/components/GenesTable.vue";
 
-import DomainNames from "@/_settings/domain-names";
-import Settings from "@/_settings/settings";
+import Settings from "@/domain/genome/genes/settings";
+import FilterModel from "@/_shared/components/filters/filter-models";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/genes/filters/gene-filters";
 
 import api from "@/domain/specimens/_shared/api/specimen";
-
-var domainNames = [DomainNames.Donor, DomainNames.Mri, DomainNames.Tissue, DomainNames.Cell, DomainNames.Organoid, DomainNames.Xenograft];
 
 export default {
   components: {
@@ -75,32 +75,25 @@ export default {
   props: {
     area: {
       type: String,
-      required: true,
-      validator: value => ![domainNames].includes(value)
+      required: true
     },
     title: {
       type: String,
-      default: Settings.genes.title
-    }
-  },
-
-  setup() {
-    return {
-      Settings
+      default: Settings.title
     }
   },
 
   data() {
     return {
       domain: this.getDomain(this.area),
-      model: "gene",
+      model: FilterModel.Gene,
       filters: filters
     }
   },
 
   methods: {
     getDomain(name) {
-      return this.$store.state[name][Settings.genes.domain];
+      return this.$store.state[name][Settings.domain];
     },
 
     async fetchData(searchCriteria) {

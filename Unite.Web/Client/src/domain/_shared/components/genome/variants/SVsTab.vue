@@ -50,16 +50,16 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/components/genome/Samples.vue";
-import UDataTable from "@/domain/_shared/components/genome/variants/SVsTable.vue";
+import UDataTable from "@/domain/genome/variants/svs/components/SVsTable.vue";
 
-import DomainNames from "@/_settings/domain-names";
+import Settings from "@/domain/genome/variants/svs/settings";
+import FilterModel from "@/_shared/components/filters/filter-models";
+import VariantType from "@/domain/genome/variants/_models/enums/variant-type";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/variants/svs/filters/sv-filters";
 
 import api from "@/domain/specimens/_shared/api/specimen";
-
-var domainNames = [DomainNames.Donor, DomainNames.Mri, DomainNames.Tissue, DomainNames.Cell, DomainNames.Organoid, DomainNames.Xenograft, DomainNames.Gene];
 
 export default {
   components: {
@@ -74,31 +74,30 @@ export default {
   props: {
     area: {
       type: String,
-      required: true,
-      validator: value => ![domainNames].includes(value)
+      required: true
     },
     title: {
       type: String,
-      default: "Structural Variants (SV)"
+      default: Settings.title
     }
   },
 
   data() {
     return {
       domain: this.getDomain(this.area),
-      model: "sv",
+      model: FilterModel.Sv,
       filters: filters
     }
   },
 
   methods: {
     getDomain(name) {
-      return this.$store.state[name][DomainNames.Svs];
+      return this.$store.state[name][Settings.domain];
     },
 
     async fetchData(searchCriteria) {
       if (!this.sample) return;
-      return await api.searchVariants(this.sample.id, "sv", searchCriteria);
+      return await api.searchVariants(this.sample.id, VariantType.SV, searchCriteria);
     }
   }
 }

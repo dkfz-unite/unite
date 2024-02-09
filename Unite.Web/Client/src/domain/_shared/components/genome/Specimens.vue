@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div v-if="specimens" class="column">
     <u-tissues :tissues="specimens.tissues" />
   </div>
@@ -19,4 +19,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->

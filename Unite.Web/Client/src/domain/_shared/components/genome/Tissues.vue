@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div v-if="tissues && tissues.length" class="row justify-left q-gutter-x-xs">
     <div>
       <span>Tissues:</span>
@@ -78,4 +78,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->

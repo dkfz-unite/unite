@@ -1,38 +1,45 @@
 <template>
-  <q-btn flat stretch label="Variants" :disable="disable" :icon="icon" :class="{ 'active': active }" stack>
+  <q-btn label="Variants" :icon="icon" :disable="disable" :class="{ 'active': active }" flat stretch stack>
     <q-menu fit>
       <q-list dense>
-        <q-item clickable @click="$emit('update:modelValue', 'ssms')" :active="modelValue == 'ssms'" :disable="disableSsms">
-          <q-item-section>
-            <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-              <q-icon name="svguse:/icons.svg#u-ssm" size="sm" />
-              <span>Mutations (SSM)</span>
-            </div>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click="$emit('update:modelValue', 'cnvs')" :active="modelValue == 'cnvs'" :disable="disableCnvs">
-          <q-item-section>
-            <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-              <q-icon name="svguse:/icons.svg#u-cnv" size="sm" />
-              <span>Copy Number Variants (CNV)</span>
-            </div>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click="$emit('update:modelValue', 'svs')" :active="modelValue == 'svs'" :disable="disableSvs">
-          <q-item-section>
-            <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-              <q-icon name="svguse:/icons.svg#u-sv" size="sm" />
-              <span>Structural Variants (SV)</span>
-            </div>
-          </q-item-section>
-        </q-item>
+        <u-variants-tab-header-item
+          :title="Settings.ssms.title"
+          :icon="Settings.ssms.icon"
+          :active="modelValue == Settings.ssms.domain"
+          :disable="disableSsms"
+          @click="$emit('update:modelValue', Settings.ssms.domain)"
+          clickable
+        />
+        <u-variants-tab-header-item
+          :title="Settings.cnvs.title"
+          :icon="Settings.cnvs.icon"
+          :active="modelValue == Settings.cnvs.domain"
+          :disable="disableCnvs"
+          @click="$emit('update:modelValue', Settings.cnvs.domain)"
+          clickable
+        />
+        <u-variants-tab-header-item
+          :title="Settings.svs.title"
+          :icon="Settings.svs.icon"
+          :active="modelValue == Settings.svs.domain"
+          :disable="disableSvs"
+          @click="$emit('update:modelValue', Settings.svs.domain)"
+          clickable
+        />
       </q-list>
     </q-menu>
   </q-btn>
 </template>
 
 <script>
+import UVariantsTabHeaderItem from "./VariantsTabHeaderItem.vue";
+import Settings from "@/_settings/settings";
+
 export default {
+  components: {
+    UVariantsTabHeaderItem
+  },
+
   props: {
     modelValue: {
       type: String,
@@ -56,21 +63,33 @@ export default {
     }
   },
 
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   computed: {
     tab() {
-      return this.modelValue === "ssms" ? "ssms"
-           : this.modelValue === "cnvs" ? "cnvs"
-           : this.modelValue === "svs" ? "svs"
-           : null;
+      switch (this.modelValue) {
+        case Settings.ssms.domain: Settings.ssms.domain;
+        case Settings.cnvs.domain: Settings.cnvs.domain;
+        case Settings.svs.domain: Settings.svs.domain;
+        default: null;
+      }
     },
+
     icon() {
-      return this.modelValue === "ssms" ? "svguse:/icons.svg#u-ssm"
-           : this.modelValue === "cnvs" ? "svguse:/icons.svg#u-cnv"
-           : this.modelValue === "svs" ? "svguse:/icons.svg#u-sv"
-           : "svguse:/icons.svg#u-ssm";
+      switch (this.modelValue) {
+        case Settings.ssms.domain: return Settings.ssms.icon;
+        case Settings.cnvs.domain: return Settings.cnvs.icon;
+        case Settings.svs.domain: return Settings.svs.icon;
+        default: return Settings.ssms.icon;
+      }
     },
+
     active() {
-      return ["ssms", "cnvs", "svs"].includes(this.modelValue);
+      return [Settings.ssms.domain, Settings.cnvs.domain, Settings.svs.domain].includes(this.modelValue);
     }
   }
 }

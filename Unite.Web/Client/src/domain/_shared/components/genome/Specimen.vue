@@ -1,8 +1,7 @@
-<template>
+<!-- <template>
   <div class="column">
     <u-tissue :specimen="specimen">
       <slot>
-        <!-- Content -->
       </slot>
     </u-tissue>
   </div>
@@ -23,4 +22,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->
