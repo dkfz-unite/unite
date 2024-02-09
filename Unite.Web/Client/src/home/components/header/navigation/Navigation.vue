@@ -55,9 +55,9 @@
     </q-route-tab>
 
     <q-route-tab
-      label="Genes"
-      icon="svguse:/icons.svg#u-gene"
-      :to="{ name: 'genes' }"
+      :label="Settings.genes.title"
+      :icon="Settings.genes.icon"
+      :to="{ name: Settings.genes.domain }"
     />
 
     <q-route-tab

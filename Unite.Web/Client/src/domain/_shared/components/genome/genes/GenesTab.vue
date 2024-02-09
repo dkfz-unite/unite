@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Genes</span>
+      <span class="text-h5 u-text-title">{{ Settings.genes.title }}</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -53,6 +53,7 @@ import USamples from "@/domain/_shared/components/genome/Samples.vue";
 import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
 
 import DomainNames from "@/_settings/domain-names";
+import Settings from "@/_settings/settings";
 import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/genes/filters/gene-filters";
@@ -79,7 +80,13 @@ export default {
     },
     title: {
       type: String,
-      default: "Genes"
+      default: Settings.genes.title
+    }
+  },
+
+  setup() {
+    return {
+      Settings
     }
   },
 
@@ -93,7 +100,7 @@ export default {
 
   methods: {
     getDomain(name) {
-      return this.$store.state[name][DomainNames.Genes];
+      return this.$store.state[name][Settings.genes.domain];
     },
 
     async fetchData(searchCriteria) {

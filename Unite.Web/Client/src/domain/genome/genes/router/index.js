@@ -1,9 +1,11 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: '/genes',
-    name: 'genes',
-    meta: { title: "UNITE.Genes", authorize: true },
-    component: () => import(/* webpackChunkName: "genes" */ '../GenesPage.vue')
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true },
+    component: () => import(/* webpackChunkName: "genes" */ "../GenesPage.vue")
   }
 ];
 

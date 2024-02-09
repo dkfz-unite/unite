@@ -35,19 +35,20 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Genes" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.genes.crumb" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Genes"
           class="sticky-header"
+          :title="Settings.genes.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
+          :show-stats="true"
           v-model:rows-selected="rowsSelected"
           v-model:from="filtersCriteria.from"
           v-model:size="filtersCriteria.size"
@@ -72,13 +73,13 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDataTable from "@/domain/_shared/components/genome/genes/GenesTable.vue";
+import UDataTable from "./components/GenesTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_settings/domain-names";
 import FilterModels from "@/_shared/components/filters/filter-models";
+import Settings from "@/_settings/settings";
 import GenesApi from "./api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
@@ -99,10 +100,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Genes,
+      domain: Settings.genes.domain,
       model: FilterModels.Gene,
       models: FilterModels.All
     };
