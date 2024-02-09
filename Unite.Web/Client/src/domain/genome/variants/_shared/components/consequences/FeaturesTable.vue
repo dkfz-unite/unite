@@ -36,7 +36,8 @@
   </template>
   
   <script>
-  import ConsequenceType from "@/_models/domain/genome/variants/enums/consequence-type";
+  import ConsequenceType from "../../../_models/enums/consequence-type";
+  import ImpactColor from "../../../_models/impact-color";
   
   export default {
     props: {
@@ -199,6 +200,7 @@
       },
   
       getImpactColor(impact) {
+        // return ImpactColor.Text[impact];
         switch(impact){
           case "High": return "text-red-8";
           case "Moderate": return "text-orange-8";

@@ -67,15 +67,11 @@
       @click.prevent="null">
       <q-menu fit>
         <q-list dense>
-          <q-item :to="{ name: 'ssms' }" :active="$route.name == 'ssms'">
-            <q-item-section>
-              <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-ssm" size="sm" />
-                <span>Mutations (SSM)</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.ssms.title"
+            :icon="Settings.ssms.icon"
+            :to="{ name: Settings.ssms.domain }"
+          />
 
           <q-item :to="{ name: 'cnvs' }" :active="$route.name == 'cnvs'">
             <q-item-section>
@@ -153,7 +149,7 @@ export default {
 
     getVariantsRoute() {
       const routes = [
-        "ssms", 
+        Settings.ssms.domain, 
         "cnvs", 
         "svs"
       ];
@@ -163,10 +159,10 @@ export default {
 
     getVariantsIcon() {
       switch (this.$route.name) {
-        case "ssms": return "svguse:/icons.svg#u-ssm";
+        case Settings.ssms.domain: return Settings.ssms.icon;
         case "cnvs": return "svguse:/icons.svg#u-cnv";
         case "svs": return "svguse:/icons.svg#u-sv";
-        default: return "svguse:/icons.svg#u-ssm";
+        default: return Settings.ssms.icon;
       }
     }
   }

@@ -176,7 +176,7 @@ export default {
         show: false
       });
 
-      if (this.showStats){
+      if (this.showStats) {
         columns.push({
           name: "numberOfDonors",
           label: "#Donors",

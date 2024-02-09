@@ -1,4 +1,3 @@
-
 import Settings from "../settings";
 import DomainApi from "@/domain/_shared/api/domain-api";
 
