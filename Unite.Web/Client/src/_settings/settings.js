@@ -7,6 +7,7 @@ import OrganoidsSettings from "@/domain/specimens/organoids/settings";
 import XenograftsSettings from "@/domain/specimens/xenografts/settings";
 import GenesSettings from "@/domain/genome/genes/settings";
 import SsmsSettings from "@/domain/genome/variants/ssms/settings";
+import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 
 export default class Settings {
   static home = HomeSettings;
@@ -18,4 +19,5 @@ export default class Settings {
   static xenografts = XenograftsSettings;
   static genes = GenesSettings;
   static ssms = SsmsSettings;
+  static cnvs = CnvsSettings;
 }

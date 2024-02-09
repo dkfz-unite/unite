@@ -35,16 +35,16 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="CNVs" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.cnvs.crumb" />
       </q-breadcrumbs>
     </div>
 
     <div class="row">
       <div class="col">
         <u-data-table
-          title="Copy Number Variants (CNV)"
           class="sticky-header"
+          :title="Settings.cnvs.title"
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
@@ -71,17 +71,17 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDataTable from "@/domain/_shared/components/genome/variants/CNVsTable.vue";
+import UDataTable from "./components/CNVsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import DomainNames from "@/_settings/domain-names";
 import FilterModels from "@/_shared/components/filters/filter-models";
-import VariantTypes from "@/_models/domain/genome/variants/variant-types";
+import VariantType from "../_models/enums/variant-type";
 import VariantsApi from "../_shared/api/variants";
+import Settings from "@/_settings/settings";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
-const api = new VariantsApi(VariantTypes.CNV);
+const api = new VariantsApi(VariantType.CNV);
 
 export default {
   components: {
@@ -97,10 +97,16 @@ export default {
 
   mixins: [tablePageMixin],
 
+  setup() {
+    return {
+      Settings
+    }
+  },
+
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domain: DomainNames.Cnvs,
+      domain: Settings.cnvs.domain,
       model: FilterModels.Cnv,
       models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Gene, FilterModels.Cnv]
     };

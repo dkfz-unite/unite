@@ -73,14 +73,11 @@
             :to="{ name: Settings.ssms.domain }"
           />
 
-          <q-item :to="{ name: 'cnvs' }" :active="$route.name == 'cnvs'">
-            <q-item-section>
-              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
-                <q-icon name="svguse:/icons.svg#u-cnv" size="sm" />
-                <span>Copy Number Variants (CNV)</span>
-              </div>
-            </q-item-section>
-          </q-item>
+          <u-navigation-menu-item
+            :title="Settings.cnvs.title"
+            :icon="Settings.cnvs.icon"
+            :to="{ name: Settings.cnvs.domain }"
+          />
 
           <q-item :to="{ name: 'svs' }" :active="$route.name == 'svs'">
             <q-item-section>
