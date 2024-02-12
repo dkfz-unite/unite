@@ -14,6 +14,7 @@ import HomePage from "./home/HomePage.vue";
 import ULink from "./_shared/components/base/Link.vue";
 import ULinkExternal from "./_shared/components/base/LinkExternal.vue";
 import UArray from "./_shared/components/base/Array.vue";
+import UDonorLink from "./domain/donor/components/DonorLink.vue";
 
 createApp(HomePage)
 .use(Quasar, quasarOptions)
@@ -23,4 +24,5 @@ createApp(HomePage)
 .component("u-link", ULink)
 .component("u-link-external", ULinkExternal)
 .component("u-array", UArray)
+.component("u-donor-link", UDonorLink)
 .mount('#app');

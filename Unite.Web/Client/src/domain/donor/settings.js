@@ -59,6 +59,8 @@ export class Tabs {
     crumb: "SVs",
     icon: "svguse:/icons.svg#u-sv",
   };
+
+  static domains = Object.entries(this).map(([key, val]) => val.domain);
 }
 
 export default class Settings {

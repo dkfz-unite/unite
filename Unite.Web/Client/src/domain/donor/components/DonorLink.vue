@@ -8,6 +8,7 @@
 
 <script>
 import Settings from "../settings";
+import { Tabs } from "../settings";
 
 export default {
 	props: {
@@ -17,7 +18,8 @@ export default {
 		},
 		tab: {
 			type: String,
-			default: null
+			default: Tabs.summary.domain,
+			validator: (val) => Tabs.domains.includes(val)
 		}
 	},
 
