@@ -1,9 +1,11 @@
+import Settings from "../settings";
+
 const routes = [
   {
     path: "/cells/:id/:tab?",
     name: "cell",
-    meta: { title: "UNITE.CellLine", authorize: true, tab: "summary" },
-    component: () => import(/* webpackChunkName: "cell" */ "../CellPage.vue")
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true, tab: Settings.tabs.summary.domain },
+    component: () => import(/* webpackChunkName: "cell" */ "../LinePage.vue")
   }
 ];
 
