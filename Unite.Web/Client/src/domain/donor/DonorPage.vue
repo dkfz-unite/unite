@@ -5,7 +5,7 @@
         <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
         <q-breadcrumbs-el :label="Settings.donors.crumb" :to="{ name: Settings.donors.domain }" />
         <q-breadcrumbs-el :label="$route.params.id" />
-        <q-breadcrumbs-el :label="Settings.donor.tabs[tab].crumb" />
+        <q-breadcrumbs-el :label="Tabs[tab].crumb" />
       </q-breadcrumbs>
 
       <q-space />
@@ -15,7 +15,7 @@
         :id="donor.id"
         :reference="donor.referenceId"
         :data="donor.data"
-        :domain="DomainNames.Donors">
+        :domain="Settings.donors.domain">
       </u-download-button>
     </div>
 
@@ -26,44 +26,44 @@
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
               <q-tab 
-                :name="tabs.summary.domain" 
-                :label="tabs.summary.title" 
-                :icon="tabs.summary.icon" 
+                :name="Tabs.summary.domain" 
+                :label="Tabs.summary.title" 
+                :icon="Tabs.summary.icon" 
               />
               <q-tab 
-                :name="tabs.clinical.domain" 
-                :label="tabs.clinical.title" 
-                :icon="tabs.clinical.icon" 
+                :name="Tabs.clinical.domain" 
+                :label="Tabs.clinical.title" 
+                :icon="Tabs.clinical.icon" 
                 :disable="!showClinical" 
               />
               <q-tab 
-                :name="tabs.treatments.domain" 
-                :label="tabs.treatments.title" 
-                :icon="tabs.treatments.icon" 
+                :name="Tabs.treatments.domain" 
+                :label="Tabs.treatments.title" 
+                :icon="Tabs.treatments.icon" 
                 :disable="!showTreatments"
               />
               <q-tab 
-                :name="tabs.specimens.domain" 
-                :label="tabs.specimens.title" 
-                :icon="tabs.specimens.icon" 
+                :name="Tabs.specimens.domain" 
+                :label="Tabs.specimens.title" 
+                :icon="Tabs.specimens.icon" 
                 :disable="!showSpecimens"
               />
               <q-tab 
-                :name="tabs.mris.domain" 
-                :label="tabs.mris.title" 
-                :icon="tabs.mris.icon" 
+                :name="Tabs.mris.domain" 
+                :label="Tabs.mris.title" 
+                :icon="Tabs.mris.icon" 
                 :disable="!showImages"
               />
               <q-tab 
-                :name="tabs.profile.domain" 
-                :label="tabs.profile.title" 
-                :icon="tabs.profile.icon" 
+                :name="Tabs.profile.domain" 
+                :label="Tabs.profile.title" 
+                :icon="Tabs.profile.icon" 
                 :disable="!showProfile"
               />
               <q-tab 
-                :name="tabs.genes.domain" 
-                :label="tabs.genes.title" 
-                :icon="tabs.genes.icon" 
+                :name="Tabs.genes.domain" 
+                :label="Tabs.genes.title" 
+                :icon="Tabs.genes.icon" 
                 :disable="!showGenes"
               />
               <u-tab-variants 
@@ -81,43 +81,43 @@
         <div class="row">
           <div class="col">
             <q-tab-panels v-model="tab" class="fit">
-              <q-tab-panel :name="tabs.summary.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.summary.domain" class="q-py-sm q-px-none">
                 <u-summary-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.clinical.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.clinical.domain" class="q-py-sm q-px-none">
                 <u-clinical-data-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.treatments.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.treatments.domain" class="q-py-sm q-px-none">
                 <u-treatments-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.specimens.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.specimens.domain" class="q-py-sm q-px-none">
                 <u-specimens-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.mris.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.mris.domain" class="q-py-sm q-px-none">
                 <u-mris-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.profile.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.profile.domain" class="q-py-sm q-px-none">
                 <u-profile-tab :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.genes.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.genes.domain" class="q-py-sm q-px-none">
                 <u-genes-tab title="Donor Genes" :area="Settings.donor.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.ssms.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
                 <u-ssms-tab title="Donor Simple Somatic Mutations" :area="Settings.donor.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.cnvs.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
                 <u-cnvs-tab title="Donor Copy Number Variants" :area="Settings.donor.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel :name="tabs.svs.domain" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.svs.domain" class="q-py-sm q-px-none">
                 <u-svs-tab title="Donor Structural Variants" :area="Settings.donor.domain" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
@@ -147,7 +147,6 @@ import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
 import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
 
 import Settings from "@/_settings/settings";
-import DomainNames from "@/_settings/domain-names";
 import tabPageMixin from "../_shared/tab-page-mixin";
 import api from "./api";
 
@@ -172,7 +171,7 @@ export default {
   setup() {
     return {
       Settings,
-      DomainNames
+      Tabs: Settings.donor.tabs
     };
   },
 
@@ -180,7 +179,6 @@ export default {
     return {
       loading: false,
       donor: null,
-      tabs: Settings.donor.tabs,
       samples: null,
       sample: null
     };

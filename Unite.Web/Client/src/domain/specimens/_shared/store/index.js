@@ -1,13 +1,14 @@
+import { TabsBase } from "../specimen/settings";
 import SearchPageStore from "@/_shared/store/search-page-store";
 
 class SpecimenStore {
   namespaced = true;
 
   modules = {
-    genes: new SearchPageStore(),
-    ssms: new SearchPageStore(),
-    cnvs: new SearchPageStore(),
-    svs: new SearchPageStore()
+    [TabsBase.genes.domain]: new SearchPageStore(),
+    [TabsBase.ssms.domain]: new SearchPageStore(),
+    [TabsBase.cnvs.domain]: new SearchPageStore(),
+    [TabsBase.svs.domain]: new SearchPageStore()
   };
 
   state = () => ({
@@ -15,10 +16,10 @@ class SpecimenStore {
 
   actions = {
     clearState({ state, dispatch }) {
-      dispatch("genes/clear");
-      dispatch("ssms/clear");
-      dispatch("cnvs/clear");
-      dispatch("svs/clear");
+      dispatch(`${TabsBase.genes.domain}/clear`);
+      dispatch(`${TabsBase.ssms.domain}/clear`);
+      dispatch(`${TabsBase.cnvs.domain}/clear`);
+      dispatch(`${TabsBase.svs.domain}/clear`);
     }
   };
 }
