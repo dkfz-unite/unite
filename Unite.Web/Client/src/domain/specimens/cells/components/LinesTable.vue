@@ -18,19 +18,19 @@
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <u-specimen-link :id="props.value" type="tissue" />
+          <u-link-line :id="props.value" />
         </q-td>
       </template>
 
       <template v-slot:body-cell-donorId="props">
         <q-td :props="props">
-          <u-donor-link :id="props.value" />
+          <u-link-donor :id="props.value" />
         </q-td>
       </template>
 
       <template v-slot:body-cell-parentId="props">
         <q-td :props="props">
-          <u-specimen-link v-if="props.value.parentId" :id="props.value.parentId" :type="getSpecimenType(props.value.parentType)" />
+          <u-link-specimen v-if="props.value.parentId" :id="props.value.parentId" :type="props.value.parentType" />
         </q-td>
       </template>
     </u-data-table>
@@ -39,8 +39,7 @@
 
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
-import UDonorLink from "@/_shared/components/DonorLink.vue";
-import USpecimenLink from "@/_shared/components/SpecimenLink.vue";
+
 import Settings from "../settings";
 import tableMixin from "../../../_shared/table-mixin";
 import availableDataMixin from "../../../_shared/available-data-mixin";
@@ -48,18 +47,15 @@ import specimensTableMixin from "../../_shared/specimens-table-mixin";
 
 export default {
   components: {
-    UDataTable,
-    UDonorLink,
-    USpecimenLink
+    UDataTable
   },
 
   mixins: [tableMixin, availableDataMixin, specimensTableMixin],
 
   computed: {
     scope() {
-      return "tissues";
+      return "lines";
     },
-    
     columns() {
       let columns = [];
 
@@ -85,8 +81,7 @@ export default {
         label: "Parent ID",
         field: (row) => row,
         sortable: false,
-        align: "left",
-        show: false
+        align: "left"
       });
 
       columns.push({
@@ -94,22 +89,29 @@ export default {
         label: "Parent Type",
         field: (row) => this.getSpecimenTypeName(row.parentType),
         sortable: false,
-        align: "left",
-        show: false
+        align: "left"
       });
 
       columns.push({
-        name: "type",
-        label: "Type",
-        field: (row) => row.material?.tumorType ?? row.material?.type,
+        name: "species",
+        label: "Species",
+        field: (row) => row.line?.cellsSpecies,
         sortable: false,
         align: "left"
       });
 
       columns.push({
-        name: "source",
-        label: "Source",
-        field: (row) => row.material?.source,
+        name: "type",
+        label: "Type",
+        field: (row) => row.line?.cellsType,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "cultureType",
+        label: "Culture Type",
+        field: (row) => row.line?.cellsCultureType,
         sortable: false,
         align: "left"
       });
@@ -160,6 +162,16 @@ export default {
       });
 
       if ([Settings.domain].includes(this.$route.name)){
+        columns.push({
+          name: "hasDrugs",
+          label: "Drugs",
+          field: (row) => this.dataView(row.data.drugs),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.drugs),
+          headerClasses: this.dataHeaderClass()
+        });
+
         columns.push({
           name: "hasSsms",
           label: "SSM",
@@ -232,5 +244,5 @@ export default {
       return columns;
     }
   }
-}
+};
 </script>

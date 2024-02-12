@@ -1,5 +1,5 @@
 <template>
-	<u-link :to="{ name: type, params: { id: id, tab: tab }}">
+	<u-link :to="{ name: type.toLowerCase(), params: { id: id, tab: tab }}">
 		<slot>
 			{{ id }}
 		</slot>
@@ -16,12 +16,12 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: (value) => ["tissue", "cell", "organoid", "xenograft"].includes(value)
+      validator: (value) => ["Material", "Line", "Organoid", "Xenograft"].includes(value)
     },
 		tab: {
 			type: String,
 			default: null
 		}
-	},
+	}
 }
 </script>

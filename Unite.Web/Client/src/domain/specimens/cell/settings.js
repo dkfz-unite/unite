@@ -6,7 +6,9 @@ export class Tabs extends TabsBase {
     title: "Drugs",
     crumb: "Drugs",
     icon: "las la-capsules"
-  }
+  };
+  
+  static domains = [...TabsBase.domains, ...Object.entries(this).map(([key, value]) => value.domain)];
 }
 
 export default class Settings extends SettingsBase {

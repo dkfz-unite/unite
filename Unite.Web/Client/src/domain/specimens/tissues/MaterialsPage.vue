@@ -72,7 +72,7 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDataTable from "./components/TissuesTable.vue";
+import UDataTable from "./components/MaterialsTable.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";

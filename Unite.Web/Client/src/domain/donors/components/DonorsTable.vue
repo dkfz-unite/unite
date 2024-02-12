@@ -18,7 +18,7 @@
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <u-donor-link :id="props.value" />
+          <u-link-donor :id="props.value" />
         </q-td>
       </template>
 

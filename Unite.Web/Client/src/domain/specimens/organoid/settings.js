@@ -13,6 +13,8 @@ export class Tabs extends TabsBase {
     crumb: "Interventions",
     icon: "las la-syringe"
   };
+
+  static domains = [...TabsBase.domains, ...Object.entries(this).map(([key, value]) => value.domain)];
 }
 
 export default class Settings extends SettingsBase {
