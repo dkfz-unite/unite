@@ -1,8 +1,10 @@
+import Settings from "../settings";
+
 const routes = [
   {
     path: '/organoids/:id/:tab?',
-    name: 'organoid',
-    meta: { title: "UNITE.Organoid", authorize: true, tab: "summary" },
+    name: Settings.domain,
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true, tab: Settings.tabs.summary.domain },
     component: () => import(/* webpackChunkName: "organoid" */ '../OrganoidPage.vue')
   }
 ];
