@@ -20,6 +20,7 @@ import ULinkMaterial from "./domain/specimens/tissue/components/MaterialLink.vue
 import ULinkLine from "./domain/specimens/cell/components/LineLink.vue";
 import ULinkOrganoid from "./domain/specimens/organoid/components/OrganoidLink.vue";
 import ULinkXenograft from "./domain/specimens/xenograft/components/XenograftLink.vue";
+import ULinkGene from "./domain/genome/gene/components/GeneLink.vue";
 
 createApp(HomePage)
 .use(Quasar, quasarOptions)
@@ -35,4 +36,5 @@ createApp(HomePage)
 .component("u-link-line", ULinkLine)
 .component("u-link-organoid", ULinkOrganoid)
 .component("u-link-xenograft", ULinkXenograft)
+.component("u-link-gene", ULinkGene)
 .mount("#app");
