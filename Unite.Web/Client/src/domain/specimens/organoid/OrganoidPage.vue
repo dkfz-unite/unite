@@ -42,7 +42,12 @@
                 :label="Tabs.ancestry.title" 
                 :icon="Tabs.ancestry.icon"
               />
-              <q-tab name="interventions" label="Interventions" icon="las la-syringe" :disable="!showInterventions" />
+              <q-tab
+                :name="Tabs.interventions.domain"
+                :label="Tabs.interventions.title"
+                :icon="Tabs.interventions.icon"
+                :disable="!showInterventions"
+              />
               <q-tab
                 :name="Tabs.drugs.domain"
                 :label="Tabs.drugs.title"

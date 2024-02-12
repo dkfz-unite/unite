@@ -2,10 +2,10 @@
   <div class="col q-gutter-y-sm">
     <div class="row" v-if="specimen && donor">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
-        <q-breadcrumbs-el label="Xenografts" :to="{ name: 'xenografts' }" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.xenografts.crumb" :to="{ name: Settings.xenografts.domain }" />
         <q-breadcrumbs-el :label="$route.params.id" />
-        <q-breadcrumbs-el :label="tabName" />
+        <q-breadcrumbs-el :label="Tabs[tab].crumb" />
       </q-breadcrumbs>
 
       <q-space />
@@ -22,7 +22,7 @@
         :id="specimen.id"
         :reference="specimen.referenceId"
         :data="specimen.data"
-        :domain="DomainNames.Xenografts">
+        :domain="Settings.xenografts.domain">
       </u-download-button>
     </div>
 
@@ -32,18 +32,47 @@
           <div class="col">
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
-              <q-tab name="summary" label="Summary" icon="las la-info-circle" />
-              <q-tab name="ancestry" label="Ancestry" icon="las la-sitemap" />
-              <q-tab name="interventions" label="Interventions" icon="las la-syringe" :disable="!showInterventions" />
-              <q-tab name="drugs" label="Drugs" icon="las la-capsules" :disable="!showDrugs" />
-              <q-tab name="profile" label="Profile" icon="las la-chart-bar" :disable="!showProfile" />
-              <q-tab name="genes" label="Genes" icon="svguse:/icons.svg#u-gene" :disable="!showGenes" />
-              <u-variants-tab-header 
+              <q-tab 
+                :name="Tabs.summary.domain" 
+                :label="Tabs.summary.title" 
+                :icon="Tabs.summary.icon" 
+              />
+              <q-tab 
+                :name="Tabs.ancestry.domain" 
+                :label="Tabs.ancestry.title" 
+                :icon="Tabs.ancestry.icon"
+              />
+              <q-tab
+                :name="Tabs.interventions.domain"
+                :label="Tabs.interventions.title"
+                :icon="Tabs.interventions.icon"
+                :disable="!showInterventions"
+              />
+              <q-tab
+                :name="Tabs.drugs.domain"
+                :label="Tabs.drugs.title"
+                :icon="Tabs.drugs.icon"
+                :disable="!showDrugs"
+              />
+              <q-tab 
+                :name="Tabs.profile.domain" 
+                :label="Tabs.profile.title" 
+                :icon="Tabs.profile.icon"
+                :disable="!showProfile"
+              />
+              <q-tab 
+                :name="Tabs.genes.domain" 
+                :label="Tabs.genes.title" 
+                :icon="Tabs.genes.icon"
+                :disable="!showGenes"
+              />
+              <u-tab-variants 
                 v-model="tab"
                 :disable="!showVariants"
                 :disableSsms="!showSsms"
                 :disableCnvs="!showCnvs"
-                :disableSvs="!showSvs" />
+                :disableSvs="!showSvs"
+              />
             </q-tabs>
             <q-separator />
           </div>
@@ -52,40 +81,40 @@
         <div class="row">
           <div class="col">
             <q-tab-panels v-model="tab" class="fit">
-              <q-tab-panel name="summary" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.summary.domain" class="q-py-sm q-px-none">
                 <u-summary-tab :specimen="specimen" />
               </q-tab-panel>
 
-              <q-tab-panel name="ancestry" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.ancestry.domain" class="q-py-sm q-px-none">
                 <u-ancestry-tab :specimen="specimen" :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel name="drugs" class="q-py-sm q-px-none">
-                <u-drugs-tab :specimen="specimen" />
-              </q-tab-panel>
-
-              <q-tab-panel name="interventions" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.interventions.domain" class="q-py-sm q-px-none">
                 <u-interventions-tab :specimen="specimen" />
               </q-tab-panel>
 
-              <q-tab-panel name="profile" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.drugs.domain" class="q-py-sm q-px-none">
+                <u-drugs-tab :specimen="specimen" />
+              </q-tab-panel>
+
+              <q-tab-panel :name="Tabs.profile.domain" class="q-py-sm q-px-none">
                 <u-profile-tab :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel name="genes" class="q-py-sm q-px-none">
-                <u-genes-tab title="Specimen Genes" :area="DomainNames.Xenograft" :samples="samples" />
+              <q-tab-panel :name="Tabs.genes.domain" class="q-py-sm q-px-none">
+                <u-genes-tab title="Specimen Genes" :area="Settings.line.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel name="ssms" class="q-py-sm q-px-none">
-                <u-ssms-tab title="Specimen Mutations" :area="DomainNames.Xenograft" :samples="samples" />
+              <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
+                <u-ssms-tab title="Specimen Simple Somatic Mutations (SSM)" :area="Settings.xenograft.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel name="cnvs" class="q-py-sm q-px-none">
-                <u-cnvs-tab title="Specimen Copy Number Variants" :area="DomainNames.Xenograft" :samples="samples" />
+              <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
+                <u-cnvs-tab title="Specimen Copy Number Variants (CNV)" :area="Settings.xenograft.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel name="svs" class="q-py-sm q-px-none">
-                <u-svs-tab title="Specimen Structural Variants" :area="DomainNames.Xenograft" :samples="samples" />
+              <q-tab-panel :name="Tabs.svs.domain" class="q-py-sm q-px-none">
+                <u-svs-tab title="Specimen Structural Variants (SV)" :area="Settings.xenograft.domain" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -102,7 +131,7 @@
 <script>
 import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vue";
 import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
-import UVariantsTabHeader from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
+import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components//SummaryTab.vue";
 import UAncestryTab from "../_shared/components/specimen/AncestryTab.vue";
 import UInterventionsTab from "../_shared/components/specimen/InterventionsTab.vue";
@@ -113,6 +142,7 @@ import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
 import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
 import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
 
+import Settings from "@/_settings/settings";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 import specimenPageMixin from "../_shared/specimen-page-mixin";
 
@@ -120,7 +150,7 @@ export default {
   components: {
     UUploadButton,
     UDownloadButton,
-    UVariantsTabHeader,
+    UTabVariants,
     USummaryTab,
     UAncestryTab,
     UInterventionsTab,
@@ -134,8 +164,15 @@ export default {
 
   mixins: [tabPageMixin, specimenPageMixin],
 
+  setup() {
+    return {
+      Settings,
+      Tabs: Settings.xenograft.tabs
+    }
+  },
+
   async unmounted() {
-    this.$store.dispatch("xenograft/clearState");
+    this.$store.dispatch(`${Settings.xenograft.domain}/clearState`);
   }
 }
 </script>

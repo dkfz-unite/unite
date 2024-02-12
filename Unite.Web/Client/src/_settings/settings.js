@@ -8,6 +8,7 @@ import LineSettings from "@/domain/specimens/cell/settings";
 import LinesSettings from "@/domain/specimens/cells/settings";
 import OrganoidSettings from "@/domain/specimens/organoid/settings";
 import OrganoidsSettings from "@/domain/specimens/organoids/settings";
+import XenograftSettings from "@/domain/specimens/xenograft/settings";
 import XenograftsSettings from "@/domain/specimens/xenografts/settings";
 import GenesSettings from "@/domain/genome/genes/settings";
 import SsmsSettings from "@/domain/genome/variants/ssms/settings";
@@ -27,6 +28,7 @@ export default class Settings {
   static lines = LinesSettings;
   static organoid = OrganoidSettings;
   static organoids = OrganoidsSettings;
+  static xenograft = XenograftSettings;
   static xenografts = XenograftsSettings;
   static genes = GenesSettings;
   static ssms = SsmsSettings;
