@@ -39,16 +39,15 @@
 
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
-import UDonorLink from "@/_shared/components/DonorLink.vue";
 import UProjects from "./cells/Projects.vue";
 import UStudies from "./cells/Studies.vue";
-import tableMixin from "../../table-mixin";
-import availableDataMixin from "../../available-data-mixin";
+import Settings from "../settings";
+import tableMixin from "@/domain/_shared/table-mixin";
+import availableDataMixin from "@/domain/_shared/available-data-mixin";
 
 export default {
   components: {
     UDataTable,
-    UDonorLink,
     UProjects,
     UStudies
   },
@@ -57,7 +56,7 @@ export default {
 
   computed: {
     scope() {
-      return "donors";
+      return Settings.domain;
     },
     columns() {
       let columns = [];
@@ -180,72 +179,7 @@ export default {
         align: "left"
       });
 
-      if (["donors"].includes(this.$route.name)){
-        // columns.push({
-        //   name: "hasClinical",
-        //   label: "Clinical",
-        //   field: (row) => this.dataView(row.data.clinical),
-        //   sortable: false,
-        //   align: "center",
-        //   classes: (row) => this.dataCellClass(row.data.clinical),
-        //   headerClasses: this.dataHeaderClass()
-        // });
-
-        // columns.push({
-        //   name: "hasTreatments",
-        //   label: "Treatment",
-        //   field: (row) => this.dataView(row.data.treatments),
-        //   sortable: false,
-        //   align: "center",
-        //   classes: (row) => this.dataCellClass(row.data.treatments),
-        //   headerClasses: this.dataHeaderClass()
-        // });
-
-        // columns.push({
-        //   name: "hasMris",
-        //   label: "MRI",
-        //   field: (row) => this.hasDataView(row.data.mris),
-        //   sortable: false,
-        //   align: "center",
-        //   classes: (row) => this.hasDataClass(row.data.mris)
-        // });
-
-        // columns.push({
-        //   name: "hasCts",
-        //   label: "CT",
-        //   field: (row) => this.hasDataView(row.data.cts),
-        //   sortable: false,
-        //   align: "center"
-        // });
-
-        // columns.push({
-        //   name: "hasTissues",
-        //   label: "Tissues",
-        //   field: (row) => this.$helpers.content.toBooleanString(row.data.tissues),
-        //   sortable: false
-        // });
-
-        // columns.push({
-        //   name: "hasCells",
-        //   label: "Cells",
-        //   field: (row) => this.$helpers.content.toBooleanString(row.data.cells),
-        //   sortable: false
-        // });
-
-        // columns.push({
-        //   name: "hasOrganoids",
-        //   label: "Organoids",
-        //   field: (row) => this.$helpers.content.toBooleanString(row.data.organoids),
-        //   sortable: false
-        // });
-
-        // columns.push({
-        //   name: "hasXenografts",
-        //   label: "Xenografts",
-        //   field: (row) => this.$helpers.content.toBooleanString(row.data.xenografts),
-        //   sortable: false
-        // });
-
+      if ([Settings.domain].includes(this.$route.name)){
         columns.push({
           name: "hasSsms",
           label: "SSM",

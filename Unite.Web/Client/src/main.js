@@ -25,4 +25,4 @@ createApp(HomePage)
 .component("u-link-external", ULinkExternal)
 .component("u-array", UArray)
 .component("u-donor-link", UDonorLink)
-.mount('#app');
+.mount("#app");

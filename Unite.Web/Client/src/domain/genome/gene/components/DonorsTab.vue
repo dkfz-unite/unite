@@ -41,7 +41,7 @@
 import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
-import UDataTable from "@/domain/_shared/components/donors/DonorsTable.vue";
+import UDataTable from "@/domain/donors/components/DonorsTable.vue";
 import tablePageMixin from "../../../_shared/table-page-mixin";
 import filters from "@/domain/donors/filters/donor-filters";
 
