@@ -11,16 +11,18 @@ import router from "./home/router";
 import store from "./home/store";
 
 import HomePage from "./home/HomePage.vue";
+import UArray from "./_shared/components/base/Array.vue";
 import ULink from "./_shared/components/base/Link.vue";
 import ULinkExternal from "./_shared/components/base/LinkExternal.vue";
-import UArray from "./_shared/components/base/Array.vue";
 import ULinkDonor from "./domain/donor/components/DonorLink.vue";
 import ULinkSpecimen from "./domain/specimens/_shared/specimen/components/SpecimenLink.vue";
 import ULinkMaterial from "./domain/specimens/tissue/components/MaterialLink.vue";
 import ULinkLine from "./domain/specimens/cell/components/LineLink.vue";
 import ULinkOrganoid from "./domain/specimens/organoid/components/OrganoidLink.vue";
 import ULinkXenograft from "./domain/specimens/xenograft/components/XenograftLink.vue";
-import ULinkGene from "./domain/genome/gene/components/GeneLink.vue";
+import ULinkGene from "./domain/genome/gene/components/Link.vue";
+import ULinkSsm from "./domain/genome/variants/ssm/components/Link.vue";
+import ULinkCnv from "./domain/genome/variants/cnv/components/Link.vue";
 
 createApp(HomePage)
 .use(Quasar, quasarOptions)
@@ -37,4 +39,6 @@ createApp(HomePage)
 .component("u-link-organoid", ULinkOrganoid)
 .component("u-link-xenograft", ULinkXenograft)
 .component("u-link-gene", ULinkGene)
+.component("u-link-ssm", ULinkSsm)
+.component("u-link-cnv", ULinkCnv)
 .mount("#app");

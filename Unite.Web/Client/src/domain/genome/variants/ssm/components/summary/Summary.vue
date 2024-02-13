@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm" v-if="variant">
     <div class="row">
-      <span class="text-h5 u-text-title">Summary</span>
+      <span class="text-h5 u-text-title">{{ Tabs.summary.title }}</span>
     </div>
 
     <div class="row">
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { Tabs } from "../../settings";
 import UDnaSequence from '@/domain/genome/variants/_shared/components/DnaSequence.vue';
 
 export default {
@@ -60,6 +61,12 @@ export default {
 
   props: {
     variant: Object
+  },
+
+  setup() {
+    return {
+      Tabs
+    };
   }
 }
 </script>

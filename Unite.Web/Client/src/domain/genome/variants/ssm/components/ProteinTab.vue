@@ -1,5 +1,8 @@
 <template>
   <div class="col q-gutter-y-sm">
+    <div class="row">
+      <span class="text-h5 u-text-title">{{ Tabs.protein.title }}</span>
+    </div>
     <div class="row q-gutter-x-sm" v-if="transcriptOptions?.length">
       <q-btn-group>
         <q-select
@@ -57,6 +60,8 @@ import UProteinPlot from "@/visualization/proteinplot/components/ProteinPlot.vue
 import ProteinPlotDataService from "@/visualization/proteinplot/components/proteinplot-data-service";
 import api from "@/visualization/proteinplot/api";
 
+import { Tabs } from "../settings";
+
 var dataService = new ProteinPlotDataService();
 
 export default {
@@ -78,6 +83,12 @@ export default {
       grouping: "impact",
       data: null
     }
+  },
+
+  setup() {
+    return {
+      Tabs
+    };
   },
 
   computed: {

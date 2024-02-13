@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Donors</span>
+      <span class="text-h5 u-text-title">{{ Tabs.donors.title }}</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -42,8 +42,10 @@ import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "@/domain/donors/components/DonorsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
-import filters from "@/domain/donors/filters/donor-filters";
 
+import { Tabs } from "../settings";
+import FilterModel from "@/_shared/components/filters/filter-models";
+import filters from "@/domain/donors/filters/donor-filters";
 import api from "../../_shared/api/variant";
 
 export default {
@@ -59,10 +61,16 @@ export default {
     variant: Object
   },
 
+  setup() {
+    return {
+      Tabs
+    };
+  },
+
   data() {
     return {
       domain: this.$store.state.ssm.donors,
-      model: "donor",
+      model: FilterModel.Donor,
       filters: filters
     }
   },

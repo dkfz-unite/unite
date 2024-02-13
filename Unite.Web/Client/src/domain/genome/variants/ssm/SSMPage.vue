@@ -2,10 +2,10 @@
   <div class="col q-gutter-y-sm">
     <div class="row" v-if="variant">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="SSMs" :to="{ name: 'ssms' }" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.ssms.crumb" :to="{ name: Settings.ssms.domain }" />
         <q-breadcrumbs-el :label="$route.params.id" />
-        <q-breadcrumbs-el :label="tabName" />
+        <q-breadcrumbs-el :label="Tabs[tab].crumb" />
       </q-breadcrumbs>
 
       <q-space />
@@ -15,7 +15,7 @@
         :id="variant.id"
         :reference="variant.id"
         :data="variant.data"
-        :domain="DomainNames.Ssms">
+        :domain="Settings.ssms.domain">
       </u-download-button>
     </div>
 
@@ -25,9 +25,21 @@
           <div class="col">
             <q-separator />
             <q-tabs v-model="tab" dense align="left">
-              <q-tab name="summary" label="Summary" icon="las la-info-circle" />
-              <q-tab name="protein" label="Protein" icon="svguse:/icons.svg#u-lolliplot" />
-              <q-tab name="donors" label="Donors" icon="las la-user-circle" />
+              <q-tab
+                :name="Tabs.summary.domain"
+                :label="Tabs.summary.title"
+                :icon="Tabs.summary.icon"
+              />
+              <q-tab
+                :name="Tabs.protein.domain"
+                :label="Tabs.protein.title"
+                :icon="Tabs.protein.icon"
+              />
+              <q-tab
+                :name="Tabs.donors.domain"
+                :label="Tabs.donors.title"
+                :icon="Tabs.donors.icon"
+              />
             </q-tabs>
             <q-separator />
           </div>
@@ -36,15 +48,15 @@
         <div class="row">
           <div class="col">
             <q-tab-panels v-model="tab">
-              <q-tab-panel name="summary" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.summary.domain" class="q-py-sm q-px-none">
                 <u-summary-tab :variant="variant" />
               </q-tab-panel>
 
-              <q-tab-panel name="protein" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.protein.domain" class="q-py-sm q-px-none">
                 <u-protein-tab :variant="variant" />
               </q-tab-panel>
 
-              <q-tab-panel name="donors" class="q-py-sm q-px-none">
+              <q-tab-panel :name="Tabs.donors.domain" class="q-py-sm q-px-none">
                 <u-donors-tab :variant="variant" />
               </q-tab-panel>
             </q-tab-panels>
@@ -66,7 +78,7 @@ import UProteinTab from "./components/ProteinTab.vue";
 import UDonorsTab from "./components/DonorsTab.vue";
 import tabPageMixin from "../../../_shared/tab-page-mixin";
 
-import DomainNames from "@/_settings/domain-names";
+import Settings from "@/_settings/settings";
 import api from "../_shared/api/variant";
 
 export default {
@@ -81,7 +93,8 @@ export default {
 
   setup() {
     return {
-      DomainNames
+      Settings,
+      Tabs: Settings.ssm.tabs
     };
   },
 
@@ -90,15 +103,6 @@ export default {
       loading: false,
       variant: null
     };
-  },
-
-  computed: {
-    tabName() {
-      return this.tab === "summary" ? "Summary"
-           : this.tab === "protein" ? "Protein"
-           : this.tab === "donors" ? "Donors"
-           : this.tab;
-    }
   },
 
   async mounted() {
@@ -113,7 +117,7 @@ export default {
   },
 
   async unmounted() {
-    this.$store.dispatch("ssm/clearState");
+    this.$store.dispatch(`${Settings.ssm.domain}/clearState`);
   }
 }
 </script>
