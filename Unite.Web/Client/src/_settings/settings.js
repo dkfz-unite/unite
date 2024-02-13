@@ -13,6 +13,7 @@ import XenograftsSettings from "@/domain/specimens/xenografts/settings";
 import GeneSettings from "@/domain/genome/gene/settings";
 import GenesSettings from "@/domain/genome/genes/settings";
 import SsmsSettings from "@/domain/genome/variants/ssms/settings";
+import CnvSettings from "@/domain/genome/variants/cnv/settings";
 import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 import SvsSettings from "@/domain/genome/variants/svs/settings";
 import AnalysisSettings from "@/analysis/settings";
@@ -34,6 +35,7 @@ export default class Settings {
   static gene = GeneSettings;
   static genes = GenesSettings;
   static ssms = SsmsSettings;
+  static cnv = CnvSettings;
   static cnvs = CnvsSettings;
   static svs = SvsSettings;
   static analysis = AnalysisSettings;

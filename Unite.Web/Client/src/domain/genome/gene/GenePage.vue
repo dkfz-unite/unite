@@ -90,7 +90,6 @@ import USvsTab from "./components/SVsTab.vue";
 import tabPageMixin from "../../_shared/tab-page-mixin";
 
 import Settings from "@/_settings/settings";
-import DomainNames from "@/_settings/domain-names";
 import api from "./api";
 
 export default {
@@ -110,8 +109,7 @@ export default {
   setup() {
     return {
       Settings,
-      Tabs: Settings.gene.tabs,
-      DomainNames
+      Tabs: Settings.gene.tabs
     };
   },
 

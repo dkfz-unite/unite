@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm" v-if="variant">
     <div class="row">
-      <span class="text-h5 u-text-title">Summary</span>
+      <span class="text-h5 u-text-title">{{ Tabs.summary.title }}</span>
     </div>
 
     <div class="row">
@@ -27,7 +27,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Length</td>
-              <td>{{ (variant.end - variant.start + 1).toLocaleString() }}</td>
+              <td>{{ (variant.length).toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
@@ -53,10 +53,10 @@
               <td class="u-text-key">TCN Mean</td>
               <td>{{ variant.cnv.tcnMean?.toLocaleString() }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="u-text-key">DH Max</td>
               <td>{{ variant.cnv.dhMax?.toLocaleString() }}</td>
-            </tr>
+            </tr> -->
           </tbody>
         </q-markup-table>
       </div>
@@ -65,9 +65,17 @@
 </template>
 
 <script>
+import { Tabs } from "../../settings";
+
 export default {
   props: {
     variant: Object
+  },
+
+  setup() {
+    return {
+      Tabs
+    };
   },
 
   methods: {
