@@ -1,13 +1,14 @@
+import { Tabs } from "../settings";
 import SearchPageStore from "@/_shared/store/search-page-store";
 
 class GeneStore {
   namespaced = true;
 
   modules = {
-    donors: new SearchPageStore(),
-    ssms: new SearchPageStore(),
-    cnvs: new SearchPageStore(),
-    svs: new SearchPageStore()
+    [Tabs.donors.domain]: new SearchPageStore(),
+    [Tabs.ssms.domain]: new SearchPageStore(),
+    [Tabs.cnvs.domain]: new SearchPageStore(),
+    [Tabs.svs.domain]: new SearchPageStore()
   };
 
   state = () => ({
@@ -15,10 +16,10 @@ class GeneStore {
 
   actions = {
       clearState({state, dispatch}) {
-        dispatch("donors/clear");
-        dispatch("ssms/clear");
-        dispatch("cnvs/clear");
-        dispatch("svs/clear");
+        dispatch(`${Tabs.donors.domain}/clear`);
+        dispatch(`${Tabs.ssms.domain}/clear`);
+        dispatch(`${Tabs.cnvs.domain}/clear`);
+        dispatch(`${Tabs.svs.domain}/clear`);
       }
   }
 }
