@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import UInterventions from "./interventions/Interventions.vue";
+import UInterventions from "./Interventions.vue";
 
 export default {
   components: {

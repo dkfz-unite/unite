@@ -40,8 +40,8 @@
               <td>{{ specimen.xenograft.implantType }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Tissue Location</td>
-              <td>{{ specimen.xenograft.tissueLocation }}</td>
+              <td class="u-text-key">Implant Location</td>
+              <td>{{ specimen.xenograft.implantLocation }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Implanted Cells Number</td>

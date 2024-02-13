@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import USummary from "./summary/Summary.vue";
-import UMolecularData from "../../_shared/components/specimen/summary/MolecularData.vue";
+import USummary from "./Summary.vue";
+import UMolecularData from "../../../_shared/specimen/components/tabs/summary/MolecularData.vue";
 
 export default {
   components: {
@@ -25,7 +25,10 @@ export default {
   },
 
   props: {
-    specimen: Object
+    specimen: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

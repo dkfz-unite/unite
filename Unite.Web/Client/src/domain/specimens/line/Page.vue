@@ -123,8 +123,8 @@ import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vu
 import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/summary/Tab.vue";
-import UAncestryTab from "../_shared/specimen/components/AncestryTab.vue";
-import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
+import UAncestryTab from "../_shared/specimen/components/tabs/ancestry/Tab.vue";
+import UDrugsTab from "../_shared/specimen/components/tabs/drugs/Tab.vue";
 import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
 import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";

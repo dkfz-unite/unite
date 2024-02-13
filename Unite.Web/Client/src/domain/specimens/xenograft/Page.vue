@@ -3,7 +3,7 @@
     <div class="row" v-if="specimen && donor">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
-        <q-breadcrumbs-el :label="Settings.organoids.crumb" :to="{ name: Settings.organoids.domain }" />
+        <q-breadcrumbs-el :label="Settings.xenografts.crumb" :to="{ name: Settings.xenografts.domain }" />
         <q-breadcrumbs-el :label="$route.params.id" />
         <q-breadcrumbs-el :label="Tabs[tab].crumb" />
       </q-breadcrumbs>
@@ -14,7 +14,7 @@
         v-if="specimen && donor && canUpload"
         :donorId="donor.referenceId"
         :specimenId="specimen.referenceId"
-        specimenType="Organoid">
+        specimenType="Xenograft">
       </u-upload-button>
 
       <u-download-button
@@ -22,7 +22,7 @@
         :id="specimen.id"
         :reference="specimen.referenceId"
         :data="specimen.data"
-        :domain="Settings.organoids.domain">
+        :domain="Settings.xenografts.domain">
       </u-download-button>
     </div>
 
@@ -106,15 +106,15 @@
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
-                <u-ssms-tab title="Specimen Simple Somatic Mutations (SSM)" :area="Settings.orgaoid.domain" :samples="samples" />
+                <u-ssms-tab title="Specimen Simple Somatic Mutations (SSM)" :area="Settings.xenograft.domain" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
-                <u-cnvs-tab title="Specimen Copy Number Variants (CNV)" :area="Settings.orgaoid.domain" :samples="samples" />
+                <u-cnvs-tab title="Specimen Copy Number Variants (CNV)" :area="Settings.xenograft.domain" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.svs.domain" class="q-py-sm q-px-none">
-                <u-svs-tab title="Specimen Structural Variants (SV)" :area="Settings.orgaoid.domain" :samples="samples" />
+                <u-svs-tab title="Specimen Structural Variants (SV)" :area="Settings.xenograft.domain" :samples="samples" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -132,10 +132,10 @@
 import UUploadButton from "../_shared/components/specimen/upload/UploadButton.vue";
 import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
 import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
-import USummaryTab from "./components/SummaryTab.vue";
-import UAncestryTab from "../_shared/specimen/components/AncestryTab.vue";
-import UInterventionsTab from "../_shared/components/specimen/InterventionsTab.vue";
-import UDrugsTab from "../_shared/components/specimen/DrugsTab.vue";
+import USummaryTab from "./components/summary/Tab.vue";
+import UAncestryTab from "../_shared/specimen/components/tabs/ancestry/Tab.vue";
+import UInterventionsTab from "../_shared/specimen/components/tabs/interventions/Tab.vue";
+import UDrugsTab from "../_shared/specimen/components/tabs/drugs/Tab.vue";
 import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
 import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
@@ -167,12 +167,12 @@ export default {
   setup() {
     return {
       Settings,
-      Tabs: Settings.organoid.tabs
+      Tabs: Settings.xenograft.tabs
     }
   },
 
   async unmounted() {
-    this.$store.dispatch(`${Settings.organoid.domain}/clearState`);
+    this.$store.dispatch(`${Settings.xenograft.domain}/clearState`);
   }
 }
 </script>

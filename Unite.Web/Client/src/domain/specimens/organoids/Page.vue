@@ -72,16 +72,17 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
-import UDataTable from "./components/OrganoidsTable.vue";
+import UDataTable from "./components/Table.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UUploadButton from "./components/UploadButton.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import tablePageMixin from "@/domain/_shared/table-page-mixin";
+
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import Permissions from "@/_models/admin/enums/permissions";
 import Settings from "@/_settings/settings";
 import SpecimensApi from "../_shared/api/specimens";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
 const api = new SpecimensApi(SpecimenTypes.Organoid);
 
