@@ -17,7 +17,7 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: (value) => ["tissue", "cell", "organoid", "xenograft"].includes(value)
+      validator: (value) => ["material", "line", "organoid", "xenograft"].includes(value)
     },
 		tab: {
 			type: String,

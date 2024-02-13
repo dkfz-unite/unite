@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import MaterialSettings from "../../../tissue/settings";
-import LineSettings from "../../../cell/settings";
+import MaterialSettings from "../../../material/settings";
+import LineSettings from "../../../line/settings";
 import OrganoidSettings from "../../../organoid/settings";
 import XenograftSettings from "../../../xenograft/settings";
 
@@ -21,7 +21,7 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: (value) => ["Material", "line", "Organoid", "Xenograft"].includes(value)
+      validator: (value) => ["Material", "Line", "Organoid", "Xenograft"].includes(value)
     },
 		tab: {
 			type: String,

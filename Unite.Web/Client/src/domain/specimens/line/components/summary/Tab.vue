@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import USummary from "./summary/Summary.vue";
-import UInfo from "./summary/Info.vue";
-import UMolecularData from "../../_shared/components/specimen/summary/MolecularData.vue";
-import UAvailableData from "../../_shared/components/specimen/summary/AvailableData.vue";
+import USummary from "./Summary.vue";
+import UInfo from "./Info.vue";
+import UMolecularData from "../../../_shared/components/specimen/summary/MolecularData.vue";
+import UAvailableData from "../../../_shared/components/specimen/summary/AvailableData.vue";
 
 export default {
   components: {
