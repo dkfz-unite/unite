@@ -4,10 +4,10 @@
       <div class="col-12">
         <u-ancestry v-if="donor && specimens" 
           title="Specimens"
-          type="donor"
           :donor="donor"
           :specimens="specimens"
-          :current="donor.id"
+          :currentId="donor.id"
+          :currentType="'donor'"
         />
       </div>
     </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import UAncestry from "@/domain/_shared/components/specimens/Ancestry.vue";
+import UAncestry from "@/domain/specimens/_shared/specimen/components/ancestry/Ancestry.vue";
 
 import api from "../api";
 
@@ -30,7 +30,6 @@ export default {
 
   data() {
     return {
-      loading: false,
       specimens: null
     };
   },
@@ -42,13 +41,10 @@ export default {
   methods: {
     async loadData() {
       try {
-        this.loading = true;
         let data = await api.searchSpecimens(this.donor.id, { from: 0, size: 1000 });
         this.specimens = this.buildNodes(null, data.rows);
       } catch(error) {
         this.specimens = null;
-      } finally {
-        this.loading = false;
       }
     },
 

@@ -7,10 +7,10 @@
     <div class="row">
       <div class="col-12 col-md-6">
         <u-specimens-tree
-          :type="type"
           :donor="donor" 
           :specimens="orderedSpecimens"
-          :current="current"
+          :currentId="currentId"
+          :currentType="currentType"
         />
       </div>
     </div>
@@ -28,34 +28,28 @@ export default {
   },
 
   props: {
-    type: {
-      type: String,
-      default: null,
-      required: true,
-      validator(value) {
-        return ["donor", "specimen"].includes(value);
-      }
-    },
-    donor: {
-      type: Object,
-      default: null,
-      required: true
-    },
-    specimens: {
-      type: Array,
-      default: null,
-      required: true
-    },
-    current: {
-      type: Number,
-      default: null,
-      required: false
-    },
     title: {
       type: String,
       default: "Ancestry",
       required: false
-    }
+    },
+    donor: {
+      type: Object,
+      required: true
+    },
+    specimens: {
+      type: Array,
+      required: true
+    },
+    currentId: {
+      type: [Number, null],
+      default: null
+    },
+    currentType: {
+      type: [String, null],
+      default: null,
+      validator: (value) => ["donor", "specimen"].includes(value)
+    },
   },
 
   computed: {

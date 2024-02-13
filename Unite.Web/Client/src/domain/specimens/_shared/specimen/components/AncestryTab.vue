@@ -2,12 +2,12 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <div class="col-12">
-        <u-ancestry v-if="donor && specimens && current"
+        <u-ancestry v-if="donor && specimens"
           title="Ancestry"
-          type="specimen"
           :donor="donor" 
           :specimens="specimens"
-          :current="current"
+          :currentId="specimen.id"
+          :currentType="'specimen'"
         />
       </div>
     </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import UAncestry from "@/domain/_shared/components/specimens/Ancestry.vue";
+import UAncestry from "./ancestry/Ancestry.vue";
 import donorApi from "@/domain/donor/api";
 
 export default {
@@ -29,7 +29,6 @@ export default {
       required: true,
       default: null
     },
-
     donor: {
       type: Object,
       required: true,
@@ -39,8 +38,7 @@ export default {
 
   data() {
     return {
-      specimens: null,
-      current: null
+      specimens: null
     }
   },
 
@@ -51,7 +49,6 @@ export default {
     specimens = this.filterNodes(specimens, this.specimen.id);
 
     this.specimens = specimens;
-    this.current = this.specimen.id;
   },
 
   methods: {
