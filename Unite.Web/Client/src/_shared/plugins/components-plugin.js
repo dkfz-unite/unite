@@ -3,7 +3,7 @@ import ULink from "@/_shared/components/base/Link.vue";
 import ULinkExternal from "@/_shared/components/base/LinkExternal.vue";
 import ULinkDonor from "@/domain/donor/components/DonorLink.vue";
 import ULinkSpecimen from "@/domain/specimens/_shared/specimen/components/SpecimenLink.vue";
-import ULinkMaterial from "@/domain/specimens/material/components/MaterialLink.vue";
+import ULinkMaterial from "@/domain/specimens/material/components/Link.vue";
 import ULinkLine from "@/domain/specimens/line/components/Link.vue";
 import ULinkOrganoid from "@/domain/specimens/organoid/components/OrganoidLink.vue";
 import ULinkXenograft from "@/domain/specimens/xenograft/components/XenograftLink.vue";
