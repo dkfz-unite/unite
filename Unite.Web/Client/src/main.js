@@ -23,6 +23,7 @@ import ULinkXenograft from "./domain/specimens/xenograft/components/XenograftLin
 import ULinkGene from "./domain/genome/gene/components/Link.vue";
 import ULinkSsm from "./domain/genome/variants/ssm/components/Link.vue";
 import ULinkCnv from "./domain/genome/variants/cnv/components/Link.vue";
+import ULinkSv from "./domain/genome/variants/sv/components/Link.vue";
 
 createApp(HomePage)
 .use(Quasar, quasarOptions)
@@ -41,4 +42,5 @@ createApp(HomePage)
 .component("u-link-gene", ULinkGene)
 .component("u-link-ssm", ULinkSsm)
 .component("u-link-cnv", ULinkCnv)
+.component("u-link-sv", ULinkSv)
 .mount("#app");

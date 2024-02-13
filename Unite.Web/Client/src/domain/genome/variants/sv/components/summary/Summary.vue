@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm" v-if="variant">
     <div class="row">
-      <span class="text-h5 u-text-title">Summary</span>
+      <span class="text-h5 u-text-title">{{ Tabs.summary.domain }}</span>
     </div>
 
     <div class="row">
@@ -47,7 +47,7 @@
             </tr>
             <tr v-if="!!variant.sv.length">
               <td class="u-text-key">Length</td>
-              <td>{{ variant.sv.length.toLocaleString() }}</td>
+              <td>{{ variant.sv.length?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
@@ -61,10 +61,18 @@
 </template>
 
 <script>
+import { Tabs } from "../../settings";
+
 export default {
   props: {
     variant: Object,
     default: () => null
+  },
+
+  data() {
+    return {
+      Tabs
+    };
   }
 }
 </script>
