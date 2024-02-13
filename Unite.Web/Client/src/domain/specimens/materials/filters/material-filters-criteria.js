@@ -1,7 +1,7 @@
 import SpecimenFiltersCriteria from "../../_shared/filters/specimen-filters-criteria";
 import { sanitiseArray, copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
-export default class TissueFiltersCriteria extends SpecimenFiltersCriteria {
+export default class MaterialFiltersCriteria extends SpecimenFiltersCriteria {
     type = [];
     tumorType = [];
     source = [];
@@ -39,7 +39,7 @@ export default class TissueFiltersCriteria extends SpecimenFiltersCriteria {
     }
 
     clone() {
-        let criteria = new TissueFiltersCriteria();
+        let criteria = new MaterialFiltersCriteria();
         Object.assign(criteria, this);
 
         return criteria;

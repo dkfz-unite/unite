@@ -1,7 +1,7 @@
 import DonorFiltersContext from "@/domain/donors/filters/donor-filters-context";
 import MriFilterContext from "@/domain/images/mris/filters/mri-filters-context";
-import TissueFiltersContext from "@/domain/specimens/materials/filters/tissue-filters-context";
-import CellFiltersContext from "@/domain/specimens/lines/filters/cell-filters-context";
+import MaterialFiltersContext from "@/domain/specimens/materials/filters/material-filters-context";
+import LineFiltersContext from "@/domain/specimens/lines/filters/line-filters-context";
 import OrganoidFiltersContext from "@/domain/specimens/organoids/filters/organoid-filters-context";
 import XenograftFiltersContext from "@/domain/specimens/xenografts/filters/xenograft-filters-context";
 import GeneFiltersContext from "@/domain/genome/genes/filters/gene-filters-context";
@@ -13,8 +13,8 @@ import OncogridFiltersContext from "@/visualization/oncogrid/filters/oncogrid-fi
 export default class FiltersContext {
     donor = new DonorFiltersContext();
     mri = new MriFilterContext();
-    material = new TissueFiltersContext();
-    line = new CellFiltersContext();
+    material = new MaterialFiltersContext();
+    line = new LineFiltersContext();
     organoid = new OrganoidFiltersContext();
     xenograft = new XenograftFiltersContext();
     gene = new GeneFiltersContext();

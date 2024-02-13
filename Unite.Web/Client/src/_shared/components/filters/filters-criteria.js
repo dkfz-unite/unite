@@ -1,7 +1,7 @@
 import DonorFiltersCriteria from "@/domain/donors/filters/donor-filters-criteria";
 import MriFiltersCriteria from "@/domain/images/mris/filters/mri-filters-criteria";
-import TissueFiltersCriteria from "@/domain/specimens/materials/filters/tissue-filters-criteria";
-import CellFiltersCriteria from "@/domain/specimens/lines/filters/cell-filters-criteria";
+import MaterialFiltersCriteria from "@/domain/specimens/materials/filters/material-filters-criteria";
+import LineFiltersCriteria from "@/domain/specimens/lines/filters/line-filters-criteria";
 import OrganoidFiltersCriteria from "@/domain/specimens/organoids/filters/organoid-filters-criteria";
 import XenograftFiltersCriteria from "@/domain/specimens/xenografts/filters/xenograft-filters-criteria";
 import GeneFiltersCriteria from "@/domain/genome/genes/filters/gene-filters-criteria";
@@ -16,8 +16,8 @@ export default class FiltersCriteria {
   query = null;
   donor = new DonorFiltersCriteria();
   mri = new MriFiltersCriteria();
-  material = new TissueFiltersCriteria();
-  line = new CellFiltersCriteria();
+  material = new MaterialFiltersCriteria();
+  line = new LineFiltersCriteria();
   organoid = new OrganoidFiltersCriteria();
   xenograft = new XenograftFiltersCriteria();
   gene = new GeneFiltersCriteria();
@@ -50,8 +50,8 @@ export default class FiltersCriteria {
     this.query = criteria?.query || null;
     this.donor = new DonorFiltersCriteria(criteria?.donor);
     this.mri = new MriFiltersCriteria(criteria?.mri);
-    this.material = new TissueFiltersCriteria(criteria?.material);
-    this.line = new CellFiltersCriteria(criteria?.line);
+    this.material = new MaterialFiltersCriteria(criteria?.material);
+    this.line = new LineFiltersCriteria(criteria?.line);
     this.organoid = new OrganoidFiltersCriteria(criteria?.organoid);
     this.xenograft = new XenograftFiltersCriteria(criteria?.xenograft);
     this.gene = new GeneFiltersCriteria(criteria?.gene);

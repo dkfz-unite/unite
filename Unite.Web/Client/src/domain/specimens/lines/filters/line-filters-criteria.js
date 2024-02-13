@@ -1,7 +1,7 @@
 import SpecimenFiltersCriteria from "../../_shared/filters/specimen-filters-criteria";
 import { sanitiseArray, copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
-export default class CellFiltersCriteria extends SpecimenFiltersCriteria {
+export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
     cellsSpecies = [];
     cellsType = [];
     cellsCultureType = [];
@@ -43,7 +43,7 @@ export default class CellFiltersCriteria extends SpecimenFiltersCriteria {
     }
 
     clone() {
-        let criteria = new CellFiltersCriteria();
+        let criteria = new LineFiltersCriteria();
         Object.assign(criteria, this);
 
         return criteria;
