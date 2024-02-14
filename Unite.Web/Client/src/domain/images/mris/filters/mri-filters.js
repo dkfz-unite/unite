@@ -2,7 +2,7 @@ import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 
 import { sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
-import imageFilters from "../../_shared/filters/image-filters";
+import imageFilters from "../../_shared/images/filters/image-filters";
 
 const filters = [
   ...imageFilters,

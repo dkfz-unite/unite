@@ -24,10 +24,10 @@ import DomainNames from "@/_settings/domain-names";
 import ImageTypes from "@/_models/domain/images/image-types";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import donorApi from "@/domain/donor/api";
-import imageApi from "@/domain/images/_shared/api/image";
+import imageApi from "@/domain/images/_shared/image/api";
 import specimenApi from "@/domain/specimens/_shared/specimen/api";
 import geneApi from "@/domain/genome/gene/api";
-import variantApi from "@/domain/genome/variants/_shared/api/variant";
+import variantApi from "@/domain/genome/variants/_shared/variant/api";
 
 export default {
   props: {

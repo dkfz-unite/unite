@@ -1,5 +1,5 @@
 import SearchPageStore from "@/_shared/store/search-page-store";
-import ImagesApi from "../../api/images";
+import ImagesApi from "../../images/api";
 import searchPageActions from "@/_shared/store/search-page-actions";
 import createDomainActions from "@/domain/_shared/store/domain-actions";
 import createCustomActions from "./actions";

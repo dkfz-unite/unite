@@ -1,6 +1,7 @@
 import HomeSettings from "@/home/settings";
 import DonorSettings from "@/domain/donor/settings";
 import DonorsSettings from "@/domain/donors/settings";
+import MriSettings from "@/domain/images/mri/settings";
 import MrisSettings from "@/domain/images/mris/settings";
 import MaterialSettings from "@/domain/specimens/material/settings";
 import MaterialsSettings from "@/domain/specimens/materials/settings";
@@ -25,6 +26,7 @@ export default class Settings {
   static home = HomeSettings;
   static donor = DonorSettings;
   static donors = DonorsSettings;
+  static mri = MriSettings;
   static mris = MrisSettings;
   static material = MaterialSettings;
   static materials = MaterialsSettings;

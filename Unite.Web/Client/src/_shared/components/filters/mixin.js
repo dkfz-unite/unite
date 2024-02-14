@@ -8,7 +8,7 @@ import FilterModels from "./filter-models";
 import donorFilters from "@/domain/donors/filters/donor-filters";
 import donorDataFilters from "@/domain/donors/filters/donor-data-filters";
 import mriFilters from "@/domain/images/mris/filters/mri-filters";
-import imageDataFilters from "@/domain/images/_shared/filters/image-data-filters";
+import imageDataFilters from "@/domain/images/_shared/images/filters/image-data-filters";
 import materialFilters from "@/domain/specimens/materials/filters/material-filters";
 import lineFilters from "@/domain/specimens/lines/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";

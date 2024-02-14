@@ -78,7 +78,7 @@ import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/Cohort
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import UUploadButton from "./components/UploadButton.vue";
 import ImageTypes from "@/_models/domain/images/image-types";
-import ImagesApi from "../_shared/api/images";
+import ImagesApi from "../_shared/images/api";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import Permissions from "@/_models/admin/enums/permissions";
 import FilterModels from "@/_shared/components/filters/filter-models";

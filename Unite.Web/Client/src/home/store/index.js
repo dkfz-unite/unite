@@ -5,7 +5,7 @@ import rightDrawerModule from "./modules/drawers/right";
 import identityModule from "@/identity/store";
 import SearchPageStore from "@/_shared/store/search-page-store";
 import DonorStore from "@/domain/donor/store";
-import ImageStore from "@/domain/images/_shared/store";
+import ImageStore from "@/domain/images/_shared/image/store";
 import SpecimenStore from "@/domain/specimens/_shared/store";
 import GeneStore from "@/domain/genome/gene/store";
 import SsmStore from "@/domain/genome/variants/ssm/store";

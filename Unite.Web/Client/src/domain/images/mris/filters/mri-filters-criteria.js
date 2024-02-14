@@ -1,4 +1,4 @@
-import ImageFiltersCriteria from "../../_shared/filters/image-filters-criteria";
+import ImageFiltersCriteria from "../../_shared/images/filters/image-filters-criteria";
 import { sanitiseRange, copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
 export default class MriFiltersCriteria extends ImageFiltersCriteria {

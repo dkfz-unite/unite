@@ -1,4 +1,4 @@
-import ImagesApi from "../../api/images";
+import ImagesApi from "../../images/api";
 
 export default function createActions(api) {
   if (!(api instanceof ImagesApi)) {
