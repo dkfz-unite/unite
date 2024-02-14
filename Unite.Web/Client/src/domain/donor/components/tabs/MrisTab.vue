@@ -44,7 +44,7 @@ import UDataTable from "@/domain/_shared/components/images/MRIsTable.vue";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/images/mris/filters/mri-filters";
 
-import api from "../api";
+import api from "../../api";
 
 export default {
   components: {

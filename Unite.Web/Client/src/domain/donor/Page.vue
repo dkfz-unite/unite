@@ -86,7 +86,7 @@
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.clinical.domain" class="q-py-sm q-px-none">
-                <u-clinical-data-tab :donor="donor" />
+                <u-clinical-tab :donor="donor" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.treatments.domain" class="q-py-sm q-px-none">
@@ -94,7 +94,7 @@
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.specimens.domain" class="q-py-sm q-px-none">
-                <u-specimens-tab :donor="donor" />
+                <u-ancestry-tab :donor="donor" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.mris.domain" class="q-py-sm q-px-none">
@@ -135,11 +135,11 @@
 <script>
 import UDownloadButton from "../_shared/components/download/DownloadButton.vue";
 import UTabVariants from "../_shared/components/genome/variants/VariantsTabHeader.vue";
-import USummaryTab from "./components/SummaryTab.vue";
-import UClinicalDataTab from "./components/ClinicalDataTab.vue";
-import UTreatmentsTab from "./components/TreatmentsTab.vue";
-import USpecimensTab from "./components/SpecimensTab.vue";
-import UMrisTab from "./components/MriImagesTab.vue";
+import USummaryTab from "./components/tabs/SummaryTab.vue";
+import UClinicalTab from "./components/tabs/ClinicalTab.vue";
+import UTreatmentsTab from "./components/tabs/TreatmentsTab.vue";
+import UAncestryTab from "./components/tabs/AncestryTab.vue";
+import UMrisTab from "./components/tabs/MrisTab.vue";
 import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
 import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
@@ -155,9 +155,9 @@ export default {
     UDownloadButton,
     UTabVariants,
     USummaryTab,
-    UClinicalDataTab,
+    UClinicalTab,
     UTreatmentsTab,
-    USpecimensTab,
+    UAncestryTab,
     UMrisTab,
     UProfileTab,
     UGenesTab,

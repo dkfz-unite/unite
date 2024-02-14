@@ -59,7 +59,7 @@ import samplePageMixin from "@/domain/_shared/sample-page-mixin";
 import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import filters from "@/domain/genome/variants/svs/filters/sv-filters";
 
-import api from "@/domain/specimens/_shared/api/specimen";
+import api from "@/domain/specimens/_shared/specimen/api";
 
 export default {
   components: {

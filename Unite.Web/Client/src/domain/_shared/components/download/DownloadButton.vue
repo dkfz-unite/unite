@@ -25,7 +25,7 @@ import ImageTypes from "@/_models/domain/images/image-types";
 import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/api/image";
-import specimenApi from "@/domain/specimens/_shared/api/specimen";
+import specimenApi from "@/domain/specimens/_shared/specimen/api";
 import geneApi from "@/domain/genome/gene/api";
 import variantApi from "@/domain/genome/variants/_shared/api/variant";
 
