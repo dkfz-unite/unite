@@ -5,7 +5,7 @@ import CnvType from "@/_models/domain/genome/variants/cnv/enums/cnv-type";
 
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
-import variantFilters from "../../_shared/filters/variant-filters";
+import variantFilters from "../../_shared/variants/filters/variant-filters";
 
 const filters = [
   {

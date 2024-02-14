@@ -76,14 +76,14 @@ import UDataTable from "./components/Table.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
-import SpecimensApi from "../_shared/api/specimens";
 import UUploadButton from "./components/UploadButton.vue";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
 
-import Settings from "@/_settings/settings";
+import SpecimensApi from "../_shared/specimens/api";
+import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import Permissions from "@/_models/admin/enums/permissions";
 import FilterModels from "@/_shared/components/filters/filter-models";
+import Settings from "@/_settings/settings";
 
 const api = new SpecimensApi(SpecimenTypes.Tissue);
 
@@ -100,7 +100,7 @@ export default {
     UUploadButton
   },
 
-  mixins: [tablePageMixin],
+  mixins: [pageTableMixin],
 
   setup() {
     return {

@@ -41,9 +41,10 @@
 import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UProjects from "./cells/Projects.vue";
 import UStudies from "./cells/Studies.vue";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
+import talbeCellsDataMixin from "@/domain/_shared/entries/components/table-cells-data-mixin";
+
 import Settings from "../settings";
-import tableMixin from "@/domain/_shared/table-mixin";
-import availableDataMixin from "@/domain/_shared/available-data-mixin";
 
 export default {
   components: {
@@ -52,7 +53,7 @@ export default {
     UStudies
   },
 
-  mixins: [tableMixin, availableDataMixin],
+  mixins: [tableMixin, talbeCellsDataMixin],
 
   computed: {
     scope() {

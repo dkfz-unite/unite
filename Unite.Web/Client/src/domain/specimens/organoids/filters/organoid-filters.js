@@ -2,7 +2,7 @@ import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 
 import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
-import specimenFilters from "../../_shared/filters/specimen-filters";
+import specimenFilters from "../../_shared/specimens/filters/specimen-filters";
 
 const filters = [
   specimenFilters[0],

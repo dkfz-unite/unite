@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Mutations (SSM)</span>
+      <span class="text-h5 u-text-title">Simple Somatic Mutations (SSM)</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -21,7 +21,7 @@
 
       <div class="col-12 col-sm-9 col-md-10">
         <u-data-table
-          title="Gene Mutations"
+          title="Gene Simple Somatic Mutations (SSM)"
           class="sticky-header-slim"
           :loading="loading"
           :rows="rows"
@@ -41,9 +41,9 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "@/domain/genome/variants/ssms/components/Table.vue";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
-import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
+import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
+import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
 import api from "../../api";
 
 export default {
@@ -53,7 +53,7 @@ export default {
     UDataTable
   },
 
-  mixins: [tablePageMixin],
+  mixins: [tabTableMixin],
 
   props: {
     gene: Object

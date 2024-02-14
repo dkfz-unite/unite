@@ -18,7 +18,7 @@
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <u-image-link :id="props.value" type="mri" />
+          <u-image-link :id="props.value" />
         </q-td>
       </template>
 
@@ -33,10 +33,10 @@
 
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
-import UImageLink from "@/_shared/components/ImageLink.vue";
-import UDonorLink from "@/_shared/components/DonorLink.vue";
-import availableDataMixin from "@/domain/_shared/available-data-mixin";
-import tableMixin from "@/domain/_shared/table-mixin";
+import UImageLink from "@/domain/images/mri/components/Link.vue";
+import UDonorLink from "@/domain/donor/components/Link.vue";
+import tableCellsDataMixin from "@/domain/_shared/entries/components/table-cells-data-mixin";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
     UDonorLink
   },
 
-  mixins: [tableMixin, availableDataMixin],
+  mixins: [tableMixin, tableCellsDataMixin],
 
   computed: {
     scope() {

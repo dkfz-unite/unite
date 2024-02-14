@@ -87,7 +87,7 @@ import UDonorsTab from "./components/tabs/DonorsTab.vue";
 import USsmsTab from "./components/tabs/SSMsTab.vue";
 import UCnvsTab from "./components/tabs/CNVsTab.vue";
 import USvsTab from "./components/tabs/SVsTab.vue";
-import tabPageMixin from "../../_shared/tab-page-mixin";
+import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
 
 import Settings from "@/_settings/settings";
 import api from "./api";
@@ -104,7 +104,7 @@ export default {
     USvsTab
   },
 
-  mixins: [tabPageMixin],
+  mixins: [pageTabsMixin],
 
   setup() {
     return {

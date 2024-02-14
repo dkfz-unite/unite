@@ -6,7 +6,7 @@ import identityModule from "@/identity/store";
 import SearchPageStore from "@/_shared/store/search-page-store";
 import DonorStore from "@/domain/donor/store";
 import ImageStore from "@/domain/images/_shared/image/store";
-import SpecimenStore from "@/domain/specimens/_shared/store";
+import SpecimenStore from "@/domain/specimens/_shared/specimen/store";
 import GeneStore from "@/domain/genome/gene/store";
 import SsmStore from "@/domain/genome/variants/ssm/store";
 import CnvStore from "@/domain/genome/variants/cnv/store";

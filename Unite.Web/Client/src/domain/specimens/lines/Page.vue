@@ -77,11 +77,12 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import UUploadButton from "./components/UploadButton.vue";
+import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
+
 import FilterModels from "@/_shared/components/filters/filter-models";
-import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
-import SpecimensApi from "../_shared/api/specimens";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
 import Permissions from "@/_models/admin/enums/permissions";
+import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
+import SpecimensApi from "../_shared/specimens/api";
 import Settings from "@/_settings/settings";
 
 const api = new SpecimensApi(SpecimenTypes.CellLine);
@@ -99,7 +100,7 @@ export default {
     UUploadButton
   },
 
-  mixins: [tablePageMixin],
+  mixins: [pageTableMixin],
 
   setup() {
     return {

@@ -2,7 +2,7 @@ import UArray from "@/_shared/components/base/Array.vue";
 import ULink from "@/_shared/components/base/Link.vue";
 import ULinkExternal from "@/_shared/components/base/LinkExternal.vue";
 import ULinkDonor from "@/domain/donor/components/Link.vue";
-import ULinkSpecimen from "@/domain/specimens/_shared/specimen/components/SpecimenLink.vue";
+import ULinkSpecimen from "@/domain/specimens/_shared/specimen/components/Link.vue";
 import ULinkMaterial from "@/domain/specimens/material/components/Link.vue";
 import ULinkLine from "@/domain/specimens/line/components/Link.vue";
 import ULinkOrganoid from "@/domain/specimens/organoid/components/Link.vue";

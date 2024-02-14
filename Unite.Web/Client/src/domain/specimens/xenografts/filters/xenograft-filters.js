@@ -5,7 +5,7 @@ import TumorGrowthForm from "@/_models/domain/specimens/xenografts/enums/tumor-g
 
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray, sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
-import specimenFilters from "../../_shared/filters/specimen-filters";
+import specimenFilters from "../../_shared/specimens/filters/specimen-filters";
 
 const filters = [
   specimenFilters[0],

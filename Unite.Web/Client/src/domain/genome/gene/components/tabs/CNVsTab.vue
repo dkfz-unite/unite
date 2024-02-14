@@ -21,7 +21,7 @@
 
       <div class="col-12 col-sm-9 col-md-10">
         <u-data-table
-          title="Gene Copy Number Variants"
+          title="Gene Copy Number Variants (CNV)"
           class="sticky-header-slim"
           :loading="loading"
           :rows="rows"
@@ -41,9 +41,9 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "@/domain/genome/variants/cnvs/components/Table.vue";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
-import filters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
+import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
+import filters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
 import api from "../../api";
 
 export default {
@@ -53,7 +53,7 @@ export default {
     UDataTable
   },
 
-  mixins: [tablePageMixin],
+  mixins: [tabTableMixin],
 
   props: {
     gene: Object

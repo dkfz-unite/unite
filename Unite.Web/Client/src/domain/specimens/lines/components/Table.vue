@@ -39,18 +39,18 @@
 
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
+import tableCellsDataMixin from "@/domain/_shared/entries/components/table-cells-data-mixin";
+import tableCellsSpecimenMixin from "../../_shared/specimens/components/cells-mixin";
 
 import Settings from "../settings";
-import tableMixin from "../../../_shared/table-mixin";
-import availableDataMixin from "../../../_shared/available-data-mixin";
-import specimensTableMixin from "../../_shared/specimens-table-mixin";
 
 export default {
   components: {
     UDataTable
   },
 
-  mixins: [tableMixin, availableDataMixin, specimensTableMixin],
+  mixins: [tableMixin, tableCellsDataMixin, tableCellsSpecimenMixin],
 
   computed: {
     scope() {

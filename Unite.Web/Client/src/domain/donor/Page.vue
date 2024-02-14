@@ -145,9 +145,9 @@ import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
 import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
 import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
 import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
+import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
 
 import Settings from "@/_settings/settings";
-import tabPageMixin from "../_shared/tab-page-mixin";
 import api from "./api";
 
 export default {
@@ -166,7 +166,7 @@ export default {
     USvsTab
   },
 
-  mixins: [tabPageMixin],
+  mixins: [pageTabsMixin],
 
   setup() {
     return {

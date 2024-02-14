@@ -67,7 +67,7 @@
 
 <script>
 import UUploadDialog from "@/domain/_shared/components/upload/UploadDialog.vue";
-import SpecimensApi from "@/domain/specimens/_shared/api/specimens/index";
+import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
 
 export default {
   components: {

@@ -66,7 +66,7 @@
 import UDownloadButton from "../../../_shared/components/download/DownloadButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UConsequencesTab from "../_shared/variant/components/tabs/ConsequencesTab.vue";
-import tabPageMixin from "../../../_shared/tab-page-mixin";
+import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
 import Settings from "@/_settings/settings";
 import api from "../_shared/variant/api";
@@ -78,7 +78,7 @@ export default {
     UConsequencesTab
   },
 
-  mixins: [tabPageMixin],
+  mixins: [tabTableMixin],
 
   setup() {
     return {

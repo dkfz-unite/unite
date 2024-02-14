@@ -78,10 +78,11 @@ import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/Filter
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import FilterModels from "@/_shared/components/filters/filter-models";
+import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
+
 import Settings from "@/_settings/settings";
+import FilterModels from "@/_shared/components/filters/filter-models";
 import GenesApi from "./api";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
 
 const api = new GenesApi();
 
@@ -98,7 +99,7 @@ export default {
     USearchBar
   },
 
-  mixins: [tablePageMixin],
+  mixins: [pageTableMixin],
 
   setup() {
     return {

@@ -6,7 +6,7 @@ import TumorType from "@/_models/domain/specimens/tissues/enums/tumor-type";
 
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
-import specimenFilters from "../../_shared/filters/specimen-filters";
+import specimenFilters from "../../_shared/specimens/filters/specimen-filters";
 
 const filters = [
   specimenFilters[0],

@@ -57,10 +57,10 @@
 
 <script>
 import UProteinPlot from "@/visualization/proteinplot/components/ProteinPlot.vue";
-import ProteinPlotDataService from "@/visualization/proteinplot/components/proteinplot-data-service";
-import api from "@/visualization/proteinplot/api";
 
+import ProteinPlotDataService from "@/visualization/proteinplot/components/proteinplot-data-service";
 import { Tabs } from "@/domain/genome/variants/ssm/settings";
+import api from "@/visualization/proteinplot/api";
 
 var dataService = new ProteinPlotDataService();
 

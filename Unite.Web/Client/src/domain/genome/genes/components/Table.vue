@@ -82,9 +82,9 @@ import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UGeneLink from "@/_shared/components/GeneLink.vue";
 import UExpressionStatsHeader from "./cells/ExpressionStatsHeader.vue";
 import UExpressionStatsCell from "./cells/ExpressionStatsCell.vue";
-import Settings from "../settings";
-import tableMixin from "@/domain/_shared/table-mixin";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
 
+import Settings from "../settings";
 import Biotype from "@/_models/domain/genome/genes/enums/biotype";
 
 export default {

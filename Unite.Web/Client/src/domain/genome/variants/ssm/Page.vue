@@ -76,7 +76,7 @@ import UDownloadButton from "@/domain/_shared/components/download/DownloadButton
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProteinTab from "./components/tabs/ProteinTab.vue";
 import UDonorsTab from "./components/tabs/DonorsTab.vue";
-import tabPageMixin from "@/domain/_shared/tab-page-mixin";
+import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
 
 import Settings from "@/_settings/settings";
 import api from "../_shared/variant/api";
@@ -89,7 +89,7 @@ export default {
     UDonorsTab
   },
 
-  mixins: [tabPageMixin],
+  mixins: [pageTabsMixin],
 
   setup() {
     return {

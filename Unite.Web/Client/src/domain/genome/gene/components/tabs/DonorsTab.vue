@@ -42,9 +42,9 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import UDataTable from "@/domain/donors/components/Table.vue";
-import tablePageMixin from "../../../../_shared/table-page-mixin";
-import filters from "@/domain/donors/filters/donor-filters";
+import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
+import filters from "@/domain/donors/filters/donor-filters";
 import api from "../../api";
 
 export default {
@@ -55,7 +55,7 @@ export default {
     UDataTable
   },
 
-  mixins: [tablePageMixin],
+  mixins: [tabTableMixin],
 
   props: {
     gene: Object

@@ -77,13 +77,14 @@ import UDataTable from "./components/Table.vue";
 import UFiltersToolbar from "@/domain/_shared/components/toolbars/filters/FiltersToolbar.vue";
 import UCohortsToolbar from "@/domain/_shared/components/toolbars/cohorts/CohortsToolbar.vue";
 import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
-import FilterModels from "@/_shared/components/filters/filter-models";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import UUploadButton from "./components/UploadButton.vue";
-import DonorsApi from "./api";
-import Permissions from "@/_models/admin/enums/permissions";
+import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
+
 import Settings from "@/_settings/settings";
-import tablePageMixin from "@/domain/_shared/table-page-mixin";
+import Permissions from "@/_models/admin/enums/permissions";
+import FilterModels from "@/_shared/components/filters/filter-models";
+import DonorsApi from "./api";
 
 const api = new DonorsApi();
 
@@ -101,7 +102,7 @@ export default {
     UUploadButton
   },
 
-  mixins: [tablePageMixin],
+  mixins: [pageTableMixin],
 
   setup() {
     return {

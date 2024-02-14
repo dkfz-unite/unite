@@ -1,4 +1,4 @@
-import SpecimenFiltersCriteria from "../../_shared/filters/specimen-filters-criteria";
+import SpecimenFiltersCriteria from "../../_shared/specimens/filters/specimen-filters-criteria";
 import { sanitiseArray, copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
 export default class OrganoidFiltersCriteria extends SpecimenFiltersCriteria {

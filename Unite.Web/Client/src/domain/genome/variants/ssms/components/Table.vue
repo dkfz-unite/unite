@@ -41,8 +41,8 @@
 import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UVariantLink from "@/domain/genome/variants/ssm/components/Link.vue";
 import UDnaChange from "@/domain/genome/variants/_shared/components/DnaChange.vue";
-import UConsequences from "@/domain/genome/variants/_shared/components/cells/Consequences.vue";
-import tableMixin from "@/domain/_shared/table-mixin";
+import UConsequences from "@/domain/genome/variants/_shared/variants/components/cells/Consequences.vue";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
 
 import Settings from "../settings";
 

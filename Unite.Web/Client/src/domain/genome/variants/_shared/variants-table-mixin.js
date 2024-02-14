@@ -1,18 +1,18 @@
 const mixin = {
     methods: {
-      getVariantLink(variant) {
-        if (!variant) {
-          return null;
-        } else if (!!variant.mutation) {
-          return { name: "ssm", params: { id: variant.id.toString() } }
-        } else if (!!variant.copyNumberVariant) {
-          return { name: "cnv", params: { id: variant.id.toString() } }
-        } else if (!!variant.structuralVariant) {
-          return { name: "sv", params: { id: variant.id.toString() } }
-        } else {
-          return null;
-        }
-      },
+      // getVariantLink(variant) {
+      //   if (!variant) {
+      //     return null;
+      //   } else if (!!variant.mutation) {
+      //     return { name: "ssm", params: { id: variant.id.toString() } }
+      //   } else if (!!variant.copyNumberVariant) {
+      //     return { name: "cnv", params: { id: variant.id.toString() } }
+      //   } else if (!!variant.structuralVariant) {
+      //     return { name: "sv", params: { id: variant.id.toString() } }
+      //   } else {
+      //     return null;
+      //   }
+      // },
   
       // getVariantTypeName(specimen) {
       //   if (!specimen) {

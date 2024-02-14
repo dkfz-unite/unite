@@ -43,8 +43,9 @@
 import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UVariantLink from "@/domain/genome/variants/cnv/components/Link.vue";
 import UConsequences from "@/domain/genome/variants/_shared/variants/components/cells/Consequences.vue";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
+
 import Settings from "../settings";
-import tableMixin from "@/domain/_shared/table-mixin";
 
 export default {
   components: {

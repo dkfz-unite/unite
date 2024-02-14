@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import api from "../../../api/specimen";
+import api from "../../../specimen/api";
 import defaultFileHandler from "./file-handler.drugs.js";
 import itrexFileHandler from "./file-handler.drugs.itrex.js";
 

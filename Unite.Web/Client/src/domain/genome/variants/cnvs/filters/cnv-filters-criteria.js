@@ -1,4 +1,4 @@
-import VariantFiltersCriteria from "../../_shared/filters/variant-filters-criteria";
+import VariantFiltersCriteria from "../../_shared/variants/filters/variant-filters-criteria";
 import { copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
 export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCriteria {

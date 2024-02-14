@@ -20,7 +20,7 @@ import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 import SvSettings from "@/domain/genome/variants/sv/settings";
 import SvsSettings from "@/domain/genome/variants/svs/settings";
 import AnalysisSettings from "@/analysis/settings";
-import DatasetsSettings from "@/cohorts/settings";
+import DatasetsSettings from "@/datasets/settings";
 
 export default class Settings {
   static home = HomeSettings;

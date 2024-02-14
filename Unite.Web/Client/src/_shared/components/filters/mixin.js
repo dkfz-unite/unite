@@ -13,7 +13,7 @@ import materialFilters from "@/domain/specimens/materials/filters/material-filte
 import lineFilters from "@/domain/specimens/lines/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
 import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
-import specimenDataFilters from "@/domain/specimens/_shared/filters/specimen-data-filters";
+import specimenDataFilters from "@/domain/specimens/_shared/specimens/filters/specimen-data-filters";
 import geneFilters from "@/domain/genome/genes/filters/gene-filters";
 import ssmFilters from "@/domain/genome/variants/ssms/filters/ssm-filters";
 import cnvFilters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
