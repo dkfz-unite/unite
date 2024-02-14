@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="col q-gutter-y-sm">
     <div class="row q-gutter-x-sm">
       <span class="text-h5 u-text-title">Drug Screening Data</span>
@@ -134,4 +134,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->

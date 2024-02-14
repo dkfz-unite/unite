@@ -19,8 +19,8 @@
 
 <script>
 import USummary from "./Summary.vue";
-import UMolecularData from "../../../_shared/components/specimen/summary/MolecularData.vue";
-import UAvailableData from "../../../_shared/components/specimen/summary/AvailableData.vue";
+import UMolecularData from "../../../_shared/specimen/components/tabs/summary/MolecularData.vue";
+import UAvailableData from "../../../_shared/specimen/components/tabs/summary/AvailableData.vue";
 
 export default {
   components: {

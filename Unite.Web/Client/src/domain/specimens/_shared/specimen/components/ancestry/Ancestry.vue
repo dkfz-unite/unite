@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
       <span class="text-h5 u-text-title">{{title}}</span>
@@ -108,4 +108,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->
