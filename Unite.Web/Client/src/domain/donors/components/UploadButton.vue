@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import DonorsApi from '../api/index';
+import DonorsApi from '../api';
 import UUploadDialog from '@/domain/_shared/components/upload/UploadDialog.vue';
 
 export default {

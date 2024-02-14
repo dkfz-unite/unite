@@ -5,7 +5,7 @@ const routes = [
     path: `/${Settings.domain}`,
     name: Settings.domain,
     meta: { title: `UNITE - ${Settings.title}`, authorize: true },
-    component: () => import(/* webpackChunkName: "genes" */ "../GenesPage.vue")
+    component: () => import(/* webpackChunkName: "genes" */ "../Page.vue")
   }
 ];
 

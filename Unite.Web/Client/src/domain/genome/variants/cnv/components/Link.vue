@@ -12,7 +12,7 @@ import Settings, { Tabs } from "../settings";
 export default {
   props: {
 		id: {
-			type: Number,
+			type: [Number, String],
 			required: true
 		},
 		tab: {
