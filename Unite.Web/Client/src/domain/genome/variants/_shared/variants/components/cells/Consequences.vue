@@ -27,7 +27,7 @@
 <script>
 import UGeneLink from "@/domain/genome/gene/components/Link.vue";
 import ImpactColor from "@/domain/genome/variants/_models/impact-color";
-import ConsequenceType from "@/domain/genome/variants/_models/enums/consequence-type";
+import ConsequenceType from "../../models/enums/consequence-type";
 
 export default {
   components: { UGeneLink },

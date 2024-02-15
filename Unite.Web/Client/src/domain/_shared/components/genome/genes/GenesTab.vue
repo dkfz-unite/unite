@@ -58,7 +58,7 @@ import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
 import Settings from "@/domain/genome/genes/settings";
 import FilterModel from "@/_shared/components/filters/filter-models";
-import filters from "@/domain/genome/genes/filters/gene-filters";
+import filters from "@/domain/genome/genes/models/filters/gene-filters";
 
 import api from "@/domain/specimens/_shared/specimen/api";
 

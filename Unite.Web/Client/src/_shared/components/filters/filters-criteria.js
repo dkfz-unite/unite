@@ -1,13 +1,13 @@
-import DonorFiltersCriteria from "@/domain/donors/filters/donor-filters-criteria";
-import MriFiltersCriteria from "@/domain/images/mris/filters/mri-filters-criteria";
-import MaterialFiltersCriteria from "@/domain/specimens/materials/filters/material-filters-criteria";
-import LineFiltersCriteria from "@/domain/specimens/lines/filters/line-filters-criteria";
-import OrganoidFiltersCriteria from "@/domain/specimens/organoids/filters/organoid-filters-criteria";
-import XenograftFiltersCriteria from "@/domain/specimens/xenografts/filters/xenograft-filters-criteria";
-import GeneFiltersCriteria from "@/domain/genome/genes/filters/gene-filters-criteria";
-import MutationFiltersCriteria from "@/domain/genome/variants/ssms/filters/ssm-filters-criteria";
-import CopyNumberVariantFiltersCriteria from "@/domain/genome/variants/cnvs/filters/cnv-filters-criteria";
-import StructuralVariantFiltersCriteria from "@/domain/genome/variants/svs/filters/sv-filters-criteria";
+import DonorFiltersCriteria from "@/domain/donors/models/filters/donor-filters-criteria";
+import MriFiltersCriteria from "@/domain/images/mris/models/filters/mri-filters-criteria";
+import MaterialFiltersCriteria from "@/domain/specimens/materials/models/filters/material-filters-criteria";
+import LineFiltersCriteria from "@/domain/specimens/lines/models/filters/line-filters-criteria";
+import OrganoidFiltersCriteria from "@/domain/specimens/organoids/models/filters/organoid-filters-criteria";
+import XenograftFiltersCriteria from "@/domain/specimens/xenografts/models/filters/xenograft-filters-criteria";
+import GeneFiltersCriteria from "@/domain/genome/genes/models/filters/gene-filters-criteria";
+import MutationFiltersCriteria from "@/domain/genome/variants/ssms/models/filters/ssm-filters-criteria";
+import CopyNumberVariantFiltersCriteria from "@/domain/genome/variants/cnvs/models/filters/cnv-filters-criteria";
+import StructuralVariantFiltersCriteria from "@/domain/genome/variants/svs/models/filters/sv-filters-criteria";
 import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {

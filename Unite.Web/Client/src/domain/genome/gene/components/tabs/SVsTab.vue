@@ -43,7 +43,7 @@ import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear
 import UDataTable from "@/domain/genome/variants/svs/components/Table.vue";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
-import filters from "@/domain/genome/variants/svs/filters/sv-filters";
+import filters from "@/domain/genome/variants/svs/models/filters/sv-filters";
 import api from "../../api";
 
 export default {

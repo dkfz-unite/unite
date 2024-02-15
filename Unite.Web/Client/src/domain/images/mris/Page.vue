@@ -82,10 +82,10 @@ import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin
 import Settings from "@/_settings/settings";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import Permissions from "@/_models/admin/enums/permissions";
-import ImageTypes from "@/_models/domain/images/image-types";
+import ImageType from "../_shared/images/models/enums/image-type";
 import ImagesApi from "../_shared/images/api";
 
-const api = new ImagesApi(ImageTypes.Mri);
+const api = new ImagesApi(ImageType.Mri);
 
 export default {
   components: {

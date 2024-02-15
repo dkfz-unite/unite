@@ -79,10 +79,10 @@ import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin
 
 import Settings from "@/_settings/settings";
 import FilterModels from "@/_shared/components/filters/filter-models";
-import VariantTypes from "@/_models/domain/genome/variants/variant-types";
+import VariantType from "../_shared/variants/models/enums/variant-type";
 import VariantsApi from "../_shared/variants/api";
 
-const api = new VariantsApi(VariantTypes.SV);
+const api = new VariantsApi(VariantType.SV);
 
 export default {
   components: {

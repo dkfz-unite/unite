@@ -45,7 +45,7 @@ import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
 import { Tabs } from "../../settings";
 import FilterModel from "@/_shared/components/filters/filter-models";
-import filters from "@/domain/donors/filters/donor-filters";
+import filters from "@/domain/donors/models/filters/donor-filters";
 import api from "@/domain/genome/variants/_shared/variant/api";
 
 export default {

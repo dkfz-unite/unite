@@ -79,13 +79,13 @@ import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import UUploadButton from "./components/UploadButton.vue";
 import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
 
+import Settings from "@/_settings/settings";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import Permissions from "@/_models/admin/enums/permissions";
-import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
+import SpecimenType from "../_shared/specimens/models/enums/specimen-type";
 import SpecimensApi from "../_shared/specimens/api";
-import Settings from "@/_settings/settings";
 
-const api = new SpecimensApi(SpecimenTypes.CellLine);
+const api = new SpecimensApi(SpecimenType.CellLine);
 
 export default {
   components: {

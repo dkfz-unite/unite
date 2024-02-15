@@ -79,7 +79,7 @@ import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin
 
 import Settings from "@/_settings/settings";
 import FilterModels from "@/_shared/components/filters/filter-models";
-import VariantType from "../_models/enums/variant-type";
+import VariantType from "../_shared/variants/models/enums/variant-type";
 import VariantsApi from "../_shared/variants/api";
 
 const api = new VariantsApi(VariantType.CNV);

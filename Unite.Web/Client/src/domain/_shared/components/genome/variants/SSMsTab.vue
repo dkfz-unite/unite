@@ -56,8 +56,8 @@ import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
 import Settings from "@/domain/genome/variants/ssms/settings";
 import FilterModel from "@/_shared/components/filters/filter-models";
-import VariantType from "@/domain/genome/variants/_models/enums/variant-type";
-import filters from "@/domain/genome/variants/ssms/filters/ssm-filters";
+import VariantType from "@/domain/genome/variants/_shared/variants/models/enums/variant-type";
+import filters from "@/domain/genome/variants/ssms/models/filters/ssm-filters";
 
 import api from "@/domain/specimens/_shared/specimen/api";
 

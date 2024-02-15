@@ -44,7 +44,7 @@ import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear
 import UDataTable from "@/domain/donors/components/Table.vue";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
-import filters from "@/domain/donors/filters/donor-filters";
+import filters from "@/domain/donors/models/filters/donor-filters";
 import api from "../../api";
 
 export default {

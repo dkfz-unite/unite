@@ -21,8 +21,6 @@
 import { exportFile } from "quasar";
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
 import DomainNames from "@/_settings/domain-names";
-import ImageTypes from "@/_models/domain/images/image-types";
-import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/image/api";
 import specimenApi from "@/domain/specimens/_shared/specimen/api";

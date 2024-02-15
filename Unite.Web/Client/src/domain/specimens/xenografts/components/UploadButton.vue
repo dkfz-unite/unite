@@ -67,8 +67,8 @@
 
 <script>
 import UUploadDialog from "@/domain/_shared/components/upload/UploadDialog.vue";
-import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
-import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
+import SpecimenType from "../../_shared/specimens/models/enums/specimen-type";
+import SpecimensApi from "../../_shared/specimens/api";
 
 export default {
   components: {
@@ -77,7 +77,7 @@ export default {
 
   setup() {
     return {
-      specimensApi: new SpecimensApi(SpecimenTypes.Xenograft),
+      specimensApi: new SpecimensApi(SpecimenType.Xenograft),
     };
   },
 

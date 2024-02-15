@@ -43,7 +43,7 @@ import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear
 import UDataTable from "@/domain/genome/variants/cnvs/components/Table.vue";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
-import filters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
+import filters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
 import api from "../../api";
 
 export default {

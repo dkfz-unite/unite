@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import Biotype from "@/_models/domain/genome/genes/enums/biotype";
+import Biotype from "@/domain/genome/genes/models/enums/biotype";
 
 export default {
   props: {

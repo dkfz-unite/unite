@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import MaterialType from "@/_models/domain/specimens/tissues/enums/tissue-type";
-import TumorType from "@/_models/domain/specimens/tissues/enums/tumor-type";
+import MaterialType from "@/domain/specimens/materials/models/enums/material-type";
+import TumorType from "@/domain/specimens/materials/models/enums/tumor-type";
 
 export default {
   props: {

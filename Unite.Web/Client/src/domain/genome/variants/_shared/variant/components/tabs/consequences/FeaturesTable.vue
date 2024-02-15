@@ -36,8 +36,8 @@
   </template>
   
   <script>
-  import ConsequenceType from "../../../../../_models/enums/consequence-type";
-  import ImpactColor from "../../../../../_models/impact-color";
+  import ConsequenceType from "@/domain/genome/variants/_shared/variants/models/enums/consequence-type";
+  import ImpactColor from "@/domain/genome/variants/_models/impact-color";
   
   export default {
     props: {

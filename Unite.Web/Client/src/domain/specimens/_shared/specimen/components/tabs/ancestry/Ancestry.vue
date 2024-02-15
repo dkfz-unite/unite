@@ -19,8 +19,8 @@
 
 <script>
 import USpecimensTree from "./SpecimensTree.vue";
-import TissueType from "@/_models/domain/specimens/tissues/enums/tissue-type";
-import TumorType from "@/_models/domain/specimens/tissues/enums/tumor-type";
+import MaterialType from "@/domain/specimens/materials/models/enums/material-type";
+import TumorType from "@/domain/specimens/materials/models/enums/tumor-type";
 
 export default {
   components: {
@@ -91,7 +91,7 @@ export default {
 
     getSpecimenRank(specimen) {
       if (specimen.material) {
-        return specimen.material.type === TissueType.Normal ? 1
+        return specimen.material.type === MaterialType.Normal ? 1
              : specimen.material.tumorType === TumorType.Primary ? 2
              : specimen.material.tumorType === TumorType.Metastasis ? 3
              : specimen.material.tumorType === TumorType.Recurrent ? 4

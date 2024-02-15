@@ -154,16 +154,16 @@
 import UCohortData from "./data/CohortData.vue";
 import UFiltersData from "./filters/FiltersData.vue";
 import FilterType from "@/_shared/components/filters/filter-type";
-import donorFilters from "@/domain/donors/filters/donor-filters";
-import mriFilters from "@/domain/images/mris/filters/mri-filters";
-import materialFilters from "@/domain/specimens/materials/filters/material-filters";
-import lineFilters from "@/domain/specimens/lines/filters/line-filters";
-import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
-import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
-import geneFilters from "@/domain/genome/genes/filters/gene-filters";
-import ssmFilters from "@/domain/genome/variants/ssms/filters/ssm-filters";
-import cnvFilters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
-import svFilters from "@/domain/genome/variants/svs/filters/sv-filters";
+import donorFilters from "@/domain/donors/models/filters/donor-filters";
+import mriFilters from "@/domain/images/mris/models/filters/mri-filters";
+import materialFilters from "@/domain/specimens/materials/models/filters/material-filters";
+import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
+import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
+import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
+import geneFilters from "@/domain/genome/genes/models/filters/gene-filters";
+import ssmFilters from "@/domain/genome/variants/ssms/models/filters/ssm-filters";
+import cnvFilters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
+import svFilters from "@/domain/genome/variants/svs/models/filters/sv-filters";
 
 export default {
   components: {

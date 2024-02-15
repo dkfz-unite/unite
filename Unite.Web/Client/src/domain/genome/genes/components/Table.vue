@@ -85,7 +85,7 @@ import UExpressionStatsCell from "./cells/ExpressionStatsCell.vue";
 import tableMixin from "@/domain/_shared/entries/components/table-mixin";
 
 import Settings from "../settings";
-import Biotype from "@/_models/domain/genome/genes/enums/biotype";
+import Biotype from "../models/enums/biotype";
 
 export default {
   components: {

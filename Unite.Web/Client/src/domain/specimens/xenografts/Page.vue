@@ -81,10 +81,10 @@ import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin
 
 import Settings from "@/_settings/settings";
 import Permissions from "@/_models/admin/enums/permissions";
-import SpecimenTypes from "@/_models/domain/specimens/specimen-types";
+import SpecimenType from "../_shared/specimens/models/enums/specimen-type";
 import SpecimensApi from "../_shared/specimens/api";
 
-const api = new SpecimensApi(SpecimenTypes.Xenograft);
+const api = new SpecimensApi(SpecimenType.Xenograft);
 
 export default {
   components: {
