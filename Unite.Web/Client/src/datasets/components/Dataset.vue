@@ -35,7 +35,7 @@
         <div class="row">
           <span class="text-subtitle1 text-weight-medium">Available data</span>
         </div>
-        <u-cohort-data :data="cohort.data" />
+        <u-dataset-data :data="cohort.data" />
       </div>
     </div>
 
@@ -151,7 +151,7 @@
 </template>
 
 <script>
-import UCohortData from "./data/CohortData.vue";
+import UDatasetData from "./data/Data.vue";
 import UFiltersData from "./filters/FiltersData.vue";
 import FilterType from "@/_shared/components/filters/filter-type";
 import donorFilters from "@/domain/donors/models/filters/donor-filters";
@@ -167,7 +167,7 @@ import svFilters from "@/domain/genome/variants/svs/models/filters/sv-filters";
 
 export default {
   components: {
-    UCohortData,
+    UDatasetData,
     UFiltersData
   },
 

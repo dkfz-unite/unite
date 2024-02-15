@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="row justify-between q-pl-xs">
       <div>
-        <u-cohorts-button-show @click="false" />
+        <u-datasets-button-show @click="false" />
       </div>
 
       <div class="text-subtitle1">
@@ -11,7 +11,7 @@
       </div>
 
       <div>
-        <u-cohorts-button-hide @click="$emit('hide')" />
+        <u-datasets-button-hide @click="$emit('hide')" />
       </div>
     </div>
 
@@ -59,15 +59,15 @@
 </template>
 
 <script>
-import UCohortsButtonShow from "./CohortsButtonShow.vue";
-import UCohortsButtonHide from "./CohortsButtonHide.vue";
+import UDatasetsButtonShow from "./DatasetsButtonShow.vue";
+import UDatasetsButtonHide from "./DatasetsButtonHide.vue";
 import DomainNames from "@/_settings/domain-names";
 import mixin from "./mixin";
 
 export default {
   components: {
-    UCohortsButtonShow,
-    UCohortsButtonHide
+    UDatasetsButtonShow,
+    UDatasetsButtonHide
   },
 
   mixins: [mixin],
@@ -77,17 +77,17 @@ export default {
   computed: {
     title() {
       switch (this.tab) {
-        case DomainNames.Donors: return "Donor Cohorts";
-        case DomainNames.Mris: return "MRI Cohorts";
-        case DomainNames.Tissues: return "Tissue Cohorts";
-        case DomainNames.Cells: return "Cell Line Cohorts";
-        case DomainNames.Organoids: return "Organoid Cohorts";
-        case DomainNames.Xenografts: return "Xenograft Cohorts";
-        case DomainNames.Genes: return "Gene Cohorts";
-        case DomainNames.Ssms: return "SSM Cohorts";
-        case DomainNames.Cnvs: return "CNV Cohorts";
-        case DomainNames.Svs: return "SV Cohorts";
-        default: return "Cohorts";
+        case DomainNames.Donors: return "Donor Datasets";
+        case DomainNames.Mris: return "Image Datasets";
+        case DomainNames.Tissues: return "Material Datasets";
+        case DomainNames.Cells: return "Cell Line Datasets";
+        case DomainNames.Organoids: return "Organoid Datasets";
+        case DomainNames.Xenografts: return "Xenograft Datasets";
+        case DomainNames.Genes: return "Gene Datasets";
+        case DomainNames.Ssms: return "SSM Datasets";
+        case DomainNames.Cnvs: return "CNV Datasets";
+        case DomainNames.Svs: return "SV Datasets";
+        default: return "Datasets";
       }
     }
   },

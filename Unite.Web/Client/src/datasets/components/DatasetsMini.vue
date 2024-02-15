@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="row justify-between q-pl-xs">
       <div>
-        <u-cohorts-button-show @click="false" />
+        <u-datasets-button-show @click="false" />
       </div>
     </div>
 
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import UCohortsButtonShow from "./CohortsButtonShow.vue";
+import UDatasetsButtonShow from "./DatasetsButtonShow.vue";
 import mixin from "./mixin";
 
 export default {
   components: {
-    UCohortsButtonShow
+    UDatasetsButtonShow
   },
 
   mixins: [mixin]

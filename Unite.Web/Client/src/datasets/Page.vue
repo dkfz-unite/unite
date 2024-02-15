@@ -1,7 +1,7 @@
 <template>
   <!-- Cohorts button -->
   <teleport v-if="domains?.length && $q.screen.lt.md" to="#top-left-placeholder">
-    <u-cohorts-button-show @click="$refs.drawer.open()" />
+    <u-datasets-button-show @click="$refs.drawer.open()" />
   </teleport>
 
   <!-- Cohorts drawer -->
@@ -12,7 +12,7 @@
     v-model:shown="drawer.show"
     v-model:minimized="drawer.mini">
     <template #default>
-      <u-cohorts
+      <u-datasets
         :domains="domains" 
         v-model:domain="domain"
         v-model:cohort="cohort"
@@ -21,7 +21,7 @@
     </template>
 
     <template #mini>
-      <u-cohorts-mini
+      <u-datasets-mini
         :domains="domains"
         v-model:domain="domain"
         v-model:cohort="cohort"
@@ -61,7 +61,7 @@
 
         <!-- Cohort content -->
         <div class="row">
-          <u-cohort v-if="cohort" :cohort="cohort" />
+          <u-dataset v-if="cohort" :cohort="cohort" />
         </div>
       </div>
     </div>
@@ -79,12 +79,12 @@
 
 <script>
 import UDrawer from "../_shared/components/base/Drawer.vue";
-import UCohortsButtonShow from "./components/CohortsButtonShow.vue";
+import UDatasetsButtonShow from "./components/DatasetsButtonShow.vue";
 import UAnalysisButton from "./components/analysis/AnalysisButton.vue";
 import UControlsToolbar from "./components/controls/ControlsToolbar.vue";
-import UCohorts from "./components/Cohorts.vue";
-import UCohortsMini from "./components/CohortsMini.vue";
-import UCohort from "./components/Cohort.vue";
+import UDatasets from "./components/Datasets.vue";
+import UDatasetsMini from "./components/DatasetsMini.vue";
+import UDataset from "./components/Dataset.vue";
 import FiltersCriteria from "../_shared/components/filters/filters-criteria";
 import DomainNames from "@/_settings/domain-names";
 import api from "./api";
@@ -92,12 +92,12 @@ import api from "./api";
 export default {
   components: {
     UDrawer,
-    UCohortsButtonShow,
+    UDatasetsButtonShow,
     UAnalysisButton,
     UControlsToolbar,
-    UCohorts,
-    UCohortsMini,
-    UCohort
+    UDatasets,
+    UDatasetsMini,
+    UDataset
   },
 
   data() {

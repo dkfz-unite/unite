@@ -1,7 +1,9 @@
+import Settings from "../settings";
+
 const routes = [
   {
     path: "/",
-    name: "home",
+    name: Settings.domain,
     redirect: { name: "donors" },
     meta: { title: "UNITE", authorize: false }
   }
