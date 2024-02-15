@@ -2,8 +2,8 @@
   <div class="col">
     <div class="row" v-if="project">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
-        <q-breadcrumbs-el label="Projects" :to="{ name: 'projects' }" />
+        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain }" />
+        <q-breadcrumbs-el :label="Settings.projects.title" :to="{ name: Settings.projects.domain }" />
         <q-breadcrumbs-el :label="$route.params.id" />
       </q-breadcrumbs>
     </div>
@@ -35,6 +35,8 @@
 import USummary from "./components/Summary.vue";
 import UAvailableData from "./components/AvailableData.vue";
 import UDescription from "./components/Description.vue";
+
+import Settings from "@/_settings/settings";
 import api from "./api";
 
 export default {
@@ -42,6 +44,12 @@ export default {
     USummary,
     UAvailableData,
     UDescription
+  },
+
+  setup() {
+    return {
+      Settings
+    }
   },
 
   data() {

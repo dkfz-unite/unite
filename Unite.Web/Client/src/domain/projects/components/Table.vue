@@ -1,83 +1,79 @@
 <template>
-  <div class="col q-gutter-sm">
-    <div class="row">
-      <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
-        <q-breadcrumbs-el label="Projects" />
-      </q-breadcrumbs>
-    </div>
+  <q-table
+    title="Projects"
+    row-key="id"
+    separator="cell"
+    class="sticky-header"
+    :loading="loading"
+    :rows="rows"
+    :columns="columns"
+    :pagination="{ rowsPerPage: 15 }"
+    wrap-cells dense>
 
-    <div class="row">
-      <div class="col">
-        <q-table
-          title="Projects"
-          :loading="loading"
-          :rows="rows"
-          :columns="columns"
-          :pagination="{rowsPerPage: 15}"
-          row-key="id"
-          separator="cell"
-          class="sticky-header"
-          wrap-cells
-          dense>
+    <template v-slot:header="props">
+      <!-- Header groups row -->
+      <q-tr :props="props">
+        <!-- No group -->
+        <q-th colspan="2"></q-th>
+        <!-- Donors -->
+        <q-th colspan="12" title="Number of donors with specified data">#Donors</q-th>
+      </q-tr>
 
-          <template v-slot:header="props">
-            <!-- Header groups row -->
-            <q-tr :props="props">
-              <!-- No group -->
-              <q-th colspan="2"></q-th>
-              <!-- Donors -->
-              <q-th colspan="12" title="Number of donors with specified data">#Donors</q-th>
-            </q-tr>
+      <!-- Headers row -->
+      <q-tr :props="props">
+        <q-th v-for="col in props.cols" :key="col.name" :props="props">
+          {{ col.label }}
+        </q-th>
+      </q-tr>
+    </template>
 
-            <!-- Headers row -->
-            <q-tr :props="props">
-              <q-th
-                v-for="col in props.cols"
-                :key="col.name"
-                :props="props">
-                {{ col.label }}
-              </q-th>
-            </q-tr>
-          </template>
+    <template v-slot:body-cell-name="props">
+      <q-td :props="props">
+        <template v-if="props.value.id">
+          <router-link class="u-link" :to="{ name: 'project', params: { id: props.value.id.toString() }}">
+            {{ props.value.name }}
+          </router-link>
+        </template>
+        <template v-else>
+          {{ props.value.name }}
+        </template>
+      </q-td>
+    </template>
 
-          <template v-slot:body-cell-project="props">
-            <q-td :props="props">
-              <template v-if="props.value.id">
-                <router-link class="u-link" :to="{ name: 'project', params: { id: props.value.id.toString() }}">
-                  {{ props.value.name }}
-                </router-link>
-              </template>
-              <template v-else>
-                {{ props.value.name }}
-              </template>
-            </q-td>
-          </template>
-
-        </q-table>
-      </div>
-    </div>
-  </div>
+  </q-table>
 </template>
 
 <script>
-import Permissions from "@/_models/admin/enums/permissions";
-import api from "./api";
-
 export default {
+  props: {
+    rows: {
+      type: Array,
+      default: () => []
+    },
+
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data() {
     return {
-      loading: false,
-      selected: [],
-      rows: [],
       columns: [
         {
-          name: "project",
-          label: "Project",
+          name: "name",
+          label: "Name",
           field: row => row,
           align: "left",
           style: "width: 15%;"
         },
+        // {
+        //   name: "studies",
+        //   label: "Studies",
+        //   field: row => row.studies || "-",
+        //   align: "center",
+
+        // }
         {
           name: "description",
           label: "Description",
@@ -166,21 +162,6 @@ export default {
           align: "center",
         }
       ]
-    }
-  },
-
-  computed: {
-    account() {
-      return this.$store.state.identity.account;
-    }
-  },
-
-  async mounted() {
-    try {
-      this.loading = true;
-      this.rows = await api.search();
-    } finally {
-      this.loading = false;
     }
   },
 

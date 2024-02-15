@@ -1,10 +1,12 @@
+import Settings from "../settings";
+
 const routes = [
-    {
-      path: "/projects",
-      name: "projects",
-      meta: { title: "UNITE.Projects", authorize: true },
-      component: () => import(/* webpackChunkName: "projects" */ "../ProjectsPage.vue")
-    }
-  ];
+  {
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true },
+    component: () => import(/* webpackChunkName: "projects" */ "../Page.vue")
+  }
+];
 
 export default routes;
