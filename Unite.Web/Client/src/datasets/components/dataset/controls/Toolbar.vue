@@ -2,24 +2,24 @@
   <div class="row q-gutter-sm">
     <u-export-button
       :domain="domain" 
-      :cohort="cohort"
+      :dataset="dataset"
     />
 
     <u-show-button
       :domain="domain" 
-      :cohort="cohort"
+      :dataset="dataset"
     />
 
     <u-download-button
       :domain="domain" 
-      :cohort="cohort"
+      :dataset="dataset"
     />
 
     <!-- <q-separator vertical /> -->
 
     <u-delete-buttomn
       :domain="domain" 
-      :cohort="cohort"
+      :dataset="dataset"
       @click="$emit('deleted')" 
     />
   </div>
@@ -44,8 +44,7 @@ export default {
       type: Object,
       required: true
     },
-    
-    cohort: {
+    dataset: {
       type: Object,
       required: true
     }

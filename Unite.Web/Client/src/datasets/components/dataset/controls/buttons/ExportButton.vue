@@ -1,7 +1,7 @@
 <template>
   <q-btn 
     label="Export"
-    title="Export cohort filters"
+    title="Export dataset criteria"
     icon="las la-file-export"
     color="primary"
     dense flat no-caps>
@@ -33,7 +33,16 @@ import { exportFile } from "quasar";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
-  props: ["domain", "cohort"],
+  props: {
+    domain: {
+      type: Object,
+      required: true
+    },
+    dataset: {
+      type: Object,
+      required: true
+    }
+  },
 
   computed: {
     clipboardWriteAvailable() {
@@ -86,7 +95,7 @@ export default {
 
     getContent() {
       const domain = this.domain.name;
-      const criteria = new FiltersCriteria(this.cohort.criteria);
+      const criteria = new FiltersCriteria(this.dataset.criteria);
 
       return {
         domain: domain,

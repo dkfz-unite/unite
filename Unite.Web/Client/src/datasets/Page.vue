@@ -1,16 +1,17 @@
 <template>
-  <!-- Cohorts button -->
+  <!-- Teleport button -->
   <teleport v-if="domains?.length && $q.screen.lt.md" to="#top-left-placeholder">
     <u-datasets-button-show @click="$refs.drawer.open()" />
   </teleport>
 
-  <!-- Cohorts drawer -->
+  <!-- Drawer -->
   <u-drawer
     ref="drawer"
     side="left"
     v-if="domain && cohort"
     v-model:shown="drawer.show"
     v-model:minimized="drawer.mini">
+    <!-- Opened -->
     <template #default>
       <u-datasets
         :domains="domains" 
@@ -19,7 +20,7 @@
         @hide="$refs.drawer.minimize()"
       />
     </template>
-
+    <!-- Minimized -->
     <template #mini>
       <u-datasets-mini
         :domains="domains"
@@ -29,7 +30,7 @@
     </template>
   </u-drawer>
 
-  <!-- Page content -->
+  <!-- Content -->
   <div class="col q-gutter-y-sm">
     <!-- <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
@@ -51,7 +52,7 @@
 
             <u-controls-toolbar
               :domain="domain"
-              :cohort="cohort"
+              :dataset="cohort"
               @deleted="onDeleted">
             </u-controls-toolbar>
 
@@ -61,7 +62,7 @@
 
         <!-- Cohort content -->
         <div class="row">
-          <u-dataset v-if="cohort" :cohort="cohort" />
+          <u-dataset v-if="cohort" :dataset="cohort" />
         </div>
       </div>
     </div>
@@ -78,14 +79,15 @@
 </template>
 
 <script>
-import UDrawer from "../_shared/components/base/Drawer.vue";
-import UDatasetsButtonShow from "./components/DatasetsButtonShow.vue";
+import UDrawer from "@/_shared/components/base/Drawer.vue";
+import UDatasetsButtonShow from "./components/datasets/buttons/ButtonShow.vue";
+import UDatasets from "./components/datasets/Datasets.vue";
+import UDatasetsMini from "./components/datasets/DatasetsMini.vue";
 import UAnalysisButton from "./components/analysis/AnalysisButton.vue";
-import UControlsToolbar from "./components/controls/ControlsToolbar.vue";
-import UDatasets from "./components/Datasets.vue";
-import UDatasetsMini from "./components/DatasetsMini.vue";
-import UDataset from "./components/Dataset.vue";
-import FiltersCriteria from "../_shared/components/filters/filters-criteria";
+import UDataset from "./components/dataset/Dataset.vue";
+import UControlsToolbar from "./components/dataset/controls/Toolbar.vue";
+
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import DomainNames from "@/_settings/domain-names";
 import api from "./api";
 

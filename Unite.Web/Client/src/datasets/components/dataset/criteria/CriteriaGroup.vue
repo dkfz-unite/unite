@@ -3,40 +3,40 @@
     <!-- Title -->
     <div v-if="title">
       <span class="text-subtitle1 text-weight-medium">
-        {{title}}
+        {{ title }}
       </span>
     </div>
 
-    <!-- Filters -->
+    <!-- Criteria -->
     <div class="q-gutter-y-xs">
       <template v-for="filter in filterItems" :key="filter.field">
         <div v-if="hasFilters(filter, criteria[filter.field])">
-          <!-- Filter label -->
-          <span class="text-body2 text-grey-9 text-weight-medium">{{filter.label}}: </span>
+          <!-- Criteria title -->
+          <span class="text-body2 text-grey-9 text-weight-medium">{{ filter.label }}: </span>
 
-          <!-- Values filter criteria -->
+          <!-- Values criteria -->
           <template v-if="filter.type == FilterType.Values">
-            <u-values-filter-data :filter="filter" :values="criteria[filter.field]" />
+            <u-values-criteria :filter="filter" :values="criteria[filter.field]" />
           </template>
 
-          <!-- Option filter criteria -->
+          <!-- Option criteria -->
           <template v-else-if="filter.type == FilterType.Option">
-            <u-option-filter-data :filter="filter" :value="criteria[filter.field]" />
+            <u-option-criteria :filter="filter" :value="criteria[filter.field]" />
           </template>
 
-          <!-- Options filter criteria -->
+          <!-- Options criteria -->
           <template v-else-if="filter.type == FilterType.Options">
-            <u-options-filter-data :filter="filter" :values="criteria[filter.field]" />
+            <u-options-criteria :filter="filter" :values="criteria[filter.field]" />
           </template>
 
-          <!-- Range filter criteria -->
+          <!-- Range criteria -->
           <template v-else-if="filter.type == FilterType.Range">
-            <u-range-filter-data :filter="filter" :value="criteria[filter.field]" />
+            <u-range-criteria :filter="filter" :value="criteria[filter.field]" />
           </template>
 
-          <!-- Boolean filter criteria -->
+          <!-- Boolean criteria -->
           <template v-else-if="filter.type == FilterType.Boolean">
-            <u-boolean-filter-data :filter="filter" :value="criteria[filter.field]" />
+            <u-boolean-criteria :filter="filter" :value="criteria[filter.field]" />
           </template>
         </div>
       </template>
@@ -46,19 +46,19 @@
 
 <script>
 import FilterType from "@/_shared/components/filters/filter-type";
-import UOptionFilterData from "./base/OptionFilterData.vue";
-import UOptionsFilterData from "./base/OptionsFilterData.vue";
-import URangeFilterData from "./base/RangeFilterData.vue";
-import UValuesFilterData from "./base/ValuesFilterData.vue";
-import UBooleanFilterData from "./base/BooleanFilterData.vue";
+import UOptionCriteria from "./base/OptionCriteria.vue";
+import UOptionsCriteria from "./base/OptionsCriteria.vue";
+import URangeCriteria from "./base/RangeCriteria.vue";
+import UValuesCriteria from "./base/ValuesCriteria.vue";
+import UBooleanCriteria from "./base/BooleanCriteria.vue";
 
 export default {
   components: {
-    UOptionFilterData,
-    UOptionsFilterData,
-    URangeFilterData,
-    UValuesFilterData,
-    UBooleanFilterData
+    UOptionCriteria,
+    UOptionsCriteria,
+    URangeCriteria,
+    UValuesCriteria,
+    UBooleanCriteria
   },
 
   props: {

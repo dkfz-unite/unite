@@ -1,6 +1,6 @@
 <template>
   <q-btn
-    id="cohorts-button-hide"
+    id="datasets-button-hide"
     icon="las la-chevron-circle-left" 
     dense rounded flat 
     @click="$emit('click')" 

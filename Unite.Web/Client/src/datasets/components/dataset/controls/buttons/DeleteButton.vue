@@ -1,7 +1,7 @@
 <template>
   <q-btn
     label="Delete"
-    title="Delete cohort"
+    title="Delete dataset"
     icon="las la-trash"
     color="red"
     dense flat no-caps
@@ -11,13 +11,22 @@
 
 <script>
 export default {
-  props: ["domain", "cohort"],
+  props: {
+    domain: {
+      type: Object,
+      required: true
+    },
+    dataset: {
+      type: Object,
+      required: true
+    }
+  },
 
   emits: ["click"],
 
   methods: {
     onDelete() {
-      this.$store.dispatch(`${this.domain.name}/deleteCohort`, this.cohort.name);
+      this.$store.dispatch(`${this.domain.name}/deleteCohort`, this.dataset.name);
       this.$emit("click");
     }
   }

@@ -3,19 +3,17 @@
     <!-- Header -->
     <div class="row justify-between q-pl-xs">
       <div>
-        <u-datasets-button-show @click="false" />
+        <u-button-show @click="false" />
       </div>
-
       <div class="text-subtitle1">
-        {{ title }}
+        {{ getDomainTitle(tab) }} Datasets
       </div>
-
       <div>
-        <u-datasets-button-hide @click="$emit('hide')" />
+        <u-button-hide @click="$emit('hide')" />
       </div>
     </div>
 
-    <!-- Filters -->
+    <!-- Items -->
     <div class="row">
       <div class="col-auto">
         <q-tabs v-model="tab" indicator-color="parimary" active-color="primary" align="left" dense vertical>
@@ -59,38 +57,19 @@
 </template>
 
 <script>
-import UDatasetsButtonShow from "./DatasetsButtonShow.vue";
-import UDatasetsButtonHide from "./DatasetsButtonHide.vue";
-import DomainNames from "@/_settings/domain-names";
+import UButtonShow from "./buttons/ButtonShow.vue";
+import UButtonHide from "./buttons/ButtonHide.vue";
 import mixin from "./mixin";
 
 export default {
   components: {
-    UDatasetsButtonShow,
-    UDatasetsButtonHide
+    UButtonShow,
+    UButtonHide
   },
 
   mixins: [mixin],
 
   emits: ["hide"],
-
-  computed: {
-    title() {
-      switch (this.tab) {
-        case DomainNames.Donors: return "Donor Datasets";
-        case DomainNames.Mris: return "Image Datasets";
-        case DomainNames.Tissues: return "Material Datasets";
-        case DomainNames.Cells: return "Cell Line Datasets";
-        case DomainNames.Organoids: return "Organoid Datasets";
-        case DomainNames.Xenografts: return "Xenograft Datasets";
-        case DomainNames.Genes: return "Gene Datasets";
-        case DomainNames.Ssms: return "SSM Datasets";
-        case DomainNames.Cnvs: return "CNV Datasets";
-        case DomainNames.Svs: return "SV Datasets";
-        default: return "Datasets";
-      }
-    }
-  },
 
   methods: {
     onSelect(cohort) {

@@ -1,7 +1,7 @@
 <template>
   <q-btn 
     label="Show"
-    title="Show cohort data"
+    title="Show dataset"
     icon="las la-search"
     color="secondary"
     dense flat no-caps
@@ -13,12 +13,21 @@
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
-  props: ["domain", "cohort"],
+  props: {
+    domain: {
+      type: Object,
+      required: true
+    },
+    dataset: {
+      type: Object,
+      required: true
+    }
+  },
 
   methods: {
     applyFilters() {
       const domain = this.domain.name;
-      const criteria = new FiltersCriteria(this.cohort.criteria);
+      const criteria = new FiltersCriteria(this.dataset.criteria);
 
       this.$store.state[domain].filtersCriteria = criteria;
       this.$router.push({ name: domain });

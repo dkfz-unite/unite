@@ -1,3 +1,5 @@
+import Settings from "@/_settings/settings";
+
 const mixin = {
   props: {
     domains: {
@@ -47,35 +49,17 @@ const mixin = {
     }
   },
 
-  mounted() {
-    // console.log("mounted");
-  },
-
-  updated() {
-    // console.log("updated");
-  },
-
   methods: {
     getDomainIcon(domain) {
-      switch (domain) {
-        case "donors": return "las la-user-circle";
-        case "mris": return "las la-x-ray";
-        case "tissues": return "svguse:/icons.svg#u-tissue";
-        case "cells": return "las la-microscope";
-        case "organoids": return "svguse:/icons.svg#u-organoid";
-        case "xenografts": return "svguse:/icons.svg#u-xenograft";
-        case "genes": return "svguse:/icons.svg#u-gene";
-        case "ssms": return "svguse:/icons.svg#u-ssm";
-        case "cnvs": return "svguse:/icons.svg#u-cnv";
-        case "svs": return "svguse:/icons.svg#u-sv";
-        default: return null;
-      }
+      return Settings[domain].icon;
+    },
+
+    getDomainTitle(domain) {
+      return Settings[domain].title;
     },
 
     getDomainBadgeColor(domain) {
-      return domain == this.tab
-        ? "primary"
-        : "grey-5";
+      return domain == this.tab ? "primary" : "grey-5";
     }
   }
 };

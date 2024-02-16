@@ -1,6 +1,12 @@
 <template>
   <q-dialog v-model="dialog" @keyup.esc="onCancel" persistent>
-    <u-download-form :domain="domain?.name" :data="cohort?.data" :loading="loading" @submit="onDownload" @cancel="onCancel" />
+    <u-download-form 
+      :domain="domain?.name" 
+      :data="dataset?.data" 
+      :loading="loading" 
+      @submit="onDownload" 
+      @cancel="onCancel"
+    />
   </q-dialog>
 
   <q-btn
@@ -16,10 +22,24 @@
 <script>
 import { exportFile } from "quasar";
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
-import api from "../../../api";
+
+import api from "../../../../api";
 
 export default {
-  props: ["domain", "cohort", "class"],
+  props: {
+    domain: {
+      type: Object,
+      required: true
+    },
+    dataset: {
+      type: Object,
+      required: true
+    },
+    class: {
+      type: String,
+      required: false
+    }
+  },
 
   components: {
     UDownloadForm
@@ -36,13 +56,13 @@ export default {
     async onDownload(model) {
       try {
         this.loading = true;
-        const name = this.cohort.name.split(" ").join("_");
+        const name = this.dataset.name.split(" ").join("_");
         const format = "application/zip";
-        const content = await this.fetchData(model, this.cohort.criteria);
+        const content = await this.fetchData(model, this.dataset.criteria);
         exportFile(`${name}.zip`, content, format);
         this.dialog = false;
-      } catch {
-        // Do nothing
+      } catch (error) {
+        console.error(error);
       } finally {
         this.loading = false;
       }
