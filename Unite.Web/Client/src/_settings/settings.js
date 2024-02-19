@@ -50,4 +50,17 @@ export default class Settings {
   static svs = SvsSettings;
   static analysis = AnalysisSettings;
   static datasets = DatasetsSettings;
+
+  static searchable = [
+    this.donors,
+    this.mris,
+    this.materials,
+    this.lines,
+    this.organoids,
+    this.xenografts,
+    this.genes,
+    this.ssms,
+    this.cnvs,
+    this.svs
+  ]
 }

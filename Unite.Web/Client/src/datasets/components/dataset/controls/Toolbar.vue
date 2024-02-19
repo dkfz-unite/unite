@@ -20,7 +20,7 @@
     <u-delete-buttomn
       :domain="domain" 
       :dataset="dataset"
-      @click="$emit('deleted')" 
+      @click="$emit('deleted')"
     />
   </div>
 </template>

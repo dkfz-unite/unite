@@ -42,12 +42,14 @@
       <q-card-section>
         <div class="col">
           <div class="row items-center q-gutter-xs">
-            <q-icon :name="DomainIcons.get(cohortsOrdered[0].domain)" size="sm"/>
+            <!-- <q-icon :name="DomainIcons.get(cohortsOrdered[0].domain)" size="sm"/> -->
+            <q-icon :name="Settings[cohortsOrdered[0].domain].icon" size="sm"/>
             <div>{{ cohortsOrdered[0].name }}</div>
           </div>
           <div class="row text-hint text-grey-7">vs</div>
           <div class="row items-center q-gutter-xs">
-            <q-icon :name="DomainIcons.get(cohortsOrdered[1].domain)" size="sm"/>
+            <!-- <q-icon :name="DomainIcons.get(cohortsOrdered[1].domain)" size="sm"/> -->
+            <q-icon :name="Settings[cohortsOrdered[1].domain].icon" size="sm"/>
             <div>{{ cohortsOrdered[1].name }}</div>
           </div>
         </div>
@@ -73,8 +75,8 @@
 </template>
 
 <script>
+import Settings from "@/_settings/settings";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
-import DomainIcons from "@/_settings/domain-icons";
 
 export default {
   props: {
@@ -86,7 +88,7 @@ export default {
 
   setup() {
     return {
-      DomainIcons
+      Settings
     }
   },
 

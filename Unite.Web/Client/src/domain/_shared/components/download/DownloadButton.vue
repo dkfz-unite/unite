@@ -20,7 +20,7 @@
 <script>
 import { exportFile } from "quasar";
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
-import DomainNames from "@/_settings/domain-names";
+import Settings from "@/_settings/settings";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/image/api";
 import specimenApi from "@/domain/specimens/_shared/specimen/api";
@@ -79,17 +79,17 @@ export default {
 
     async fetchData(model, id) {
       switch (this.domain) {
-        case DomainNames.Donors: return await donorApi.downloadData(id, model);
-        case DomainNames.Mris: return await imageApi.downloadData(id, model);
-        // case DomainNames.Cts: return await imageApi.downloadData(id, model);
-        case DomainNames.Tissues: return await specimenApi.downloadData(id, model);
-        case DomainNames.Cells: return await specimenApi.downloadData(id, model);
-        case DomainNames.Organoids: return await specimenApi.downloadData(id, model);
-        case DomainNames.Xenografts: return await specimenApi.downloadData(id, model);
-        case DomainNames.Genes: return await geneApi.downloadData(id, model);
-        case DomainNames.Ssms: return await variantApi.downloadData(id, model);
-        case DomainNames.Cnvs: return await variantApi.downloadData(id, model);
-        case DomainNames.Svs: return await variantApi.downloadData(id, model);
+        case Settings.donors.domain: return await donorApi.downloadData(id, model);
+        case Settings.mris.domain: return await imageApi.downloadData(id, model);
+        // case Settings.cts.domain: return await imageApi.downloadData(id, model);
+        case Settings.materials.domain: return await specimenApi.downloadData(id, model);
+        case Settings.lines.domain: return await specimenApi.downloadData(id, model);
+        case Settings.organoids.domain: return await specimenApi.downloadData(id, model);
+        case Settings.xenografts.domain: return await specimenApi.downloadData(id, model);
+        case Settings.genes.domain: return await geneApi.downloadData(id, model);
+        case Settings.ssms.domain: return await variantApi.downloadData(id, model);
+        case Settings.cnvs.domain: return await variantApi.downloadData(id, model);
+        case Settings.svs.domain: return await variantApi.downloadData(id, model);
         default: return null;
       }
     }

@@ -87,8 +87,8 @@ import UAnalysisButton from "./components/analysis/AnalysisButton.vue";
 import UDataset from "./components/dataset/Dataset.vue";
 import UControlsToolbar from "./components/dataset/controls/Toolbar.vue";
 
+import Settings from "@/_settings/settings";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
-import DomainNames from "@/_settings/domain-names";
 import api from "./api";
 
 export default {
@@ -113,8 +113,9 @@ export default {
 
   computed: {
     availableDomains() {
-      DomainNames.WithCohorts.forEach(domain => this.$store.dispatch(`${domain}/loadCohorts`));
-      return DomainNames.WithCohorts.filter(domain => this.$store.state[domain].cohorts?.length);
+      const domainNames = Settings.searchable.map(domain => domain.domain);
+      domainNames.forEach(domain => this.$store.dispatch(`${domain}/loadCohorts`));
+      return domainNames.filter(domain => this.$store.state[domain].cohorts?.length);
     },
 
     selectedCohorts() {

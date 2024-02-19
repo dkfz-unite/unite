@@ -26,7 +26,8 @@
         <div class="row">
           <div class="col">
             <div v-for="cohort in analysis.cohorts" class="row items-center q-gutter-xs">
-              <q-icon :name="DomainIcons.get(cohort.domain)" size="sm"/>
+              <!-- <q-icon :name="DomainIcons.get(cohort.domain)" size="sm"/> -->
+              <q-icon :name="Settings[cohort.domain]?.icon" size="sm"/>
               <u-link :to="{ name: 'cohorts', params: { domain: cohort.domain, key: cohort.key } }">{{ cohort.name }}</u-link>
             </div>
           </div>
@@ -53,8 +54,9 @@
 <script>
 import { exportFile } from "quasar";
 import UDexpResults from "./deseq2/Results.vue";
-import DomainIcons from "@/_settings/domain-icons";
 import mixin from "./analysis-mixin";
+
+import Settings from "@/_settings/settings";
 
 export default {
   components: {
@@ -72,7 +74,7 @@ export default {
 
   setup() {
     return {
-      DomainIcons
+      Settings
     }
   },
 
