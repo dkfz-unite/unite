@@ -55,7 +55,7 @@
       "median_mtt_tumor": 3119.238,
       "median_mtt_ce": 3349.582,
       "median_mtt_edema": 3157.629
-  },  
+  },
     "analysis": {
       "id": "Analysis1",
       "type": "RFE",
@@ -90,7 +90,7 @@
       "median_mtt_tumor": 233.943,
       "median_mtt_ce": 251.172,
       "median_mtt_edema": 236.180
-  },  
+  },
     "analysis": {
       "id": "Analysis2",
       "type": "RFE",
