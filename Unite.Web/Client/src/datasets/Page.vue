@@ -8,7 +8,7 @@
   <u-drawer
     ref="drawer"
     side="left"
-    v-if="domain && cohort"
+    v-if="domain && dataset"
     v-model:shown="drawer.show"
     v-model:minimized="drawer.mini">
     <!-- Opened -->
@@ -16,7 +16,7 @@
       <u-datasets
         :domains="domains" 
         v-model:domain="domain"
-        v-model:cohort="cohort"
+        v-model:dataset="dataset"
         @hide="$refs.drawer.minimize()"
       />
     </template>
@@ -25,7 +25,7 @@
       <u-datasets-mini
         :domains="domains"
         v-model:domain="domain"
-        v-model:cohort="cohort"
+        v-model:dataset="dataset"
       />
     </template>
   </u-drawer>
@@ -40,11 +40,11 @@
     </div> -->
 
     <div v-if="domains?.length" class="row">
-      <u-analysis-button :cohorts="selectedCohorts" />
+      <u-analysis-button :datasets="selectedDatasets" />
     </div>
 
     <div v-if="domains?.length" class="row">
-      <div v-if="cohort" class="col">
+      <div v-if="dataset" class="col">
         <!-- Cohort control buttons -->
         <div class="row">
           <div class="col">
@@ -52,7 +52,7 @@
 
             <u-controls-toolbar
               :domain="domain"
-              :dataset="cohort"
+              :dataset="dataset"
               @deleted="onDeleted">
             </u-controls-toolbar>
 
@@ -62,7 +62,7 @@
 
         <!-- Cohort content -->
         <div class="row">
-          <u-dataset v-if="cohort" :dataset="cohort" />
+          <u-dataset v-if="dataset" :dataset="dataset" />
         </div>
       </div>
     </div>
@@ -107,7 +107,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domains: null,
       domain: null,
-      cohort: null
+      dataset: null
     };
   },
 
@@ -118,27 +118,27 @@ export default {
       return domainNames.filter(domain => this.$store.state[domain].cohorts?.length);
     },
 
-    selectedCohorts() {
-      return this.domains?.flatMap(domain => domain.cohorts.filter(cohort => cohort.selected));
+    selectedDatasets() {
+      return this.domains?.flatMap(domain => domain.datasets.filter(dataset => dataset.selected));
     }
   },
 
   mounted() {
     this.domains = this.getDomainOptions(this.availableDomains);
     this.domain = this.domains.find(domain => domain.name == this.$route.params.domain) || this.domains[0] || null;
-    this.cohort = this.domain?.cohorts[0] || null;
+    this.dataset = this.domain?.datasets[0] || null;
     // this.loadDomainData(this.domain);
   },
 
   watch: {
     domain(value) {
-      this.cohort = value?.cohorts[0] || null;
+      this.dataset = value?.datasets[0] || null;
       this.$router.replace({ params: { domain: value?.name || "" }});
       this.loadDomainData(value);
     },
 
     cohort(value) {
-      this.loadCohortData(this.domain, value);
+      this.loadDatasetData(this.domain, value);
     },
   },
 
@@ -146,24 +146,24 @@ export default {
     onDeleted() {
       this.domains = this.getDomainOptions(this.availableDomains);
       this.domain = this.domains.find(domain => domain.name == this.domain.name) || this.domains[0] || null;
-      this.cohort = this.domain?.cohorts[0];
+      this.dataset = this.domain?.datasets[0];
     },
 
     getDomainOptions(domains) {
       return domains.map(domain => ({ 
         name: domain, 
-        cohorts: this.getCohortOptions(domain)
+        datasets: this.getDatasetOptions(domain)
       }));
     },
 
-    getCohortOptions(domain) {
-      return this.$store.state[domain]?.cohorts?.map(cohort => ({
+    getDatasetOptions(domain) {
+      return this.$store.state[domain]?.cohorts?.map(dataset => ({
         domain: domain,
-        key: cohort.key,
-        name: cohort.name,
-        date: cohort.date,
-        description: cohort.description,
-        criteria: cohort.criteria, 
+        key: dataset.key,
+        name: dataset.name,
+        date: dataset.date,
+        description: dataset.description,
+        criteria: dataset.criteria, 
         data: null, 
         selected: false 
       }));
@@ -172,22 +172,22 @@ export default {
     async loadDomainData(domain) {
       if (!domain) return;
 
-      for (const cohort of domain.cohorts) {
-        await this.loadCohortData(domain, cohort);
+      for (const dataset of domain.datasets) {
+        await this.loadDatasetData(domain, dataset);
       }
     },
 
-    async loadCohortData(domain, cohort) {
+    async loadDatasetData(domain, dataset) {
       if (!domain) return;
-      if (!cohort) return;
-      if (!!cohort.data || !!cohort.loading) return;
+      if (!dataset) return;
+      if (!!dataset.data || !!dataset.loading) return;
 
       try {
-        const criteria = new FiltersCriteria(cohort.criteria).toSearchCriteria();
-        cohort.loading = true;
-        cohort.data = await api[domain.name].loadStats(criteria);
+        const criteria = new FiltersCriteria(dataset.criteria).toSearchCriteria();
+        dataset.loading = true;
+        dataset.data = await api[domain.name].loadStats(criteria);
       } finally {
-        cohort.loading = false;
+        dataset.loading = false;
       }
     }
   }

@@ -28,7 +28,7 @@
             <div v-for="cohort in analysis.cohorts" class="row items-center q-gutter-xs">
               <!-- <q-icon :name="DomainIcons.get(cohort.domain)" size="sm"/> -->
               <q-icon :name="Settings[cohort.domain]?.icon" size="sm"/>
-              <u-link :to="{ name: 'cohorts', params: { domain: cohort.domain, key: cohort.key } }">{{ cohort.name }}</u-link>
+              <u-link :to="{ name: 'datasets', params: { domain: cohort.domain, key: cohort.key } }">{{ cohort.name }}</u-link>
             </div>
           </div>
         </div>

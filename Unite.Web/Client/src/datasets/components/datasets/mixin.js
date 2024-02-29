@@ -10,18 +10,18 @@ const mixin = {
       type: Object,
       default: null
     },
-    cohort: {
+    dataset: {
       type: Object,
       default: null
     }
   },
 
-  emits: ["update:domain", "update:cohort"],
+  emits: ["update:domain", "update:dataset"],
 
   data() {
     return {
       tab: this.domain?.name || null,
-      item: this.cohort?.name || null
+      item: this.dataset?.name || null
     };
   },
 
@@ -33,7 +33,7 @@ const mixin = {
       this.tab = value.name;
     },
 
-    cohort(value) {
+    dataset(value) {
       this.item = value.name;
     },
 
@@ -44,8 +44,8 @@ const mixin = {
 
     item(value) {
       const domain = this.domains.find(domain => domain.name == this.tab) || this.domains[0] || null;
-      const cohort = domain?.cohorts.find(cohort => cohort.name == value) || domain.cohorts[0] || null;
-      this.$emit("update:cohort", cohort);
+      const dataset = domain?.datasets.find(dataset => dataset.name == value) || domain.datasets[0] || null;
+      this.$emit("update:dataset", dataset);
     }
   },
 

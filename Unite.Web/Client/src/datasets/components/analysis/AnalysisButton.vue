@@ -1,5 +1,5 @@
 <template>
-  <d-exp-analysis-dialog v-if="showDExpAnalysis" ref="dExpAnalysisDialog" :cohorts="cohorts" />
+  <d-exp-analysis-dialog v-if="showDExpAnalysis" ref="dExpAnalysisDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
@@ -23,7 +23,7 @@ export default {
   },
 
   props: {
-    cohorts: {
+    datasets: {
       type: Array,
       default: () => [],
     },
@@ -35,7 +35,7 @@ export default {
     },
 
     showDExpAnalysis() {
-      return this.cohorts?.length == 2 && this.cohorts?.every(cohort => cohort.data?.geneExp == true);
+      return this.datasets?.length == 2 && this.datasets?.every(dataset => dataset.data?.geneExp == true);
     }
   },
 }

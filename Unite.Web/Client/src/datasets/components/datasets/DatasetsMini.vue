@@ -13,7 +13,7 @@
         <q-tabs v-model="tab" indicator-color="transparent" active-color="primary" align="left" dense vertical>
           <q-tab v-for="domain in domains" :name="domain.name" :icon="getDomainIcon(domain.name)">
             <q-badge :color="getDomainBadgeColor(domain.name)" rounded>
-              {{ domain.cohorts?.length }}
+              {{ domain.datasets?.length }}
             </q-badge>
           </q-tab>
         </q-tabs>

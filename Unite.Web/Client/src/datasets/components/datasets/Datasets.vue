@@ -19,7 +19,7 @@
         <q-tabs v-model="tab" indicator-color="parimary" active-color="primary" align="left" dense vertical>
           <q-tab v-for="domain in domains" :name="domain.name" :icon="getDomainIcon(domain.name)">
             <q-badge :color="getDomainBadgeColor(domain.name)" rounded>
-              {{ domain.cohorts?.length }}
+              {{ domain.datasets?.length }}
             </q-badge>
           </q-tab>
         </q-tabs>
@@ -32,18 +32,18 @@
           <q-tab-panel v-for="domain in domains" :name="domain.name" class="q-pa-none">
             <div class="col">
               <q-list>
-                <template v-for="cohort in domain.cohorts">
-                  <q-item :active="cohort.name == item" @click="item = cohort.name" class="q-px-sm q-py-xs" clickable>
+                <template v-for="dataset in domain.datasets">
+                  <q-item :active="dataset.name == item" @click="item = dataset.name" class="q-px-sm q-py-xs" clickable>
                     <q-item-section>
                       <q-item-label lines="1">
-                        {{ cohort.name }}
+                        {{ dataset.name }}
                       </q-item-label>
                       <q-item-label lines="1" caption>
-                        {{ $helpers.content.toDateTimeString(cohort.date) }}
+                        {{ $helpers.content.toDateTimeString(dataset.date) }}
                       </q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-checkbox v-model="cohort.selected" @click="onSelect(cohort)" dense />
+                      <q-checkbox v-model="dataset.selected" @click="onSelect(dataset)" dense />
                     </q-item-section>
                   </q-item>
                 </template>
@@ -72,10 +72,10 @@ export default {
   emits: ["hide"],
 
   methods: {
-    onSelect(cohort) {
-      if (cohort.selected) {
-        const orders = this.domains.flatMap(domain => domain.cohorts).map(cohort => cohort.order || 0);
-        cohort.order = Math.max(...orders) + 1;
+    onSelect(dataset) {
+      if (dataset.selected) {
+        const orders = this.domains.flatMap(domain => domain.datasets).map(dataset => dataset.order || 0);
+        dataset.order = Math.max(...orders) + 1;
       }
     }
   }
