@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import UAvailableData from "@/domain/_shared/components/summary/AvailableData.vue";
+import UAvailableData from "@/domain/_shared/entry/components/tabs/summary/AvailableData.vue";
 
 export default {
   components: {
