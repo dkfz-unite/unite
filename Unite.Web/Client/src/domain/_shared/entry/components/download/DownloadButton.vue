@@ -18,8 +18,9 @@
 </template>
 
 <script>
-import { exportFile } from "quasar";
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
+
+import { exportFile } from "quasar";
 import Settings from "@/_settings/settings";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/image/api";

@@ -141,7 +141,7 @@ export default {
       this.loadDomainData(value);
     },
 
-    cohort(value) {
+    dataset(value) {
       this.loadDatasetData(this.domain, value);
     },
   },

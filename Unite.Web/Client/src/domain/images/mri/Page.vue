@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import UDownloadButton from "../../_shared/components/download/DownloadButton.vue";
+import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";

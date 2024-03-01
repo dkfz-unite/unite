@@ -63,7 +63,7 @@
 </template>
   
 <script>
-import UDownloadButton from "../../../_shared/components/download/DownloadButton.vue";
+import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UConsequencesTab from "../_shared/variant/components/tabs/ConsequencesTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
