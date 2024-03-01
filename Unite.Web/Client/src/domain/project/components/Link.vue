@@ -1,5 +1,5 @@
 <template>
-  <u-link :to="{ name: 'project', params: { id: id.toString() } }">
+  <u-link :to="{ name: Settings.domain, params: { id: id.toString() } }">
     <slot>
       {{ id }}
     </slot>
@@ -7,11 +7,19 @@
 </template>
 
 <script>
+import Settings from "../settings";
+
 export default {
   props: {
     id: {
       type: Number,
       required: true
+    }
+  },
+
+  setup() {
+    return {
+      Settings
     }
   }
 }

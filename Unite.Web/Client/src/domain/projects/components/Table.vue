@@ -30,9 +30,9 @@
     <template v-slot:body-cell-name="props">
       <q-td :props="props">
         <template v-if="props.value.id">
-          <router-link class="u-link" :to="{ name: 'project', params: { id: props.value.id.toString() }}">
+          <u-link-project :id="props.value.id">
             {{ props.value.name }}
-          </router-link>
+          </u-link-project>
         </template>
         <template v-else>
           {{ props.value.name }}

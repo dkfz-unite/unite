@@ -18,7 +18,7 @@
 
       <template v-slot:body-cell-name="props">
         <q-td :props="props">
-          <u-gene-link :id="props.value.id">{{ props.value.symbol }}</u-gene-link>
+          <u-link-gene :id="props.value.id">{{ props.value.symbol }}</u-link-gene>
         </q-td>
       </template>
 
@@ -79,7 +79,6 @@
 
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
-import UGeneLink from "@/_shared/components/GeneLink.vue";
 import UExpressionStatsHeader from "./cells/ExpressionStatsHeader.vue";
 import UExpressionStatsCell from "./cells/ExpressionStatsCell.vue";
 import tableMixin from "@/domain/_shared/entries/components/table-mixin";
@@ -90,7 +89,6 @@ import Biotype from "../models/enums/biotype";
 export default {
   components: {
     UDataTable,
-    UGeneLink,
     UExpressionStatsHeader,
     UExpressionStatsCell
   },

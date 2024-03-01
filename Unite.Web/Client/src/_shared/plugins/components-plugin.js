@@ -1,6 +1,7 @@
 import UArray from "@/_shared/components/base/Array.vue";
 import ULink from "@/_shared/components/base/Link.vue";
 import ULinkExternal from "@/_shared/components/base/LinkExternal.vue";
+import ULinkProject from "@/domain/project/components/Link.vue";
 import ULinkDonor from "@/domain/donor/components/Link.vue";
 import ULinkImage from "@/domain/images/_shared/image/components/Link.vue";
 import ULinkMri from "@/domain/images/mri/components/Link.vue";
@@ -20,6 +21,7 @@ const plugin = {
       .component("u-array", UArray)
       .component("u-link", ULink)
       .component("u-link-external", ULinkExternal)
+      .component("u-link-project", ULinkProject)
       .component("u-link-donor", ULinkDonor)
       .component("u-link-image", ULinkImage)
       .component("u-link-mri", ULinkMri)
