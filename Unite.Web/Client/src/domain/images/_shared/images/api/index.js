@@ -1,6 +1,6 @@
-import DomainApi from "@/domain/_shared/api/domain-api";
+import ModelsApi from "@/domain/_shared/entries/api";
 
-export default class ImagesApi extends DomainApi {
+export default class ImagesApi extends ModelsApi {
   constructor(type) {
     super(`images/${type}`);
   }

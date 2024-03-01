@@ -1,4 +1,4 @@
-import SearchPageState from "./search-page-state.js";
+import SearchPageState, { createSearchPageState} from "./search-page-state.js";
 import searchPageGetters from "./search-page-getters.js";
 import searchPageActions from "./search-page-actions.js";
 
@@ -11,6 +11,16 @@ class SearchPageStore {
 
 	constructor(domain = null) {;
 		this.state = () => new SearchPageState(domain);
+	}
+}
+
+export function createSearchPageStore(domain) {
+	return {
+		namespaced: true,
+		
+		state: createSearchPageState(domain),
+		getters: searchPageGetters,
+		actions: searchPageActions
 	}
 }
 

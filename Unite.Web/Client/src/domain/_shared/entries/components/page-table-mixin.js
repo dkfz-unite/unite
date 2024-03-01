@@ -16,6 +16,10 @@ const mixin = {
       }
     },
 
+    account() {
+      return this.$store.state.identity.account?.email;
+    },
+
     filtersCriteria: {
       get() { return this.state.filtersCriteria },
       set(value) { this.state.filtersCriteria = value }
@@ -45,12 +49,13 @@ const mixin = {
   watch: {
     filtersCriteria(value) {
       this.loadData();
-    }
+    },
   },
 
   mounted() {
     if (this.state?.domain) {
-      this.$store.dispatch(`${this.state.domain}/loadCohorts`);
+      const payload = { owner: this.account, domain: this.state.domain };
+      this.$store.dispatch(`${this.state.domain}/loadDatasets`, payload);
     }
 
     this.loadData();
@@ -58,7 +63,8 @@ const mixin = {
 
   unmounted() {
     if (this.state?.domain) {
-      this.$store.dispatch(`${this.state.domain}/saveCohorts`);
+      const payload = { owner: this.account, domain: this.state.domain };
+      this.$store.dispatch(`${this.state.domain}/saveDatasets`, payload);
     }
   },
 

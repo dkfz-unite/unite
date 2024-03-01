@@ -11,17 +11,17 @@
       <q-list style="width: 250px">
         <q-item :to="{ name: 'datasets', params: { domain: domain} }" clickable v-close-popup>
           <q-item-section>
-            Show saved cohorts
+            Show saved datasets
           </q-item-section>
         </q-item>
 
         <q-separator />
 
-        <template v-for="cohort in options">
-          <q-item @click="showCohort(cohort)" clickable v-close-popup>
+        <template v-for="dataset in options">
+          <q-item @click="showCohort(dataset)" clickable v-close-popup>
             <q-item-section>
-              <q-item-label lines="1">{{ cohort.name }}</q-item-label>
-              <q-item-label lines="1" caption>{{ $helpers.content.toDateTimeString(cohort.date) }}</q-item-label>
+              <q-item-label lines="1">{{ dataset.name }}</q-item-label>
+              <q-item-label lines="1" caption>{{ $helpers.content.toDateTimeString(dataset.date) }}</q-item-label>
             </q-item-section>
           </q-item>
         </template>
@@ -32,20 +32,14 @@
 
 <script>
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
-import { mapGetters, mapState } from "vuex";
 
 export default {
   inject: ["domain"],
 
   computed: {
-    // ...mapGetters("filters", {
-    //   getCohorts: "cohorts",
-    //   getCohort: "cohort"
-    // }),
-
     cohorts: {
-      get() { return this.$store.state[this.domain].cohorts; },
-      set(value) { this.$store.state[this.domain].cohorts = value }
+      get() { return this.$store.state[this.domain].datasets; },
+      set(value) { this.$store.state[this.domain].datasets = value }
     },
 
     criteria: {
@@ -60,10 +54,10 @@ export default {
 
     options() {
       // return this.getCohorts(this.domain)?.sort(this.compareDates)?.map(cohort => {
-      return this.cohorts?.sort(this.compareDates)?.map(cohort => {
+      return this.cohorts?.sort(this.compareDates)?.map(dataset => {
         return {
-          name: cohort.name,
-          date: cohort.date
+          name: dataset.name,
+          date: dataset.date
         };
       });
     }
@@ -71,8 +65,8 @@ export default {
 
   methods: {
     showCohort(option) {
-      const cohort = this.cohorts.find(cohort => cohort.name === option.name);
-      this.criteria = new FiltersCriteria(cohort.criteria);
+      const dataset = this.cohorts.find(dataset => dataset.name === option.name);
+      this.criteria = new FiltersCriteria(dataset.criteria);
       this.selected = [];
     },
 

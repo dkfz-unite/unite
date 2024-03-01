@@ -1,4 +1,4 @@
-import DomainApi from "@/domain/_shared/api/domain-api";
+import ModelsApi from "@/domain/_shared/entries/api";
 import settings from "@/settings";
 
 const formats = {
@@ -12,7 +12,7 @@ function validateFormat(format) {
   }
 }
 
-export default class SpecimensApi extends DomainApi {
+export default class SpecimensApi extends ModelsApi {
   feedUrl = `${settings.urls.specimens}`;
 
   constructor(type) {

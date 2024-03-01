@@ -4,12 +4,12 @@ import settings from "@/settings";
 /**
  * Represents an API client for a domain.
  */
-export default class DomainApi {
+export default class ModelsApi {
   /**
    * Relative to composer URL of the domain (e.g. "donors" or "specimens/tissue" etc.).
    * @type {string}
    */
-  domainUrl = null;
+  url = null;
 
   /**
    * API client.
@@ -22,7 +22,7 @@ export default class DomainApi {
    * @param {string} domainUrl - Relative to composer URL of the domain (e.g. "donors" or "specimens/tissue" etc.).
    */
   constructor(domainUrl) {
-    this.domainUrl = `${settings.urls.composer}/${domainUrl}`;
+    this.url = `${settings.urls.composer}/${domainUrl}`;
     this.client = new ApiClient();
   }
 
@@ -32,7 +32,7 @@ export default class DomainApi {
    * @returns {Promise<object>} - A promise that resolves with the search results.
    */
   async search(criteria) {
-    const url = this.domainUrl;
+    const url = this.url;
     return await this.client.post(url, criteria);
   }
 
@@ -42,7 +42,7 @@ export default class DomainApi {
    * @returns {Promise<object>} - A promise that resolves with the statistics results.
    */
   async loadStats(criteria) {
-    const url = `${this.domainUrl}/stats`;
+    const url = `${this.url}/stats`;
     return await this.client.post(url, criteria);
   }
 
@@ -53,7 +53,7 @@ export default class DomainApi {
    * @returns {Promise<Blob>} - A promise that resolves with the retrieved data.
    */
   async downloadData(data, criteria) {
-    const url = `${this.domainUrl}/data`;
+    const url = `${this.url}/data`;
     const body = { data: data, criteria: criteria };
     return await this.client.post(url, body, { responseType: "blob" });
   }

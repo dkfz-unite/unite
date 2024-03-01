@@ -1,5 +1,5 @@
 import settings from "@/settings";
-import DomainApi from "@/domain/_shared/api/domain-api";
+import ModelsApi from "@/domain/_shared/entries/api";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },
@@ -12,7 +12,7 @@ function validateFormat(format) {
   }
 }
 
-export default class ImagesApi extends DomainApi {
+export default class ImagesApi extends ModelsApi {
   feedUrl = `${settings.urls.images}`;
 
   constructor() {

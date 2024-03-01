@@ -112,10 +112,14 @@ export default {
   },
 
   computed: {
+    owner() {
+      return this.$store.state.identity?.account?.email;
+    },
+
     availableDomains() {
       const domainNames = Settings.searchable.map(domain => domain.domain);
-      domainNames.forEach(domain => this.$store.dispatch(`${domain}/loadCohorts`));
-      return domainNames.filter(domain => this.$store.state[domain].cohorts?.length);
+      domainNames.forEach(domain => this.$store.dispatch(`${domain}/loadDatasets`, { owner: this.owner, domain: domain }));
+      return domainNames.filter(domain => this.$store.state[domain].datasets?.length);
     },
 
     selectedDatasets() {
@@ -157,7 +161,7 @@ export default {
     },
 
     getDatasetOptions(domain) {
-      return this.$store.state[domain]?.cohorts?.map(dataset => ({
+      return this.$store.state[domain]?.datasets?.map(dataset => ({
         domain: domain,
         key: dataset.key,
         name: dataset.name,

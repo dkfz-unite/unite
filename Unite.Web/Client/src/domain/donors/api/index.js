@@ -1,5 +1,6 @@
 import settings from "@/settings";
-import DomainApi from "@/domain/_shared/api/domain-api";
+import ModelsApi from "@/domain/_shared/entries/api";
+import Settings from "../settings";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },
@@ -12,11 +13,11 @@ function validateFormat(format) {
   }
 }
 
-export default class DonorsApi extends DomainApi {
+export default class DonorsApi extends ModelsApi {
   feedUrl = `${settings.urls.donors}`;
 
   constructor() {
-    super("donors"); // domain <- settings
+    super(Settings.domain);
   }
 
   /**
