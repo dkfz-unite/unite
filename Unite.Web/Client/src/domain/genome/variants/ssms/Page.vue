@@ -56,7 +56,7 @@
           <template #header-right>
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
-              <u-cohorts-toolbar :domain="domain" />
+              <u-datasets-toolbar :domain="domain" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -73,7 +73,7 @@ import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
 import UDataTable from "./components/Table.vue";
 import UFiltersToolbar from "@/domain/_shared/entries/components/toolbars/filters/FiltersToolbar.vue";
-import UCohortsToolbar from "@/domain/_shared/entries/components/toolbars/cohorts/CohortsToolbar.vue";
+import UDatasetsToolbar from "@/domain/_shared/entries/components/toolbars/datasets/DatasetsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
 
@@ -92,7 +92,7 @@ export default {
     UFiltersMini,
     UDataTable,
     UFiltersToolbar,
-    UCohortsToolbar,
+    UDatasetsToolbar,
     USearchBar
   },
 

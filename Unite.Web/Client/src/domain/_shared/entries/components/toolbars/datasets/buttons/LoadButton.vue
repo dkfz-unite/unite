@@ -18,7 +18,7 @@
         <q-separator />
 
         <template v-for="dataset in options">
-          <q-item @click="showCohort(dataset)" clickable v-close-popup>
+          <q-item @click="showDataset(dataset)" clickable v-close-popup>
             <q-item-section>
               <q-item-label lines="1">{{ dataset.name }}</q-item-label>
               <q-item-label lines="1" caption>{{ $helpers.content.toDateTimeString(dataset.date) }}</q-item-label>
@@ -37,7 +37,7 @@ export default {
   inject: ["domain"],
 
   computed: {
-    cohorts: {
+    datasets: {
       get() { return this.$store.state[this.domain].datasets; },
       set(value) { this.$store.state[this.domain].datasets = value }
     },
@@ -54,7 +54,7 @@ export default {
 
     options() {
       // return this.getCohorts(this.domain)?.sort(this.compareDates)?.map(cohort => {
-      return this.cohorts?.sort(this.compareDates)?.map(dataset => {
+      return this.datasets?.sort(this.compareDates)?.map(dataset => {
         return {
           name: dataset.name,
           date: dataset.date
@@ -64,8 +64,8 @@ export default {
   },
 
   methods: {
-    showCohort(option) {
-      const dataset = this.cohorts.find(dataset => dataset.name === option.name);
+    showDataset(option) {
+      const dataset = this.datasets.find(dataset => dataset.name === option.name);
       this.criteria = new FiltersCriteria(dataset.criteria);
       this.selected = [];
     },

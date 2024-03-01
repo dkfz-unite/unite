@@ -7,13 +7,13 @@
 
     <q-card style="min-width: 300px">
       <q-card-section>
-        <div class="text-h6">Save as Cohort</div>
+        <div class="text-h6">Save as dataset</div>
       </q-card-section>
 
       <q-card-section class="q-gutter-y-sm">
         <q-input 
           label="Name"
-          placeholder="Enter cohort name"
+          placeholder="Enter dataset name"
           type="text" 
           v-model="name.value" 
           :rules="name.rules" 
@@ -22,8 +22,8 @@
 
         <q-input 
           label="Description (optional)"
-          placeholder="Enter cohort description"
-          type="text" 
+          placeholder="Enter dataset description"
+          type="text"
           v-model="description.value" 
           autogrow square outlined dense 
         />
@@ -48,7 +48,7 @@
   <q-btn 
     v-if="criteria?.numberOfFilters || selected?.length" 
     label="Save" 
-    title="Save as cohort" 
+    title="Save as dataset" 
     icon="las la-save"
     color="secondary"
     @click="showDialog=true"
@@ -69,8 +69,8 @@ export default {
       name: {
         value: null,
         rules: [
-          (val) => this.nameIsNotEmpty(val) || "Please, enter cohort name",
-          (val) => this.nameIsNotReserved(val) || "Cohort with given name already exists"
+          (val) => this.nameIsNotEmpty(val) || "Please, enter dataset name",
+          (val) => this.nameIsNotReserved(val) || "Dataset with given name already exists"
         ]
       },
 
@@ -103,13 +103,13 @@ export default {
   methods: {
     onSave() {
       const domainName = this.domain;
-      const cohortData = {
+      const datasetData = {
         name: this.name.value,
         date: new Date(),
         description: this.description.value,
         criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
       };
-      this.$store.dispatch(`${domainName}/addDataset`, cohortData);
+      this.$store.dispatch(`${domainName}/addDataset`, datasetData);
     },
 
     onClose() {
@@ -117,13 +117,12 @@ export default {
       this.description.value = null;
     },
 
-    nameIsNotEmpty(cohortName) {
-      return cohortName?.length > 0;
+    nameIsNotEmpty(name) {
+      return name?.length > 0;
     },
 
-    nameIsNotReserved(cohortName) {
-      const domainName = this.domain;
-      const existing = this.$store.state[domainName].cohorts?.some(cohort => cohort.name == cohortName);
+    nameIsNotReserved(name) {
+      const existing = this.$store.state[this.domain].datasets?.some(dataset => dataset.name == name);
       return existing == false;
     },
 
