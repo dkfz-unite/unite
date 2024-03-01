@@ -5,7 +5,8 @@
       :data="data" 
       :loading="loading" 
       @submit="onDownload" 
-      @cancel="onCancel" />
+      @cancel="onCancel"
+    />
   </q-dialog>
 
   <q-btn

@@ -127,11 +127,11 @@ export default {
     async importFromClipboard() {
       try {
         const json = await navigator.clipboard.readText();
-        const cohort = JSON.parse(json);
-        const validation = await this.filtersAreValid(cohort);
+        const dataset = JSON.parse(json);
+        const validation = await this.filtersAreValid(dataset);
 
         if (validation === true) {
-          this.criteria = new FiltersCriteria(cohort.criteria);
+          this.criteria = new FiltersCriteria(dataset.criteria);
           this.notifySuccess("Filters imported", "Filters were imported from clipboard");
         } else {
           this.notifyError("Couldn't import filters", validation);
@@ -145,8 +145,8 @@ export default {
     async onApply() {
       try {
         const json = await this.file.value.text();
-        const cohort = JSON.parse(json);
-        this.criteria = new FiltersCriteria(cohort.criteria);
+        const dataset = JSON.parse(json);
+        this.criteria = new FiltersCriteria(dataset.criteria);
         this.notifySuccess("Filters imported", "Filters were imported from file");
       } catch {
         this.notifyError("Couldn't import filters");
@@ -164,32 +164,32 @@ export default {
     async fileIsValid(file) {
       try {
         const json = await file.text();
-        const cohort = JSON.parse(json);
-        return this.filtersAreValid(cohort);
+        const dataset = JSON.parse(json);
+        return this.filtersAreValid(dataset);
       } catch {
         return "Couldn't read filters";
       }
     },
 
-    async filtersAreValid(cohort) {
-      if (cohort?.domain == null) {
+    async filtersAreValid(dataset) {
+      if (dataset?.domain == null) {
         return `Filters domain should be specified`;
       }
 
-      if (cohort?.domain != this.domain) {
+      if (dataset?.domain != this.domain) {
         return `Filters should match current context '${this.domain}'`;
       }
 
-      if (cohort?.criteria?.donor == null
-        && cohort?.criteria?.mri == null
-        && cohort?.criteria?.tissue == null
-        && cohort?.criteria?.cell == null
-        && cohort?.criteria?.organoid == null
-        && cohort?.criteria?.xenograft == null
-        && cohort?.criteria?.gene == null
-        && cohort?.criteria?.ssm == null
-        && cohort?.criteria?.cnv == null
-        && cohort?.criteria?.sv == null) {
+      if (dataset?.criteria?.donor == null
+        && dataset?.criteria?.mri == null
+        && dataset?.criteria?.material == null
+        && dataset?.criteria?.line == null
+        && dataset?.criteria?.organoid == null
+        && dataset?.criteria?.xenograft == null
+        && dataset?.criteria?.gene == null
+        && dataset?.criteria?.ssm == null
+        && dataset?.criteria?.cnv == null
+        && dataset?.criteria?.sv == null) {
         return `Filters criteria should be specified`;
       }
       

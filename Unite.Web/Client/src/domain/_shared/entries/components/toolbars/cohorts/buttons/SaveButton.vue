@@ -109,7 +109,7 @@ export default {
         description: this.description.value,
         criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
       };
-      this.$store.dispatch(`${domainName}/addCohort`, cohortData);
+      this.$store.dispatch(`${domainName}/addDataset`, cohortData);
     },
 
     onClose() {
