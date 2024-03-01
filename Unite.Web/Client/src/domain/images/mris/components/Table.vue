@@ -18,13 +18,13 @@
 
       <template v-slot:body-cell-id="props">
         <q-td :props="props">
-          <u-image-link :id="props.value" />
+          <u-link-mri :id="props.value" />
         </q-td>
       </template>
 
       <template v-slot:body-cell-donorId="props">
         <q-td :props="props">
-          <u-donor-link :id="props.value" />
+          <u-link-donor :id="props.value" />
         </q-td>
       </template>
     </u-data-table>
@@ -33,16 +33,12 @@
 
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
-import UImageLink from "@/domain/images/mri/components/Link.vue";
-import UDonorLink from "@/domain/donor/components/Link.vue";
 import tableCellsDataMixin from "@/domain/_shared/entries/components/table-cells-data-mixin";
 import tableMixin from "@/domain/_shared/entries/components/table-mixin";
 
 export default {
   components: {
-    UDataTable,
-    UImageLink,
-    UDonorLink
+    UDataTable
   },
 
   mixins: [tableMixin, tableCellsDataMixin],
@@ -73,7 +69,7 @@ export default {
         show: false
       });
 
-      if (!["donor", "tissue"].includes(this.$route.name)) {
+      if (!["donor", "material"].includes(this.$route.name)) {
         columns.push({
           name: "donorId",
           label: "Donor ID",
