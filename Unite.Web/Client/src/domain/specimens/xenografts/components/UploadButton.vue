@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import UUploadDialog from "@/domain/_shared/components/upload/UploadDialog.vue";
+import UUploadDialog from "@/domain/_shared/entries/components/upload/UploadDialog.vue";
 import SpecimenType from "../../_shared/specimens/models/enums/specimen-type";
 import SpecimensApi from "../../_shared/specimens/api";
 

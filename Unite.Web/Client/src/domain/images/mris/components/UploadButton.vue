@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import UUploadDialog from "@/domain/_shared/components/upload/UploadDialog.vue";
+import UUploadDialog from "@/domain/_shared/entries/components/upload/UploadDialog.vue";
 import ImagesApi from "../api";
 
 export default {
