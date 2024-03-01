@@ -6,9 +6,9 @@
       </div>
       <div v-for="(gene, j) in consequence.genes" :key="j">
         <span>
-          <u-gene-link class="text-italic" :id="gene.id">
+          <u-link-gene class="text-italic" :id="gene.id">
             {{ gene.symbol }}
-          </u-gene-link>
+          </u-link-gene>
           <span v-if="gene.translations?.length">
             (<span v-for="(translation, k) in gene.translations" :key="k">
               <span>{{ translation }}</span>
@@ -25,13 +25,10 @@
 </template>
 
 <script>
-import UGeneLink from "@/domain/genome/gene/components/Link.vue";
 import ImpactColor from "@/domain/genome/variants/_models/impact-color";
 import ConsequenceType from "../../models/enums/consequence-type";
 
 export default {
-  components: { UGeneLink },
-
   props: {
     consequences: {
       type: Array,

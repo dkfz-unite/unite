@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import DnaColor from '@/_settings/genome/dna-color';
+import DnaColor from "@/domain/genome/variants/_models/dna-color";
 
 export default {
   props: {
