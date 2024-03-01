@@ -108,7 +108,7 @@ export default {
 
   computed: {
     info() {
-      return this.specimen?.cell;
+      return this.specimen?.line;
     },
 
     hasLinks() {

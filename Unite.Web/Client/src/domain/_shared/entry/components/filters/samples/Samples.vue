@@ -63,8 +63,8 @@ export default {
 
   methods: {
     getIcon(specimenType) {
-      return specimenType == "Tissue" ? "svguse:/icons.svg#u-tissue"
-           : specimenType == "CellLine" ? "las la-microscope"
+      return specimenType == "Material" ? "svguse:/icons.svg#u-material"
+           : specimenType == "Line" ? "las la-microscope"
            : specimenType == "Organoid" ? "svguse:/icons.svg#u-organoid"
            : "svguse:/icons.svg#u-xenograft";
     }

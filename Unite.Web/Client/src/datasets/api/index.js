@@ -11,8 +11,8 @@ import VariantsApi from "@/domain/genome/variants/_shared/variants/api";
 const fasade = {
   [Settings.donors.domain]: new DonorsApi(),
   [Settings.mris.domain]: new ImagesApi(ImageType.Mri),
-  [Settings.materials.domain]: new SpecimensApi(SpecimenType.Tissue),
-  [Settings.lines.domain]: new SpecimensApi(SpecimenType.CellLine),
+  [Settings.materials.domain]: new SpecimensApi(SpecimenType.Material),
+  [Settings.lines.domain]: new SpecimensApi(SpecimenType.Line),
   [Settings.organoids.domain]: new SpecimensApi(SpecimenType.Organoid),
   [Settings.xenografts.domain]: new SpecimensApi(SpecimenType.Xenograft),
   [Settings.genes.domain]: new GenesApi(),

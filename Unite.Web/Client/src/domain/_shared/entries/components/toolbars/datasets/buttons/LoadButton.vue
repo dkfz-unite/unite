@@ -2,7 +2,7 @@
   <q-btn 
     v-if="options?.length" 
     label="Load" 
-    title="Load cohort" 
+    title="Load dataset" 
     icon="las la-archive" 
     color="secondary" 
     dense flat no-caps>
@@ -53,7 +53,6 @@ export default {
     },
 
     options() {
-      // return this.getCohorts(this.domain)?.sort(this.compareDates)?.map(cohort => {
       return this.datasets?.sort(this.compareDates)?.map(dataset => {
         return {
           name: dataset.name,

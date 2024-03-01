@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogCells"
     subject="Cell Lines"
-    templatePathJson="/templates/specimens/cells.json"
-    templatePathTsv="/templates/specimens/cells.tsv"
+    templatePathJson="/templates/specimens/lines.json"
+    templatePathTsv="/templates/specimens/lines.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
     :uploadMethod="uploadCells"
   />

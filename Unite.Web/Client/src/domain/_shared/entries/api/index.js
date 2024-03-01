@@ -6,7 +6,7 @@ import settings from "@/settings";
  */
 export default class ModelsApi {
   /**
-   * Relative to composer URL of the domain (e.g. "donors" or "specimens/tissue" etc.).
+   * Relative to composer URL of the domain (e.g. "donors" or "specimens/material" etc.).
    * @type {string}
    */
   url = null;
@@ -19,7 +19,7 @@ export default class ModelsApi {
 
   /**
    * Creates a new instance of the DomainApi class.
-   * @param {string} domainUrl - Relative to composer URL of the domain (e.g. "donors" or "specimens/tissue" etc.).
+   * @param {string} domainUrl - Relative to composer URL of the domain (e.g. "donors" or "specimens/material" etc.).
    */
   constructor(domainUrl) {
     this.url = `${settings.urls.composer}/${domainUrl}`;

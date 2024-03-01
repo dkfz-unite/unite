@@ -85,7 +85,7 @@ import Permissions from "@/_models/admin/enums/permissions";
 import SpecimenType from "../_shared/specimens/models/enums/specimen-type";
 import SpecimensApi from "../_shared/specimens/api";
 
-const api = new SpecimensApi(SpecimenType.CellLine);
+const api = new SpecimensApi(SpecimenType.Line);
 
 export default {
   components: {
@@ -112,8 +112,8 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.lines.domain,
-      model: FilterModels.Cell,
-      models: [FilterModels.Donor, FilterModels.Cell, ...FilterModels.Genome]
+      model: FilterModels.Line,
+      models: [FilterModels.Donor, FilterModels.Line, ...FilterModels.Genome]
     };
   },
 

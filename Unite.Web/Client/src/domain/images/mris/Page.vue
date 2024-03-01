@@ -113,7 +113,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.mris.domain,
       model: FilterModels.Mri,
-      models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Tissue, ...FilterModels.Genome]
+      models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Material, ...FilterModels.Genome]
     };
   },
 

@@ -132,7 +132,7 @@ export default {
         description: this.description.value,
         status: null,
         date: new Date(),
-        cohorts: datasets,
+        datasets: datasets,
       };
 
       await this.$store.dispatch("analysis/runDExpAnalysis", data);

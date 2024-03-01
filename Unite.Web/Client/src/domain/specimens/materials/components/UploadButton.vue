@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialog"
     subject="Materials"
-    templatePathJson="/templates/specimens/tissues.json"
-    templatePathTsv="/templates/specimens/tissues.tsv"
+    templatePathJson="/templates/specimens/materials.json"
+    templatePathTsv="/templates/specimens/materials.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
     :uploadMethod="uploadTissues"
   />

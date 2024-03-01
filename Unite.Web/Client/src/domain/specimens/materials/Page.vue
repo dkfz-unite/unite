@@ -85,7 +85,7 @@ import FilterModels from "@/_shared/components/filters/filter-models";
 import SpecimenType from "../_shared/specimens/models/enums/specimen-type";
 import SpecimensApi from "../_shared/specimens/api";
 
-const api = new SpecimensApi(SpecimenType.Tissue);
+const api = new SpecimensApi(SpecimenType.Material);
 
 export default {
   components: {
@@ -112,8 +112,8 @@ export default {
     return {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.materials.domain,
-      model: FilterModels.Tissue,
-      models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Tissue, ...FilterModels.Genome]
+      model: FilterModels.Material,
+      models: [FilterModels.Donor, FilterModels.Mri, FilterModels.Material, ...FilterModels.Genome]
     };
   },
 

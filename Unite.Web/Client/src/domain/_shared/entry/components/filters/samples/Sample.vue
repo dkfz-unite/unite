@@ -31,7 +31,7 @@ export default {
 
   computed: {
     icon() {
-      return this.sample.type == "Material" ? "svguse:/icons.svg#u-tissue"
+      return this.sample.type == "Material" ? "svguse:/icons.svg#u-material"
            : this.sample.type == "Line" ? "las la-microscope"
            : this.sample.type == "Organoid" ? "svguse:/icons.svg#u-organoid"
            : this.sample.type == "Xenograft" ? "svguse:/icons.svg#u-xenograft"

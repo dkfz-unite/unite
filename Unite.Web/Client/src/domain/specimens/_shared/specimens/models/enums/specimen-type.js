@@ -1,6 +1,6 @@
 export default class SpecimenType {
-  static Tissue = "Material";
-  static CellLine = "Line";
+  static Material = "Material";
+  static Line = "Line";
   static Organoid = "Organoid";
   static Xenograft = "Xenograft";
 };
