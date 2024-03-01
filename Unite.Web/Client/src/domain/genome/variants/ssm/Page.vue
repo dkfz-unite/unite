@@ -76,7 +76,7 @@ import UDownloadButton from "@/domain/_shared/entry/components/download/Download
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProteinTab from "./components/tabs/ProteinTab.vue";
 import UDonorsTab from "./components/tabs/DonorsTab.vue";
-import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
+import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
 import Settings from "@/_settings/settings";
 import api from "../_shared/variant/api";

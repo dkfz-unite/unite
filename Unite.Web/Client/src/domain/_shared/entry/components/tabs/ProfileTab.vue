@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import USamples from "@/domain/_shared/components/genome/Samples.vue";
+import USamples from "@/domain/_shared/entry/components/filters/samples/Samples.vue";
 import UProfile from "@/visualization/profile/components/Profile.vue";
 import profileCacheService from "@/visualization/profile/components/profile-data-service-cache";
-import pageSamplesMixin from "@/domain/_shared/entry/components/page-samples-mixin";
+import tabSamplesMixin from "@/domain/_shared/entry/components/filters/samples/mixin";
 import api from "@/domain/specimens/_shared/specimen/api";
 
 
@@ -33,7 +33,7 @@ export default {
     UProfile 
   },
 
-  mixins: [pageSamplesMixin],
+  mixins: [tabSamplesMixin],
 
 
   data() {

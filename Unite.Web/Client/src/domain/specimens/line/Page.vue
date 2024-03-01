@@ -125,12 +125,12 @@ import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHe
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UAncestryTab from "../_shared/specimen/components/tabs/AncestryTab.vue";
 import UDrugsTab from "../_shared/specimen/components/tabs/DrugsTab.vue";
-import UProfileTab from "@/domain/_shared/components/genome/profile/ProfileTab.vue";
-import UGenesTab from "@/domain/_shared/components/genome/genes/GenesTab.vue";
-import USsmsTab from "@/domain/_shared/components/genome/variants/SSMsTab.vue";
-import UCnvsTab from "@/domain/_shared/components/genome/variants/CNVsTab.vue";
-import USvsTab from "@/domain/_shared/components/genome/variants/SVsTab.vue";
-import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
+import UProfileTab from "@/domain/_shared/entry/components/tabs/ProfileTab.vue";
+import UGenesTab from "@/domain/_shared/entry/components/tabs/GenesTab.vue";
+import USsmsTab from "@/domain/_shared/entry/components/tabs/SSMsTab.vue";
+import UCnvsTab from "@/domain/_shared/entry/components/tabs/CNVsTab.vue";
+import USvsTab from "@/domain/_shared/entry/components/tabs/SVsTab.vue";
+import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 import pageMixin from "../_shared/specimen/page-mixin";
 
 import Settings from "@/_settings/settings";

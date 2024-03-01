@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <span class="text-h5 u-text-title">Genes</span>
+      <span class="text-h5 u-text-title">Copy Number Variants (CNV)</span>
     </div>
 
     <div class="row q-col-gutter-sm q-pt-sm">
@@ -35,8 +35,6 @@
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
-          :show-expressions="true"
-          :show-stats="true"
           v-model:rows-selected="rowsSelected"
           v-model:from="filtersCriteria.from"
           v-model:size="filtersCriteria.size"
@@ -51,15 +49,15 @@
 <script>
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
-import USamples from "@/domain/_shared/components/genome/Samples.vue";
-import UDataTable from "@/domain/genome/genes/components/Table.vue";
-import pageSamplesMixin from "@/domain/_shared/entry/components/page-samples-mixin";
+import USamples from "@/domain/_shared/entry/components/filters/samples/Samples.vue";
+import UDataTable from "@/domain/genome/variants/cnvs/components/Table.vue";
+import tabSamplesMixin from "@/domain/_shared/entry/components/filters/samples/mixin";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
-import Settings from "@/domain/genome/genes/settings";
+import Settings from "@/domain/genome/variants/cnvs/settings";
 import FilterModel from "@/_shared/components/filters/filter-models";
-import filters from "@/domain/genome/genes/models/filters/gene-filters";
-
+import VariantType from "@/domain/genome/variants/_shared/variants/models/enums/variant-type";
+import filters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
 import api from "@/domain/specimens/_shared/specimen/api";
 
 export default {
@@ -70,7 +68,7 @@ export default {
     UDataTable
   },
 
-  mixins: [pageSamplesMixin, tabTableMixin],
+  mixins: [tabSamplesMixin, tabTableMixin],
 
   props: {
     area: {
@@ -86,7 +84,7 @@ export default {
   data() {
     return {
       domain: this.getDomain(this.area),
-      model: FilterModel.Gene,
+      model: FilterModel.Cnv,
       filters: filters
     }
   },
@@ -98,7 +96,7 @@ export default {
 
     async fetchData(searchCriteria) {
       if (!this.sample) return;
-      return await api.searchGenes(this.sample.id, searchCriteria);
+      return await api.searchVariants(this.sample.id, VariantType.CNV, searchCriteria);
     }
   }
 }

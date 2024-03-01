@@ -87,7 +87,7 @@ import UDonorsTab from "./components/tabs/DonorsTab.vue";
 import USsmsTab from "./components/tabs/SSMsTab.vue";
 import UCnvsTab from "./components/tabs/CNVsTab.vue";
 import USvsTab from "./components/tabs/SVsTab.vue";
-import pageTabsMixin from "@/domain/_shared/entry/components/page-tabs-mixin";
+import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
 import Settings from "@/_settings/settings";
 import api from "./api";

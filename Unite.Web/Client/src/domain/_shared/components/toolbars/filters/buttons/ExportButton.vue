@@ -50,10 +50,10 @@ export default {
       if (this.selected?.length) {
         if (this.domain == "donors") {
           criteria.donorFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "tissues") {
-          criteria.tissueFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
-        } else if (this.domain == "cells") {
-          criteria.cellFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
+        } else if (this.domain == "materials") {
+          criteria.materialFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
+        } else if (this.domain == "lines") {
+          criteria.lineFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
         } else if (this.domain == "organoids") {
           criteria.organoidFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
         } else if (this.domain == "xenografts") {
