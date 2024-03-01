@@ -121,7 +121,7 @@
 <script>
 import UUploadButton from "../_shared/specimen/components/upload/UploadButton.vue";
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
-import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
+import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UAncestryTab from "../_shared/specimen/components/tabs/AncestryTab.vue";
 import UDrugsTab from "../_shared/specimen/components/tabs/DrugsTab.vue";

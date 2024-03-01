@@ -134,7 +134,7 @@
 
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
-import UTabVariants from "../_shared/components/genome/variants/VariantsTabHeader.vue";
+import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UClinicalTab from "./components/tabs/ClinicalTab.vue";
 import UTreatmentsTab from "./components/tabs/TreatmentsTab.vue";

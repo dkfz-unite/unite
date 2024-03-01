@@ -94,7 +94,7 @@
 
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
-import UTabVariants from "../../_shared/components/genome/variants/VariantsTabHeader.vue";
+import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProfileTab from "@/domain/_shared/entry/components/tabs/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/entry/components/tabs/GenesTab.vue";
