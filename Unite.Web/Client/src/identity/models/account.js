@@ -1,5 +1,3 @@
-import Permissions from "@/_models/admin/enums/permissions";
-
 export default class Account {
   id = null;
   email = null;
@@ -18,18 +16,6 @@ export default class Account {
       group.values.push(blocks[1]);
       return groups;
     }, []);
-  }
-
-  get isAdmin() {
-    return this.hasPermissions(Permissions.Admin);
-  }
-
-  hasPermission(permission) {
-    return this.permissions.includes(permission);
-  }
-
-  hasPermissions(permissions) {
-    return permissions.every(permission => this.hasPermission(permission));
   }
 
   constructor(data) {

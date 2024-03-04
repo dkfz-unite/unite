@@ -57,7 +57,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-datasets-toolbar :domain="domain" />
-              <u-upload-button v-if="canUpload" />
+              <u-upload-button v-if="canWriteData" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -80,9 +80,9 @@ import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
 import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
 
 import Settings from "@/_settings/settings";
-import Permissions from "@/_models/admin/enums/permissions";
 import SpecimenType from "../_shared/specimens/models/enums/specimen-type";
 import SpecimensApi from "../_shared/specimens/api";
+import { mapGetters } from "vuex";
 
 const api = new SpecimensApi(SpecimenType.Organoid);
 
@@ -117,10 +117,7 @@ export default {
   },
 
   computed: {
-    canUpload() {
-      const account = this.$store.state.identity.account;
-      return account.hasPermission(Permissions.Data.Write);
-    },
+    ...mapGetters("identity", ["canWriteData"])
   },
 
   methods: {

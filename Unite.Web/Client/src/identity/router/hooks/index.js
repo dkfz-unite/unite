@@ -23,7 +23,8 @@ export async function authorize(hook, store) {
       }
       // Check account permissions if required
       if (to.meta?.authorize.permissions) {
-        const authorized = store.state["identity"].account.hasPermissions(to.meta?.authorize.permissions);
+        // const authorized = store.state["identity"].account.hasPermissions(to.meta?.authorize.permissions);
+        const authorized = store.getters["identity/hasPermissions"](to.meta?.authorize.permissions);
         if (!authorized) {
           // If permissions are not met, redirect to account
           return { name: "account" };

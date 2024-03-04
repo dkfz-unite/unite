@@ -1,5 +1,4 @@
-import Permissions from "@/_models/admin/enums/permissions";
-
+import { mapGetters } from "vuex";
 import specimenApi from "./api";
 import donorApi from "@/domain/donor/api";
 
@@ -14,13 +13,7 @@ const mixin = {
   },
 
   computed: {
-    account() {
-      return this.$store.state.identity.account;
-    },
-
-    canUpload() {
-      return this.account.hasPermission(Permissions.Data.Write);
-    },
+    ...mapGetters("identity", ["canWriteData"]),
 
     showInterventions() {
       return this.specimen?.data?.interventions;

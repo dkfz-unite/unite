@@ -11,7 +11,7 @@
       <q-space />
 
       <u-upload-button
-        v-if="specimen && donor && canUpload"
+        v-if="specimen && donor && canWriteData"
         :donorId="donor.referenceId"
         :specimenId="specimen.referenceId"
         specimenType="Xenograft">
