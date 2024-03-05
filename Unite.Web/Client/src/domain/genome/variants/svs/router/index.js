@@ -1,9 +1,11 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: '/svs',
-    name: 'svs',
-    meta: { title: "UNITE.SVs", authorize: true },
-    component: () => import(/* webpackChunkName: "svs" */ '../SVsPage.vue')
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true },
+    component: () => import(/* webpackChunkName: "svs" */ "../Page.vue")
   }
 ];
 

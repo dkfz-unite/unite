@@ -1,5 +1,5 @@
 import { colors } from "quasar";
-import CnvType from "@/_models/domain/genome/variants/cnv/enums/cnv-type";
+import CnvType from "@/domain/genome/variants/cnvs/models/enums/cnv-type";
 
 const props = {
     code: (range) => range.code,

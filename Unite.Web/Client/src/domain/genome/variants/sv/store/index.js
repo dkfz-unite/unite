@@ -1,13 +1,15 @@
-class SvStore {
-  namespaced = true;
+function createStore() {
+  return {
+    namespaced: true,
 
-  state = () => ({
-  });
+    state: {},
 
-  actions = {
-    clearState({ state, dispatch }) {
+    actions: {
+      clearState({ state, dispatch }) {
+      }
     }
   }
+
 }
 
-export default SvStore;
+export default createStore;

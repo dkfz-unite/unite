@@ -1,21 +1,22 @@
-import SearchPageStore from "@/_shared/store/search-page-store";
+import createModelsStore from "@/domain/_shared/common/store";
+import { Tabs } from "../settings";
 
-class SsmStore {
-  namespaced = true;
+function createStore() {
+  return {
+    namespaced: true,
 
-  modules = {
-    donors: new SearchPageStore()
-  };
+    modules: {
+      [Tabs.donors.domain]: createModelsStore(Tabs.donors.domain),
+    },
 
-  state = () => ({
+    state: {},
 
-  });
-
-  actions = {
-    clearState({ state, dispatch }) {
-      dispatch("donors/clear")
+    actions: {
+      clearState({ state, dispatch }) {
+        dispatch(`${Tabs.donors.domain}/clear`)
+      }
     }
   }
 }
 
-export default SsmStore;
+export default createStore;
