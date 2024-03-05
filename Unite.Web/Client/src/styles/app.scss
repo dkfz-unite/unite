@@ -2,15 +2,15 @@
 
 .sticky-header{
   @media screen and (min-width: $breakpoint-xs){
-    height: 620px;
+    height: 610px;
   }
 
   @media screen and (min-width: $breakpoint-md){
-    height: 620px;
+    height: 610px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 800px;
+    height: 790px;
   }
 
   .q-table__top,
@@ -30,15 +30,15 @@
 
 .sticky-header-slim{
   @media screen and (min-width: $breakpoint-sm){
-    height: 510px;
+    height: 490px;
   }
 
   @media screen and (min-width: $breakpoint-md){
-    height: 510px;
+    height: 490px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 690px;
+    height: 670px;
   }
 
   .q-table__top,

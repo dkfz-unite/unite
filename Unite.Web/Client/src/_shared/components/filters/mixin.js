@@ -5,19 +5,19 @@ import UFiltersButtonClear from "./FiltersButtonClear.vue";
 import FiltersCriteria from "./filters-criteria";
 import FiltersContext from "./filters-context";
 import FilterModels from "./filter-models";
-import donorFilters from "@/domain/donors/filters/donor-filters";
-import donorDataFilters from "@/domain/donors/filters/donor-data-filters";
-import mriFilters from "@/domain/images/mris/filters/mri-filters";
-import imageDataFilters from "@/domain/images/_shared/filters/image-data-filters";
-import materialFilters from "@/domain/specimens/tissues/filters/tissue-filters";
-import lineFilters from "@/domain/specimens/cells/filters/cell-filters";
-import organoidFilters from "@/domain/specimens/organoids/filters/organoid-filters";
-import xenograftFilters from "@/domain/specimens/xenografts/filters/xenograft-filters";
-import specimenDataFilters from "@/domain/specimens/_shared/filters/specimen-data-filters";
-import geneFilters from "@/domain/genome/genes/filters/gene-filters";
-import ssmFilters from "@/domain/genome/variants/ssms/filters/ssm-filters";
-import cnvFilters from "@/domain/genome/variants/cnvs/filters/cnv-filters";
-import svFilters from "@/domain/genome/variants/svs/filters/sv-filters";
+import donorFilters from "@/domain/donors/models/filters/donor-filters";
+import donorDataFilters from "@/domain/donors/models/filters/donor-data-filters";
+import mriFilters from "@/domain/images/mris/models/filters/mri-filters";
+import imageDataFilters from "@/domain/images/_shared/images/models/filters/image-data-filters";
+import materialFilters from "@/domain/specimens/materials/models/filters/material-filters";
+import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
+import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
+import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
+import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
+import geneFilters from "@/domain/genome/genes/models/filters/gene-filters";
+import ssmFilters from "@/domain/genome/variants/ssms/models/filters/ssm-filters";
+import cnvFilters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
+import svFilters from "@/domain/genome/variants/svs/models/filters/sv-filters";
 import oncogridFilters from "@/visualization/oncogrid/filters/oncogrid-filters";
 
 const models = FilterModels.All;
@@ -86,8 +86,8 @@ const mixin = {
       switch (model) {
         case FilterModels.Donor: return "Donor Filters";
         case FilterModels.Mri: return "MRI Filters";
-        case FilterModels.Tissue: return "Material Filters";
-        case FilterModels.Cell: return "Cell Line Filters";
+        case FilterModels.Material: return "Material Filters";
+        case FilterModels.Line: return "Cell Line Filters";
         case FilterModels.Organoid: return "Organoid Filters";
         case FilterModels.Xenograft: return "Xenograft Filters";
         case FilterModels.Gene: return "Gene Filters";
@@ -103,8 +103,8 @@ const mixin = {
       switch (model) {
         case FilterModels.Donor: return "las la-user-circle";
         case FilterModels.Mri: return "las la-x-ray";
-        case FilterModels.Tissue: return "svguse:/icons.svg#u-tissue";
-        case FilterModels.Cell: return "las la-microscope";
+        case FilterModels.Material: return "svguse:/icons.svg#u-material";
+        case FilterModels.Line: return "las la-microscope";
         case FilterModels.Organoid: return "svguse:/icons.svg#u-organoid";
         case FilterModels.Xenograft: return "svguse:/icons.svg#u-xenograft";
         case FilterModels.Gene: return "svguse:/icons.svg#u-gene";
@@ -120,8 +120,8 @@ const mixin = {
       switch (model) {
         case FilterModels.Donor: return this.route == "donors" ? [...donorFilters, ...donorDataFilters] : donorFilters;
         case FilterModels.Mri: return this.route == "mris" ? [...mriFilters, ...imageDataFilters] : mriFilters;
-        case FilterModels.Tissue: return this.route == "tissues" ? [...materialFilters, ...specimenDataFilters] : materialFilters;
-        case FilterModels.Cell: return this.route == "cells" ? [...lineFilters, ...specimenDataFilters] : lineFilters;
+        case FilterModels.Material: return this.route == "materials" ? [...materialFilters, ...specimenDataFilters] : materialFilters;
+        case FilterModels.Line: return this.route == "lines" ? [...lineFilters, ...specimenDataFilters] : lineFilters;
         case FilterModels.Organoid: return this.route == "organoids" ? [...organoidFilters, ...specimenDataFilters] : organoidFilters;
         case FilterModels.Xenograft: return this.route == "xenografts" ? [...xenograftFilters, ...specimenDataFilters] : xenograftFilters;
         case FilterModels.Gene: return geneFilters;
