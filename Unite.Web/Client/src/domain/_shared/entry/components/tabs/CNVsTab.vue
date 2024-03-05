@@ -9,6 +9,7 @@
         <div class="row">
           <div class="col">
             <u-samples
+              v-if="showSamples"
               v-model="sample"
               :options="samples"
               @update:modelValue="updateFilters"

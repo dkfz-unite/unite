@@ -6,6 +6,7 @@
 
     <div class="row">
       <u-samples
+        v-if="showSamples"
         v-model="sample"
         :options="samples"
         @update:modelValue="fetchData"

@@ -88,23 +88,23 @@
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.profile.domain" class="q-py-sm q-px-none">
-                <u-profile-tab :samples="samples" />
+                <u-profile-tab :samples="samples" :show-samples="false" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.genes.domain" class="q-py-sm q-px-none">
-                <u-genes-tab title="Specimen Genes" :area="Settings.line.domain" :samples="samples" />
+                <u-genes-tab title="Specimen Genes" :area="Settings.line.domain" :samples="samples" :show-samples="false" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
-                <u-ssms-tab title="Specimen Simple Somatic Mutations (SSM)" :area="Settings.line.domain" :samples="samples" />
+                <u-ssms-tab title="Specimen Simple Somatic Mutations (SSM)" :area="Settings.line.domain" :samples="samples" :show-samples="false" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
-                <u-cnvs-tab title="Specimen Copy Number Variants (CNV)" :area="Settings.line.domain" :samples="samples" />
+                <u-cnvs-tab title="Specimen Copy Number Variants (CNV)" :area="Settings.line.domain" :samples="samples" :show-samples="false" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.svs.domain" class="q-py-sm q-px-none">
-                <u-svs-tab title="Specimen Structural Variants (SV)" :area="Settings.line.domain" :samples="samples" />
+                <u-svs-tab title="Specimen Structural Variants (SV)" :area="Settings.line.domain" :samples="samples" :show-samples="false" />
               </q-tab-panel>
             </q-tab-panels>
           </div>

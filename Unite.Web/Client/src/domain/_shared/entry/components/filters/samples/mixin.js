@@ -3,6 +3,11 @@ const mixin = {
     samples: {
       type: [Array],
       default: () => []
+    },
+
+    showSamples: {
+      type: Boolean,
+      default: true
     }
   },
 
