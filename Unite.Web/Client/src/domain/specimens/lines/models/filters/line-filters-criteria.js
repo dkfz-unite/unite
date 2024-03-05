@@ -5,6 +5,7 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
     cellsSpecies = [];
     cellsType = [];
     cellsCultureType = [];
+    intervention = [];
     name = [];
 
     get numberOfFilters() {
@@ -13,6 +14,7 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
         number += this.cellsSpecies?.length || 0;
         number += this.cellsType?.length || 0;
         number += this.cellsCultureType?.length || 0;
+        number += this.intervention?.length || 0;
         number += this.name?.length || 0;
 
         return number;
@@ -24,6 +26,7 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
         this.cellsSpecies = criteria?.cellsSpecies || [];
         this.cellsType = criteria?.cellsType || [];
         this.cellsCultureType = criteria?.cellsCultureType || [];
+        this.intervention = criteria?.intervention || [];
         this.name = criteria?.name || [];
     }
 
@@ -31,6 +34,7 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
         super.sanitise();
 
         this.name = sanitiseArray(this.name);
+        this.intervention = sanitiseArray(this.intervention);
     }
 
     clear() {
@@ -39,6 +43,7 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
         this.cellsSpecies = [];
         this.cellsType = [];
         this.cellsCultureType = [];
+        this.intervention = [];
         this.name = [];
     }
 

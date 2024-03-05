@@ -37,11 +37,8 @@ export default {
 
       // data.push({ title: "Molecular", available: this.specimen.data?.molecular });
 
-      if (this.specimen.type == "Organoid" || this.specimen.type == "Xenograft") {
-        data.push({ title: "Interventions", available: this.specimen.data?.interventions });
-      }
-
       if (this.specimen.type != "Material") {
+        data.push({ title: "Interventions", available: this.specimen.data?.interventions });
         data.push({ title: "Drug Screenings", available: this.specimen.data?.drugs });
       }
 

@@ -43,6 +43,12 @@
                 :icon="Tabs.ancestry.icon"
               />
               <q-tab
+                :name="Tabs.interventions.domain"
+                :label="Tabs.interventions.title"
+                :icon="Tabs.interventions.icon"
+                :disable="!showInterventions"
+              />
+              <q-tab
                 :name="Tabs.drugs.domain"
                 :label="Tabs.drugs.title"
                 :icon="Tabs.drugs.icon"
@@ -81,6 +87,10 @@
 
               <q-tab-panel :name="Tabs.ancestry.domain" class="q-py-sm q-px-none">
                 <u-ancestry-tab :specimen="specimen" :donor="donor" />
+              </q-tab-panel>
+
+              <q-tab-panel :name="Tabs.interventions.domain" class="q-py-sm q-px-none">
+                <u-interventions-tab :specimen="specimen" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.drugs.domain" class="q-py-sm q-px-none">
@@ -124,6 +134,7 @@ import UDownloadButton from "@/domain/_shared/entry/components/download/Download
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UAncestryTab from "../_shared/specimen/components/tabs/AncestryTab.vue";
+import UInterventionsTab from "../_shared/specimen/components/tabs/InterventionsTab.vue";
 import UDrugsTab from "../_shared/specimen/components/tabs/DrugsTab.vue";
 import UProfileTab from "@/domain/_shared/entry/components/tabs/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/entry/components/tabs/GenesTab.vue";
@@ -142,6 +153,7 @@ export default {
     UTabVariants,
     USummaryTab,
     UAncestryTab,
+    UInterventionsTab,
     UDrugsTab,
     UProfileTab,
     UGenesTab,

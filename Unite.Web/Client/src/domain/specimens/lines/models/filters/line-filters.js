@@ -12,6 +12,14 @@ const filters = [
   specimenFilters[0],
   specimenFilters[1],
   {
+    field: "name",
+    label: "Public Name",
+    placeholder: "e.g. BG5",
+    type: FilterType.Values,
+    valueType: ValueType.String,
+    sanitize: (value) => sanitiseArray(value)
+  },
+  {
     field: "species",
     label: "Cells Species",
     type: FilterType.Options,
@@ -33,9 +41,9 @@ const filters = [
     options: (context) => mapOptions(context?.cultureTypeOptions, CellsCultureType.values)
   },
   {
-    field: "name",
-    label: "Name",
-    placeholder: "e.g. BG5",
+    field: "intervention",
+    label: "Intervention",
+    placeholder: "e.g. Drug treatment",
     type: FilterType.Values,
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
