@@ -1,13 +1,13 @@
-import DonorFiltersCriteria from "@/domain/donors/models/filters/donor-filters-criteria";
-import MriFiltersCriteria from "@/domain/images/mris/models/filters/mri-filters-criteria";
-import MaterialFiltersCriteria from "@/domain/specimens/materials/models/filters/material-filters-criteria";
-import LineFiltersCriteria from "@/domain/specimens/lines/models/filters/line-filters-criteria";
-import OrganoidFiltersCriteria from "@/domain/specimens/organoids/models/filters/organoid-filters-criteria";
-import XenograftFiltersCriteria from "@/domain/specimens/xenografts/models/filters/xenograft-filters-criteria";
-import GeneFiltersCriteria from "@/domain/genome/genes/models/filters/gene-filters-criteria";
-import MutationFiltersCriteria from "@/domain/genome/variants/ssms/models/filters/ssm-filters-criteria";
-import CopyNumberVariantFiltersCriteria from "@/domain/genome/variants/cnvs/models/filters/cnv-filters-criteria";
-import StructuralVariantFiltersCriteria from "@/domain/genome/variants/svs/models/filters/sv-filters-criteria";
+import DonorFiltersCriteria from "@/domain/donors/filters/donor-filters-criteria";
+import MriFiltersCriteria from "@/domain/images/mris/filters/mri-filters-criteria";
+import TissueFiltersCriteria from "@/domain/specimens/tissues/filters/tissue-filters-criteria";
+import CellFiltersCriteria from "@/domain/specimens/cells/filters/cell-filters-criteria";
+import OrganoidFiltersCriteria from "@/domain/specimens/organoids/filters/organoid-filters-criteria";
+import XenograftFiltersCriteria from "@/domain/specimens/xenografts/filters/xenograft-filters-criteria";
+import GeneFiltersCriteria from "@/domain/genome/genes/filters/gene-filters-criteria";
+import MutationFiltersCriteria from "@/domain/genome/variants/ssms/filters/ssm-filters-criteria";
+import CopyNumberVariantFiltersCriteria from "@/domain/genome/variants/cnvs/filters/cnv-filters-criteria";
+import StructuralVariantFiltersCriteria from "@/domain/genome/variants/svs/filters/sv-filters-criteria";
 import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {
@@ -16,8 +16,8 @@ export default class FiltersCriteria {
   query = null;
   donor = new DonorFiltersCriteria();
   mri = new MriFiltersCriteria();
-  material = new MaterialFiltersCriteria();
-  line = new LineFiltersCriteria();
+  material = new TissueFiltersCriteria();
+  line = new CellFiltersCriteria();
   organoid = new OrganoidFiltersCriteria();
   xenograft = new XenograftFiltersCriteria();
   gene = new GeneFiltersCriteria();
@@ -50,8 +50,8 @@ export default class FiltersCriteria {
     this.query = criteria?.query || null;
     this.donor = new DonorFiltersCriteria(criteria?.donor);
     this.mri = new MriFiltersCriteria(criteria?.mri);
-    this.material = new MaterialFiltersCriteria(criteria?.material);
-    this.line = new LineFiltersCriteria(criteria?.line);
+    this.material = new TissueFiltersCriteria(criteria?.material);
+    this.line = new CellFiltersCriteria(criteria?.line);
     this.organoid = new OrganoidFiltersCriteria(criteria?.organoid);
     this.xenograft = new XenograftFiltersCriteria(criteria?.xenograft);
     this.gene = new GeneFiltersCriteria(criteria?.gene);

@@ -1,8 +1,7 @@
-import ModelsApi from "@/domain/_shared/entries/api";
-import Settings from "../settings";
+import DomainApi from "@/domain/_shared/api/domain-api";
 
-export default class GenesApi extends ModelsApi {
+export default class GenesApi extends DomainApi {
   constructor() {
-    super(Settings.domain);
+    super("genes");
   }
 }

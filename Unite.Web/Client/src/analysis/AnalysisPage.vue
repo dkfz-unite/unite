@@ -20,7 +20,7 @@
           </div>
 
           <div class="text-subtitle1">
-            {{ Settings.analysis.title }} 
+            Analyses 
           </div>
 
           <div>
@@ -61,8 +61,8 @@
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
-        <q-breadcrumbs-el :icon="Settings.home.icon" :to="{ name: Settings.home.domain}" />
-        <q-breadcrumbs-el :label="Settings.analysis.crumb" />
+        <q-breadcrumbs-el icon="home" :to="{ name: 'home'}" />
+        <q-breadcrumbs-el label="Analysis" />
       </q-breadcrumbs>
     </div>
 
@@ -84,7 +84,6 @@ import UAnalysesButtonShow from "./components/AnalysesButtonShow.vue";
 import UAnalysesButtonHide from "./components/AnalysesButtonHide.vue";
 import UAnalysisListItem from "./components/AnalysisListItem.vue";
 import UAnalysisItem from "./components/AnalysisItem.vue";
-import Settings from "@/_settings/settings";
 
 export default {
   components: {
@@ -93,12 +92,6 @@ export default {
     UAnalysesButtonHide,
     UAnalysisListItem,
     UAnalysisItem,
-  },
-
-  setup() {
-    return {
-      Settings
-    }
   },
 
   data() {
@@ -113,7 +106,7 @@ export default {
     },
 
     analyses() {
-      return this.$store.state[Settings.analysis.domain].analyses;
+      return this.$store.state.analysis.analyses;
     },
 
     analysis() {
@@ -122,14 +115,14 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch(`${Settings.analysis.domain}/loadAnalyses`);
-    await this.$store.dispatch(`${Settings.analysis.domain}/startUpdatingStatus`);
+    await this.$store.dispatch("analysis/loadAnalyses");
+    await this.$store.dispatch("analysis/startUpdatingStatus");
     this.analysisKey = Array.from(this.analyses.values())[0]?.key || null;
   },
 
   async unmounted() {
-    await this.$store.dispatch(`${Settings.analysis.domain}/saveAnalyses`);
-    await this.$store.dispatch(`${Settings.analysis.domain}/stopUpdatingStatus`);
+    await this.$store.dispatch("analysis/saveAnalyses");
+    await this.$store.dispatch("analysis/stopUpdatingStatus");
   },
 
   methods: {

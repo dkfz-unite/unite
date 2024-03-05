@@ -1,11 +1,9 @@
-import Settings from "../settings";
-
 const routes = [
   {
-    path: `/cnvs/:id/:tab?`,
-    name: Settings.domain,
-    meta: { title: `UNITE - ${Settings.title}`, authorize: true, tab: Settings.tabs.summary.domain },
-    component: () => import(/* webpackChunkName: "cnv" */ "../Page.vue")
+    path: '/cnvs/:id/:tab?',
+    name: 'cnv',
+    meta: { title: "UNITE.CNV", authorize: true, tab: "summary" },
+    component: () => import(/* webpackChunkName: "cnv" */ '../CNVPage.vue')
   }
 ];
 

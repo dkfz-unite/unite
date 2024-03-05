@@ -1,5 +1,5 @@
 import settings from "@/settings";
-import ModelsApi from "@/domain/_shared/entries/api";
+import DomainApi from "@/domain/_shared/api/domain-api";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },
@@ -12,11 +12,11 @@ function validateFormat(format) {
   }
 }
 
-export default class ImagesApi extends ModelsApi {
+export default class ImagesApi extends DomainApi {
   feedUrl = `${settings.urls.images}`;
 
   constructor() {
-    super("images"); // domain <- settings
+    super("images");
   }
 
   /**
@@ -25,7 +25,7 @@ export default class ImagesApi extends ModelsApi {
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadImages(data) {
-    const url = `${this.feedUrl}/images${formats.json.path}`;
+    const url = `${this.feedUrl}/images`;
     const body = data;
     const config = { headers: formats.json.headers };
 
@@ -38,7 +38,7 @@ export default class ImagesApi extends ModelsApi {
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
   async uploadMris(data) {
-    const url = `${this.feedUrl}/mris${formats.tsv.path}`;
+    const url = `${this.feedUrl}/mris/tsv`;
     const body = data;
     const config = { headers: formats.tsv.headers };
     

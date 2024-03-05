@@ -4,7 +4,7 @@
     <q-item>
       <q-item-section>
         <q-item-label>Hello,</q-item-label>
-        <q-item-label class="text-weight-medium" lines="1">{{ account.email }}</q-item-label>
+        <q-item-label class="text-weight-medium" lines="1">{{account.email}}</q-item-label>
       </q-item-section>
     </q-item>
     <q-separator />
@@ -21,7 +21,7 @@
     <q-separator />
 
     <!-- Admin -->
-    <q-item v-if="isAdmin" clickable v-close-popup :to="{ name: 'admin' }">
+    <q-item v-if="account?.isAdmin === true" clickable v-close-popup :to="{ name: 'admin' }">
       <q-item-section avatar>
         <q-icon name="las la-tools" />
       </q-item-section>
@@ -53,12 +53,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters("identity", ["isAdmin"]),
-    
     account() {
       return this.$store.state.identity.account;
     }
@@ -67,7 +64,7 @@ export default {
   methods: {
     async onLogOut() {      
       await this.$store.dispatch("identity/logOut");
-      this.$router.push({ name: "home" });
+      this.$router.push({ name: 'home' });
       this.$router.go(0); //Required to refresh the page
     }
   }

@@ -7,16 +7,17 @@
     inline-label
     outside-arrows>
     
+    <!-- :class="{'q-px-none' : $q.screen.gt.md}" -->
     <q-route-tab
-      :label="Settings.donors.title"
-      :icon="Settings.donors.icon"
-      :to="{ name: Settings.donors.domain }"
+      label="Donors"
+      icon="las la-user-circle"
+      :to="{ name: 'donors' }"
     />
 
     <q-route-tab
-      :label="Settings.mris.title"
-      :icon="Settings.mris.icon"
-      :to="{ name: Settings.mris.domain }"
+      label="Images"
+      icon="las la-x-ray"
+      :to="{ name: 'mris' }"
     />
 
     <q-route-tab
@@ -26,37 +27,50 @@
       @click.prevent="null">
       <q-menu fit>
         <q-list dense>
-          <u-navigation-menu-item
-            :title="Settings.materials.title"
-            :icon="Settings.materials.icon"
-            :to="{ name: Settings.materials.domain }"
-          />
+          <q-item :to="{ name: 'tissues' }" :active="$route.name == 'tissues'">
+            <q-item-section>
+              <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="svguse:/icons.svg#u-tissue" size="sm" />
+                <span>Materials</span>
+              </div>
+            </q-item-section>
+          </q-item>
 
-          <u-navigation-menu-item
-            :title="Settings.lines.title"
-            :icon="Settings.lines.icon"
-            :to="{ name: Settings.lines.domain }"
-          />
+          <q-item :to="{ name: 'cells' }" :active="$route.name == 'cells'">
+            <q-item-section>
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="las la-microscope" size="sm" />
+                <span>Cell Lines</span>
+              </div>
+            </q-item-section>
+          </q-item>
 
-          <u-navigation-menu-item
-            :title="Settings.organoids.title"
-            :icon="Settings.organoids.icon"
-            :to="{ name: Settings.organoids.domain }"
-          />
+          <q-item :to="{ name: 'organoids' }" :active="$route.name == 'organoids'">
+            <q-item-section>
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="svguse:/icons.svg#u-organoid" size="sm" />
+                <span>Organoids</span>
+              </div>
+            </q-item-section>
+          </q-item>
 
-          <u-navigation-menu-item
-            :title="Settings.xenografts.title"
-            :icon="Settings.xenografts.icon"
-            :to="{ name: Settings.xenografts.domain }"
-          />
+          <q-item :to="{ name: 'xenografts' }" :active="$route.name == 'xenografts'">
+            <q-item-section>
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="svguse:/icons.svg#u-xenograft" size="sm" />
+                <span>Xenografts</span>
+              </div>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-menu>
     </q-route-tab>
 
     <q-route-tab
-      :label="Settings.genes.title"
-      :icon="Settings.genes.icon"
-      :to="{ name: Settings.genes.domain }"
+      label="Genes"
+      icon="svguse:/icons.svg#u-gene"
+      :to="{ name: 'genes' }"
     />
 
     <q-route-tab
@@ -66,23 +80,33 @@
       @click.prevent="null">
       <q-menu fit>
         <q-list dense>
-          <u-navigation-menu-item
-            :title="Settings.ssms.title"
-            :icon="Settings.ssms.icon"
-            :to="{ name: Settings.ssms.domain }"
-          />
+          <q-item :to="{ name: 'ssms' }" :active="$route.name == 'ssms'">
+            <q-item-section>
+              <!-- :class="{ 'q-px-sm' : $q.screen.gt.md }" -->
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="svguse:/icons.svg#u-ssm" size="sm" />
+                <span>Mutations (SSM)</span>
+              </div>
+            </q-item-section>
+          </q-item>
 
-          <u-navigation-menu-item
-            :title="Settings.cnvs.title"
-            :icon="Settings.cnvs.icon"
-            :to="{ name: Settings.cnvs.domain }"
-          />
+          <q-item :to="{ name: 'cnvs' }" :active="$route.name == 'cnvs'">
+            <q-item-section>
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="svguse:/icons.svg#u-cnv" size="sm" />
+                <span>Copy Number Variants (CNV)</span>
+              </div>
+            </q-item-section>
+          </q-item>
 
-          <u-navigation-menu-item
-            :title="Settings.svs.title"
-            :icon="Settings.svs.icon"
-            :to="{ name: Settings.svs.domain }"
-          />
+          <q-item :to="{ name: 'svs' }" :active="$route.name == 'svs'">
+            <q-item-section>
+              <div class="row q-gutter-x-sm q-py-sm" :class="{ 'q-px-sm' : $q.screen.gt.md }">
+                <q-icon name="svguse:/icons.svg#u-sv" size="sm" />
+                <span>Structural Variants (SV)</span>
+              </div>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-menu>
     </q-route-tab>
@@ -90,72 +114,54 @@
     <q-space />
 
     <q-route-tab
-      :label="Settings.datasets.title"
-      :icon="Settings.datasets.icon"
-      :to="{ name: Settings.datasets.domain }"
+      label="Cohorts"
+      icon="las la-archive"
+      :to="{ name: 'cohorts' }"
     />
 
     <q-route-tab
-      :label="Settings.analysis.title"
-      :icon="Settings.analysis.icon"
-      :to="{ name: Settings.analysis.domain }"
+      label="Analysis"
+      icon="las la-chart-pie"
+      :to="{ name: 'analysis' }"
     />
   </q-tabs>
 </template>
 
 <script>
-import UNavigationMenuItem from "./NavigationMenuItem.vue";
-import Settings from "@/_settings/settings";
-
 export default {
-  components: {
-    UNavigationMenuItem
-  },
-
-  setup() {
-    return {
-      Settings
-    }
-  },
-
   methods: {
     getSpecimensRoute() {
-      const routes = [
-        Settings.materials.domain, 
-        Settings.lines.domain, 
-        Settings.organoids.domain, 
-        Settings.xenografts.domain
-      ];
-
-      return routes.includes(this.$route.name) ? this.$route.name : null;
+      if (["tissues", "cells", "organoids", "xenografts"].includes(this.$route.name)) {
+        return this.$route.name;
+      } else {
+        return null;
+      }
     },
 
     getSpecimensIcon() {
       switch (this.$route.name) {
-        case Settings.materials.domain: return Settings.materials.icon;
-        case Settings.lines.domain: return Settings.lines.icon;
-        case Settings.organoids.domain: return Settings.organoids.icon;
-        case Settings.xenografts.domain: return Settings.xenografts.icon;
-        default: return Settings.materials.icon;
+        case "tissues": return "svguse:/icons.svg#u-tissue";
+        case "cells": return "las la-microscope";
+        case "organoids": return "svguse:/icons.svg#u-organoid";
+        case "xenografts": return "svguse:/icons.svg#u-xenograft";
+        default: return "svguse:/icons.svg#u-tissue";
       }
     },
 
     getVariantsRoute() {
-      const routes = [
-        Settings.ssms.domain, 
-        Settings.cnvs.domain, 
-        Settings.svs.domain
-      ];
-
-      return routes.includes(this.$route.name) ? this.$route.name : null;
+      if (["ssms", "cnvs", "svs"].includes(this.$route.name)) {
+        return this.$route.name;
+      } else {
+        return null;
+      }
     },
 
     getVariantsIcon() {
       switch (this.$route.name) {
-        case Settings.ssms.domain: return Settings.ssms.icon;
-        case Settings.cnvs.domain: return Settings.cnvs.icon;
-        case Settings.svs.domain: return Settings.svs.icon;
-        default: return Settings.ssms.icon;
+        case "ssms": return "svguse:/icons.svg#u-ssm";
+        case "cnvs": return "svguse:/icons.svg#u-cnv";
+        case "svs": return "svguse:/icons.svg#u-sv";
+        default: return "svguse:/icons.svg#u-ssm";
       }
     }
   }

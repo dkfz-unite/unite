@@ -1,6 +1,5 @@
-import Account from "../models/account";
 import api from "../api";
-import getters from "./getters";
+import Account from "./models/account";
 
 const module = {
   namespaced: true,
@@ -9,8 +8,6 @@ const module = {
     account: null,
     providers: null,
   }),
-
-  getters: getters,
 
   actions: {
     async loadProviders({state}) {

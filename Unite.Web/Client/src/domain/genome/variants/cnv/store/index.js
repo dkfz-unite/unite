@@ -1,15 +1,13 @@
-function createStore() {
-  return {
-    namespaced: true,
+class CnvStore {
+  namespaced = true;
 
-    state: {},
+  state = () => ({
+  });
 
-    actions: {
-      clearState({ state, dispatch }) {
-      }
+  actions = {
+    clearState({ state, dispatch }) {
     }
   }
-
 }
 
-export default createStore;
+export default CnvStore;

@@ -1,11 +1,9 @@
-import Settings from "../settings";
-
 const routes = [
   {
-    path: `/mris/:id/:tab?`,
-    name: Settings.domain,
-    meta: { title: `UNITE - ${Settings.title}`, authorize: true, tab: Settings.tabs.summary.domain },
-    component: () => import(/* webpackChunkName: "mri" */ "../Page.vue")
+    path: '/mris/:id/:tab?',
+    name: 'mri',
+    meta: { title: "UNITE.MRI", authorize: true, tab: "summary" },
+    component: () => import(/* webpackChunkName: "mri" */ '../MriImagePage.vue')
   }
 ];
 

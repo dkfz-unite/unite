@@ -1,28 +1,26 @@
-import createModelsStore from "@/domain/_shared/common/store";
-import { Tabs } from "../settings";
+import SearchPageStore from "@/_shared/store/search-page-store";
 
-function createStore() {
-  return {
-    namespaced: true,
+class GeneStore {
+  namespaced = true;
 
-    modules: {
-      [Tabs.donors.domain]: createModelsStore(Tabs.donors.domain),
-      [Tabs.ssms.domain]: createModelsStore(Tabs.ssms.domain),
-      [Tabs.cnvs.domain]: createModelsStore(Tabs.cnvs.domain),
-      [Tabs.svs.domain]: createModelsStore(Tabs.svs.domain),
-    },
-    
-    state: {},
+  modules = {
+    donors: new SearchPageStore(),
+    ssms: new SearchPageStore(),
+    cnvs: new SearchPageStore(),
+    svs: new SearchPageStore()
+  };
 
-    actions: {
-      clearState({ state, dispatch }) {
-        dispatch(`${Tabs.donors.domain}/clear`);
-        dispatch(`${Tabs.ssms.domain}/clear`);
-        dispatch(`${Tabs.cnvs.domain}/clear`);
-        dispatch(`${Tabs.svs.domain}/clear`);
+  state = () => ({
+  });
+
+  actions = {
+      clearState({state, dispatch}) {
+        dispatch("donors/clear");
+        dispatch("ssms/clear");
+        dispatch("cnvs/clear");
+        dispatch("svs/clear");
       }
-    }
   }
 }
 
-export default createStore;
+export default GeneStore;

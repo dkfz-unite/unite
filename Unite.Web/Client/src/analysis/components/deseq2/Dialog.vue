@@ -42,13 +42,13 @@
       <q-card-section>
         <div class="col">
           <div class="row items-center q-gutter-xs">
-            <q-icon :name="Settings[datasetsOrdered[0].domain].icon" size="sm"/>
-            <div>{{ datasetsOrdered[0].name }}</div>
+            <q-icon :name="DomainIcons.get(cohortsOrdered[0].domain)" size="sm"/>
+            <div>{{ cohortsOrdered[0].name }}</div>
           </div>
           <div class="row text-hint text-grey-7">vs</div>
           <div class="row items-center q-gutter-xs">
-            <q-icon :name="Settings[datasetsOrdered[1].domain].icon" size="sm"/>
-            <div>{{ datasetsOrdered[1].name }}</div>
+            <q-icon :name="DomainIcons.get(cohortsOrdered[1].domain)" size="sm"/>
+            <div>{{ cohortsOrdered[1].name }}</div>
           </div>
         </div>
       </q-card-section>
@@ -73,12 +73,12 @@
 </template>
 
 <script>
-import Settings from "@/_settings/settings";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
+import DomainIcons from "@/_settings/domain-icons";
 
 export default {
   props: {
-    datasets: {
+    cohorts: {
       type: [Array, null],
       default: () => [],
     },
@@ -86,7 +86,7 @@ export default {
 
   setup() {
     return {
-      Settings
+      DomainIcons
     }
   },
 
@@ -107,8 +107,8 @@ export default {
       return true;
     },
 
-    datasetsOrdered() {
-      return this.datasets.sort((a, b) => a.order - b.order);
+    cohortsOrdered() {
+      return this.cohorts.sort((a, b) => a.order - b.order);
     }
   },
 
@@ -118,12 +118,12 @@ export default {
     },
 
     async onSubmit() {
-      const datasets = this.datasetsOrdered.map(dataset => ({
-        key: dataset.key,
-        name: dataset.name,
-        order: dataset.order, 
-        domain: dataset.domain,
-        criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
+      const cohorts = this.cohortsOrdered.map(cohort => ({
+        key: cohort.key,
+        name: cohort.name,
+        order: cohort.order, 
+        domain: cohort.domain,
+        criteria: new FiltersCriteria(cohort.criteria).toSearchCriteria() 
       }));
 
       const data = {
@@ -132,7 +132,7 @@ export default {
         description: this.description.value,
         status: null,
         date: new Date(),
-        datasets: datasets,
+        cohorts: cohorts,
       };
 
       await this.$store.dispatch("analysis/runDExpAnalysis", data);

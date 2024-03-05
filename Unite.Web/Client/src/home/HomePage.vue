@@ -52,6 +52,7 @@ export default {
 
   computed: {
     ...mapState("identity", ["account"]),
+    // ...mapGetters("filters", ["domains", "domain", "cohorts", "cohort"]),
 
     authorized() {
       const route = this.$route;
@@ -64,6 +65,16 @@ export default {
         return true;
       }
     }
-  }
+  },
+
+  // watch: {
+  //   account(value) {
+  //     this.$store.dispatch("filters/initialize", value?.email);
+  //   }
+  // },
+
+  // unmounted() {
+  //   this.$store.dispatch("filters/dispose");
+  // }
 }
 </script>

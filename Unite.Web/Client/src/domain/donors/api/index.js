@@ -1,6 +1,5 @@
 import settings from "@/settings";
-import ModelsApi from "@/domain/_shared/entries/api";
-import Settings from "../settings";
+import DomainApi from "@/domain/_shared/api/domain-api";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },
@@ -13,11 +12,11 @@ function validateFormat(format) {
   }
 }
 
-export default class DonorsApi extends ModelsApi {
+export default class DonorsApi extends DomainApi {
   feedUrl = `${settings.urls.donors}`;
 
   constructor() {
-    super(Settings.domain);
+    super("donors");
   }
 
   /**
@@ -29,7 +28,7 @@ export default class DonorsApi extends ModelsApi {
   async uploadDonors(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/donors${formats[format].path}`;
+    const url = `${this.feedUrl}/donors${formats[format].path ?? ""}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -45,7 +44,8 @@ export default class DonorsApi extends ModelsApi {
   async uploadTreatments(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/treatments${formats[format].path}`;
+
+    const url = `${this.feedUrl}/treatments${formats[format].path ?? ""}`;
     const body = data;
     const config = { headers: formats[format].headers };
 

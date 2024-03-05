@@ -91,9 +91,9 @@
 </template>
 
 <script>
-import Settings from "@/_settings/settings";
+import DomainNames from "@/_settings/domain-names";
 
-const specimenDomains = [Settings.materials.domain, Settings.lines.domain, Settings.organoids.domain, Settings.xenografts.domain];
+const specimenDomains = [DomainNames.Tissues, DomainNames.Cells, DomainNames.Organoids, DomainNames.Xenografts];
 
 export default {
   props: {

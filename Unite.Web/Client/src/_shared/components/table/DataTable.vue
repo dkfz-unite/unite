@@ -34,7 +34,6 @@ export default {
       type: String,
       required: true
     },
-    
     title: {
       type: String,
       default: null

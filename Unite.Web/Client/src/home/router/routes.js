@@ -1,11 +1,10 @@
-import Settings from "../settings";
-
 const routes = [
   {
     path: "/",
-    name: Settings.domain,
+    name: "home",
     redirect: { name: "donors" },
-    meta: { title: "UNITE", authorize: false }
+    meta: { title: "UNITE", authorize: false },
+    // component: () => import(/* webpackChunkName: "index" */ "../views/Index.vue")
   }
 ];
 

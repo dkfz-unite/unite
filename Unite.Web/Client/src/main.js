@@ -7,16 +7,20 @@ import { Quasar } from "quasar";
 import quasarOptions from "./settings.quasar";
 import { createApp } from "vue";
 import helpers from "./_shared/plugins/helpers-plugin";
-import components from "./_shared/plugins/components-plugin";
 import router from "./home/router";
 import store from "./home/store";
 
-import UHomePage from "./home/HomePage.vue";
+import HomePage from "./home/HomePage.vue";
+import ULink from "./_shared/components/base/Link.vue";
+import ULinkExternal from "./_shared/components/base/LinkExternal.vue";
+import UArray from "./_shared/components/base/Array.vue";
 
-createApp(UHomePage)
+createApp(HomePage)
 .use(Quasar, quasarOptions)
 .use(helpers)
-.use(components)
 .use(store)
 .use(router)
-.mount("#app");
+.component("u-link", ULink)
+.component("u-link-external", ULinkExternal)
+.component("u-array", UArray)
+.mount('#app');

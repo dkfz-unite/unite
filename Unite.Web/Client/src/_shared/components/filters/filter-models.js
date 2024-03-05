@@ -1,9 +1,9 @@
-export default class FilterModel {
+export default class FilterModels {
   static Donor = "donor";
   static Mri = "mri";
   // static Ct = "ct";
-  static Material = "material";
-  static Line = "line";
+  static Tissue = "material";
+  static Cell = "line";
   static Organoid = "organoid";
   static Xenograft = "xenograft";
   static Gene = "gene";
@@ -12,8 +12,8 @@ export default class FilterModel {
   static Sv = "sv";
   static Oncogrid = "oncogrid";
 
-  static Images = [this.Mri];
-  static Specimens = [this.Material, this.Line, this.Organoid, this.Xenograft];
-  static Genome = [this.Gene, this.Ssm, this.Cnv, this.Sv];
-  static All = [this.Donor, ...this.Images, ...this.Specimens, ...this.Genome];
+  static Images = [FilterModels.Mri];
+  static Specimens = [FilterModels.Tissue, FilterModels.Cell, FilterModels.Organoid, FilterModels.Xenograft];
+  static Genome = [FilterModels.Gene, FilterModels.Ssm, FilterModels.Cnv, FilterModels.Sv];
+  static All = [FilterModels.Donor, ...FilterModels.Images, ...FilterModels.Specimens, ...FilterModels.Genome];
 }

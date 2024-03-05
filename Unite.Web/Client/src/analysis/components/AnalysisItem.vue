@@ -25,9 +25,9 @@
         <!-- Datasets -->
         <div class="row">
           <div class="col">
-            <div v-for="dataset in analysis.cohorts" class="row items-center q-gutter-xs">
-              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
-              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, key: dataset.key } }">{{ dataset.name }}</u-link>
+            <div v-for="cohort in analysis.cohorts" class="row items-center q-gutter-xs">
+              <q-icon :name="DomainIcons.get(cohort.domain)" size="sm"/>
+              <u-link :to="{ name: 'cohorts', params: { domain: cohort.domain, key: cohort.key } }">{{ cohort.name }}</u-link>
             </div>
           </div>
         </div>
@@ -51,11 +51,10 @@
 </template>
 
 <script>
-import UDexpResults from "./deseq2/Results.vue";
-import mixin from "./analysis-mixin";
-
 import { exportFile } from "quasar";
-import Settings from "@/_settings/settings";
+import UDexpResults from "./deseq2/Results.vue";
+import DomainIcons from "@/_settings/domain-icons";
+import mixin from "./analysis-mixin";
 
 export default {
   components: {
@@ -73,7 +72,7 @@ export default {
 
   setup() {
     return {
-      Settings
+      DomainIcons
     }
   },
 
@@ -98,10 +97,10 @@ export default {
       if (!!this.analysis.name) {
         return this.analysis.name;
       } else {
-        const datasets = this.analysis.datasets
+        const cohorts = this.analysis.cohorts
           .sort((a, b) => a.order - b.order)
           .map(c => c.name);
-        return `${datasets[0]} vs ${datasets[1]}`;
+        return `${cohorts[0]} vs ${cohorts[1]}`;
       }
     }
   },
