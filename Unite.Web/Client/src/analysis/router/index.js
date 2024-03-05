@@ -1,8 +1,10 @@
+import Settings from "../settings";
+
 const routes = [
   {
-    path: "/analysis",
-    name: "analysis",
-    meta: { title: "UNITE.Analysis", authorize: true },
+    path: `/${Settings.domain}`,
+    name: Settings.domain,
+    meta: { title: `UNITE - ${Settings.title}`, authorize: true },
     component: () => import(/* webpackChunkName: "analysis" */ "../AnalysisPage.vue")
   }
 ];

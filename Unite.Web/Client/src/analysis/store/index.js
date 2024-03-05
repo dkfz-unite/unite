@@ -27,12 +27,12 @@ const analysisExample = {
   },
   data: { // analysis data
     //...
-    cohorts: [ // cohorts used in the analysis
+    datasets: [ // datasets used in the analysis
       {
-        key: "cohort-key", // cohort key, generated on the front-end upon creation
-        name: "Cohort Name", // cohort name, provided by the user upon creation
-        domain: "Donors", // cohort domain data domain (Donors, Mris, Tissues, etc.)
-        criteria: { // cohort criteria
+        key: "dataset-key", // dataset key, generated on the front-end upon creation
+        name: "Dataset Name", // dataset name, provided by the user upon creation
+        domain: "Donors", // dataset domain data domain (Donors, Mris, Materials, etc.)
+        criteria: { // dataset criteria
           //...
         },
       }
