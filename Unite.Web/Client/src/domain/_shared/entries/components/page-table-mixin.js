@@ -70,10 +70,7 @@ const mixin = {
 
   methods: {
     async updateFrom() {
-      if (this.filtersCriteria.from !== 0) {
-        // Calling 'loadData' if page has changed
-        this.loadData();
-      }
+      this.loadData();
     },
 
     async updateSize() {

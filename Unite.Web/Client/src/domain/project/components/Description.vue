@@ -4,7 +4,7 @@
       <div class="col">
         <span class="text-h5 u-text-title">Description</span>
       </div>
-      <div class="col-auto" v-if="canEdit">
+      <div class="col-auto" v-if="canWriteData">
         <q-btn
           v-if="!editing"
           icon="las la-edit"
@@ -36,7 +36,7 @@
     <div class="row q-gutter-x-xs">
       <div class="col">
         <q-card flat bordered>
-          <q-card-section v-if="!editing" @dblclick="!canEdit || (editing = true)">
+          <q-card-section v-if="!editing" @dblclick="!canWriteData || (editing = true)">
             <p v-for="paragraph in description">{{ paragraph }}</p>
           </q-card-section>
 
@@ -55,7 +55,8 @@
 </template>
 
 <script>
-import Permissions from "@/_models/admin/enums/permissions";
+// import Permissions from "@/_models/admin/enums/permissions";
+import { mapGetters } from "vuex";
 import api from "../api";
 
 export default {
@@ -79,10 +80,11 @@ export default {
   },
 
   computed: {
-    canEdit() {
-      const account = this.$store.state.identity.account;
-      return account?.hasPermission(Permissions.Data.Edit);
-    },
+    ...mapGetters("identity", ["canWriteData"]),
+    // canEdit() {
+    //   const account = this.$store.state.identity.account;
+    //   return account?.hasPermission(Permissions.Data.Edit);
+    // },
 
     description() {
       var paragraphs = this.project.description?.split("\n")

@@ -59,11 +59,11 @@ const tableMixin = {
       }
     },
 
-    updated() {
-      this.dataFrom = this.from;
-      this.dataSize = this.size;
-      this.dataSelected = this.rowsSelected;
-    },
+    // updated() {
+    //   this.dataFrom = this.from;
+    //   this.dataSize = this.size;
+    //   this.dataSelected = this.rowsSelected;
+    // },
   
     watch: {
       dataFrom(value) {
