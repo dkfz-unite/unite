@@ -1,5 +1,5 @@
 <template>
-  <q-menu>
+  <q-menu style="width: 270px;">
     <q-list dense class="q-my-sm">
       <!-- SSM Group -->
       <q-item>
@@ -92,6 +92,8 @@
       <q-item>
         <q-item-section>
           <div class="row q-gutter-x-sm">
+            <u-view-figure type="square" color="purple-4" :active="svType">ITX</u-view-figure>
+            <u-view-figure type="square" color="cyan-4" :active="svType">CTX</u-view-figure>
             <u-view-figure type="square" color="green-4" :active="svType">DUP</u-view-figure>
             <u-view-figure type="square" color="red-4" :active="svType">DEL</u-view-figure>
             <u-view-figure type="square" color="orange-5" :active="svType">INS</u-view-figure>
