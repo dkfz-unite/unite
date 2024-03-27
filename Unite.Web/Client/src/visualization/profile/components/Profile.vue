@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { colors } from "quasar";
 import UPlotly from "../../_shared/Plotly.vue";
 import UViewMenu from "./view/ViewMenu.vue";
 import ULocation from "./Location.vue";
@@ -35,8 +36,6 @@ import cnvsDataService from "./data-service-cnvs";
 import ssmsDataService from "./data-service-ssms";
 import expsDataService from "./data-service-exps";
 import cacheDataService from "./data-service-cache";
-import { get } from "@/_shared/helpers/token-helpers";
-
 
 export default {
   components: { UPlotly, UViewMenu, ULocation },
@@ -178,22 +177,22 @@ export default {
 
     getGeneDomain() {
       let start = 0.00;
-      return [start, start + 0.05];
+      return [start, start + 0.10];
     },
 
     getSvDomain() {
-      let start = 0.05;
+      let start = 0.10;
       return [start, start + 0.05];
     },
 
     getCnvDomain() {
-      let start = 0.10;
+      let start = 0.15;
       if (!this.options.svs) start -= 0.05;
       return [start, start + 0.05];
     },
 
     getSsmDomain() {
-      let start = 0.15;
+      let start = 0.20;
       let end = 1.00;
       if (!this.options.svs) start -= 0.05;
       if (!this.options.cnvs) start -= 0.05;
@@ -205,7 +204,7 @@ export default {
       let start = 0.70;
       if (!this.options.svs) start -= 0.05;
       if (!this.options.cnvs) start -= 0.05;
-      if (!this.options.ssms) start -= 0.55;
+      if (!this.options.ssms) start -= 0.50;
       return [start, 1.00]; 
     },
 
@@ -246,7 +245,8 @@ export default {
       let series = [];
 
       // Genes
-      series.push(genesDataService.getSeries(this.genes || [], "x1", "y1"));
+      series.push(genesDataService.getSeriesMinus(this.genes || [], "x1", "y1"));
+      series.push(genesDataService.getSeriesPlus(this.genes || [], "x1", "y1"));
 
       // SVs
       if (this.options.svs) {
@@ -256,6 +256,7 @@ export default {
       // CNVs
       if (this.options.cnvs) {
         series.push(cnvsDataService.getSeries(this.cnvs || [], "x1", "y3"));
+        
       }
 
       // SSMs
@@ -301,41 +302,49 @@ export default {
         showlegend: false,
         margin:  { l: 60, t: 40, r: 60, b: 60 },
         barmode: "relative",
+        shapes: [],
       }
-      
+
       // Chromosomes X-Axis
       scales.xaxis1 = this.getGenomeScale(null, "x1", [0.00, 1.00], this.ranges);
 
       // Genes Y-Axis
       scales.yaxis1 = genesDataService.getScales("y1", this.getGeneDomain());
+      scales.shapes.push(this.getLine(0.10));
 
       // SVs Y-Axis
       if (this.options.svs) {
-        scales.yaxis2 = svsDataService.getScales("y2", this.getSvDomain());
+        const domain = this.getSvDomain();
+        scales.yaxis2 = svsDataService.getScales("y2", domain);
+        scales.shapes.push(this.getLine(domain[1]));
       };
 
       // CNVs Y-Axis
       if (this.options.cnvs) {
-        scales.yaxis3 = cnvsDataService.getScales("y3", this.getCnvDomain());
+        const domain = this.getCnvDomain();
+        scales.yaxis3 = cnvsDataService.getScales("y3", domain);
+        scales.shapes.push(this.getLine(domain[1]));
       };
 
       // SSMs Y-Axis
       if (this.options.ssms) {
+        const domain = this.getSsmDomain();
         const high = this.options.ssms.high ? this.ssms?.map(v => v.i[0]) || [0] : [0];
         const moderate = this.options.ssms.moderate ? this.ssms?.map(v => v.i[1]) || [0] : [0];
         const low = this.options.ssms.low ? this.ssms?.map(v => v.i[2]) || [0] : [0];
         const unknown = this.options.ssms.unknown ? this.ssms?.map(v => v.i[3]) || [0] : [0];
         const max = Math.max(...high, ...moderate, ...low, ...unknown);
-        scales.yaxis4 = ssmsDataService.getScales("y4", this.getSsmDomain(), max);
+        scales.yaxis4 = ssmsDataService.getScales("y4", domain, max);
       };
 
       // Exps Y-Axis
       if (this.options.exps) {
+        const domain = this.getExpDomain();
         const reads = this.options.exps.reads ? this.exps?.map(v => v.reads[0]) || [0] : [0];
         const tpm = this.options.exps.tpm ? this.exps?.map(v => v.reads[1]) || [0] : [0];
         const fpkm = this.options.exps.fpkm ? this.exps?.map(v => v.reads[2]) || [0] : [0];
         const max = Math.max(...reads, ...tpm, ...fpkm);
-        scales.yaxis5 = expsDataService.getScales("Expressions", "y5", this.getExpDomain(), max);
+        scales.yaxis5 = expsDataService.getScales("Expressions", "y5", domain, max);
       }
 
       return scales;
@@ -359,6 +368,24 @@ export default {
         tickvals: ticks.map(v => v.value),
         ticktext: ticks.map(v => v.label),
         range: [0, ranges.length -1]
+      };
+    },
+
+    getLine(y) {
+      return {
+        type: "line",
+        layer: "top",
+        xref: "paper",
+        yref: "paper",
+        x0: 0,
+        y0: y,
+        x1: 1,
+        y1: y,
+        line: {
+          color: colors.getPaletteColor("black"),
+          // opacity: 0.5,
+          width: 0.5,
+        }
       };
     },
 

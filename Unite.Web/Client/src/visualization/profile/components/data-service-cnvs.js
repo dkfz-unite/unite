@@ -22,6 +22,10 @@ function getCnvColor(entry) {
   }
 };
 
+function getColorLoh(entry) {
+  return colors.getPaletteColor("orange-4");
+}
+
 function getCnvText(entry) {
   const loh = entry.e.loh ? " LOH" : "";
   const del = entry.e.del ? " DEL" : "";
@@ -29,9 +33,11 @@ function getCnvText(entry) {
   let tooltip = "";
   tooltip += `CNV: ${entry.e.id}<br>`;
   tooltip += `Location: ${entry.e.position}<br>`;
-  tooltip += `Length: ${(entry.e.length).toLocaleString()}<br>`;
+  tooltip += `Length (bp): ${(entry.e.length).toLocaleString()}<br>`;
   tooltip += `Type: ${getLabel(entry.e.type, CnvType.values)}${loh}${del}<br>`;
   tooltip += `TCN: ${entry.e.tcn}<br>`;
+  if (entry.e.genes > 0)
+    tooltip += `Affected Genes: ${entry.e.genes.toLocaleString()}<br>`;
   return tooltip;
 };
 
