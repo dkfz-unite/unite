@@ -208,37 +208,46 @@ export default {
       return [start, 1.00]; 
     },
 
-    getTick(range, index, ranges, length) {
+    getTick(ticks, index, range, ranges, length) {
       const getChromosome = (chr) => {
         return chr == 23 ? "X" : chr == 24 ? "Y" : `${chr}`;
       };
+
       const getPosition = (pos) => {
         return length < 1e3 ? `${pos}`
              : length < 1e6 ? `${(pos / 1e3).toFixed(0)}K`
              : `${(pos / 1e6).toFixed(0)}M`;
       };
-      
+       
       const chrRange = range.s == 1 ? range : null;
       if (chrRange) {
         const chr = getChromosome(chrRange.c);
-        return { value: index, label: `${chr}` };
+        return [...ticks, { index: index, value: index, label: `<b>${chr}</b>` }];
       }
 
       const firstRange = range.i == 0 ? range : null;
       if (firstRange) {
         const chr = getChromosome(firstRange.c);
         const pos = getPosition(firstRange.s);
-        return { value: index, label: `${chr}:${pos}` };
+        return [...ticks, { index: index, value: index, label: `${chr}:${pos}` }];
       }
 
       const lastRange = range.i == ranges.length - 1 ? range : null;
       if (lastRange) {
         const chr = getChromosome(lastRange.c);
         const pos = getPosition(lastRange.e);
-        return { value: index, label: `${chr}:${pos}` };
+        return [...ticks, { index: index, value: index, label: `${chr}:${pos}` }];
       }
-      
-      return null;
+
+      const prevRange = ranges[ticks.at(-1).index];
+      const nextRange = ranges.slice(index + 1).find(range => range.s == 1 || range.i == ranges.length - 1);
+      if (range.i - prevRange.i >= 50 && nextRange.i - range.i >= 25) {
+        const chr = getChromosome(range.c);
+        const pos = getPosition(range.s);
+        return [...ticks, { index: index, value: index, label: `${chr}:${pos}` }];
+      }
+
+      return ticks;
     },
 
     getSeries() {
@@ -352,9 +361,7 @@ export default {
 
     getGenomeScale(name, x, domain, ranges) {
       const length = ranges.reduce((acc, range) => acc + range.e - range.s + 1, 0);
-      const ticks = ranges
-        .map((range, index, ranges) => this.getTick(range, index, ranges, length))
-        .filter(tick => tick !== null);
+      const ticks = ranges.reduce((acc, range, index, ranges) => this.getTick(acc, index, range, ranges, length), []);
 
       return {
         title: name,
