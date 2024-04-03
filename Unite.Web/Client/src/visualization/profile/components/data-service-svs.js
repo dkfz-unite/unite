@@ -33,7 +33,8 @@ export function getScales(y, domain) {
 };
 
 export function getSeries(entries, x, y) {
-  return dataService.getRangeSeries(entries, "SVs", x, y, getSvColor, getSvText);
+  // Spaces after name are added to align with genes track
+  return dataService.getRangeSeries(entries, "SVs   ", x, y, getSvColor, getSvText);
 };
 
 export default {

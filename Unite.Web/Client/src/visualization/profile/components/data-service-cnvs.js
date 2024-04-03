@@ -46,7 +46,8 @@ export function getScales(y, domain) {
 };
 
 export function getSeries(entries, x, y) {
-  return dataService.getRangeSeries(entries, "CNVs", x, y, getCnvColor, getCnvText);
+  // Spaces after name are added to align with genes track
+  return dataService.getRangeSeries(entries, "CNVs   ", x, y, getCnvColor, getCnvText);
 };
 
 export default {
