@@ -12,7 +12,7 @@
     "@quasar/extras": "^1.16.9",
     "axios": "^1.6.6",
     "d3": "^7.8.5",
-    "plotly.js-dist-min": "^2.27.0",
+    "plotly.js-dist-min": "^2.30.0",
     "quasar": "^2.14.3",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",

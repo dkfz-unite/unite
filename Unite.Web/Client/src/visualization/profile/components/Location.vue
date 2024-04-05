@@ -2,7 +2,7 @@
   <div v-if="location" class="row self-center">
   <div class="text-weight-medium">Location:</div>
     <div class="q-ml-xs">
-      {{ getChromosomeLabel(location.start.chr) }}:{{ location.start.start }} - {{ getChromosomeLabel(location.end.chr) }}:{{ location.end.end }}
+      {{ getChromosomeLabel(location.start.c) }}:{{ location.start.s }} - {{ getChromosomeLabel(location.end.c) }}:{{ location.end.e }}
     </div>
   </div>
 </template>

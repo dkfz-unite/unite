@@ -7,9 +7,9 @@
     </div>
     <div class="row self-center q-ml-xs">
       <template v-for="stat in stats">
-        <div :style="{ height: '20px', width: `${stat.number > 0 ? (stat.percent || 1) * 3 : 0}px`, backgroundColor: stat.color }">
+        <div :style="{ height: '20px', width: `${stat.value > 0 ? (stat.percent || 1) * 3 : 0}px`, backgroundColor: stat.color }">
           <q-tooltip style="font-size: 12px;">
-            {{ stat.text }}: {{ stat.number.toLocaleString() }} ({{ stat.percent.toLocaleString() }}%)
+            {{ stat.key }}: {{ stat.value.toLocaleString() }} ({{ stat.percent.toLocaleString() }}%)
           </q-tooltip>
         </div>
       </template>
@@ -26,7 +26,7 @@ export default {
 
   computed: {
     total() {
-      return this.stats.reduce((acc, stat) => acc + stat.number, 0);
+      return this.stats.reduce((acc, stat) => acc + stat.value, 0);
     }
   }
 }
