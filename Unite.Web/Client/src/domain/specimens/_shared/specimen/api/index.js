@@ -10,6 +10,11 @@ async function get(id){
   return await client.get(url);
 }
 
+async function remove(id){
+  let url = `${specimensFeedUrl}/specimens/${id}`;
+  return await client.delete(url);
+}
+
 async function searchGenes(id, criteria){
   let url = `${specimenUrl}/${id}/genes`;
   return await client.post(url, criteria);
@@ -43,6 +48,7 @@ async function downloadData(id, data){
 
 export default {
   get,
+  remove,
   searchGenes,
   searchVariants,
   searchDrugs,

@@ -5,7 +5,7 @@
     templatePathJson="/templates/specimens/materials.json"
     templatePathTsv="/templates/specimens/materials.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
-    :uploadMethod="uploadTissues"
+    :uploadMethod="uploadMaterials"
   />
 
   <q-btn
@@ -13,7 +13,7 @@
     title="Upload data"
     icon="las la-file-upload"
     color="primary"
-    @click="onUploadTissues"
+    @click="onUploadMaterials"
     v-close-popup
     dense flat no-caps>
   </q-btn>
@@ -41,11 +41,11 @@ export default {
   },
 
   methods: {
-    async onUploadTissues() {
+    async onUploadMaterials() {
       this.dialog = true;
     },
 
-    async uploadTissues(data, format) {
+    async uploadMaterials(data, format) {
       if (format === "json") {
         return await this.specimensApi.uploadSpecimens(data);
       }

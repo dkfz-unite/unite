@@ -3,10 +3,16 @@ import settings from "@/settings";
 
 const client = new ApiClient();
 const imageUrl = `${settings.urls.composer}/image`;
+const imagesFeedUrl = `${settings.urls.images}`;
 
 async function get(id){
   let url = `${imageUrl}/${id}`;
   return await client.get(url);
+}
+
+async function remove(id){
+  let url = `${imagesFeedUrl}/images/${id}`;
+  return await client.delete(url);
 }
 
 async function searchGenes(id, sampleId, criteria){
@@ -37,6 +43,7 @@ async function downloadData(id, data) {
 
 export default {
   get,
+  remove,
   searchGenes,
   searchVariants,
   getSamples,

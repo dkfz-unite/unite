@@ -17,6 +17,13 @@
         :data="specimen.data"
         :domain="Settings.materials.domain">
       </u-download-button>
+
+      <u-delete-button
+        v-if="specimen && canWriteData"
+        :id="specimen.id"
+        :reference="specimen.referenceId"
+        @deleted="$router.push({name: Settings.materials.domain})">
+      </u-delete-button>
     </div>
 
     <div class="row" v-if="specimen">
@@ -103,6 +110,7 @@
 
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
+import UDeleteButton from "../_shared/specimen/components/delete/DeleteButton.vue";
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UAncestryTab from "../_shared/specimen/components/tabs/AncestryTab.vue";
@@ -119,6 +127,7 @@ import Settings from "@/_settings/settings";
 export default {
   components: {
     UDownloadButton,
+    UDeleteButton,
     UTabVariants,
     USummaryTab,
     UAncestryTab,
