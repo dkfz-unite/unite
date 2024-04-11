@@ -40,6 +40,13 @@ export async function createAccount(email, password, passwordRepeat) {
   return await client.post(url, data);
 }
 
+export async function deleteAccount() {
+  const url = accountUrl;
+
+  await client.delete(url);
+  tokenHelpers.remove();
+}
+
 export async function changePassword(oldPassword, newPassword, newPasswordRepeat) {
   const url = `${accountUrl}/password`;
 
@@ -84,6 +91,7 @@ export default {
   getProviders,
   getAccount,
   createAccount,
+  deleteAccount,
   changePassword,
   logIn,
   logOut
