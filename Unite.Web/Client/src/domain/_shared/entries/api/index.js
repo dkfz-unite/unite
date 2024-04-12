@@ -27,6 +27,16 @@ export default class ModelsApi {
   }
 
   /**
+   * Retrieves data status.
+   * @returns {Promise<object>} - A promise that resolves with the status.
+   */
+  async status() {
+    const url = `${this.url}/status`;
+
+    return await this.client.get(url);
+  }
+
+  /**
    * Retrieves domain data according to given search criteria.
    * @param {object} criteria - Search criteria.
    * @returns {Promise<object>} - A promise that resolves with the search results.

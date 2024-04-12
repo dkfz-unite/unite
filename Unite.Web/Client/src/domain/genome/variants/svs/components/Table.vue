@@ -10,7 +10,12 @@
       :rows-total="rowsTotal"
       v-model:rows-selected="dataSelected"
       v-model:from="dataFrom"
-      v-model:size="dataSize"> 
+      v-model:size="dataSize">
+      <template v-slot:header-left>
+        <slot name="header-left">
+        </slot>
+      </template>
+      
       <template v-slot:header-right>
         <slot name="header-right">
         </slot>
