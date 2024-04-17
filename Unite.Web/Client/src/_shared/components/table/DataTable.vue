@@ -10,12 +10,20 @@
     v-bind:rows-per-page-options="paginationOptions" 
     v-bind:loading="loading"
     @request="onRequest">
+    <template v-slot:top-left>
+      <div class="row items-center q-gutter-x-sm">
+        <div class="text-h6 text-weight-regular">{{ title }}</div>
+        <slot name="header-left" />
+      </div>
+    </template>
+
     <template v-slot:top-right>
       <div class="row items-center q-gutter-x-sm">
         <slot name="header-right" />
         <u-columns-picker v-model="visible" :columns="columns" />
       </div>
     </template>
+
     <template v-for="(_, name) in $slots" v-slot:[name]="scope">
       <slot :name="name" v-bind="scope" />
     </template>

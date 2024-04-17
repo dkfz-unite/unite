@@ -70,18 +70,18 @@
 
                   <!-- Password hint -->
                   <div class="text-hint">
-                    Password must be minimum <strong>8</strong> characters long
-                    and contain <strong>both</strong>
-                    <strong>letters</strong> and <strong>numbers</strong>.
+                    Password must be minimum <b>8</b> characters long
+                    and contain <b>both</b>
+                    <b>letters</b> and <b>numbers</b>.
                   </div>
 
                   <!-- Access list hint -->
                   <div class="text-hint">
                     Please note, that only emails of DKFZ
-                    <strong>UNITE</strong> project members are in access list
+                    <b>UNITE</b> project members are in access list
                     and can be used to register account. If you're member of the
                     UNITE project, but still can't register, please, contact
-                    UNITE <strong>PI</strong>s.
+                    UNITE <b>PI</b>s.
                   </div>
 
                   <!-- Errors -->

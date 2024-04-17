@@ -17,6 +17,13 @@
         :data="donor.data"
         :domain="Settings.donors.domain">
       </u-download-button>
+
+      <u-delete-button
+        v-if="donor && canWriteData"
+        :id="donor.id"
+        :reference="donor.referenceId"
+        @deleted="$router.replace({ name: Settings.donors.domain })">
+      </u-delete-button>
     </div>
 
     <div class="row" v-if="donor">
@@ -134,6 +141,7 @@
 
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
+import UDeleteButton from "./components/delete/DeleteButton.vue";
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UClinicalTab from "./components/tabs/ClinicalTab.vue";
@@ -147,12 +155,14 @@ import UCnvsTab from "@/domain/_shared/entry/components/tabs/CNVsTab.vue";
 import USvsTab from "@/domain/_shared/entry/components/tabs/SVsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
+import { mapGetters } from "vuex";
 import Settings from "@/_settings/settings";
 import api from "./api";
 
 export default {
   components: {
     UDownloadButton,
+    UDeleteButton,
     UTabVariants,
     USummaryTab,
     UClinicalTab,
@@ -192,6 +202,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters("identity", ["canWriteData"]),
+
     showClinical() {
       return this.donor?.data?.clinical;
     },
@@ -249,7 +261,7 @@ export default {
       } finally {
         this.loading = false;
       }
-    }
+    },
   },
 
   async unmounted() {

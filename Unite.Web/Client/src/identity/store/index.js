@@ -1,5 +1,5 @@
 import Account from "../models/account";
-import api from "../api";
+import api, { deleteAccount } from "../api";
 import getters from "./getters";
 
 const module = {
@@ -38,6 +38,16 @@ const module = {
     async createAccount({state}, {email, password, passwordRepeat}) {
       try {
         await api.createAccount(email, password, passwordRepeat);
+        return null;
+      } catch (error) {
+        return error.status;
+      }
+    },
+
+    async deleteAccount({state}) {
+      try {
+        await api.deleteAccount();
+        state.account = null;
         return null;
       } catch (error) {
         return error.status;

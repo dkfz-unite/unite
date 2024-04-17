@@ -17,6 +17,13 @@
         :data="image.data"
         :domain="Settings.mris.domain">
       </u-download-button>
+
+      <u-delete-button
+        v-if="image && canWriteData"
+        :id="image.id"
+        :reference="image.referenceId"
+        @deleted="$router.push({name: Settings.mris.domain})">
+      </u-delete-button>
     </div>
 
     <div class="row" v-if="image">
@@ -94,6 +101,7 @@
 
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
+import UDeleteButton from "../_shared/image/components/delete/DeleteButton.vue";
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProfileTab from "@/domain/_shared/entry/components/tabs/ProfileTab.vue";
@@ -105,10 +113,12 @@ import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
 import Settings from "@/_settings/settings";
 import imageApi from "../_shared/image/api";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     UDownloadButton,
+    UDeleteButton,
     UTabVariants,
     USummaryTab,
     UProfileTab,
@@ -136,6 +146,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters("identity", ["canWriteData"]),
+
     showProfile() {
       return this.showGenes || this.showVariants;
     },

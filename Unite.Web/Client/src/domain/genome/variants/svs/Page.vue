@@ -53,6 +53,11 @@
           v-model:size="filtersCriteria.size"
           @update:from="updateFrom"
           @update:size="updateSize">
+          <template #header-left>
+            <div class="row q-gutter-x-xs">
+              <u-status :action="updateStatus" />
+            </div>
+          </template>
           <template #header-right>
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
@@ -72,6 +77,7 @@ import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
 import UDataTable from "./components/Table.vue";
+import UStatus from "@/domain/_shared/entries/components/status/Status.vue";
 import UFiltersToolbar from "@/domain/_shared/entries/components/toolbars/filters/FiltersToolbar.vue";
 import UDatasetsToolbar from "@/domain/_shared/entries/components/toolbars/datasets/DatasetsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
@@ -91,6 +97,7 @@ export default {
     UFilters,
     UFiltersMini,
     UDataTable,
+    UStatus,
     UFiltersToolbar,
     UDatasetsToolbar,
     USearchBar
@@ -116,6 +123,10 @@ export default {
   methods: {
     async fetchData(searchCriteria) {
       return await api.search(searchCriteria);
+    },
+
+    async updateStatus() {
+      return await api.status();
     }
   }
 };

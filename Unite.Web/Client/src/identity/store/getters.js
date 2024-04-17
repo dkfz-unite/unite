@@ -1,6 +1,10 @@
 import Permissions from "../models/permissions";
 
 const getters = {
+  account: (state) => {
+    return state.account;
+  },
+
   isAdmin: (state, getters) => {
     return getters.hasPermissions(Permissions.Admin);
   },

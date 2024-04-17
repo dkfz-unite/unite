@@ -8,6 +8,7 @@ import quasarOptions from "./settings.quasar";
 import { createApp } from "vue";
 import helpers from "./_shared/plugins/helpers-plugin";
 import components from "./_shared/plugins/components-plugin";
+import navigator from "./_shared/plugins/navigation-plugin.js";
 import router from "./home/router";
 import store from "./home/store";
 
@@ -17,6 +18,7 @@ createApp(UHomePage)
 .use(Quasar, quasarOptions)
 .use(helpers)
 .use(components)
+.use(navigator, { router })
 .use(store)
 .use(router)
 .mount("#app");
