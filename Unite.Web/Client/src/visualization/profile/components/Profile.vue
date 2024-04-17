@@ -1,10 +1,15 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row items-center q-gutter-sm">
-      <slot name="header-before"></slot>
-      <u-location :location="location" />
+      <slot name="header-before">
+        <div v-show="false" id="header-before"></div>
+      </slot>
+      <u-location v-if="!slot" :location="location" />
+      
       <q-space />
-      <q-btn dense flat stretch label="Settings" icon="las la-sliders-h" no-caps>
+      
+      <u-location v-if="slot" :location="location" />
+      <q-btn dense flat stretch  icon="las la-sliders-h" title="View settings" no-caps>
         <u-view-menu v-model="options" @clear-cache="onClearCache" />
       </q-btn>
     </div>
@@ -53,6 +58,7 @@ export default {
 
   data() {
     return {
+      slot: false,
       ranges: [],
       genes: [],
       exps: [],
@@ -87,6 +93,7 @@ export default {
   },
 
   async mounted() {
+    this.slot = document.getElementById("header-before") == null;
     this.options = this.getViewOptions();
     await this.setData(this.profile);
   },
@@ -129,6 +136,7 @@ export default {
 
       if (this.profile?.hasSsms) {
         view.ssms = {
+          category: "Impact",
           high: true,
           low: true,
           moderate: true,
@@ -251,55 +259,86 @@ export default {
     },
 
     getSeries() {
+      let categories = ["Impact", "Change from", "Change to"];
       let series = [];
 
       // Genes
       series.push(genesDataService.getSeriesMinus(this.genes || [], "x1", "y1"));
       series.push(genesDataService.getSeriesPlus(this.genes || [], "x1", "y1"));
 
-      // SVs
+      // SVs type
       if (this.options.svs) {
         series.push(svsDataService.getSeries(this.svs || [], "x1", "y2"));
       }
 
-      // CNVs
+      // CNVs type
       if (this.options.cnvs) {
         series.push(cnvsDataService.getSeries(this.cnvs || [], "x1", "y3"));
-        
       }
 
-      // SSMs
-      if (this.options.ssms) {
-        if (this.options.ssms.high) {
+      // SSMs impact
+      if (this.options.ssms?.category == categories[0]) {
+        if (this.options.ssms.high)
           series.push(ssmsDataService.getImpactSeries(this.ssms || [], 0, "x1", "y4"));
-        }
-
-        if (this.options.ssms.moderate) {
+        if (this.options.ssms.moderate)
           series.push(ssmsDataService.getImpactSeries(this.ssms || [], 1, "x1", "y4"));
-        }
-
-        if (this.options.ssms.low) {
+        if (this.options.ssms.low)
           series.push(ssmsDataService.getImpactSeries(this.ssms || [], 2, "x1", "y4"));
-        }
-
-        if (this.options.ssms.unknown) {
+        if (this.options.ssms.unknown)
           series.push(ssmsDataService.getImpactSeries(this.ssms || [], 3, "x1", "y4"));
-        }
       }
 
-      // Exps
-      if (this.options.exps) {
-        if (this.options.exps.reads) {
-          series.push(expsDataService.getSeries(this.exps || [], 0, "x1", "y5"));
-        }
+      // SSMs change from
+      if (this.options.ssms?.category == categories[1]) {
+        const impacts = [];
 
-        if (this.options.exps.tpm) {
-          series.push(expsDataService.getSeries(this.exps || [], 1, "x1", "y5"));
-        }
+        if (this.options.ssms.high)
+          impacts.push(0);
+        if (this.options.ssms.moderate)
+          impacts.push(1);
+        if (this.options.ssms.low)
+          impacts.push(2);
+        if (this.options.ssms.unknown)
+          impacts.push(3);
 
-        if (this.options.exps.fpkm) {
-          series.push(expsDataService.getSeries(this.exps || [], 2, "x1", "y5"));
-        }
+        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 0, impacts, "x1", "y4"));
+        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 1, impacts, "x1", "y4"));
+        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 2, impacts, "x1", "y4"));
+        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 3, impacts, "x1", "y4"));
+      }
+
+      // SSMs change to
+      if (this.options.ssms?.category == categories[2]) {
+        const impacts = [];
+
+        if (this.options.ssms.high)
+          impacts.push(0);
+        if (this.options.ssms.moderate)
+          impacts.push(1);
+        if (this.options.ssms.low)
+          impacts.push(2);
+        if (this.options.ssms.unknown)
+          impacts.push(3);
+
+        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 0, impacts, "x1", "y4"));
+        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 1, impacts, "x1", "y4"));
+        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 2, impacts, "x1", "y4"));
+        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 3, impacts, "x1", "y4"));
+      }
+
+      // Exps reads
+      if (this.options.exps?.reads) {
+        series.push(expsDataService.getSeries(this.exps || [], 0, "x1", "y5"));
+      }
+
+      // Exps TPM
+      if (this.options.exps?.tpm) {
+        series.push(expsDataService.getSeries(this.exps || [], 1, "x1", "y5"));
+      }
+
+      // Exps FPKM
+      if (this.options.exps?.fpkm) {
+        series.push(expsDataService.getSeries(this.exps || [], 2, "x1", "y5"));
       }
 
       return series;
@@ -338,10 +377,10 @@ export default {
       // SSMs Y-Axis
       if (this.options.ssms) {
         const domain = this.getSsmDomain();
-        const high = this.options.ssms.high ? this.ssms?.map(v => v.i[0]) || [0] : [0];
-        const moderate = this.options.ssms.moderate ? this.ssms?.map(v => v.i[1]) || [0] : [0];
-        const low = this.options.ssms.low ? this.ssms?.map(v => v.i[2]) || [0] : [0];
-        const unknown = this.options.ssms.unknown ? this.ssms?.map(v => v.i[3]) || [0] : [0];
+        const high = this.options.ssms.high ? this.ssms?.map(v => v.i[0].n) || [0] : [0];
+        const moderate = this.options.ssms.moderate ? this.ssms?.map(v => v.i[1].n) || [0] : [0];
+        const low = this.options.ssms.low ? this.ssms?.map(v => v.i[2].n) || [0] : [0];
+        const unknown = this.options.ssms.unknown ? this.ssms?.map(v => v.i[3].im) || [0] : [0];
         const max = Math.max(...high, ...moderate, ...low, ...unknown);
         scales.yaxis4 = ssmsDataService.getScales("y4", domain, max);
       };
@@ -402,7 +441,7 @@ export default {
         displaylogo: false,
         responsive: true,
       }
-    },
+    }
   }
 }
 </script>

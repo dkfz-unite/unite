@@ -40,8 +40,68 @@ function getImpactText(entry) {
     let tooltip = "";
 
     entry.i.forEach((impact, index) => {
-      if (impact > 0)
-        tooltip += `${getImpactName(index)}: ${impact}<br>`;
+      if (impact.n > 0)
+        tooltip += `${getImpactName(index)}: ${impact.n}<br>`;
+    });
+
+    return tooltip;
+  }
+};
+
+function getChangeName(number) {
+  return number == 0 ? "<b>A</b>denine"
+       : number == 1 ? "<b>C</b>ytosine"
+       : number == 2 ? "<b>G</b>uanine"
+       : "<b>T</b>hymine";
+};
+
+function getChangeColor(number) {
+  return number == 0 ? colors.getPaletteColor("green-4")
+       : number == 1 ? colors.getPaletteColor("red-4")
+       : number == 2 ? colors.getPaletteColor("orange-4")
+       : colors.getPaletteColor("blue-4");
+};
+
+function getChangeFromText(entry) {
+  if (entry.e) {
+    return getVariantText(entry);
+  } else {
+    var changes = entry.i.reduce((acc, impact) => {
+      acc[0] += impact.f[0];
+      acc[1] += impact.f[1];
+      acc[2] += impact.f[2];
+      acc[3] += impact.f[3];
+      return acc;
+    }, [0, 0, 0, 0]);
+
+    let tooltip = "From:<br>";
+
+    changes.forEach((change, index) => {
+      if (change > 0)
+        tooltip += `${getChangeName(index)}: ${change}<br>`;
+    });
+
+    return tooltip;
+  }
+};
+
+function getChangeToText(entry) {
+  if (entry.e) {
+    return getVariantText(entry);
+  } else {
+    var changes = entry.i.reduce((acc, impact) => {
+      acc[0] += impact.t[0];
+      acc[1] += impact.t[1];
+      acc[2] += impact.t[2];
+      acc[3] += impact.t[3];
+      return acc;
+    }, [0, 0, 0, 0]);
+
+    let tooltip = "To:<br>";
+
+    changes.forEach((change, index) => {
+      if (change > 0)
+        tooltip += `${getChangeName(index)}: ${change}<br>`;
     });
 
     return tooltip;
@@ -51,18 +111,62 @@ function getImpactText(entry) {
 export function getImpactSeries(entries, number, x, y) {
   const name = getImpactName(number);
   const color = getImpactColor(number);
-  const items = entries?.filter(entry => entry.i[number] > 0) || [];
+  const items = entries?.filter(entry => entry.i[number].n > 0) || [];
 
   return {
     name: name,
     type: "bar",
     x: items.map(entry => entry.r[0]),
-    y: items.map(entry => entry.i[number]),
+    y: items.map(entry => entry.i[number].n),
     marker: { 
       color: color 
     },
     hoverinfo: "text",
     hovertext: items.map(entry => getImpactText(entry)),
+    hoverlabel: dataService.hoverLabelStyle,
+    xaxis: x,
+    yaxis: y
+  };
+};
+
+export function getChangeFromSeries(entries, number, impacts, x, y) {
+  const reducer = (entry) => impacts.reduce((count, impact) => count + entry.i[impact].f[number], 0);
+  const name = getChangeName(number);
+  const color = getChangeColor(number);
+  const items = entries?.filter(entry => reducer(entry) > 0) || [];
+
+  return {
+    name: name,
+    type: "bar",
+    x: items.map(entry => entry.r[0]),
+    y: items.map(entry => reducer(entry)),
+    marker: { 
+      color: color 
+    },
+    hoverinfo: "text",
+    hovertext: items.map(entry => getChangeFromText(entry)),
+    hoverlabel: dataService.hoverLabelStyle,
+    xaxis: x,
+    yaxis: y
+  };
+};
+
+export function getChangeToSeries(entries, number, impacts, x, y) {
+  const reducer = (entry) => impacts.reduce((count, impact) => count + entry.i[impact].t[number], 0);
+  const name = getChangeName(number);
+  const color = getChangeColor(number);
+  const items = entries?.filter(entry => reducer(entry) > 0) || [];
+
+  return {
+    name: name,
+    type: "bar",
+    x: items.map(entry => entry.r[0]),
+    y: items.map(entry => reducer(entry)),
+    marker: { 
+      color: color 
+    },
+    hoverinfo: "text",
+    hovertext: items.map(entry => getChangeToText(entry)),
     hoverlabel: dataService.hoverLabelStyle,
     xaxis: x,
     yaxis: y
@@ -86,5 +190,7 @@ export function getScales(y, domain, maxValue) {
 
 export default {
   getScales,
-  getImpactSeries
+  getImpactSeries,
+  getChangeFromSeries,
+  getChangeToSeries
 };
