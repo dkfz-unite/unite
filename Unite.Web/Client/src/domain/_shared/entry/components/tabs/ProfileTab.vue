@@ -4,15 +4,6 @@
       <span class="text-h5 u-text-title">Genomic Profile</span>
     </div>
 
-    <!-- <div class="row">
-      <u-samples
-        v-if="showSamples"
-        v-model="sample"
-        :options="samples"
-        @update:modelValue="fetchData"
-        style="min-width: 200px;"
-      />
-    </div> -->
     <div class="row">
       <u-profile v-if="profile" :profile="profile" :density="density" @fetch="fetchData">
         <template v-slot:header-before>

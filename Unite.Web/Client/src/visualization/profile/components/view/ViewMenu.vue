@@ -1,162 +1,44 @@
 <template>
   <q-menu style="width: 270px;">
     <q-list dense class="q-my-sm">
-      <!-- SSM Group -->
       <q-item>
-        <q-item-section>Simple Somatic Mutations (SSM)</q-item-section>
+        <u-ssm-options v-model="ssms" @update:model-value="update"/>
       </q-item>
-
-      <!-- SSM Category -->
-      <q-item>
-        <q-item-section>Impact</q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="square" color="red-4" :active="ssmHigh">High</u-view-figure>
-        </q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="ssmHigh" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="square" color="orange-4" :active="ssmModerate">Moderate</u-view-figure>
-        </q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="ssmModerate" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="square" color="green-4" :active="ssmLow">Low</u-view-figure>
-        </q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="ssmLow" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="square" color="grey-4" :active="ssmUnknown">Unknown</u-view-figure>
-        </q-item-section>
-        <q-item-section side>
-          <q-toggle dense v-model="ssmUnknown" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-
-      <!-- CNV Group -->
+      
       <q-separator class="q-my-xs" />
-
       <q-item>
-        <q-item-section>Copy Number Variants (CNV)</q-item-section>
+        <u-cnv-options v-model="cnvs" @update:model-value="update" />
       </q-item>
 
-      <!-- CNV Category -->
-      <q-item>
-        <q-item-section>Type</q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="cnvType" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <div class="row q-gutter-x-sm">
-            <u-view-figure type="square" color="green-4" :active="cnvType">Gain</u-view-figure>
-            <u-view-figure type="square" color="grey-4" :active="cnvType">Neutral</u-view-figure>
-            <u-view-figure type="square" color="red-4" :active="cnvType">Loss</u-view-figure>
-          </div>
-        </q-item-section>
-      </q-item>
-
-
-      <!-- SV Group -->
       <q-separator class="q-my-xs" />
-
       <q-item>
-        <q-item-section>Structural Variants (SV)</q-item-section>
+        <u-sv-options v-model="svs" @update:model-value="update" />
       </q-item>
 
-      <!-- SV Category -->
-      <q-item>
-        <q-item-section>Type</q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="svType" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <div class="row q-gutter-x-sm">
-            <u-view-figure type="square" color="purple-4" :active="svType">ITX</u-view-figure>
-            <u-view-figure type="square" color="cyan-4" :active="svType">CTX</u-view-figure>
-            <u-view-figure type="square" color="green-4" :active="svType">DUP</u-view-figure>
-            <u-view-figure type="square" color="red-4" :active="svType">DEL</u-view-figure>
-            <u-view-figure type="square" color="orange-5" :active="svType">INS</u-view-figure>
-            <u-view-figure type="square" color="grey-4" :active="svType">INV</u-view-figure>
-          </div>
-        </q-item-section>
-      </q-item>
-        
-
-
-      <!-- Expressions Group -->
       <q-separator class="q-my-xs" />
-
       <q-item>
-        <q-item-section>Gene Expressions</q-item-section>
+        <u-exp-options v-model="exps" @update:model-value="update" />
       </q-item>
 
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="line" color="grey-9" :active="expReads">Reads</u-view-figure>
-        </q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="expReads" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="line" color="teal-4" :active="expTpm">TPM</u-view-figure>
-        </q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="expTpm" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-      <q-item>
-        <q-item-section>
-          <u-view-figure type="line" color="purple-4" :active="expFpkm">FPKM</u-view-figure>
-        </q-item-section>
-        <q-item-section side> 
-          <q-toggle dense v-model="expFpkm" @update:model-value="update" />
-        </q-item-section>
-      </q-item>
-
-
-      <!-- Cache Group-->
       <q-separator class="q-my-xs" />
-
       <q-item>
         <q-item-section>
           <q-btn text-color="red" dense flat no-caps @click="$emit('clear-cache')">Clear cache</q-btn>
         </q-item-section>
       </q-item>
-
     </q-list>
   </q-menu>
 </template>
 
 <script>
 import UViewFigure from "./ViewFigure.vue";
+import USsmOptions from "./SsmOptions.vue";
+import UCnvOptions from "./CnvOptions.vue";
+import USvOptions from "./SvOptions.vue";
+import UExpOptions from "./ExpOptions.vue";
 
 export default {
-  components: { UViewFigure },
+  components: { UViewFigure, USsmOptions, UCnvOptions, USvOptions, UExpOptions },
 
   props: {
     modelValue: {
@@ -169,29 +51,47 @@ export default {
 
   data() {
     return {
-      ssmHigh: this.modelValue.ssms?.high || false,
-      ssmModerate: this.modelValue.ssms?.moderate || false,
-      ssmLow: this.modelValue.ssms?.low || false,
-      ssmUnknown: this.modelValue.ssms?.unknown || false,
-      cnvType: this.modelValue.cnvs?.type || false,
-      svType: this.modelValue.svs?.type || false,
-      expReads: this.modelValue.exps?.reads || false,
-      expTpm: this.modelValue.exps?.tpm || false,
-      expFpkm: this.modelValue.exps?.fpkm || false
+      ssms: {
+        category: "Impact",
+        high: this.modelValue.ssms?.high || false,
+        moderate: this.modelValue.ssms?.moderate || false,
+        low: this.modelValue.ssms?.low || false,
+        unknown: this.modelValue.ssms?.unknown || false
+      },
+      cnvs: {
+        type: this.modelValue.cnvs?.type || false
+      },
+      svs: {
+        type: this.modelValue.svs?.type || false
+      },
+      exps: {
+        reads: this.modelValue.exps?.reads || false,
+        pkm: this.modelValue.exps?.tpm || false,
+        fpkm: this.modelValue.exps?.fpkm || false
+      }
     }
   },
 
   watch: {
     modelValue(value) {
-      this.ssmHigh = value.ssms?.high || false;
-      this.ssmModerate = value.ssms?.moderate || false;
-      this.ssmLow = value.ssms?.low || false;
-      this.ssmUnknown = value.ssms?.unknown || false;
-      this.cnvType = value.cnvs?.type || false;
-      this.svType = value.svs?.type || false;
-      this.expReads = value.exps?.reads || false;
-      this.expTpm = value.exps?.tpm || false;
-      this.expFpkm = value.exps?.fpkm || false;
+      this.ssms = {
+        category: value.ssms?.category || "Impact",
+        high: value.ssms?.high || false,
+        moderate: value.ssms?.moderate || false,
+        low: value.ssms?.low || false,
+        unknown: value.ssms?.unknown || false
+      };
+      this.cnvs = {
+        type: value.cnvs?.type || false
+      };
+      this.svs = {
+        type: value.svs?.type || false
+      };
+      this.exps = {
+        reads: value.exps?.reads || false,
+        pkm: value.exps?.tpm || false,
+        fpkm: value.exps?.fpkm || false
+      }
     }
   },
 
@@ -199,39 +99,25 @@ export default {
     update() {
       let options = {};
 
-      const ssms = this.ssmHigh || this.ssmModerate || this.ssmLow || this.ssmUnknown;
+      const ssms = this.ssms.high || this.ssms.moderate || this.ssms.low || this.ssms.unknown;
       if (ssms) {
-        options.ssms = {
-          high: this.ssmHigh,
-          moderate: this.ssmModerate,
-          low: this.ssmLow,
-          unknown: this.ssmUnknown
-        }
+        options.ssms = this.ssms;
       }
 
-      const cnvs = this.cnvType;
+      const cnvs = this.cnvs.type;
       if (cnvs) {
-        options.cnvs = {
-          type: this.cnvType
-        }
+        options.cnvs = this.cnvs;
       }
 
-      const svs = this.svType;
+      const svs = this.svs.type;
       if (svs) {
-        options.svs = {
-          type: this.svType
-        }
+        options.svs = this.svs;
       }
 
-      const exps = this.expReads || this.expTpm || this.expFpkm;
+      const exps = this.exps.reads || this.exps.pkm || this.exps.fpkm;
       if (exps) {
-        options.exps = {
-          reads: this.expReads,
-          tpm: this.expTpm,
-          fpkm: this.expFpkm
-        }
+        options.exps = this.exps;
       }
-
 
       this.$emit('update:modelValue', options);
     }

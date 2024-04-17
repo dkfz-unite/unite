@@ -1,6 +1,6 @@
 <template>
   <div class="row items-center q-gutter-sm" :style="styles">
-    <div :class="classes"></div>
+    <div v-if="show" :class="classes"></div>
     <div>
       <slot>{{ label }}</slot>
     </div>
@@ -28,6 +28,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    show: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
 
@@ -44,7 +49,7 @@ export default {
 }
 </script>
 
-<style type="sass" scoped>
+<style type="scss" scoped>
 .square {
   width: 15px;
   height: 15px;
