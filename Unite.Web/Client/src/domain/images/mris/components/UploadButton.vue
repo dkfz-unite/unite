@@ -1,7 +1,7 @@
 <template>
   <u-upload-dialog
-    v-model="dialog"
-    subject="Mri-Images"
+    v-model="dialogMris"
+    subject="Upload MRI images data"
     templatePathJson="/templates/images/mri-images.json"
     templatePathTsv="/templates/images/mri-images.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-models-images.md"
@@ -13,7 +13,7 @@
     title="Upload data"
     icon="las la-file-upload"
     color="primary"
-    @click="onUploadImages"
+    @click="dialogMris = true"
     v-close-popup
     dense flat no-caps>
   </q-btn>
@@ -36,21 +36,18 @@ export default {
 
   data() {
     return {
-      dialog: false,
+      dialogMris: false,
     };
   },
 
   methods: {
-    async onUploadImages() {
-      this.dialog = true;
-    },
-
     async uploadImages(data, format) {
-      if (format === "json")
+      if (format === "json") {
         return await this.imagesApi.uploadImages(data, format);
-      else
+      } else if (format === "tsv") {
         return await this.imagesApi.uploadMris(data);
-    },
+      }
+    }
   }
 }
 </script>

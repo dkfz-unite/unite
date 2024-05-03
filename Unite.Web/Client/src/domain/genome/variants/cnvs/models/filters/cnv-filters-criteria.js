@@ -3,14 +3,14 @@ import { copy } from "@/_shared/components/filters/filter-criteria-helpers";
 
 export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCriteria {
     type = [];
-    homoDel = null;
+    del = null;
     loh = null;
 
     get numberOfFilters() {
         let number = super.numberOfFilters;
         
         number += this.type?.length || 0;
-        number += this.homoDel != null ? 1 : 0;
+        number += this.del != null ? 1 : 0;
         number += this.loh != null ? 1 : 0;
         
         return number;
@@ -20,7 +20,7 @@ export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCrit
         super(criteria);
 
         this.type = criteria?.type || [];
-        this.homoDel = criteria?.homoDel || null;
+        this.del = criteria?.del || null;
         this.loh = criteria?.loh || null;
     }
 
@@ -32,7 +32,7 @@ export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCrit
         super.clear();
 
         this.type = [];
-        this.homoDel = null;
+        this.del = null;
         this.loh = null;
     }
 

@@ -31,7 +31,7 @@
         <q-td :props="props">
           <span v-if="!!props.value.type">{{props.value.type}}</span><span v-else class="text-grey">N/A</span>
           <span v-if="!!props.value.loh"> LOH</span>
-          <span v-if="!!props.value.homoDel"> HomoDel</span>
+          <span v-if="!!props.value.del"> Del</span>
         </q-td>
       </template>
 

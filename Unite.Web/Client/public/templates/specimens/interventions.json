@@ -1,6 +1,56 @@
 [
   {
     "donor_id": "Donor1",
+    "specimen_id": "Line1",
+    "specimen_type": "Line",
+    "data": [
+      {
+        "type": "Drug1",
+        "details": "Specimen specific intervention details",
+        "start_date": "2020-02-05",
+        "start_day": null,
+        "end_date": "2020-02-10",
+        "duration_days": null,
+        "results": "Specimen specific intervention results"
+      },
+      {
+        "type": "Drug2",
+        "details": "Specimen specific intervention details",
+        "start_date": "2020-02-10",
+        "start_day": null,
+        "end_date": "2020-02-15",
+        "duration_days": null,
+        "results": "Specimen specific intervention results"
+      }
+    ]
+  },
+  {
+    "donor_id": "Donor2",
+    "specimen_id": "Line1",
+    "specimen_type": "Line",
+    "data": [
+      {
+        "type": "Drug1",
+        "details": "Specimen specific intervention details",
+        "start_date": "2020-02-05",
+        "start_day": null,
+        "end_date": "2020-02-10",
+        "duration_days": null,
+        "results": "Specimen specific intervention results"
+      },
+      {
+        "type": "Drug2",
+        "details": "Specimen specific intervention details",
+        "start_date": "2020-02-10",
+        "start_day": null,
+        "end_date": "2020-02-15",
+        "duration_days": null,
+        "results": "Specimen specific intervention results"
+      }
+    ]
+  },
+  {
+    "donor_id": "Donor1",
     "specimen_id": "Organoid1",
     "specimen_type": "Organoid",
     "data": [

@@ -1,0 +1,9 @@
+#donor_id: Donor1
+#target_sample_id: Material2
+#target_sample_type: Material
+#analysis_type: RNASeq
+#analysis_date: 2020-01-15
+gene_id	reads
+ENSG00000223972	1
+ENSG00000243485	0
+ENSG00000274890	0
