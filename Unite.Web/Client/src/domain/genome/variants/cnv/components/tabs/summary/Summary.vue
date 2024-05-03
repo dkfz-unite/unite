@@ -34,7 +34,7 @@
               <td>
                 <span v-if="!!variant.cnv.type">{{ variant.cnv.type }}</span>
                 <span v-if="!!variant.cnv.loh"> LOH</span>
-                <span v-if="!!variant.cnv.homoDel"> HomoDel</span>
+                <span v-if="!!variant.cnv.del"> Del</span>
               </td>
             </tr>
             <tr>

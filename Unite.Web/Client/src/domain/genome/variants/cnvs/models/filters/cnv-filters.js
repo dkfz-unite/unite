@@ -30,8 +30,8 @@ const filters = [
     default: null
   },
   {
-    field: "homoDel",
-    label: "HomoDel",
+    field: "del",
+    label: "Del",
     type: FilterType.Boolean,
     default: null
   },

@@ -1,11 +1,11 @@
 <template>
   <u-upload-dialog
-    v-model="dialog"
-    subject="Materials"
+    v-model="dialogSpecimens"
+    subject="Upload materials data"
     templatePathJson="/templates/specimens/materials.json"
     templatePathTsv="/templates/specimens/materials.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
-    :uploadMethod="uploadMaterials"
+    :uploadMethod="uploadSpecimens"
   />
 
   <q-btn
@@ -13,7 +13,7 @@
     title="Upload data"
     icon="las la-file-upload"
     color="primary"
-    @click="onUploadMaterials"
+    @click="dialogSpecimens = true"
     v-close-popup
     dense flat no-caps>
   </q-btn>
@@ -36,21 +36,18 @@ export default {
 
   data() {
     return {
-      dialog: false,
+      dialogSpecimens: false,
     };
   },
 
   methods: {
-    async onUploadMaterials() {
-      this.dialog = true;
-    },
-
-    async uploadMaterials(data, format) {
+    async uploadSpecimens(data, format) {
       if (format === "json") {
         return await this.specimensApi.uploadSpecimens(data);
+      } else if (format === "tsv") {
+        return await this.specimensApi.uploadMaterials(data);
       }
-      return await this.specimensApi.uploadMaterials(data);
-    },
+    }
   }
 }
 </script>

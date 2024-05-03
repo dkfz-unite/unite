@@ -1,19 +1,19 @@
 <template>
   <u-upload-dialog
     v-model="dialogDonors"
-    subject="donors"
+    subject="Upload donors data"
     templatePathJson="/templates/donors/donors.json"
     templatePathTsv="/templates/donors/donors.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-donors-models.md"
+    modelDocs="https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-models-donors.md"
     :uploadMethod="uploadDonors"
   />
 
   <u-upload-dialog
     v-model="dialogTreatments"
-    subject="treatments"
+    subject="Upload treatments data"
     templatePathJson="/templates/donors/treatments.json"
     templatePathTsv="/templates/donors/treatments.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-donors-models.md#treatment"
+    modelDocs="https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-models-treatments.md"
     :uploadMethod="uploadTreatments"
   />
 
@@ -25,7 +25,7 @@
     dense flat no-caps>
     <q-menu>
       <q-list>
-        <q-item @click="onUploadDonors" clickable v-close-popup dense>
+        <q-item @click="dialogDonors = true" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
               <div><q-icon name="las la-user-circle" size="sm" /></div>
@@ -34,7 +34,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item @click="onUploadTreatments" clickable v-close-popup dense>
+        <q-item @click="dialogTreatments = true" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
               <div><q-icon name="las la-pills" size="sm" /></div>
@@ -70,21 +70,13 @@ export default {
   },
 
   methods: {
-    async onUploadDonors() {
-      this.dialogDonors = true;
-    },
-
     async uploadDonors(data, format) {
       return await this.donorsApi.uploadDonors(data, format);
     },
 
-    async onUploadTreatments() {
-      this.dialogTreatments = true;
-    },
-
     async uploadTreatments(data, format) {
       return await this.donorsApi.uploadTreatments(data, format);
-    },
+    }
   }
 
 }

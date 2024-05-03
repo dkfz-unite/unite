@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td class="u-text-key">MTA Protected</td>
-              <td>{{ $helpers.content.toBooleanString(donor.mta) }}</td>
+              <td>{{ $helpers.content.toBooleanString(donor.mtaProtected) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Projects</td>

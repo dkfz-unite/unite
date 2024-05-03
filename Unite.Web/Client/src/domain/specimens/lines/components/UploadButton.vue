@@ -1,16 +1,25 @@
 <template>
   <u-upload-dialog
-    v-model="dialogCells"
-    subject="Cell Lines"
+    v-model="dialogSpecimens"
+    subject="Upload cell lines data"
     templatePathJson="/templates/specimens/lines.json"
     templatePathTsv="/templates/specimens/lines.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
-    :uploadMethod="uploadCells"
+    :uploadMethod="uploadSpecimens"
   />
 
   <u-upload-dialog
-    v-model="dialogCellDrugs"
-    subject="Drug Screenings"
+    v-model="dialogInterventions"
+    subject="Upload interventions data"
+    templatePathJson="/templates/specimens/interventions.json"
+    templatePathTsv="/templates/specimens/interventions.tsv"
+    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-interventions.md"
+    :uploadMethod="uploadInterventions"
+  />
+
+  <u-upload-dialog
+    v-model="dialogDrugs"
+    subject="Upload drug screenings data"
     templatePathJson="/templates/specimens/drugs.json"
     templatePathTsv="/templates/specimens/drugs.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-drugs.md"
@@ -25,7 +34,7 @@
     dense flat no-caps>
     <q-menu>
       <q-list>
-        <q-item @click="onUploadCells" clickable v-close-popup dense>
+        <q-item @click="dialogSpecimens = true" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
               <div><q-icon name="las la-microscope" size="sm" /></div>
@@ -34,7 +43,16 @@
           </q-item-section>
         </q-item>
 
-        <q-item @click="onUploadCellDrugs" clickable v-close-popup dense>
+        <q-item @click="dialogInterventions = true" clickable v-close-popup dense>
+          <q-item-section>
+            <div class="row q-gutter-x-sm">
+              <div><q-icon name="las la-syringe" size="sm" /></div>
+              <div>Interventions</div>
+            </div>
+          </q-item-section>
+        </q-item>
+
+        <q-item @click="dialogDrugs = true" clickable v-close-popup dense>
           <q-item-section>
             <div class="row q-gutter-x-sm">
               <div><q-icon name="las la-capsules" size="sm" /></div>
@@ -64,30 +82,28 @@ export default {
 
   data() {
     return {
-      dialogCells: false,
-      dialogCellDrugs: false,
+      dialogSpecimens: false,
+      dialogInterventions: false,
+      dialogDrugs: false,
     };
   },
 
   methods: {
-    async onUploadCells() {
-      this.dialogCells = true;
-    },
-
-    async uploadCells(data, format) {
+    async uploadSpecimens(data, format) {
       if (format === "json") {
         return await this.specimensApi.uploadSpecimens(data);
+      } else if (format === "tsv") {
+        return await this.specimensApi.uploadCells(data);
       }
-      return await this.specimensApi.uploadCells(data);
     },
 
-    async onUploadCellDrugs() {
-      this.dialogCellDrugs = true;
+    async uploadInterventions(data, format) {
+      return await this.specimensApi.uploadInterventions(data, format);
     },
 
     async uploadDrugs(data, format) {
       return await this.specimensApi.uploadDrugs(data, format);
-    },
+    }
   }
 
 }

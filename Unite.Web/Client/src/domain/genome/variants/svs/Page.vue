@@ -62,6 +62,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-datasets-toolbar :domain="domain" />
+              <u-upload-button v-if="canWriteData" />
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -81,12 +82,14 @@ import UStatus from "@/domain/_shared/entries/components/status/Status.vue";
 import UFiltersToolbar from "@/domain/_shared/entries/components/toolbars/filters/FiltersToolbar.vue";
 import UDatasetsToolbar from "@/domain/_shared/entries/components/toolbars/datasets/DatasetsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
+import UUploadButton from "./components/UploadButton.vue";
 import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
 
 import Settings from "@/_settings/settings";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import VariantType from "../_shared/variants/models/enums/variant-type";
 import VariantsApi from "../_shared/variants/api";
+import { mapGetters } from "vuex";
 
 const api = new VariantsApi(VariantType.SV);
 
@@ -100,6 +103,7 @@ export default {
     UStatus,
     UFiltersToolbar,
     UDatasetsToolbar,
+    UUploadButton,
     USearchBar
   },
 
@@ -118,6 +122,10 @@ export default {
       model: FilterModels.Sv,
       models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Gene, FilterModels.Sv]
     };
+  },
+
+  computed: {
+    ...mapGetters("identity", ["canWriteData"])
   },
 
   methods: {

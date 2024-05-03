@@ -7,28 +7,28 @@
 
     <q-card style="width: 450px">
       <q-card-section>
-        <div class="text-h6">Upload {{ subjectLower }} data</div>
+        <div class="text-h6">{{ subject }}</div>
       </q-card-section>
 
       <q-card-section class="q-gutter-y-sm">
         <div class="row q-gutter-x-sm">
-          <div class="text-body1">File type:</div>
+          <div class="text-body1">Type:</div>
           <q-radio v-model="fileType" val="json" label="JSON" dense />
           <q-radio v-model="fileType" val="tsv" label="TSV" dense />
         </div>
 
         <div class="row">
           <div v-if="fileType === 'json'" class="col">
-            Download json file <a :href="templatePathJson" :download="`${subjectLowerFillWhiteSpaces}-template.json`" class="u-link">template</a>
+            Download json file <a :href="templatePathJson" :download="`template-${getFileName(templatePathJson)}`" class="u-link">template</a>
           </div>
           <div v-if="fileType === 'tsv'" class="col">
-            Download tsv file <a :href="templatePathTsv" :download="`${subjectLowerFillWhiteSpaces}-template.tsv`" class="u-link">template</a>
+            Download tsv file <a :href="templatePathTsv" :download="`template-${getFileName(templatePathTsv)}`" class="u-link">template</a>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
-            Data model <a :href="modelDocs" target="_blank" class="u-link">documentation</a>
+            Fields description can be found <a :href="modelDocs" target="_blank" class="u-link">here</a>
           </div>
         </div>
 
@@ -92,11 +92,26 @@ export default {
       type: Boolean,
       default: false,
     },
-    subject: String,
-    templatePathJson: String,
-    templatePathTsv: String,
-    modelDocs: String,
-    uploadMethod: Function,
+    subject: {
+      type: String,
+      default: "Upload data"
+    },
+    templatePathJson: {
+      type: String,
+      required: true,
+    },
+    templatePathTsv: {
+      type: String,
+      required: true,
+    },
+    modelDocs: {
+      type: String,
+      required: true,
+    },
+    uploadMethod: {
+      type: Function,
+      required: true,
+    }
   },
 
   emits: ["update:modelValue"],
@@ -129,19 +144,7 @@ export default {
       set(value) {
         this.$emit("update:modelValue", value);
       },
-    },
-
-    subjectTitle() {
-      return this.subject.charAt(0).toUpperCase() + this.subject.substr(1).toLowerCase();
-    },
-
-    subjectLower() {
-      return this.subject.toLowerCase();
-    },
-
-    subjectLowerFillWhiteSpaces() {
-      return this.subjectLower.replace(" ", "-");
-    },
+    }
   },
 
   watch: {
@@ -218,6 +221,10 @@ export default {
         message: message,
         caption: caption
       });
+    },
+
+    getFileName(path) {
+      return path.split("/").pop();
     }
   }
 }

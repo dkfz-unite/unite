@@ -1,0 +1,25 @@
+{
+  "analysis": {
+    "type": "RNASeq",
+    "date": "2020-01-15"
+  },
+  "target_sample": {
+    "donor_id": "Donor1",
+    "specimen_id": "Material2",
+    "specimen_type": "Material"
+  },
+  "Entries": [
+    {
+      "gene_id": "ENSG00000223972",
+      "reads": 1
+    },
+    {
+      "gene_id": "ENSG00000243485",
+      "reads": 0
+    },
+    {
+      "gene_id": "ENSG00000274890",
+      "reads": 0
+    }
+  ]
+}
