@@ -14,8 +14,8 @@ export default class VariantFiltersCriteria {
         number += this.id?.length || 0;
         number += this.chromosome?.length || 0;
         number += this.position?.from != null ? 1 : 0;
-        number += this.length?.from != null ? 1 : 0;
         number += this.position?.to != null ? 1 : 0;
+        number += this.length?.from != null ? 1 : 0;
         number += this.impact?.length || 0;
         number += this.consequence?.length || 0;
         

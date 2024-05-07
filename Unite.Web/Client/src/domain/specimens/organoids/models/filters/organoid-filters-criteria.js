@@ -20,7 +20,7 @@ export default class OrganoidFiltersCriteria extends SpecimenFiltersCriteria {
         super(criteria);
 
         this.medium = criteria?.medium || [];
-        this.tumorigenicity = criteria?.tumorigenicity || null;
+        this.tumorigenicity = criteria?.tumorigenicity != null ? criteria.tumorigenicity : null;
         this.intervention = criteria?.intervention || [];
     }
 

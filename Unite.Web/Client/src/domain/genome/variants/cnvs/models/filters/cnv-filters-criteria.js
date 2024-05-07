@@ -20,8 +20,8 @@ export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCrit
         super(criteria);
 
         this.type = criteria?.type || [];
-        this.del = criteria?.del || null;
-        this.loh = criteria?.loh || null;
+        this.del = criteria?.del != null ? criteria.del : null;
+        this.loh = criteria?.loh != null ? criteria.loh : null;
     }
 
     sanitise() {

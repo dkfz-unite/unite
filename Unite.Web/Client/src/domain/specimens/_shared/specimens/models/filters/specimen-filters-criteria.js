@@ -50,14 +50,14 @@ export default class SpecimenFiltersCriteria {
         this.idhMutation = criteria?.idhMutation || [];
         this.geneExpressionSubtype = criteria?.geneExpressionSubtype || [];
         this.methylationSubtype = criteria?.methylationSubtype || [];
-        this.gCimpMethylation = criteria?.gCimpMethylation || null;
+        this.gCimpMethylation = criteria?.gCimpMethylation != null ? criteria.gCimpMethylation : null;
         this.drug = criteria?.drug || [];
         this.dss = criteria?.dss || { from: null, to: null };
         this.dssSelective = criteria?.dssSelective || { from: null, to: null };
-        this.hasSsms = criteria?.hasSsms || null;
-        this.hasCnvs = criteria?.hasCnvs || null;
-        this.hasSvs = criteria?.hasSvs || null;
-        this.hasGeneExp = criteria?.hasGeneExp || null;
+        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
+        this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
+        this.hasGeneExp = criteria?.hasGeneExp != null ? criteria.hasGeneExp : null;
     }
 
     sanitise(){
