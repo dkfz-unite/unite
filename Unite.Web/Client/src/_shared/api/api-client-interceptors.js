@@ -44,7 +44,7 @@ export const afterEach = {
         const response = error.response;
 
         if (response?.status == 401) {
-            window.location.assign(loginPageUrl);
+            window.location.assign(`${loginPageUrl}?redirect=${encodeURIComponent(window.location.pathname)}`);
         } else if (response?.status == 403) {
             window.location.assign(accountPageUrl);
         }
