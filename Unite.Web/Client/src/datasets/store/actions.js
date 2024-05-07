@@ -18,14 +18,18 @@ const actions = {
     dispatch("saveDatasets");
   },
 
-  loadDatasets({state}, {owner, domain}) {
+  loadDatasets({state}) {
+    const owner = this.getters["identity/account"].email;
+    const domain = state.domain;
     const path = getPath(owner, domain);
     const json = localStorage.getItem(path);
     const datasets = json ? JSON.parse(json) : [];
     state.datasets = datasets;
   },
 
-  saveDatasets({state}, {owner, domain}) {
+  saveDatasets({state}) {
+    const owner = this.getters["identity/account"].email;
+    const domain = state.domain;
     const path = getPath(owner, domain);
     if (state.datasets?.length) {
       const json = JSON.stringify(state.datasets);
