@@ -61,18 +61,18 @@ export default class DonorFiltersCriteria {
         this.diagnosis = criteria?.diagnosis || [];
         this.primarySite = criteria?.primarySite || [];
         this.localization = criteria?.localization || [];
-        this.vitalStatus = criteria?.vitalStatus || null;
+        this.vitalStatus = criteria?.vitalStatus != null ? criteria.vitalStatus : null;
         this.vitalStatusChangeDay = criteria?.vitalStatusChangeDay || { from: null, to: null };
-        this.progressionStatus = criteria?.progressionStatus || null;
+        this.progressionStatus = criteria?.progressionStatus != null ? criteria.progressionStatus : null;
         this.progressionStatusChangeDay = criteria?.progressionStatusChangeDay || { from: null, to: null };
         this.therapy = criteria?.therapy || [];
-        this.mtaProtected = criteria?.mtaProtected || null;
+        this.mtaProtected = criteria?.mtaProtected != null ? criteria.mtaProtected : null;
         this.project = criteria?.project || [];
         this.study = criteria?.study || [];
-        this.hasSsms = criteria?.hasSsms || null;
-        this.hasCnvs = criteria?.hasCnvs || null;
-        this.hasSvs = criteria?.hasSvs || null;
-        this.hasGeneExp = criteria?.hasGeneExp || null;
+        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
+        this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
+        this.hasGeneExp = criteria?.hasGeneExp != null ? criteria.hasGeneExp : null;
     }
 
     sanitise() {

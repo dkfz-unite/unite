@@ -6,11 +6,10 @@ export default class GeneFiltersCriteria {
     biotype = [];
     chromosome = [];
     position = { from: null, to: null };
-    hasMutations = false;
-    hasCopyNumberVariants = false;
-    hasStructuralVariants = false;
-    hasVariants = false;
-    hasExpressions = false;
+    hasSsms = null;
+    hasCnvs = null;
+    hasSvs = null;
+    hasGeneExp = null;
 
     get numberOfFilters() {
         let number = 0;
@@ -21,11 +20,10 @@ export default class GeneFiltersCriteria {
         number += this.chromosome?.length || 0;
         number += this.position?.from != null ? 1 : 0;
         number += this.position?.to != null ? 1 : 0;
-        number += this.hasMutations ? 1 : 0;
-        number += this.hasCopyNumberVariants ? 1 : 0;
-        number += this.hasStructuralVariants ? 1 : 0;
-        number += this.hasVariants ? 1 : 0;
-        number += this.hasExpressions ? 1 : 0;
+        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasCnvs != null ? 1 : 0;
+        number += this.hasSvs != null ? 1 : 0;
+        number += this.hasGeneExp != null ? 1 : 0;
 
         return number;
     }
@@ -36,11 +34,10 @@ export default class GeneFiltersCriteria {
         this.biotype = criteria?.biotype || [];
         this.chromosome = criteria?.chromosome || [];
         this.position = criteria?.position || { from: null, to: null };
-        this.hasMutations = criteria?.hasMutations || false;
-        this.hasCopyNumberVariants = criteria?.hasCopyNumberVariants || false;
-        this.hasStructuralVariants = criteria?.hasStructuralVariants || false;
-        this.hasVariants = criteria?.hasVariants || false;
-        this.hasExpressions = criteria?.hasExpressions || false;
+        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
+        this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
+        this.hasGeneExp = criteria?.hasGeneExp != null ? criteria.hasGeneExp : null;
     }
 
     sanitise(){
@@ -56,11 +53,10 @@ export default class GeneFiltersCriteria {
         this.biotype = [];
         this.chromosome = [];
         this.position = { from: null, to: null };
-        this.hasMutations = false;
-        this.hasCopyNumberVariants = false;
-        this.hasStructuralVariants = false;
-        this.hasVariants = false;
-        this.hasExpressions = false;
+        this.hasSsms = null;
+        this.hasCnvs = null;
+        this.hasSvs = null;
+        this.hasGeneExp = null;
     };
 
     clone() {

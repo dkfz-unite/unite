@@ -26,7 +26,7 @@ export default class XenograftFiltersCriteria extends SpecimenFiltersCriteria {
 
         this.mouseStrain = criteria?.mouseStrain || [];
         this.survivalDays = criteria?.survivalDays || { from: null, to: null };
-        this.tumorigenicity = criteria?.tumorigenicity || null;
+        this.tumorigenicity = criteria?.tumorigenicity != null ? criteria.tumorigenicity : null;
         this.tumorGrowthForm = criteria?.tumorGrowthForm || [];
         this.intervention = criteria?.intervention || [];
     }
