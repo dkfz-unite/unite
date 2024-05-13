@@ -11,7 +11,11 @@ function getVariantText(entry) {
   tooltip += `SSM: ${entry.e.id}<br>`;
   tooltip += `Location: ${entry.e.position}<br>`;
   tooltip += `Type: ${getLabel(entry.e.type, SsmType.values)}<br>`;
-  tooltip += `Change: ${entry.e.change}<br>`;
+  tooltip += `DNA Change: ${entry.e.change}<br>`;
+  if (entry.e.changeCodon)
+    tooltip += `Codon Change: ${entry.e.changeCodon}<br>`;
+  if (entry.e.changeProtein)
+    tooltip += `Protein Change: ${entry.e.changeProtein}<br>`;
   tooltip += `Impact: ${getLabel(entry.e.impact, ConsequenceImpact.values)}<br>`;
   tooltip += `Consequence: ${getLabel(entry.e.consequence, ConsequenceType.values)}<br>`;
   tooltip += `Gene: ${entry.e.gene}<br>`;
