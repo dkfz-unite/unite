@@ -32,11 +32,11 @@
 <script>
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
-import UFeaturesTable from "./consequences/FeaturesTable.vue";
-import FeatureFiltersCriteria from "./consequences/feature-filters-criteria";
-import FeatureFiltersContext from "./consequences/feature-filters-context";
-import filters from "./consequences/feature-filters";
-import filterService from "./consequences/features-filter-service";
+import UFeaturesTable from "./effects/FeaturesTable.vue";
+import FeatureFiltersCriteria from "./effects/feature-filters-criteria";
+import FeatureFiltersContext from "./effects/feature-filters-context";
+import filters from "./effects/feature-filters";
+import filterService from "./effects/features-filter-service";
 
 export default {
   props: {

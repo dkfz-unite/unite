@@ -35,9 +35,9 @@
         </q-td>
       </template>
 
-      <template v-slot:body-cell-consequences="props">
+      <template v-slot:body-cell-effects="props">
         <q-td :props="props">
-          <u-consequences :consequences="props.value" />
+          <u-effects :effects="props.value" />
         </q-td>
       </template>
     </u-data-table>
@@ -47,7 +47,7 @@
 <script>
 import UDataTable from "@/_shared/components/table/DataTable.vue";
 import UVariantLink from "@/domain/genome/variants/cnv/components/Link.vue";
-import UConsequences from "@/domain/genome/variants/_shared/variants/components/cells/Consequences.vue";
+import UEffects from "@/domain/genome/variants/_shared/variants/components/cells/Effects.vue";
 import tableMixin from "@/domain/_shared/entries/components/table-mixin";
 
 import Settings from "../settings";
@@ -56,7 +56,7 @@ export default {
   components: {
     UDataTable,
     UVariantLink,
-    UConsequences
+    UEffects
   },
 
   mixins: [tableMixin],
@@ -169,9 +169,9 @@ export default {
       });
 
       columns.push({
-        name: "consequences",
-        label: "Consequences",
-        field: row => row.transcriptConsequences || null,
+        name: "effects",
+        label: "Effects",
+        field: row => row.transcriptEffects || null,
         sortable: false,
         align: "left"
       });

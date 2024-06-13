@@ -27,10 +27,10 @@ export default class VariantsApi extends ModelsApi {
    * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async upload(data, format = formats.json.name) {
+  async uploadVariants(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/dna/variants/${this.type}s${formats[format].path}`;
+    const url = `${this.feedUrl}/dna/analysis/${this.type}s${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 

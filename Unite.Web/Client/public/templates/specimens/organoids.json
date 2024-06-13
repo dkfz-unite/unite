@@ -6,11 +6,9 @@
     "parent_type": "Line",
     "creation_date": "2020-02-05",
     "creation_day": null,
-    "organoid": {
-      "medium": "Medium1",
-      "implanted_cells_number": 10500,
-      "tumorigenicity": true
-    },
+    "medium": "Medium1",
+    "implanted_cells_number": 10500,
+    "tumorigenicity": true,
     "molecular_data": {
       "mgmt_status": "Methylated",
       "idh_status": "Wild Type",
@@ -27,11 +25,9 @@
     "parent_type": "Line",
     "creation_date": "2020-02-05",
     "creation_day": null,
-    "organoid": {
-      "medium": "Medium2",
-      "implanted_cells_number": 45000,
-      "tumorigenicity": true
-    },
+    "medium": "Medium2",
+    "implanted_cells_number": 45000,
+    "tumorigenicity": true,
     "molecular_data": {
       "mgmt_status": "Unmethylated",
       "idh_status": "Mutant",

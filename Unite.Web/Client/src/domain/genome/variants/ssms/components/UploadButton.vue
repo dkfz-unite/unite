@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogVariants"
     subject="Upload SSMs data"
-    templatePathJson="/templates/variants/ssms.json"
-    templatePathTsv="/templates/variants/ssms.tsv"
+    templatePathJson="/templates/genome/ssms.json"
+    templatePathTsv="/templates/genome/ssms.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-genome-feed/blob/main/Docs/api-models-dna-ssm.md"
     :uploadMethod="uploadVariants"
   />
@@ -45,7 +45,7 @@ export default {
 
   methods: {
     async uploadVariants(data, format) {
-      return await this.api.upload(data, format);
+      return await this.api.uploadVariants(data, format);
     }
   }
 }

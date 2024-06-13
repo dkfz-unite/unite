@@ -5,10 +5,10 @@ export class Tabs {
     crumb: "Summary",
     icon: "las la-info-circle"
   };
-  static consequences = {
-    domain: "consequences",
-    title: "Consequences",
-    crumb: "Consequences",
+  static effects = {
+    domain: "effects",
+    title: "Effects",
+    crumb: "Effects",
     icon: "las la-exclamation-triangle"
   };
 

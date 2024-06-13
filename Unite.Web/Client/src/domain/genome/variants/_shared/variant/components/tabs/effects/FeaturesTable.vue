@@ -24,10 +24,10 @@
           </q-td>
         </template>
   
-        <template v-slot:body-cell-consequences="props">
+        <template v-slot:body-cell-effects="props">
           <q-td :props="props">
-            <div v-for="(consequence, i) in props.value" :key="i">
-              <span :class="getImpactColor(consequence.impact)">{{ getConsequenceName(consequence.type) }}</span>
+            <div v-for="(effect, i) in props.value" :key="i">
+              <span :class="getImpactColor(effect.impact)">{{ getEffectName(effect.type) }}</span>
             </div>
           </q-td>
         </template>
@@ -36,7 +36,7 @@
   </template>
   
   <script>
-  import ConsequenceType from "@/domain/genome/variants/_shared/variants/models/enums/consequence-type";
+  import EffectType from "@/domain/genome/variants/_shared/variants/models/enums/effect-type";
   import ImpactColor from "@/domain/genome/variants/_models/impact-color";
   
   export default {
@@ -91,9 +91,9 @@
             align: "left"
           },
           {
-            name: "consequences",
-            label: "Consequences",
-            field: (row) => row.consequences,
+            name: "effects",
+            label: "Effects",
+            field: (row) => row.effects,
             align: "left"
           },
           {
@@ -209,8 +209,8 @@
         }
       },
   
-      getConsequenceName(value){
-        return this.$helpers.enum.getLabel(value, ConsequenceType.values);
+      getEffectName(value){
+        return this.$helpers.enum.getLabel(value, EffectType.values);
       }
     }
   }

@@ -6,7 +6,7 @@ export default class FeatureFiltersCriteria {
     chromosome = [];
     position = { from: null, to: null };
     impact = [];
-    consequence = [];
+    effect = [];
 
     get numberOfFilters() {
         let number = 0;
@@ -17,7 +17,7 @@ export default class FeatureFiltersCriteria {
         number += this.position?.from != null ? 1 : 0;
         number += this.position?.to != null ? 1 : 0;
         number += this.impact?.length || 0;
-        number += this.consequence?.length || 0;
+        number += this.effect?.length || 0;
         
         return number;
     }
@@ -28,7 +28,7 @@ export default class FeatureFiltersCriteria {
         this.chromosome = criteria?.chromosome || [];
         this.position = criteria?.position || { from: null, to: null };
         this.impact = criteria?.impact || [];
-        this.consequence = criteria?.consequence || [];
+        this.effect = criteria?.effect || [];
     }
 
     sanitise() {
@@ -42,7 +42,7 @@ export default class FeatureFiltersCriteria {
         this.chromosome = [];
         this.position = { from: null, to: null };
         this.impact = [];
-        this.consequence = [];
+        this.effect = [];
     }
 
     clone() {

@@ -20,27 +20,17 @@ export default class SpecimensApi extends ModelsApi {
   }
 
   /**
-   * Uploads specimens data in json format.
-   * @param {Object} data data to upload.
-   * @returns {Promise<Object>} A promise that resolves with the upload results.
-   */
-  async uploadSpecimens(data) {
-    const url = `${this.feedUrl}/specimens`;
-    const body = data;
-    const config = { headers: formats.json.headers };
-
-    return this.client.post(url, body, config);
-  }
-
-  /**
    * Uploads materials data in tsv format.
    * @param {Object} data data to upload.
+   * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadMaterials(data) {
-    const url = `${this.feedUrl}/materials${formats.tsv.path}`;
+  async uploadMaterials(data, format = formats.json.name) {
+    validateFormat(format);
+
+    const url = `${this.feedUrl}/materials${formats[format].path}`;
     const body = data;
-    const config = { headers: formats.tsv.headers };
+    const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
   }
@@ -48,12 +38,15 @@ export default class SpecimensApi extends ModelsApi {
   /**
    * Uploads cell lines data in tsv format.
    * @param {Object} data data to upload.
+   * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadCells(data) {
-    const url = `${this.feedUrl}/lines${formats.tsv.path}`;
+  async uploadLines(data, format = formats.json.name) {
+    validateFormat(format);
+
+    const url = `${this.feedUrl}/lines${formats[format].path}`;
     const body = data;
-    const config = { headers: formats.tsv.headers };
+    const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
   }
@@ -61,12 +54,15 @@ export default class SpecimensApi extends ModelsApi {
   /**
    * Uploads organoids data in tsv format.
    * @param {Object} data data to upload.
+   * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadOrganoids(data) {
-    const url = `${this.feedUrl}/organoids${formats.tsv.path}`;
+  async uploadOrganoids(data, format = formats.json.name) {
+    validateFormat(format);
+
+    const url = `${this.feedUrl}/organoids${formats[format].path}`;
     const body = data;
-    const config = { headers: formats.tsv.headers };
+    const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
   }
@@ -74,12 +70,15 @@ export default class SpecimensApi extends ModelsApi {
   /**
    * Uploads xenografts data in tsv format.
    * @param {Object} data data to upload.
+   * @param {"json"|"tsv"} [format] data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadXenografts(data) {
-    const url = `${this.feedUrl}/xenografts${formats.tsv.path}`;
+  async uploadXenografts(data, format = formats.json.name) {
+    validateFormat(format);
+
+    const url = `${this.feedUrl}/xenografts${formats[format].path}`;
     const body = data;
-    const config = { headers: formats.tsv.headers };
+    const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
   }
@@ -93,7 +92,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadInterventions(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/interventions${formats[format].path}`;
+    const url = `${this.feedUrl}/specimens/interventions${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -109,7 +108,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadDrugs(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/drugs${formats[format].path}`;
+    const url = `${this.feedUrl}/analysis/drugs${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 

@@ -188,7 +188,7 @@ export default {
         `Gene: ${row.symbol}<br>` +
         `Log2 Fold Change: ${row.log2}<br>` +
         `Adjusted P-Value: ${row.padj}<br>` +
-        `Consequence: ${title}`);
+        `Effect: ${title}`);
     },
 
     getTooltipStyle(color) {

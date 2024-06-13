@@ -6,11 +6,9 @@
     "parent_type": null,
     "creation_date": "2020-01-15",
     "creation_day": null,
-    "material": {
-      "type": "Normal",
-      "tumor_type": null,
-      "source": "Blood"
-    }
+    "type": "Normal",
+    "tumor_type": null,
+    "source": "Blood"
   },
   {
     "id": "Material2",
@@ -19,11 +17,9 @@
     "parent_type": null,
     "creation_date": "2020-01-15",
     "creation_day": null,
-    "material": {
-      "type": "Tumor",
-      "tumor_type": "Primary",
-      "source": "Tissue"
-    },
+    "type": "Tumor",
+    "tumor_type": "Primary",
+    "source": "Tissue",
     "molecular_data": {
       "mgmt_status": "Methylated",
       "idh_status": "Wild Type",
@@ -40,11 +36,9 @@
     "parent_type": null,
     "creation_date": "2020-01-15",
     "creation_day": null,
-    "material": {
-      "type": "Normal",
-      "tumor_type": null,
-      "source": "Blood"
-    }
+    "type": "Normal",
+    "tumor_type": null,
+    "source": "Blood"
   },
   {
     "id": "Material2",
@@ -53,11 +47,9 @@
     "parent_type": null,
     "creation_date": "2020-01-15",
     "creation_day": null,
-    "material": {
-      "type": "Tumor",
-      "tumor_type": "Primary",
-      "source": "Tissue"
-    },
+    "type": "Tumor",
+    "tumor_type": "Primary",
+    "source": "Tissue",
     "molecular_data": {
       "mgmt_status": "Unmethylated",
       "idh_status": "Mutant",
@@ -74,11 +66,9 @@
     "parent_type": null,
     "creation_date": "2020-03-01",
     "creation_day": null,
-    "material": {
-      "type": "Tumor",
-      "tumor_type": "Recurrent",
-      "source": "CSF"
-    },
+    "type": "Tumor",
+    "tumor_type": "Recurrent",
+    "source": "CSF",
     "molecular_data": {
       "mgmt_status": "Unmethylated",
       "idh_status": "Mutant",

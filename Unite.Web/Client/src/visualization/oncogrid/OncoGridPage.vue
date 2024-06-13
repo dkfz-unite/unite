@@ -64,7 +64,7 @@ import UOncogrid from "./components/OncoGrid.vue";
 
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import FiltersContext from "@/_shared/components/filters/filters-context";
-import ConsequenceImpact from "@/domain/genome/variants/_shared/variants/models/enums/consequence-impact";
+import EffectImpact from "@/domain/genome/variants/_shared/variants/models/enums/effect-impact";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 
 import api from "./api";
@@ -91,7 +91,7 @@ export default {
 
       filtersCriteria: null,
       filtersContext: null,
-      allowedImpacts: [ConsequenceImpact.High, ConsequenceImpact.Moderate, ConsequenceImpact.Low]
+      allowedImpacts: [EffectImpact.High, EffectImpact.Moderate, EffectImpact.Low]
     };
   },
 
@@ -110,9 +110,9 @@ export default {
       filtersCriteria.gene.symbol = genes?.map(gene => gene.symbol);
     }
 
-    if (!filtersCriteria.ssm.consequenceImpactOptions?.length) {
+    if (!filtersCriteria.ssm.effectImpactOptions?.length) {
       let allowedOptions = this.allowedImpacts.map(impact => ({ value: impact, label: impact }));
-      filtersContext.ssm.consequenceImpactOptions = mapOptions(allowedOptions, ConsequenceImpact.values);
+      filtersContext.ssm.effectImpactOptions = mapOptions(allowedOptions, EffectImpact.values);
     }
 
     if (!filtersCriteria.ssm.impact.length){

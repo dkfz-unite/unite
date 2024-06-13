@@ -73,7 +73,7 @@
             <!-- Caution message -->
             <div class="row q-pl-md" v-if="showCaution">
               <div class="col text-warning">
-                <div class="row" style="width: 350px;">Note, including variant consequences may significantly increase file size and make it hard to read.</div>
+                <div class="row" style="width: 350px;">Note, including variant Effects may significantly increase file size and make it hard to read.</div>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@
     subject="Upload materials data"
     templatePathJson="/templates/specimens/materials.json"
     templatePathTsv="/templates/specimens/materials.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
+    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-material.md"
     :uploadMethod="uploadSpecimens"
   />
 
@@ -42,11 +42,7 @@ export default {
 
   methods: {
     async uploadSpecimens(data, format) {
-      if (format === "json") {
-        return await this.specimensApi.uploadSpecimens(data);
-      } else if (format === "tsv") {
-        return await this.specimensApi.uploadMaterials(data);
-      }
+      return await this.specimensApi.uploadMaterials(data, format);
     }
   }
 }

@@ -1,0 +1,14 @@
+{
+  "sample": {
+    "donor_id": "Donor1",
+    "image_id": "MRI1",
+    "image_type": "MRI",
+    "analysis_type": "RFE",
+    "analysis_date": "2020-01-01"
+  },
+  "entries": [
+    { "name": "feature_1", "value": "value_1" },
+    { "name": "feature_2", "value": "value_2" },
+    { "name": "feature_3", "value": "value_3" }
+  ]
+}

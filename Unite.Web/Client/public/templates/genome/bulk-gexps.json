@@ -1,17 +1,16 @@
 {
-  "analysis": {
-    "type": "RNASeq",
-    "date": "2020-01-15"
-  },
-  "target_sample": {
+  "tsample": {
     "donor_id": "Donor1",
     "specimen_id": "Material2",
-    "specimen_type": "Material"
+    "specimen_type": "Material",
+    "analysis_type": "RNASeq",
+    "analysis_date": "2023-12-01",
+    "analysis_day": null
   },
-  "Entries": [
+  "entries": [
     {
       "gene_id": "ENSG00000223972",
-      "reads": 1
+      "reads": 238
     },
     {
       "gene_id": "ENSG00000243485",

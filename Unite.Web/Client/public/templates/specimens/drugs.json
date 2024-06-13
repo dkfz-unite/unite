@@ -1,166 +1,76 @@
-[
-  {
+{
+  "sample": {
     "donor_id": "Donor1",
     "specimen_id": "Line1",
     "specimen_type": "Line",
-    "data": [
-      {
-        "drug": "Drug1",
-        "dss": 35,
-        "dss_selective": 15,
-        "gof": 0.95,
-        "abs_ic_25": 5.25,
-        "abs_ic_50": 10.50,
-        "abs_ic_75": 50.75,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [2.25, 25.50, 85.25, 95.25, 95.50],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug2",
-        "dss": 30,
-        "dss_selective": 10,
-        "gof": 0.75,
-        "abs_ic_25": 4.25,
-        "abs_ic_50": 8.50,
-        "abs_ic_75": 47.75,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [2.05, 20.50, 75.25, 90.25, 90.50],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug3",
-        "dss": 25,
-        "dss_selective": 5,
-        "gof": 0.55,
-        "abs_ic_25": 2.25,
-        "abs_ic_50": 4.50,
-        "abs_ic_75": 25.75,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [0.05, 10.50, 35.25, 65.25, 65.50],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug4",
-        "dss": 15,
-        "dss_selective": -5,
-        "gof": 0.35,
-        "abs_ic_25": 0.25,
-        "abs_ic_50": 2.50,
-        "abs_ic_75": 15.75,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [0.00, 5.50, 17.25, 55.25, 55.50],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug5",
-        "dss": 10,
-        "dss_selective": -10,
-        "gof": 0.25,
-        "abs_ic_25": 0.05,
-        "abs_ic_50": 0.50,
-        "abs_ic_75": 7.75,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [0.00, 0.50, 5.25, 45.25, 45.50],
-        "concentration_line": null,
-        "inhibition_line": null
-      }
-    ]
+    "analysis_type": "DSA",
+    "analysis_date": "2020-02-05"
   },
-  {
-    "donor_id": "Donor2",
-    "specimen_id": "Line1",
-    "specimen_type": "Line",
-    "data": [
-      {
-        "drug": "Drug1",
-        "dss": 34,
-        "dss_selective": 14,
-        "gof": 0.90,
-        "abs_ic_25": 5.20,
-        "abs_ic_50": 10.45,
-        "abs_ic_75": 50.70,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [2.20, 25.45, 85.20, 95.20, 95.45],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug2",
-        "dss": 29,
-        "dss_selective": 9,
-        "gof": 0.70,
-        "abs_ic_25": 4.20,
-        "abs_ic_50": 8.45,
-        "abs_ic_75": 47.70,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [2.00, 20.45, 75.20, 90.20, 90.45],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug3",
-        "dss": 24,
-        "dss_selective": 4,
-        "gof": 0.50,
-        "abs_ic_25": 2.20,
-        "abs_ic_50": 4.45,
-        "abs_ic_75": 25.70,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [0.00, 10.45, 35.20, 65.20, 65.45],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug4",
-        "dss": 14,
-        "dss_selective": -6,
-        "gof": 0.30,
-        "abs_ic_25": 0.20,
-        "abs_ic_50": 2.45,
-        "abs_ic_75": 15.70,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [0.00, 5.45, 17.20, 55.20, 55.45],
-        "concentration_line": null,
-        "inhibition_line": null
-      },
-      {
-        "drug": "Drug5",
-        "dss": 9,
-        "dss_selective": -11,
-        "gof": 0.20,
-        "abs_ic_25": 0.00,
-        "abs_ic_50": 0.45,
-        "abs_ic_75": 7.70,
-        "min_concentration": 1,
-        "max_concentration": 10000,
-        "concentration": [1, 10, 100, 1000, 10000],
-        "inhibition": [0.00, 0.45, 5.20, 45.20, 45.45],
-        "concentration_line": null,
-        "inhibition_line": null
-      }
-    ]
-  }
-]
+  "entries": [
+    {
+      "drug": "Drug1",
+      "gof": 95,
+      "dss": 35,
+      "dsss": 15,
+      "min_dose": 1,
+      "max_dose": 10000,
+      "dose_25": 5.25,
+      "dose_50": 10.50,
+      "dose_75": 50.75,
+      "doses": [1, 10, 100, 1000, 10000],
+      "responses": [2.25, 25.50, 85.25, 95.25, 95.50]
+    },
+    {
+      "drug": "Drug2",
+      "gof": 75,
+      "dss": 30,
+      "dsss": 10,
+      "min_dose": 1,
+      "max_dose": 10000,
+      "dose_25": 4.25,
+      "dose_50": 8.50,
+      "dose_75": 47.75,
+      "doses": [1, 10, 100, 1000, 10000],
+      "responses": [2.05, 20.50, 75.25, 90.25, 90.50]
+    },
+    {
+      "drug": "Drug3",
+      "gof": 55,
+      "dss": 25,
+      "dsss": 5,
+      "min_dose": 1,
+      "max_dose": 10000,
+      "dose_25": 2.25,
+      "dose_50": 4.50,
+      "dose_75": 25.75,
+      "doses": [1, 10, 100, 1000, 10000],
+      "responses": [0.05, 10.50, 35.25, 65.25, 65.50]
+    },
+    {
+      "drug": "Drug4",
+      "gof": 35,
+      "dss": 15,
+      "dsss": -5,
+      "min_dose": 1,
+      "max_dose": 10000,
+      "dose_25": 0.25,
+      "dose_50": 2.50,
+      "dose_75": 15.75,
+      "doses": [1, 10, 100, 1000, 10000],
+      "responses": [0.00, 5.50, 17.25, 55.25, 55.50]
+    },
+    {
+      "drug": "Drug5",
+      "gof": 25,
+      "dss": 10,
+      "dsss": -10,
+      "min_dose": 1,
+      "max_dose": 10000,
+      "dose_25": 0.05,
+      "dose_50": 0.50,
+      "dose_75": 7.75,
+      "doses": [1, 10, 100, 1000, 10000],
+      "responses": [0.00, 0.50, 5.25, 45.25, 45.50]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
-import consequencesMap from "../../_shared/genome/consequences-map.js";
+import effectsMap from "../../_shared/genome/effects-map.js";
 
 const colors = {};
 
-consequencesMap.forEach((value, key) => {
+effectsMap.forEach((value, key) => {
   colors[key] = value.color;
 });
 

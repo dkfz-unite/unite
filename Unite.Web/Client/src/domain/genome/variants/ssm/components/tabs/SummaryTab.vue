@@ -8,7 +8,7 @@
 
     <div class="row">
       <div class="col-12">
-        <u-transcript-consequences :features="variant.affectedFeatures?.filter(affectedFeature => !!affectedFeature.transcript)" />
+        <u-transcript-effects :features="variant.affectedFeatures?.filter(affectedFeature => !!affectedFeature.transcript)" />
       </div>
     </div>
   </div>
@@ -16,12 +16,12 @@
 
 <script>
 import USummary from "./summary/Summary.vue";
-import UTranscriptConsequences from "./summary/TranscriptConsequences.vue";
+import UTranscriptEffects from "./summary/TranscriptEffects.vue";
 
 export default {
   components:{
     USummary,
-    UTranscriptConsequences
+    UTranscriptEffects
   },
 
   props: {

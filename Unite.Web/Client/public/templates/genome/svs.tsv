@@ -1,0 +1,14 @@
+# tsample_donor_id: Donor1
+# tsample_specimen_id: Material2
+# tsample_specimen_type: Material
+# tsample_analysis_type: WGS
+# tsample_analysis_date: 2023-12-01
+# msample_donor_id: Donor1
+# msample_specimen_id: Material1
+# msample_specimen_type: Material
+# msample_analysis_type: WGS
+# msample_analysis_date: 2023-12-01
+chromosome_1	start_1	end_1	flanking_sequence_1	chromosome_2	start_2	end_2	flanking_sequence_2	type	inverted
+6	84236917	84236918		6	84337937	84337938		DUP	false
+8	65498712	65498713		8	65608792	65608793		DEL	false
+8	93246857	93246858		8	93347877	93347878		INV	true

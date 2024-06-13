@@ -33,12 +33,12 @@ export default class ProteinPlotDataService {
                 return {
                     id: mutation.id,
                     code: mutation.code,
-                    consequence: mutation.consequence,
+                    effect: mutation.effect,
                     impact: mutation.impact,
-                    aminoAcidChange: mutation.aminoAcidChange,
+                    proteinChange: mutation.proteinChange,
                     numberOfDonors: mutation.numberOfDonors,
                     donors: mutation.numberOfDonors,
-                    x: +mutation.aminoAcidChange.match(/\d+/)[0],
+                    x: +mutation.proteinChange.match(/\d+/)[0],
                     y: mutation.numberOfDonors,
                 }
             });

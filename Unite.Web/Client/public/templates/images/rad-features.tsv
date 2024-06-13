@@ -1,0 +1,9 @@
+# donor_id: Donor1
+# image_id: MRI1
+# image_type: MRI
+# analysis_type: RFE
+# analysis_date: 2020-01-01
+name	value
+feature_1	value_1
+feature_2	value_2
+feature_3	value_3

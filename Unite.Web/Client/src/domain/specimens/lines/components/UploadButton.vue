@@ -4,7 +4,7 @@
     subject="Upload cell lines data"
     templatePathJson="/templates/specimens/lines.json"
     templatePathTsv="/templates/specimens/lines.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
+    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-line.md"
     :uploadMethod="uploadSpecimens"
   />
 
@@ -90,11 +90,7 @@ export default {
 
   methods: {
     async uploadSpecimens(data, format) {
-      if (format === "json") {
-        return await this.specimensApi.uploadSpecimens(data);
-      } else if (format === "tsv") {
-        return await this.specimensApi.uploadCells(data);
-      }
+      return await this.specimensApi.uploadLines(data, format);
     },
 
     async uploadInterventions(data, format) {
@@ -105,6 +101,5 @@ export default {
       return await this.specimensApi.uploadDrugs(data, format);
     }
   }
-
 }
 </script>

@@ -1,4 +1,4 @@
-export default class ConsequenceImpact {
+export default class EffectImpact {
     static values = {
         "High": "High",
         "Moderate": "Moderate",

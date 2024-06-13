@@ -29,7 +29,7 @@ export default class GenesApi extends ModelsApi {
   async uploadBulk(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/rna/exp/bulk${formats[format].path}`;
+    const url = `${this.feedUrl}/rna/analysis/exps${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 

@@ -27,7 +27,7 @@
         </q-td>
       </template>
 
-      <template v-slot:header-cell-expression="props">
+      <!-- <template v-slot:header-cell-expression="props">
         <q-th :props="props">
           <span>
             Expression ( <span>Reads</span> / <span class="text-teal">TPM</span> / <span class="text-purple">FPKM</span> )
@@ -77,7 +77,7 @@
         <q-td :props="props">
           <u-expression-stats-cell v-if="props.value" :value="props.value" class="text-purple" />
         </q-td>
-      </template>
+      </template> -->
     </u-data-table>
   </div>
 </template>
@@ -99,10 +99,10 @@ export default {
   },
 
   props: {
-    showExpressions: {
-      type: Boolean,
-      default: false
-    },
+    // showExpressions: {
+    //   type: Boolean,
+    //   default: false
+    // },
 
     showStats: {
       type: Boolean,
@@ -145,39 +145,39 @@ export default {
         align: "left"
       });
 
-      if(this.showExpressions){
-        columns.push({
-          name: "expression",
-          label: "Expression",
-          field: (row) => row.expression,
-          sortable: false,
-          align: "right"
-        });
-      }
+      // if(this.showExpressions){
+      //   columns.push({
+      //     name: "expression",
+      //     label: "Expression",
+      //     field: (row) => row.expression,
+      //     sortable: false,
+      //     align: "right"
+      //   });
+      // }
 
-      columns.push({
-        name: "reads",
-        label: "Reads",
-        field: (row) => row.reads,
-        sortable: false,
-        show: false
-      });
+      // columns.push({
+      //   name: "reads",
+      //   label: "Reads",
+      //   field: (row) => row.reads,
+      //   sortable: false,
+      //   show: false
+      // });
 
-      columns.push({
-        name: "tpm",
-        label: "TPM",
-        field: (row) => row.tpm,
-        sortable: false,
-        show: false
-      });
+      // columns.push({
+      //   name: "tpm",
+      //   label: "TPM",
+      //   field: (row) => row.tpm,
+      //   sortable: false,
+      //   show: false
+      // });
 
-      columns.push({
-        name: "fpkm",
-        label: "FPKM",
-        field: (row) => row.fpkm,
-        sortable: false,
-        show: false
-      });
+      // columns.push({
+      //   name: "fpkm",
+      //   label: "FPKM",
+      //   field: (row) => row.fpkm,
+      //   sortable: false,
+      //   show: false
+      // });
 
       if (this.showStats) {
         columns.push({
