@@ -21,19 +21,6 @@
         <div><span class="text-weight-medium">Older</span></div>
       </div>
 
-      <!-- Vital status -->
-      <div class="row justify-left content-center q-gutter-xs">
-        <div><span class="text-weight-light">Vital status:</span></div>
-        <div class="row content-center">
-          <div class="u-palette-box bg-green-5"></div>
-        </div>
-        <div><span class="text-weight-medium">Living</span></div>
-        <div class="row content-center">
-          <div class="u-palette-box bg-red-5"></div>
-        </div>
-        <div><span class="text-weight-medium">Deceased</span></div>
-      </div>
-
       <!-- Gender -->
       <div class="row justify-left content-center q-gutter-xs">
         <div><span class="text-weight-light">Gender:</span></div>
@@ -45,6 +32,32 @@
           <div class="u-palette-box bg-blue-5"></div>
         </div>
         <div><span class="text-weight-medium">Male</span></div>
+      </div>
+
+      <!-- Vital status -->
+      <div class="row justify-left content-center q-gutter-xs">
+        <div><span class="text-weight-light">Alive:</span></div>
+        <div class="row content-center">
+          <div class="u-palette-box bg-green-5"></div>
+        </div>
+        <div><span class="text-weight-medium">Yes</span></div>
+        <div class="row content-center">
+          <div class="u-palette-box bg-red-5"></div>
+        </div>
+        <div><span class="text-weight-medium">No</span></div>
+      </div>
+
+      <!-- Progression status -->
+      <div class="row justify-left content-center q-gutter-xs">
+        <div><span class="text-weight-light">Progression:</span></div>
+        <div class="row content-center">
+          <div class="u-palette-box bg-green-5"></div>
+        </div>
+        <div><span class="text-weight-medium">Yes</span></div>
+        <div class="row content-center">
+          <div class="u-palette-box bg-red-5"></div>
+        </div>
+        <div><span class="text-weight-medium">No</span></div>
       </div>
     </div>
 

@@ -33,7 +33,7 @@
         <q-btn
           icon="las la-undo-alt"
           title="Reset grid"
-          @click="reloadGrid()"
+          @click="reloadGrid()" 
         />
       </q-btn-group>
     </div>
@@ -106,6 +106,10 @@ export default {
   },
 
   mounted() {
+    this.data.observations.forEach(element => {
+      element.consequence = element.effect;
+    });
+
     let parameters = {
       element: "#oncoGrid",
       donors: this.data.donors,
@@ -255,7 +259,9 @@ export default {
 
       let donor = this.data.donors.find(donor => donor.id == event.data.id)?.displayId;
       let key = event.data.displayName;
-      let value = event.data.type === "vitalStatus" ? event.data.value ? "Living" : "Deceased" : event.data.value;
+      let value = event.data.type === "vitalStatus" ? event.data.value ? "Yes" : "No" 
+                : event.data.type === "progressionStatus" ? event.data.value ? "Yes" : "No"
+                : event.data.value;
 
       let properties = [
         { key: "Donor", value: donor },
@@ -290,6 +296,10 @@ export default {
       } else if (trackCell.type == "vitalStatus") {
         return trackCell.value == true ? colors.getPaletteColor("green-4") : 
                trackCell.value == false ? colors.getPaletteColor("red-4") :
+               colors.getPaletteColor("grey-4");
+      } else if (trackCell.type == "progressionStatus") {
+        return trackCell.value == true ? colors.getPaletteColor("red-4") : 
+               trackCell.value == false ? colors.getPaletteColor("green-4") :
                colors.getPaletteColor("grey-4");
       } else {
         return colors.getPaletteColor("grey-4");

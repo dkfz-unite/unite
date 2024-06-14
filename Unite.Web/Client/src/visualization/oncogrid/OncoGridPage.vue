@@ -43,6 +43,7 @@
     <div class="row">
       <div v-if="!empty" class="col">
         <u-oncogrid v-if="data" :data="data" />
+         <!-- <u-event-matrix ref="matrix" v-if="data" :data="data" /> -->
       </div>
       <div v-else class="col">
         <div class="fixed-center">No observations found.</div>
@@ -61,6 +62,7 @@ import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
 import UOncogrid from "./components/OncoGrid.vue";
+// import UEventMatrix from "./components/EventMatrix.vue";
 
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import FiltersContext from "@/_shared/components/filters/filters-context";
@@ -75,7 +77,8 @@ export default {
     UFilters,
     UFiltersMini,
     UDrawer,
-    UOncogrid
+    UOncogrid,
+    // UEventMatrix
   },
 
   data() {
