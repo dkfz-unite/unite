@@ -1,0 +1,36 @@
+{
+  "tsample": {
+    "donor_id": "Donor1",
+    "specimen_id": "Material2",
+    "specimen_type": "Material",
+    "analysis_type": "WGS",
+    "analysis_date": "2023-12-01"
+  },
+  "msample": {
+    "donor_id": "Donor1",
+    "specimen_id": "Material1",
+    "specimen_type": "Material",
+    "analysis_type": "WGS",
+    "analysis_date": "2023-12-01"
+  },
+  "entries": [
+    {
+      "chromosome": "7",
+      "position": "141365018",
+      "ref": "C",
+      "alt": "G"
+    },
+    {
+      "chromosome": "4",
+      "position": "110895931",
+      "ref": "A",
+      "alt": "T"
+    },
+    {
+      "chromosome": "13",
+      "position": "100515267",
+      "ref": "A",
+      "alt": "G"
+    }
+  ]
+}

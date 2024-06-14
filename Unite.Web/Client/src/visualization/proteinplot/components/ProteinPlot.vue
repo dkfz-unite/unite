@@ -14,7 +14,7 @@
         </q-card>
       </div>
       <div v-if="stats" class="col-2">
-        <u-color-legend v-if="groups?.length" :title="grouping === 'impact' ? 'Impacts' : 'Consequences'" :items="groups" class="q-mx-sm" />
+        <u-color-legend v-if="groups?.length" :title="grouping === 'impact' ? 'Impacts' : 'Effects'" :items="groups" class="q-mx-sm" />
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
 import { colors } from "quasar";
 import RandomColors from "../../_shared/random-colors";
 import impactsMap from "../../_shared/genome/impacts-map";
-import consequencesMap from "../../_shared/genome/consequences-map";
+import effectsMap from "../../_shared/genome/effects-map";
 import settings from "../../_shared/settings";
 import UPlotly from "../../_shared/Plotly.vue";
 import UColorLegend from "../../_shared/genome/ColorLegend.vue";
@@ -47,7 +47,7 @@ export default {
     grouping: {
       type: String,
       default: "impact",
-      validator: value => ["impact", "consequence"].includes(value)
+      validator: value => ["impact", "effect"].includes(value)
     }
   },
 
@@ -121,7 +121,7 @@ export default {
       
       if (pointData?.track === this.tracks.ssm) {
         if (pointData.id === this.currentVariantId) return;
-        window.location.href = `/ssms/SSM${pointData?.id}/protein`;
+        window.location.href = `/ssms/${pointData?.id}/protein`;
       } else if (pointData?.track === this.tracks.pfam) {
         this.currentDomainId = pointData?.id;
       }
@@ -218,7 +218,7 @@ export default {
     getVariantsSeries() {
       if (!this.grouping) return [];
       let series = [];
-      let groups = this.data.mutations.groupBy(m => this.grouping === "impact" ? m.impact : m.consequence);
+      let groups = this.data.mutations.groupBy(m => this.grouping === "impact" ? m.impact : m.effect);
 
       for (const [key, values] of groups) {
         series.push({
@@ -231,14 +231,14 @@ export default {
           x: values.map(variant => variant.x),
           y: values.map(variant => variant.y),
           customdata: values.map(variant => ({track: this.tracks.ssm, id: variant.id})),
-          meta: values.map(variant => ({ variant: variant, consequence: consequencesMap.get(variant.consequence).name })),
+          meta: values.map(variant => ({ variant: variant, effect: effectsMap.get(variant.effect).name })),
           hoverinfo: "text",
           hovertext: values.map(variant => 
             `Variant: SSM${variant.id}<br>` +
-            `AA Change: ${variant.aminoAcidChange}<br>` +
+            `Protein Change: ${variant.proteinChange}<br>` +
             `Affected Donors: ${variant.y}<br>` +
             `Imact: ${variant.impact}<br>` +
-            `Consequence: ${consequencesMap.get(variant.consequence).name}`),
+            `Effects: ${effectsMap.get(variant.effect).name}`),
           hoverlabel: {
             bgcolor: colors.getPaletteColor("white"),
             bordercolor: this.getVariantColor(key),
@@ -312,31 +312,31 @@ export default {
     getVariantName(variant) {
       return this.grouping === "impact" 
         ? impactsMap.get(variant.impact).name
-        : consequencesMap.get(variant.consequence).name;
+        : effectsMap.get(variant.effect).name;
     },
 
     getVariantColor(group) {
       return this.grouping === "impact" 
         ? impactsMap.get(group)?.color
-        : consequencesMap.get(group)?.color;
+        : effectsMap.get(group)?.color;
     },
 
     getGroups() {
       return this.grouping === "impact" 
         ? [...this.data.mutations.groupBy(m => m.impact).keys()].map(key => impactsMap.get(key))
-        : [...this.data.mutations.groupBy(m => m.consequence).keys()].map(key => consequencesMap.get(key));
+        : [...this.data.mutations.groupBy(m => m.effect).keys()].map(key => effectsMap.get(key));
     },
 
     getGroupName(group) {
       return this.grouping === "impact" 
         ? impactsMap.get(group)?.name
-        : consequencesMap.get(group)?.name;
+        : effectsMap.get(group)?.name;
     },
 
     getGroupColor(group) {
       return this.grouping === "impact" 
         ? impactsMap.get(group)?.color
-        : consequencesMap.get(group)?.color;
+        : effectsMap.get(group)?.color;
     },
   }
 }

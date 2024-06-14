@@ -36,7 +36,6 @@
           :loading="loading"
           :rows="rows"
           :rows-total="rowsTotal"
-          :show-expressions="true"
           :show-stats="true"
           v-model:rows-selected="rowsSelected"
           v-model:from="filtersCriteria.from"

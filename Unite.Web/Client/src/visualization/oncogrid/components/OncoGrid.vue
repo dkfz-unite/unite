@@ -33,7 +33,7 @@
         <q-btn
           icon="las la-undo-alt"
           title="Reset grid"
-          @click="reloadGrid()"
+          @click="reloadGrid()" 
         />
       </q-btn-group>
     </div>
@@ -46,7 +46,7 @@
       </div>
 
       <div class="col-2">
-        <u-color-legend class="q-px-md" title="Consequences" :items="colorPalette" />
+        <u-color-legend class="q-px-md" title="Effects" :items="colorPalette" />
       </div>
     </div>
   </div>
@@ -61,9 +61,8 @@ import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
 import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 import UColorLegend from "../../_shared/genome/ColorLegend.vue";
 
-// import consequences from "../../_shared/consequences.js";
 import impactsMap from "../../_shared/genome/impacts-map.js";
-import consequencesMap from "../../_shared/genome/consequences-map.js";
+import effectsMap from "../../_shared/genome/effects-map.js";
 import oncogridColors from "./oncogrid-colors.js";
 import donorTracks from "./oncogrid-tracks-donor";
 import * as d3 from "d3";
@@ -98,15 +97,19 @@ export default {
 
   computed: {
     colorPalette() {
-      const groups = this.data?.observations.groupBy(observation => observation.consequence);
+      const groups = this.data?.observations.groupBy(observation => observation.effect);
       const keys = [...groups.keys()];
-      const pallete = keys.map(key => consequencesMap.get(key));
+      const pallete = keys.map(key => effectsMap.get(key));
 
       return pallete;
     }
   },
 
   mounted() {
+    this.data.observations.forEach(element => {
+      element.consequence = element.effect;
+    });
+
     let parameters = {
       element: "#oncoGrid",
       donors: this.data.donors,
@@ -233,14 +236,14 @@ export default {
       let donor = this.data.donors.find(donor => donor.id == event.data.donorId)?.displayId;
       let gene = this.data.genes.find(gene => gene.id == event.data.geneId)?.symbol;
       let impact = impactsMap.get(event.data.impact);
-      let consequence = consequencesMap.get(event.data.consequence);
+      let effect = effectsMap.get(event.data.effect);
 
       let properties = [
         { key: "Donor", value: donor},
         { key: "Gene", value: gene },
         { key: "Mutation", value: event.data?.code },
         { key: "Impact", value: impact.name, color: impact.color },
-        { key: "Consequence", value: consequence.name, color: consequence.color },
+        { key: "Effect", value: effect.name, color: effect.color },
       ];
 
       this.targetGridCellData = properties;
@@ -256,7 +259,9 @@ export default {
 
       let donor = this.data.donors.find(donor => donor.id == event.data.id)?.displayId;
       let key = event.data.displayName;
-      let value = event.data.type === "vitalStatus" ? event.data.value ? "Living" : "Deceased" : event.data.value;
+      let value = event.data.type === "vitalStatus" ? event.data.value ? "Yes" : "No" 
+                : event.data.type === "progressionStatus" ? event.data.value ? "Yes" : "No"
+                : event.data.value;
 
       let properties = [
         { key: "Donor", value: donor },
@@ -291,6 +296,10 @@ export default {
       } else if (trackCell.type == "vitalStatus") {
         return trackCell.value == true ? colors.getPaletteColor("green-4") : 
                trackCell.value == false ? colors.getPaletteColor("red-4") :
+               colors.getPaletteColor("grey-4");
+      } else if (trackCell.type == "progressionStatus") {
+        return trackCell.value == true ? colors.getPaletteColor("red-4") : 
+               trackCell.value == false ? colors.getPaletteColor("green-4") :
                colors.getPaletteColor("grey-4");
       } else {
         return colors.getPaletteColor("grey-4");

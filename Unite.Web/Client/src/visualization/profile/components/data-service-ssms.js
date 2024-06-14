@@ -2,8 +2,8 @@ import { colors } from "quasar";
 import dataService from "./data-service";
 import { getLabel } from "@/_shared/helpers/enum-helpers";
 import SsmType from "@/domain/genome/variants/ssms/models/enums/ssm-type";
-import ConsequenceImpact from "@/domain/genome/variants/_shared/variants/models/enums/consequence-impact";
-import ConsequenceType from "@/domain/genome/variants/_shared/variants/models/enums/consequence-type";
+import EffectImpact from "@/domain/genome/variants/_shared/variants/models/enums/effect-impact";
+import EffectType from "@/domain/genome/variants/_shared/variants/models/enums/effect-type";
 
 function getVariantText(entry) {
   let tooltip = "";
@@ -16,8 +16,8 @@ function getVariantText(entry) {
     tooltip += `Codon Change: ${entry.e.changeCodon}<br>`;
   if (entry.e.changeProtein)
     tooltip += `Protein Change: ${entry.e.changeProtein}<br>`;
-  tooltip += `Impact: ${getLabel(entry.e.impact, ConsequenceImpact.values)}<br>`;
-  tooltip += `Consequence: ${getLabel(entry.e.consequence, ConsequenceType.values)}<br>`;
+  tooltip += `Impact: ${getLabel(entry.e.impact, EffectImpact.values)}<br>`;
+  tooltip += `Effect: ${getLabel(entry.e.effect, EffectType.values)}<br>`;
   tooltip += `Gene: ${entry.e.gene}<br>`;
 
   return tooltip;

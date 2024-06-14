@@ -4,7 +4,7 @@
     subject="Upload organoids data"
     templatePathJson="/templates/specimens/organoids.json"
     templatePathTsv="/templates/specimens/organoids.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
+    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-organoid.md"
     :uploadMethod="uploadSpecimens"
   />
 
@@ -90,11 +90,7 @@ export default {
 
   methods: {
     async uploadSpecimens(data, format) {
-      if (format === "json") {
-        return await this.specimensApi.uploadSpecimens(data);
-      } else if (format === "tsv") {
-        return await this.specimensApi.uploadOrganoids(data);
-      }
+      return await this.specimensApi.uploadOrganoids(data, format);
     },
 
     async uploadInterventions(data, format) {

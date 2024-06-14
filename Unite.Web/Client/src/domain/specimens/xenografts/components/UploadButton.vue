@@ -4,7 +4,7 @@
     subject="Upload xenografts data"
     templatePathJson="/templates/specimens/xenografts.json"
     templatePathTsv="/templates/specimens/xenografts.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-specimens.md"
+    modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-xenograft.md"
     :uploadMethod="uploadSpecimens"
   />
 
@@ -91,11 +91,7 @@ export default {
 
   methods: {
     async uploadSpecimens(data, format) {
-      if (format === "json") {
-        return await this.specimensApi.uploadSpecimens(data);
-      } else if (format === "tsv") {
-        return await this.specimensApi.uploadXenografts(data);
-      }
+      return await this.specimensApi.uploadXenografts(data, format);
     },
 
     async uploadInterventions(data, format) {

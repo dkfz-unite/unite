@@ -43,6 +43,7 @@
     <div class="row">
       <div v-if="!empty" class="col">
         <u-oncogrid v-if="data" :data="data" />
+         <!-- <u-event-matrix ref="matrix" v-if="data" :data="data" /> -->
       </div>
       <div v-else class="col">
         <div class="fixed-center">No observations found.</div>
@@ -61,10 +62,11 @@ import UFiltersButton from "@/_shared/components/filters/FiltersButton.vue";
 import UFilters from "@/_shared/components/filters/Filters.vue";
 import UFiltersMini from "@/_shared/components/filters/FiltersMini.vue";
 import UOncogrid from "./components/OncoGrid.vue";
+// import UEventMatrix from "./components/EventMatrix.vue";
 
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import FiltersContext from "@/_shared/components/filters/filters-context";
-import ConsequenceImpact from "@/domain/genome/variants/_shared/variants/models/enums/consequence-impact";
+import EffectImpact from "@/domain/genome/variants/_shared/variants/models/enums/effect-impact";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 
 import api from "./api";
@@ -75,7 +77,8 @@ export default {
     UFilters,
     UFiltersMini,
     UDrawer,
-    UOncogrid
+    UOncogrid,
+    // UEventMatrix
   },
 
   data() {
@@ -91,7 +94,7 @@ export default {
 
       filtersCriteria: null,
       filtersContext: null,
-      allowedImpacts: [ConsequenceImpact.High, ConsequenceImpact.Moderate, ConsequenceImpact.Low]
+      allowedImpacts: [EffectImpact.High, EffectImpact.Moderate, EffectImpact.Low]
     };
   },
 
@@ -110,9 +113,9 @@ export default {
       filtersCriteria.gene.symbol = genes?.map(gene => gene.symbol);
     }
 
-    if (!filtersCriteria.ssm.consequenceImpactOptions?.length) {
+    if (!filtersCriteria.ssm.effectImpactOptions?.length) {
       let allowedOptions = this.allowedImpacts.map(impact => ({ value: impact, label: impact }));
-      filtersContext.ssm.consequenceImpactOptions = mapOptions(allowedOptions, ConsequenceImpact.values);
+      filtersContext.ssm.effectImpactOptions = mapOptions(allowedOptions, EffectImpact.values);
     }
 
     if (!filtersCriteria.ssm.impact.length){

@@ -1,4 +1,4 @@
-export default class ConsequenceType {
+export default class EffectType {
     static values = {
         "Transcript ablation": "transcript_ablation",
         "Splice acceptor": "splice_acceptor_variant",

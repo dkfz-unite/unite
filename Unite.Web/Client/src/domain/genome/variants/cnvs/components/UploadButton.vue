@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogVariants"
     subject="Upload CNVs data"
-    templatePathJson="/templates/variants/cnvs.json"
-    templatePathTsv="/templates/variants/cnvs.tsv"
+    templatePathJson="/templates/genome/cnvs.json"
+    templatePathTsv="/templates/genome/cnvs.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-genome-feed/blob/main/Docs/api-models-dna-cnv.md"
     :uploadMethod="uploadVariants"
   />
@@ -45,7 +45,7 @@ export default {
 
   methods: {
     async uploadVariants(data, format) {
-      return await this.api.upload(data, format);
+      return await this.api.uploadVariants(data, format);
     }
   }
 }

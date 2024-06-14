@@ -1,5 +1,5 @@
 export default class VariantFiltersContext {
     chromosomeOptions = null;
-    consequenceImpactOptions = null;
-    consequenceTypeOptions = null;
+    effectImpactOptions = null;
+    effectTypeOptions = null;
 }

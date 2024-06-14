@@ -1,6 +1,6 @@
 import Chromosome from "../enums/chromosome";
-import ConsequenceImpact from "../enums/consequence-impact";
-import ConsequenceType from "../enums/consequence-type";
+import EffectImpact from "../enums/effect-impact";
+import EffectType from "../enums/effect-type";
 
 import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
@@ -46,22 +46,22 @@ const filters = [
     sanitize: (value) => sanitiseRange(value),
   },
   {
-    group: "consequences",
-    label: "Consequences",
+    group: "effects",
+    label: "Effects",
     filters: [
       {
         field: "impact",
         label: "Impact",
         type: FilterType.Options,
         valueType: ValueType.String,
-        options: (context) => mapOptions(context?.consequenceImpactOptions, ConsequenceImpact.values)
+        options: (context) => mapOptions(context?.effectImpactOptions, EffectImpact.values)
       },
       {
-        field: "consequence",
-        label: "Consequence",
+        field: "effect",
+        label: "Effect",
         type: FilterType.Options,
         valueType: ValueType.String,
-        options: (context) => mapOptions(context?.consequenceTypeOptions, ConsequenceType.values)
+        options: (context) => mapOptions(context?.effectTypeOptions, EffectType.values)
       }
     ]
   }

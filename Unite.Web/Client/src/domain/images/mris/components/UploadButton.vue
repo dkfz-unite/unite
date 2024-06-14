@@ -2,9 +2,9 @@
   <u-upload-dialog
     v-model="dialogMris"
     subject="Upload MRI images data"
-    templatePathJson="/templates/images/mri-images.json"
-    templatePathTsv="/templates/images/mri-images.tsv"
-    modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-models-images.md"
+    templatePathJson="/templates/images/mris.json"
+    templatePathTsv="/templates/images/mris.tsv"
+    modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-models-mris.md"
     :uploadMethod="uploadImages"
   />
 
@@ -42,11 +42,7 @@ export default {
 
   methods: {
     async uploadImages(data, format) {
-      if (format === "json") {
-        return await this.imagesApi.uploadImages(data, format);
-      } else if (format === "tsv") {
-        return await this.imagesApi.uploadMris(data);
-      }
+      return await this.imagesApi.uploadMris(data, format);
     }
   }
 }

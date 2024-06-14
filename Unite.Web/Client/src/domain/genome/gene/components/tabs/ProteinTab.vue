@@ -109,7 +109,7 @@ export default {
 
       return [
         { value: "impact", label: "Impact" },
-        { value: "consequence", label: "Consequence"}
+        { value: "effect", label: "Effect"}
       ];
     },
 

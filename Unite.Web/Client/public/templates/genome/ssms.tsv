@@ -1,0 +1,14 @@
+# tsample_donor_id: Donor1
+# tsample_specimen_id: Material2
+# tsample_specimen_type: Material
+# tsample_analysis_type: WGS
+# tsample_analysis_date: 2023-12-01
+# msample_donor_id: Donor1
+# msample_specimen_id: Material1
+# msample_specimen_type: Material
+# msample_analysis_type: WGS
+# msample_analysis_date: 2023-12-01
+chromosome	position	ref	alt
+7	141365018	C	G
+4	110895931	A	T
+13	100515267	A	G

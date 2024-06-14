@@ -1,7 +1,7 @@
 [
   {
     "donor_id": "Donor1",
-    "data": [
+    "entries": [
       {
         "therapy": "Therapy1",
         "details": "Patient specific therapy details.",
@@ -24,7 +24,7 @@
   },
   {
     "donor_id": "Donor2",
-    "data": [
+    "entries": [
       {
         "therapy": "Therapy1",
         "details": "Patient specific therapy details.",

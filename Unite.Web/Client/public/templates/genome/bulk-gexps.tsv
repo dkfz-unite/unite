@@ -1,0 +1,9 @@
+# tsample_donor_id: Donor1
+# tsample_specimen_id: Material2
+# tsample_specimen_type: Material
+# tsample_analysis_type: RNASeq
+# tsample_analysis_date: 2023-12-01
+gene_id	reads
+ENSG00000223972	238
+ENSG00000243485	0
+ENSG00000274890	0

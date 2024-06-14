@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-y-sm" v-if="features">
     <div class="row">
-      <span class="text-h5 u-text-title">Transcript Consequences</span>
+      <span class="text-h5 u-text-title">Transcript Effects</span>
     </div>
 
     <div class="row">
@@ -19,13 +19,13 @@
                 <span class="u-text-key">Strand</span>
               </th>
               <th>
-                <span class="u-text-key">Consequences</span>
+                <span class="u-text-key">Effect</span>
               </th>
               <th>
-                <span class="u-text-key">Coding DNA Change</span>
+                <span class="u-text-key">Codon Change</span>
               </th>
               <th>
-                <span class="u-text-key">Amino Acid Cahnge</span>
+                <span class="u-text-key">Protein Cahnge</span>
               </th>
               <th>
                 <span class="u-text-key">Distance</span>
@@ -51,15 +51,15 @@
                 <span>{{affectedFeature.transcript.feature.strand ? '+' : '-'}}</span>
               </td>
               <td>
-                <div v-for="(consequence, i) in affectedFeature.consequences" :key="i">
-                  <span :class="getImpactColor(consequence.impact)">{{getConsequenceLabel(consequence.type)}}</span>
+                <div v-for="(effect, i) in affectedFeature.effects" :key="i">
+                  <span :class="getImpactColor(effect.impact)">{{getConsequenceLabel(effect.type)}}</span>
                 </div>
               </td>
               <td>
                 <span>{{affectedFeature.transcript.codonChange}}</span>
               </td>
               <td>
-                <span>{{affectedFeature.transcript.aminoAcidChange}}</span>
+                <span>{{affectedFeature.transcript.proteinChange}}</span>
               </td>
               <td>
                 <span>{{affectedFeature.transcript.distance}}</span>
@@ -74,7 +74,7 @@
 
 <script>
 import ImpactColor from "../../../../_models/impact-color";
-import ConsequenceType from "@/domain/genome/variants/_shared/variants/models/enums/consequence-type";
+import EffectType from "@/domain/genome/variants/_shared/variants/models/enums/effect-type";
 
 export default {
   props: {
@@ -97,7 +97,7 @@ export default {
     },
 
     getConsequenceLabel(value){
-      return this.$helpers.enum.getLabel(value, ConsequenceType.values);
+      return this.$helpers.enum.getLabel(value, EffectType.values);
     },
 
     getTranscriptLink(id) {

@@ -31,9 +31,9 @@
                 :icon="Tabs.summary.icon"
               />
               <q-tab
-                :name="Tabs.consequences.domain"
-                :label="Tabs.consequences.title"
-                :icon="Tabs.consequences.icon"
+                :name="Tabs.effects.domain"
+                :label="Tabs.effects.title"
+                :icon="Tabs.effects.icon"
                 :disable="!variant.affectedFeatures?.length"
               />
             </q-tabs>
@@ -47,8 +47,8 @@
               <q-tab-panel :name="Tabs.summary.domain" class="q-py-sm q-px-none">
                 <u-summary-tab :variant="variant" />
               </q-tab-panel>
-              <q-tab-panel :name="Tabs.consequences.domain" class="q-py-sm q-px-none">
-                <u-consequences-tab :variant="variant" />
+              <q-tab-panel :name="Tabs.effects.domain" class="q-py-sm q-px-none">
+                <u-effects-tab :variant="variant" />
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -65,7 +65,7 @@
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
-import UConsequencesTab from "../_shared/variant/components/tabs/ConsequencesTab.vue";
+import UEffectsTab from "../_shared/variant/components/tabs/EffectsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
 import Settings from "@/_settings/settings";
@@ -75,7 +75,7 @@ export default {
   components:{
     UDownloadButton,
     USummaryTab,
-    UConsequencesTab
+    UEffectsTab
   },
 
   mixins: [pageTabsMixin],
