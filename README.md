@@ -4,15 +4,16 @@
 Wep portal giving access to data providing the follwoing functionality:
 - Cross reference search queries
 - Detailed overview of data entries
-- Cohort management tools
+- Dataset management tools
+- Data upload/download tools
 - Data export tools
 - Data visualisation
 - Data analysis
 
 Web portal includes several components:
-- Web server - ASP.NET (.NET 6) web server hosting static files of the frontend SPA.
-- Reverse proxy - ASP.NET (.NET 6) reverse proxy service redirecting frontend calls to composer web api.
-- Frontend SPA - Vue.js (v3) single page web application.
+- Web server - ASP.NET web server hosting static files of the frontend SPA.
+- Reverse proxy - ASP.NET reverse proxy service redirecting frontend calls to composer web api.
+- Frontend SPA - Vue.js single page web application.
 
 ## Dependencies
 - [Composer](https://github.com/dkfz-unite/unite-composer) - composer web api.
