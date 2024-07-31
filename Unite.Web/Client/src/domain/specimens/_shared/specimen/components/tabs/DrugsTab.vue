@@ -92,7 +92,7 @@ export default {
 
   computed:{
     hasDssSelective() {
-      return this.screenings?.some(screening => screening.dssSelective != null);
+      return this.screenings?.some(screening => screening.dssS != null);
     }
   },
 
@@ -125,8 +125,7 @@ export default {
     },
 
     hasDrugResponseData(screening) {
-      return (screening.concentration?.length && screening.inhibition?.length)
-          || (screening.concentrationLine?.length && screening.inhibitionLine?.length);
+      return screening.doses?.length && screening.responses?.length;
     },
 
     async fetchData() {

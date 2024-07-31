@@ -32,9 +32,9 @@ export default {
   },
 
   computed: {
-    drugs() { return this.screenings.sort((a,b) => b.dssSelective - a.dssSelective) },
+    drugs() { return this.screenings.sort((a,b) => b.dssS - a.dssS) },
     drugNames() { return this.drugs.map(screening => screening.drug) },
-    drugScores() { return this.drugs.map(screening => screening.dssSelective) },
+    drugScores() { return this.drugs.map(screening => screening.dssS) },
     colors() { return this.getMarkerColors(this.drugs) }
   },
 
@@ -79,7 +79,7 @@ export default {
     onClick(event) {
       const target = event.target;
       const data = this.getTargetBarData(event);
-      const color = data.dssSelective > 0 ? this.plotColors.positiveClicked : this.plotColors.negativeClicked;
+      const color = data.dssS > 0 ? this.plotColors.positiveClicked : this.plotColors.negativeClicked;
       this.highlightTargetBar(event, color);
       this.$emit("click", { target, data });
     },
@@ -106,7 +106,7 @@ export default {
     getMarkerColors(drugs) {
       const positive = this.plotColors.positiveNormal;
       const negative = this.plotColors.negativeNormal;
-      return drugs.map(screening => screening.dssSelective > 0 ? positive : negative );
+      return drugs.map(screening => screening.dssS > 0 ? positive : negative );
     }
   }
 }

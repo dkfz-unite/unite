@@ -11,7 +11,7 @@ async function get(id){
 }
 
 async function remove(id){
-  let url = `${imagesFeedUrl}/images/${id}`;
+  let url = `${imagesFeedUrl}/entry/${id}`;
   return await client.delete(url);
 }
 
