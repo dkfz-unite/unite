@@ -46,8 +46,8 @@ export default {
         name: "Inhibition",
         type: "scatter",
         mode: "lines",
-        x: screening.concentrationLine ?? screening.concentration,
-        y: screening.inhibitionLine ?? screening.inhibition,
+        x: screening.doses,
+        y: screening.responses,
         hovertemplate: "%{y} \% at %{x} nM",
         line: { 
           color: this.plotColors.inhibition, 
@@ -60,7 +60,7 @@ export default {
     },
 
     getInhibitionPointsTrace(screening) {
-      var map = screening.concentration
+      var map = screening.doses
         .map((value, index) => { return { value, index } })
         .sort((a, b) => a.value - b.value);
 
@@ -90,8 +90,8 @@ export default {
       // var concentrations = [...concentrations1, ...concentrations2.reverse()];
       // var inhibitions = [...inhibitions1, ...inhibitions2.reverse()];
 
-      let concentrations = screening.concentration;
-      let inhibitions = screening.inhibition;
+      let concentrations = screening.doses;
+      let inhibitions = screening.responses;
 
       const trace = {
         name: "Inhibition",
@@ -137,14 +137,14 @@ export default {
       // }
 
       // Inhibition Points
-      if (screening.concentration?.length && screening.inhibition?.length) {
+      if (screening.doses?.length && screening.responses?.length) {
         data.push(this.getInhibitionPointsTrace(screening));
       }
 
       // Concentration at 50% inhibition
-      var doseMin = Math.min(...screening.concentration);
-      var doseMax = Math.max(...screening.inhibition);
-      var dose50 = screening.absIC50;
+      var doseMin = Math.min(...screening.doses);
+      var doseMax = Math.max(...screening.doses);
+      var dose50 = screening.dose50;
 
       if (doseMin < dose50 && dose50 < doseMax) {
         data.push(this.getInhibition50Trace(dose50));
@@ -164,7 +164,7 @@ export default {
         yaxis: {
           title: "Inhibition (%)",
           showline: true,
-          range: [-50, 150]
+          range: [-1.5, 1.5]
         }
       };
 
