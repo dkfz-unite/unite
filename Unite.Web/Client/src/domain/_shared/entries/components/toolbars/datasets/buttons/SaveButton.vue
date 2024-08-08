@@ -107,8 +107,11 @@ export default {
         name: this.name.value,
         date: new Date(),
         description: this.description.value,
-        criteria: this.mergeCriteriaWithSelection(this.criteria.clone(), this.selected),
+        criteria: this.mergeCriteriaWithSelection(this.criteria, this.selected),
       };
+
+      console.log(datasetData.criteria);
+      
       this.$store.dispatch(`${domainName}/addDataset`, datasetData);
     },
 
@@ -127,30 +130,34 @@ export default {
     },
 
     mergeCriteriaWithSelection(criteria, selected) {
+      var clone = criteria.clone();
+
       if (!selected?.length) {
-        return criteria;
+        return clone;
       } else {
         if (this.domain == Settings.donors.domain) {
-          criteria.donor.referenceId = selected.map(item => item.referenceId);
+          clone.donor.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.mris.domain) {
-          criteria.mri.referenceId = selected.map(item => item.referenceId);
+          clone.mri.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.materials.domain) {
-          criteria.material.referenceId = selected.map(item => item.referenceId);
+          clone.material.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.lines.domain) {
-          criteria.line.referenceId = selected.map(item => item.referenceId);
+          clone.line.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.organoids.domain) {
-          criteria.organoid.referenceId = selected.map(item => item.referenceId);
+          clone.organoid.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.xenografts.domain) {
-          criteria.xenograft.referenceId = selected.map(item => item.referenceId);
+          clone.xenograft.referenceId = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.genes.domain) {
-          criteria.gene.symbol = selected.map(item => item.symbol);
+          clone.gene.symbol = selected.map(item => item.symbol);
         } else if (this.domain == Settings.ssms.domain) {
-          criteria.ssm.id = selected.map(item => item.id);
+          clone.ssm.id = selected.map(item => item.id);
         } else if (this.domain == Settings.cnvs.domain) {
-          criteria.cnv.id = selected.map(item => item.id);
+          clone.cnv.id = selected.map(item => item.id);
         } else if (this.domain == Settings.svs.domain) {
-          criteria.sv.id = selected.map(item => item.id);
+          clone.sv.id = selected.map(item => item.id);
         }
+
+        return clone;
       }
     }
   }
