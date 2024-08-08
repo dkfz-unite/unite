@@ -10,12 +10,12 @@
       
       <q-space />
 
-      <u-upload-button
+      <!-- <u-upload-button
         v-if="specimen && donor && canWriteData"
         :donorId="donor.referenceId"
         :specimenId="specimen.referenceId"
         specimenType="Line">
-      </u-upload-button>
+      </u-upload-button> -->
 
       <u-download-button
         v-if="specimen"
