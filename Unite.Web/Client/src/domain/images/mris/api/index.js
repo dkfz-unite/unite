@@ -28,7 +28,7 @@ export default class ImagesApi extends ModelsApi {
   async uploadMris(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/mris${formats[format].path}`;
+    const url = `${this.feedUrl}/entries/mri${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
     

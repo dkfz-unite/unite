@@ -28,7 +28,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadMaterials(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/materials${formats[format].path}`;
+    const url = `${this.feedUrl}/entries/material${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -44,7 +44,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadLines(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/lines${formats[format].path}`;
+    const url = `${this.feedUrl}/entries/line${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -60,7 +60,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadOrganoids(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/organoids${formats[format].path}`;
+    const url = `${this.feedUrl}/entries/organoid${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -76,7 +76,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadXenografts(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/xenografts${formats[format].path}`;
+    const url = `${this.feedUrl}entries/xenograft${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
@@ -92,7 +92,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadInterventions(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}/specimens/interventions${formats[format].path}`;
+    const url = `${this.feedUrl}/interventions${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 
