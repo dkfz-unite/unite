@@ -61,13 +61,14 @@ export default {
     }
   },
 
-  methods: {
-    getIcon(specimenType) {
-      return specimenType == "Material" ? "svguse:/icons.svg#u-material"
-           : specimenType == "Line" ? "las la-microscope"
-           : specimenType == "Organoid" ? "svguse:/icons.svg#u-organoid"
-           : "svguse:/icons.svg#u-xenograft";
-    }
-  }
+  // methods: {
+  //   getIcon(specimenType) {
+  //     return specimenType == SpecimenType.Material ? settings.materials.icon
+  //          : specimenType == SpecimenType.Line ? settings.lines.icon
+  //          : specimenType == SpecimenType.Organoid ? settings.organoids.icon
+  //          : specimenType == SpecimenType.Xenograft ? settings.xenografts.icon
+  //          : settings.materials.icon;
+  //   }
+  // }
 }
 </script>

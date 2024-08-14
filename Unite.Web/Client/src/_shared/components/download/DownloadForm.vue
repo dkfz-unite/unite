@@ -66,9 +66,9 @@
             <div class="row" v-if="hasGeneExpData">
               <q-checkbox v-model="model.geneExp" label="Bulk gene expressions" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasGeneExpScData">
-              <q-checkbox v-model="model.geneExpSc" label="Single-cell gene expressions" :disable="loading" dense />
-            </div>
+            <!-- <div class="row" v-if="hasGeneExpScData">
+              <q-checkbox v-model="model.geneExpSc" label="Single cell gene expressions" :disable="loading" dense />
+            </div> -->
 
             <!-- Caution message -->
             <div class="row q-pl-md" v-if="showCaution">
@@ -188,7 +188,8 @@ export default {
       if (specimensDomain) {
         return this.data?.interventions === true;
       } else {
-        return this.data?.organoidsInterventions === true
+        return this.data?.linesInterventions === true
+            || this.data?.organoidsInterventions === true
             || this.data?.xenograftsInterventions === true;
       }
     },

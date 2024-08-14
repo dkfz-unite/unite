@@ -38,7 +38,7 @@ export default {
         { title: "Copy Number Variants (CNV)", available: !!this.image.data.cnvs },
         { title: "Structural Variants (SV)", available: !!this.image.data.svs },
         { title: "Bulk Gene Expressions", available: !!this.image.data.geneExp },
-        { title: "Single Cell Gene Expressions", available: !!this.image.data.genExpSc }
+        { title: "Single Cell Gene Expressions", available: !!this.image.data.geneExpSc }
       ];
     }
   }
