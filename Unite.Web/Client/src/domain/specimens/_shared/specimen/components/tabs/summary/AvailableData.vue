@@ -37,19 +37,20 @@ export default {
 
       // data.push({ title: "Molecular", available: this.specimen.data?.molecular });
 
-      if (this.specimen.type != "Material") {
-        data.push({ title: "Interventions", available: this.specimen.data?.interventions });
-        data.push({ title: "Drug Screenings", available: this.specimen.data?.drugs });
-      }
+      // if (this.specimen.type != "Material") {
+      //   data.push({ title: "Interventions", available: this.specimen.data?.interventions });
+      //   data.push({ title: "Drug Screenings", available: this.specimen.data?.drugs });
+      // }
 
-      if (this.specimen.type == "Material" && this.specimen.material?.tumorType != "Normal") {
-        data.push({ title: "MRI Images", available: !!this.specimen.data?.mris });
-      }
+      // if (this.specimen.type == "Material" && this.specimen.material?.tumorType != "Normal") {
+      //   data.push({ title: "MRI Images", available: !!this.specimen.data?.mris });
+      // }
 
       data.push({ title: "Simple Somatic Mutations (SSM)", available: !!this.specimen.data?.ssms });
       data.push({ title: "Copy Number Variants (CNV)", available: !!this.specimen.data?.cnvs });
       data.push({ title: "Structural Variants (SV)", available: !!this.specimen.data?.svs });
-      data.push({ title: "Bulk Gene Expressions (Transcriptomics)", available: !!this.specimen.data?.geneExp });
+      data.push({ title: "Bulk Gene Expressions", available: !!this.specimen.data?.geneExp });
+      data.push({ title: "Single Cell Gene Expressions", available: !!this.specimen.data?.geneExpSc });
 
       return data;
     }

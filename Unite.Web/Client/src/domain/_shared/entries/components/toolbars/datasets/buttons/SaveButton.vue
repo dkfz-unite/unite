@@ -109,8 +109,6 @@ export default {
         description: this.description.value,
         criteria: this.mergeCriteriaWithSelection(this.criteria, this.selected),
       };
-
-      console.log(datasetData.criteria);
       
       this.$store.dispatch(`${domainName}/addDataset`, datasetData);
     },

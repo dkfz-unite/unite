@@ -20,17 +20,18 @@
       </u-data-group>
       <u-data-group title="Cell Lines" :show="!!data.lines">
         <u-data-item title="Molecular data" :show="!!data.linesMolecular" />
+        <u-data-item title="Interventions" :show="!!data.linesInterventions" />
         <u-data-item title="Drug screenings" :show="!!data.linesDrugs" />
       </u-data-group>
       <u-data-group title="Organoids" :show="!!data.organoids">
         <u-data-item title="Molecular data" :show="!!data.organoidsMolecular" />
-        <u-data-item title="Drug screenings" :show="!!data.organoidsDrugs" />
         <u-data-item title="Interventions" :show="!!data.organoidsInterventions" />
+        <u-data-item title="Drug screenings" :show="!!data.organoidsDrugs" />
       </u-data-group>
       <u-data-group title="Xenografts" :show="!!data.xenografts">
         <u-data-item title="Molecular data" :show="!!data.xenograftsMolecular" />
-        <u-data-item title="Drug screenings" :show="!!data.xenograftsDrugs" />
         <u-data-item title="Interventions" :show="!!data.xenograftsInterventions" />
+        <u-data-item title="Drug screenings" :show="!!data.xenograftsDrugs" />
       </u-data-group>
       <u-data-group title="Variants" :show="!!data.ssms || !!data.cnvs || !!data.svs">
         <u-data-item title="SSM" :show="!!data.ssms" />

@@ -30,6 +30,12 @@ const filters = [
         type: FilterType.Boolean,
         nullable: true
       },
+      {
+        field: "hasGeneExpSc",
+        label: "scRNA",
+        type: FilterType.Boolean,
+        nullable: true
+      }
     ]
   }
 ];
