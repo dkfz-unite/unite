@@ -226,6 +226,16 @@ export default {
           classes: (row) => this.dataCellClass(row.data.geneExp),
           headerClasses: this.dataHeaderClass()
         });
+
+        columns.push({
+          name: "hasGeneExpSc",
+          label: "scRNA",
+          field: (row) => this.dataView(row.data.geneExpSc),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.geneExpSc),
+          headerClasses: this.dataHeaderClass()
+        });
       }
 
       if (["mris"].includes(this.$route.name)){
