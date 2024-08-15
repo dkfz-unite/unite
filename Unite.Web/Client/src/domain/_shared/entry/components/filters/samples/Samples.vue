@@ -3,8 +3,8 @@
     label="Specimen"
     option-label="referenceId"
     v-model="value"
-    :options="options"
-    :disable="!options?.length"
+    :options="sampleOptions"
+    :disable="!sampleOptions?.length"
     @update:model-value="$emit('update:modelValue', modelValue)"
     square dense>
 
@@ -43,6 +43,12 @@ export default {
     }
   },
 
+  computed: {
+    sampleOptions() {
+      return this.options.filter(option => option.analyses?.some(analysis => !!analysis.data));
+    }
+  },
+
   mounted() {
     if (!this.modelValue) {
       var option = this.options?.length ? this.options[0] : null;
@@ -59,16 +65,6 @@ export default {
       var option = options?.length ? options[0] : null;
       this.$emit("update:modelValue", option);
     }
-  },
-
-  // methods: {
-  //   getIcon(specimenType) {
-  //     return specimenType == SpecimenType.Material ? settings.materials.icon
-  //          : specimenType == SpecimenType.Line ? settings.lines.icon
-  //          : specimenType == SpecimenType.Organoid ? settings.organoids.icon
-  //          : specimenType == SpecimenType.Xenograft ? settings.xenografts.icon
-  //          : settings.materials.icon;
-  //   }
-  // }
+  }
 }
 </script>
