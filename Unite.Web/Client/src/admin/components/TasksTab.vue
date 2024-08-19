@@ -15,7 +15,7 @@
                 <div><q-badge title="Simple Somatic Mutations (SSM)" :color="getColor(submission.SSM)" text-color="black" label="SSM">: {{ submission.SSM }}</q-badge></div>
                 <div><q-badge title="Copy Number Variants (CNV)" :color="getColor(submission.CNV)" text-color="black" label="CNV">: {{ submission.CNV }}</q-badge></div>
                 <div><q-badge title="Structural Variants (SV)" :color="getColor(submission.SV)" text-color="black" label="SV">: {{ submission.SV }}</q-badge></div>
-                <div><q-badge title="Transcriptomics (TRA)" :color="getColor(submission.TEX)" text-color="black" label="TRA">: {{ submission.TEX }}</q-badge></div>
+                <div><q-badge title="Bulk RNA (BGE)" :color="getColor(submission.TEX)" text-color="black" label="BGE">: {{ submission.BGE }}</q-badge></div>
               </template>
             </div>
           </td>
