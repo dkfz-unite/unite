@@ -44,14 +44,18 @@
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
       <div class="col q-pa-sm">
-        <u-dexp-results v-if="analysis.type == 'dexp'" :title="title" :data="analysis.results" />
+        <u-rna-de-results v-if="analysis.type == 'rna-de'" :title="title" :data="analysis.results" />
+      </div>
+      <div class="col q-pa-sm">
+        <u-rnasc-results v-if="analysis.type == 'rnasc'" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import UDexpResults from "./deseq2/Results.vue";
+import URnaDeResults from "./rna-de/Results.vue";
+import URnascResults from "./rnasc/Results.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -59,7 +63,8 @@ import Settings from "@/_settings/settings";
 
 export default {
   components: {
-    UDexpResults
+    URnaDeResults,
+    URnascResults
   },
 
   mixins: [mixin],
@@ -115,17 +120,26 @@ export default {
 
     async onLoad() {
       const payload = { key: this.analysis.key };
-      await this.$store.dispatch("analysis/loadAnalysisResults", payload);
+      await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
     },
 
     async onDownload() {
       const payload = { key: this.analysis.key };
-      const type = this.analysis.type;
-      const name = this.analysis.name.split(" ").join("_");
-      const format = "text/tab-separated-values"; // TODO: add more formats for different analysis types
-      const content = await this.$store.dispatch("analysis/downloadAnalysisResults", payload);
-      exportFile(`${type}_${name}.tsv`, content, format);
+      const format = this.getFileFormat(this.analysis.type);
+      const content = await this.$store.dispatch("analysis/loadAnalysisData", payload);
+      exportFile(`${this.analysis.key}.${format.ext}`, content, format.type);
     },
+
+    getFileFormat(analysisType) {
+      switch (analysisType) {
+        case "rna-de":
+          return { type: "application/octet-stream", ext: "tsv" };
+        case "rnasc":
+          return { type: "application/octet-stream", ext: "h5ad" };
+        default:
+          throw new Error(`Unknown analysis type: ${analysisType}`);
+      }
+    }
   }
 }
 </script>

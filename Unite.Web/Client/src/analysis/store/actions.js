@@ -52,15 +52,15 @@ const actions = {
     // dispatch("saveAnalyses");
   },
 
-  async loadAnalysisResults({state}, data) {
+  async loadAnalysisMeta({state}, data) {
     if (state.analyses.get(data.key).results) return;
 
-    const results = await api.getAnalysisResults(data.key);
+    const results = await api.getAnalysisMeta(data.key);
     state.analyses.get(data.key).results = results;
   },
 
-  async downloadAnalysisResults({state}, data) {
-    const blob = await api.downloadAnalysisResults(data.key);
+  async loadAnalysisData({state}, data) {
+    const blob = await api.getAnalysisData(data.key);
     return blob;
   },
 
@@ -74,13 +74,21 @@ const actions = {
     dispatch("saveAnalyses");
   },
 
-  async runDExpAnalysis({state, dispatch}, data) {
-    data.key = await api.runDExpAnalysis(data);
+  async runRnaDeAnalysis({state, dispatch}, data) {
+    data.key = await api.runRnaDeAnalysis(data);
 
     state.analyses.set(data.key, data);
 
     dispatch("saveAnalyses");
   },
+
+  async runRnascAnalysis({state, dispatch}, data) {
+    data.key = await api.runRnascAnalysis(data);
+
+    state.analyses.set(data.key, data);
+
+    dispatch("saveAnalyses");
+  }
 };
 
 export default actions;
