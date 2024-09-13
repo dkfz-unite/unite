@@ -24,7 +24,8 @@ const mixin = {
 
     getAnalysisType(type) {
       switch (type) {
-        case "dexp": return "Differential Expression";
+        case "rna-de": return "Bulk RNA Differential Expression Analysis";
+        case "rnasc": return "Single Cell RNA Analysis";
         default: return type;
       }
     }

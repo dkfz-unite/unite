@@ -7,7 +7,7 @@
 
     <q-card style="min-width: 300px;">
       <q-card-section>
-        <div class="text-h6">Single cell expressions analysis</div>
+        <div class="text-h6">Bulk RNA Differential Expression Analysis</div>
       </q-card-section>
 
       <q-card-section>
@@ -127,7 +127,7 @@ export default {
       }));
 
       const data = {
-        type: "dexp",
+        type: "rna-de",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -135,7 +135,7 @@ export default {
         datasets: datasets,
       };
 
-      await this.$store.dispatch("analysis/runDExpAnalysis", data);
+      await this.$store.dispatch("analysis/runRnaDeAnalysis", data);
       await this.$router.push({ name: "analysis" });
     },
 

@@ -2,19 +2,19 @@ import settings from "@/settings";
 import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
-const analysisUrl = `${settings.urls.analysis}/tasks`;
+const analysisUrl = `${settings.urls.analysis}/task`;
 
 export async function getAnalysisStatus(key) {
-  const url = `${analysisUrl}/${key}`;
+  const url = `${analysisUrl}/${key}/status`;
   return await client.get(url);
 }
 
-export async function getAnalysisResults(key) {
-  const url = `${analysisUrl}/${key}/results`;
-  return await client.get(url);
+export async function getAnalysisMeta(key) {
+  const url = `${analysisUrl}/${key}/meta`;
+  return await client.get(url, { responseType: "blob" });
 }
 
-export async function downloadAnalysisResults(key) {
+export async function getAnalysisData(key) {
   const url = `${analysisUrl}/${key}/data`;
   return await client.get(url, { responseType: "blob" });
 }
@@ -24,15 +24,21 @@ export async function deleteAnalysis(key) {
   return await client.delete(url);
 }
 
-export async function runDExpAnalysis(data) {
-  const url = `${analysisUrl}/dexp`;
+export async function runRnaDeAnalysis(data) {
+  const url = `${analysisUrl}/rna-de`;
+  return await client.post(url, data);
+}
+
+export async function runRnascAnalysis(data) {
+  const url = `${analysisUrl}/rnasc`;
   return await client.post(url, data);
 }
 
 export default {
   getAnalysisStatus,
-  getAnalysisResults,
-  downloadAnalysisResults,
+  getAnalysisMeta,
+  getAnalysisData,
   deleteAnalysis,
-  runDExpAnalysis
+  runRnaDeAnalysis,
+  runRnascAnalysis
 };

@@ -37,18 +37,20 @@ export default {
   },
 
   watch: {
-    data(value) {
+    async data(value) {
       if (!value) return;
-      const data = this.parseData(value);
+      var tsv = await value.text();
+      const data = this.parseData(tsv);
       this.traces = this.getTraces(data);
       this.layout = this.getLayout(data);
       this.config = { responsive: true };
     }
   },
 
-  mounted() {
+  async mounted() {
     if (!this.data) return;
-    const data = this.parseData(this.data);
+    var tsv = await this.data.text();
+    const data = this.parseData(tsv);
     this.traces = this.getTraces(data);
     this.layout = this.getLayout(data);
     this.config = { responsive: true };
