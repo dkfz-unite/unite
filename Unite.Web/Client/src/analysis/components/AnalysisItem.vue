@@ -25,7 +25,7 @@
         <!-- Datasets -->
         <div class="row">
           <div class="col">
-            <div v-for="dataset in analysis.cohorts" class="row items-center q-gutter-xs">
+            <div v-for="dataset in analysis.datasets" class="row items-center q-gutter-xs">
               <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
               <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, key: dataset.key } }">{{ dataset.name }}</u-link>
             </div>
@@ -44,18 +44,18 @@
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
       <div class="col q-pa-sm">
-        <u-rna-de-results v-if="analysis.type == 'rna-de'" :title="title" :data="analysis.results" />
-      </div>
-      <div class="col q-pa-sm">
-        <u-rnasc-results v-if="analysis.type == 'rnasc'" :title="title" :data="analysis.results" />
+        <u-deseq2-results v-if="analysis.type == 'deseq2'" :title="title" :data="analysis.results" />
+        <u-scell-results v-else-if="analysis.type == 'scell'" :title="title" :data="analysis.results" />
+        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import URnaDeResults from "./rna-de/Results.vue";
-import URnascResults from "./rnasc/Results.vue";
+import UDeseq2Results from "./deseq2/Results.vue";
+import UScellResults from "./scell/Results.vue";
+import UKmeierResults from "./kmeier/Results.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -63,8 +63,9 @@ import Settings from "@/_settings/settings";
 
 export default {
   components: {
-    URnaDeResults,
-    URnascResults
+    UDeseq2Results,
+    UScellResults,
+    UKmeierResults
   },
 
   mixins: [mixin],
@@ -106,7 +107,7 @@ export default {
         const datasets = this.analysis.datasets
           .sort((a, b) => a.order - b.order)
           .map(c => c.name);
-        return `${datasets[0]} vs ${datasets[1]}`;
+        return datasets.length > 1 ? `${datasets[0]} vs ${datasets[1]}` : datasets[0];
       }
     }
   },
@@ -132,10 +133,12 @@ export default {
 
     getFileFormat(analysisType) {
       switch (analysisType) {
-        case "rna-de":
+        case "deseq2":
           return { type: "application/octet-stream", ext: "tsv" };
-        case "rnasc":
+        case "scell":
           return { type: "application/octet-stream", ext: "h5ad" };
+        case "kmeier":
+          return { type: "application/octet-stream", ext: "tsv" };
         default:
           throw new Error(`Unknown analysis type: ${analysisType}`);
       }

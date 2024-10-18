@@ -259,7 +259,7 @@ export default {
       };
 
       const data = {
-        type: "rnasc",
+        type: "scell",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -268,7 +268,7 @@ export default {
         options: options
       };
 
-      await this.$store.dispatch("analysis/runRnascAnalysis", data);
+      await this.$store.dispatch("analysis/runSCellAnalysis", data);
       await this.$router.push({ name: "analysis" });
     },
 
