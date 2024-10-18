@@ -74,19 +74,21 @@ const actions = {
     dispatch("saveAnalyses");
   },
 
-  async runRnaDeAnalysis({state, dispatch}, data) {
-    data.key = await api.runRnaDeAnalysis(data);
-
+  async runDESeq2Analysis({state, dispatch}, data) {
+    data.key = await api.runDESeq2Analysis(data);
     state.analyses.set(data.key, data);
-
     dispatch("saveAnalyses");
   },
 
-  async runRnascAnalysis({state, dispatch}, data) {
-    data.key = await api.runRnascAnalysis(data);
-
+  async runSCellAnalysis({state, dispatch}, data) {
+    data.key = await api.runSCellAnalysis(data);
     state.analyses.set(data.key, data);
+    dispatch("saveAnalyses");
+  },
 
+  async runKMeierAnalysis({state, dispatch}, data) {
+    data.key = await api.runKMeierAnalysis(data);
+    state.analyses.set(data.key, data);
     dispatch("saveAnalyses");
   }
 };

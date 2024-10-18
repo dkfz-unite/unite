@@ -24,13 +24,18 @@ export async function deleteAnalysis(key) {
   return await client.delete(url);
 }
 
-export async function runRnaDeAnalysis(data) {
-  const url = `${analysisUrl}/rna-de`;
+export async function runDESeq2Analysis(data) {
+  const url = `${analysisUrl}/deseq2`;
   return await client.post(url, data);
 }
 
-export async function runRnascAnalysis(data) {
-  const url = `${analysisUrl}/rnasc`;
+export async function runSCellAnalysis(data) {
+  const url = `${analysisUrl}/scell`;
+  return await client.post(url, data);
+}
+
+export async function runKMeierAnalysis(data) {
+  const url = `${analysisUrl}/kmeier`;
   return await client.post(url, data);
 }
 
@@ -39,6 +44,7 @@ export default {
   getAnalysisMeta,
   getAnalysisData,
   deleteAnalysis,
-  runRnaDeAnalysis,
-  runRnascAnalysis
+  runDESeq2Analysis,
+  runSCellAnalysis,
+  runKMeierAnalysis
 };

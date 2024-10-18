@@ -127,7 +127,7 @@ export default {
       }));
 
       const data = {
-        type: "rna-de",
+        type: "deseq2",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -135,7 +135,7 @@ export default {
         datasets: datasets,
       };
 
-      await this.$store.dispatch("analysis/runRnaDeAnalysis", data);
+      await this.$store.dispatch("analysis/runDESeq2Analysis", data);
       await this.$router.push({ name: "analysis" });
     },
 
