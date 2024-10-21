@@ -99,13 +99,13 @@ unite.portal:latest
 
 ### Local (Development)
 Development requires the followind tools and technologies:
-- node.js (v17.0.1)
-- npm (8.1.0)
+- node.js (v22.7.1)
+- npm (10.8.0)
 
 Frontend source code is located in `Unite.Web/Client` folder.
 1. Open `Unite.Web/Client` folder in terminal
 2. Install dependencies: `npm install`
-3. Run development server: `npm run serve`
+3. Run development server: `npm run dev`
 
 Composer web api proxy can be configured in vue [config](Unite.Web/Client/vue.config.js) file.
 
