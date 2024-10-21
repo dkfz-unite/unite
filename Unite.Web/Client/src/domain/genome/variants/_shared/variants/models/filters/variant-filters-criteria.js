@@ -5,6 +5,7 @@ export default class VariantFiltersCriteria {
     chromosome = [];
     position = { from: null, to: null };
     length = { from: null, to: null };
+    gene = [];
     impact = [];
     effect = [];
 
@@ -16,6 +17,7 @@ export default class VariantFiltersCriteria {
         number += this.position?.from != null ? 1 : 0;
         number += this.position?.to != null ? 1 : 0;
         number += this.length?.from != null ? 1 : 0;
+        number += this.gene?.length || 0;
         number += this.impact?.length || 0;
         number += this.effect?.length || 0;
         
@@ -27,6 +29,7 @@ export default class VariantFiltersCriteria {
         this.chromosome = criteria?.chromosome || [];
         this.position = criteria?.position || { from: null, to: null };
         this.position = criteria?.length || { from: null, to: null };
+        this.gene = criteria?.gene || [];
         this.impact = criteria?.impact || [];
         this.effect = criteria?.effect || [];
     }
@@ -41,6 +44,7 @@ export default class VariantFiltersCriteria {
         this.chromosome = [];
         this.position = { from: null, to: null };
         this.length = { from: null, to: null };
+        this.gene = [];
         this.impact = [];
         this.effect = [];
     }

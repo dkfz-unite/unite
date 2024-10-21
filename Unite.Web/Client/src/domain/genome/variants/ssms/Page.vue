@@ -120,7 +120,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.ssms.domain,
       model: FilterModels.Ssm,
-      models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Gene, FilterModels.Ssm]
+      models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Ssm]
     };
   },
 
