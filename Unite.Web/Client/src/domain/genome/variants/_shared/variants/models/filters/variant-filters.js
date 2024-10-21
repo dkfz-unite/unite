@@ -5,9 +5,17 @@ import EffectType from "../enums/effect-type";
 import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
-import { sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
+import { sanitiseArray, sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
 
 const filters = [
+  {
+    field: "gene",
+    label: "Gene",
+    placeholder: "e.g. TTN",
+    type: FilterType.Values,
+    valueType: ValueType.String,
+    sanitize: (value) => sanitiseArray(value)
+  },
   {
     group: "location",
     label: "Location",
