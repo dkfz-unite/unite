@@ -54,13 +54,20 @@ export default {
           x: data.map(row => row.time),
           y: data.map(row => row.survival_prob),
           error_y: {
-            array: data.map(row => row.conf_int_upper - row.survival_prob),
-            arrayminus: data.map(row => row.survival_prob - (row.survival_prob - row.conf_int_lower)),
-            visible: true
+            array: data.map(row => Math.abs(row.survival_prob - row.conf_int_upper)),
+            arrayminus: data.map(row => Math.abs(row.survival_prob - row.conf_int_lower)),
+            visible: true,
+            color: colors.getPaletteColor("grey-4"),
+            thickness: 1,
+            width: 2,
           },
           marker: {
-            color: colors.getPaletteColor("red"),
-            size: 10
+            color: colors.getPaletteColor("red-5"),
+            size: 4
+          },
+          line: {
+            color: colors.getPaletteColor("red-5"),
+            width: 1
           }
         }
       ];
@@ -90,14 +97,17 @@ export default {
           },
           range: [minTime - 5, maxTime + 5],
           showline: true,
+          zeroline: false,
+          minallowed: 0
         },
         yaxis: {
           title: {
             text: "Probability (%)",
             standoff: 0
           },
-          range: [0, 1],
+          range: [0, 1.1],
           showline: true,
+          zeroline: false,
           minallowed: 0
         }
       };
