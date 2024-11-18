@@ -73,6 +73,8 @@ export default {
 
   methods: {
     onSelect(dataset) {
+      this.item = dataset.name;
+      
       if (dataset.selected) {
         const orders = this.domains.flatMap(domain => domain.datasets).map(dataset => dataset.order || 0);
         dataset.order = Math.max(...orders) + 1;
