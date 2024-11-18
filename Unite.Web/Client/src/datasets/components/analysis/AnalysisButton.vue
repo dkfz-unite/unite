@@ -53,15 +53,19 @@ export default {
     },
 
     showKmeierAnalysis() {
-      return this.datasets?.length == 1 && this.datasets?.every(dataset => dataset.data?.clinical == true);
+      return this.datasets?.length >= 1 &&
+             this.datasets?.every(dataset => dataset.domain == "donors") &&
+             this.datasets?.every(dataset => dataset.data?.clinical == true);
     },
 
     showDeseq2Analysis() {
-      return this.datasets?.length == 2 && this.datasets?.every(dataset => dataset.data?.geneExp == true);
+      return this.datasets?.length == 2 &&
+             this.datasets?.every(dataset => dataset.data?.geneExp == true);
     },
 
     showScellAnalysis() {
-      return this.datasets?.length == 1 && this.datasets?.every(dataset => dataset.data?.geneExpSc == true);
+      return this.datasets?.length == 1 &&
+             this.datasets?.every(dataset => dataset.data?.geneExpSc == true);
     }
   }
 }

@@ -138,7 +138,7 @@ export default {
         case "scell":
           return { type: "application/octet-stream", ext: "h5ad" };
         case "kmeier":
-          return { type: "application/octet-stream", ext: "tsv" };
+          return { type: "application/octet-stream", ext: "zip" };
         default:
           throw new Error(`Unknown analysis type: ${analysisType}`);
       }

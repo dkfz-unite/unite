@@ -7,7 +7,7 @@
 
     <q-card style="min-width: 420px;">
       <q-card-section>
-        <div class="text-h6">Kaplan-Meier Survival Estimation Analysis</div>
+        <div class="text-h6">Survival Estimation Analysis</div>
       </q-card-section>
 
       <q-card-section>
@@ -34,6 +34,12 @@
                 v-model="description.value"
                 clearable outlined square dense
               />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <q-radio v-model="progression.value" :val="false" label="Survival" />
+              <q-radio v-model="progression.value" :val="true" label="Progression" />
             </div>
           </div>
         </div>
@@ -76,7 +82,7 @@ export default {
     }
   },
 
-  data() { 
+  data() {
     return {
       dialog: false,
       name: {
@@ -84,6 +90,9 @@ export default {
       },
       description: {
         value: null
+      },
+      progression: {
+        value: false
       }
     };
   },
@@ -111,11 +120,12 @@ export default {
         domain: dataset.domain,
         criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
       }));
-
+      
       const data = {
         type: "kmeier",
         name: this.name.value,
         description: this.description.value,
+        options: { progression: this.progression.value },
         status: null,
         date: new Date(),
         datasets: datasets
@@ -128,6 +138,7 @@ export default {
     async onClose() {
       this.name.value = null;
       this.description.value = null;
+      this.progression.value = false;
       this.dialog = false;
     }
   }
