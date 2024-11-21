@@ -44,6 +44,6 @@ export default class ImagesApi extends ModelsApi {
 
       const url = `${this.feedUrl}/entries/mri/${id}`;
   
-      return this.client.get(url);
+      return await this.client.get(url);
     }
 }

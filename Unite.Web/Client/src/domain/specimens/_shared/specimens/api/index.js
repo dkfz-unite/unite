@@ -141,6 +141,6 @@ export default class SpecimensApi extends ModelsApi {
         break;
     }
     
-    return this.client.get(url);
+    return await this.client.get(url);
   }
 }

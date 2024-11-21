@@ -1,58 +1,65 @@
-  <template>
-    <div>
-      <q-btn color="red" dense flat no-caps style: icon="svguse:/icons.svg#circle-xmark-regular" label="Reject" @click="openDialog" />
-      <q-dialog v-model="isDialogOpen">
-        <q-card>
-          <q-card-section style="width: 400px;">
-            <div>Are you sure you want to reject {{ value }}?</div>
-          </q-card-section>
+<template>
+  <q-btn color="red" dense flat no-caps style: icon="las la-times-circle" label="Reject" @click="dialog = true" />
+  
+  <q-dialog
+    v-model="dialog"
+    @keyup.esc="onClose" 
+    @keyup.enter="canConfirm && onConfirm()">
+    <q-card>
+      <q-card-section style="width: 400px;">
+        <div class="text-h6">Reject submission {{ value }}</div>
+      </q-card-section>
 
-          <q-card-section class="q-gutter-y-sm">
-            <div>
-              <q-input 
-              v-model="inputText" 
-              label="Enter comment" 
-              />
-            </div>
-          </q-card-section>
+      <q-card-section class="q-gutter-y-sm">
+        <div>
+          <q-input v-model="reason" label="Enter rejection reason" autofocus dense />
+        </div>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn label="Cancel" color="primary" dense flat no-caps @click="onClose" />
+        <q-btn label="Confirm" color="red" :disable="!canConfirm" dense flat no-caps @click="onConfirm" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+</template>
   
-          <q-card-actions align="right">
-            <q-btn label="Cancel" color="primary" dense flat no-caps @click="closeDialog" />
-            <q-btn label="Confirm" color="red" dense flat no-caps @click="confirmReject" />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-    </div>
-  </template>
-  
-  <script>
-  import api from "../../api/api-submissions";
-  export default {
-    props: {
-      value: {
-        type: [Number],
-        required: true,
-      },
+<script>
+import api from "../../api/api-submissions";
+
+export default {
+  props: {
+    value: {
+      type: [Number],
+      required: true,
     },
-    data() {
-      return {
-        isDialogOpen: false,
-        rejectStatus: false,
-      };
+  },
+
+  data() {
+    return {
+      dialog: false,
+      reason: null,
+    };
+  },
+
+  computed: {
+    canConfirm() {
+      return this.reason?.length > 0;
+    }
+  },
+
+  methods: {
+    onClose() {
+      this.reason = null;
+      this.dialog = false;
     },
-    methods: {
-      openDialog() {
-        this.isDialogOpen = true;
-      },
-      closeDialog() {
-        this.isDialogOpen = false;
-      },
-      async confirmReject() {
-        this.rejectStatus = await api.updateRejectComment(this.value, this.inputText);
-       
-        this.$emit('reject', this.rejectStatus);
-        this.closeDialog();
-      }
+
+    async onConfirm() {
+      const status = await api.updateRejectComment(this.value, this.reason);
+      
+      this.$emit("reject", status);
+      this.onClose();
+    }
   }
 }
-  </script>
+</script>

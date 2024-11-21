@@ -61,11 +61,10 @@ export default class DonorsApi extends ModelsApi {
 
     var url = `${this.feedUrl}/entries/${id}`;
 
-    if(type == "DON_TRT")
-    {
+    if(type == "DON_TRT") {
       url = `${this.feedUrl}/treatments/${id}`;
     }
 
-    return this.client.get(url);
+    return await this.client.get(url);
   }
 }
