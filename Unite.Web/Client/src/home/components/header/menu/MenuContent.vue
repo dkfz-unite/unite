@@ -20,6 +20,16 @@
     </q-item>
     <q-separator />
 
+     <!-- Submissions -->
+     <q-item clickable v-close-popup :to="{ name: 'submissions' }"  style: icon="svguse:/icons.svg#file-lines-solid">
+      <q-item-section avatar>
+        <q-icon name="svguse:/icons.svg#file-lines-solid" />
+      </q-item-section>
+      <q-item-section>
+        Submissions
+      </q-item-section>
+    </q-item>
+
     <!-- Admin -->
     <q-item v-if="isAdmin" clickable v-close-popup :to="{ name: 'admin' }">
       <q-item-section avatar>

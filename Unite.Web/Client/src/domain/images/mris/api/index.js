@@ -34,4 +34,16 @@ export default class ImagesApi extends ModelsApi {
     
     return this.client.post(url, body, config);
   }
+
+    /**
+   * get Mri Image submission json document.
+   * @param {string} format id to search 
+   * @returns {Document} json document
+   */
+    async getMriSubmissionDocument(id, type) {
+
+      const url = `${this.feedUrl}/entries/mri/${id}`;
+  
+      return this.client.get(url);
+    }
 }

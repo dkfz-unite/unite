@@ -114,4 +114,33 @@ export default class SpecimensApi extends ModelsApi {
 
     return this.client.post(url, body, config);
   }
+
+   /**
+   * get Specimen submission - materials, lines, organoids, intervensions, and drugs json document.
+   * @param {string} format id to search 
+   * @returns {Document} json document
+   */
+   async getSpecimenSubmissionDocument(id, type) {
+
+    switch(type) 
+    {
+      case "MAT":
+        var url = `${this.feedUrl}/entries/material/${id}`;
+      case "LNE":
+        url = `${this.feedUrl}/entries/line/${id}`;
+      case "ORG":
+        url = `${this.feedUrl}/entries/organoid/${id}`;
+      case "XEN":
+        url = `${this.feedUrl}entries/xenograft/${id}`;
+      case "SPE_INT":
+        url = `${this.feedUrl}entries/interventions/${id}`;
+      case "SPE_DRG":
+        url = `${this.feedUrl}/analysis/drugs${formats[format].path}`;
+        break;
+      default:
+        break;
+    }
+    
+    return this.client.get(url);
+  }
 }

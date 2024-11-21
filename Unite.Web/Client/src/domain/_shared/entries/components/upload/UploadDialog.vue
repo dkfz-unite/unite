@@ -10,7 +10,7 @@
         <div class="text-h6">{{ subject }}</div>
       </q-card-section>
 
-      <q-card-section class="q-gutter-y-sm">
+      <q-card-section class="q-gutter-y-sm" v-if="showControls">
         <div class="row q-gutter-x-sm">
           <div class="text-body1">Type:</div>
           <q-radio v-model="fileType" val="json" label="JSON" dense />
@@ -65,7 +65,7 @@
         </div>
       </q-card-section>
 
-      <q-card-actions align="right" class="text-primary">
+      <q-card-actions align="right" class="text-primary" v-if="showControls">
         <q-btn
           label="Cancel"
           dense flat no-caps
@@ -79,6 +79,18 @@
           dense flat no-caps
         />
       </q-card-actions>
+
+      <q-card-section v-if="submissionTaskId">
+        <div> Submission Id : <b>{{ this.submissionTaskId }}</b><br> Please use this submission number to track status</div>
+      </q-card-section>
+
+      <q-card-actions align="right" class="text-primary" v-if="submissionTaskId">
+        <q-btn
+          label="Close"
+          dense flat no-caps
+          v-close-popup/>
+      </q-card-actions>
+
     </q-card>
   </q-dialog>
 </template>
@@ -129,6 +141,8 @@ export default {
         ]
       },
       error: null,
+      submissionTaskId: null,
+      showControls: true
     };
   },
 
@@ -159,12 +173,12 @@ export default {
   methods: {
     async onApply() {
       this.error = null;
+      this.submissionTaskId = null;
 
       try {
-        await this.uploadMethod(this.file.value, this.fileType);
-        this.notifySuccess(`${this.subjectTitle}  uploaded`, `${this.subjectTitle} were imported from file`);
-        this.dialog = false;
-      } catch (error) {
+          this.submissionTaskId = await this.uploadMethod(this.file.value, this.fileType);
+          this.showControls = false;
+        } catch (error) {
         this.error = error;
         this.canApply = false;
         this.notifyError(`Couldn't upload ${this.subjectLower}`);
@@ -174,6 +188,8 @@ export default {
     async onClose() {
       this.file.value = null;
       this.fileType = defaultFileType;
+      this.submissionTaskId = null;
+      this.showControls = true;
     },
 
     async fileIsNotEmpty(file) {

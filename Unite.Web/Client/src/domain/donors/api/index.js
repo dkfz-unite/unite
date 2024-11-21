@@ -51,4 +51,21 @@ export default class DonorsApi extends ModelsApi {
 
     return this.client.post(url, body, config);
   }
+
+  /**
+   * get donor submission json document.
+   * @param {string} format id to search 
+   * @returns {Document} json document
+   */
+  async getDonorSubmissionDocument(id, type) {
+
+    var url = `${this.feedUrl}/entries/${id}`;
+
+    if(type == "DON_TRT")
+    {
+      url = `${this.feedUrl}/treatments/${id}`;
+    }
+
+    return this.client.get(url);
+  }
 }

@@ -1,14 +1,12 @@
 <template>
-  <q-drawer :model-value="true" bordered elevated>
-    <div class="col-12 col-md-1 col-sm-2">
-      <q-tabs vertical dense v-model="tab" indicator-color="transparent" active-color="primary" no-caps>
+  <div class="col q-gutter-y-sm">
+    <div class="row">
+      <q-tabs v-model="tab" indicator-color="transparent" active-color="primary" no-caps>
         <q-tab label="Users" name="users" />
         <q-tab label="Tasks" name="tasks" />
+        <q-tab label="Submissions" name="submissions" />
       </q-tabs>
     </div>
-  </q-drawer>
-
-  <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
@@ -26,6 +24,9 @@
           <q-tab-panel name="tasks" class="q-ma-none q-pa-none">
             <u-tasks-tab />
           </q-tab-panel>
+          <q-tab-panel name="submissions" class="q-ma-none q-pa-none">
+            <u-submissions-tab />
+          </q-tab-panel>
         </q-tab-panels>
       </div>
     </div>
@@ -35,12 +36,14 @@
 <script>
 import UUsersTab from "./components/UsersTab.vue";
 import UTasksTab from "./components/TasksTab.vue";
+import USubmissionsTab from "./components/SubmissionsTab.vue";
 import tabPageMixin from "./tab-page-mixin";
 
 export default {
   components: {
     UUsersTab,
-    UTasksTab
+    UTasksTab,
+    USubmissionsTab
   },
 
   mixins: [tabPageMixin],
@@ -49,6 +52,7 @@ export default {
     tabLabel() {
       return this.tab == "users" ? "Users"
            : this.tab == "tasks" ? "Tasks"
+           : this.tab == "submissions" ? "Submissions"
            : this.tab;
     }
   }
