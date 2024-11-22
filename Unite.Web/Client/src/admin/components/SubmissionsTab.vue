@@ -40,11 +40,14 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col" style="height: 500px;">
+          <div class="row" v-if="selectedSubmissionDocument">
+            <!-- <div class="col" style="height: 500px;">
               <pre class="fit" style=" border: 1px solid black; overflow-x: auto">
                 {{ this.convertedJsonData }}
               </pre>
+            </div> -->
+            <div class="col">
+              <u-table-view :json="selectedSubmissionDocument" />
             </div>
           </div>
         </q-card>
@@ -55,17 +58,21 @@
 
 <script>
 import api from "../api/api-submissions";
-import URejectButton from '../components/submissions/RejectButton.vue';
+import URejectButton from "../components/submissions/RejectButton.vue";
+import UTableView from "../components/submissions/TableView.vue";
 
+import Papa from "papaparse";
 import DonorsApi from "../../domain/donors/api";
 import ImagesApi from "../../domain/images/mris/api";
 import SpecimensApi from "../../domain/specimens/_shared/specimens/api";
-import Papa from "papaparse";
+import SubmissionType from "./submissions/models/submission-type";
 
 export default {
   components: {
     URejectButton,
+    UTableView
    },
+
   setup() {
     return {
       donorsApi: new DonorsApi(),
@@ -93,6 +100,8 @@ export default {
 
   mounted() {
     this.loadSubmissions();
+    // console.log(SubmissionType.donorValues);
+    
   },
 
   methods: {
@@ -112,10 +121,10 @@ export default {
       this.selectedRow = row
       const donorSubmissions = ["DON", "DON_TRT"];
       const imageSubmissions = ["MRI"];
-      const specimenSubmissions = ["MAT", "LNE", "ORG", "XEN", "SPE_INT", "SPE_DRG", "DNA_SSM", "DNA_CNV", "DNA_SV", "RNA_EXP", "RNASC_EXP"];
+      const specimenSubmissions = ["MAT", "LNE", "ORG", "XEN", "SPE_INT", "SPE_DRG"];
       const genomeSubmissions = ["DNA_SSM", "DNA_CNV", "DNA_SV", "RNA_EXP", "RNASC_EXP"];
 
-      if (donorSubmissions.includes(row.type)) {
+      if (Object.values(SubmissionType.donorValues).includes(row.type)) {
         this.selectedSubmissionDocument = await this.donorsApi.getDonorSubmissionDocument(row.id, row.type);
       } else if (imageSubmissions.includes(row.type)) {
         this.selectedSubmissionDocument = await this.imagesApi.getMriSubmissionDocument(row.id);
@@ -174,7 +183,8 @@ export default {
 
     convertJsonToTsv(jsonArray) 
     {
-      if (!jsonArray.length) return '';
+      if (!jsonArray.length) return "";
+
       const flattenedData = jsonArray.map((item) => this.flattenInnerNodes(item));
       const tsvData = Papa.unparse(flattenedData, {
         delimiter: "\t" 

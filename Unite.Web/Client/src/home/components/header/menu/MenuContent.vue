@@ -21,9 +21,9 @@
     <q-separator />
 
      <!-- Submissions -->
-     <q-item clickable v-close-popup :to="{ name: 'submissions' }"  style: icon="svguse:/icons.svg#file-lines-solid">
+     <q-item clickable v-close-popup :to="{ name: 'submissions' }">
       <q-item-section avatar>
-        <q-icon name="svguse:/icons.svg#file-lines-solid" />
+        <q-icon name="las la-file-alt" />
       </q-item-section>
       <q-item-section>
         Submissions

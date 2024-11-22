@@ -53,7 +53,7 @@ export default class DonorsApi extends ModelsApi {
   }
 
   /**
-   * get donor submission json document.
+   * Get donor submission json document.
    * @param {string} format id to search 
    * @returns {Document} json document
    */
