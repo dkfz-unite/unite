@@ -41,7 +41,7 @@
           <q-separator />
 
           <div class="row q-ma-sm">
-            <div class="col" style="height: 664px;">
+            <div class="col" style="height: 634px;">
               <pre class="fit" style="overflow-x: auto">
                 {{ submissionTsv }}
               </pre>
@@ -59,7 +59,6 @@
 <script>
 import api from "../api/api-submissions";
 import URejectDialog from "../components/submissions/RejectDialog.vue";
-import URejectButton from "../components/submissions/RejectButton.vue";
 
 import DonorsApi from "@/domain/donors/api";
 import ImagesApi from "@/domain/images/_shared/images/api";
@@ -76,8 +75,7 @@ import { flatten } from "flat";
 
 export default {
   components: {
-    URejectDialog,
-    URejectButton
+    URejectDialog
    },
 
   setup() {
@@ -98,9 +96,9 @@ export default {
       row: null,
       rows: [],
       columns: [
-        { name: "id", label: "Id", field: "id" },
-        { name: "type", label: "Type", field: row => this.getTypeLabel(row.type) },
-        { name: "date", label: "Date", field: row => this.getDateLabel(row.date) }
+        { name: "id", label: "Id", align: "left", field: "id" },
+        { name: "type", label: "Type", align: "left", field: row => this.getTypeLabel(row.type) },
+        { name: "date", label: "Date", align: "right", field: row => this.getDateLabel(row.date) }
       ]
     };
   },
@@ -109,13 +107,24 @@ export default {
     submissionTsv() {
       if (!this.submission)
         return null;
+
+      const transformKey = function(key) {
+        return key.includes("ClinicalData") ? key.replace("ClinicalData", "") :
+               key.includes("MolecularData") ? key.replace("MolecularData", "") :
+               key;
+      }
+
+      const options = {
+        safe: true,
+        transformKey: transformKey
+      };
       
       if (Array.isArray(this.submission)) {
-        const json = this.submission.map((item) => flatten(item));
+        const json = this.submission.map((item) => flatten(item, options));
         const tsv = Papa.unparse(json, { delimiter: "\t" });
         return tsv;
       } else {
-        const json = flatten(this.submission);
+        const json = flatten(this.submission, options);
         const tsv = Papa.unparse(json, { delimiter: "\t" });
         return tsv;
       }

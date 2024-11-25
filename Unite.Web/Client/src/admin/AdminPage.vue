@@ -1,13 +1,6 @@
 <template>
   <div class="col q-gutter-y-sm">
     <div class="row">
-      <q-tabs v-model="tab" indicator-color="transparent" active-color="primary" no-caps>
-        <q-tab label="Users" name="users" />
-        <q-tab label="Tasks" name="tasks" />
-        <q-tab label="Submissions" name="submissions" />
-      </q-tabs>
-    </div>
-    <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
         <q-breadcrumbs-el icon="home" :to="{ name: 'home' }" />
         <q-breadcrumbs-el label="Admin" />
@@ -15,6 +8,18 @@
       </q-breadcrumbs>
     </div>
 
+    <div class="row">
+      <div class="col">
+        <q-separator />
+        <q-tabs v-model="tab" dense align="left">
+          <q-tab label="Users" icon="las la-user" name="users" />
+          <q-tab label="Tasks" icon="las la-tasks" name="tasks" />
+          <q-tab label="Submissions" icon="las la-file-alt" name="submissions" />
+        </q-tabs>
+        <q-separator />
+      </div>
+    </div>
+    
     <div class="row">
       <div class="col">
         <q-tab-panels v-model="tab">
@@ -64,15 +69,15 @@ export default {
 
 .u-sticky-header-admin{
   @media screen and (min-width: $breakpoint-sm){
-    height: 550px;
+    height: 530px;
   }
 
   @media screen and (min-width: $breakpoint-md){
-    height: 550px;
+    height: 530px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 730px;
+    height: 710px;
   }
 
   .q-table__top,
