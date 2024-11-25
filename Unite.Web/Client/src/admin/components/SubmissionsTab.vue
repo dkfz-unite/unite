@@ -1,56 +1,56 @@
 <template>
+  <u-reject-dialog ref="rejectDialog" :value="row?.id" @confirm="onRejected" />
+
   <div class="col">
     <div class="row">
       <!-- Left -->
       <div class="col-3">
         <q-table
+          class="u-sticky-header-admin q-ma-xs"
+          separator="cell"
+          row-key="id"
           :rows="rows"
           :columns="columns"
-          row-key="id"
-          separator="cell"
-          class="sticky-header q-ma-xs"
-          :pagination="{ rowsPerPage: 15 }"
-          @row-click="reviewRow"
-          wrap-cells dense flat bordered
+          :pagination="{ rowsPerPage: 20 }"
+          :loading="loadingSubmissions"
+          @row-click="onRowSelected"
+          dense flat bordered
         >
-        <!-- @click.stop="reviewRow(props.row)" -->
-          <!-- <template v-slot:body-cell-action="props">
-            <q-td :props="props">
-              <q-btn
-                color="primary"
-                label="Review"
-                dense flat no-caps icon="las la-pen"
-                
-              />
-            </q-td>
-          </template> -->
+
+        <template v-slot:body-cell="props">
+          <q-td :props="props" :class="{ 'text-primary': props.row.id == row?.id }">
+            {{ props.value }}
+          </q-td>
+        </template>
         </q-table>
       </div>
 
       <!-- Right -->
-      <div class="col-9 q-mt-xs" v-if="selectedRow">
+      <div class="col-9 q-mt-xs" v-if="submission">
         <q-card flat bordered>
-          <div class="row justify-between items-center">
+          <div class="row q-ma-sm justify-between items-center">
             <div>
-              Submission Task Id :{{ selectedRow.id }}
+              Id: <b>{{ row?.id }}</b>, Type: <b>{{ getTypeLabel(row?.type) }}</b>, Date: <b>{{ getDateLabel(row?.date) }}</b> 
             </div>
             <div>
-              <u-reject-button :value=selectedRow.id @reject="closRejectPanel"/>
-              <q-btn color="primary" label="Approve" style: icon="las la-chevron-circle-down" dense flat no-caps @click="approveSubmission"/>
+              <q-btn label="Approve" color="green" icon="las la-chevron-circle-down" dense flat no-caps @click="onApproveSubmission"/>
+              <q-btn label="Reject" color="red" icon="las la-times-circle" dense flat no-caps @click="onRejectSubmission"/>
             </div>
           </div>
 
-          <div class="row" v-if="selectedSubmissionDocument">
-            <!-- <div class="col" style="height: 500px;">
-              <pre class="fit" style=" border: 1px solid black; overflow-x: auto">
-                {{ this.convertedJsonData }}
+          <q-separator />
+
+          <div class="row q-ma-sm">
+            <div class="col" style="height: 664px;">
+              <pre class="fit" style="overflow-x: auto">
+                {{ submissionTsv }}
               </pre>
-            </div> -->
-            <div class="col">
-              <u-table-view :json="selectedSubmissionDocument" />
             </div>
           </div>
         </q-card>
+      </div>
+      <div class="col-9" v-else>
+        <div class="q-mt-lg text-center">No submission selected</div>
       </div>
     </div>
   </div>
@@ -58,19 +58,26 @@
 
 <script>
 import api from "../api/api-submissions";
+import URejectDialog from "../components/submissions/RejectDialog.vue";
 import URejectButton from "../components/submissions/RejectButton.vue";
-import UTableView from "../components/submissions/TableView.vue";
 
+import DonorsApi from "@/domain/donors/api";
+import ImagesApi from "@/domain/images/_shared/images/api";
+import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
+import GenesApi from "@/domain/genome/genes/api";
+import VariantsApi from "@/domain/genome/variants/_shared/variants/api";
+import DonorsSubmissionType from "@/domain/donors/models/enums/submission-type";
+import ImagesSubmissionType from "@/domain/images/_shared/images/models/enums/submission-type";
+import SpecimensSubmissionType from "@/domain/specimens/_shared/specimens/models/enums/submission-type";
+import GenomesSubmissionType from "@/domain/genome/genes/models/enums/submission-type";
+import VariantsSubmissionType from "@/domain/genome/variants/_shared/variants/models/enums/submission-type";
 import Papa from "papaparse";
-import DonorsApi from "../../domain/donors/api";
-import ImagesApi from "../../domain/images/mris/api";
-import SpecimensApi from "../../domain/specimens/_shared/specimens/api";
-import SubmissionType from "./submissions/models/submission-type";
+import { flatten } from "flat";
 
 export default {
   components: {
-    URejectButton,
-    UTableView
+    URejectDialog,
+    URejectButton
    },
 
   setup() {
@@ -78,130 +85,143 @@ export default {
       donorsApi: new DonorsApi(),
       imagesApi: new ImagesApi(),
       specimensApi: new SpecimensApi(),
+      genesApi: new GenesApi(),
+      variantsApi: new VariantsApi(),
     };
   },
+
   data() {
     return {
+      loadingSubmissions: false,
+      loadingSubmission: false,
+      submission: null,
+      row: null,
       rows: [],
       columns: [
-        { name: 'id', label: 'Id', align: 'center', field: 'id' },
-        { name: 'date', label: 'Date', align: 'center', field: 'date' },
-        { name: 'type', label: 'SubmissionType', align: 'left', field: 'type'},
-        // { name: 'action', label: 'Action', align: 'left' },
-      ],
-      loading: false,
-      error: null,
-      selectedRow: null,
-      approvalStatus: null,
-      selectedSubmissionDocument: null,
-      convertedJsonData: null
+        { name: "id", label: "Id", field: "id" },
+        { name: "type", label: "Type", field: row => this.getTypeLabel(row.type) },
+        { name: "date", label: "Date", field: row => this.getDateLabel(row.date) }
+      ]
     };
+  },
+
+  computed: {
+    submissionTsv() {
+      if (!this.submission)
+        return null;
+      
+      if (Array.isArray(this.submission)) {
+        const json = this.submission.map((item) => flatten(item));
+        const tsv = Papa.unparse(json, { delimiter: "\t" });
+        return tsv;
+      } else {
+        const json = flatten(this.submission);
+        const tsv = Papa.unparse(json, { delimiter: "\t" });
+        return tsv;
+      }
+    },
   },
 
   mounted() {
-    this.loadSubmissions();
-    // console.log(SubmissionType.donorValues);
-    
+    this.loadSubmissions();    
   },
 
   methods: {
-    async loadSubmissions() {
-      this.loading = true;
-      this.error = null;
-      try {
-        this.rows = await api.getDonorsSubmission();
-      } catch (err) {
-        this.error = 'Failed to load data. Please try again.';
-      } finally {
-        this.loading = false;
-      }
+    getTypeLabel(type) {
+      if (DonorsSubmissionType.includes(type))
+        return this.$helpers.enum.getLabel(type, DonorsSubmissionType.values);
+      else if (ImagesSubmissionType.includes(type))
+        return this.$helpers.enum.getLabel(type, ImagesSubmissionType.values);
+      else if (SpecimensSubmissionType.includes(type))
+        return this.$helpers.enum.getLabel(type, SpecimensSubmissionType.values);
+      else if (GenomesSubmissionType.includes(type))
+        return this.$helpers.enum.getLabel(type, GenomesSubmissionType.values);
+      else if (VariantsSubmissionType.includes(type))
+        return this.$helpers.enum.getLabel(type, VariantsSubmissionType.values);
+      else
+        return "Unknown";
     },
 
-    async reviewRow(event, row, index) {
-      this.selectedRow = row
-      const donorSubmissions = ["DON", "DON_TRT"];
-      const imageSubmissions = ["MRI"];
-      const specimenSubmissions = ["MAT", "LNE", "ORG", "XEN", "SPE_INT", "SPE_DRG"];
-      const genomeSubmissions = ["DNA_SSM", "DNA_CNV", "DNA_SV", "RNA_EXP", "RNASC_EXP"];
-
-      if (Object.values(SubmissionType.donorValues).includes(row.type)) {
-        this.selectedSubmissionDocument = await this.donorsApi.getDonorSubmissionDocument(row.id, row.type);
-      } else if (imageSubmissions.includes(row.type)) {
-        this.selectedSubmissionDocument = await this.imagesApi.getMriSubmissionDocument(row.id);
-      } else if (specimenSubmissions.includes(row.type)) {
-        this.selectedSubmissionDocument = await this.specimensApi.getSpecimenSubmissionDocument(row.id);
-      // } else if (genomeSubmissions.includes(row.type)) {
-      //   this.selectedSubmissionDocument = await this.specimensApi.getSpecimenSubmissionDocument(row.id);
-      } else {
-        this.selectedSubmissionDocument = "Invalid Submission Type";
-      }
-
-      this.convertedJsonData = this.convertJsonToTsv(this.selectedSubmissionDocument);
+    getDateLabel(date) {
+      return this.$helpers.content.toDateTimeString(date);
     },
 
-    async approveSubmission() {
-       this.approvalStatus = await api.updateSubmissionToPrepared(this.selectedRow.id);
-       
-       if (this.approvalStatus) {
-        this.loadSubmissions();
-        this.notifySuccess(`${this.selectedRow.id}  approved`);
-        this.selectedRow = null;
-       } else {
-        alert("Approval failed!!")
-       }
-    },
-
-    async notifySuccess(message, caption = undefined) {
+    notifySuccess(message, caption = undefined) {
       this.$q.notify({
         type: "positive",
         position: "bottom-right",
-        timeout: 5000,
+        timeout: 3000,
         message: message,
         caption: caption
       });
     },
 
-    async notifyReject(message, caption = undefined) {
-      this.$q.notify({
-        type: "negative",
-        position: "bottom-right",
-        timeout: 5000,
-        message: message,
-        caption: caption
-      });
+    async onRowSelected(event, row, index) {
+      if (row == this.row)
+        return;
+
+      this.row = row;
+      await this.loadSubmission(row.id, row.type);
     },
 
-    closRejectPanel(rejectStatus)
-    {
-      if(rejectStatus)
-      {
-        this.loadSubmissions();
-        this.notifyReject(`${this.selectedRow.id}  rejected`);
-        this.selectedRow = null;
+    async onApproveSubmission() {
+      await this.approveSubmission();
+    },
+
+    async onRejectSubmission() {
+      this.$refs.rejectDialog.show();
+    },
+
+    async onRejected(reason) {
+      await this.rejectSubmission(reason);
+    },
+
+    async loadSubmissions() {
+      try {
+        this.loadingSubmissions = true;
+        this.rows = await api.get();
+        this.row = null;
+        this.submission = null;
+      } finally {
+        this.loadingSubmissions = false;
       }
     },
 
-    convertJsonToTsv(jsonArray) 
-    {
-      if (!jsonArray.length) return "";
+    async loadSubmission(id, type) {
+      try {
+        this.submission = null;
+        this.loadingSubmission = true;
 
-      const flattenedData = jsonArray.map((item) => this.flattenInnerNodes(item));
-      const tsvData = Papa.unparse(flattenedData, {
-        delimiter: "\t" 
-      });
-      return tsvData;
-    },
-
-    flattenInnerNodes(obj, parentKey = "", result = {}) {
-      for (const [key, value] of Object.entries(obj)) {
-        const newKey = parentKey ? `${parentKey}.${key}` : key;
-        if (typeof value === "object" && value !== null && !Array.isArray(value)) {
-          this.flattenInnerNodes(value, newKey, result);
+        if (DonorsSubmissionType.includes(type)) {
+          this.submission = await this.donorsApi.getSubmission(id, type);
+        } else if (ImagesSubmissionType.includes(type)) {
+          this.submission = await this.imagesApi.getSubmission(id);
+        } else if (SpecimensSubmissionType.includes(type)) {
+          this.submission = await this.specimensApi.getSubmission(id);
+        } else if (GenomesSubmissionType.includes(type)) {
+          this.submission = await this.genesApi.getSubmission(id);
+        } else if (VariantsSubmissionType.includes(type)) {
+          this.submission = await this.variantsApi.getSubmission(id);
         } else {
-          result[newKey] = value;
+          console.error("Invalid submission type");
         }
+      } finally {
+        this.loadingSubmission = false;
       }
-      return result;
+    },
+
+    async approveSubmission() {
+      const id = this.row.id;
+      await api.approve(id);
+      await this.loadSubmissions();
+      this.notifySuccess(`Submission '${id}' was approved`);
+    },
+
+    async rejectSubmission(reason) {
+      const id = this.row.id;
+      await api.reject(id, reason);
+      await this.loadSubmissions();
+      this.notifySuccess(`Submission '${id}' was rejected`);
     }
   }
 };

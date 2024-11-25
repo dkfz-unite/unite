@@ -1,4 +1,6 @@
 import ModelsApi from "@/domain/_shared/entries/api";
+import SubmissionType from "../models/enums/submission-type";
+import SpecimenType from "../models/enums/specimen-type";
 import settings from "@/settings";
 
 const formats = {
@@ -115,32 +117,31 @@ export default class SpecimensApi extends ModelsApi {
     return this.client.post(url, body, config);
   }
 
-   /**
-   * get Specimen submission - materials, lines, organoids, intervensions, and drugs json document.
-   * @param {string} format id to search 
-   * @returns {Document} json document
+  
+  /**
+   * Get submission document.
+   * @param {number|string} id submission id.
+   * @param {SubmissionType} type submission type.
+   * @returns {Promise<Object>} A promise that resolves with the submission document.
    */
-   async getSpecimenSubmissionDocument(id, type) {
+  async getSubmission(id, type) {
+    let url = null;
 
-    switch(type) 
-    {
-      case "MAT":
-        var url = `${this.feedUrl}/entries/material/${id}`;
-      case "LNE":
-        url = `${this.feedUrl}/entries/line/${id}`;
-      case "ORG":
-        url = `${this.feedUrl}/entries/organoid/${id}`;
-      case "XEN":
-        url = `${this.feedUrl}entries/xenograft/${id}`;
-      case "SPE_INT":
-        url = `${this.feedUrl}entries/interventions/${id}`;
-      case "SPE_DRG":
-        url = `${this.feedUrl}/analysis/drugs${formats[format].path}`;
-        break;
-      default:
-        break;
-    }
-    
+    if (type == SubmissionType.MAT)
+      url = `${this.feedUrl}/entries/${SpecimenType.Material}/${id}`;
+    else if (type == SubmissionType.LNE)
+      url = `${this.feedUrl}/entries/${SpecimenType.Line}/${id}`;
+    else if (type == SubmissionType.ORG)
+      url = `${this.feedUrl}/entries/${SpecimenType.Organoid}/${id}`;
+    else if (type == SubmissionType.XEN)
+      url = `${this.feedUrl}/entries/${SpecimenType.Xenograft}/${id}`;
+    else if (type == SubmissionType.SPE_INT)
+      url = `${this.feedUrl}/interventions/${id}`;
+    else if (type == SubmissionType.SPE_DRG)
+      url = `${this.feedUrl}/analysis/drugs/${id}`;
+    else
+      throw new Error(`Invalid submission type: ${type}`);
+
     return await this.client.get(url);
   }
 }

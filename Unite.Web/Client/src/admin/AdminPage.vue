@@ -64,15 +64,15 @@ export default {
 
 .u-sticky-header-admin{
   @media screen and (min-width: $breakpoint-sm){
-    height: 610px;
+    height: 550px;
   }
 
   @media screen and (min-width: $breakpoint-md){
-    height: 610px;
+    height: 550px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 790px;
+    height: 730px;
   }
 
   .q-table__top,

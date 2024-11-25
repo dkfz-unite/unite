@@ -2,13 +2,13 @@ import ApiClient from "@/_shared/api/api-client";
 import settings from "@/settings";
 
 const client = new ApiClient();
-const submissionsUrl = `${settings.urls.composer}/data/submissions`;
+const submissionUrl = `${settings.urls.composer}/data/submission`;
 
-export async function findTaskStatus(id) {
-    const url = `${submissionsUrl}/${id}`;
-    return await client.get(url);
+export async function getStatus(id) {
+  const url = `${submissionUrl}/${id}/status`;
+  return await client.get(url);
 }
 
 export default {
-    findTaskStatus
+  getStatus
 }

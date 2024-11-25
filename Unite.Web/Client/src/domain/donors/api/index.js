@@ -1,6 +1,7 @@
 import settings from "@/settings";
 import ModelsApi from "@/domain/_shared/entries/api";
 import Settings from "../settings";
+import SubmissionType from "../models/enums/submission-type";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },
@@ -53,17 +54,20 @@ export default class DonorsApi extends ModelsApi {
   }
 
   /**
-   * Get donor submission json document.
-   * @param {string} format id to search 
-   * @returns {Document} json document
+   * Get submission document.
+   * @param {number|string} id submission id.
+   * @param {SubmissionType} type submission type.
+   * @returns {Promise<Object>} A promise that resolves with the submission document.
    */
-  async getDonorSubmissionDocument(id, type) {
+  async getSubmission(id, type) {
+    let url = null;
 
-    var url = `${this.feedUrl}/entries/${id}`;
-
-    if(type == "DON_TRT") {
+    if (type == SubmissionType.DON)
+      url = `${this.feedUrl}/entries/${id}`;
+    else if (type == SubmissionType.DON_TRT)
       url = `${this.feedUrl}/treatments/${id}`;
-    }
+    else
+      throw new Error(`Invalid submission type: ${type}`);
 
     return await this.client.get(url);
   }

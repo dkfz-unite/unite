@@ -1,9 +1,7 @@
 <template>
-  <q-btn color="red" dense flat no-caps style: icon="las la-times-circle" label="Reject" @click="dialog = true" />
-  
   <q-dialog
     v-model="dialog"
-    @keyup.esc="onClose" 
+    @keyup.esc="onClose"
     @keyup.enter="canConfirm && onConfirm()">
     <q-card>
       <q-card-section style="width: 400px;">
@@ -17,29 +15,24 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn label="Cancel" color="primary" dense flat no-caps @click="onClose" />
-        <q-btn label="Confirm" color="red" :disable="!canConfirm" dense flat no-caps @click="onConfirm" />
+        <q-btn label="Cancel" @click="onClose" dense flat no-caps />
+        <q-btn label="Confirm" :disable="!canConfirm" @click="onConfirm" dense flat no-caps />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
-  
-<script>
-import api from "../../api/api-submissions";
 
+<script>
 export default {
   props: {
-    value: {
-      type: [Number],
-      required: true,
-    },
+    value: [Number, null],
   },
 
   data() {
     return {
       dialog: false,
       reason: null,
-    };
+    }
   },
 
   computed: {
@@ -49,16 +42,25 @@ export default {
   },
 
   methods: {
+    show() {
+      this.dialog = true;
+    },
+
+    hide() {
+      this.onClose();
+    },
+
     onClose() {
       this.reason = null;
       this.dialog = false;
     },
 
-    async onConfirm() {
-      const status = await api.updateRejectComment(this.value, this.reason);
-      
-      this.$emit("reject", status);
-      this.onClose();
+    onConfirm() {
+      const reason = this.reason;
+
+      this.$emit("confirm", reason);
+      this.reason = null;
+      this.dialog = false;
     }
   }
 }
