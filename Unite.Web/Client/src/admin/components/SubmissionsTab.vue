@@ -2,11 +2,11 @@
   <u-reject-dialog ref="rejectDialog" :value="row?.id" @confirm="onRejected" />
 
   <div class="col">
-    <div class="row">
+    <div class="row q-col-gutter-xs">
       <!-- Left -->
       <div class="col-3">
         <q-table
-          class="u-sticky-header-admin q-ma-xs"
+          class="u-sticky-header-admin"
           separator="cell"
           row-key="id"
           :rows="rows"
@@ -26,9 +26,9 @@
       </div>
 
       <!-- Right -->
-      <div class="col-9 q-mt-xs" v-if="submission">
+      <div class="col-9" v-if="submission">
         <q-card flat bordered>
-          <div class="row q-ma-sm justify-between items-center">
+          <div class="row q-py-xs q-px-md justify-between items-center">
             <div>
               Id: <b>{{ row?.id }}</b>, Type: <b>{{ getTypeLabel(row?.type) }}</b>, Date: <b>{{ getDateLabel(row?.date) }}</b> 
             </div>
@@ -40,9 +40,9 @@
 
           <q-separator />
 
-          <div class="row q-ma-sm">
-            <div class="col" style="height: 634px;">
-              <pre class="fit" style="overflow-x: auto">
+          <div class="row q-py-xs q-px-md">
+            <div class="col" style="height: 660px; overflow: auto;">
+              <pre>
                 {{ submissionTsv }}
               </pre>
             </div>
@@ -109,8 +109,8 @@ export default {
         return null;
 
       const transformKey = function(key) {
-        return key.includes("ClinicalData") ? key.replace("ClinicalData", "") :
-               key.includes("MolecularData") ? key.replace("MolecularData", "") :
+        return key.includes("clinical_data") ? key.replace("clinical_data", "") :
+               key.includes("molecular_data") ? key.replace("molecular_data", "") :
                key;
       }
 
