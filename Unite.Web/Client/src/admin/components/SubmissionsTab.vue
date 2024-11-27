@@ -41,8 +41,13 @@
           <q-separator />
 
           <div class="row q-py-xs q-px-md">
-            <div class="col" style="height: 660px; overflow: auto;">
-              <pre>{{ submissionTsv }}</pre>
+            <div class="col" style="height: 480px; overflow: auto;">
+              <div v-if="isComplexType(row?.type)">  
+                <u-json-viewer :value="submission"/>
+              </div>
+              <div v-else>
+                <u-tsv-viewer :value="submission"/>
+              </div>
             </div>
           </div>
         </q-card>
@@ -68,12 +73,14 @@ import ImagesSubmissionType from "@/domain/images/_shared/images/models/enums/su
 import SpecimensSubmissionType from "@/domain/specimens/_shared/specimens/models/enums/submission-type";
 import GenomesSubmissionType from "@/domain/genome/genes/models/enums/submission-type";
 import VariantsSubmissionType from "@/domain/genome/variants/_shared/variants/models/enums/submission-type";
-import Papa from "papaparse";
-import { flatten } from "flat";
+import UTsvViewer from '../components/submissions/TsvViewer.vue';
+import UJsonViewer from '../components/submissions/JsonViewer.vue';
 
 export default {
   components: {
-    URejectDialog
+    URejectDialog,
+    UTsvViewer,
+    UJsonViewer
    },
 
   setup() {
@@ -101,35 +108,6 @@ export default {
     };
   },
 
-  computed: {
-    submissionTsv() {
-      if (!this.submission)
-        return null;
-
-      const transformKey = function(key) {
-        return key.includes("clinical_data") ? key.replace("clinical_data", "") :
-               key.includes("molecular_data") ? key.replace("molecular_data", "") :
-               key.includes("info") ? key.replace("info", "") :
-               key;
-      }
-
-      const options = {
-        safe: true,
-        transformKey: transformKey
-      };
-      
-      if (Array.isArray(this.submission)) {
-        const json = this.submission.map((item) => flatten(item, options));
-        const tsv = Papa.unparse(json, { delimiter: "\t" });
-        return tsv;
-      } else {
-        const json = flatten(this.submission, options);
-        const tsv = Papa.unparse(json, { delimiter: "\t" });
-        return tsv;
-      }
-    },
-  },
-
   mounted() {
     this.loadSubmissions();    
   },
@@ -152,6 +130,10 @@ export default {
 
     getDateLabel(date) {
       return this.$helpers.content.toDateTimeString(date);
+    },
+
+    isComplexType(type) {
+      return (GenomesSubmissionType.includes(type) || VariantsSubmissionType.includes(type) || type == ImagesSubmissionType.Radiomics || type == SpecimensSubmissionType.SPE_DRG);
     },
 
     notifySuccess(message, caption = undefined) {
