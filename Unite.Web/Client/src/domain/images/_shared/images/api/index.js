@@ -24,7 +24,7 @@ export default class ImagesApi extends ModelsApi {
     else if (type == SubmissionType.CT)
       url = `${this.feedUrl}/entries/${ImageType.Ct}/${id}`;
     else if (type == SubmissionType.Radiomics){
-      url = `${this.feedUrl}/analysis/${ImageType.Radiomics}/${id}`;
+      url = `${this.feedUrl}/analysis/radiomics/${id}`;
     }
     else
       throw new Error(`Invalid submission type: ${type}`);
