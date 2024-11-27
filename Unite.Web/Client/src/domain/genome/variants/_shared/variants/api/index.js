@@ -53,7 +53,7 @@ export default class VariantsApi extends ModelsApi {
     else if (type == SubmissionType.DNA_CNV)
       url = `${this.feedUrl}/dna/analysis/${VariantType.CNV}/${id}`;
     else if (type == SubmissionType.DNA_SV)
-      url = `${this.feedUrl}/dna/analysis/${VariantType.CV}/${id}`;
+      url = `${this.feedUrl}/dna/analysis/${VariantType.SV}/${id}`;
     else
       throw new Error(`Invalid submission type: ${type}`);
 

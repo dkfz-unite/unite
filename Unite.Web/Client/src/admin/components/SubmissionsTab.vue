@@ -42,9 +42,7 @@
 
           <div class="row q-py-xs q-px-md">
             <div class="col" style="height: 660px; overflow: auto;">
-              <pre>
-                {{ submissionTsv }}
-              </pre>
+              <pre>{{ submissionTsv }}</pre>
             </div>
           </div>
         </q-card>
@@ -111,6 +109,7 @@ export default {
       const transformKey = function(key) {
         return key.includes("clinical_data") ? key.replace("clinical_data", "") :
                key.includes("molecular_data") ? key.replace("molecular_data", "") :
+               key.includes("info") ? key.replace("info", "") :
                key;
       }
 
@@ -204,13 +203,13 @@ export default {
         if (DonorsSubmissionType.includes(type)) {
           this.submission = await this.donorsApi.getSubmission(id, type);
         } else if (ImagesSubmissionType.includes(type)) {
-          this.submission = await this.imagesApi.getSubmission(id);
+          this.submission = await this.imagesApi.getSubmission(id,type);
         } else if (SpecimensSubmissionType.includes(type)) {
-          this.submission = await this.specimensApi.getSubmission(id);
+          this.submission = await this.specimensApi.getSubmission(id,type);
         } else if (GenomesSubmissionType.includes(type)) {
-          this.submission = await this.genesApi.getSubmission(id);
+          this.submission = await this.genesApi.getSubmission(id,type);
         } else if (VariantsSubmissionType.includes(type)) {
-          this.submission = await this.variantsApi.getSubmission(id);
+          this.submission = await this.variantsApi.getSubmission(id,type);
         } else {
           console.error("Invalid submission type");
         }
