@@ -9,7 +9,7 @@ import Papa from "papaparse";
 import { flatten } from "flat";
 
 export default {
-  name: 'TsvViewer',
+  name: "TsvViewer",
   props: {
     value: {
       type: Object,

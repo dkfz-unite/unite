@@ -62,6 +62,8 @@
 <script>
 import api from "../api/api-submissions";
 import URejectDialog from "../components/submissions/RejectDialog.vue";
+import UTsvViewer from '../components/submissions/TsvViewer.vue';
+import UJsonViewer from '../components/submissions/JsonViewer.vue';
 
 import DonorsApi from "@/domain/donors/api";
 import ImagesApi from "@/domain/images/_shared/images/api";
@@ -73,8 +75,6 @@ import ImagesSubmissionType from "@/domain/images/_shared/images/models/enums/su
 import SpecimensSubmissionType from "@/domain/specimens/_shared/specimens/models/enums/submission-type";
 import GenomesSubmissionType from "@/domain/genome/genes/models/enums/submission-type";
 import VariantsSubmissionType from "@/domain/genome/variants/_shared/variants/models/enums/submission-type";
-import UTsvViewer from '../components/submissions/TsvViewer.vue';
-import UJsonViewer from '../components/submissions/JsonViewer.vue';
 
 export default {
   components: {

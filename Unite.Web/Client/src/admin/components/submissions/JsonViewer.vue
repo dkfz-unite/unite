@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'JsonViewer',
+    name: "JsonViewer",
     props: {
         value: {
             type: Object,
