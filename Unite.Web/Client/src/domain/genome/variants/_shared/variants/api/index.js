@@ -1,5 +1,7 @@
 import settings from "@/settings";
 import ModelsApi from "@/domain/_shared/entries/api";
+import SubmissionType from "../models/enums/submission-type";
+import VariantType from "../models/enums/variant-type";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },
@@ -35,5 +37,26 @@ export default class VariantsApi extends ModelsApi {
     const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
+  }
+
+  /**
+   * Get submission document.
+   * @param {number|string} id submission id.
+   * @param {SubmissionType} type submission type.
+   * @returns {Promise<Object>} A promise that resolves with the submission document.
+   */
+  async getSubmission(id, type) {
+    let url = null;
+
+    if (type == SubmissionType.DNA_SSM)
+      url = `${this.feedUrl}/dna/analysis/${VariantType.SSM}/${id}`;
+    else if (type == SubmissionType.DNA_CNV)
+      url = `${this.feedUrl}/dna/analysis/${VariantType.CNV}/${id}`;
+    else if (type == SubmissionType.DNA_SV)
+      url = `${this.feedUrl}/dna/analysis/${VariantType.SV}/${id}`;
+    else
+      throw new Error(`Invalid submission type: ${type}`);
+
+    return await this.client.get(url);
   }
 }

@@ -1,5 +1,6 @@
 import settings from "@/settings";
 import ModelsApi from "@/domain/_shared/entries/api";
+import SubmissionType from "../models/enums/submission-type";
 import Settings from "../settings";
 
 const formats = {
@@ -34,5 +35,24 @@ export default class GenesApi extends ModelsApi {
     const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
+  }
+
+  /**
+   * Get submission document.
+   * @param {number|string} id submission id.
+   * @param {SubmissionType} type submission type.
+   * @returns {Promise<Object>} A promise that resolves with the submission document.
+   */
+  async getSubmission(id, type) {
+    let url = null;
+
+    if (type == SubmissionType.RNA_EXP)
+      url = `${this.feedUrl}/rna/analysis/exp/${id}`;
+    else if (type == SubmissionType.RNASC_EXP)
+      url = `${this.feedUrl}/rnasc/analysis/exp/${id}`;
+    else
+      throw new Error(`Invalid submission type: ${type}`);
+
+    return await this.client.get(url);
   }
 }
