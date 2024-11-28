@@ -5,6 +5,7 @@ import appRoutes from "./routes";
 import identityRoutes from "../../identity/router";
 import projectRoutes from "../../domain/project/router";
 import projectsRoutes from "../../domain/projects/router";
+import submissionsRoutes from "../../domain/submissions/router";
 import donorRoutes from "../../domain/donor/router";
 import donorsRoutes from "../../domain/donors/router";
 import mriRoutes from "../../domain/images/mri/router";
@@ -59,7 +60,8 @@ const routes = [
   ...filtersRoutes,
   ...analysisRoutes,
   ...oncogridRoutes,
-  ...adminRoutes
+  ...adminRoutes,
+  ...submissionsRoutes,
 ];
 
 const router = createRouter({

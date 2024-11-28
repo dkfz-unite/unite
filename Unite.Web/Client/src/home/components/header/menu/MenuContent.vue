@@ -9,6 +9,16 @@
     </q-item>
     <q-separator />
 
+    <!-- Submissions -->
+    <q-item clickable v-close-popup :to="{ name: 'submissions' }">
+      <q-item-section avatar>
+        <q-icon name="las la-file-alt" />
+      </q-item-section>
+      <q-item-section>
+        Submissions
+      </q-item-section>
+    </q-item>
+
     <!-- Repository -->
     <q-item clickable v-close-popup :to="{ name: 'projects' }">
       <q-item-section avatar>

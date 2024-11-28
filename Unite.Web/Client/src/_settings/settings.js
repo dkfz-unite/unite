@@ -1,6 +1,7 @@
 import HomeSettings from "@/home/settings";
 import ProjectSettings from "@/domain/project/settings";
 import ProjectsSettings from "@/domain/projects/settings";
+import SubmissionsSettings from "@/domain/submissions/settings";
 import DonorSettings from "@/domain/donor/settings";
 import DonorsSettings from "@/domain/donors/settings";
 import MriSettings from "@/domain/images/mri/settings";
@@ -28,6 +29,7 @@ export default class Settings {
   static home = HomeSettings;
   static project = ProjectSettings;
   static projects = ProjectsSettings;
+  static submissions = SubmissionsSettings;
   static donor = DonorSettings;
   static donors = DonorsSettings;
   static mri = MriSettings;

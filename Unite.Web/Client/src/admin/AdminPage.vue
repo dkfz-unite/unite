@@ -1,13 +1,4 @@
 <template>
-  <q-drawer :model-value="true" bordered elevated>
-    <div class="col-12 col-md-1 col-sm-2">
-      <q-tabs vertical dense v-model="tab" indicator-color="transparent" active-color="primary" no-caps>
-        <q-tab label="Users" name="users" />
-        <q-tab label="Tasks" name="tasks" />
-      </q-tabs>
-    </div>
-  </q-drawer>
-
   <div class="col q-gutter-y-sm">
     <div class="row">
       <q-breadcrumbs gutter="xs" class="text-subtitle1">
@@ -19,12 +10,27 @@
 
     <div class="row">
       <div class="col">
+        <q-separator />
+        <q-tabs v-model="tab" dense align="left">
+          <q-tab label="Users" icon="las la-user" name="users" />
+          <q-tab label="Tasks" icon="las la-tasks" name="tasks" />
+          <q-tab label="Submissions" icon="las la-file-alt" name="submissions" />
+        </q-tabs>
+        <q-separator />
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col">
         <q-tab-panels v-model="tab">
           <q-tab-panel name="users" class="q-ma-none q-pa-none">
             <u-users-tab />
           </q-tab-panel>
           <q-tab-panel name="tasks" class="q-ma-none q-pa-none">
             <u-tasks-tab />
+          </q-tab-panel>
+          <q-tab-panel name="submissions" class="q-ma-none q-pa-none">
+            <u-submissions-tab />
           </q-tab-panel>
         </q-tab-panels>
       </div>
@@ -35,12 +41,14 @@
 <script>
 import UUsersTab from "./components/UsersTab.vue";
 import UTasksTab from "./components/TasksTab.vue";
+import USubmissionsTab from "./components/SubmissionsTab.vue";
 import tabPageMixin from "./tab-page-mixin";
 
 export default {
   components: {
     UUsersTab,
-    UTasksTab
+    UTasksTab,
+    USubmissionsTab
   },
 
   mixins: [tabPageMixin],
@@ -49,6 +57,7 @@ export default {
     tabLabel() {
       return this.tab == "users" ? "Users"
            : this.tab == "tasks" ? "Tasks"
+           : this.tab == "submissions" ? "Submissions"
            : this.tab;
     }
   }
@@ -60,15 +69,15 @@ export default {
 
 .u-sticky-header-admin{
   @media screen and (min-width: $breakpoint-sm){
-    height: 610px;
+    height: 530px;
   }
 
   @media screen and (min-width: $breakpoint-md){
-    height: 610px;
+    height: 530px;
   }
 
   @media screen and (min-width: $breakpoint-lg){
-    height: 790px;
+    height: 710px;
   }
 
   .q-table__top,
