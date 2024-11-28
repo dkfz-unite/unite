@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import api from "../api/api-submissions";
 import URejectDialog from "../components/submissions/RejectDialog.vue";
 import UTsvViewer from '../components/submissions/TsvViewer.vue';
 import UJsonViewer from '../components/submissions/JsonViewer.vue';
 
+import api from "../api/api-submissions";
 import DonorsApi from "@/domain/donors/api";
 import ImagesApi from "@/domain/images/_shared/images/api";
 import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
