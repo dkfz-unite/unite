@@ -12,6 +12,15 @@
       </div>
     </div>
 
+    <!-- Donor data criteria -->
+    <div class="row" v-if="hasGroupFilters(donorDataFilters, dataset.criteria.donor)">
+      <u-criteria-group
+        title="Donor data criteria"
+        :criteria="dataset.criteria.donor"
+        :filters="donorDataFilters"
+      />
+    </div>
+
     <!-- Donor criteria -->
     <div class="row" v-if="hasGroupFilters(donorFilters, dataset.criteria.donor)">
       <u-criteria-group
@@ -21,12 +30,30 @@
       />
     </div>
 
+    <!-- Image data criteria -->
+    <div class="row" v-if="hasGroupFilters(imageDataFilters, dataset.criteria.image)">
+      <u-criteria-group
+        title="Image data criteria"
+        :criteria="dataset.criteria.image"
+        :filters="imageDataFilters"
+      />
+    </div>
+
     <!-- MRI criteria -->
     <div class="row" v-if="hasGroupFilters(mriFilters, dataset.criteria.mri)">
       <u-criteria-group
         title="MRI criteria"
         :criteria="dataset.criteria.mri"
         :filters="mriFilters"
+      />
+    </div>
+
+    <!-- Specimen data criteria -->
+    <div class="row" v-if="hasGroupFilters(specimenDataFilters, dataset.criteria.specimen)">
+      <u-criteria-group
+        title="Specimen data criteria"
+        :criteria="dataset.criteria.specimen"
+        :filters="specimenDataFilters"
       />
     </div>
 
@@ -108,8 +135,11 @@
 import UCriteriaGroup from "./CriteriaGroup.vue";
 
 import FilterType from "@/_shared/components/filters/filter-type";
+import donorDataFilters from "@/domain/donors/models/filters/donor-data-filters";
 import donorFilters from "@/domain/donors/models/filters/donor-filters";
+import imageDataFilters from "@/domain/images/_shared/images/models/filters/image-data-filters";
 import mriFilters from "@/domain/images/mris/models/filters/mri-filters";
+import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
 import materialFilters from "@/domain/specimens/materials/models/filters/material-filters";
 import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
@@ -133,8 +163,11 @@ export default {
 
   setup() {
     return {
+      donorDataFilters: donorDataFilters,
       donorFilters: donorFilters,
+      imageDataFilters: imageDataFilters,
       mriFilters: mriFilters,
+      specimenDataFilters: specimenDataFilters,
       materialFilters: materialFilters,
       lineFilters: lineFilters,
       organoidFilters: organoidFilters,
