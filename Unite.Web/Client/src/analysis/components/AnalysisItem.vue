@@ -44,9 +44,9 @@
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
       <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
-        <u-deseq2-results v-if="analysis.type == 'deseq2'" :title="title" :data="analysis.results" />
-        <u-scell-results v-else-if="analysis.type == 'scell'" :title="title" :data="analysis.results" />
-        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :title="title" :data="analysis.results" />
+        <u-deseq2-results v-if="analysis.type == 'deseq2'" :analysis="analysis" :title="title" :data="analysis.results" />
+        <u-scell-results v-else-if="analysis.type == 'scell'" :analysis="analysis" :title="title" :data="analysis.results" />
+        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :analysis="analysis" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
@@ -141,7 +141,7 @@ export default {
         case "deseq2":
           return { type: "application/octet-stream", ext: "tsv" };
         case "scell":
-          return { type: "application/octet-stream", ext: "h5ad" };
+          return { type: "application/octet-stream", ext: "zip" };
         case "kmeier":
           return { type: "application/octet-stream", ext: "zip" };
         default:
