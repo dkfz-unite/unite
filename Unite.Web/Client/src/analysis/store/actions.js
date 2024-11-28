@@ -90,7 +90,18 @@ const actions = {
     data.key = await api.runKMeierAnalysis(data);
     state.analyses.set(data.key, data);
     dispatch("saveAnalyses");
-  }
+  },
+
+  async viewSCellAnalysis({state}, data) {
+    if (state.analyses.get(data.key).results) return;
+
+    const results = await api.viewSCellAnalysis(data.key);
+    state.analyses.get(data.key).results = results;
+  },
+
+  async stopSCellAnalysis({state}, data) {
+    await api.stopSCellAnalysis(data.key);
+  },
 };
 
 export default actions;

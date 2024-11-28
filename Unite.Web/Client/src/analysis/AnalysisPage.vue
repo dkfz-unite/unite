@@ -125,6 +125,77 @@ export default {
     await this.$store.dispatch(`${Settings.analysis.domain}/loadAnalyses`);
     await this.$store.dispatch(`${Settings.analysis.domain}/startUpdatingStatus`);
     this.analysisKey = Array.from(this.analyses.values())[0]?.key || null;
+
+    let value = JSON.stringify(
+      [
+        [
+          "67bee39b-e05f-4410-9ebe-149cfd5a8592",
+          {
+            "type": "scell",
+            "name": "scRNA",
+            "description": null,
+            "status": "Processed",
+            "date": "2024-11-18T16:36:22.816Z",
+            "datasets": [
+              {
+                "key": "9223933f-2f4b-4c85-b421-95e755b74afd",
+                "name": "scRNA",
+                "order": 1,
+                "domain": "donors",
+                "criteria": {
+                  "from": 0,
+                  "size": 20,
+                  "donor": {
+                    "id": [],
+                    "referenceId": [],
+                    "gender": [],
+                    "age": {
+                      "from": null,
+                      "to": null
+                    },
+                    "diagnosis": [],
+                    "primarySite": [],
+                    "localization": [],
+                    "vitalStatus": null,
+                    "vitalStatusChangeDay": {
+                      "from": null,
+                      "to": null
+                    },
+                    "progressionStatus": null,
+                    "progressionStatusChangeDay": {
+                      "from": null,
+                      "to": null
+                    },
+                    "therapy": [],
+                    "mtaProtected": null,
+                    "project": [],
+                    "study": [],
+                    "hasSsms": null,
+                    "hasCnvs": null,
+                    "hasSvs": null,
+                    "hasGeneExp": null,
+                    "hasGeneExpSc": true
+                  }
+                }
+              }
+            ],
+            "options": {
+              "qc": false,
+              "sparse": true,
+              "pp": "default",
+              "pca": true,
+              "neighbors": true,
+              "clustering": "louvain",
+              "embedding": [
+                "umap"
+              ]
+            },
+            "key": "67bee39b-e05f-4410-9ebe-149cfd5a8592"
+          }
+        ]
+      ]
+    );
+    localStorage.setItem("admin@unite.net-analyses", value);
   },
 
   async unmounted() {

@@ -6,33 +6,33 @@ const usersUrl = `${settings.urls.identity}/users`;
 const userUrl = `${settings.urls.identity}/user`;
 
 export async function search() {
-    const url = usersUrl;
-    return await client.get(url);
+  const url = usersUrl;
+  return await client.get(url);
 }
 
 export async function check(user) {
-    const url = `${userUrl}?provider=${user.providerId}&email=${user.email}`;
-    return await client.get(url);
+  const url = `${userUrl}?provider=${user.providerId}&email=${user.email}`;
+  return await client.get(url);
 }
 
 export async function get(id) {
-    let url = `${userUrl}/${id}`;
-    return await client.get(url);
+  let url = `${userUrl}/${id}`;
+  return await client.get(url);
 }
 
 export async function create(user) {
-    const url = userUrl;
-    return await client.post(url, user);
+  const url = userUrl;
+  return await client.post(url, user);
 }
 
 export async function update(user) {
-    const url = userUrl;
-    return await client.put(url, user);
+  const url = userUrl;
+  return await client.put(url, user);
 }
 
 export async function remove(id) {
-    const url = `${userUrl}/${id}`;
-    return await client.delete(url);
+  const url = `${userUrl}/${id}`;
+  return await client.delete(url);
 }
 
 export default {

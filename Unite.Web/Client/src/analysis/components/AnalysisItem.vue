@@ -43,7 +43,7 @@
 
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
-      <div class="col q-pa-sm">
+      <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
         <u-deseq2-results v-if="analysis.type == 'deseq2'" :title="title" :data="analysis.results" />
         <u-scell-results v-else-if="analysis.type == 'scell'" :title="title" :data="analysis.results" />
         <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :title="title" :data="analysis.results" />
@@ -120,8 +120,13 @@ export default {
     },
 
     async onLoad() {
-      const payload = { key: this.analysis.key };
-      await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      if (this.analysis.type == "scell") {
+        const payload = { key: this.analysis.key };
+        await this.$store.dispatch("analysis/viewSCellAnalysis", payload);
+      } else {
+        const payload = { key: this.analysis.key };
+        await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      }
     },
 
     async onDownload() {
