@@ -110,7 +110,7 @@ export default {
         criteria: this.mergeCriteriaWithSelection(this.criteria, this.selected),
       };
       
-      this.$store.dispatch(`${domainName}/addDataset`, datasetData);
+      this.$store.dispatch(`${domainName}/add`, datasetData);
     },
 
     onClose() {
