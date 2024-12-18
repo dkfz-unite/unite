@@ -8,8 +8,8 @@ const actions = {
   async delete({state}, key) {
     state.datasets = state.datasets.filter(dataset => dataset.key !== key);
     const id = key
-    const url = `${datasetUrl}/${id}/delete`;
-    const response = await client.post(url);
+    const url = `${datasetUrl}/${id}`;
+    const response = await client.delete(url);
   },
 
   async load({state}) {
@@ -17,7 +17,7 @@ const actions = {
       domain: state.domain,
       userid: this.getters["identity/account"].email
     };
-    const url = `${datasetsUrl}/load`;
+    const url = `${datasetsUrl}`;
     state.datasets = await client.post(url, data);
     state.datasets.forEach(dataset => {
       dataset.criteria = JSON.parse(dataset.criteria);
@@ -35,7 +35,7 @@ const actions = {
       domain: state.domain,
       userid: owner
     };
-    const url = `${datasetUrl}/add`;
+    const url = `${datasetUrl}`;
     dataset.key = await client.post(url, data);
     state.datasets.push(dataset);
   }
