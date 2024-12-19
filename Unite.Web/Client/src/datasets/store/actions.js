@@ -9,7 +9,7 @@ const actions = {
     state.datasets = state.datasets.filter(dataset => dataset.key !== key);
     const id = key
     const url = `${datasetUrl}/${id}`;
-    const response = await client.delete(url);
+    await client.delete(url);
   },
 
   async load({state}) {
