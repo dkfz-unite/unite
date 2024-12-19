@@ -118,7 +118,7 @@ export default {
 
     availableDomains() {
       const domainNames = Settings.searchable.map(domain => domain.domain);
-      domainNames.forEach(domain => this.$store.dispatch(`${domain}/loadDatasets`, { owner: this.owner, domain: domain }));
+      domainNames.forEach(domain => this.$store.dispatch(`${domain}/load`, { owner: this.owner, domain: domain }));
       return domainNames.filter(domain => this.$store.state[domain].datasets?.length);
     },
 
