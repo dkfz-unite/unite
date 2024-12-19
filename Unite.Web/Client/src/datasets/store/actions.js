@@ -7,8 +7,7 @@ const datasetUrl = `${settings.urls.composer}/data/dataset`;
 const actions = {
   async delete({state}, key) {
     state.datasets = state.datasets.filter(dataset => dataset.key !== key);
-    const id = key
-    const url = `${datasetUrl}/${id}`;
+    const url = `${datasetUrl}/${key}`;
     await client.delete(url);
   },
 
