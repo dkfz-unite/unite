@@ -26,7 +26,7 @@ export default {
 
   methods: {
     onDelete() {
-      this.$store.dispatch(`${this.domain.name}/deleteDataset`, this.dataset.key);
+      this.$store.dispatch(`${this.domain.name}/delete`, this.dataset.key);
       this.$emit("click");
     }
   }
