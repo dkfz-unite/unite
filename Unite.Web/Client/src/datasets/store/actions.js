@@ -1,42 +1,42 @@
-function getPath(owner, domain) {
-  return `${owner}-datasets-${domain}`;
-}
+import ApiClient from "@/_shared/api/api-client";
+import settings from "@/settings";
+const client = new ApiClient();
+const datasetsUrl = `${settings.urls.composer}/data/datasets`;
+const datasetUrl = `${settings.urls.composer}/data/dataset`;
 
 const actions = {
-  getDataset({state}, key) {
-    return state.datasets?.find(dataset => dataset.key === key);
-  },
-
-  addDataset({state, dispatch}, dataset) {
-    dataset.key = crypto.randomUUID();
-    state.datasets.push(dataset);
-    dispatch("saveDatasets");
-  },
-
-  deleteDataset({state, dispatch}, key) {
+  async delete({state}, key) {
     state.datasets = state.datasets.filter(dataset => dataset.key !== key);
-    dispatch("saveDatasets");
+    const url = `${datasetUrl}/${key}`;
+    await client.delete(url);
   },
 
-  loadDatasets({state}) {
-    const owner = this.getters["identity/account"].email;
-    const domain = state.domain;
-    const path = getPath(owner, domain);
-    const json = localStorage.getItem(path);
-    const datasets = json ? JSON.parse(json) : [];
-    state.datasets = datasets;
+  async load({state}) {
+    const data = {
+      domain: state.domain,
+      userid: this.getters["identity/account"].email
+    };
+    const url = `${datasetsUrl}`;
+    state.datasets = await client.post(url, data);
+    state.datasets.forEach(dataset => {
+      dataset.criteria = JSON.parse(dataset.criteria);
+    });
   },
 
-  saveDatasets({state}) {
+  async add({state}, dataset) {
     const owner = this.getters["identity/account"].email;
-    const domain = state.domain;
-    const path = getPath(owner, domain);
-    if (state.datasets?.length) {
-      const json = JSON.stringify(state.datasets);
-      localStorage.setItem(path, json);
-    } else {
-      localStorage.removeItem(path);
-    }
+    
+    const data = {
+      name: dataset.name,
+      date: dataset.date,
+      description: dataset.description,
+      criteria: JSON.stringify(dataset.criteria),
+      domain: state.domain,
+      userid: owner
+    };
+    const url = `${datasetUrl}`;
+    dataset.key = await client.post(url, data);
+    state.datasets.push(dataset);
   }
 }
 
