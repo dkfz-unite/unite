@@ -6,6 +6,7 @@ const client = new ApiClient();
 const providersUrl = `${settings.urls.identity}/providers`;
 const accountUrl = `${settings.urls.identity}/account`;
 const identityUrl = `${settings.urls.identity}/realm`;
+const composerUrl = `${settings.urls.composer}/dataset`;
 
 function getIdentityProvider() {
   const token = tokenHelpers.get();
@@ -41,8 +42,16 @@ export async function createAccount(email, password, passwordRepeat) {
 }
 
 export async function deleteAccount() {
+  // alert("deleteAccount url"+accountUrl);
+  // alert("deleteAccount composer url"+composerUrl);
+
   const url = accountUrl;
 
+  // var deletedEmail = await client.delete(url);
+  // alert("deletedEmail..."+deletedEmail);
+  // const composer= composerUrl + "/"+deletedEmail;
+  // //await client.delete(`${composerUrl}/${deletedEmail}`);
+  // // const url = `${composerUrl}/${id}`;
   await client.delete(url);
   tokenHelpers.remove();
 }

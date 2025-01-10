@@ -5,9 +5,9 @@ const datasetsUrl = `${settings.urls.composer}/data/datasets`;
 const datasetUrl = `${settings.urls.composer}/data/dataset`;
 
 const actions = {
-  async delete({state}, key) {
-    state.datasets = state.datasets.filter(dataset => dataset.key !== key);
-    const url = `${datasetUrl}/${key}`;
+    async delete({state}, id) {
+    state.datasets = state.datasets.filter(dataset => dataset.id !== id);
+    const url = `${datasetUrl}/${id}`;
     await client.delete(url);
   },
 
@@ -35,7 +35,7 @@ const actions = {
       userid: owner
     };
     const url = `${datasetUrl}`;
-    dataset.key = await client.post(url, data);
+    dataset.id = await client.post(url, data);
     state.datasets.push(dataset);
   }
 }

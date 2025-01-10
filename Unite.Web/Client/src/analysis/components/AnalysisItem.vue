@@ -26,8 +26,8 @@
         <div class="row">
           <div class="col">
             <div v-for="dataset in analysis.datasets" class="row items-center q-gutter-xs">
-              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
-              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, key: dataset.key } }">{{ dataset.name }}</u-link>
+              <q-icon :name="Settings[dataset.Domain]?.icon" size="sm"/>
+              <u-link :to="{ name: 'datasets', params: { domain: dataset.Domain, id: dataset.Id } }">{{ dataset.Name }}</u-link>
             </div>
           </div>
         </div>
@@ -114,26 +114,26 @@ export default {
 
   methods: {
     async onDelete() {
-      const payload = { key: this.analysis.key };
+      const payload = { id: this.analysis.id };
       this.$store.dispatch("analysis/deleteAnalysis", payload);
       this.$emit("delete");
     },
 
     async onLoad() {
       if (this.analysis.type == "scell") {
-        const payload = { key: this.analysis.key };
+        const payload = { id: this.analysis.id };
         await this.$store.dispatch("analysis/viewSCellAnalysis", payload);
       } else {
-        const payload = { key: this.analysis.key };
+        const payload = { id: this.analysis.id };
         await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
       }
     },
 
     async onDownload() {
-      const payload = { key: this.analysis.key };
+      const payload = { id: this.analysis.id };
       const format = this.getFileFormat(this.analysis.type);
       const content = await this.$store.dispatch("analysis/loadAnalysisData", payload);
-      exportFile(`${this.analysis.key}.${format.ext}`, content, format.type);
+      exportFile(`${this.analysis.id}.${format.ext}`, content, format.type);
     },
 
     getFileFormat(analysisType) {

@@ -163,7 +163,7 @@ export default {
     getDatasetOptions(domain) {
       return this.$store.state[domain]?.datasets?.map(dataset => ({
         domain: domain,
-        key: dataset.key,
+        id: dataset.id,
         name: dataset.name,
         date: dataset.date,
         description: dataset.description,
