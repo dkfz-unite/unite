@@ -264,8 +264,11 @@ export default {
         description: this.description.value,
         status: null,
         date: new Date(),
-        datasets: datasets,
-        options: options
+        data: 
+        {
+          datasets: datasets,
+          options: { progression: this.progression.value }
+        }
       };
 
       await this.$store.dispatch("analysis/runSCellAnalysis", data);

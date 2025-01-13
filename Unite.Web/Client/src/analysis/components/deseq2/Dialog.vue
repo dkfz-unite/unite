@@ -132,7 +132,10 @@ export default {
         description: this.description.value,
         status: null,
         date: new Date(),
-        datasets: datasets,
+        data: 
+        {
+          datasets: datasets,
+        }
       };
 
       await this.$store.dispatch("analysis/runDESeq2Analysis", data);

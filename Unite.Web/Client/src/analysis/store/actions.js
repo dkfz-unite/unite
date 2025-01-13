@@ -11,10 +11,12 @@ const actions = {
     const json = await api.loadAnalyses(data);
     const entries = json ? json.map(analysis => [analysis.id, analysis]) : [];
     const analyses = new Map(entries);
-    state.analyses = analyses;
-    state.analyses.forEach(element => {
-      element.datasets = JSON.parse(element.datasets);
+    analyses.forEach(element => {
+    var data = JSON.parse(element.data);
+    const mapData = new Map(Object.entries(data));
+      element.datasets = mapData.get("Datasets");
     });
+    state.analyses = analyses;
   },
   saveAnalyses({state}) {
     if (state.analyses?.size) {
@@ -55,14 +57,14 @@ const actions = {
   },
 
   async loadAnalysisMeta({state}, data) {
-    if (state.analyses.get(data.key).results) return;
+    if (state.analyses.get(data.id).results) return;
 
-    const results = await api.getAnalysisMeta(data.key);
-    state.analyses.get(data.key).results = results;
+    const results = await api.getAnalysisMeta(data.id);
+    state.analyses.get(data.id).results = results;
   },
 
   async loadAnalysisData({state}, data) {
-    const blob = await api.getAnalysisData(data.key);
+    const blob = await api.getAnalysisData(data.id);
     return blob;
   },
 
@@ -78,39 +80,39 @@ const actions = {
 
   async runDESeq2Analysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    data.key = await api.runDESeq2Analysis(data);
-    state.analyses.set(data.key, data);
+    data.id = await api.runDESeq2Analysis(data);
+    state.analyses.set(data.id, data);
     dispatch("saveAnalyses");
   },
 
   async runSCellAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    data.key = await api.runSCellAnalysis(data);
-    state.analyses.set(data.key, data);
+    data.id = await api.runSCellAnalysis(data);
+    state.analyses.set(data.id, data);
     dispatch("saveAnalyses");
   },
 
   async runKMeierAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    data.key = await api.runKMeierAnalysis(data);
-    state.analyses.set(data.key, data);
+    data.id = await api.runKMeierAnalysis(data);
+    state.analyses.set(data.id, data);
     dispatch("saveAnalyses");
   },
 
   async pingSCellAnalysis({state}, data) {
-    return await api.pingSCellAnalysis(data.key);
+    return await api.pingSCellAnalysis(data.id);
   },
 
   async viewSCellAnalysis({state}, data) {
-    if (state.analyses.get(data.key).results) return;
+    if (state.analyses.get(data.id).results) return;
 
-    const results = await api.viewSCellAnalysis(data.key);
-    state.analyses.get(data.key).results = results;
+    const results = await api.viewSCellAnalysis(data.id);
+    state.analyses.get(data.id).results = results;
   },
 
   async stopSCellAnalysis({state}, data) {
-    await api.stopSCellAnalysis(data.key);
-    state.analyses.get(data.key).results = null;
+    await api.stopSCellAnalysis(data.id);
+    state.analyses.get(data.id).results = null;
   },
 };
 
