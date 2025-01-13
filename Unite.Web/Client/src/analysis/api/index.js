@@ -6,8 +6,8 @@ const analysisUrl = `${settings.urls.analysis}`;
 const analysisTaskUrl = `${settings.urls.analysis}/task`;
 const analysisTasksUrl = `${settings.urls.analysis}/tasks`;
 
-export async function getAnalysisStatus(id) {
-  const url = `${analysisTaskUrl}/${id}/status`;
+export async function getAnalysisStatus(key) {
+  const url = `${analysisTaskUrl}/${key}/status`;
   return await client.put(url);
 }
 
@@ -21,9 +21,8 @@ export async function getAnalysisData(key) {
   return await client.get(url, { responseType: "blob" });
 }
 
-export async function deleteAnalysis(id) {
-  alert("deleteAnalysis Id..."+id);
-  const url = `${analysisTaskUrl}/${id}`;
+export async function deleteAnalysis(key) {
+  const url = `${analysisTaskUrl}/${key}`;
   return await client.delete(url);
 }
 
