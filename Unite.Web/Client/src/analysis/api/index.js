@@ -40,11 +40,6 @@ export async function runKMeierAnalysis(data) {
   return await client.post(url, data);
 }
 
-export async function pingSCellAnalysis(data) {
-  const url = `${analysisUrl}/scell/${data}`;
-  return await client.get(url);
-}
-
 export async function viewSCellAnalysis(data) {
   const url = `${analysisUrl}/scell/${data}`;
   return await client.post(url);
@@ -64,7 +59,6 @@ export default {
   runDESeq2Analysis,
   runSCellAnalysis,
   runKMeierAnalysis,
-  pingSCellAnalysis,
   viewSCellAnalysis,
   stopSCellAnalysis
 };
