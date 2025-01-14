@@ -8,14 +8,17 @@ const actions = {
     const data = {
       userid: this.getters["identity/account"].email
     };
+
     const json = await api.loadAnalyses(data);
     const entries = json ? json.map(analysis => [analysis.id, analysis]) : [];
     const analyses = new Map(entries);
+
     analyses.forEach(element => {
-    var data = JSON.parse(element.data);
-    const mapData = new Map(Object.entries(data));
+      var jsonData = JSON.parse(element.data);
+      const mapData = new Map(Object.entries(jsonData));
       element.datasets = mapData.get("Datasets");
     });
+    
     state.analyses = analyses;
   },
   saveAnalyses({state}) {
