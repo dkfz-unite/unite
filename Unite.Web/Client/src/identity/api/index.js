@@ -6,6 +6,8 @@ const client = new ApiClient();
 const providersUrl = `${settings.urls.identity}/providers`;
 const accountUrl = `${settings.urls.identity}/account`;
 const identityUrl = `${settings.urls.identity}/realm`;
+const composerUrl = `${settings.urls.composer}/data/dataset`;
+const analysesUrl = `${settings.urls.analysis}/task`;
 
 function getIdentityProvider() {
   const token = tokenHelpers.get();
@@ -42,8 +44,9 @@ export async function createAccount(email, password, passwordRepeat) {
 
 export async function deleteAccount() {
   const url = accountUrl;
-
-  await client.delete(url);
+  var userId = await client.delete(url);
+  await client.delete(`${composerUrl}/${userId}/delete`);
+  await client.delete(`${analysesUrl}/${userId}/delete`);
   tokenHelpers.remove();
 }
 

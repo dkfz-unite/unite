@@ -12,10 +12,6 @@
 <script>
 export default {
   props: {
-    domain: {
-      type: Object,
-      required: true
-    },
     dataset: {
       type: Object,
       required: true
@@ -25,8 +21,8 @@ export default {
   emits: ["click"],
 
   methods: {
-    onDelete() {
-      this.$store.dispatch(`${this.domain.name}/delete`, this.dataset.key);
+    async onDelete() {
+      await this.$store.dispatch("datasets/deleteOne", this.dataset.id);
       this.$emit("click");
     }
   }

@@ -119,7 +119,7 @@ export default {
 
     async onSubmit() {
       const datasets = this.datasetsOrdered.map(dataset => ({
-        key: dataset.key,
+        id: dataset.id,
         name: dataset.name,
         order: dataset.order, 
         domain: dataset.domain,
@@ -132,7 +132,10 @@ export default {
         description: this.description.value,
         status: null,
         date: new Date(),
-        datasets: datasets,
+        data: 
+        {
+          datasets: datasets,
+        }
       };
 
       await this.$store.dispatch("analysis/runDESeq2Analysis", data);

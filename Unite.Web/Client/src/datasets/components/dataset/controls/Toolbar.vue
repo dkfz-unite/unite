@@ -1,27 +1,14 @@
 <template>
   <div class="row q-gutter-sm">
-    <u-export-button
-      :domain="domain" 
-      :dataset="dataset"
-    />
+    <u-export-button :dataset="dataset" />
 
-    <u-show-button
-      :domain="domain" 
-      :dataset="dataset"
-    />
+    <u-show-button :dataset="dataset" />
 
-    <u-download-button
-      :domain="domain" 
-      :dataset="dataset"
-    />
+    <u-download-button :dataset="dataset" />
 
     <!-- <q-separator vertical /> -->
 
-    <u-delete-buttomn
-      :domain="domain" 
-      :dataset="dataset"
-      @click="$emit('deleted')"
-    />
+    <u-delete-buttomn :dataset="dataset" @click="$emit('deleted')" />
   </div>
 </template>
 
@@ -40,10 +27,6 @@ export default {
   },
 
   props: {
-    domain: {
-      type: Object,
-      required: true
-    },
     dataset: {
       type: Object,
       required: true

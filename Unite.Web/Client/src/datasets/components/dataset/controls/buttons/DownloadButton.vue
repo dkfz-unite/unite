@@ -1,7 +1,7 @@
 <template>
   <q-dialog v-model="dialog" @keyup.esc="onCancel" persistent>
     <u-download-form 
-      :domain="domain?.name" 
+      :domain="dataset?.domain" 
       :data="dataset?.data" 
       :loading="loading" 
       @submit="onDownload" 
@@ -27,10 +27,6 @@ import api from "../../../../api";
 
 export default {
   props: {
-    domain: {
-      type: Object,
-      required: true
-    },
     dataset: {
       type: Object,
       required: true
@@ -73,7 +69,7 @@ export default {
     },
 
     async fetchData(model, criteria) {
-      return await api[this.domain.name].downloadData(model, criteria);
+      return await api[this.dataset.domain].downloadData(model, criteria);
     }
   }
 };

@@ -31,10 +31,10 @@
         <div class="row">
           <div class="col">
             <q-list>
-              <template v-for="[key, analysis] in analyses">
+              <template v-for="[id, analysis] in analyses">
                 <q-item
-                  :active="analysisKey == analysis.key" 
-                  @click="analysisKey = analysis.key"
+                  :active="analysisKey == analysis.id" 
+                  @click="analysisKey = analysis.id"
                   class="q-px-xs q-py-xs" clickable>
                   <u-analysis-list-item :analysis="analysis" />
                 </q-item>
@@ -124,7 +124,7 @@ export default {
   async mounted() {
     await this.$store.dispatch(`${Settings.analysis.domain}/loadAnalyses`);
     await this.$store.dispatch(`${Settings.analysis.domain}/startUpdatingStatus`);
-    this.analysisKey = Array.from(this.analyses.values())[0]?.key || null;
+    this.analysisKey = Array.from(this.analyses.values())[0]?.id || null;
   },
 
   async unmounted() {
@@ -134,7 +134,7 @@ export default {
 
   methods: {
     onDeleted() {
-      this.analysisKey = Array.from(this.analyses.values())[0]?.key || null;
+      this.analysisKey = Array.from(this.analyses.values())[0]?.id || null;
     }
   }
 }

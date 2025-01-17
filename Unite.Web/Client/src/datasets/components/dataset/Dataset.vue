@@ -22,14 +22,12 @@
 </template>
 
 <script>
-// import UToolbar from "./controls/Toolbar.vue";
 import UHeader from "./header/Header.vue";
 import UData from "./data/Data.vue";
 import UCriteria from "./criteria/Criteria.vue";
 
 export default {
   components: {
-    // UToolbar,
     UHeader,
     UData,
     UCriteria
@@ -39,10 +37,6 @@ export default {
     dataset: {
       type: Object,
       required: true
-    },
-    data: {
-      type: Object,
-      default: () => null
     }
   }
 }

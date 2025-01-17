@@ -38,8 +38,7 @@ export default {
 
   computed: {
     datasets: {
-      get() { return this.$store.state[this.domain].datasets; },
-      set(value) { this.$store.state[this.domain].datasets = value }
+      get() { return this.$store.getters[`${this.domain}/datasets`]; }
     },
 
     criteria: {

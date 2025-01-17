@@ -4,10 +4,11 @@ import ApiClient from "@/_shared/api/api-client";
 const client = new ApiClient();
 const analysisUrl = `${settings.urls.analysis}`;
 const analysisTaskUrl = `${settings.urls.analysis}/task`;
+const analysisTasksUrl = `${settings.urls.analysis}/tasks`;
 
 export async function getAnalysisStatus(key) {
   const url = `${analysisTaskUrl}/${key}/status`;
-  return await client.get(url);
+  return await client.put(url);
 }
 
 export async function getAnalysisMeta(key) {
@@ -50,6 +51,11 @@ export async function stopSCellAnalysis(data) {
   return await client.delete(url);
 }
 
+export async function loadAnalyses(data) {
+  const url = `${analysisTasksUrl}`;
+  return await client.post(url, data);
+}
+
 
 export default {
   getAnalysisStatus,
@@ -60,5 +66,6 @@ export default {
   runSCellAnalysis,
   runKMeierAnalysis,
   viewSCellAnalysis,
-  stopSCellAnalysis
+  stopSCellAnalysis,
+  loadAnalyses
 };

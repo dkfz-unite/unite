@@ -14,10 +14,6 @@ import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
   props: {
-    domain: {
-      type: Object,
-      required: true
-    },
     dataset: {
       type: Object,
       required: true
@@ -26,7 +22,7 @@ export default {
 
   methods: {
     applyFilters() {
-      const domain = this.domain.name;
+      const domain = this.dataset.domain;
       const criteria = new FiltersCriteria(this.dataset.criteria);
 
       this.$store.state[domain].filtersCriteria = criteria;

@@ -114,7 +114,7 @@ export default {
 
     async onSubmit() {
       const datasets = this.datasetsOrdered.map(dataset => ({
-        key: dataset.key,
+        id: dataset.id,
         name: dataset.name,
         order: dataset.order, 
         domain: dataset.domain,
@@ -125,10 +125,13 @@ export default {
         type: "kmeier",
         name: this.name.value,
         description: this.description.value,
-        options: { progression: this.progression.value },
         status: null,
         date: new Date(),
-        datasets: datasets
+        data: 
+        {
+          datasets: datasets,
+          options: { progression: this.progression.value }
+        }
       };
 
       await this.$store.dispatch("analysis/runKMeierAnalysis", data);

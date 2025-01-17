@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import ULogo from "./components/header/Logo.vue";
 import UNavigation from "./components/header/navigation/Navigation.vue";
 import UMenuButton from "./components/header/menu/MenuButton.vue";
@@ -64,6 +64,18 @@ export default {
         return true;
       }
     }
+  },
+
+  watch: {
+    account(value) {
+      if (value) {
+        this.loadAll();
+      }
+    }
+  },
+
+  methods: {
+    ...mapActions("datasets", ["loadAll"]),
   }
 }
 </script>
