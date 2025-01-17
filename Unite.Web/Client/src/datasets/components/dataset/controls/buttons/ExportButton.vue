@@ -34,10 +34,6 @@ import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 export default {
   props: {
-    domain: {
-      type: Object,
-      required: true
-    },
     dataset: {
       type: Object,
       required: true
@@ -53,7 +49,7 @@ export default {
   methods: {
     async exportToFile() {
       try {
-        const name = `${this.domain.name}-filters.json`;
+        const name = `${this.dataset.domain}-filters.json`;
         const content = JSON.stringify(this.getContent());
         const options = { mimeType: "application/json" };
         exportFile(name, content, options);
@@ -94,7 +90,7 @@ export default {
     },
 
     getContent() {
-      const domain = this.domain.name;
+      const domain = this.dataset.domain;
       const criteria = new FiltersCriteria(this.dataset.criteria);
 
       return {

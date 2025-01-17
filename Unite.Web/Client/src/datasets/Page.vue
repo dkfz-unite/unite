@@ -1,31 +1,32 @@
 <template>
   <!-- Teleport button -->
-  <teleport v-if="domains?.length && $q.screen.lt.md" to="#top-left-placeholder">
+  <teleport v-if="dataset && $q.screen.lt.md" to="#top-left-placeholder">
     <u-datasets-button-show @click="$refs.drawer.open()" />
   </teleport>
 
   <!-- Drawer -->
   <u-drawer
+    v-show="dataset"
     ref="drawer"
     side="left"
-    v-if="domain && dataset"
     v-model:shown="drawer.show"
     v-model:minimized="drawer.mini">
     <!-- Opened -->
     <template #default>
       <u-datasets
-        :domains="domains" 
-        v-model:domain="domain"
-        v-model:dataset="dataset"
+        ref="datasets"
+        v-model:domain="tab"
+        v-model:dataset="item"
+        :datasets="datasets"
         @hide="$refs.drawer.minimize()"
       />
     </template>
     <!-- Minimized -->
     <template #mini>
       <u-datasets-mini
-        :domains="domains"
-        v-model:domain="domain"
-        v-model:dataset="dataset"
+        v-model:domain="tab"
+        v-model:dataset="item"
+        :datasets="datasets"
       />
     </template>
   </u-drawer>
@@ -39,19 +40,18 @@
       </q-breadcrumbs>
     </div> -->
 
-    <div v-if="domains?.length" class="row">
-      <u-analysis-button :datasets="selectedDatasets" />
+    <div class="row">
+      <u-analysis-button v-if="dataset" :datasets="selectedDatasets" />
     </div>
 
-    <div v-if="domains?.length" class="row">
-      <div v-if="dataset" class="col">
+    <div v-if="dataset" class="row">
+      <div class="col">
         <!-- Cohort control buttons -->
         <div class="row">
           <div class="col">
             <q-separator />
 
             <u-controls-toolbar
-              :domain="domain"
               :dataset="dataset"
               @deleted="onDeleted">
             </u-controls-toolbar>
@@ -62,7 +62,7 @@
 
         <!-- Cohort content -->
         <div class="row">
-          <u-dataset v-if="dataset" :dataset="dataset" />
+          <u-dataset :dataset="dataset" />
         </div>
       </div>
     </div>
@@ -86,6 +86,7 @@ import UDatasetsMini from "./components/datasets/DatasetsMini.vue";
 import UAnalysisButton from "./components/analysis/AnalysisButton.vue";
 import UDataset from "./components/dataset/Dataset.vue";
 import UControlsToolbar from "./components/dataset/controls/Toolbar.vue";
+import { mapGetters } from "vuex";
 
 import Settings from "@/_settings/settings";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
@@ -105,94 +106,52 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      domains: null,
-      domain: null,
-      dataset: null
+      tab: null,
+      item: null,
+      dataset: null,
     };
   },
 
   computed: {
-    owner() {
-      return this.$store.state.identity?.account?.email;
-    },
-
-    availableDomains() {
-      const domainNames = Settings.searchable.map(domain => domain.domain);
-      domainNames.forEach(domain => this.$store.dispatch(`${domain}/load`, { owner: this.owner, domain: domain }));
-      return domainNames.filter(domain => this.$store.state[domain].datasets?.length);
-    },
+    ...mapGetters("datasets", ["datasets"]),
 
     selectedDatasets() {
-      return this.domains?.flatMap(domain => domain.datasets.filter(dataset => dataset.selected));
+      return this.datasets.filter(dataset => dataset.selected);
     }
   },
 
-  mounted() {
-    this.domains = this.getDomainOptions(this.availableDomains);
-    this.domain = this.domains.find(domain => domain.name == this.$route.params.domain) || this.domains[0] || null;
-    this.dataset = this.domain?.datasets[0] || null;
-    // this.loadDomainData(this.domain);
+  watch: {
+    async tab(value) {
+      this.tab = value;
+    },
+
+    async item(value) {
+      this.item = value;
+      
+      this.dataset = this.datasets.find(dataset => dataset.id == value) || null;
+      if (!!this.dataset && !this.dataset.data) {
+        const criteria = new FiltersCriteria(this.dataset.criteria).toSearchCriteria();
+        this.dataset.data = await api[this.dataset.domain].loadStats(criteria);
+      }      
+    },
   },
 
-  watch: {
-    domain(value) {
-      this.dataset = value?.datasets[0] || null;
-      this.$router.replace({ params: { domain: value?.name || "" }});
-      this.loadDomainData(value);
-    },
-
-    dataset(value) {
-      this.loadDatasetData(this.domain, value);
-    },
+  async mounted() {
   },
 
   methods: {
     onDeleted() {
-      this.domains = this.getDomainOptions(this.availableDomains);
-      this.domain = this.domains.find(domain => domain.name == this.domain.name) || this.domains[0] || null;
-      this.dataset = this.domain?.datasets[0];
+      this.$refs.datasets.update();
     },
 
-    getDomainOptions(domains) {
-      return domains.map(domain => ({ 
-        name: domain, 
-        datasets: this.getDatasetOptions(domain)
-      }));
-    },
+    async loadData() {
 
-    getDatasetOptions(domain) {
-      return this.$store.state[domain]?.datasets?.map(dataset => ({
-        domain: domain,
-        id: dataset.id,
-        name: dataset.name,
-        date: dataset.date,
-        description: dataset.description,
-        criteria: dataset.criteria, 
-        data: null, 
-        selected: false 
-      }));
-    },
-
-    async loadDomainData(domain) {
-      if (!domain) return;
-
-      for (const dataset of domain.datasets) {
-        await this.loadDatasetData(domain, dataset);
-      }
-    },
-
-    async loadDatasetData(domain, dataset) {
-      if (!domain) return;
-      if (!dataset) return;
-      if (!!dataset.data || !!dataset.loading) return;
-
-      try {
-        const criteria = new FiltersCriteria(dataset.criteria).toSearchCriteria();
-        dataset.loading = true;
-        dataset.data = await api[domain.name].loadStats(criteria);
-      } finally {
-        dataset.loading = false;
-      }
+      // for (let i = 0; i < this.datasets.length; i++) {
+      //   const dataset = this.datasets[i];
+      //   const criteria = new FiltersCriteria(dataset.criteria).toSearchCriteria();
+      //   dataset.loading = true;
+      //   dataset.data = await api[dataset.domain].loadStats(criteria);
+      // };
     }
   }
 }

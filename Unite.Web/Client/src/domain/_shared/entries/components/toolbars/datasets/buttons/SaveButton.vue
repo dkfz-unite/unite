@@ -1,7 +1,8 @@
 <template>
   <q-dialog 
     v-model="showDialog" 
-    @keyup.esc="showDialog = false" 
+    @keyup.esc="showDialog = false"
+    @keyup.enter="canSave && onSave()"
     @hide="onClose"
     persistent>
 
@@ -17,7 +18,7 @@
           type="text" 
           v-model="name.value" 
           :rules="name.rules" 
-          square outlined dense
+          autofocus square outlined dense
         />
 
         <q-input 
@@ -31,15 +32,16 @@
 
       <q-card-actions align="right" class="text-primary">
         <q-btn 
-          label="Cancel" 
-          dense flat no-caps v-close-popup 
+          label="Cancel"
+          @click="onCancel" 
+          flat no-cap
         />
 
         <q-btn 
           label="Save" 
           :disable="!canSave" 
-          @click="onSave" 
-          dense flat no-caps v-close-popup 
+          @click="onSave"
+          dense flat no-caps
         />
       </q-card-actions>
     </q-card>
@@ -58,6 +60,8 @@
 
 <script>
 import Settings from "@/_settings/settings";
+import Dataset from "@/datasets/store/models/dataset";
+import { mapActions } from "vuex";
 
 export default {
   inject: ["domain"],
@@ -101,16 +105,23 @@ export default {
   },
 
   methods: {
+    ...mapActions("datasets", ["addOne"]),
+
     onSave() {
-      const domainName = this.domain;
-      const datasetData = {
-        name: this.name.value,
-        date: new Date(),
-        description: this.description.value,
-        criteria: this.mergeCriteriaWithSelection(this.criteria, this.selected),
-      };
-      
-      this.$store.dispatch(`${domainName}/add`, datasetData);
+      const dataset = new Dataset();
+      dataset.userId = this.$store.getters["identity/account"].email;
+      dataset.name = this.name.value;
+      dataset.description = this.description.value;
+      dataset.domain = this.domain;
+      dataset.date = new Date();
+      dataset.criteria = this.mergeCriteriaWithSelection(this.criteria, this.selected).toSearchCriteria();
+            
+      this.addOne(dataset);
+      this.showDialog = false;
+    },
+
+    onCancel() {
+      this.showDialog = false;
     },
 
     onClose() {
@@ -123,7 +134,7 @@ export default {
     },
 
     nameIsNotReserved(name) {
-      const existing = this.$store.state[this.domain].datasets?.some(dataset => dataset.name == name);
+      const existing = this.$store.getters[`${this.domain}/datasets`]?.some(dataset => dataset.name == name);
       return existing == false;
     },
 
