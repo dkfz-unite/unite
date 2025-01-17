@@ -28,7 +28,19 @@ export default defineConfig({
       "/api/donors-feed": {target: "http://127.0.0.1:5100", rewrite: (path) => path.replace(/^\/api\/donors-feed/, '/api') },
       "/api/images-feed": { target: "http://127.0.0.1:5102", rewrite: (path) => path.replace(/^\/api\/images-feed/, '/api') },
       "/api/specimens-feed": { target: "http://127.0.0.1:5104", rewrite: (path) => path.replace(/^\/api\/specimens-feed/, '/api') },
-      "/api/genome-feed": { target: "http://127.0.0.1:5106", rewrite: (path) => path.replace(/^\/api\/genome-feed/, '/api') }
+      "/api/genome-feed": { target: "http://127.0.0.1:5106", rewrite: (path) => path.replace(/^\/api\/genome-feed/, '/api') },
+      "/viewer": {
+        target: "http://127.0.0.1",
+        configure: (proxy, options) => {
+          proxy.on("proxyReq", (proxyReq, req) => {
+            const cxg = req.url.match(/^\/viewer\/cxg(\d+)/);
+            if (cxg) {
+              const port = 5000 + parseInt(cxg[1], 10);
+              proxy.options.target = `http://127.0.0.1:${port}`;
+            }
+          });
+        }
+      }
     }
   }
 })

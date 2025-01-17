@@ -120,13 +120,8 @@ export default {
     },
 
     async onLoad() {
-      if (this.analysis.type == "scell") {
-        const payload = { id: this.analysis.id };
-        await this.$store.dispatch("analysis/viewSCellAnalysis", payload);
-      } else {
-        const payload = { id: this.analysis.id };
+        const payload = { key: this.analysis.key };
         await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
-      }
     },
 
     async onDownload() {

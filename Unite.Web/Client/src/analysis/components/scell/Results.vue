@@ -9,7 +9,7 @@
     </q-banner> -->
 
     <!-- Content -->
-    <iframe v-if="meta" :src="meta" class="fit" style="border: 0px;"></iframe>
+    <iframe v-if="url" :src="url" class="fit" style="border: 0px;"></iframe>
 
     <!-- Message -->
     <div v-else class="fit text-center">
@@ -23,7 +23,10 @@
 </template>
 
 <script>
-const timeout = 10 * 60 * 1000;
+import Pinger from "./pinger";
+const idleTimeout = 10 * 60 * 1000;
+const pingTimeout = 1000;
+const pingTries = 20;
 
 export default {
   props: {
@@ -43,64 +46,47 @@ export default {
 
   data() {
     return {
-      banner: true,
+      banner: false,
       loading: false,
+      pinger: new Pinger(),
       token: null,
-      meta: ""
+      url: ""
     }
   },
 
   async mounted() {
-    await this.load(this.data);
-
     window.addEventListener("visibilitychange", async (event) => {
       if (document.visibilityState != "visible") {
-        this.token = setTimeout(async () => await this.unload(), timeout);
+        this.token = setTimeout(async () => await this.stop(), idleTimeout);
       } else {
         clearTimeout(this.token);
       }
     });
 
     window.addEventListener("beforeunload", async (event) => {
-      await this.unload();
+      await this.stop();
     });
+
+    await this.start();
   },
 
   async unmounted() {
-    this.unload();
+    await this.stop();
   },
 
   methods: {
-    async load(text) {
-      const localhost = window.location.host.includes("localhost:8080");
-      const parts = text.split("|");
-      const url = localhost ? parts[1] : parts[0];;
-      
-      let tries = 0;
-      let token = null;
-
+    async start() {
       this.loading = true;
-      
-      token = setInterval(async () => {
-        if (tries < 20) {
-          const payload = { key: this.analysis.key };
-          const ready = await this.$store.dispatch("analysis/pingSCellAnalysis", payload);
-          if (ready) {
-            clearInterval(token);
-            this.loading = false;
-            this.meta = url;
-          }
-        } else {
-          clearInterval(token);
-          this.loading = false;
-          this.meta = null;
-        }
+      const number = await this.$store.dispatch("analysis/viewSCellAnalysis", { key: this.analysis.key });
+      const url = `/viewer/cxg${number}`;
 
-        tries++;
-      }, 1000);
+      this.pinger.ping(url, pingTries, pingTimeout, (success) => {
+        this.loading = false;
+        this.url = success ? url : null;
+      });
     },
 
-    async unload() {
+    async stop() {
       const payload = { key: this.analysis.key };
       await this.$store.dispatch("analysis/stopSCellAnalysis", payload);
       this.analysis.results = null;

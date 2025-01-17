@@ -78,7 +78,7 @@ export default class SpecimensApi extends ModelsApi {
   async uploadXenografts(data, format = formats.json.name) {
     validateFormat(format);
 
-    const url = `${this.feedUrl}entries/xenograft${formats[format].path}`;
+    const url = `${this.feedUrl}/entries/xenograft${formats[format].path}`;
     const body = data;
     const config = { headers: formats[format].headers };
 

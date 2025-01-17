@@ -1,4 +1,4 @@
-import api, { pingSCellAnalysis } from "../api";
+import api from "../api";
 
 const PROCESSED_STATUS = "Processed";
 const FAILED_STATUS = "Failed";
@@ -102,20 +102,12 @@ const actions = {
     dispatch("saveAnalyses");
   },
 
-  async pingSCellAnalysis({state}, data) {
-    return await api.pingSCellAnalysis(data.id);
-  },
-
   async viewSCellAnalysis({state}, data) {
-    if (state.analyses.get(data.id).results) return;
-
-    const results = await api.viewSCellAnalysis(data.id);
-    state.analyses.get(data.id).results = results;
+    return await api.viewSCellAnalysis(data.key);
   },
 
   async stopSCellAnalysis({state}, data) {
-    await api.stopSCellAnalysis(data.id);
-    state.analyses.get(data.id).results = null;
+    await api.stopSCellAnalysis(data.key);
   },
 };
 
