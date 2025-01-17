@@ -7,33 +7,80 @@
       </q-breadcrumbs>
     </div>
 
-    <div class="row">
-      <div class="col items-end">
-        <div class="row">
-          <span class="text-subtitle1">Check Submission Status</span>
-        </div>
-
-        <div class="row items-center q-gutter-x-sm">
-          <q-input label="Submission Id" v-model="submission" style="width: 200px;" autofocus clearable dense @clear="onClear" />
-          <q-btn label="Check" color="primary" :disable="!canCheck" dense flat no-caps @click="onCheck" />
-        </div>
-      </div>
+    <div v-if="$q.screen.gt.md" class="row justify-center">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
 
-    <div class="row">
-      <div class="col">
-        <div v-if="status" class="row">
-          <u-status-point title="Submitted" color="green" :line="false" />
-          <u-status-point title="Review" color="green" />
-          <u-status-point v-if="status == 'Preparing'" title="Processed" color="grey" />
-          <u-status-point v-if="status == 'Prepared'" title="Approved" color="green" />
-          <u-status-point v-if="status == 'Rejected'" title="Rejected" color="red" />
-        </div>
-      </div>
-    </div>
+    <div class="row justify-center">
+      <div class="col-4">
+        <q-card bordered>
+          <q-card-section>
+            <div class="text-h6">Track submission</div>
+          </q-card-section>
 
-    <div class="row" v-if="status == 'Rejected'">
-      Reason: {{ task.comment }}
+          <template v-if="!status">
+            <q-card-section>
+              <div class="col">
+                <div class="row">
+                  <div class="col">
+                    <q-input label="Submission Id" v-model="submission" autofocus clearable dense outlined @clear="onClear" />
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </q-card-section>
+
+            <q-separator/>
+
+            <q-card-actions align="right">
+              <q-btn label="Check" color="primary" :disable="!canCheck" flat no-caps @click="onCheck" />
+            </q-card-actions>
+          </template>
+
+          <template v-else>
+            <q-card-section>
+              <div class="col q-gutter-sm">
+                <div class="row">
+                  <span>
+                    <span class="text-grey-8">Submission: </span>
+                    <span class="text-bold">{{ submission }}</span>
+                  </span>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <u-status-point title="Submitted" color="blue" :line="false" />
+                      <u-status-point title="In Review" color="blue" />
+                      <u-status-point v-if="status == 'Preparing'" title="Processed" color="blue" />
+                      <u-status-point v-else-if="status == 'Prepared'" title="Approved" color="blue" />
+                      <u-status-point v-else-if="status == 'Rejected'" title="Rejected" color="red" />
+                      <u-status-point v-else title="Completed" color="grey" />
+                    </div>
+                  </div>
+                </div>
+
+                <div v-if="comment" class="row">
+                  <span>
+                    <span class="text-grey-8">Reason: </span>
+                    <span>{{ comment }}</span>
+                  </span>
+                </div>
+              </div>
+            </q-card-section>
+
+            <q-separator/>
+
+            <q-card-actions align="right">
+              <q-btn label="Refresh" color="primary" flat no-caps @click="onClear" />
+            </q-card-actions>
+          </template>
+        </q-card>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +106,7 @@ export default {
     return {
       submission: null,
       status: null,
+      comment: null
     }
   },
 
@@ -70,11 +118,15 @@ export default {
 
   methods: {
     async onCheck() {
-      this.status = await api.getStatus(this.submission);
+      const response = await api.getStatus(this.submission);
+      this.status = response.status;
+      this.comment = response.comment;
     },
 
-    onClear() {
+    async onClear() {
+      this.submission = null;
       this.status = null;
+      this.comment = null;
     }
   }
 }
