@@ -35,7 +35,7 @@ export default defineConfig({
           proxy.on("proxyReq", (proxyReq, req) => {
             const cxg = req.url.match(/^\/viewer\/cxg(\d+)/);
             if (cxg) {
-              const port = 5000 + parseInt(cxg[1], 10);
+              const port = 54300 + parseInt(cxg[1], 10);
               proxy.options.target = `http://127.0.0.1:${port}`;
             }
           });

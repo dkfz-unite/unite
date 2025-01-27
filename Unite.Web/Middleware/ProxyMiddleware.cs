@@ -24,21 +24,37 @@ public class ProxyMiddleware
         {
             var request = new HttpRequestMessage(new HttpMethod(httpContext.Request.Method), targetUrl);
 
+            // Copy headers from the original request
             foreach (var header in httpContext.Request.Headers)
             {
                 request.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
             }
 
+            // Buffer the request body to allow re-reading
             if (httpContext.Request.Body.CanRead)
             {
-                request.Content = new StreamContent(httpContext.Request.Body);
+                httpContext.Request.EnableBuffering(); // Enable request body buffering
 
+                // Create a memory stream to store the request body
+                var memoryStream = new MemoryStream();
+                await httpContext.Request.Body.CopyToAsync(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin); // Reset the stream position
+
+                // Assign the memory stream as the content of the proxied request
+                request.Content = new StreamContent(memoryStream);
+
+                // Copy content headers
                 foreach (var header in httpContext.Request.Headers)
                 {
                     request.Content.Headers.TryAddWithoutValidation(header.Key, header.Value.ToArray());
                 }
+
+                // Reset the HttpContext.Request.Body position for further middleware
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                httpContext.Request.Body = memoryStream;
             }
 
+            // Send the proxied request
             using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, httpContext.RequestAborted);
 
             httpContext.Response.StatusCode = (int)response.StatusCode;
@@ -66,6 +82,7 @@ public class ProxyMiddleware
         await _next(httpContext);
     }
 }
+
 
 
 public static class ProxyMiddlewareExtensions

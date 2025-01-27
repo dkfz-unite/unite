@@ -13,7 +13,7 @@
     <q-card-section>
       <div class="col q-gutter-y-xs">
         <!-- Name -->
-        <div class="row text-h6">{{ analysis.name || analysis.key }}</div>
+        <div class="row text-h6">{{ analysis.name || analysis.id }}</div>
         <!-- Description -->
         <div class="row" v-if="analysis.description"> {{ analysis.description }}</div>
         <!-- Type, Date and Status -->
@@ -25,9 +25,9 @@
         <!-- Datasets -->
         <div class="row">
           <div class="col">
-            <div v-for="dataset in analysis.datasets" class="row items-center q-gutter-xs">
-              <q-icon :name="Settings[dataset.Domain]?.icon" size="sm"/>
-              <u-link :to="{ name: 'datasets', params: { domain: dataset.Domain, id: dataset.Id } }">{{ dataset.Name }}</u-link>
+            <div v-for="dataset in analysis.data.datasets" class="row items-center q-gutter-xs">
+              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
+              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
             </div>
           </div>
         </div>
@@ -44,9 +44,9 @@
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
       <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
-        <u-deseq2-results v-if="analysis.type == 'deseq2'" :analysis="analysis" :title="title" :data="analysis.results" />
-        <u-scell-results v-else-if="analysis.type == 'scell'" :analysis="analysis" :title="title" :data="analysis.results" />
-        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :analysis="analysis" :title="title" :data="analysis.results" />
+        <u-deseq2-results v-if="analysis.type == 'deseq2'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
@@ -104,7 +104,7 @@ export default {
       if (!!this.analysis.name) {
         return this.analysis.name;
       } else {
-        const datasets = this.analysis.datasets
+        const datasets = this.analysis.data.datasets
           .sort((a, b) => a.order - b.order)
           .map(c => c.name);
         return datasets.length > 1 ? `${datasets[0]} vs ${datasets[1]}` : datasets[0];
@@ -113,15 +113,10 @@ export default {
   },
 
   methods: {
-    async onDelete() {
+    async onLoad() {      
       const payload = { id: this.analysis.id };
-      this.$store.dispatch("analysis/deleteAnalysis", payload);
-      this.$emit("delete");
-    },
-
-    async onLoad() {
-        const payload = { key: this.analysis.key };
-        await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      this.analysis.results = content;
     },
 
     async onDownload() {
@@ -129,6 +124,12 @@ export default {
       const format = this.getFileFormat(this.analysis.type);
       const content = await this.$store.dispatch("analysis/loadAnalysisData", payload);
       exportFile(`${this.analysis.id}.${format.ext}`, content, format.type);
+    },
+
+    async onDelete() {
+      const payload = { id: this.analysis.id };
+      this.$store.dispatch("analysis/deleteAnalysis", payload);
+      this.$emit("delete");
     },
 
     getFileFormat(analysisType) {

@@ -34,7 +34,7 @@
         <q-btn 
           label="Cancel"
           @click="onCancel" 
-          flat no-cap
+          dense flat no-caps
         />
 
         <q-btn 

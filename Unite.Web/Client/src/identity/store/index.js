@@ -46,7 +46,7 @@ const module = {
 
     async deleteAccount({state}) {
       try {
-        await api.deleteAccount();
+        await api.deleteAccount(state.account.email);
         state.account = null;
         return null;
       } catch (error) {

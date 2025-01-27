@@ -42,7 +42,7 @@ export default {
     }
   },
 
-  async beforeUnmount() {
+  async beforeUnmount() {    
     await this.destroy();
   },
 

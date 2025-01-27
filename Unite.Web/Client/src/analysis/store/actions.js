@@ -5,28 +5,17 @@ const FAILED_STATUS = "Failed";
 
 const actions = {
   async loadAnalyses({state}) {
-    const data = {
-      userid: this.getters["identity/account"].email
+    const payload = {
+      userId: this.getters["identity/account"].email
     };
 
-    const json = await api.loadAnalyses(data);
-    const entries = json ? json.map(analysis => [analysis.id, analysis]) : [];
-    const analyses = new Map(entries);
-
-    analyses.forEach(element => {
-      var jsonData = JSON.parse(element.data);
-      const mapData = new Map(Object.entries(jsonData));
-      element.datasets = mapData.get("Datasets");
+    const entries = await api.loadAnalyses(payload);
+    const analyses = entries.map(entry => {
+      entry.data = JSON.parse(entry.data);
+      return [entry.id, entry];
     });
-    
-    state.analyses = analyses;
-  },
-  saveAnalyses({state}) {
-    if (state.analyses?.size) {
-      state.analyses.forEach((analysis) => delete analysis.results);
-      const entries = Array.from(state.analyses.entries());
-      const json = JSON.stringify(entries);
-    }
+
+    state.analyses = new Map(analyses);
   },
 
   async startUpdatingStatus({state, dispatch}) {
@@ -56,14 +45,13 @@ const actions = {
   async loadAnalysisStatus({state, dispatch}, data) {
     const status = await api.getAnalysisStatus(data.id);
     state.analyses.get(data.id).status = status;
-    // dispatch("saveAnalyses");
   },
 
   async loadAnalysisMeta({state}, data) {
     if (state.analyses.get(data.id).results) return;
 
-    const results = await api.getAnalysisMeta(data.id);
-    state.analyses.get(data.id).results = results;
+    const blob = await api.getAnalysisMeta(data.id);
+    return blob;
   },
 
   async loadAnalysisData({state}, data) {
@@ -77,37 +65,34 @@ const actions = {
     if (!waitStatuses.includes(analysis.status)) return;
 
     await api.deleteAnalysis(data.id);
-    state.analyses.delete(data.id);
-    dispatch("saveAnalyses");
+    dispatch("loadAnalyses");
   },
 
   async runDESeq2Analysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    data.id = await api.runDESeq2Analysis(data);
-    state.analyses.set(data.id, data);
-    dispatch("saveAnalyses");
+    data.userId = this.getters["identity/account"].email;
+    return await api.runDESeq2Analysis(data);
   },
 
   async runSCellAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    data.id = await api.runSCellAnalysis(data);
-    state.analyses.set(data.id, data);
-    dispatch("saveAnalyses");
+    return await api.runSCellAnalysis(data);
   },
 
   async runKMeierAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    data.id = await api.runKMeierAnalysis(data);
-    state.analyses.set(data.id, data);
-    dispatch("saveAnalyses");
+    return await api.runKMeierAnalysis(data);
   },
 
   async viewSCellAnalysis({state}, data) {
-    return await api.viewSCellAnalysis(data.key);
+    return await api.viewSCellAnalysis(data.id);
+  },
+
+  async updateSCellAnalysis({state}, data) {
+    return await api.updateSCellAnalysis(data.id);
   },
 
   async stopSCellAnalysis({state}, data) {
-    await api.stopSCellAnalysis(data.key);
+    await api.stopSCellAnalysis(data.id);
   },
 };
 

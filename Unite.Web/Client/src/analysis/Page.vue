@@ -33,8 +33,8 @@
             <q-list>
               <template v-for="[id, analysis] in analyses">
                 <q-item
-                  :active="analysisKey == analysis.id" 
-                  @click="analysisKey = analysis.id"
+                  :active="analysisId == analysis.id" 
+                  @click="onClick(analysis.id)"
                   class="q-px-xs q-py-xs" clickable>
                   <u-analysis-list-item :analysis="analysis" />
                 </q-item>
@@ -103,7 +103,7 @@ export default {
 
   data() {
     return {
-      analysisKey: null
+      analysisId: this.$route.params.id
     }
   },
 
@@ -117,24 +117,35 @@ export default {
     },
 
     analysis() {
-      return this.analyses.get(this.analysisKey);
+      return this.analyses.get(this.analysisId);
     }
   },
 
   async mounted() {
     await this.$store.dispatch(`${Settings.analysis.domain}/loadAnalyses`);
     await this.$store.dispatch(`${Settings.analysis.domain}/startUpdatingStatus`);
-    this.analysisKey = Array.from(this.analyses.values())[0]?.id || null;
+
+    if (!this.analysis)
+      this.analysisId = Array.from(this.analyses.values())[0]?.id || null;
   },
 
   async unmounted() {
-    await this.$store.dispatch(`${Settings.analysis.domain}/saveAnalyses`);
     await this.$store.dispatch(`${Settings.analysis.domain}/stopUpdatingStatus`);
   },
 
   methods: {
+    onClick(id) {
+      this.analysisId = id;
+      this.$router.replace({ params: { id: id } });
+    },
+
     onDeleted() {
-      this.analysisKey = Array.from(this.analyses.values())[0]?.id || null;
+      this.analysisId = Array.from(this.analyses.values())[0]?.id || null;
+      if (this.analysisId) {
+        this.$router.replace({ params: { id: this.analysisId } });
+      } else {
+        this.$router.push({ name: Settings.analysis.domain });
+      }
     }
   }
 }

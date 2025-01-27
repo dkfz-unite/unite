@@ -267,12 +267,12 @@ export default {
         data: 
         {
           datasets: datasets,
-          options: { progression: this.progression.value }
+          options: options
         }
       };
 
-      await this.$store.dispatch("analysis/runSCellAnalysis", data);
-      await this.$router.push({ name: "analysis" });
+      const id = await this.$store.dispatch("analysis/runSCellAnalysis", data);
+      await this.$router.push({ name: "analysis", params: { id: id } });
     },
 
     async onReset() {

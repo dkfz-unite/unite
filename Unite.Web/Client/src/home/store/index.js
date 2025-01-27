@@ -47,6 +47,7 @@ const store = createStore({
   },
 
   state: {
+    visible: true
   }
 });
 

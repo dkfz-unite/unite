@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-auto">
         <q-tabs v-model="tab" indicator-color="transparent" active-color="primary" align="left" dense vertical>
-          <q-tab v-for="domainItem in domainItems" :name="domainItem.name" :icon="domainItem.icon">
+          <q-tab v-for="domainItem in domainItems" :name="domainItem.name" :icon="domainItem.icon" @click="onTabClick(domainItem)">
             <q-badge :color="getDomainBadgeColor(domainItem.name)" rounded>
               {{ domainItem.size }}
             </q-badge>

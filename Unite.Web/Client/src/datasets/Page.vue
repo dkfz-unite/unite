@@ -5,8 +5,9 @@
   </teleport>
 
   <!-- Drawer -->
+   <!-- v-show="dataset" -->
   <u-drawer
-    v-show="dataset"
+    v-if="datasets?.length"
     ref="drawer"
     side="left"
     v-model:shown="drawer.show"
@@ -88,7 +89,7 @@ import UDataset from "./components/dataset/Dataset.vue";
 import UControlsToolbar from "./components/dataset/controls/Toolbar.vue";
 import { mapGetters } from "vuex";
 
-import Settings from "@/_settings/settings";
+import Settings from "./settings";
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import api from "./api";
 
@@ -106,8 +107,8 @@ export default {
   data() {
     return {
       drawer: this.$store.state.leftDrawer,
-      tab: null,
-      item: null,
+      tab: this.$route.params.domain || null,
+      item: this.$route.params.id || null,
       dataset: null,
     };
   },
@@ -121,37 +122,44 @@ export default {
   },
 
   watch: {
-    async tab(value) {
-      this.tab = value;
+    tab(value) {
     },
 
-    async item(value) {
-      this.item = value;
-      
-      this.dataset = this.datasets.find(dataset => dataset.id == value) || null;
-      if (!!this.dataset && !this.dataset.data) {
-        const criteria = new FiltersCriteria(this.dataset.criteria).toSearchCriteria();
-        this.dataset.data = await api[this.dataset.domain].loadStats(criteria);
-      }      
+    item(value) {
+      this.updateDataset();
     },
   },
 
-  async mounted() {
+  mounted() {
+    this.updateDataset();
+  },
+
+  unmounted() {
+    this.datasets.forEach(dataset => {
+      dataset.selected = false;
+      dataset.order = null;
+    });
   },
 
   methods: {
     onDeleted() {
-      this.$refs.datasets.update();
+      this.$refs.datasets?.update();
+      this.updateDataset();
     },
 
-    async loadData() {
+    async updateDataset() {
+      this.dataset = this.datasets.find(dataset => dataset.id == this.item);
 
-      // for (let i = 0; i < this.datasets.length; i++) {
-      //   const dataset = this.datasets[i];
-      //   const criteria = new FiltersCriteria(dataset.criteria).toSearchCriteria();
-      //   dataset.loading = true;
-      //   dataset.data = await api[dataset.domain].loadStats(criteria);
-      // };
+      if (this.dataset) {
+        this.$router.replace({ params: { domain: this.tab, id: this.item }});
+        if (!this.dataset.data) {
+          
+          const criteria = new FiltersCriteria(this.dataset.criteria).toSearchCriteria();
+          this.dataset.data = await api[this.dataset.domain].loadStats(criteria);
+        }
+      } else {
+        this.$router.push({ name: Settings.domain });
+      }
     }
   }
 }

@@ -134,8 +134,8 @@ export default {
         }
       };
 
-      await this.$store.dispatch("analysis/runKMeierAnalysis", data);
-      await this.$router.push({ name: "analysis" });
+      const id = await this.$store.dispatch("analysis/runKMeierAnalysis", data);
+      await this.$router.push({ name: "analysis", params: { id: id } });
     },
 
     async onClose() {

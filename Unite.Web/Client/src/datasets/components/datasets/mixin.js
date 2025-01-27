@@ -27,6 +27,7 @@ const mixin = {
 
   computed: {
     domainItems() {
+      if (!this.datasets) return [];
       const names = this.datasets
         .map(dataset => dataset.domain)
         .distinct();
@@ -55,27 +56,55 @@ const mixin = {
 
   mounted() {
     this.tab = this.domain || this.domainItems[0]?.name || null;
+    if (this.tab)
+      this.$emit("update:domain", this.tab);
+
     this.item = this.dataset || this.datasetItems[0]?.id || null;
+    if (this.item)
+      this.$emit("update:dataset", this.item);
   },
 
   watch: {
-    tab(value) {
-      this.item = this.datasetItems[0]?.id;
-      this.$emit("update:domain", value);
+    domain(value) {
     },
 
-    item(value) {
-      this.$emit("update:dataset", value);
-    }
+    dataset(value) {
+    },
   },
 
   methods: {
+    onTabClick(option) {
+      if (this.tab != option.name) {
+        this.tab = option.name;
+        this.$emit("update:domain", option.name);
+      }
+    },
+
+    onItemClick(option) {
+      if (this.item != option.id) {
+        this.item = option.id;
+        this.$emit("update:dataset", option.id);
+      }
+    },
+
+    onItemSelect(option) {
+      if (option.selected) {
+        const orders = this.datasets.filter(dataset => dataset.selected).map(dataset => dataset.order || 0);
+        option.order = Math.max(...orders) + 1;
+      }
+
+      this.onItemClick(option);
+    },
+
     update() {
       if (this.datasetItems?.length) {
         this.item = this.datasetItems[0]?.id;
+        this.$emit("update:dataset", this.item);
       } else {
         this.tab = this.domainItems[0]?.name;
         this.item = this.datasetItems[0]?.id;
+        this.$emit("update:domain", this.tab);
+        this.$emit("update:dataset", this.item);
       }
     },
 

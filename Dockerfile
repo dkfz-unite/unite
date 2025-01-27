@@ -5,12 +5,12 @@ ENV ASPNETCORE_HTTPS_PORTS=443
 EXPOSE 80
 EXPOSE 443
 
-FROM node:lts-alpine as restore-client
+FROM node:lts-alpine AS restore-client
 WORKDIR /app
 COPY ["Unite.Web/Client/package*.json", "./"]
 RUN npm install
 
-FROM restore-client as build-client
+FROM restore-client AS build-client
 COPY ["Unite.Web/Client/", "./"]
 RUN npm run build
 
@@ -19,7 +19,7 @@ WORKDIR /src
 COPY ["Unite.Web/Unite.Web.csproj", "Unite.Web/"]
 RUN dotnet restore "Unite.Web/Unite.Web.csproj"
 
-FROM restore as build
+FROM restore AS build
 COPY . .
 WORKDIR "/src/Unite.Web"
 RUN dotnet build --no-restore "Unite.Web.csproj" -c Release

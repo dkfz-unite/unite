@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-auto">
         <q-tabs v-model="tab" indicator-color="parimary" active-color="primary" align="left" dense vertical>
-          <q-tab v-for="domainItem in domainItems" :name="domainItem.name" :icon="domainItem.icon">
+          <q-tab v-for="domainItem in domainItems" :name="domainItem.name" :icon="domainItem.icon" @click="onTabClick(domainItem)">
             <q-badge :color="getDomainBadgeColor(domainItem.name)" rounded>
               {{ domainItem.size }}
             </q-badge>
@@ -33,7 +33,7 @@
             <div class="col">
               <q-list>
                 <template v-for="datasetItem in datasetItems">
-                  <q-item :active="datasetItem.id == item" @click="onClick(datasetItem)" class="q-px-sm q-py-xs" clickable>
+                  <q-item :active="datasetItem.id == item" @click="onItemClick(datasetItem)" class="q-px-sm q-py-xs" clickable>
                     <q-item-section>
                       <q-item-label lines="1">
                         {{ datasetItem.name }}
@@ -43,7 +43,7 @@
                       </q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-checkbox v-model="datasetItem.selected" @click="onSelect(datasetItem)" dense />
+                      <q-checkbox v-model="datasetItem.selected" @click="onItemSelect(datasetItem)" dense />
                     </q-item-section>
                   </q-item>
                 </template>
@@ -69,21 +69,6 @@ export default {
 
   mixins: [mixin],
 
-  emits: ["hide"],
-
-  methods: {
-    onClick(item) {      
-      this.item = item.id;      
-    },
-
-    onSelect(item) {
-      this.item = item.id;
-
-      if (item.selected) {
-        const orders = this.datasets.filter(dataset => dataset.selected).map(dataset => dataset.order || 0);
-        item.order = Math.max(...orders) + 1;        
-      }
-    }
-  }
+  emits: ["hide"]
 }
 </script>

@@ -3,26 +3,31 @@ import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
 const analysisUrl = `${settings.urls.analysis}`;
-const analysisTaskUrl = `${settings.urls.analysis}/task`;
-const analysisTasksUrl = `${settings.urls.analysis}/tasks`;
+const analysisTaskUrl = `${settings.urls.analysis}/analysis`;
+const analysisTasksUrl = `${settings.urls.analysis}/analyses`;
 
-export async function getAnalysisStatus(key) {
-  const url = `${analysisTaskUrl}/${key}/status`;
+export async function loadAnalyses(data) {
+  const url = `${analysisTasksUrl}`;
+  return await client.post(url, data);
+}
+
+export async function getAnalysisStatus(id) {
+  const url = `${analysisTaskUrl}/${id}/status`;
   return await client.put(url);
 }
 
-export async function getAnalysisMeta(key) {
-  const url = `${analysisTaskUrl}/${key}/meta`;
+export async function getAnalysisMeta(id) {
+  const url = `${analysisTaskUrl}/${id}/meta`;
   return await client.get(url, { responseType: "blob" });
 }
 
-export async function getAnalysisData(key) {
-  const url = `${analysisTaskUrl}/${key}/data`;
+export async function getAnalysisData(id) {
+  const url = `${analysisTaskUrl}/${id}/data`;
   return await client.get(url, { responseType: "blob" });
 }
 
-export async function deleteAnalysis(key) {
-  const url = `${analysisTaskUrl}/${key}`;
+export async function deleteAnalysis(id) {
+  const url = `${analysisTaskUrl}/${id}`;
   return await client.delete(url);
 }
 
@@ -42,22 +47,23 @@ export async function runKMeierAnalysis(data) {
 }
 
 export async function viewSCellAnalysis(data) {
-  const url = `${analysisUrl}/scell/${data}`;
+  const url = `${analysisUrl}/viewer/scell?id=${data}`;
   return await client.post(url);
 }
 
-export async function stopSCellAnalysis(data) {
-  const url = `${analysisUrl}/scell/${data}`;
-  return await client.delete(url);
+export async function updateSCellAnalysis(data) {
+  const url = `${analysisUrl}/viewer/scell?id=${data}`;
+  return await client.put(url, data);
 }
 
-export async function loadAnalyses(data) {
-  const url = `${analysisTasksUrl}`;
-  return await client.post(url, data);
+export async function stopSCellAnalysis(data) {
+  const url = `${analysisUrl}/viewer/scell?id=${data}`;
+  return await client.delete(url);
 }
 
 
 export default {
+  loadAnalyses,
   getAnalysisStatus,
   getAnalysisMeta,
   getAnalysisData,
@@ -66,6 +72,6 @@ export default {
   runSCellAnalysis,
   runKMeierAnalysis,
   viewSCellAnalysis,
-  stopSCellAnalysis,
-  loadAnalyses
+  updateSCellAnalysis,
+  stopSCellAnalysis
 };

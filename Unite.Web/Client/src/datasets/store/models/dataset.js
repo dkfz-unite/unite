@@ -6,6 +6,7 @@ export default class Dataset {
   domain = null;
   date = new Date();
   criteria = null;
+  data = null;
   selected = false;
   order = 0;
 

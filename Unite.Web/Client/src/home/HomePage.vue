@@ -74,8 +74,34 @@ export default {
     }
   },
 
+  mounted() {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        this.changeState(false);
+      } else if (document.visibilityState === "visible") {
+        this.changeState(true);
+      }
+    });
+
+    window.addEventListener("blur", () => {
+      this.changeState(false);
+    });
+
+    window.addEventListener("focus", () => {
+      if (document.visibilityState === "visible") {
+        this.changeState(true);
+      }
+    });
+  },
+
   methods: {
     ...mapActions("datasets", ["loadAll"]),
+
+    changeState(value) {
+      if (this.$store.state.visible != value) {
+        this.$store.state.visible = value;
+      }
+    }
   }
 }
 </script>
