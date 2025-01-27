@@ -53,19 +53,7 @@ const mixin = {
   },
 
   mounted() {
-    if (this.state?.domain) {
-      const payload = { owner: this.account, domain: this.state.domain };
-      this.$store.dispatch(`${this.state.domain}/loadDatasets`, payload);
-    }
-
     this.loadData();
-  },
-
-  unmounted() {
-    if (this.state?.domain) {
-      const payload = { owner: this.account, domain: this.state.domain };
-      this.$store.dispatch(`${this.state.domain}/saveDatasets`, payload);
-    }
   },
 
   methods: {

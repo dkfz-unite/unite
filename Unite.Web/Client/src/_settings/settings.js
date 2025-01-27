@@ -1,7 +1,6 @@
 import HomeSettings from "@/home/settings";
 import ProjectSettings from "@/domain/project/settings";
 import ProjectsSettings from "@/domain/projects/settings";
-import SubmissionsSettings from "@/domain/submissions/settings";
 import DonorSettings from "@/domain/donor/settings";
 import DonorsSettings from "@/domain/donors/settings";
 import MriSettings from "@/domain/images/mri/settings";
@@ -22,6 +21,7 @@ import CnvSettings from "@/domain/genome/variants/cnv/settings";
 import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 import SvSettings from "@/domain/genome/variants/sv/settings";
 import SvsSettings from "@/domain/genome/variants/svs/settings";
+import SubmissionsSettings from "@/domain/submissions/settings";
 import AnalysisSettings from "@/analysis/settings";
 import DatasetsSettings from "@/datasets/settings";
 
@@ -29,7 +29,6 @@ export default class Settings {
   static home = HomeSettings;
   static project = ProjectSettings;
   static projects = ProjectsSettings;
-  static submissions = SubmissionsSettings;
   static donor = DonorSettings;
   static donors = DonorsSettings;
   static mri = MriSettings;
@@ -50,6 +49,7 @@ export default class Settings {
   static cnvs = CnvsSettings;
   static sv = SvSettings;
   static svs = SvsSettings;
+  static submissions = SubmissionsSettings;
   static analysis = AnalysisSettings;
   static datasets = DatasetsSettings;
 

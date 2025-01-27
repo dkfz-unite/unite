@@ -1,10 +1,10 @@
 <template>
-  <u-plotly 
-    id="deseq2"
-    :data="traces" 
-    :layout="layout" 
-    :config="config" 
-    @click="onClick" 
+  <u-plotly
+    :id="id"
+    :data="traces"
+    :layout="layout"
+    :config="config"
+    @click="onClick"
   />
 </template>
 
@@ -19,6 +19,10 @@ export default {
   },
 
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     title: {
       type: String,
       required: true
@@ -30,41 +34,59 @@ export default {
 
   data() {
     return {
+      meta: null,
       traces: null,
       layout: null,
       config: null
     }
   },
 
+  async mounted() {    
+    await this.init();
+  },
+
   watch: {
-    async data(value) {
-      if (!value) return;
-      var tsv = await value.text();
-      const data = this.parseData(tsv);
-      this.traces = this.getTraces(data);
-      this.layout = this.getLayout(data);
-      this.config = { responsive: true };
+    async data(value) {      
+      await this.init();
     }
   },
 
-  async mounted() {
-    if (!this.data) return;
-    var tsv = await this.data.text();
-    const data = this.parseData(tsv);
-    this.traces = this.getTraces(data);
-    this.layout = this.getLayout(data);
-    this.config = { responsive: true };
-  },
-
   methods: {
-    onClick(event) {
-      const point = event.points[0];
-      this.$router.push({
-        name: "gene",
-        params: {
-          id: point.customdata.id
-        }
-      });
+    async init() {
+      this.meta = await this.getMeta(this.data);
+      this.traces = this.getTraces(this.meta);
+      this.layout = this.getLayout(this.meta);
+      this.config = { responsive: true };
+    },
+
+    async getMeta(blob) {
+      const tsv = await blob.text();
+      const lines = tsv.split("\n");
+      const rows = [];
+      for (let i = 1; i < lines.length; i++) {
+        const blocks = lines[i].split("\t");
+        rows.push( {
+          internalId: blocks[0],
+          externalId: blocks[1],
+          symbol: blocks[2],
+          log2: +blocks[3],
+          padj: +blocks[4]
+        });
+      }
+
+      const all = rows;
+      const significant = rows.filter(row => row.padj <= 0.05);
+      const insignificant = rows.filter(row => row.padj > 0.05);
+      const upregulated = significant.filter(row => row.log2 > 0);
+      const downregulated = significant.filter(row => row.log2 < 0);
+
+      return {
+        all,
+        significant,
+        insignificant,
+        upregulated,
+        downregulated
+      }
     },
 
     getTraces(data) {
@@ -156,35 +178,6 @@ export default {
       };
     },
 
-    parseData(data) {
-      const lines = data.split("\n");
-      const rows = [];
-      for (let i = 1; i < lines.length; i++) {
-        const blocks = lines[i].split("\t");
-        rows.push( {
-          internalId: blocks[0],
-          externalId: blocks[1],
-          symbol: blocks[2],
-          log2: +blocks[3],
-          padj: +blocks[4]
-        });
-      }
-
-      const all = rows;
-      const significant = rows.filter(row => row.padj <= 0.05);
-      const insignificant = rows.filter(row => row.padj > 0.05);
-      const upregulated = significant.filter(row => row.log2 > 0);
-      const downregulated = significant.filter(row => row.log2 < 0);
-
-      return {
-        all,
-        significant,
-        insignificant,
-        upregulated,
-        downregulated
-      }
-    },
-
     getTooltipData(items, title) {
       return items.map(row => 
         `Gene: ${row.symbol}<br>` +
@@ -199,7 +192,17 @@ export default {
         bordercolor: color,
         font: { color: colors.getPaletteColor("black") }
       };
-    }
+    },
+
+    onClick(event) {
+      // const point = event.points[0];
+      // this.$router.push({
+      //   name: "gene",
+      //   params: {
+      //     id: point.customdata.id
+      //   }
+      // });
+    },
   }
 }
 </script>

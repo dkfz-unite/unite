@@ -264,12 +264,15 @@ export default {
         description: this.description.value,
         status: null,
         date: new Date(),
-        datasets: datasets,
-        options: options
+        data: 
+        {
+          datasets: datasets,
+          options: options
+        }
       };
 
-      await this.$store.dispatch("analysis/runSCellAnalysis", data);
-      await this.$router.push({ name: "analysis" });
+      const id = await this.$store.dispatch("analysis/runSCellAnalysis", data);
+      await this.$router.push({ name: "analysis", params: { id: id } });
     },
 
     async onReset() {

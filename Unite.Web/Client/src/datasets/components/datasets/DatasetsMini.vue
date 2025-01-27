@@ -11,9 +11,9 @@
     <div class="row">
       <div class="col-auto">
         <q-tabs v-model="tab" indicator-color="transparent" active-color="primary" align="left" dense vertical>
-          <q-tab v-for="domain in domains" :name="domain.name" :icon="getDomainIcon(domain.name)">
-            <q-badge :color="getDomainBadgeColor(domain.name)" rounded>
-              {{ domain.datasets?.length }}
+          <q-tab v-for="domainItem in domainItems" :name="domainItem.name" :icon="domainItem.icon" @click="onTabClick(domainItem)">
+            <q-badge :color="getDomainBadgeColor(domainItem.name)" rounded>
+              {{ domainItem.size }}
             </q-badge>
           </q-tab>
         </q-tabs>

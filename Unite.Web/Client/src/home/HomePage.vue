@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import ULogo from "./components/header/Logo.vue";
 import UNavigation from "./components/header/navigation/Navigation.vue";
 import UMenuButton from "./components/header/menu/MenuButton.vue";
@@ -62,6 +62,44 @@ export default {
         return this.account == null;
       } else {
         return true;
+      }
+    }
+  },
+
+  watch: {
+    account(value) {
+      if (value) {
+        this.loadAll();
+      }
+    }
+  },
+
+  mounted() {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        this.changeState(false);
+      } else if (document.visibilityState === "visible") {
+        this.changeState(true);
+      }
+    });
+
+    window.addEventListener("blur", () => {
+      this.changeState(false);
+    });
+
+    window.addEventListener("focus", () => {
+      if (document.visibilityState === "visible") {
+        this.changeState(true);
+      }
+    });
+  },
+
+  methods: {
+    ...mapActions("datasets", ["loadAll"]),
+
+    changeState(value) {
+      if (this.$store.state.visible != value) {
+        this.$store.state.visible = value;
       }
     }
   }

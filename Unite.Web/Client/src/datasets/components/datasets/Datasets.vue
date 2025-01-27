@@ -17,9 +17,9 @@
     <div class="row">
       <div class="col-auto">
         <q-tabs v-model="tab" indicator-color="parimary" active-color="primary" align="left" dense vertical>
-          <q-tab v-for="domain in domains" :name="domain.name" :icon="getDomainIcon(domain.name)">
-            <q-badge :color="getDomainBadgeColor(domain.name)" rounded>
-              {{ domain.datasets?.length }}
+          <q-tab v-for="domainItem in domainItems" :name="domainItem.name" :icon="domainItem.icon" @click="onTabClick(domainItem)">
+            <q-badge :color="getDomainBadgeColor(domainItem.name)" rounded>
+              {{ domainItem.size }}
             </q-badge>
           </q-tab>
         </q-tabs>
@@ -29,21 +29,21 @@
 
       <div class="col">
         <q-tab-panels v-model="tab" class="q-pl-sm">
-          <q-tab-panel v-for="domain in domains" :name="domain.name" class="q-pa-none">
+          <q-tab-panel v-for="domainItem in domainItems" :name="domainItem.name" class="q-pa-none">
             <div class="col">
               <q-list>
-                <template v-for="dataset in domain.datasets">
-                  <q-item :active="dataset.name == item" @click="item = dataset.name" class="q-px-sm q-py-xs" clickable>
+                <template v-for="datasetItem in datasetItems">
+                  <q-item :active="datasetItem.id == item" @click="onItemClick(datasetItem)" class="q-px-sm q-py-xs" clickable>
                     <q-item-section>
                       <q-item-label lines="1">
-                        {{ dataset.name }}
+                        {{ datasetItem.name }}
                       </q-item-label>
                       <q-item-label lines="1" caption>
-                        {{ $helpers.content.toDateTimeString(dataset.date) }}
+                        {{ $helpers.content.toDateTimeString(datasetItem.date) }}
                       </q-item-label>
                     </q-item-section>
                     <q-item-section side>
-                      <q-checkbox v-model="dataset.selected" @click="onSelect(dataset)" dense />
+                      <q-checkbox v-model="datasetItem.selected" @click="onItemSelect(datasetItem)" dense />
                     </q-item-section>
                   </q-item>
                 </template>
@@ -69,17 +69,6 @@ export default {
 
   mixins: [mixin],
 
-  emits: ["hide"],
-
-  methods: {
-    onSelect(dataset) {
-      this.item = dataset.name;
-      
-      if (dataset.selected) {
-        const orders = this.domains.flatMap(domain => domain.datasets).map(dataset => dataset.order || 0);
-        dataset.order = Math.max(...orders) + 1;
-      }
-    }
-  }
+  emits: ["hide"]
 }
 </script>

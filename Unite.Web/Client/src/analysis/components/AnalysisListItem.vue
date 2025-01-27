@@ -1,6 +1,6 @@
 <template>
   <q-item-section>
-    <q-item-label lines="1">{{ analysis.name || analysis.key }}</q-item-label>
+    <q-item-label lines="1">{{ analysis.name || analysis.id }}</q-item-label>
     <q-item-label lines="1" caption class="text-weight-medium">{{ getAnalysisType(analysis.type) }}</q-item-label>
     <q-item-label lines="1" caption>{{ $helpers.content.toDateTimeString(analysis.date) }}</q-item-label>
   </q-item-section>

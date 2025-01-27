@@ -1,25 +1,21 @@
-import api, { pingSCellAnalysis } from "../api";
+import api from "../api";
 
 const PROCESSED_STATUS = "Processed";
 const FAILED_STATUS = "Failed";
 
 const actions = {
-  loadAnalyses({state, getters}) {
-    const json = localStorage.getItem(getters.namespace);
-    const entries = json ? JSON.parse(json) : [];
-    const analyses = new Map(entries);
-    state.analyses = analyses;
-  },
+  async loadAnalyses({state}) {
+    const payload = {
+      userId: this.getters["identity/account"].email
+    };
 
-  saveAnalyses({state, getters}) {
-    if (state.analyses?.size) {
-      state.analyses.forEach((analysis) => delete analysis.results);
-      const entries = Array.from(state.analyses.entries());
-      const json = JSON.stringify(entries);
-      localStorage.setItem(getters.namespace, json);
-    } else {
-      localStorage.removeItem(getters.namespace);
-    }
+    const entries = await api.loadAnalyses(payload);
+    const analyses = entries.map(entry => {
+      entry.data = JSON.parse(entry.data);
+      return [entry.id, entry];
+    });
+
+    state.analyses = new Map(analyses);
   },
 
   async startUpdatingStatus({state, dispatch}) {
@@ -33,7 +29,7 @@ const actions = {
   
       if (waitAnalyses.length) {
         waitAnalyses.forEach((analysis) => { 
-          dispatch("loadAnalysisStatus", { key: analysis.key });
+          dispatch("loadAnalysisStatus", { id: analysis.id });
         });
       } else {
         dispatch("stopUpdatingStatus");;
@@ -47,65 +43,56 @@ const actions = {
   },
 
   async loadAnalysisStatus({state, dispatch}, data) {
-    const status = await api.getAnalysisStatus(data.key);
-    state.analyses.get(data.key).status = status;
-    // dispatch("saveAnalyses");
+    const status = await api.getAnalysisStatus(data.id);
+    state.analyses.get(data.id).status = status;
   },
 
   async loadAnalysisMeta({state}, data) {
-    if (state.analyses.get(data.key).results) return;
+    if (state.analyses.get(data.id).results) return;
 
-    const results = await api.getAnalysisMeta(data.key);
-    state.analyses.get(data.key).results = results;
+    const blob = await api.getAnalysisMeta(data.id);
+    return blob;
   },
 
   async loadAnalysisData({state}, data) {
-    const blob = await api.getAnalysisData(data.key);
+    const blob = await api.getAnalysisData(data.id);
     return blob;
   },
 
   async deleteAnalysis({state, dispatch}, data) {
-    const analysis = state.analyses.get(data.key);
+    const analysis = state.analyses.get(data.id);
     const waitStatuses = [PROCESSED_STATUS, FAILED_STATUS];
     if (!waitStatuses.includes(analysis.status)) return;
 
-    await api.deleteAnalysis(data.key);
-    state.analyses.delete(data.key);
-    dispatch("saveAnalyses");
+    await api.deleteAnalysis(data.id);
+    dispatch("loadAnalyses");
   },
 
   async runDESeq2Analysis({state, dispatch}, data) {
-    data.key = await api.runDESeq2Analysis(data);
-    state.analyses.set(data.key, data);
-    dispatch("saveAnalyses");
+    data.userId = this.getters["identity/account"].email;
+    return await api.runDESeq2Analysis(data);
   },
 
   async runSCellAnalysis({state, dispatch}, data) {
-    data.key = await api.runSCellAnalysis(data);
-    state.analyses.set(data.key, data);
-    dispatch("saveAnalyses");
+    data.userid = this.getters["identity/account"].email;
+    return await api.runSCellAnalysis(data);
   },
 
   async runKMeierAnalysis({state, dispatch}, data) {
-    data.key = await api.runKMeierAnalysis(data);
-    state.analyses.set(data.key, data);
-    dispatch("saveAnalyses");
-  },
-
-  async pingSCellAnalysis({state}, data) {
-    return await api.pingSCellAnalysis(data.key);
+    data.userid = this.getters["identity/account"].email;
+    return await api.runKMeierAnalysis(data);
   },
 
   async viewSCellAnalysis({state}, data) {
-    if (state.analyses.get(data.key).results) return;
+    return await api.viewSCellAnalysis(data.id);
+  },
 
-    const results = await api.viewSCellAnalysis(data.key);
-    state.analyses.get(data.key).results = results;
+  async updateSCellAnalysis({state}, data) {
+    return await api.updateSCellAnalysis(data.id);
   },
 
   async stopSCellAnalysis({state}, data) {
-    await api.stopSCellAnalysis(data.key);
-    state.analyses.get(data.key).results = null;
+    await api.stopSCellAnalysis(data.id);
   },
 };
 

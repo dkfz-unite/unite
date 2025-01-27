@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Unite.Web.Configuration;
 using Unite.Web.Middleware;
 
@@ -23,6 +24,7 @@ var donorsFeedSourceUrl = "/api/donors-feed";
 var imagesFeedSourceUrl = "/api/images-feed";
 var specimensFeedSourceUrl = "/api/specimens-feed";
 var genomeFeedSourceUrl = "/api/genome-feed";
+var viewerCxgSourceUrl = @"^\/viewer\/cxg(\d+)";
 
 var identityTargetUrl = $"{EnvironmentConfig.IdentityHost}/api";
 var composerTargetUrl = $"{EnvironmentConfig.ComposerHost}/api";
@@ -31,6 +33,7 @@ var donorsFeedTargetUrl = $"{EnvironmentConfig.DonorsFeedHost}/api";
 var imagesFeedTargetUrl = $"{EnvironmentConfig.ImagesFeedHost}/api";
 var specimensFeedTargetUrl = $"{EnvironmentConfig.SpecimensFeedHost}/api";
 var genomeFeedTargetUrl = $"{EnvironmentConfig.GenomeFeedHost}/api";
+var viewerCxgTargetUrl = $"{EnvironmentConfig.ViewerCxgHost}";
 
 app.UseProxy(options =>
 {
@@ -61,6 +64,16 @@ app.UseProxy(options =>
     options.Map(
         (path, query) => path.StartsWith(genomeFeedSourceUrl),
         (path, query) => $"{path.Replace(genomeFeedSourceUrl, genomeFeedTargetUrl)}{query}"
+    );
+    options.Map(
+        (path, query) => Regex.Match(path, viewerCxgSourceUrl).Success,
+        (path, query) =>
+        {            
+            var match = Regex.Match(path, viewerCxgSourceUrl);
+            var number = match.Groups[1].Value;
+            var host = viewerCxgTargetUrl.Replace("{n}", $"{number:00}");
+            return $"{host}{path}{query}";
+        }
     );
 });
 

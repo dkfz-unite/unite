@@ -12,6 +12,7 @@ import createSsmStore from "@/domain/genome/variants/ssm/store";
 import createCnvStore from "@/domain/genome/variants/cnv/store";
 import createSvStore from "@/domain/genome/variants/sv/store";
 import OncogridStore from "@/visualization/oncogrid/store";
+import DatasetStore from "@/datasets/store";
 import AnalysisStore from "@/analysis/store";
 import Settings from "@/_settings/settings";
 
@@ -41,10 +42,12 @@ const store = createStore({
     [Settings.sv.domain]: createSvStore(),
     [Settings.svs.domain]: createModelsStore(Settings.svs.domain),
     oncogrid: new OncogridStore(),
+    datasets: new DatasetStore(),
     analysis: new AnalysisStore()
   },
 
   state: {
+    visible: true
   }
 });
 

@@ -1,15 +1,7 @@
 <template>
   <template v-if="!loading">
-    <!-- Banner -->
-    <!-- <q-banner v-if="banner" class="bg-orange text-white q-mb-xs" inline-actions dense>
-      Please, close this tab if you're not actively using it.
-      <template v-slot:action>
-        <q-btn icon="close" flat dense @click="banner = false" />
-      </template>
-    </q-banner> -->
-
     <!-- Content -->
-    <iframe v-if="meta" :src="meta" class="fit" style="border: 0px;"></iframe>
+    <iframe v-if="url" :src="url" class="fit" style="border: 0px;"></iframe>
 
     <!-- Message -->
     <div v-else class="fit text-center">
@@ -23,12 +15,15 @@
 </template>
 
 <script>
-const timeout = 10 * 60 * 1000;
+import Pinger from "./pinger";
+const idleTimeout = 10 * 1000;
+const pingTimeout = 1000;
+const pingTries = 20;
 
 export default {
   props: {
-    analysis: {
-      type: Object,
+    id: {
+      type: String,
       required: true
     },
     title: {
@@ -43,68 +38,81 @@ export default {
 
   data() {
     return {
-      banner: true,
       loading: false,
+      pinger: new Pinger(),
       token: null,
-      meta: ""
+      url: null
+    }
+  },
+
+  computed: {
+    visible() {
+      return this.$store.state.visible;
+    }
+  },
+
+  watch: {
+    async visible(value) {
+      if (value) {
+        this.startUpdating();
+      } else {
+        this.stopUpdating();
+      }
+    },
+
+    async data(value) {
+      await this.init();
     }
   },
 
   async mounted() {
-    await this.load(this.data);
-
-    window.addEventListener("visibilitychange", async (event) => {
-      if (document.visibilityState != "visible") {
-        this.token = setTimeout(async () => await this.unload(), timeout);
-      } else {
-        clearTimeout(this.token);
-      }
-    });
-
-    window.addEventListener("beforeunload", async (event) => {
-      await this.unload();
-    });
+    await this.init();
   },
 
   async unmounted() {
-    this.unload();
+    await this.stopUpdating();
   },
 
   methods: {
-    async load(text) {
-      const localhost = window.location.host.includes("localhost:8080");
-      const parts = text.split("|");
-      const url = localhost ? parts[1] : parts[0];;
-      
-      let tries = 0;
-      let token = null;
+    async init() {
+      await this.start();
+    },
 
+    async start() {
+      this.url = null;
       this.loading = true;
-      
-      token = setInterval(async () => {
-        if (tries < 20) {
-          const payload = { key: this.analysis.key };
-          const ready = await this.$store.dispatch("analysis/pingSCellAnalysis", payload);
-          if (ready) {
-            clearInterval(token);
-            this.loading = false;
-            this.meta = url;
-          }
-        } else {
-          clearInterval(token);
-          this.loading = false;
-          this.meta = null;
+      const number = await this.$store.dispatch("analysis/viewSCellAnalysis", { id: this.id });
+      const url = `/viewer/cxg${number}/`;
+
+      this.pinger.ping(url, pingTries, pingTimeout, (success) => {
+        this.loading = false;
+        if (success) {
+          this.url = url;
+          this.startUpdating();
         }
-
-        tries++;
-      }, 1000);
+      });
     },
 
-    async unload() {
-      const payload = { key: this.analysis.key };
-      await this.$store.dispatch("analysis/stopSCellAnalysis", payload);
-      this.analysis.results = null;
+    async update() {
+      const payload = { id: this.id };
+      return await this.$store.dispatch("analysis/updateSCellAnalysis", payload);
     },
+
+    async startUpdating() {
+      this.stopUpdating();
+
+      const success = await this.update();
+
+      if (success) {        
+        this.token = setInterval(async () => await this.update(), idleTimeout);
+      } else {
+        this.url = null;
+      }
+    },
+
+    async stopUpdating() {
+      if (this.token) clearInterval(this.token);
+    }
   }
 }
 </script>

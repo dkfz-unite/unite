@@ -1,5 +1,5 @@
-export default class AnalysisStore {
-  key = null;
+export default class Analysis {
+  id = null;
   name = null;
   description = null;
   type = null;
@@ -8,8 +8,8 @@ export default class AnalysisStore {
   parameters = null;
   data = null;
 
-  constructor(key = null) {
-    this.key = key;
+  constructor(id = null) {
+    this.id = id;
     this.date = new Date();
   }
 }

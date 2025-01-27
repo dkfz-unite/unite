@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <u-plotly
-        id="kmeier"
+        :id="id"
         :data="traces" 
         :layout="layout" 
         :config="config" 
@@ -28,6 +28,10 @@ export default {
   },
 
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     title: {
       type: String,
       required: true
@@ -47,13 +51,29 @@ export default {
     }
   },
 
-  async mounted() {
-    await this.getContent(this.data);
-    this.layout = this.getLayout(this.meta);
-    this.traces = this.getTraces(this.meta);
+  async mounted() {    
+    await this.init();
   },
 
+  watch: {
+    async data(value) {      
+      await this.init();
+    }
+  },
+
+
   methods: {
+    async init() {
+      this.meta = await this.getMeta(this.data);
+      this.traces = this.getTraces(this.meta);
+      this.layout = this.getLayout(this.meta);
+    },
+
+    async getMeta(blob) {
+      const json = await blob.text();
+      return JSON.parse(json);
+    },
+
     getTraces(data) {
       const tracks = [];
 
@@ -127,11 +147,6 @@ export default {
           minallowed: 0
         }
       };
-    },
-
-    async getContent(blob) {
-      const json = await blob.text();
-      this.meta = JSON.parse(json);
     }
   }
 }
