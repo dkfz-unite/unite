@@ -50,6 +50,22 @@
             </div>
           </div> -->
 
+          <!-- Custom annotations -->
+          <!-- <div class="row">
+            <div class="col">
+              <q-file
+                v-model="options.annotations.value"
+                label="Custom annotations (*.tsv, 25 MB max, optional)"
+                accept=".tsv"
+                clearable
+                dense square outlined>
+                <template v-slot:prepend>
+                  <q-icon name="attach_file" />
+                </template>
+              </q-file>
+            </div>
+          </div> -->
+
           <!-- Sparse -->
           <div class="row">
             <div class="col q-pa-sm u-check-box">
@@ -77,6 +93,26 @@
               />
             </div>
           </div>
+
+          <!-- Filters -->
+           <div v-if="options.pp.value == 'default'" class="row">
+            <div class="col q-mr-xs">
+              <q-input
+                v-model="options.genes.value"
+                label="Min. expressed genes"
+                type="number" :min="options.genes.min"
+                dense square outlined
+              />
+            </div>
+            <div class="col q-ml-xs">
+              <q-input
+                v-model="options.cells.value"
+                label="Min. expressed cells"
+                type="number" :min="options.cells.min"
+                dense square outlined
+              />
+            </div>
+           </div>
 
           <!-- PCA -->
           <div class="row">
@@ -186,6 +222,9 @@ export default {
         value: null
       },
       options: {
+        // annotations: {
+        //   value: null
+        // },
         qc: {
           value: false
         },
@@ -199,6 +238,14 @@ export default {
             { label: "Seurat", value: "seurat" },
             { label: "Zheng17", value: "zheng17" }
           ]
+        },
+        genes: {
+          value: 5,
+          min: 5
+        },
+        cells: {
+          value: 25,
+          min: 25
         },
         pca: {
           value: true
@@ -252,6 +299,8 @@ export default {
         qc: this.options.qc.value,
         sparse: this.options.sparse.value,
         pp: this.options.pp.value,
+        genes: this.options.genes.value,
+        cells: this.options.cells.value,
         pca: this.options.pca.value,
         neighbors: this.options.neighbors.value,
         clustering: this.options.clustering.value,
@@ -279,6 +328,8 @@ export default {
       this.options.qc.value = false;
       this.options.sparse.value = true;
       this.options.pp.value = "default";
+      this.options.genes.value = 5;
+      this.options.cells.value = 25;
       this.options.pca.value = true;
       this.options.neighbors.value = true;
       this.options.clustering.value = "louvain";
@@ -291,6 +342,8 @@ export default {
       this.options.qc.value = false;
       this.options.sparse.value = true;
       this.options.pp.value = "default";
+      this.options.genes.value = 5;
+      this.options.cells.value = 25;
       this.options.pca.value = true;
       this.options.neighbors.value = true;
       this.options.clustering.value = "louvain";
