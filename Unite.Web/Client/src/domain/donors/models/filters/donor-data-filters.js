@@ -25,13 +25,13 @@ const filters = [
         nullable: true
       },
       {
-        field: "hasGeneExp",
+        field: "hasExp",
         label: "RNA",
         type: FilterType.Boolean,
         nullable: true
       },
       {
-        field: "hasGeneExpSc",
+        field: "hasExpSc",
         label: "scRNA",
         type: FilterType.Boolean,
         nullable: true

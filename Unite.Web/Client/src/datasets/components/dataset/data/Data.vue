@@ -38,9 +38,9 @@
         <u-data-item title="CNV" :show="!!data.cnvs" />
         <u-data-item title="SV" :show="!!data.svs" />
       </u-data-group>
-      <u-data-group title="Transcriptomics" :show="!!data.geneExp || !!data.geneExpSc">
-        <u-data-item title="Bulk" :show="!!data.geneExp" />
-        <u-data-item title="Single cell" :show="!!data.geneExpSc" />
+      <u-data-group title="Transcriptomics" :show="!!data.exp || !!data.expSc">
+        <u-data-item title="Bulk" :show="!!data.exp" />
+        <u-data-item title="Single cell" :show="!!data.expSc" />
       </u-data-group>
     </div>
   </div>

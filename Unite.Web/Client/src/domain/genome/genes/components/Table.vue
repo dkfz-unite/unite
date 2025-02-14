@@ -183,28 +183,28 @@ export default {
         columns.push({
           name: "numberOfDonors",
           label: "#Donors",
-          field: (row) => row.numberOfDonors,
+          field: (row) => row.stats?.donors,
           sortable: false
         });
 
         columns.push({
           name: "numberOfSsms",
           label: "#SSMs",
-          field: (row) => row.numberOfSsms,
+          field: (row) => row.stats?.ssms,
           sortable: false
         });
 
         columns.push({
           name: "numberOfCnvs",
           label: "#CNVs",
-          field: (row) => row.numberOfCnvs,
+          field: (row) => row.stats?.cnvs,
           sortable: false
         });
 
         columns.push({
           name: "numberOfSvs",
           label: "#SVs",
-          field: (row) => row.numberOfSvs,
+          field: (row) => row.stats?.svs,
           sortable: false
         });
       }

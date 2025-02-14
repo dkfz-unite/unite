@@ -225,7 +225,7 @@ export default {
     },
 
     showGenes() {
-      return this.donor?.numberOfGenes || this.donor?.data?.geneExp;
+      return this.donor?.stats?.genes || this.donor?.data?.exp;
     },
 
     showVariants() {

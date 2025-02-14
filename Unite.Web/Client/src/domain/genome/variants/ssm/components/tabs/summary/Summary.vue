@@ -28,20 +28,20 @@
             <tr>
               <td class="u-text-key">Reference Base</td>
               <!-- <td>{{ variant.ssm.ref }}</td> -->
-              <td><u-dna-sequence :value="variant.ssm.ref"></u-dna-sequence></td>
+              <td><u-dna-sequence :value="variant.ref"></u-dna-sequence></td>
             </tr>
             <tr>
               <td class="u-text-key">Alternate Base</td>
               <!-- <td>{{ variant.ssm.alt }}</td> -->
-              <td><u-dna-sequence :value="variant.ssm.alt"></u-dna-sequence></td>
+              <td><u-dna-sequence :value="variant.alt"></u-dna-sequence></td>
             </tr>
-            <tr v-if="(variant.ssm.length > 1)">
+            <tr v-if="(variant.length > 1)">
               <td class="u-text-key">Length</td>
-              <td>{{ variant.ssm.length.toLocaleString() }}</td>
+              <td>{{ variant.length.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
-              <td>{{ variant.ssm.type }}</td>
+              <td>{{ variant.type }}</td>
             </tr>
           </tbody>
         </q-markup-table>
