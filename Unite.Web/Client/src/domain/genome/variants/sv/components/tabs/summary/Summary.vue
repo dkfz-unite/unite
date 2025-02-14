@@ -15,43 +15,43 @@
           <tbody>
             <tr>
               <td class="u-text-key">1st Breakpoint - Chromosome</td>
-              <td>{{ variant.sv.chromosome }}</td>
+              <td>{{ variant.chromosome }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - Start</td>
-              <td>{{ variant.sv.start.toLocaleString() }}</td>
+              <td>{{ variant.start.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - End</td>
-              <td>{{ variant.sv.end.toLocaleString() }}</td>
+              <td>{{ variant.end.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">1st Breakpoint - Flanking Sequences</td>
-              <td>{{ variant.sv.flankingSequenceFrom }}</td>
+              <td>{{ variant.flankingSequenceFrom }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Chromosome</td>
-              <td>{{ variant.sv.otherChromosome }}</td>
+              <td>{{ variant.otherChromosome }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Start</td>
-              <td>{{ variant.sv.otherStart.toLocaleString() }}</td>
+              <td>{{ variant.otherStart.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - End</td>
-              <td>{{ variant.sv.otherEnd.toLocaleString() }}</td>
+              <td>{{ variant.otherEnd.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">2nd Breakpoint - Flanking Sequences</td>
-              <td>{{ variant.sv.flankingSequenceTo }}</td>
+              <td>{{ variant.flankingSequenceTo }}</td>
             </tr>
-            <tr v-if="!!variant.sv.length">
+            <tr v-if="!!variant.length">
               <td class="u-text-key">Length</td>
-              <td>{{ variant.sv.length?.toLocaleString() }}</td>
+              <td>{{ variant.length?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Type</td>
-              <td>{{ variant.sv.type }}</td>
+              <td>{{ variant.type }}</td>
             </tr>
           </tbody>
         </q-markup-table>

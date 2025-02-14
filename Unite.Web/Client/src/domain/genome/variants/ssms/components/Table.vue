@@ -81,7 +81,7 @@ export default {
       columns.push({
         name: "location",
         label: "Location",
-        field: (row) => this.getLocationView(row.ssm),
+        field: (row) => this.getLocationView(row),
         sortable: false,
         align: "left"
       });
@@ -89,7 +89,7 @@ export default {
       columns.push({
         name: "change",
         label: "DNA change",
-        field: (row) => row.ssm,
+        field: (row) => row,
         sortable: false,
         align: "left"
       });
@@ -97,7 +97,7 @@ export default {
       columns.push({
         name: "length",
         label: "Length",
-        field: (row) => row.ssm.length,
+        field: (row) => row.length,
         sortable: false,
         align: "left",
         show: false
@@ -106,7 +106,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.ssm.type,
+        field: (row) => row.type,
         sortable: false,
         align: "left"
       });
@@ -123,7 +123,7 @@ export default {
         columns.push({
           name: "numberOfDonors",
           label: "#Donors",
-          field: (row) => row.numberOfDonors,
+          field: (row) => row.stats?.donors,
           sortable: false
         });
       }

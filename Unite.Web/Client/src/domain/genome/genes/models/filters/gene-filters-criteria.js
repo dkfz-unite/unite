@@ -9,7 +9,7 @@ export default class GeneFiltersCriteria {
     hasSsms = null;
     hasCnvs = null;
     hasSvs = null;
-    hasGeneExp = null;
+    hasExp = null;
 
     get numberOfFilters() {
         let number = 0;
@@ -23,7 +23,7 @@ export default class GeneFiltersCriteria {
         number += this.hasSsms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
-        number += this.hasGeneExp != null ? 1 : 0;
+        number += this.hasExp != null ? 1 : 0;
 
         return number;
     }
@@ -37,7 +37,7 @@ export default class GeneFiltersCriteria {
         this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
-        this.hasGeneExp = criteria?.hasGeneExp != null ? criteria.hasGeneExp : null;
+        this.hasExp = criteria?.hasExp != null ? criteria.hasExp : null;
     }
 
     sanitise(){
@@ -56,7 +56,7 @@ export default class GeneFiltersCriteria {
         this.hasSsms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
-        this.hasGeneExp = null;
+        this.hasExp = null;
     };
 
     clone() {

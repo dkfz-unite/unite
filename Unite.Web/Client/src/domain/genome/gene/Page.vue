@@ -126,15 +126,15 @@ export default {
     },
 
     showSsms() {
-      return this.gene?.numberOfSsms;
+      return this.gene?.stats?.ssms;
     },
 
     showCnvs() {
-      return this.gene?.numberOfCnvs;
+      return this.gene?.stats?.cnvs;
     },
 
     showSvs() {
-      return this.gene?.numberOfSvs;
+      return this.gene?.stats?.svs;
     }
   },
 

@@ -81,6 +81,10 @@ export default {
   },
 
   methods: {
+    getField(criteria, field) {
+      return criteria[field];
+    },
+
     showFilter(filter) {
       if (filter.show != null) {
         return filter.show(this.filtersCriteria[filter.field], this.filtersCriteria, this.filtersContext);
