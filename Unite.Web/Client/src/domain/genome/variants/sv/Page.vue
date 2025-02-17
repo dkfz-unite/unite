@@ -68,6 +68,7 @@ import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UEffectsTab from "../_shared/variant/components/tabs/EffectsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
+import VariantType from "../_shared/variants/models/enums/variant-type";
 import Settings from "@/_settings/settings";
 import api from "../_shared/variant/api";
 
@@ -97,7 +98,7 @@ export default {
   async mounted() {
     try {
       this.loading = true;
-      this.variant = await api.get(this.$route.params.id);
+      this.variant = await api.get(this.$route.params.id, VariantType.SV);
     } catch (error) {
       this.variant = null;
     } finally {

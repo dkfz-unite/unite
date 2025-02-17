@@ -153,7 +153,7 @@ export default {
     },
 
     showGenes() {
-      return this.image?.numberOfGenes || this.image?.data?.geneExp;
+      return this.image?.stats?.genes || this.image?.data?.exp;
     },
 
     showVariants() {

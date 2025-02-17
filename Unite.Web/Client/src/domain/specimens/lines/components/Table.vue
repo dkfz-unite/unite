@@ -57,6 +57,10 @@ export default {
 
   mixins: [tableMixin, tableCellsDataMixin, tableCellsSpecimenMixin],
 
+  mounted() {
+    console.log(this.rows);
+  },    
+
   computed: {
     scope() {
       return "lines";
@@ -210,20 +214,20 @@ export default {
         columns.push({
           name: "hasGeneExp",
           label: "RNA",
-          field: (row) => this.dataView(row.data.geneExp),
+          field: (row) => this.dataView(row.data.exp),
           sortable: false,
           align: "center",
-          classes: (row) => this.dataCellClass(row.data.geneExp),
+          classes: (row) => this.dataCellClass(row.data.exp),
           headerClasses: this.dataHeaderClass()
         });
 
         columns.push({
           name: "hasGeneExpSc",
           label: "scRNA",
-          field: (row) => this.dataView(row.data.geneExpSc),
+          field: (row) => this.dataView(row.data.expSc),
           sortable: false,
           align: "center",
-          classes: (row) => this.dataCellClass(row.data.geneExpSc),
+          classes: (row) => this.dataCellClass(row.data.expSc),
           headerClasses: this.dataHeaderClass()
         });
       }
@@ -231,28 +235,28 @@ export default {
       columns.push({
         name: "numberOfGenes",
         label: "#Genes",
-        field: (row) => row.numberOfGenes?.toLocaleString(),
+        field: (row) => row.stats?.genes?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfSsms",
         label: "#SSMs",
-        field: (row) => row.numberOfSsms?.toLocaleString(),
+        field: (row) => row.stats?.ssms?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfCnvs",
         label: "#CNVs",
-        field: (row) => row.numberOfCnvs?.toLocaleString(),
+        field: (row) => row.stats?.cnvs?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfSVs",
         label: "#SVs",
-        field: (row) => row.numberOfSvs?.toLocaleString(),
+        field: (row) => row.stats?.svs?.toLocaleString(),
         sortable: false
       });
 

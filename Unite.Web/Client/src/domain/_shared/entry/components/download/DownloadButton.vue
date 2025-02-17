@@ -22,6 +22,7 @@
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
 
 import { exportFile } from "quasar";
+import VariantType from "@/domain/genome/variants/_shared/variants/models/enums/variant-type";
 import Settings from "@/_settings/settings";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/image/api";
@@ -80,6 +81,8 @@ export default {
     },
 
     async fetchData(model, id) {
+      console.log(model, id);
+      
       switch (this.domain) {
         case Settings.donors.domain: return await donorApi.downloadData(id, model);
         case Settings.mris.domain: return await imageApi.downloadData(id, model);
@@ -89,9 +92,9 @@ export default {
         case Settings.organoids.domain: return await specimenApi.downloadData(id, model);
         case Settings.xenografts.domain: return await specimenApi.downloadData(id, model);
         case Settings.genes.domain: return await geneApi.downloadData(id, model);
-        case Settings.ssms.domain: return await variantApi.downloadData(id, model);
-        case Settings.cnvs.domain: return await variantApi.downloadData(id, model);
-        case Settings.svs.domain: return await variantApi.downloadData(id, model);
+        case Settings.ssms.domain: return await variantApi.downloadData(id, VariantType.SSM, model);
+        case Settings.cnvs.domain: return await variantApi.downloadData(id, VariantType.CNV, model);
+        case Settings.svs.domain: return await variantApi.downloadData(id, VariantType.SV, model);
         default: return null;
       }
     }
