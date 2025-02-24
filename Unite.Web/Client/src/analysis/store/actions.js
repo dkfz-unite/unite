@@ -83,6 +83,10 @@ const actions = {
     return await api.runKMeierAnalysis(data);
   },
 
+  async getSCellAnalysisModels({state}) {
+    return await api.getSCellAnalysisModels();
+  },
+
   async viewSCellAnalysis({state}, data) {
     return await api.viewSCellAnalysis(data.id);
   },
