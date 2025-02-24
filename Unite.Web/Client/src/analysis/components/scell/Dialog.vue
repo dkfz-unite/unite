@@ -41,28 +41,66 @@
 
       <q-card-section>
         <div class="col q-gutter-sm">
-          <div class="row text-subtitle1">Options</div>
+          <div class="row text-subtitle1">Annotations</div>
 
-          <!-- QC -->
-          <!-- <div class="row">
-            <div class="col q-pa-sm u-check-box">
-              <q-checkbox v-model="options.qc.value" class="row" dense>Calculate quality control metrix</q-checkbox>
-            </div>
-          </div> -->
-
-          <!-- Custom annotations -->
+          <!-- Custom cell annotations -->
           <!-- <div class="row">
             <div class="col">
               <q-file
-                v-model="options.annotations.value"
-                label="Custom annotations (*.tsv, 25 MB max, optional)"
+                v-model="annotations.value"
+                label="Cell level annotations (Optional; TSV; 25 MB max)"
                 accept=".tsv"
+                max-file-size="25000000"
                 clearable
                 dense square outlined>
                 <template v-slot:prepend>
                   <q-icon name="attach_file" />
                 </template>
               </q-file>
+            </div>
+          </div> -->
+
+          <!-- Cell type predictions model -->
+          <div class="row">
+            <div class="col">
+              <q-select
+                v-model="options.model.value"
+                label="Cell type predictions model (Optional)"
+                class="row"
+                dense options-dense square outlined clearable
+                map-options emit-value
+                :options="options.model.options"
+                :loading="options.model.loading">
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps">
+                    <q-item-section class="q-py-xs">
+                      <q-item-label class="text-weight-medium">{{ scope.opt.label }}</q-item-label>
+                      <q-item-label class="text-wrap" style="max-width: 300px;" caption>{{ scope.opt.details }}</q-item-label>
+                      <q-item-label caption>
+                        <span>
+                          <span>
+                            <span class="text-weight-bold">{{ scope.opt.types }} types</span>
+                          </span>
+                          <span class="text-weight-bold q-ml-lg">{{ scope.opt.date }}</span>
+                        </span>
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+
+      <q-card-section>
+        <div class="col q-gutter-sm">
+          <div class="row text-subtitle1">Options</div>
+
+          <!-- QC -->
+          <!-- <div class="row">
+            <div class="col q-pa-sm u-check-box">
+              <q-checkbox v-model="options.qc.value" class="row" dense>Calculate quality control metrix</q-checkbox>
             </div>
           </div> -->
 
@@ -221,12 +259,20 @@ export default {
       description: {
         value: null
       },
+      annotations: {
+        value: null
+      },
       options: {
-        // annotations: {
-        //   value: null
-        // },
         qc: {
           value: false
+        },
+        annotate: {
+          value: false
+        },
+        model: {
+          value: null, //"Immune_All_Low.pkl",
+          options: [],
+          loading: false
         },
         sparse: {
           value: true
@@ -281,6 +327,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.loadModels();
+  },
+
   methods: {
     show() {
       this.dialog = true;
@@ -295,7 +345,10 @@ export default {
         criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
       }));
 
+      const annotations = await this.annotations.value?.text();
+
       const options = {
+        model: this.options.model.value,
         qc: this.options.qc.value,
         sparse: this.options.sparse.value,
         pp: this.options.pp.value,
@@ -316,6 +369,7 @@ export default {
         data: 
         {
           datasets: datasets,
+          annotations: annotations,
           options: options
         }
       };
@@ -325,6 +379,8 @@ export default {
     },
 
     async onReset() {
+      this.annotations.value = null;
+      this.options.model.value = null;
       this.options.qc.value = false;
       this.options.sparse.value = true;
       this.options.pp.value = "default";
@@ -339,6 +395,8 @@ export default {
     async onClose() {
       this.name.value = null;
       this.description.value = null;
+      this.annotations.value = null;
+      this.options.model.value = null;
       this.options.qc.value = false;
       this.options.sparse.value = true;
       this.options.pp.value = "default";
@@ -355,6 +413,30 @@ export default {
       if (!value?.length) {
         this.options.embedding.value = ["umap"];
       }
+    },
+
+    async loadModels() {
+      try {
+        this.options.model.loading = true;
+        const response = await this.$store.dispatch("analysis/getSCellAnalysisModels");
+        this.options.model.options = response?.models.map(model => ({
+          value: model.filename,
+          label: this.getModelName(model.filename),
+          details: this.getModelDetails(model.details),
+          types: model.No_celltypes,
+          date: (new Date(model.date)).toLocaleDateString()
+        }));
+      } finally {
+        this.options.model.loading = false;
+      }
+    },
+
+    getModelName(value) {
+      return value.replaceAll("_", " ").replace(".pkl", "");
+    },
+
+    getModelDetails(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
     }
   }
 }
