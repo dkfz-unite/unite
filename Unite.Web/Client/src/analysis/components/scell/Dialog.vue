@@ -44,7 +44,7 @@
           <div class="row text-subtitle1">Annotations</div>
 
           <!-- Custom cell annotations -->
-          <!-- <div class="row">
+          <div class="row items-center">
             <div class="col">
               <q-file
                 v-model="annotations.value"
@@ -58,10 +58,19 @@
                 </template>
               </q-file>
             </div>
-          </div> -->
+            <div class="col-auto">
+              <q-icon class="q-ml-xs cursor-pointer" name="las la-question-circle" size="sm">
+                <q-tooltip class="bg-white text-black text-body2" style="border: 1px solid black;">
+                  <div>A <b>TSV</b> file of maximum <b>25MB</b> size.</div>
+                  <div>First column is cell <b>barcode</b> <u>without</u> <u>suffixes</u> or <u>prefixes</u>.</div>
+                  <div>All other columns are considered cell level annotations.</div>
+                </q-tooltip>
+              </q-icon>
+            </div>
+          </div>
 
           <!-- Cell type predictions model -->
-          <div class="row">
+          <div class="row items-center">
             <div class="col">
               <q-select
                 v-model="options.model.value"
@@ -88,6 +97,13 @@
                   </q-item>
                 </template>
               </q-select>
+            </div>
+            <div class="col-auto">
+              <q-icon class="q-ml-xs cursor-pointer" name="las la-question-circle" size="sm">
+                <q-tooltip class="bg-white text-black text-body2" style="border: 1px solid black;">
+                  <div>A model for automated cell type annotations using <b>CellTypist</b>.</div>
+                </q-tooltip>
+              </q-icon>
             </div>
           </div>
         </div>
