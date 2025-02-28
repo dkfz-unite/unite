@@ -55,11 +55,7 @@ export default {
     UDataTable
   },
 
-  mixins: [tableMixin, tableCellsDataMixin, tableCellsSpecimenMixin],
-
-  mounted() {
-    console.log(this.rows);
-  },    
+  mixins: [tableMixin, tableCellsDataMixin, tableCellsSpecimenMixin],   
 
   computed: {
     scope() {
@@ -78,8 +74,17 @@ export default {
       });
 
       columns.push({
+        name: "referenceId",
+        label: "External ID",
+        field: (row) => row.referenceId,
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
+      columns.push({
         name: "donorId",
-        label: "Donor Id",
+        label: "Donor ID",
         field: (row) => row.donorId,
         sortable: false,
         align: "left"

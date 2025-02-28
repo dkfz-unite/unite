@@ -77,6 +77,15 @@ export default {
       });
 
       columns.push({
+        name: "referenceId",
+        label: "External ID",
+        field: (row) => row.referenceId,
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
+      columns.push({
         name: "gender",
         label: "Sex",
         field: (row) => row.clinicalData?.gender,
