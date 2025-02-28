@@ -67,8 +67,8 @@ export default {
 
       columns.push({
         name: "referenceId",
-        label: "Reference ID",
-        field: (row) => row.mri?.referenceId,
+        label: "External ID",
+        field: (row) => row.referenceId,
         sortable: false,
         align: "left",
         show: false

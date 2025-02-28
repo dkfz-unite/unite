@@ -75,8 +75,17 @@ export default {
       });
 
       columns.push({
+        name: "referenceId",
+        label: "External ID",
+        field: (row) => row.referenceId,
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
+      columns.push({
         name: "donorId",
-        label: "Donor Id",
+        label: "Donor ID",
         field: (row) => row.donorId,
         sortable: false,
         align: "left"
@@ -103,9 +112,36 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.material?.tumorType ?? row.material?.type,
+        // field: (row) => row.material?.tumorType ?? row.material?.type,
+        field: (row) => row.material?.type,
         sortable: false,
         align: "left"
+      });
+
+      columns.push({
+        name: "tumorType",
+        label: "Tumor Type",
+        field: (row) => row.material?.tumorType,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "tumorGrade",
+        label: "Tumor Grade",
+        field: (row) => row.material?.tumorGrade,
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
+      columns.push({
+        name: "fixationType",
+        label: "Fixation Type",
+        field: (row) => row.material?.fixationType,
+        sortable: false,
+        align: "left",
+        show: false
       });
 
       columns.push({
