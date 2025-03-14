@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Donors</td>
-              <td>{{ project.data?.total }}</td>
+              <td>{{ project.stats.donors.number }}</td>
             </tr>
           </tbody>
         </q-markup-table>

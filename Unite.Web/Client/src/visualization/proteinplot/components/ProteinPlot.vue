@@ -148,7 +148,7 @@ export default {
     getVariantsScale() {
       return {
         title: "Mutations",
-        type: "linear",
+        type: this.maxX <= 5 ? "linear" : "auto",
         anchor: "x1",
         range: [1, this.maxX],
         showline: true,
@@ -161,7 +161,7 @@ export default {
     getFrequenciesScale() {
       return {
         title: "#Affected Donors",
-        type: "linear",
+        type: this.maxY <= 5 ? "linear": "auto",
         anchor: "y1",
         range: [0, this.maxY],
         domain: [0.2, 1],
