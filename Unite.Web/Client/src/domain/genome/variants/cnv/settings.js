@@ -5,6 +5,12 @@ export class Tabs {
     crumb: "Summary",
     icon: "las la-info-circle"
   };
+  static similars = {
+    domain: "similars",
+    title: "Similars",
+    crumb: "Similars",
+    icon: "las la-dna"
+  };
   static effects = {
     domain: "effects",
     title: "Effects",

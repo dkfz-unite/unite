@@ -117,6 +117,13 @@ export default {
         align: "left"
       });
 
+      // columns.push({
+      //   name: "numberOfDonors",
+      //   label: "#Similar",
+      //   field: (row) => row.stats?.donors?.toLocaleString(),
+      //   sortable: false
+      // });
+
       columns.push({
         name: "numberOfGenes",
         label: "#Genes",

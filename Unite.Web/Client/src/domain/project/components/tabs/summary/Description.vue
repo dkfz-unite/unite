@@ -57,7 +57,7 @@
 <script>
 // import Permissions from "@/_models/admin/enums/permissions";
 import { mapGetters } from "vuex";
-import api from "../api";
+import api from "../../../api";
 
 export default {
   props: {
@@ -95,14 +95,31 @@ export default {
     }
   },
 
+  mounted() {
+    this.getData();
+  },
+
   methods: {
+    async getData() {
+      try {
+        this.loading = true;
+        const description = await api.getDescription(this.project.id);
+        if (description != null) {
+          this.project.description = description;
+        }
+      } finally {
+        this.loading = false;
+        this.model.description = this.project.description;
+      }
+    },
+
     async saveChanges() {
       try {
         this.loading = true;
-        const payload = { id: this.project.id, description: this.model.description };
-        const project = await api.update(payload);
-        if (project != null) {
-          this.project.description = project.description;
+        const payload = { description: this.model.description };
+        const description = await api.setDescription(this.project.id, payload);
+        if (description != null) {
+          this.project.description = description;
         }
       } finally {
         this.loading = false;

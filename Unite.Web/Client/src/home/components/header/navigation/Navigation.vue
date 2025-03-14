@@ -8,6 +8,12 @@
     outside-arrows>
     
     <q-route-tab
+      :label="Settings.projects.title"
+      :icon="Settings.projects.icon"
+      :to="{ name: Settings.projects.domain }"
+    />
+
+    <q-route-tab
       :label="Settings.donors.title"
       :icon="Settings.donors.icon"
       :to="{ name: Settings.donors.domain }"

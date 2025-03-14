@@ -19,17 +19,6 @@
       </q-item-section>
     </q-item>
 
-    <!-- Repository -->
-    <q-item clickable v-close-popup :to="{ name: 'projects' }">
-      <q-item-section avatar>
-        <q-icon name="las la-database" />
-      </q-item-section>
-      <q-item-section>
-        Repository
-      </q-item-section>
-    </q-item>
-    <q-separator />
-
     <!-- Admin -->
     <q-item v-if="isAdmin" clickable v-close-popup :to="{ name: 'admin' }">
       <q-item-section avatar>
