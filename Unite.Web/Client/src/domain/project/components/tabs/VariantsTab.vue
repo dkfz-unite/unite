@@ -5,7 +5,7 @@
     </div>
 
     <!-- SSM -->
-    <div class="row">
+    <div v-if="showSsm" class="row">
        <div class="col">
         <div class="row">
           <span class="text-h6 u-text-title">Simple Somatic Mutations (SSM)</span>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- CNV -->
-    <div class="row">
+    <div v-if="showCnv" class="row">
        <div class="col">
         <div class="row">
           <span class="text-h6 u-text-title">Copy Number Variants (CNV)</span>
@@ -53,7 +53,7 @@
     </div>
 
     <!-- SV -->
-    <div class="row">
+    <div v-if="showSv" class="row">
        <div class="col">
         <div class="row">
           <span class="text-h6 u-text-title">Structural Variants (SV)</span>
@@ -87,43 +87,63 @@ export default {
     }
   },
 
+  computed: {
+    showSsm() {
+      return this.project.stats.dna.ssm.total > 0;
+    },
+
+    showCnv() {
+      return this.project.stats.dna.cnv.total > 0;
+    },
+
+    showSv() {
+      return this.project.stats.dna.sv.total > 0;
+    }
+  },
+
   mounted() {
-    const getType = (value) => enumHelpers.getLabel(value, EffectType.values);    
-    
-    const ssmPerAnalysis = this.getSeries(this.project.stats.dna.ssm.perAnalysis);
-    const ssmPerAnalysisMode = Math.max(...ssmPerAnalysis[0].y) <= 5 ? "linear" : "auto";
-    const ssmPerType = this.getSeries(this.project.stats.dna.ssm.perType);
-    const ssmPerBaseRef = this.getSeries(this.project.stats.dna.ssm.perBaseRef);
-    const ssmPerBaseAlt = this.getSeries(this.project.stats.dna.ssm.perBaseAlt);
-    const ssmPerImpact = this.getSeries(this.project.stats.dna.ssm.perEffectImpact);
-    const ssmPerEffect = this.getSeriesH(this.project.stats.dna.ssm.perEffectType, getType);
-
-    const cnvPerAnalysis = this.getSeries(this.project.stats.dna.cnv.perAnalysis);
-    const cnvPerAnalysisMode = Math.max(...cnvPerAnalysis[0].y) <= 5 ? "linear" : "auto";
-    const cnvPerType = this.getSeries(this.project.stats.dna.cnv.perType);
-
-    const svPerAnalysis = this.getSeries(this.project.stats.dna.sv.perAnalysis);
-    const svPerAnalysisMode = Math.max(...svPerAnalysis[0].y) <= 5 ? "linear" : "auto";
-    const svPerType = this.getSeries(this.project.stats.dna.sv.perType);      
-    
     const config = {
       displayModeBar: false,
       displaylogo: false,
       responsive: true,
-    };
+    };    
+    
+    if (this.showSsm) {
+      const getType = (value) => enumHelpers.getLabel(value, EffectType.values);
 
-    Plotly.newPlot("ssm-per-analysis", ssmPerAnalysis, this.getLayout("Analysis Type", null, null, ssmPerAnalysisMode), config);
-    Plotly.newPlot("ssm-per-type", ssmPerType, this.getLayout("Variant Type", null, null, "auto"), config);
-    Plotly.newPlot("ssm-per-base-ref", ssmPerBaseRef, this.getLayout("Change From", null, null, "auto"), config);
-    Plotly.newPlot("ssm-per-base-alt", ssmPerBaseAlt, this.getLayout("Change To", null, null, "auto"), config);
-    Plotly.newPlot("ssm-per-impact", ssmPerImpact, this.getLayout("Effect Impact", null, null, "auto"), config);
-    Plotly.newPlot("ssm-per-effect", ssmPerEffect, this.getLayoutH("Effect Type", null, null, "auto", { t: 50, r: 50, b: 55, l:230 }), config);
-    
-    Plotly.newPlot("cnv-per-analysis", cnvPerAnalysis, this.getLayout("Analysis Type", null, null, cnvPerAnalysisMode), config);
-    Plotly.newPlot("cnv-per-type", cnvPerType, this.getLayout("Variant Type", null, null, "auto"), config);
-    
-    Plotly.newPlot("sv-per-analysis", svPerAnalysis, this.getLayout("Analysis Type", null, null, svPerAnalysisMode), config);
-    Plotly.newPlot("sv-per-type", svPerType, this.getLayout("Variant Type", null, null, "auto"), config);
+      const ssmPerAnalysis = this.getSeries(this.project.stats.dna.ssm.perAnalysis);
+      const ssmPerAnalysisMode = Math.max(...ssmPerAnalysis[0].y) <= 5 ? "linear" : "auto";
+      const ssmPerType = this.getSeries(this.project.stats.dna.ssm.perType);
+      const ssmPerBaseRef = this.getSeries(this.project.stats.dna.ssm.perBaseRef);
+      const ssmPerBaseAlt = this.getSeries(this.project.stats.dna.ssm.perBaseAlt);
+      const ssmPerImpact = this.getSeries(this.project.stats.dna.ssm.perEffectImpact);
+      const ssmPerEffect = this.getSeriesH(this.project.stats.dna.ssm.perEffectType, getType);
+
+      Plotly.newPlot("ssm-per-analysis", ssmPerAnalysis, this.getLayout("Analysis Type", null, null, ssmPerAnalysisMode), config);
+      Plotly.newPlot("ssm-per-type", ssmPerType, this.getLayout("Variant Type", null, null, "auto"), config);
+      Plotly.newPlot("ssm-per-base-ref", ssmPerBaseRef, this.getLayout("Change From", null, null, "auto"), config);
+      Plotly.newPlot("ssm-per-base-alt", ssmPerBaseAlt, this.getLayout("Change To", null, null, "auto"), config);
+      Plotly.newPlot("ssm-per-impact", ssmPerImpact, this.getLayout("Effect Impact", null, null, "auto"), config);
+      Plotly.newPlot("ssm-per-effect", ssmPerEffect, this.getLayoutH("Effect Type", null, null, "auto", { t: 50, r: 50, b: 55, l:230 }), config);
+    }
+
+    if (this.showCnv) {
+      const cnvPerAnalysis = this.getSeries(this.project.stats.dna.cnv.perAnalysis);
+      const cnvPerAnalysisMode = Math.max(...cnvPerAnalysis[0].y) <= 5 ? "linear" : "auto";
+      const cnvPerType = this.getSeries(this.project.stats.dna.cnv.perType);
+
+      Plotly.newPlot("cnv-per-analysis", cnvPerAnalysis, this.getLayout("Analysis Type", null, null, cnvPerAnalysisMode), config);
+      Plotly.newPlot("cnv-per-type", cnvPerType, this.getLayout("Variant Type", null, null, "auto"), config);
+    }
+
+    if (this.showSv) {
+      const svPerAnalysis = this.getSeries(this.project.stats.dna.sv.perAnalysis);
+      const svPerAnalysisMode = Math.max(...svPerAnalysis[0].y) <= 5 ? "linear" : "auto";
+      const svPerType = this.getSeries(this.project.stats.dna.sv.perType);      
+
+      Plotly.newPlot("sv-per-analysis", svPerAnalysis, this.getLayout("Analysis Type", null, null, svPerAnalysisMode), config);
+      Plotly.newPlot("sv-per-type", svPerType, this.getLayout("Variant Type", null, null, "auto"), config);
+    }
   },
 
   methods: {

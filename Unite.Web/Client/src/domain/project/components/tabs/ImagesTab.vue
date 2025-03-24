@@ -33,15 +33,15 @@ export default {
     }
   },
 
-  mounted() { 
-    const mriPerSize = this.getSeries(this.project.stats.images.mri.perSize);
-    const mriPerSizeMode = Math.max(...mriPerSize[0].y) <= 5 ? "linear" : "auto";
-    
+  mounted() {
     const config = {
       displayModeBar: false,
       displaylogo: false,
       responsive: true,
     };
+    
+    const mriPerSize = this.getSeries(this.project.stats.images.mri.perSize);
+    const mriPerSizeMode = Math.max(...mriPerSize[0].y) <= 5 ? "linear" : "auto";
 
     Plotly.newPlot("mri-per-size", mriPerSize, this.getLayout("Whole Tumor Size", null, null, mriPerSizeMode), config);
   },

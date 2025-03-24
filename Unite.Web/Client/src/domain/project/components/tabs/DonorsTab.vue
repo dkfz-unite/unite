@@ -43,7 +43,13 @@ export default {
     }
   },
 
-  mounted() {    
+  mounted() {
+    const config = {
+      displayModeBar: false,
+      displaylogo: false,
+      responsive: true,
+    };
+    
     const donPerAge = this.getSeries(this.project.stats.donors.perAge);
     const donPerAgeMode = Math.max(...donPerAge[0].y) <= 5 ? "linear" : "auto";
     const donPerGender = this.getSeries(this.project.stats.donors.perGender);
@@ -52,12 +58,6 @@ export default {
     const donPerVitalMode = Math.max(...donPerVital[0].y) <= 5 ? "linear" : "auto";
     const donPerProg = this.getSeries(this.project.stats.donors.perProgressionStatus);
     const donPerProgMode = Math.max(...donPerProg[0].y) <= 5 ? "linear" : "auto";
-    
-    const config = {
-      displayModeBar: false,
-      displaylogo: false,
-      responsive: true,
-    };
 
     Plotly.newPlot("don-per-age", donPerAge, this.getLayout("Age", null, null, donPerAgeMode), config);
     Plotly.newPlot("don-per-gender", donPerGender, this.getLayout("Sex", null, null, donPerGenderMode), config);

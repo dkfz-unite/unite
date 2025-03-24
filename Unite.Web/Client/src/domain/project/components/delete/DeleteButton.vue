@@ -22,6 +22,7 @@
     icon="las la-trash"
     color="red"
     dense flat no-caps
+    :disable="!canDelete"
     @click="$refs.dialog.show()">
   </q-btn>
 </template>
@@ -42,6 +43,13 @@ export default {
     reference: {
       type: String,
       required: true
+    }
+  },
+
+  computed:
+  {
+    canDelete() {
+      return this.reference !== "Other";
     }
   },
 
