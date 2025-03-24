@@ -1,7 +1,7 @@
 <template>
   <q-table
     :title="title"
-    :class="class" separator="cell" dense flat bordered selection="multiple" row-key="id"
+    :class="class" separator="cell" dense flat bordered :selection="selection" row-key="id"
     :visible-columns="visible"
     :columns="columns"
     :rows="data" 
@@ -87,6 +87,11 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+
+    selection: {
+      type: String,
+      default: "multiple"
     },
 
     class: {

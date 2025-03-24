@@ -4,6 +4,7 @@ import leftDrawerModule from "./modules/drawers/left";
 import rightDrawerModule from "./modules/drawers/right";
 import identityModule from "@/identity/store";
 import createModelsStore from "@/domain/_shared/entries/store";
+import createProjectStore from "@/domain/project/store";
 import createDonorStore from "@/domain/donor/store";
 import createImageStore from "@/domain/images/_shared/image/store";
 import createSpecimenStore from "@/domain/specimens/_shared/specimen/store";
@@ -21,6 +22,8 @@ const store = createStore({
     leftDrawer: leftDrawerModule,
     rightDrawer: rightDrawerModule,
     identity: identityModule,
+    [Settings.project.domain]: createProjectStore(),
+    [Settings.projects.domain]: createModelsStore(Settings.projects.domain),
     [Settings.donor.domain]: createDonorStore(),
     [Settings.donors.domain]: createModelsStore(Settings.donors.domain),
     [Settings.mri.domain]: createImageStore(),

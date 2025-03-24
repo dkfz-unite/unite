@@ -1,179 +1,197 @@
 <template>
-  <q-table
-    title="Projects"
-    row-key="id"
-    separator="cell"
-    class="sticky-header"
-    :loading="loading"
-    :rows="rows"
-    :columns="columns"
-    :pagination="{ rowsPerPage: 15 }"
-    wrap-cells dense>
+  <div class="col">
+    <u-data-table
+      :class="class"
+      :title="title"
+      :loading="loading"
+      :scope="scope"
+      :columns="columns"
+      :rows="rows"
+      :rows-total="rowsTotal"
+      v-model:rows-selected="dataSelected"
+      v-model:from="dataFrom"
+      v-model:size="dataSize"
+      selection="none">
+      <template v-slot:header-left>
+        <slot name="header-left">
+        </slot>
+      </template>
 
-    <template v-slot:header="props">
-      <!-- Header groups row -->
-      <q-tr :props="props">
-        <!-- No group -->
-        <q-th colspan="2"></q-th>
-        <!-- Donors -->
-        <q-th colspan="12" title="Number of donors with specified data">#Donors</q-th>
-      </q-tr>
+      <template v-slot:header-right>
+        <slot name="header-right">
+        </slot>
+      </template>
 
-      <!-- Headers row -->
-      <q-tr :props="props">
-        <q-th v-for="col in props.cols" :key="col.name" :props="props">
-          {{ col.label }}
-        </q-th>
-      </q-tr>
-    </template>
+      <template v-slot:header="props">
+        <!-- Header groups row -->
+        <q-tr :props="props">
+          <!-- No group -->
+          <q-th colspan="3"></q-th>
+          <!-- Donors -->
+          <q-th colspan="30" title="Number of donors with specified data">#Donors / Total</q-th>
+        </q-tr>
 
-    <template v-slot:body-cell-name="props">
-      <q-td :props="props">
-        <template v-if="props.value.id">
-          <u-link-project :id="props.value.id">
-            {{ props.value.name }}
-          </u-link-project>
-        </template>
-        <template v-else>
-          {{ props.value.name }}
-        </template>
-      </q-td>
-    </template>
+        <!-- Headers row -->
+        <q-tr :props="props">
+          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+            {{ col.label }}
+          </q-th>
+        </q-tr>
+      </template>
 
-  </q-table>
+      <template v-slot:body-cell-name="props">
+        <q-td :props="props">
+          <u-link-project :id="props.value.id">{{ props.value.name }}</u-link-project>
+        </q-td>
+      </template>
+    </u-data-table>
+  </div>
 </template>
 
 <script>
-export default {
-  props: {
-    rows: {
-      type: Array,
-      default: () => []
-    },
+import UDataTable from "@/_shared/components/table/DataTable.vue";
+import tableMixin from "@/domain/_shared/entries/components/table-mixin";
+import talbeCellsDataMixin from "@/domain/_shared/entries/components/table-cells-data-mixin";
 
-    loading: {
-      type: Boolean,
-      default: false
-    }
+import Settings from "../settings";
+
+export default {
+  components: {
+    UDataTable
   },
 
-  data() {
-    return {
-      columns: [
-        {
-          name: "name",
-          label: "Name",
-          field: row => row,
-          align: "left",
-          style: "width: 15%;"
-        },
-        // {
-        //   name: "studies",
-        //   label: "Studies",
-        //   field: row => row.studies || "-",
-        //   align: "center",
+  mixins: [tableMixin, talbeCellsDataMixin],
 
-        // }
-        {
-          name: "description",
-          label: "Description",
-          field: row => this.getShortDescription(row.description),
-          align: "left",
-          style: "width: 50%;",
-        },
-        {
-          name: "total",
-          label: "Total",
-          field: row => row.data.total || "-",
-          align: "center",
-          style: "width: 2%;",
-        },
-        // Images
-        {
-          name: "mri",
-          label: "MRI",
-          field: row => row.data.mri || "-",
-          align: "center",
-          style: "width: 2%;",
-        },
-        // {
-        //   name: "ct",
-        //   label: "CT",
-        //   field: row => row.data.ct || "-",
-        //   align: "center",
-        //   style: "width: 2%;",
-        // },
-        // Specimens
-        {
-          name: "materials",
-          label: "Materials",
-          field: row => row.data.materials || "-",
-          align: "center",
-          style: "width: 4%;",
-        },
-        {
-          name: "lines",
-          label: "Cell Lines",
-          field: row => row.data.lines || "-",
-          align: "center",
-          style: "width: 4%;",
-        },
-        {
-          name: "organoids",
-          label: "Organoids",
-          field: row => row.data.organoids || "-",
-          align: "center",
-          style: "width: 4%;",
-        },
-        {
-          name: "xenografts",
-          label: "Xenografts",
-          field: row => row.data.xenografts || "-",
-          align: "center",
-          style: "width: 4%;",
-        },
-        // Sequencing data
-        {
-          name: "ssm",
-          label: "SSM",
-          field: row => row.data.ssm || "-",
-          style: "width: 2%;",
-          align: "center",
-        },
-        {
-          name: "cnv",
-          label: "CNV",
-          field: row => row.data.cnv || "-",
-          style: "width: 2%;",
-          align: "center",
-        },
-        {
-          name: "sv",
-          label: "SV",
-          field: row => row.data.sv || "-",
-          style: "width: 2%;",
-          align: "center",
-        },
-        {
-          name: "tra",
-          label: "Transcriptomics",
-          field: row => row.data.tra || "-",
-          style: "width: 2%;",
-          align: "center",
-        }
-      ]
+  computed: {
+    scope() {
+      return Settings.domain;
+    },
+    columns() {
+      let columns = [];
+
+      columns.push({
+        name: "name",
+        label: "Name",
+        field: (row) => row,
+        sortable: false,
+        required: true,
+        align: "left"
+      });
+
+      // columns.push({
+      //   name: "description",
+      //   label: "Description",
+      //   field: (row) => row.description,
+      //   sortable: false,
+      //   align: "left"
+      // });
+
+      columns.push({
+        name: "total",
+        label: "Total",
+        field: (row) => row.stats.donors.number,
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "mri",
+        label: "MRI",
+        field: (row) => this.getNumbers(row.stats.images.mri.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "material",
+        label: "Material",
+        field: (row) => this.getNumbers(row.stats.specimens.material.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "line",
+        label: "Cell line",
+        field: (row) => this.getNumbers(row.stats.specimens.line.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "organoid",
+        label: "Organoid",
+        field: (row) => this.getNumbers(row.stats.specimens.organoid.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "xenograft",
+        label: "Xenograft",
+        field: (row) => this.getNumbers(row.stats.specimens.xenograft.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "ssm",
+        label: "SSM",
+        field: (row) => this.getNumber(row.stats.dna.ssm.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "cnv",
+        label: "CNV",
+        field: (row) => this.getNumber(row.stats.dna.cnv.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "sv",
+        label: "SV",
+        field: (row) => this.getNumber(row.stats.dna.sv.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "meth",
+        label: "Meth",
+        field: (row) => this.getNumber(row.stats.meth.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "exp",
+        label: "RNA",
+        field: (row) =>  this.getNumber(row.stats.rna.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
+        name: "expSc",
+        label: "scRNA",
+        field: (row) => this.getNumber(row.stats.rnasc.number),
+        sortable: false,
+        align: "right"
+      });
+
+      return columns;
     }
   },
 
   methods: {
-    getShortDescription(description) {
-      var words = description?.split(" ");
-      var firstWords = words?.slice(0, 70);
-      if (words?.length > firstWords?.length) {
-        return firstWords.join(" ") + " ...";
-      } else {
-        return description;
-      }
+    getNumber(value) {
+      return value > 0 ? `${value}` : `-`;
+    },
+    getNumbers(value) {
+      return value[0] > 0 ? `${value[0]}/${value[1]}` : `-`;
     }
   }
 }

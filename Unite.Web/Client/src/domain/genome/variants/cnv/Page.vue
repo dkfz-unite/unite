@@ -30,6 +30,12 @@
                 :label="Tabs.summary.title"
                 :icon="Tabs.summary.icon"
               />
+              <!-- <q-tab
+                :name="Tabs.similars.domain"
+                :label="Tabs.similars.title"
+                :icon="Tabs.similars.icon"
+                :disable="!variant.similars?.length"
+              /> -->
               <q-tab
                 :name="Tabs.effects.domain"
                 :label="Tabs.effects.title"
@@ -47,6 +53,9 @@
               <q-tab-panel :name="Tabs.summary.domain" class="q-py-sm q-px-none">
                 <u-summary-tab :variant="variant" />
               </q-tab-panel>
+              <!-- <q-tab-panel :name="Tabs.similars.domain" class="q-py-sm q-px-none">
+                <u-similars-tab :variant="variant" />
+              </q-tab-panel> -->
               <q-tab-panel :name="Tabs.effects.domain" class="q-py-sm q-px-none">
                 <u-effects-tab :variant="variant" />
               </q-tab-panel>
@@ -65,6 +74,7 @@
 <script>
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
+import USimilarsTab from "./components/tabs/SimilarsTab.vue";
 import UEffectsTab from "../_shared/variant/components/tabs/EffectsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
@@ -76,6 +86,7 @@ export default {
   components:{
     UDownloadButton,
     USummaryTab,
+    USimilarsTab,
     UEffectsTab
   },
 
