@@ -163,6 +163,7 @@ export default {
 
     showImagesTab() {
       return this.project?.stats.images.mri?.number[0] > 0;
+          // || this.project?.stats.images.ct?.number[0] > 0;
     },
 
     showSpecimensTab() {

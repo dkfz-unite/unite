@@ -89,7 +89,7 @@ export default {
       columns.push({
         name: "total",
         label: "Total",
-        field: (row) => row.stats.donors.number,
+        field: (row) => this.getNumber(row.stats.donors.number),
         sortable: false,
         align: "right"
       });

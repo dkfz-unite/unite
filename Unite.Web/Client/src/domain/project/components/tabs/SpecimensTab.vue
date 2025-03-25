@@ -34,14 +34,14 @@ export default {
   },
 
   mounted() {    
-    const spePerType = this.getSeries(this.project.stats.specimens.perType);
-    const spePerTypeMode = Math.max(...spePerType[0].y) <= 5 ? "linear" : "auto";
-    
     const config = {
       displayModeBar: false,
       displaylogo: false,
       responsive: true,
     };
+      
+    const spePerType = this.getSeries(this.project.stats.specimens.perType);
+    const spePerTypeMode = Math.max(...spePerType[0].y) <= 5 ? "linear" : "auto";
 
     Plotly.newPlot("spe-per-type", spePerType, this.getLayout("Type", null, null, spePerTypeMode), config);
   },
