@@ -39,6 +39,7 @@
             <template v-if="indexing">
               <div class="row items-center q-gutter-x-sm">
                 <div class="u-text-key">Total: {{ general.indexing }}</div>
+                <div><q-badge title="Donors index" :color="getColor(indexing.Project)" text-color="black" label="Project">: {{ indexing.Project }}</q-badge></div>
                 <div><q-badge title="Donors index" :color="getColor(indexing.Donor)" text-color="black" label="Donor">: {{ indexing.Donor }}</q-badge></div>
                 <div><q-badge title="Images index" :color="getColor(indexing.Image)" text-color="black" label="Image">: {{ indexing.Image }}</q-badge></div>
                 <div><q-badge title="Specimens index" :color="getColor(indexing.Specimen)" text-color="black" label="Specimen">: {{ indexing.Specimen }}</q-badge></div>
@@ -48,6 +49,18 @@
                 <div><q-badge title="Variants index - Structural Variants (SV)" :color="getColor(indexing.SV)" text-color="black" label="SV">: {{ indexing.SV }}</q-badge></div>
               </div>
             </template>
+          </td>
+        </tr>
+        <tr>
+          <td class="u-text-key">Start indexing</td>
+          <td class="q-gutter-x-sm">
+            <q-btn @click="indexAll" label="All" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexProjects" label="Projects" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexDonors" label="Donors" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexImages" label="Images" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexSpecimens" label="Specimens" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexGenes" label="Genes" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexVariants" label="Variants" class="q-px-sm" dense no-caps />
           </td>
         </tr>
       </tbody>
@@ -93,7 +106,40 @@ export default {
       this.submission = await api.getSubmissionStats();
       this.annotation = await api.getAnnotationStats();
       this.indexing = await api.getIndexingStats();      
+    },
+
+    async indexAll() {
+      await api.indexProjects();
+      await api.indexDonors();
+      await api.indexImages();
+      await api.indexSpecimens();
+      await api.indexGenes();
+      await api.indexVariants();
+    },
+
+    async indexProjects() {
+      await api.indexProjects();
+    },
+
+    async indexDonors() {
+      await api.indexDonors();
+    },
+
+    async indexImages() {
+      await api.indexImages();
+    },
+
+    async indexSpecimens() {
+      await api.indexSpecimens();
+    },
+
+    async indexGenes() {
+      await api.indexGenes();
+    },
+
+    async indexVariants() {
+      await api.indexVariants();
     }
-  },
+  }
 }
 </script>
