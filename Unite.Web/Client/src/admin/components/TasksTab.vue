@@ -52,15 +52,15 @@
           </td>
         </tr>
         <tr>
-          <td class="u-text-key">Start indexing</td>
+          <td class="u-text-key">Reindexing</td>
           <td class="q-gutter-x-sm">
-            <q-btn @click="indexAll" label="All" class="q-px-sm" dense no-caps />
-            <q-btn @click="indexProjects" label="Projects" class="q-px-sm" dense no-caps />
-            <q-btn @click="indexDonors" label="Donors" class="q-px-sm" dense no-caps />
-            <q-btn @click="indexImages" label="Images" class="q-px-sm" dense no-caps />
-            <q-btn @click="indexSpecimens" label="Specimens" class="q-px-sm" dense no-caps />
-            <q-btn @click="indexGenes" label="Genes" class="q-px-sm" dense no-caps />
-            <q-btn @click="indexVariants" label="Variants" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexAll" :loading="loadingAll" label="All" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexProjects" :loading="loading.projects" label="Projects" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexDonors" :loading="loading.donors" label="Donors" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexImages" :loading="loading.images" label="Images" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexSpecimens" :loading="loading.specimens" label="Specimens" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexGenes"  :loading="loading.genes" label="Genes" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexVariants" :loading="loading.variants" label="Variants" class="q-px-sm" dense no-caps />
           </td>
         </tr>
       </tbody>
@@ -80,7 +80,21 @@ export default {
       general: null,
       submission: null,
       annotation: null,
-      indexing: null
+      indexing: null,
+      loading: {
+        projects: false,
+        donors: false,
+        images: false,
+        specimens: false,
+        genes: false,
+        variants: false
+      }
+    }
+  },
+
+  computed: {
+    loadingAll() {
+      return Object.values(this.loading).some(value => value);
     }
   },
 
@@ -118,27 +132,39 @@ export default {
     },
 
     async indexProjects() {
+      this.loading.projects = true;
       await api.indexProjects();
+      this.loading.projects = false;
     },
 
     async indexDonors() {
+      this.loading.donors = true;
       await api.indexDonors();
+      this.loading.donors = false;
     },
 
     async indexImages() {
+      this.loading.images = true;
       await api.indexImages();
+      this.loading.images = false;
     },
 
     async indexSpecimens() {
+      this.loading.specimens = true;
       await api.indexSpecimens();
+      this.loading.specimens = false;
     },
 
     async indexGenes() {
+      this.loading.genes = true;
       await api.indexGenes();
+      this.loading.genes = false;
     },
 
     async indexVariants() {
+      this.loading.variants = true;
       await api.indexVariants();
+      this.loading.variants = false;
     }
   }
 }
