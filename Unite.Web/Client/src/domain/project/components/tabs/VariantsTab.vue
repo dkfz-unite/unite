@@ -89,15 +89,15 @@ export default {
 
   computed: {
     showSsm() {
-      return this.project.stats.dna.ssm.total > 0;
+      return this.project.stats.dna.ssm.number > 0;
     },
 
     showCnv() {
-      return this.project.stats.dna.cnv.total > 0;
+      return this.project.stats.dna.cnv.number > 0;
     },
 
     showSv() {
-      return this.project.stats.dna.sv.total > 0;
+      return this.project.stats.dna.sv.number > 0;
     }
   },
 

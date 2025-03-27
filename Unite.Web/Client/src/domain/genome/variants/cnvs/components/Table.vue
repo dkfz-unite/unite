@@ -101,6 +101,7 @@ export default {
         classes: (row) => !row.c1Mean ? "text-grey" : null,
         sortable: false,
         align: "left",
+        show: false
       });
 
       columns.push({
@@ -109,7 +110,8 @@ export default {
         field: (row) => this.$helpers.content.toDoubleString(row.c2Mean, 2, "N/A"),
         classes: (row) => !row.c2Mean ? "text-grey" : null,
         sortable: false,
-        align: "left"
+        align: "left",
+        show: false
       });
 
       columns.push({
@@ -147,8 +149,7 @@ export default {
         field: (row) => this.getCopyNumber(row.tcn) || "N/A",
         classes: (row) => !this.getCopyNumber(row.tcn) ? "text-grey" : null,
         sortable: false,
-        align: "left",
-        show: false
+        align: "left"
       });
 
       columns.push({
@@ -176,12 +177,12 @@ export default {
         align: "left"
       });
 
-      // columns.push({
-      //   name: "numberOfDonors",
-      //   label: "#Similar",
-      //   field: (row) => row.stats?.donors?.toLocaleString(),
-      //   sortable: false
-      // });
+      columns.push({
+        name: "numberOfDonors",
+        label: "#Similar",
+        field: (row) => ((row.stats?.donors ?? 1) - 1).toLocaleString(),
+        sortable: false
+      });
 
       columns.push({
         name: "numberOfGenes",
