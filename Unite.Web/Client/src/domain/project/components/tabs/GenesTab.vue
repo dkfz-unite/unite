@@ -121,6 +121,7 @@ export default {
         x: Object.keys(data),
         y: Object.values(data).map(v => v[1]),
         base: Object.values(data).map(v => v[1] - v[0]),
+        hovertemplate: '%{base} - %{y}<extra></extra>',
         type: "bar",
         orientation: "v"
       }];
