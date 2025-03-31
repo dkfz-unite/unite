@@ -218,6 +218,16 @@ export default {
         });
 
         columns.push({
+          name: "hasMeth",
+          label: "Meth",
+          field: (row) => this.dataView(row.data.meth),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.meth),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
           name: "hasGeneExp",
           label: "RNA",
           field: (row) => this.dataView(row.data.geneExp),

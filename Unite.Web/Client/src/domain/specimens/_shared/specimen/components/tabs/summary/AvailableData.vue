@@ -51,6 +51,7 @@ export default {
       data.push({ title: "Structural Variants (SV)", available: !!this.specimen.data?.svs });
       data.push({ title: "Bulk Gene Expressions", available: !!this.specimen.data?.geneExp });
       data.push({ title: "Single Cell Gene Expressions", available: !!this.specimen.data?.geneExpSc });
+      data.push({ title: "Methylation", available: !!this.specimen.data?.meth });
 
       return data;
     }

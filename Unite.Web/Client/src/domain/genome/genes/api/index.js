@@ -50,6 +50,8 @@ export default class GenesApi extends ModelsApi {
       url = `${this.feedUrl}/rna/analysis/exp/${id}`;
     else if (type == SubmissionType.RNASC_EXP)
       url = `${this.feedUrl}/rnasc/analysis/exp/${id}`;
+    else if (type == SubmissionType.METH)
+      url = `${this.feedUrl}/dna/analysis/meth/${id}`;
     else
       throw new Error(`Invalid submission type: ${type}`);
 

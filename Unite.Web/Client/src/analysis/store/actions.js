@@ -83,6 +83,11 @@ const actions = {
     return await api.runKMeierAnalysis(data);
   },
 
+  async runMethAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runMethAnalysis(data);
+  },
+
   async viewSCellAnalysis({state}, data) {
     return await api.viewSCellAnalysis(data.id);
   },

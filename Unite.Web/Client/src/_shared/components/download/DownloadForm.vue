@@ -143,7 +143,8 @@ export default {
         svsTranscriptsSlim: false,
         svsTranscriptsFull: false,
         geneExp: false,
-        geneExpSc: false
+        geneExpSc: false,
+        meth: false
       }
     };
   },
@@ -224,6 +225,9 @@ export default {
 
     hasGeneExpScData() {
       return this.data?.geneExpSc === true;
+    },
+    hasMethData() {
+      return this.data?.meth === true;
     },
 
     canSubmit() {
@@ -344,6 +348,7 @@ export default {
       if (this.hasSvsData && !(this.model.svsTranscriptsSlim || this.model.svsTranscriptsFull)) { return false; }
       if (this.hasGeneExpData && !this.model.geneExp) { return false; }
       if (this.hasGeneExpScData && !this.model.geneExpSc) { return false; }
+      if (this.hasMethData && !this.model.meth) { return false; }
       return true;
     },
 
@@ -361,6 +366,7 @@ export default {
       if (this.hasSvsData) { this.model.svs = value; this.model.svsTranscriptsSlim = value; }
       if (this.hasGeneExpData) { this.model.geneExp = value; }
       if (this.hasGeneExpScData) { this.model.geneExpSc = value; }
+      if (this.hasMethData) { this.model.meth = value; }
     },
 
     onSubmit() {
