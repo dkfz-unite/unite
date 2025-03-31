@@ -15,8 +15,11 @@
             <div id="exp-per-analysis" style="height: 300px;"></div>
           </div>
           <div class="col-6">
-            <div id="exp-per-variation" style="height: 300px;"></div>
+            <div id="exp-per-mutation" style="height: 300px;"></div>
           </div>
+          <!-- <div class="col-6">
+            <div id="exp-per-variation" style="height: 300px;"></div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -24,13 +27,16 @@
     <!--Bulk Variants -->
     <div v-if="showRna" class="row">
       <div class="col">
-        <div class="row">
+        <!-- <div class="row">
           <span class="text-h6 u-text-title">Variants</span>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col-6">
-            <div id="exp-per-mutation" style="height: 300px;"></div>
+            <div id="exp-per-variation" style="height: 400px;"></div>
           </div>
+          <!-- <div class="col-6">
+            <div id="exp-per-mutation" style="height: 300px;"></div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -88,12 +94,12 @@ export default {
     if (this.showRna) {
       const expPerAnalysis = this.getSeries(this.project.stats.rna.perAnalysis);
       const expPerAnalysisMode = Math.max(...expPerAnalysis[0].y) <= 5 ? "linear" : "auto";
-      const expPerVariation = this.getSeriesRange(this.project.stats.rna.perVariation);
+      const expPerVariation = this.getSeriesBox(this.project.stats.rna.perVariation);
       const expPerMutation = this.getSeries(this.project.stats.rna.perMutation);
       const expPerMutationMode = Math.max(...expPerMutation[0].y) <= 5 ? "linear" : "auto";
 
       Plotly.newPlot("exp-per-analysis", expPerAnalysis, this.getLayout("Analysis Type", null, null, expPerAnalysisMode), config);
-      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayoutLog("Most Variable Genes (TPM)", null, null), config);
+      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayoutLog("Most Variable Genes (SD/Mean of FPKM)", null, null), config);
       Plotly.newPlot("exp-per-mutation", expPerMutation, this.getLayout("Most Mutated Genes", null, null, expPerMutationMode), config);
     }
 
@@ -127,6 +133,58 @@ export default {
       }];
     },
 
+    getSeriesBox(data) {
+      const entries = Object.entries(data).sort((a, b) => {
+        const aSD = a[1].at(-2);
+        const aCV = a[1].at(-1);
+        const bSD = b[1].at(-2);
+        const bCV = b[1].at(-1);
+
+        if (aCV !== bCV)
+          return bCV - aCV;
+        else
+          return bSD - aSD;
+      });
+      
+      return [{
+        x: entries.map(v => v[0]),
+        lowerfence: entries.map(v => v[1][0]),
+        q1: entries.map(v => v[1][1]),
+        median: entries.map(v => v[1][2]),
+        q3: entries.map(v => v[1][3]),
+        upperfence: entries.map(v => v[1][4]),
+        mean: entries.map(v => v[1][5]),
+        sd: entries.map(v => v[1][6]),
+        type: "box",
+        boxmean: true,
+        boxpoints: false
+      }];
+      return Object.keys(data).map((key, i) => {
+        return {
+          lowerfence: data[key][0],
+          q1: data[key][1],
+          median: data[key][2],
+          q3: data[key][3],
+          upperfence: data[key][4],
+          // x: [key],
+          // y: data[key],
+          type: "box",
+          name: key,
+          // boxmean: true,
+          marker: {
+            // outliercolor: "#FF0000",
+            outlierwidth: 2,
+            size: 4
+          },
+          line: {
+            width: 1
+          },
+          // boxpoints: "Outliers",
+          // boxpoints: false
+        };
+      });
+    },
+
     getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t: 50, r: 50, b:55, l:50 }) {
       return {
         margin: margin,
@@ -144,7 +202,7 @@ export default {
       };
     },
 
-    getLayoutLog(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t: 50, r: 50, b:55, l:50 }) {
+    getLayoutLog(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t: 50, r: 50, b:65, l:50 }) {
       return {
         margin: margin,
         title: title,
@@ -157,7 +215,7 @@ export default {
           title: ytitle,
           showline: true,
           tickmode: tickmode,
-          type: "log"
+          // type: "log"
         }
       };
     }
