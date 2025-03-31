@@ -11,17 +11,20 @@
           <span class="text-h6 u-text-title">Simple Somatic Mutations (SSM)</span>
         </div>
         <div class="row">
-          <div class="col-2">
+          <div class="col-1">
             <div id="ssm-per-analysis" style="height: 300px;"></div>
           </div>
           <div class="col-2">
             <div id="ssm-per-type" style="height: 300px;"></div>
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <div id="ssm-per-base-ref" style="height: 300px;"></div>
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <div id="ssm-per-base-alt" style="height: 300px;"></div>
+          </div>
+          <div class="col-3">
+            <div id="ssm-per-base-change" style="height: 300px;"></div>
           </div>
         </div>
         <div class="row">
@@ -116,6 +119,7 @@ export default {
       const ssmPerType = this.getSeries(this.project.stats.dna.ssm.perType);
       const ssmPerBaseRef = this.getSeries(this.project.stats.dna.ssm.perBaseRef);
       const ssmPerBaseAlt = this.getSeries(this.project.stats.dna.ssm.perBaseAlt);
+      const ssmPerBaseChange = this.getSeries(this.project.stats.dna.ssm.perBaseChange);
       const ssmPerImpact = this.getSeries(this.project.stats.dna.ssm.perEffectImpact);
       const ssmPerEffect = this.getSeriesH(this.project.stats.dna.ssm.perEffectType, getType);
 
@@ -123,6 +127,7 @@ export default {
       Plotly.newPlot("ssm-per-type", ssmPerType, this.getLayout("Variant Type", null, null, "auto"), config);
       Plotly.newPlot("ssm-per-base-ref", ssmPerBaseRef, this.getLayout("Change From", null, null, "auto"), config);
       Plotly.newPlot("ssm-per-base-alt", ssmPerBaseAlt, this.getLayout("Change To", null, null, "auto"), config);
+      Plotly.newPlot("ssm-per-base-change", ssmPerBaseChange, this.getLayout("Change Type", null, null, "auto"), config);
       Plotly.newPlot("ssm-per-impact", ssmPerImpact, this.getLayout("Effect Impact", null, null, "auto"), config);
       Plotly.newPlot("ssm-per-effect", ssmPerEffect, this.getLayoutH("Effect Type", null, null, "auto", { t: 50, r: 50, b: 55, l:230 }), config);
     }
