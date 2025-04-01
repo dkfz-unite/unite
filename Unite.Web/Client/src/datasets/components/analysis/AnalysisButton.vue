@@ -2,7 +2,7 @@
   <u-kmeier-dialog v-if="showKmeierAnalysis" ref="KmeierDialog" :datasets="datasets" />
   <u-deseq2-dialog v-if="showDeseq2Analysis" ref="Deseq2Dialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
-  <u-meth-dialog v-if="showDnaMethAnalysis" ref="MethDialog" :datasets="datasets" />
+  <u-meth-dialog v-if="showMethAnalysis" ref="MethDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
@@ -22,7 +22,7 @@
             <q-item-label>scRNA - Dataset Creation</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="showDnaMethAnalysis" @click="$refs.MethDialog.show()" clickable v-close-popup dense>
+        <q-item v-if="showMethAnalysis" @click="$refs.MethDialog.show()" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Differential Methylation Analysis</q-item-label>
           </q-item-section>
@@ -58,7 +58,7 @@ export default {
       return this.showKmeierAnalysis
           || this.showDeseq2Analysis
           || this.showScellAnalysis
-          || this.showDnaMethAnalysis;
+          || this.showMethAnalysis;
     },
 
     showKmeierAnalysis() {
@@ -77,7 +77,7 @@ export default {
              this.datasets?.every(dataset => dataset.data?.geneExpSc == true);
     },
     
-    showDnaMethAnalysis() {
+    showMethAnalysis() {
       return this.datasets?.length > 1 &&
              this.datasets?.every(dataset => dataset.data?.meth === true);
     }

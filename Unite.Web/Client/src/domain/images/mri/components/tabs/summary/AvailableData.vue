@@ -37,7 +37,7 @@ export default {
         { title: "Simple Somatic Mutations (SSM)", available: !!this.image.data.ssms },
         { title: "Copy Number Variants (CNV)", available: !!this.image.data.cnvs },
         { title: "Structural Variants (SV)", available: !!this.image.data.svs },
-        { title: "Methylation", available: !!this.image.data.meth }
+        { title: "Methylation", available: !!this.image.data.meth },
         { title: "Bulk Gene Expressions", available: !!this.image.data.geneExp },
         { title: "Single Cell Gene Expressions", available: !!this.image.data.geneExpSc },
       ];
