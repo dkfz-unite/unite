@@ -27,6 +27,7 @@ const mixin = {
         case "deseq2": return "RNA Differential Expression";
         case "scell": return "scRNA Dataset Creation";
         case "kmeier": return "Donors Survival Estimation"
+        case "meth": return "Differential Methylation Analysis";
         default: return type;
       }
     }

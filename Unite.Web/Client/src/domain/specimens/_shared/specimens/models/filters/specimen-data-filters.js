@@ -35,6 +35,12 @@ const filters = [
         label: "scRNA",
         type: FilterType.Boolean,
         nullable: true
+      },
+      {
+        field: "hasMeth",
+        label: "Meth",
+        type: FilterType.Boolean,
+        nullable: true
       }
     ]
   }
