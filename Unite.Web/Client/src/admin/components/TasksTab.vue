@@ -39,6 +39,7 @@
             <template v-if="indexing">
               <div class="row items-center q-gutter-x-sm">
                 <div class="u-text-key">Total: {{ general.indexing }}</div>
+                <div><q-badge title="Donors index" :color="getColor(indexing.Project)" text-color="black" label="Project">: {{ indexing.Project }}</q-badge></div>
                 <div><q-badge title="Donors index" :color="getColor(indexing.Donor)" text-color="black" label="Donor">: {{ indexing.Donor }}</q-badge></div>
                 <div><q-badge title="Images index" :color="getColor(indexing.Image)" text-color="black" label="Image">: {{ indexing.Image }}</q-badge></div>
                 <div><q-badge title="Specimens index" :color="getColor(indexing.Specimen)" text-color="black" label="Specimen">: {{ indexing.Specimen }}</q-badge></div>
@@ -48,6 +49,18 @@
                 <div><q-badge title="Variants index - Structural Variants (SV)" :color="getColor(indexing.SV)" text-color="black" label="SV">: {{ indexing.SV }}</q-badge></div>
               </div>
             </template>
+          </td>
+        </tr>
+        <tr>
+          <td class="u-text-key">Reindexing</td>
+          <td class="q-gutter-x-sm">
+            <q-btn @click="indexAll" :loading="loadingAll" label="All" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexProjects" :loading="loading.projects" label="Projects" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexDonors" :loading="loading.donors" label="Donors" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexImages" :loading="loading.images" label="Images" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexSpecimens" :loading="loading.specimens" label="Specimens" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexGenes"  :loading="loading.genes" label="Genes" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexVariants" :loading="loading.variants" label="Variants" class="q-px-sm" dense no-caps />
           </td>
         </tr>
       </tbody>
@@ -67,7 +80,21 @@ export default {
       general: null,
       submission: null,
       annotation: null,
-      indexing: null
+      indexing: null,
+      loading: {
+        projects: false,
+        donors: false,
+        images: false,
+        specimens: false,
+        genes: false,
+        variants: false
+      }
+    }
+  },
+
+  computed: {
+    loadingAll() {
+      return Object.values(this.loading).some(value => value);
     }
   },
 
@@ -93,7 +120,52 @@ export default {
       this.submission = await api.getSubmissionStats();
       this.annotation = await api.getAnnotationStats();
       this.indexing = await api.getIndexingStats();      
+    },
+
+    async indexAll() {
+      await api.indexProjects();
+      await api.indexDonors();
+      await api.indexImages();
+      await api.indexSpecimens();
+      await api.indexGenes();
+      await api.indexVariants();
+    },
+
+    async indexProjects() {
+      this.loading.projects = true;
+      await api.indexProjects();
+      this.loading.projects = false;
+    },
+
+    async indexDonors() {
+      this.loading.donors = true;
+      await api.indexDonors();
+      this.loading.donors = false;
+    },
+
+    async indexImages() {
+      this.loading.images = true;
+      await api.indexImages();
+      this.loading.images = false;
+    },
+
+    async indexSpecimens() {
+      this.loading.specimens = true;
+      await api.indexSpecimens();
+      this.loading.specimens = false;
+    },
+
+    async indexGenes() {
+      this.loading.genes = true;
+      await api.indexGenes();
+      this.loading.genes = false;
+    },
+
+    async indexVariants() {
+      this.loading.variants = true;
+      await api.indexVariants();
+      this.loading.variants = false;
     }
-  },
+  }
 }
 </script>

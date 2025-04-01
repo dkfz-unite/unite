@@ -81,7 +81,7 @@ export default {
       columns.push({
         name: "location",
         label: "Location",
-        field: (row) => this.getLocationView(row.cnv),
+        field: (row) => this.getLocationView(row),
         sortable: false,
         align: "left"
       });
@@ -97,26 +97,28 @@ export default {
       columns.push({
         name: "c1Mean",
         label: "C1 Mean",
-        field: (row) => this.$helpers.content.toDoubleString(row.cnv.c1Mean, 2, "N/A"),
-        classes: (row) => !row.cnv.c1Mean ? "text-grey" : null,
+        field: (row) => this.$helpers.content.toDoubleString(row.c1Mean, 2, "N/A"),
+        classes: (row) => !row.c1Mean ? "text-grey" : null,
         sortable: false,
         align: "left",
+        show: false
       });
 
       columns.push({
         name: "c2Mean",
         label: "C2 Mean",
-        field: (row) => this.$helpers.content.toDoubleString(row.cnv.c2Mean, 2, "N/A"),
-        classes: (row) => !row.cnv.c2Mean ? "text-grey" : null,
+        field: (row) => this.$helpers.content.toDoubleString(row.c2Mean, 2, "N/A"),
+        classes: (row) => !row.c2Mean ? "text-grey" : null,
         sortable: false,
-        align: "left"
+        align: "left",
+        show: false
       });
 
       columns.push({
         name: "tcnMean",
         label: "TCN Mean",
-        field: (row) => this.$helpers.content.toDoubleString(row.cnv.tcnMean, 2, "N/A"),
-        classes: (row) => !row.cnv.tcnMean ? "text-grey" : null,
+        field: (row) => this.$helpers.content.toDoubleString(row.tcnMean, 2, "N/A"),
+        classes: (row) => !row.tcnMean ? "text-grey" : null,
         sortable: false,
         align: "left",
       });
@@ -124,8 +126,8 @@ export default {
       columns.push({
         name: "c1",
         label: "C1",
-        field: (row) => this.getCopyNumber(row.cnv.c1) || "N/A",
-        classes: (row) => !this.getCopyNumber(row.cnv.c1) ? "text-grey" : null,
+        field: (row) => this.getCopyNumber(row.c1) || "N/A",
+        classes: (row) => !this.getCopyNumber(row.c1) ? "text-grey" : null,
         sortable: false,
         align: "left",
         show: false
@@ -134,8 +136,8 @@ export default {
       columns.push({
         name: "c2",
         label: "C2",
-        field: (row) => this.getCopyNumber(row.cnv.c2) || "N/A",
-        classes: (row) => !this.getCopyNumber(row.cnv.c2) ? "text-grey" : null,
+        field: (row) => this.getCopyNumber(row.c2) || "N/A",
+        classes: (row) => !this.getCopyNumber(row.c2) ? "text-grey" : null,
         sortable: false,
         align: "left",
         show: false
@@ -144,18 +146,17 @@ export default {
       columns.push({
         name: "tcn",
         label: "TCN",
-        field: (row) => this.getCopyNumber(row.cnv.tcn) || "N/A",
-        classes: (row) => !this.getCopyNumber(row.cnv.tcn) ? "text-grey" : null,
+        field: (row) => this.getCopyNumber(row.tcn) || "N/A",
+        classes: (row) => !this.getCopyNumber(row.tcn) ? "text-grey" : null,
         sortable: false,
-        align: "left",
-        show: false
+        align: "left"
       });
 
       columns.push({
         name: "genotype",
         label: "Genotype",
-        field: (row) => this.getGenotype(row.cnv) || "N/A",
-        classes: (row) => !this.getGenotype(row.cnv) ? "text-grey" : null,
+        field: (row) => this.getGenotype(row) || "N/A",
+        classes: (row) => !this.getGenotype(row) ? "text-grey" : null,
         sortable: false,
         align: "left"
       });
@@ -163,7 +164,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.cnv,
+        field: (row) => row,
         sortable: false,
         align: "left"
       });
@@ -177,9 +178,16 @@ export default {
       });
 
       columns.push({
+        name: "numberOfDonors",
+        label: "#Similar",
+        field: (row) => ((row.stats?.donors ?? 1) - 1).toLocaleString(),
+        sortable: false
+      });
+
+      columns.push({
         name: "numberOfGenes",
         label: "#Genes",
-        field: (row) => row.numberOfGenes?.toLocaleString(),
+        field: (row) => row.stats?.genes?.toLocaleString(),
         sortable: false
       });
 
@@ -188,7 +196,7 @@ export default {
   },
 
   methods: {
-      getLocationView(variant) {
+      getLocationView(variant) {        
         return `chr${variant.chromosome}:${variant.start}-${variant.end}`;
       },
 

@@ -220,11 +220,11 @@ export default {
     },
 
     hasGeneExpData() {
-      return this.data?.geneExp === true;
+      return this.data?.exp === true;
     },
 
     hasGeneExpScData() {
-      return this.data?.geneExpSc === true;
+      return this.data?.expSc === true;
     },
     hasMethData() {
       return this.data?.meth === true;

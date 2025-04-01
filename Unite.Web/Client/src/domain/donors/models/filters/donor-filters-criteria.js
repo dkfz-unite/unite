@@ -22,8 +22,6 @@ export default class DonorFiltersCriteria {
     hasSsms = null;
     hasCnvs = null;
     hasSvs = null;
-    hasGeneExp = null;
-    hasGeneExpSc = null;
     hasMeth = null;
 
     get numberOfFilters() {
@@ -50,9 +48,9 @@ export default class DonorFiltersCriteria {
         number += this.hasSsms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
+        number += this.hasMeth != null ? 1 : 0;
         number += this.hasGeneExp != null ? 1 : 0;
         number += this.hasGeneExpSc != null ? 1 : 0;
-        number += this.hasMeth != null ? 1 : 0;
 
         return number;
     }
@@ -76,9 +74,9 @@ export default class DonorFiltersCriteria {
         this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
+        this.hasMeth = criteria?.hasMeth != null ? criteria.hasMeth : null;
         this.hasGeneExp = criteria?.hasGeneExp != null ? criteria.hasGeneExp : null;
         this.hasGeneExpSc = criteria?.hasGeneExpSc != null ? criteria.hasGeneExpSc : null;
-        this.hasMeth = criteria?.hasMeth != null ? criteria.hasMeth : null;
     }
 
     sanitise() {
@@ -119,9 +117,9 @@ export default class DonorFiltersCriteria {
         this.hasSsms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
+        this.hasMeth = null;
         this.hasGeneExp = null;
         this.hasGeneExpSc = null;
-        this.hasMeth = null;
     }
 
     clone() {

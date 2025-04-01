@@ -51,6 +51,11 @@ export async function runMethAnalysis(data) {
   return await client.post(url, data);
 }
 
+export async function getSCellAnalysisModels() {
+  const url = `${analysisTaskUrl}/scell/models`;
+  return await client.get(url);
+}
+
 export async function viewSCellAnalysis(data) {
   const url = `${analysisUrl}/viewer/scell?id=${data}`;
   return await client.post(url);
@@ -78,6 +83,7 @@ export default {
   runKMeierAnalysis,
   runMethAnalysis,
   viewSCellAnalysis,
+  getSCellAnalysisModels,
   updateSCellAnalysis,
   stopSCellAnalysis
 };

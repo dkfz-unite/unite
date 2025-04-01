@@ -1,6 +1,6 @@
-export const MAX_DONORS = 3000;
+export const MAX_DONORS = 50;
 export const MAX_GENES = 100;
-export const DEFAULT_DONORS = 100;
+export const DEFAULT_DONORS = 30;
 export const DEFAULT_GENES = 50;
 
 export default class OncogridFiltersCriteria {

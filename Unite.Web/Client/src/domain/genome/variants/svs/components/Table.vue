@@ -80,7 +80,7 @@ export default {
       columns.push({
         name: "breakpoint1",
         label: "1st Breakpoint",
-        field: (row) => this.getBreakpoint1View(row.sv),
+        field: (row) => this.getBreakpoint1View(row),
         sortable: false,
         align: "left"
       });
@@ -88,7 +88,7 @@ export default {
       columns.push({
         name: "breakpoint2",
         label: "2nd Breakpoint",
-        field: (row) => this.getBreakpoint2View(row.sv),
+        field: (row) => this.getBreakpoint2View(row),
         sortable: false,
         align: "left"
       });
@@ -104,7 +104,7 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.sv.type,
+        field: (row) => row.type,
         sortable: false,
         align: "left"
       });
@@ -118,9 +118,16 @@ export default {
       });
 
       columns.push({
+        name: "numberOfDonors",
+        label: "#Similar",
+        field: (row) => ((row.stats?.donors ?? 1) - 1).toLocaleString(),
+        sortable: false
+      });
+
+      columns.push({
         name: "numberOfGenes",
         label: "#Genes",
-        field: (row) => row.numberOfGenes?.toLocaleString(),
+        field: (row) => row.stats?.genes?.toLocaleString(),
         sortable: false
       });
 

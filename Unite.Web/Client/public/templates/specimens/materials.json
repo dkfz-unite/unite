@@ -7,7 +7,9 @@
     "creation_date": "2020-01-15",
     "creation_day": null,
     "type": "Normal",
+    "fixation_type": "Fresh Frozen",
     "tumor_type": null,
+    "tumor_grade": null,
     "source": "Blood"
   },
   {
@@ -18,7 +20,9 @@
     "creation_date": "2020-01-15",
     "creation_day": null,
     "type": "Tumor",
+    "fixation_type": "FFPE",
     "tumor_type": "Primary",
+    "tumor_grade": 1,
     "source": "Tissue",
     "molecular_data": {
       "mgmt_status": "Methylated",
@@ -37,7 +41,9 @@
     "creation_date": "2020-01-15",
     "creation_day": null,
     "type": "Normal",
+    "fixation_type": "Fresh Frozen",
     "tumor_type": null,
+    "tumor_grade": null,
     "source": "Blood"
   },
   {
@@ -48,7 +54,9 @@
     "creation_date": "2020-01-15",
     "creation_day": null,
     "type": "Tumor",
+    "fixation_type": "FFPE",
     "tumor_type": "Primary",
+    "tumor_grade": 1,
     "source": "Tissue",
     "molecular_data": {
       "mgmt_status": "Unmethylated",
@@ -67,7 +75,9 @@
     "creation_date": "2020-03-01",
     "creation_day": null,
     "type": "Tumor",
+    "fixation_type": "FFPE",
     "tumor_type": "Recurrent",
+    "tumor_grade": 2,
     "source": "CSF",
     "molecular_data": {
       "mgmt_status": "Unmethylated",

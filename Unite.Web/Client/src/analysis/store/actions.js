@@ -87,6 +87,10 @@ const actions = {
     data.userid = this.getters["identity/account"].email;
     return await api.runMethAnalysis(data);
   },
+  
+  async getSCellAnalysisModels({state}) {
+    return await api.getSCellAnalysisModels();
+  },
 
   async viewSCellAnalysis({state}, data) {
     return await api.viewSCellAnalysis(data.id);

@@ -1,6 +1,6 @@
-id	donor_id	parent_id	parent_type	creation_date	creation_day	type	tumor_type	source	mgmt_status	idh_status	idh_mutation	gene_expression_subtype	methylation_subtype	gcimp_methylation
-Material1	Donor1			2020-01-15		Normal		Blood						
-Material2	Donor1			2020-01-15		Tumor	Primary	Tissue	Methylated	Wild Type		Classical	H3-K27	true
-Material1	Donor2			2020-01-15		Normal		Blood						
-Material2	Donor2			2020-01-15		Tumor	Primary	Tissue	Unmethylated	Mutant	IDH1 R132H			false
-Material3	Donor2			2020-03-01		Tumor	Recurrent	Tissue	Unmethylated	Mutant	IDH1 R132H			false
+id	donor_id	parent_id	parent_type	creation_date	creation_day	type	fixation_type	tumor_type	tumor_grade	source	mgmt_status	idh_status	idh_mutation	gene_expression_subtype	methylation_subtype	gcimp_methylation
+Material1	Donor1			2020-01-15		Normal	Fresh Frozen			Blood						
+Material2	Donor1			2020-01-15		Tumor	FFPE	Primary	1	Tissue	Methylated	Wild Type		Classical	H3-K27	true
+Material1	Donor2			2020-01-15		Normal	Fresh Frozen			Blood						
+Material2	Donor2			2020-01-15		Tumor	FFPE	Primary	1	Tissue	Unmethylated	Mutant	IDH1 R132H			false
+Material3	Donor2			2020-03-01		Tumor	FFPE	Recurrent	2	Tissue	Unmethylated	Mutant	IDH1 R132H			false

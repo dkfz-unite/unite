@@ -32,30 +32,30 @@
             <tr>
               <td class="u-text-key">Type</td>
               <td>
-                <span v-if="!!variant.cnv.type">{{ variant.cnv.type }}</span>
-                <span v-if="!!variant.cnv.loh"> LOH</span>
-                <span v-if="!!variant.cnv.del"> Del</span>
+                <span v-if="!!variant.type">{{ variant.type }}</span>
+                <span v-if="!!variant.loh"> LOH</span>
+                <span v-if="!!variant.del"> Del</span>
               </td>
             </tr>
             <tr>
               <td class="u-text-key">Genotype</td>
-              <td>{{ getGenotype(variant.cnv) }}</td>
+              <td>{{ getGenotype(variant) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">C1 Mean</td>
-              <td>{{ variant.cnv.c1Mean?.toLocaleString() }}</td>
+              <td>{{ variant.c1Mean?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">C2 Mean</td>
-              <td>{{ variant.cnv.c2Mean?.toLocaleString() }}</td>
+              <td>{{ variant.c2Mean?.toLocaleString() }}</td>
             </tr>
             <tr>
               <td class="u-text-key">TCN Mean</td>
-              <td>{{ variant.cnv.tcnMean?.toLocaleString() }}</td>
+              <td>{{ variant.tcnMean?.toLocaleString() }}</td>
             </tr>
             <!-- <tr>
               <td class="u-text-key">DH Max</td>
-              <td>{{ variant.cnv.dhMax?.toLocaleString() }}</td>
+              <td>{{ variant.dhMax?.toLocaleString() }}</td>
             </tr> -->
           </tbody>
         </q-markup-table>

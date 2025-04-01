@@ -79,6 +79,7 @@ import UDonorsTab from "./components/tabs/DonorsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
 
 import Settings from "@/_settings/settings";
+import VariantType from "../_shared/variants/models/enums/variant-type";
 import api from "../_shared/variant/api";
 
 export default {
@@ -108,7 +109,7 @@ export default {
   async mounted() {
     try {
       this.loading = true;
-      this.variant = await api.get(this.$route.params.id);
+      this.variant = await api.get(this.$route.params.id, VariantType.SSM);
     } catch (error) {
       this.variant = null;
     } finally {

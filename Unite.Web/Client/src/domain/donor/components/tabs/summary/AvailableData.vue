@@ -40,9 +40,9 @@ export default {
         { title: "Simple Somatic Mutations (SSM)", available: !!this.donor.data.ssms },
         { title: "Copy Number Variants (CNV)", available: !!this.donor.data.cnvs },
         { title: "Structural Variants (SV)", available: !!this.donor.data.svs },
-        { title: "Bulk Gene Expressions", available: !!this.donor.data.geneExp },
-        { title: "Single Cell Gene Expressions", available: !!this.donor.data.geneExpSc },
         { title: "Methylation", available: !!this.donor.data.meth }
+        { title: "Bulk Gene Expressions", available: !!this.donor.data.exp },
+        { title: "Single Cell Gene Expressions", available: !!this.donor.data.expSc }
       ];
     }
   }

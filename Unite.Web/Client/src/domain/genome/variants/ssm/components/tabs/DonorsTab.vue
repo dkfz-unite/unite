@@ -44,6 +44,7 @@ import UDataTable from "@/domain/donors/components/Table.vue";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
 import { Tabs } from "../../settings";
+import VariantType from "../../../_shared/variants/models/enums/variant-type";
 import MutationFiltersCriteria from "../../../ssms/models/filters/ssm-filters-criteria";
 import FilterModel from "@/_shared/components/filters/filter-models";
 import filters from "@/domain/donors/models/filters/donor-filters";
@@ -84,7 +85,7 @@ export default {
 
       searchCriteria.ssm.id = [this.variant.id];
 
-      return await api.searchDonors(this.variant.id, searchCriteria);
+      return await api.searchDonors(this.variant.id, VariantType.SSM, searchCriteria);
     }
   }
 }

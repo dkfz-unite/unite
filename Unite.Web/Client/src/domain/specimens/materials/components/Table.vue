@@ -75,8 +75,17 @@ export default {
       });
 
       columns.push({
+        name: "referenceId",
+        label: "External ID",
+        field: (row) => row.referenceId,
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
+      columns.push({
         name: "donorId",
-        label: "Donor Id",
+        label: "Donor ID",
         field: (row) => row.donorId,
         sortable: false,
         align: "left"
@@ -103,9 +112,36 @@ export default {
       columns.push({
         name: "type",
         label: "Type",
-        field: (row) => row.material?.tumorType ?? row.material?.type,
+        // field: (row) => row.material?.tumorType ?? row.material?.type,
+        field: (row) => row.material?.type,
         sortable: false,
         align: "left"
+      });
+
+      columns.push({
+        name: "tumorType",
+        label: "Tumor Type",
+        field: (row) => row.material?.tumorType,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "tumorGrade",
+        label: "Tumor Grade",
+        field: (row) => row.material?.tumorGrade,
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
+      columns.push({
+        name: "fixationType",
+        label: "Fixation Type",
+        field: (row) => row.material?.fixationType,
+        sortable: false,
+        align: "left",
+        show: false
       });
 
       columns.push({
@@ -205,20 +241,20 @@ export default {
         columns.push({
           name: "hasGeneExp",
           label: "RNA",
-          field: (row) => this.dataView(row.data.geneExp),
+          field: (row) => this.dataView(row.data.exp),
           sortable: false,
           align: "center",
-          classes: (row) => this.dataCellClass(row.data.geneExp),
+          classes: (row) => this.dataCellClass(row.data.exp),
           headerClasses: this.dataHeaderClass()
         });
 
         columns.push({
           name: "hasGeneExpSc",
           label: "scRNA",
-          field: (row) => this.dataView(row.data.geneExpSc),
+          field: (row) => this.dataView(row.data.expSc),
           sortable: false,
           align: "center",
-          classes: (row) => this.dataCellClass(row.data.geneExpSc),
+          classes: (row) => this.dataCellClass(row.data.expSc),
           headerClasses: this.dataHeaderClass()
         });
       }
@@ -226,28 +262,28 @@ export default {
       columns.push({
         name: "numberOfGenes",
         label: "#Genes",
-        field: (row) => row.numberOfGenes?.toLocaleString(),
+        field: (row) => row.stats?.genes?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfSsms",
         label: "#SSMs",
-        field: (row) => row.numberOfSsms?.toLocaleString(),
+        field: (row) => row.stats?.ssms?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfCnvs",
         label: "#CNVs",
-        field: (row) => row.numberOfCnvs?.toLocaleString(),
+        field: (row) => row.stats?.cnvs?.toLocaleString(),
         sortable: false
       });
 
       columns.push({
         name: "numberOfSVs",
         label: "#SVs",
-        field: (row) => row.numberOfSvs?.toLocaleString(),
+        field: (row) => row.stats?.svs?.toLocaleString(),
         sortable: false
       });
 

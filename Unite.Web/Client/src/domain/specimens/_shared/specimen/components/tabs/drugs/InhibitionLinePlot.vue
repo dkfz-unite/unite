@@ -102,7 +102,7 @@ export default {
         hovertemplate: "%{y} \% at %{x} nM",
         marker: { 
           color: this.plotColors.inhibitionError, 
-          size: 6 
+          size: 2
         }
       };
 
@@ -114,8 +114,8 @@ export default {
         name: "50% Inhibition",
         type: "scatter",
         mode: "lines+markers",
-        x: [dose50, dose50, dose50, dose50, dose50],
-        y: [-45, 0, 50, 100, 145],
+        x: [dose50, dose50, dose50, dose50],
+        y: [-1, 0, 0.5, 2],
         hovertemplate: "%{x} nM",
         line: {
           color: this.plotColors.concentration,
@@ -164,7 +164,7 @@ export default {
         yaxis: {
           title: "Inhibition (%)",
           showline: true,
-          range: [-1.5, 1.5]
+          range: [-0.5, 1.5]
         }
       };
 

@@ -69,13 +69,14 @@ export default {
 
     showDeseq2Analysis() {
       return this.datasets?.length == 2 &&
-             this.datasets?.every(dataset => dataset.data?.geneExp == true);
+             this.datasets?.every(dataset => dataset.data?.exp == true);
     },
 
     showScellAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.geneExpSc == true);
     },
+    
     showDnaMethAnalysis() {
       return this.datasets?.length > 1 &&
              this.datasets?.every(dataset => dataset.data?.meth === true);

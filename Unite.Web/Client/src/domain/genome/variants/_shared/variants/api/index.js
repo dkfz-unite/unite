@@ -19,7 +19,7 @@ export default class VariantsApi extends ModelsApi {
   feedUrl = `${settings.urls.genome}`;
 
   constructor(type) {
-    super(`variants/${type}`);
+    super(`${type}s`);
     this.type = type;
   }
 

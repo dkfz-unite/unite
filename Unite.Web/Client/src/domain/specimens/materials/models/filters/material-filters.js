@@ -1,10 +1,11 @@
 import MaterialType from "../enums/material-type";
+import FixationType from "../enums/fixation-type";
 import TumorType from "../enums/tumor-type";
 
 import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
-import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
+import { sanitiseArray, sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
 import specimenFilters from "../../../_shared/specimens/models/filters/specimen-filters";
 
 const filters = [
@@ -30,6 +31,29 @@ const filters = [
       return criteria.type?.length == 1 
           && criteria.type[0] == MaterialType.Tumor;
     }
+  },
+  {
+    field: "tumorGrade",
+    label: "Tumor Grade",
+    labelFrom: "Tumor Grade (From)",
+    labelTo: "Tumor Grade (To)",
+    placeholderFrom: "e.g. 1",
+    placeholderTo: "e.g. 5",
+    type: FilterType.Range,
+    valueType: ValueType.Number,
+    expandable: false,
+    sanitize: (value) => sanitiseRange(value),
+    show: (value, criteria, context) => {
+      return criteria.type?.length == 1 
+          && criteria.type[0] == MaterialType.Tumor;
+    }
+  },
+  {
+    field: "fixationType",
+    label: "Fixation Type",
+    type: FilterType.Options,
+    valueType: ValueType.String,
+    options: (context) => mapOptions(context?.fixationTypes, FixationType.values)
   },
   {
     field: "source",

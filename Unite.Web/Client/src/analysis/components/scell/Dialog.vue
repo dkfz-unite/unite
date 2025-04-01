@@ -41,6 +41,76 @@
 
       <q-card-section>
         <div class="col q-gutter-sm">
+          <div class="row text-subtitle1">Annotations</div>
+
+          <!-- Custom cell annotations -->
+          <div class="row items-center">
+            <div class="col">
+              <q-file
+                v-model="annotations.value"
+                label="Cell level annotations (Optional; TSV; 25 MB max)"
+                accept=".tsv"
+                max-file-size="25000000"
+                clearable
+                dense square outlined>
+                <template v-slot:prepend>
+                  <q-icon name="attach_file" />
+                </template>
+              </q-file>
+            </div>
+            <div class="col-auto">
+              <q-icon class="q-ml-xs cursor-pointer" name="las la-question-circle" size="sm">
+                <q-tooltip class="bg-white text-black text-body2" style="border: 1px solid black;">
+                  <div>A <b>TSV</b> file of maximum <b>25MB</b> size.</div>
+                  <div>First column is cell <b>barcode</b> <u>without</u> <u>suffixes</u> or <u>prefixes</u>.</div>
+                  <div>All other columns are considered cell level annotations.</div>
+                </q-tooltip>
+              </q-icon>
+            </div>
+          </div>
+
+          <!-- Cell type predictions model -->
+          <div class="row items-center">
+            <div class="col">
+              <q-select
+                v-model="options.model.value"
+                label="Cell type predictions model (Optional)"
+                class="row"
+                dense options-dense square outlined clearable
+                map-options emit-value
+                :options="options.model.options"
+                :loading="options.model.loading">
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps">
+                    <q-item-section class="q-py-xs">
+                      <q-item-label class="text-weight-medium">{{ scope.opt.label }}</q-item-label>
+                      <q-item-label class="text-wrap" style="max-width: 300px;" caption>{{ scope.opt.details }}</q-item-label>
+                      <q-item-label caption>
+                        <span>
+                          <span>
+                            <span class="text-weight-bold">{{ scope.opt.types }} types</span>
+                          </span>
+                          <span class="text-weight-bold q-ml-lg">{{ scope.opt.date }}</span>
+                        </span>
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+            </div>
+            <div class="col-auto">
+              <q-icon class="q-ml-xs cursor-pointer" name="las la-question-circle" size="sm">
+                <q-tooltip class="bg-white text-black text-body2" style="border: 1px solid black;">
+                  <div>A model for automated cell type annotations using <b>CellTypist</b>.</div>
+                </q-tooltip>
+              </q-icon>
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+
+      <q-card-section>
+        <div class="col q-gutter-sm">
           <div class="row text-subtitle1">Options</div>
 
           <!-- QC -->
@@ -77,6 +147,26 @@
               />
             </div>
           </div>
+
+          <!-- Filters -->
+           <div v-if="options.pp.value == 'default'" class="row">
+            <div class="col q-mr-xs">
+              <q-input
+                v-model="options.genes.value"
+                label="Min. expressed genes"
+                type="number" :min="options.genes.min"
+                dense square outlined
+              />
+            </div>
+            <div class="col q-ml-xs">
+              <q-input
+                v-model="options.cells.value"
+                label="Min. expressed cells"
+                type="number" :min="options.cells.min"
+                dense square outlined
+              />
+            </div>
+           </div>
 
           <!-- PCA -->
           <div class="row">
@@ -185,9 +275,20 @@ export default {
       description: {
         value: null
       },
+      annotations: {
+        value: null
+      },
       options: {
         qc: {
           value: false
+        },
+        annotate: {
+          value: false
+        },
+        model: {
+          value: null, //"Immune_All_Low.pkl",
+          options: [],
+          loading: false
         },
         sparse: {
           value: true
@@ -199,6 +300,14 @@ export default {
             { label: "Seurat", value: "seurat" },
             { label: "Zheng17", value: "zheng17" }
           ]
+        },
+        genes: {
+          value: 5,
+          min: 5
+        },
+        cells: {
+          value: 25,
+          min: 25
         },
         pca: {
           value: true
@@ -234,6 +343,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.loadModels();
+  },
+
   methods: {
     show() {
       this.dialog = true;
@@ -248,10 +361,15 @@ export default {
         criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
       }));
 
+      const annotations = await this.annotations.value?.text();
+
       const options = {
+        model: this.options.model.value,
         qc: this.options.qc.value,
         sparse: this.options.sparse.value,
         pp: this.options.pp.value,
+        genes: this.options.genes.value,
+        cells: this.options.cells.value,
         pca: this.options.pca.value,
         neighbors: this.options.neighbors.value,
         clustering: this.options.clustering.value,
@@ -267,6 +385,7 @@ export default {
         data: 
         {
           datasets: datasets,
+          annotations: annotations,
           options: options
         }
       };
@@ -276,9 +395,13 @@ export default {
     },
 
     async onReset() {
+      this.annotations.value = null;
+      this.options.model.value = null;
       this.options.qc.value = false;
       this.options.sparse.value = true;
       this.options.pp.value = "default";
+      this.options.genes.value = 5;
+      this.options.cells.value = 25;
       this.options.pca.value = true;
       this.options.neighbors.value = true;
       this.options.clustering.value = "louvain";
@@ -288,9 +411,13 @@ export default {
     async onClose() {
       this.name.value = null;
       this.description.value = null;
+      this.annotations.value = null;
+      this.options.model.value = null;
       this.options.qc.value = false;
       this.options.sparse.value = true;
       this.options.pp.value = "default";
+      this.options.genes.value = 5;
+      this.options.cells.value = 25;
       this.options.pca.value = true;
       this.options.neighbors.value = true;
       this.options.clustering.value = "louvain";
@@ -302,6 +429,30 @@ export default {
       if (!value?.length) {
         this.options.embedding.value = ["umap"];
       }
+    },
+
+    async loadModels() {
+      try {
+        this.options.model.loading = true;
+        const response = await this.$store.dispatch("analysis/getSCellAnalysisModels");
+        this.options.model.options = response?.models.map(model => ({
+          value: model.filename,
+          label: this.getModelName(model.filename),
+          details: this.getModelDetails(model.details),
+          types: model.No_celltypes,
+          date: (new Date(model.date)).toLocaleDateString()
+        }));
+      } finally {
+        this.options.model.loading = false;
+      }
+    },
+
+    getModelName(value) {
+      return value.replaceAll("_", " ").replace(".pkl", "");
+    },
+
+    getModelDetails(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
     }
   }
 }
