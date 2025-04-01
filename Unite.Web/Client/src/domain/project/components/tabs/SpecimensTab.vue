@@ -63,12 +63,18 @@ export default {
         dragmode: false,
         xaxis: {
           title: xtitle,
-          showline: false
+          showline: false,
+          tickfont: {
+            size: 11
+          }
         },
         yaxis: {
           title: ytitle,
           showline: true,
-          tickmode: tickmode
+          tickmode: tickmode,
+          tickfont: {
+            size: 11
+          }
         }
       };
     }

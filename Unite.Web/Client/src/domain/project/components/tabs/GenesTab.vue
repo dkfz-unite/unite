@@ -99,7 +99,7 @@ export default {
       const expPerMutationMode = Math.max(...expPerMutation[0].y) <= 5 ? "linear" : "auto";
 
       Plotly.newPlot("exp-per-analysis", expPerAnalysis, this.getLayout("Analysis Type", null, null, expPerAnalysisMode), config);
-      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayoutLog("Most Variable Genes (SD/Mean of FPKM)", null, null), config);
+      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayout("Most Variable Genes (highest CV)", null, "TPM"), config);
       Plotly.newPlot("exp-per-mutation", expPerMutation, this.getLayout("Most Mutated Genes", null, null, expPerMutationMode), config);
     }
 
@@ -159,63 +159,27 @@ export default {
         boxmean: true,
         boxpoints: false
       }];
-      return Object.keys(data).map((key, i) => {
-        return {
-          lowerfence: data[key][0],
-          q1: data[key][1],
-          median: data[key][2],
-          q3: data[key][3],
-          upperfence: data[key][4],
-          // x: [key],
-          // y: data[key],
-          type: "box",
-          name: key,
-          // boxmean: true,
-          marker: {
-            // outliercolor: "#FF0000",
-            outlierwidth: 2,
-            size: 4
-          },
-          line: {
-            width: 1
-          },
-          // boxpoints: "Outliers",
-          // boxpoints: false
-        };
-      });
     },
 
-    getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t: 50, r: 50, b:55, l:50 }) {
+    getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t:50, r:50, b:55, l:50 }) {
       return {
         margin: margin,
         title: title,
         dragmode: false,
         xaxis: {
           title: xtitle,
-          showline: false
-        },
-        yaxis: {
-          title: ytitle,
-          showline: true,
-          tickmode: tickmode
-        }
-      };
-    },
-
-    getLayoutLog(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t: 50, r: 50, b:65, l:50 }) {
-      return {
-        margin: margin,
-        title: title,
-        dragmode: false,
-        xaxis: {
-          title: xtitle,
-          showline: true
+          showline: false,
+          tickfont: {
+            size: 11
+          }
         },
         yaxis: {
           title: ytitle,
           showline: true,
           tickmode: tickmode,
-          // type: "log"
+          tickfont: {
+            size: 11
+          }
         }
       };
     }

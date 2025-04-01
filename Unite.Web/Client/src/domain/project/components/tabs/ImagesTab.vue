@@ -56,19 +56,25 @@ export default {
       }];
     },
 
-    getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t: 50, r: 50, b:55, l:50 }) {
+    getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t:50, r:50, b:55, l:50 }) {
       return {
         margin: margin,
         title: title,
         dragmode: false,
         xaxis: {
           title: xtitle,
-          showline: false
+          showline: false,
+          tickfont: {
+            size: 11
+          }
         },
         yaxis: {
           title: ytitle,
           showline: true,
-          tickmode: tickmode
+          tickmode: tickmode,
+          tickfont: {
+            size: 11
+          }
         }
       };
     }
