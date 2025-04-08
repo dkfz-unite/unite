@@ -143,7 +143,8 @@ export default {
         svsTranscriptsSlim: false,
         svsTranscriptsFull: false,
         geneExp: false,
-        geneExpSc: false
+        geneExpSc: false,
+        meth: false
       }
     };
   },
@@ -216,6 +217,10 @@ export default {
 
     hasSvsData() {
       return this.data?.svs === true;
+    },
+
+    hasMethData() {
+      return this.data?.meth === true;
     },
 
     hasGeneExpData() {
@@ -342,6 +347,7 @@ export default {
       if (this.hasCnvsData && !(this.model.cnvsTranscriptsSlim || this.model.cnvsTranscriptsFull)) { return false; }
       if (this.hasSvsData && !this.model.svs) { return false; }
       if (this.hasSvsData && !(this.model.svsTranscriptsSlim || this.model.svsTranscriptsFull)) { return false; }
+      if (this.hasMethData && !this.model.meth) { return false; }
       if (this.hasGeneExpData && !this.model.geneExp) { return false; }
       if (this.hasGeneExpScData && !this.model.geneExpSc) { return false; }
       return true;
@@ -359,6 +365,7 @@ export default {
       if (this.hasSsmsData) { this.model.ssms = value; this.model.ssmsTranscriptsSlim = value; }
       if (this.hasCnvsData) { this.model.cnvs = value; this.model.cnvsTranscriptsSlim = value; }
       if (this.hasSvsData) { this.model.svs = value; this.model.svsTranscriptsSlim = value; }
+      if (this.hasMethData) { this.model.meth = value; }
       if (this.hasGeneExpData) { this.model.geneExp = value; }
       if (this.hasGeneExpScData) { this.model.geneExpSc = value; }
     },

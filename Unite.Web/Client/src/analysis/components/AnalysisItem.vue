@@ -47,6 +47,7 @@
         <u-deseq2-results v-if="analysis.type == 'deseq2'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-meth-results v-else-if="analysis.type == 'meth'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
@@ -56,6 +57,7 @@
 import UDeseq2Results from "./deseq2/Results.vue";
 import UScellResults from "./scell/Results.vue";
 import UKmeierResults from "./kmeier/Results.vue";
+import UMethResults from "./meth/Results.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -65,7 +67,8 @@ export default {
   components: {
     UDeseq2Results,
     UScellResults,
-    UKmeierResults
+    UKmeierResults,
+    UMethResults
   },
 
   mixins: [mixin],
@@ -139,6 +142,8 @@ export default {
         case "scell":
           return { type: "application/octet-stream", ext: "zip" };
         case "kmeier":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "meth":
           return { type: "application/octet-stream", ext: "zip" };
         default:
           throw new Error(`Unknown analysis type: ${analysisType}`);

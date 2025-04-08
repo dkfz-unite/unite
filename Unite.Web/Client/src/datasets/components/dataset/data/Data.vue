@@ -33,14 +33,15 @@
         <u-data-item title="Interventions" :show="!!data.xenograftsInterventions" />
         <u-data-item title="Drug screenings" :show="!!data.xenograftsDrugs" />
       </u-data-group>
-      <u-data-group title="Variants" :show="!!data.ssms || !!data.cnvs || !!data.svs">
+      <u-data-group title="DNA" :show="!!data.ssms || !!data.cnvs || !!data.svs || !!data.meth">
         <u-data-item title="SSM" :show="!!data.ssms" />
         <u-data-item title="CNV" :show="!!data.cnvs" />
         <u-data-item title="SV" :show="!!data.svs" />
+        <u-data-item title="METH" :show="!!data.meth" />
       </u-data-group>
-      <u-data-group title="Transcriptomics" :show="!!data.exp || !!data.expSc">
-        <u-data-item title="Bulk" :show="!!data.exp" />
-        <u-data-item title="Single cell" :show="!!data.expSc" />
+      <u-data-group title="RNA" :show="!!data.exp || !!data.expSc">
+        <u-data-item title="Bulk Expressions" :show="!!data.exp" />
+        <u-data-item title="Single Cell Expressions" :show="!!data.expSc" />
       </u-data-group>
     </div>
   </div>
