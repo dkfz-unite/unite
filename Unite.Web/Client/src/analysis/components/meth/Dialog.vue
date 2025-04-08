@@ -38,8 +38,31 @@
           </div>
         </div>
       </q-card-section>
+      <q-card-section>
+        <div class="col q-gutter-sm">
+          <div class="row text-subtitle1">Options</div>
+          <!-- PP -->
+          <div class="row">
+            <div class="col">
+              <q-select
+                v-model="options.pp.value"
+                label="Preprocessing method"
+                class="row"
+                dense options-dense square outlined
+                map-options emit-value
+                :options="options.pp.options"
+              />
+            </div>
+          </div>
+      </div>
+      </q-card-section>
 
       <q-card-actions  align="right" class="text-primary">
+        <q-btn
+          label="Reset"
+          @click="onReset"
+          dense flat no-caps
+        />
         <q-btn
           label="Cancel"
           @click="onClose"
@@ -84,9 +107,21 @@ export default {
       },
       description: {
         value: null
-      },
-      progression: {
-        value: false
+      },options: {
+        model: {
+          value: null,
+          options: [],
+        },
+        pp: {
+          value: "preprocessIllumina",
+          options: [
+            { label: "Illumina", value: "preprocessIllumina" },
+            { label: "SWAN", value: "preprocessSWAN" },
+            { label: "Quantile", value: "preprocessQuantile" },
+            { label: "Noob", value: "preprocessNoob" },
+            { label: "Raw", value: "preprocessRaw" }
+          ]
+        }
       }
     };
   },
@@ -114,7 +149,7 @@ export default {
         domain: dataset.domain,
         criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
       }));
-      
+
       const data = {
         type: "meth",
         name: this.name.value,
@@ -124,7 +159,7 @@ export default {
         data: 
         {
           datasets: datasets,
-          options: { progression: this.progression.value }
+          options: { pp: this.options.pp.value } 
         }
       };
 
@@ -132,10 +167,16 @@ export default {
       await this.$router.push({ name: "analysis", params: { id: id } });
     },
 
+    async onReset() {
+      this.name.value = null;
+      this.description.value = null
+      this.options.pp.value = "preprocessIllumina";
+    },
+
     async onClose() {
       this.name.value = null;
       this.description.value = null;
-      this.progression.value = false;
+      this.options.pp.value = "preprocessIllumina";
       this.dialog = false;
     }
   }

@@ -25,6 +25,12 @@ const filters = [
         nullable: true
       },
       {
+        field: "hasMeth",
+        label: "Meth",
+        type: FilterType.Boolean,
+        nullable: true
+      },
+      {
         field: "hasGeneExp",
         label: "RNA",
         type: FilterType.Boolean,
@@ -33,12 +39,6 @@ const filters = [
       {
         field: "hasGeneExpSc",
         label: "scRNA",
-        type: FilterType.Boolean,
-        nullable: true
-      },
-      {
-        field: "hasMeth",
-        label: "Meth",
         type: FilterType.Boolean,
         nullable: true
       }
