@@ -7,11 +7,11 @@
     <div class="row">
       <div class="col">
         <div class="row">
-          <span class="text-h6 u-text-title">MRI</span>
+          <span class="text-h6 u-text-title">MR</span>
         </div>
         <div class="row">
           <div class="col-2">
-            <div id="mri-per-size" style="height: 300px;"></div>
+            <div id="mr-per-size" style="height: 300px;"></div>
           </div>
         </div>
       </div>
@@ -40,10 +40,10 @@ export default {
       responsive: true,
     };
     
-    const mriPerSize = this.getSeries(this.project.stats.images.mri.perSize);
-    const mriPerSizeMode = Math.max(...mriPerSize[0].y) <= 5 ? "linear" : "auto";
+    const mrPerSize = this.getSeries(this.project.stats.images.mr.perSize);
+    const mrPerSizeMode = Math.max(...mrPerSize[0].y) <= 5 ? "linear" : "auto";
 
-    Plotly.newPlot("mri-per-size", mriPerSize, this.getLayout("Whole Tumor Size", null, null, mriPerSizeMode), config);
+    Plotly.newPlot("mr-per-size", mrPerSize, this.getLayout("Whole Tumor Size", null, null, mrPerSizeMode), config);
   },
 
   methods: {

@@ -119,7 +119,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.organoids.domain,
       model: "organoid",
-      models: ["donor", "organoid", "gene", "ssm", "cnv", "sv"]
+      models: ["donor", "organoid", "gene", "sm", "cnv", "sv"]
     };
   },
 

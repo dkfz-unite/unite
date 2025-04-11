@@ -7,7 +7,7 @@ import FiltersContext from "./filters-context";
 import FilterModels from "./filter-models";
 import donorFilters from "@/domain/donors/models/filters/donor-filters";
 import donorDataFilters from "@/domain/donors/models/filters/donor-data-filters";
-import mriFilters from "@/domain/images/mris/models/filters/mri-filters";
+import mrFilters from "@/domain/images/mrs/models/filters/mr-filters";
 import imageDataFilters from "@/domain/images/_shared/images/models/filters/image-data-filters";
 import materialFilters from "@/domain/specimens/materials/models/filters/material-filters";
 import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
@@ -15,7 +15,7 @@ import organoidFilters from "@/domain/specimens/organoids/models/filters/organoi
 import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
 import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
 import geneFilters from "@/domain/genome/genes/models/filters/gene-filters";
-import ssmFilters from "@/domain/genome/variants/ssms/models/filters/ssm-filters";
+import smFilters from "@/domain/genome/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
 import svFilters from "@/domain/genome/variants/svs/models/filters/sv-filters";
 import oncogridFilters from "@/visualization/oncogrid/filters/oncogrid-filters";
@@ -85,13 +85,13 @@ const mixin = {
     getTitle(model) {
       switch (model) {
         case FilterModels.Donor: return "Donor Filters";
-        case FilterModels.Mri: return "MRI Filters";
+        case FilterModels.Mr: return "MR Filters";
         case FilterModels.Material: return "Material Filters";
         case FilterModels.Line: return "Cell Line Filters";
         case FilterModels.Organoid: return "Organoid Filters";
         case FilterModels.Xenograft: return "Xenograft Filters";
         case FilterModels.Gene: return "Gene Filters";
-        case FilterModels.Ssm: return "SSM Filters";
+        case FilterModels.Sm: return "SM Filters";
         case FilterModels.Cnv: return "CNV Filters";
         case FilterModels.Sv: return "SV Filters";
         case FilterModels.Organoid: return "Oncogrid Filters";
@@ -102,13 +102,13 @@ const mixin = {
     getIcon(model) {
       switch (model) {
         case FilterModels.Donor: return "las la-user-circle";
-        case FilterModels.Mri: return "las la-x-ray";
+        case FilterModels.Mr: return "las la-x-ray";
         case FilterModels.Material: return "svguse:/icons.svg#u-material";
         case FilterModels.Line: return "las la-microscope";
         case FilterModels.Organoid: return "svguse:/icons.svg#u-organoid";
         case FilterModels.Xenograft: return "svguse:/icons.svg#u-xenograft";
         case FilterModels.Gene: return "svguse:/icons.svg#u-gene";
-        case FilterModels.Ssm: return "svguse:/icons.svg#u-ssm";
+        case FilterModels.Sm: return "svguse:/icons.svg#u-sm";
         case FilterModels.Cnv: return "svguse:/icons.svg#u-cnv";
         case FilterModels.Sv: return "svguse:/icons.svg#u-sv";
         case FilterModels.Oncogrid: return "las la-th";
@@ -119,13 +119,13 @@ const mixin = {
     getFilters(model) {
       switch (model) {
         case FilterModels.Donor: return this.route == "donors" ? [...donorFilters, ...donorDataFilters] : donorFilters;
-        case FilterModels.Mri: return this.route == "mris" ? [...mriFilters, ...imageDataFilters] : mriFilters;
+        case FilterModels.Mr: return this.route == "mrs" ? [...mrFilters, ...imageDataFilters] : mrFilters;
         case FilterModels.Material: return this.route == "materials" ? [...materialFilters, ...specimenDataFilters] : materialFilters;
         case FilterModels.Line: return this.route == "lines" ? [...lineFilters, ...specimenDataFilters] : lineFilters;
         case FilterModels.Organoid: return this.route == "organoids" ? [...organoidFilters, ...specimenDataFilters] : organoidFilters;
         case FilterModels.Xenograft: return this.route == "xenografts" ? [...xenograftFilters, ...specimenDataFilters] : xenograftFilters;
         case FilterModels.Gene: return geneFilters;
-        case FilterModels.Ssm: return ssmFilters;
+        case FilterModels.Sm: return smFilters;
         case FilterModels.Cnv: return cnvFilters;
         case FilterModels.Sv: return svFilters;
         case FilterModels.Oncogrid: return oncogridFilters;

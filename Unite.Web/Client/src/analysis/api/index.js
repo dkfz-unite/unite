@@ -31,28 +31,28 @@ export async function deleteAnalysis(id) {
   return await client.delete(url);
 }
 
-export async function runDESeq2Analysis(data) {
-  const url = `${analysisTaskUrl}/deseq2`;
+export async function runDonSceAnalysis(data) {
+  const url = `${analysisTaskUrl}/don-sce`;
   return await client.post(url, data);
 }
 
-export async function runSCellAnalysis(data) {
-  const url = `${analysisTaskUrl}/scell`;
+export async function runMethDmAnalysis(data) {
+  const url = `${analysisTaskUrl}/meth-dm`;
   return await client.post(url, data);
 }
 
-export async function runKMeierAnalysis(data) {
-  const url = `${analysisTaskUrl}/kmeier`;
+export async function runRnaDeAnalysis(data) {
+  const url = `${analysisTaskUrl}/rna-de`;
   return await client.post(url, data);
 }
 
-export async function runMethAnalysis(data) {
-  const url = `${analysisTaskUrl}/meth`;
+export async function runRnascDcAnalysis(data) {
+  const url = `${analysisTaskUrl}/rnasc-dc`;
   return await client.post(url, data);
 }
 
-export async function getSCellAnalysisModels() {
-  const url = `${analysisTaskUrl}/scell/models`;
+export async function getRnascDcAnalysisModels() {
+  const url = `${analysisTaskUrl}/rnasc-dc/models`;
   return await client.get(url);
 }
 
@@ -78,12 +78,12 @@ export default {
   getAnalysisMeta,
   getAnalysisData,
   deleteAnalysis,
-  runDESeq2Analysis,
-  runSCellAnalysis,
-  runKMeierAnalysis,
-  runMethAnalysis,
+  runDonSceAnalysis,
+  runMethDmAnalysis,
+  runRnaDeAnalysis,
+  runRnascDcAnalysis,
+  getRnascDcAnalysisModels,
   viewSCellAnalysis,
-  getSCellAnalysisModels,
   updateSCellAnalysis,
   stopSCellAnalysis
 };

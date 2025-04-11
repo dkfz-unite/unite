@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MriSettings from "../../../mri/settings";
+import MrSettings from "../../../mr/settings";
 
 export default {
 	props: {
@@ -15,16 +15,16 @@ export default {
 			type: Number,
 			required: true
 		},
-    type: {
-      type: String,
-      required: true,
-      validator: (value) => ["Mri"].includes(value)
-    },
+		type: {
+			type: String,
+			required: true,
+			validator: (value) => ["Mr"].includes(value)
+		},
 		tab: {
 			type: String,
-			default: MriSettings.tabs.summary.domain,
+			default: MrSettings.tabs.summary.domain,
 			validator: (value, props) =>
-				props.type == "Mri" ? MriSettings.tabs.domains.includes(value) :
+				props.type == "Mr" ? MrSettings.tabs.domains.includes(value) :
 				false
 		}
 	}

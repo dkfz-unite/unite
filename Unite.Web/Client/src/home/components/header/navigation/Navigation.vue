@@ -20,9 +20,9 @@
     />
 
     <q-route-tab
-      :label="Settings.mris.title"
-      :icon="Settings.mris.icon"
-      :to="{ name: Settings.mris.domain }"
+      :label="Settings.mrs.title"
+      :icon="Settings.mrs.icon"
+      :to="{ name: Settings.mrs.domain }"
     />
 
     <q-route-tab
@@ -73,9 +73,9 @@
       <q-menu fit>
         <q-list dense>
           <u-navigation-menu-item
-            :title="Settings.ssms.title"
-            :icon="Settings.ssms.icon"
-            :to="{ name: Settings.ssms.domain }"
+            :title="Settings.sms.title"
+            :icon="Settings.sms.icon"
+            :to="{ name: Settings.sms.domain }"
           />
 
           <u-navigation-menu-item
@@ -148,7 +148,7 @@ export default {
 
     getVariantsRoute() {
       const routes = [
-        Settings.ssms.domain, 
+        Settings.sms.domain, 
         Settings.cnvs.domain, 
         Settings.svs.domain
       ];
@@ -158,10 +158,10 @@ export default {
 
     getVariantsIcon() {
       switch (this.$route.name) {
-        case Settings.ssms.domain: return Settings.ssms.icon;
+        case Settings.sms.domain: return Settings.sms.icon;
         case Settings.cnvs.domain: return Settings.cnvs.icon;
         case Settings.svs.domain: return Settings.svs.icon;
-        default: return Settings.ssms.icon;
+        default: return Settings.sms.icon;
       }
     }
   }

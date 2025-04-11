@@ -87,14 +87,14 @@ export default {
       switch (this.domain) {
         case Settings.projects.domain: return await projectApi.downloadData(id, model);
         case Settings.donors.domain: return await donorApi.downloadData(id, model);
-        case Settings.mris.domain: return await imageApi.downloadData(id, model);
+        case Settings.mrs.domain: return await imageApi.downloadData(id, model);
         // case Settings.cts.domain: return await imageApi.downloadData(id, model);
         case Settings.materials.domain: return await specimenApi.downloadData(id, model);
         case Settings.lines.domain: return await specimenApi.downloadData(id, model);
         case Settings.organoids.domain: return await specimenApi.downloadData(id, model);
         case Settings.xenografts.domain: return await specimenApi.downloadData(id, model);
         case Settings.genes.domain: return await geneApi.downloadData(id, model);
-        case Settings.ssms.domain: return await variantApi.downloadData(id, VariantType.SSM, model);
+        case Settings.sms.domain: return await variantApi.downloadData(id, VariantType.SM, model);
         case Settings.cnvs.domain: return await variantApi.downloadData(id, VariantType.CNV, model);
         case Settings.svs.domain: return await variantApi.downloadData(id, VariantType.SV, model);
         default: return null;

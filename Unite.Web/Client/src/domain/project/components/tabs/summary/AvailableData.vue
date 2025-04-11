@@ -19,8 +19,8 @@
 
           <tbody>
             <tr>
-              <td class="u-text-key">MRI images</td>
-              <td>{{ getNumbers(project.stats.images.mri.number) }}</td>
+              <td class="u-text-key">MR images</td>
+              <td>{{ getNumbers(project.stats.images.mr.number) }}</td>
             </tr>
             <!-- <tr>
               <td class="u-text-key">CT images</td>
@@ -43,8 +43,8 @@
               <td>{{ getNumbers(project.stats.specimens.xenograft.number) }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Simple somatic mutations (SSM)</td>
-              <td>{{ getNumber(project.stats.dna.ssm.number) }}</td>
+              <td class="u-text-key">Simple mutations (SM)</td>
+              <td>{{ getNumber(project.stats.dna.sm.number) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Copy number variants (CNV)</td>

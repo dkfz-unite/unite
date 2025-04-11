@@ -44,20 +44,20 @@
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
       <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
-        <u-deseq2-results v-if="analysis.type == 'deseq2'" :id="analysis.id" :title="title" :data="analysis.results" />
-        <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
-        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :id="analysis.id" :title="title" :data="analysis.results" />
-        <u-meth-results v-else-if="analysis.type == 'meth'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-don-sce-results v-else-if="analysis.type == 'don-sce'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-meth-dm-results v-else-if="analysis.type == 'meth-dm'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-rna-de-results v-if="analysis.type == 'rna-de'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-rnasc-dc-results  v-else-if="analysis.type == 'rnasc-dc'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import UDeseq2Results from "./deseq2/Results.vue";
-import UScellResults from "./scell/Results.vue";
-import UKmeierResults from "./kmeier/Results.vue";
-import UMethResults from "./meth/Results.vue";
+import UDonSceResults from "./don-sce/Results.vue";
+import UMethDmResults from "./meth-dm/Results.vue";
+import URnaDeResults from "./rna-de/Results.vue";
+import URnascDcResults from "./rnasc-dc/Results.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -65,10 +65,10 @@ import Settings from "@/_settings/settings";
 
 export default {
   components: {
-    UDeseq2Results,
-    UScellResults,
-    UKmeierResults,
-    UMethResults
+    UDonSceResults,
+    UMethDmResults,
+    URnaDeResults,
+    URnascDcResults
   },
 
   mixins: [mixin],
@@ -137,13 +137,13 @@ export default {
 
     getFileFormat(analysisType) {
       switch (analysisType) {
-        case "deseq2":
+        case "don-sce":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "meth-dm":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "rna-de":
           return { type: "application/octet-stream", ext: "tsv" };
-        case "scell":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "kmeier":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "meth":
+        case "rnasc-dc":
           return { type: "application/octet-stream", ext: "zip" };
         default:
           throw new Error(`Unknown analysis type: ${analysisType}`);

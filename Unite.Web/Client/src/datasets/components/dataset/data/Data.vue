@@ -11,8 +11,8 @@
         <u-data-item title="Clinical data" :show="!!data.clinical" />
         <u-data-item title="Treatmens" :show="!!data.treatments" />
       </u-data-group>
-      <u-data-group title="Images" :show="!!data.mris || !!data.cts">
-        <u-data-item title="MRI" :show="!!data.mris" />
+      <u-data-group title="Images" :show="!!data.mrs || !!data.cts">
+        <u-data-item title="MR" :show="!!data.mrs" />
         <u-data-item title="CT" :show="!!data.cts" />
       </u-data-group>
       <u-data-group title="Materials" :show="!!data.materials">
@@ -33,8 +33,8 @@
         <u-data-item title="Interventions" :show="!!data.xenograftsInterventions" />
         <u-data-item title="Drug screenings" :show="!!data.xenograftsDrugs" />
       </u-data-group>
-      <u-data-group title="DNA" :show="!!data.ssms || !!data.cnvs || !!data.svs || !!data.meth">
-        <u-data-item title="SSM" :show="!!data.ssms" />
+      <u-data-group title="DNA" :show="!!data.sms || !!data.cnvs || !!data.svs || !!data.meth">
+        <u-data-item title="SM" :show="!!data.sms" />
         <u-data-item title="CNV" :show="!!data.cnvs" />
         <u-data-item title="SV" :show="!!data.svs" />
         <u-data-item title="METH" :show="!!data.meth" />

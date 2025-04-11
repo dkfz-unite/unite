@@ -8,8 +8,8 @@ import projectsRoutes from "../../domain/projects/router";
 import submissionsRoutes from "../../domain/submissions/router";
 import donorRoutes from "../../domain/donor/router";
 import donorsRoutes from "../../domain/donors/router";
-import mriRoutes from "../../domain/images/mri/router";
-import mrisRoutes from "../../domain/images/mris/router";
+import mrRoutes from "../../domain/images/mr/router";
+import mrsRoutes from "../../domain/images/mrs/router";
 import materialRoutes from "../../domain/specimens/material/router";
 import materialsRoutes from "../../domain/specimens/materials/router";
 import lineRoutes from "../../domain/specimens/line/router";
@@ -20,8 +20,8 @@ import xenograftRoutes from "../../domain/specimens/xenograft/router";
 import xenograftsRoutes from "../../domain/specimens/xenografts/router";
 import geneRoutes from "../../domain/genome/gene/router";
 import genesRoutes from "../../domain/genome/genes/router";
-import ssmRoutes from "../../domain/genome/variants/ssm/router";
-import ssmsRoutes from "../../domain/genome/variants/ssms/router";
+import smRoutes from "../../domain/genome/variants/sm/router";
+import smsRoutes from "../../domain/genome/variants/sms/router";
 import cnvRoutes from "../../domain/genome/variants/cnv/router";
 import cnvsRoutes from "../../domain/genome/variants/cnvs/router";
 import svRoutes from "../../domain/genome/variants/sv/router";
@@ -39,8 +39,8 @@ const routes = [
   ...projectsRoutes,
   ...donorRoutes,
   ...donorsRoutes,
-  ...mriRoutes,
-  ...mrisRoutes,
+  ...mrRoutes,
+  ...mrsRoutes,
   ...materialRoutes,
   ...materialsRoutes,
   ...lineRoutes,
@@ -51,8 +51,8 @@ const routes = [
   ...xenograftsRoutes,
   ...geneRoutes,
   ...genesRoutes,
-  ...ssmRoutes,
-  ...ssmsRoutes,
+  ...smRoutes,
+  ...smsRoutes,
   ...cnvRoutes,
   ...cnvsRoutes,
   ...svRoutes,

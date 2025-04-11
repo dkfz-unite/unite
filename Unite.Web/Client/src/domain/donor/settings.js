@@ -23,8 +23,8 @@ export class Tabs {
     crumb: "Specimens",
     icon: "las la-microscope"
   };
-  static mris = {
-    domain: "mris",
+  static mrs = {
+    domain: "mrs",
     title: "Images",
     crumb: "Images",
     icon: "las la-x-ray"
@@ -41,11 +41,11 @@ export class Tabs {
     crumb: "Genes",
     icon: "svguse:/icons.svg#u-gene"
   };
-  static ssms = {
-    domain: "ssms",
-    title: "Simple Somatic Mutations (SSM)",
-    crumb: "SSMs",
-    icon: "svguse:/icons.svg#u-mutation",
+  static sms = {
+    domain: "sms",
+    title: "Simple Mutations (SM)",
+    crumb: "SMs",
+    icon: "svguse:/icons.svg#u-sm",
   };
   static cnvs = {
     domain: "cnvs",

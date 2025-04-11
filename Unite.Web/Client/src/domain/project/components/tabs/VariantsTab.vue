@@ -4,35 +4,35 @@
       <span class="text-h5 u-text-title">Variants Statistics</span>
     </div>
 
-    <!-- SSM -->
-    <div v-if="showSsm" class="row">
+    <!-- SM -->
+    <div v-if="showSm" class="row">
        <div class="col">
         <div class="row">
-          <span class="text-h6 u-text-title">Simple Somatic Mutations (SSM)</span>
+          <span class="text-h6 u-text-title">Simple Mutations (SM)</span>
         </div>
         <div class="row">
           <div class="col-1">
-            <div id="ssm-per-analysis" style="height: 300px;"></div>
+            <div id="sm-per-analysis" style="height: 300px;"></div>
           </div>
           <div class="col-2">
-            <div id="ssm-per-type" style="height: 300px;"></div>
+            <div id="sm-per-type" style="height: 300px;"></div>
           </div>
           <div class="col-1">
-            <div id="ssm-per-base-ref" style="height: 300px;"></div>
+            <div id="sm-per-base-ref" style="height: 300px;"></div>
           </div>
           <div class="col-1">
-            <div id="ssm-per-base-alt" style="height: 300px;"></div>
+            <div id="sm-per-base-alt" style="height: 300px;"></div>
           </div>
           <div class="col-3">
-            <div id="ssm-per-base-change" style="height: 300px;"></div>
+            <div id="sm-per-base-change" style="height: 300px;"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-2">
-            <div id="ssm-per-impact" style="height: 400px;"></div>
+            <div id="sm-per-impact" style="height: 400px;"></div>
           </div>
           <div class="col-6">
-            <div id="ssm-per-effect" style="height: 400px;"></div>
+            <div id="sm-per-effect" style="height: 400px;"></div>
           </div>
         </div>
       </div>
@@ -91,8 +91,8 @@ export default {
   },
 
   computed: {
-    showSsm() {
-      return this.project.stats.dna.ssm.number > 0;
+    showSm() {
+      return this.project.stats.dna.sm.number > 0;
     },
 
     showCnv() {
@@ -114,22 +114,22 @@ export default {
     if (this.showSsm) {
       const getType = (value) => enumHelpers.getLabel(value, EffectType.values);
 
-      const ssmPerAnalysis = this.getSeries(this.project.stats.dna.ssm.perAnalysis);
-      const ssmPerAnalysisMode = Math.max(...ssmPerAnalysis[0].y) <= 5 ? "linear" : "auto";
-      const ssmPerType = this.getSeries(this.project.stats.dna.ssm.perType);
-      const ssmPerBaseRef = this.getSeries(this.project.stats.dna.ssm.perBaseRef);
-      const ssmPerBaseAlt = this.getSeries(this.project.stats.dna.ssm.perBaseAlt);
-      const ssmPerBaseChange = this.getSeries(this.project.stats.dna.ssm.perBaseChange);
-      const ssmPerImpact = this.getSeries(this.project.stats.dna.ssm.perEffectImpact);
-      const ssmPerEffect = this.getSeriesH(this.project.stats.dna.ssm.perEffectType, getType);
+      const smPerAnalysis = this.getSeries(this.project.stats.dna.sm.perAnalysis);
+      const smPerAnalysisMode = Math.max(...smPerAnalysis[0].y) <= 5 ? "linear" : "auto";
+      const smPerType = this.getSeries(this.project.stats.dna.sm.perType);
+      const smPerBaseRef = this.getSeries(this.project.stats.dna.sm.perBaseRef);
+      const smPerBaseAlt = this.getSeries(this.project.stats.dna.sm.perBaseAlt);
+      const smPerBaseChange = this.getSeries(this.project.stats.dna.sm.perBaseChange);
+      const smPerImpact = this.getSeries(this.project.stats.dna.sm.perEffectImpact);
+      const smPerEffect = this.getSeriesH(this.project.stats.dna.sm.perEffectType, getType);
 
-      Plotly.newPlot("ssm-per-analysis", ssmPerAnalysis, this.getLayout("Analysis Type", null, null, ssmPerAnalysisMode), config);
-      Plotly.newPlot("ssm-per-type", ssmPerType, this.getLayout("Variant Type", null, null, "auto"), config);
-      Plotly.newPlot("ssm-per-base-ref", ssmPerBaseRef, this.getLayout("Change From", null, null, "auto"), config);
-      Plotly.newPlot("ssm-per-base-alt", ssmPerBaseAlt, this.getLayout("Change To", null, null, "auto"), config);
-      Plotly.newPlot("ssm-per-base-change", ssmPerBaseChange, this.getLayout("Change Type", null, null, "auto"), config);
-      Plotly.newPlot("ssm-per-impact", ssmPerImpact, this.getLayout("Effect Impact", null, null, "auto"), config);
-      Plotly.newPlot("ssm-per-effect", ssmPerEffect, this.getLayoutH("Effect Type", null, null, "auto", { t: 50, r: 50, b: 55, l:230 }), config);
+      Plotly.newPlot("sm-per-analysis", smPerAnalysis, this.getLayout("Analysis Type", null, null, smPerAnalysisMode), config);
+      Plotly.newPlot("sm-per-type", smPerType, this.getLayout("Variant Type", null, null, "auto"), config);
+      Plotly.newPlot("sm-per-base-ref", smPerBaseRef, this.getLayout("Change From", null, null, "auto"), config);
+      Plotly.newPlot("sm-per-base-alt", smPerBaseAlt, this.getLayout("Change To", null, null, "auto"), config);
+      Plotly.newPlot("sm-per-base-change", smPerBaseChange, this.getLayout("Change Type", null, null, "auto"), config);
+      Plotly.newPlot("sm-per-impact", smPerImpact, this.getLayout("Effect Impact", null, null, "auto"), config);
+      Plotly.newPlot("sm-per-effect", smPerEffect, this.getLayoutH("Effect Type", null, null, "auto", { t: 50, r: 50, b: 55, l:230 }), config);
     }
 
     if (this.showCnv) {

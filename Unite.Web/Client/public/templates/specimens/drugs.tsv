@@ -3,7 +3,7 @@
 # specimen_type: Line
 # analysis_type: DSA
 # analysis_date: 2020-02-05
-drug	gof	dss	dsss	min_dose	max_dose	dose_25	dose_50	dose_75	doses	responses
+drug	gof	dss	dsss	dose_min	dose_max	dose_25	dose_50	dose_75	doses	responses
 Drug1	0.95	0.35	0.15	1	10000	5.25	10.50	50.75	1,10,100,1000,10000	0.02,0.25,0.85,0.95,0.95
 Drug2	0.75	0.30	0.10	1	10000	4.25	8.50	47.75	1,10,100,1000,10000	0.02,0.20,0.75,0.90,0.90
 Drug3	0.55	0.25	0.05	1	10000	2.25	4.50	25.75	1,10,100,1000,10000	0.00,0.10,0.35,0.65,0.65

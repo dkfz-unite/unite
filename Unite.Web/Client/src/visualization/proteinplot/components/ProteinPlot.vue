@@ -54,7 +54,7 @@ export default {
   setup() {
     return {
       tracks: {
-        ssm: "ssm",
+        sm: "sm",
         pfam: "pfam"
       }
     }
@@ -67,7 +67,7 @@ export default {
       maxX: this.data.transcript.protein.length,
       maxY: Math.max(...this.data.mutations.map(m => m.y)) + 1,
 
-      currentVariantId: this.data?.mutation?.ssm?.id,
+      currentVariantId: this.data?.mutation?.sm?.id,
       hoverVariantId: null,
       currentDomainId: null,
       hoverDomainId: null,
@@ -98,7 +98,7 @@ export default {
       const pointIndex = data.points[0].pointIndex;
       const pointData = data.points[0].data.customdata[pointIndex] || data.points[0].data.customdata;
 
-      if (pointData?.track === this.tracks.ssm) {
+      if (pointData?.track === this.tracks.sm) {
         this.hoverVariantId = pointData?.id;
       } else if (pointData?.track === this.tracks.pfam) {
         this.hoverDomainId = pointData?.id;
@@ -119,9 +119,9 @@ export default {
       const pointIndex = data.points[0].pointIndex;
       const pointData = data.points[0].data.customdata[pointIndex] || data.points[0].data.customdata;
       
-      if (pointData?.track === this.tracks.ssm) {
+      if (pointData?.track === this.tracks.sm) {
         if (pointData.id === this.currentVariantId) return;
-        window.location.href = `/ssms/${pointData?.id}/protein`;
+        window.location.href = `/sms/${pointData?.id}/protein`;
       } else if (pointData?.track === this.tracks.pfam) {
         this.currentDomainId = pointData?.id;
       }
@@ -230,11 +230,11 @@ export default {
           yaxis: "y1",
           x: values.map(variant => variant.x),
           y: values.map(variant => variant.y),
-          customdata: values.map(variant => ({track: this.tracks.ssm, id: variant.id})),
+          customdata: values.map(variant => ({track: this.tracks.sm, id: variant.id})),
           meta: values.map(variant => ({ variant: variant, effect: effectsMap.get(variant.effect).name })),
           hoverinfo: "text",
           hovertext: values.map(variant => 
-            `Variant: SSM${variant.id}<br>` +
+            `Variant: SM${variant.id}<br>` +
             `Protein Change: ${variant.proteinChange}<br>` +
             `Affected Donors: ${variant.y}<br>` +
             `Imact: ${variant.impact}<br>` +

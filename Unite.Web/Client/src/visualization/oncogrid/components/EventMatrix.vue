@@ -69,7 +69,7 @@ export default {
       entries: data.entries,
       grid: {
         width: 1200,
-        appearance: (val) => ({ color: effectColors[val.ssm.effect], opacity: 1 })
+        appearance: (val) => ({ color: effectColors[val.sm.effect], opacity: 1 })
       },
       histogram: {
         top: { label: 'Mutation freq.' },
@@ -116,7 +116,7 @@ export default {
       let color = colors.getPaletteColor("grey-3");
       let opacity = 1;
 
-      if (val.type === "gender") {
+      if (val.type === "sex") {
         color = val.value === "Male" ? colors.getPaletteColor("blue-3") : colors.getPaletteColor("pink-3");
       } else if (val.type === "age") {
         color = colors.getPaletteColor("purple");

@@ -4,7 +4,7 @@ export default class ImageFiltersCriteria {
     id = [];
     referenceId = [];
 
-    hasSsms = null;
+    hasSms = null;
     hasCnvs = null;
     hasSvs = null;
     hasMeth = null;
@@ -16,7 +16,7 @@ export default class ImageFiltersCriteria {
         
         number += this.id?.length || 0;
         number += this.referenceId?.length || 0;
-        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasSms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
         number += this.hasMeth != null ? 1 : 0;
@@ -30,7 +30,7 @@ export default class ImageFiltersCriteria {
     constructor(criteria = null){
         this.id = criteria?.id || [];
         this.referenceId = criteria?.referenceId || [];
-        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasSms = criteria?.hasSms != null ? criteria.hasSms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
         this.hasMeth = criteria?.hasMeth != null ? criteria.hasMeth : null;
@@ -46,7 +46,7 @@ export default class ImageFiltersCriteria {
     clear() {
         this.id = [];
         this.referenceId = [];
-        this.hasSsms = null;
+        this.hasSms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
         this.hasMeth = null;

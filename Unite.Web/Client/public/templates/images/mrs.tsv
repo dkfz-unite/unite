@@ -1,0 +1,4 @@
+id	donor_id	creation_date	creation_day	whole_tumor	contrast_enhancing	non_contrast_enhancing	median_adc_tumor	median_adc_ce	median_adc_edema	median_cbf_tumor	median_cbf_ce	median_cbf_edema	median_cbv_tumor	median_cbv_ce	median_cbv_edema	median_mtt_tumor	median_mtt_ce	median_mtt_edema
+MR1	Donor1	2020-01-01		111.393	902.000	102.683	1314.861	1598.304	1299.114	23.221	23.221	23.221	311.923	359.912	327.919	2599.365	2791.318	2631.357
+MR1	Donor2	2020-01-01		133.672	1082.400	123.219	1577.833	1917.965	1558.937	27.865	27.865	27.865	374.308	431.894	393.503	3119.238	3349.582	3157.629
+MR2	Donor2	2020-03-01		11.139	90.200	10.268	131.487	143.473	116.912	2.322	2.322	2.322	31.192	35.991	32.792	233.943	251.172	236.180

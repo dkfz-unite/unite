@@ -68,28 +68,28 @@ const actions = {
     dispatch("loadAnalyses");
   },
 
-  async runDESeq2Analysis({state, dispatch}, data) {
+  async runDonSceAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runDonSceAnalysis(data);
+  },
+
+  async runMethDmAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runMethDmAnalysis(data);
+  },
+
+  async runRnaDeAnalysis({state, dispatch}, data) {
     data.userId = this.getters["identity/account"].email;
-    return await api.runDESeq2Analysis(data);
+    return await api.runRnaDeAnalysis(data);
   },
 
-  async runSCellAnalysis({state, dispatch}, data) {
+  async runRnascDcAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    return await api.runSCellAnalysis(data);
-  },
-
-  async runKMeierAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runKMeierAnalysis(data);
-  },
-
-  async runMethAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runMethAnalysis(data);
+    return await api.runRnascDcAnalysis(data);
   },
   
-  async getSCellAnalysisModels({state}) {
-    return await api.getSCellAnalysisModels();
+  async getRnascDcAnalysisModels({state}) {
+    return await api.getRnascDcAnalysisModels();
   },
 
   async viewSCellAnalysis({state}, data) {

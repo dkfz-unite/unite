@@ -15,7 +15,7 @@
           <tbody>
             <tr>
               <td class="u-text-key">Sex</td>
-              <td>{{ clinicalData.gender }}</td>
+              <td>{{ clinicalData.sex }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Age</td>

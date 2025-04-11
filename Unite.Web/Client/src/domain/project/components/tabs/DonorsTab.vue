@@ -15,7 +15,7 @@
             <div id="don-per-age" style="height: 300px;"></div>
           </div>
           <div class="col-2">
-            <div id="don-per-gender" style="height: 300px;"></div>
+            <div id="don-per-sex" style="height: 300px;"></div>
           </div>
           <div class="col-2">
             <div id="don-per-vital" style="height: 300px;"></div>
@@ -52,15 +52,15 @@ export default {
     
     const donPerAge = this.getSeries(this.project.stats.donors.perAge);
     const donPerAgeMode = Math.max(...donPerAge[0].y) <= 5 ? "linear" : "auto";
-    const donPerGender = this.getSeries(this.project.stats.donors.perGender);
-    const donPerGenderMode = Math.max(...donPerGender[0].y) <= 5 ? "linear" : "auto";
+    const donPerSex = this.getSeries(this.project.stats.donors.perSex);
+    const donPerSexMode = Math.max(...donPerSex[0].y) <= 5 ? "linear" : "auto";
     const donPerVital = this.getSeries(this.project.stats.donors.perVitalStatus);
     const donPerVitalMode = Math.max(...donPerVital[0].y) <= 5 ? "linear" : "auto";
     const donPerProg = this.getSeries(this.project.stats.donors.perProgressionStatus);
     const donPerProgMode = Math.max(...donPerProg[0].y) <= 5 ? "linear" : "auto";
 
     Plotly.newPlot("don-per-age", donPerAge, this.getLayout("Age", null, null, donPerAgeMode), config);
-    Plotly.newPlot("don-per-gender", donPerGender, this.getLayout("Sex", null, null, donPerGenderMode), config);
+    Plotly.newPlot("don-per-sex", donPerSex, this.getLayout("Sex", null, null, donPerSexMode), config);
     Plotly.newPlot("don-per-vital", donPerVital, this.getLayout("Vital Status", null, null, donPerVitalMode), config);
     Plotly.newPlot("don-per-prog", donPerProg, this.getLayout("Progression Status", null, null, donPerProgMode), config);
   },

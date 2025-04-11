@@ -38,7 +38,7 @@ import ULocation from "./Location.vue";
 import genesDataService from "./data-service-genes";
 import svsDataService from "./data-service-svs";
 import cnvsDataService from "./data-service-cnvs";
-import ssmsDataService from "./data-service-ssms";
+import smsDataService from "./data-service-sms";
 import expsDataService from "./data-service-exps";
 import cacheDataService from "./data-service-cache";
 
@@ -62,11 +62,11 @@ export default {
       ranges: [],
       genes: [],
       exps: [],
-      ssms: [],
+      sms: [],
       cnvs: [],
       svs: [],
       hasExps: false,
-      hasSsms: false,
+      hasSms: false,
       hasCnvs: false,
       hasSvs: false,
       options: {}
@@ -103,11 +103,11 @@ export default {
       this.ranges = profile.ranges;
       this.genes = profile.genes;
       this.exps = profile.exps;
-      this.ssms = profile.ssms;
+      this.sms = profile.sms;
       this.cnvs = profile.cnvs;
       this.svs = profile.svs;
       this.hasExps = profile?.hasExps || false;
-      this.hasSsms = profile?.hasSsms || false;
+      this.hasSms = profile?.hasSms || false;
       this.hasCnvs = profile?.hasCnvs || false;
       this.hasSvs = profile?.hasSvs || false;
     },
@@ -134,8 +134,8 @@ export default {
     getViewOptions() {
       let view = {};
 
-      if (this.profile?.hasSsms) {
-        view.ssms = {
+      if (this.profile?.hasSms) {
+        view.sms = {
           category: "Impact",
           high: true,
           low: true,
@@ -199,7 +199,7 @@ export default {
       return [start, start + 0.05];
     },
 
-    getSsmDomain() {
+    getSmDomain() {
       let start = 0.20;
       let end = 1.00;
       if (!this.options.svs) start -= 0.05;
@@ -212,7 +212,7 @@ export default {
       let start = 0.70;
       if (!this.options.svs) start -= 0.05;
       if (!this.options.cnvs) start -= 0.05;
-      if (!this.options.ssms) start -= 0.50;
+      if (!this.options.sms) start -= 0.50;
       return [start, 1.00]; 
     },
 
@@ -276,54 +276,56 @@ export default {
         series.push(cnvsDataService.getSeries(this.cnvs || [], "x1", "y3"));
       }
 
-      // SSMs impact
-      if (this.options.ssms?.category == categories[0]) {
-        if (this.options.ssms.high)
-          series.push(ssmsDataService.getImpactSeries(this.ssms || [], 0, "x1", "y4"));
-        if (this.options.ssms.moderate)
-          series.push(ssmsDataService.getImpactSeries(this.ssms || [], 1, "x1", "y4"));
-        if (this.options.ssms.low)
-          series.push(ssmsDataService.getImpactSeries(this.ssms || [], 2, "x1", "y4"));
-        if (this.options.ssms.unknown)
-          series.push(ssmsDataService.getImpactSeries(this.ssms || [], 3, "x1", "y4"));
+      // TODO: Refactor this to add 2 changes from and to + 6 groups of changes from-to
+
+      // SMs impact
+      if (this.options.sms?.category == categories[0]) {
+        if (this.options.sms.high)
+          series.push(smsDataService.getImpactSeries(this.sms || [], 0, "x1", "y4"));
+        if (this.options.sms.moderate)
+          series.push(smsDataService.getImpactSeries(this.sms || [], 1, "x1", "y4"));
+        if (this.options.sms.low)
+          series.push(smsDataService.getImpactSeries(this.sms || [], 2, "x1", "y4"));
+        if (this.options.sms.unknown)
+          series.push(smsDataService.getImpactSeries(this.sms || [], 3, "x1", "y4"));
       }
 
-      // SSMs change from
-      if (this.options.ssms?.category == categories[1]) {
+      // SMs change from
+      if (this.options.sms?.category == categories[1]) {
         const impacts = [];
 
-        if (this.options.ssms.high)
+        if (this.options.sms.high)
           impacts.push(0);
-        if (this.options.ssms.moderate)
+        if (this.options.sms.moderate)
           impacts.push(1);
-        if (this.options.ssms.low)
+        if (this.options.sms.low)
           impacts.push(2);
-        if (this.options.ssms.unknown)
+        if (this.options.sms.unknown)
           impacts.push(3);
 
-        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 0, impacts, "x1", "y4"));
-        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 1, impacts, "x1", "y4"));
-        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 2, impacts, "x1", "y4"));
-        series.push(ssmsDataService.getChangeFromSeries(this.ssms || [], 3, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeFromSeries(this.sms || [], 0, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeFromSeries(this.sms || [], 1, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeFromSeries(this.sms || [], 2, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeFromSeries(this.sms || [], 3, impacts, "x1", "y4"));
       }
 
-      // SSMs change to
-      if (this.options.ssms?.category == categories[2]) {
+      // SMs change to
+      if (this.options.sms?.category == categories[2]) {
         const impacts = [];
 
-        if (this.options.ssms.high)
+        if (this.options.sms.high)
           impacts.push(0);
-        if (this.options.ssms.moderate)
+        if (this.options.sms.moderate)
           impacts.push(1);
-        if (this.options.ssms.low)
+        if (this.options.sms.low)
           impacts.push(2);
-        if (this.options.ssms.unknown)
+        if (this.options.sms.unknown)
           impacts.push(3);
 
-        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 0, impacts, "x1", "y4"));
-        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 1, impacts, "x1", "y4"));
-        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 2, impacts, "x1", "y4"));
-        series.push(ssmsDataService.getChangeToSeries(this.ssms || [], 3, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeToSeries(this.sms || [], 0, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeToSeries(this.sms || [], 1, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeToSeries(this.sms || [], 2, impacts, "x1", "y4"));
+        series.push(smsDataService.getChangeToSeries(this.sms || [], 3, impacts, "x1", "y4"));
       }
 
       // Exps reads
@@ -374,15 +376,15 @@ export default {
         scales.shapes.push(this.getLine(domain[1]));
       };
 
-      // SSMs Y-Axis
-      if (this.options.ssms) {
-        const domain = this.getSsmDomain();
-        const high = this.options.ssms.high ? this.ssms?.map(v => v.i[0].n) || [0] : [0];
-        const moderate = this.options.ssms.moderate ? this.ssms?.map(v => v.i[1].n) || [0] : [0];
-        const low = this.options.ssms.low ? this.ssms?.map(v => v.i[2].n) || [0] : [0];
-        const unknown = this.options.ssms.unknown ? this.ssms?.map(v => v.i[3].im) || [0] : [0];
+      // SMs Y-Axis
+      if (this.options.sms) {
+        const domain = this.getSmDomain();
+        const high = this.options.sms.high ? this.sms?.map(v => v.i[0].n) || [0] : [0];
+        const moderate = this.options.sms.moderate ? this.sms?.map(v => v.i[1].n) || [0] : [0];
+        const low = this.options.sms.low ? this.sms?.map(v => v.i[2].n) || [0] : [0];
+        const unknown = this.options.sms.unknown ? this.sms?.map(v => v.i[3].im) || [0] : [0];
         const max = Math.max(...high, ...moderate, ...low, ...unknown);
-        scales.yaxis4 = ssmsDataService.getScales("y4", domain, max);
+        scales.yaxis4 = smsDataService.getScales("y4", domain, max);
       };
 
       // Exps Y-Axis

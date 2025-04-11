@@ -95,9 +95,9 @@ export default {
       });
 
       columns.push({
-        name: "mri",
-        label: "MRI",
-        field: (row) => this.getNumbers(row.stats.images.mri.number),
+        name: "mr",
+        label: "MR",
+        field: (row) => this.getNumbers(row.stats.images.mr.number),
         sortable: false,
         align: "right"
       });
@@ -135,9 +135,9 @@ export default {
       });
 
       columns.push({
-        name: "ssm",
-        label: "SSM",
-        field: (row) => this.getNumber(row.stats.dna.ssm.number),
+        name: "sm",
+        label: "SM",
+        field: (row) => this.getNumber(row.stats.dna.sm.number),
         sortable: false,
         align: "right"
       });

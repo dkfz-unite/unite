@@ -3,8 +3,8 @@ import ProjectSettings from "@/domain/project/settings";
 import ProjectsSettings from "@/domain/projects/settings";
 import DonorSettings from "@/domain/donor/settings";
 import DonorsSettings from "@/domain/donors/settings";
-import MriSettings from "@/domain/images/mri/settings";
-import MrisSettings from "@/domain/images/mris/settings";
+import MrSettings from "@/domain/images/mr/settings";
+import MrsSettings from "@/domain/images/mrs/settings";
 import MaterialSettings from "@/domain/specimens/material/settings";
 import MaterialsSettings from "@/domain/specimens/materials/settings";
 import LineSettings from "@/domain/specimens/line/settings";
@@ -15,8 +15,8 @@ import XenograftSettings from "@/domain/specimens/xenograft/settings";
 import XenograftsSettings from "@/domain/specimens/xenografts/settings";
 import GeneSettings from "@/domain/genome/gene/settings";
 import GenesSettings from "@/domain/genome/genes/settings";
-import SsmSettings from "@/domain/genome/variants/ssm/settings";
-import SsmsSettings from "@/domain/genome/variants/ssms/settings";
+import SmSettings from "@/domain/genome/variants/sm/settings";
+import SmsSettings from "@/domain/genome/variants/sms/settings";
 import CnvSettings from "@/domain/genome/variants/cnv/settings";
 import CnvsSettings from "@/domain/genome/variants/cnvs/settings";
 import SvSettings from "@/domain/genome/variants/sv/settings";
@@ -31,8 +31,8 @@ export default class Settings {
   static projects = ProjectsSettings;
   static donor = DonorSettings;
   static donors = DonorsSettings;
-  static mri = MriSettings;
-  static mris = MrisSettings;
+  static mr = MrSettings;
+  static mrs = MrsSettings;
   static material = MaterialSettings;
   static materials = MaterialsSettings;
   static line = LineSettings;
@@ -43,8 +43,8 @@ export default class Settings {
   static xenografts = XenograftsSettings;
   static gene = GeneSettings;
   static genes = GenesSettings;
-  static ssm = SsmSettings;
-  static ssms = SsmsSettings;
+  static sm = SmSettings;
+  static sms = SmsSettings;
   static cnv = CnvSettings;
   static cnvs = CnvsSettings;
   static sv = SvSettings;
@@ -55,13 +55,13 @@ export default class Settings {
 
   static searchable = [
     this.donors,
-    this.mris,
+    this.mrs,
     this.materials,
     this.lines,
     this.organoids,
     this.xenografts,
     this.genes,
-    this.ssms,
+    this.sms,
     this.cnvs,
     this.svs
   ]
