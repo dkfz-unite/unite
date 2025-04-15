@@ -69,7 +69,9 @@ export default {
 
     async getParsedData(data) 
     {
-      var text = await data.text();
+      const compressedData = data.stream();
+      const decompressedData = compressedData.pipeThrough(new DecompressionStream('gzip'));
+      const text = await new Response(decompressedData).text();
       const lines = text.trim().split("\n");
       const headers = lines[0].split(",");
       const jsonData = lines.slice(1).map(line => {
@@ -91,11 +93,24 @@ export default {
           
         const adjPVal = Math.max(adjPValRaw, 1e-300);
         const negLog10P = -Math.log10(adjPVal);
+        const cpgId = cleanedRow["CpgId"];
+        const gene = cleanedRow["UCSC_RefGene_Name"];
+        const regulatory = cleanedRow["Regulatory_Feature_Name"];
+
+        const enchancerColumns = Object.keys(cleanedRow).filter(col => col.toLowerCase().includes("enhancer"));
+        var enchancer = "";
+        for (const col of enchancerColumns) {
+          enchancer += `${col}: ${cleanedRow[col]}<br>`;
+        }
 
         return {
           logFC,
           adjPVal,
           negLog10P,
+          cpgId,
+          gene,
+          regulatory,
+          enchancer,
           color:
             adjPValRaw < 0.05 && logFC > 1
             ? colors.getPaletteColor("blue")
@@ -137,22 +152,25 @@ export default {
       };
 
       data.forEach((d) => {
+
+      const annotationDetails = `Category: ${d.category}<br>CpG: ${d.cpgId}<br>Gene: ${d.gene}<br>Regulator: ${d.regulatory}<br>${d.enchancer}`;
+
         if (d.adjPVal < 0.05) {
           if (d.logFC > 0) {
             upmethylated.x.push(d.logFC);
             upmethylated.y.push(d.negLog10P);
-            upmethylated.text.push(d.category);
+            upmethylated.text.push(annotationDetails);
           } 
           else {
           downmethylated.x.push(d.logFC);
           downmethylated.y.push(d.negLog10P);
-          downmethylated.text.push(d.category);
+          downmethylated.text.push(annotationDetails);
           }
         } 
         else {
           insignificant.x.push(d.logFC);
           insignificant.y.push(d.negLog10P);
-          insignificant.text.push(d.category);
+          insignificant.text.push(annotationDetails);
         }
       });
 
