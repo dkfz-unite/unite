@@ -68,40 +68,40 @@ const actions = {
     dispatch("loadAnalyses");
   },
 
-  async runDonSceAnalysis({state, dispatch}, data) {
+  async runSurvAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    return await api.runDonSceAnalysis(data);
+    return await api.runSurvAnalysis(data);
   },
 
-  async runMethDmAnalysis({state, dispatch}, data) {
+  async runDmAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    return await api.runMethDmAnalysis(data);
+    return await api.runDmAnalysis(data);
   },
 
-  async runRnaDeAnalysis({state, dispatch}, data) {
+  async runDeAnalysis({state, dispatch}, data) {
     data.userId = this.getters["identity/account"].email;
-    return await api.runRnaDeAnalysis(data);
+    return await api.runDeAnalysis(data);
   },
 
-  async runRnascDcAnalysis({state, dispatch}, data) {
+  async runScellAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    return await api.runRnascDcAnalysis(data);
+    return await api.runScellAnalysis(data);
   },
   
-  async getRnascDcAnalysisModels({state}) {
-    return await api.getRnascDcAnalysisModels();
+  async getScellAnalysisModels({state}) {
+    return await api.getScellAnalysisModels();
   },
 
-  async viewSCellAnalysis({state}, data) {
-    return await api.viewSCellAnalysis(data.id);
+  async viewScellAnalysis({state}, data) {
+    return await api.viewScellAnalysis(data.id);
   },
 
-  async updateSCellAnalysis({state}, data) {
-    return await api.updateSCellAnalysis(data.id);
+  async updateScellAnalysis({state}, data) {
+    return await api.updateScellAnalysis(data.id);
   },
 
-  async stopSCellAnalysis({state}, data) {
-    await api.stopSCellAnalysis(data.id);
+  async stopScellAnalysis({state}, data) {
+    await api.stopScellAnalysis(data.id);
   },
 };
 

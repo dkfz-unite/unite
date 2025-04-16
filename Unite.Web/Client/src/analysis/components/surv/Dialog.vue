@@ -122,7 +122,7 @@ export default {
       }));
       
       const data = {
-        type: "don-sce",
+        type: "surv",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -134,7 +134,7 @@ export default {
         }
       };
 
-      const id = await this.$store.dispatch("analysis/runDonSceAnalysis", data);
+      const id = await this.$store.dispatch("analysis/runSurvAnalysis", data);
       await this.$router.push({ name: "analysis", params: { id: id } });
     },
 

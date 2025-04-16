@@ -81,7 +81,7 @@ export default {
     async start() {
       this.url = null;
       this.loading = true;
-      const number = await this.$store.dispatch("analysis/viewSCellAnalysis", { id: this.id });
+      const number = await this.$store.dispatch("analysis/viewScellAnalysis", { id: this.id });
       const url = `/viewer/cxg${number}/`;
 
       this.pinger.ping(url, pingTries, pingTimeout, (success) => {
@@ -95,7 +95,7 @@ export default {
 
     async update() {
       const payload = { id: this.id };
-      return await this.$store.dispatch("analysis/updateSCellAnalysis", payload);
+      return await this.$store.dispatch("analysis/updateScellAnalysis", payload);
     },
 
     async startUpdating() {

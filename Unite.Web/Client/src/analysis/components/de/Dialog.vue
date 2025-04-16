@@ -5,9 +5,9 @@
     @keyup.enter="onSubmit"
     persistent>
 
-    <q-card style="min-width: 420px;">
+    <q-card style="min-width: 300px;">
       <q-card-section>
-        <div class="text-h6">Differential Methylation</div>
+        <div class="text-h6">Differential Expression</div>
       </q-card-section>
 
       <q-card-section>
@@ -38,31 +38,22 @@
           </div>
         </div>
       </q-card-section>
+
       <q-card-section>
-        <div class="col q-gutter-sm">
-          <div class="row text-subtitle1">Options</div>
-          <!-- PP -->
-          <div class="row">
-            <div class="col">
-              <q-select
-                v-model="options.pp.value"
-                label="Preprocessing method"
-                class="row"
-                dense options-dense square outlined
-                map-options emit-value
-                :options="options.pp.options"
-              />
-            </div>
+        <div class="col">
+          <div class="row items-center q-gutter-xs">
+            <q-icon :name="Settings[datasetsOrdered[0].domain].icon" size="sm"/>
+            <div>{{ datasetsOrdered[0].name }}</div>
           </div>
-      </div>
+          <div class="row text-hint text-grey-7">vs</div>
+          <div class="row items-center q-gutter-xs">
+            <q-icon :name="Settings[datasetsOrdered[1].domain].icon" size="sm"/>
+            <div>{{ datasetsOrdered[1].name }}</div>
+          </div>
+        </div>
       </q-card-section>
 
       <q-card-actions  align="right" class="text-primary">
-        <q-btn
-          label="Reset"
-          @click="onReset"
-          dense flat no-caps
-        />
         <q-btn
           label="Cancel"
           @click="onClose"
@@ -107,22 +98,7 @@ export default {
       },
       description: {
         value: null
-      },options: {
-        model: {
-          value: null,
-          options: [],
-        },
-        pp: {
-          value: "preprocessIllumina",
-          options: [
-            { label: "Illumina", value: "preprocessIllumina" },
-            { label: "SWAN", value: "preprocessSWAN" },
-            { label: "Quantile", value: "preprocessQuantile" },
-            { label: "Noob", value: "preprocessNoob" },
-            { label: "Raw", value: "preprocessRaw" }
-          ]
-        }
-      }
+      },
     };
   },
 
@@ -151,7 +127,7 @@ export default {
       }));
 
       const data = {
-        type: "meth-dm",
+        type: "rna-de",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -159,26 +135,18 @@ export default {
         data: 
         {
           datasets: datasets,
-          options: { pp: this.options.pp.value } 
         }
       };
 
-      const id = await this.$store.dispatch("analysis/runMethDmAnalysis", data);
+      const id = await this.$store.dispatch("analysis/runDeAnalysis", data);
       await this.$router.push({ name: "analysis", params: { id: id } });
-    },
-
-    async onReset() {
-      this.name.value = null;
-      this.description.value = null
-      this.options.pp.value = "preprocessIllumina";
     },
 
     async onClose() {
       this.name.value = null;
       this.description.value = null;
-      this.options.pp.value = "preprocessIllumina";
       this.dialog = false;
-    }
+    },
   }
 }
 </script>

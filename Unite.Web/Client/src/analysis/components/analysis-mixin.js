@@ -24,10 +24,10 @@ const mixin = {
 
     getAnalysisType(type) {
       switch (type) {
-        case "don-sce": return "Survival Curve Estimation"
-        case "meth-dm": return "Differential Methylation";
-        case "rna-de": return "Differential Expression";
-        case "rnasc-dc": return "scRNA Dataset Creation";
+        case "surv": return "Survival Curve Estimation"
+        case "dm": return "Differential Methylation";
+        case "de": return "Differential Expression";
+        case "scell": return "scRNA Dataset Creation";
         default: return type;
       }
     }

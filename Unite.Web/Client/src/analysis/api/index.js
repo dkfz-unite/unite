@@ -31,42 +31,42 @@ export async function deleteAnalysis(id) {
   return await client.delete(url);
 }
 
-export async function runDonSceAnalysis(data) {
-  const url = `${analysisTaskUrl}/don-sce`;
+export async function runSurvAnalysis(data) {
+  const url = `${analysisTaskUrl}/surv`;
   return await client.post(url, data);
 }
 
-export async function runMethDmAnalysis(data) {
-  const url = `${analysisTaskUrl}/meth-dm`;
+export async function runDmAnalysis(data) {
+  const url = `${analysisTaskUrl}/dm`;
   return await client.post(url, data);
 }
 
-export async function runRnaDeAnalysis(data) {
-  const url = `${analysisTaskUrl}/rna-de`;
+export async function runDeAnalysis(data) {
+  const url = `${analysisTaskUrl}/de`;
   return await client.post(url, data);
 }
 
-export async function runRnascDcAnalysis(data) {
-  const url = `${analysisTaskUrl}/rnasc-dc`;
+export async function runScellAnalysis(data) {
+  const url = `${analysisTaskUrl}/scell`;
   return await client.post(url, data);
 }
 
-export async function getRnascDcAnalysisModels() {
-  const url = `${analysisTaskUrl}/rnasc-dc/models`;
+export async function getScellAnalysisModels() {
+  const url = `${analysisTaskUrl}/scell/models`;
   return await client.get(url);
 }
 
-export async function viewSCellAnalysis(data) {
+export async function viewScellAnalysis(data) {
   const url = `${analysisUrl}/viewer/scell?id=${data}`;
   return await client.post(url);
 }
 
-export async function updateSCellAnalysis(data) {
+export async function updateScellAnalysis(data) {
   const url = `${analysisUrl}/viewer/scell?id=${data}`;
   return await client.put(url, data);
 }
 
-export async function stopSCellAnalysis(data) {
+export async function stopScellAnalysis(data) {
   const url = `${analysisUrl}/viewer/scell?id=${data}`;
   return await client.delete(url);
 }
@@ -78,12 +78,12 @@ export default {
   getAnalysisMeta,
   getAnalysisData,
   deleteAnalysis,
-  runDonSceAnalysis,
-  runMethDmAnalysis,
-  runRnaDeAnalysis,
-  runRnascDcAnalysis,
-  getRnascDcAnalysisModels,
-  viewSCellAnalysis,
-  updateSCellAnalysis,
-  stopSCellAnalysis
+  runSurvAnalysis,
+  runDmAnalysis,
+  runDeAnalysis,
+  runScellAnalysis,
+  getScellAnalysisModels,
+  viewScellAnalysis,
+  updateScellAnalysis,
+  stopScellAnalysis
 };
