@@ -1,4 +1,4 @@
 export default class DonorFiltersContext {
-    genderOptions = null;
+    sexOptions = null;
     vitalStatusOptions = null;
 }

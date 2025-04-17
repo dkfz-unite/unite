@@ -47,10 +47,10 @@ export default {
   },
 
   methods: {
-    getSeries(data) {
+    getSeries(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
       return [{
-        x: Object.keys(data),
-        y: Object.values(data),
+        x: data.map(mapx),
+        y: data.map(mapy),
         type: "bar",
         orientation: "v"
       }];
@@ -63,12 +63,18 @@ export default {
         dragmode: false,
         xaxis: {
           title: xtitle,
-          showline: false
+          showline: false,
+          tickfont: {
+            size: 11
+          }
         },
         yaxis: {
           title: ytitle,
           showline: true,
-          tickmode: tickmode
+          tickmode: tickmode,
+          tickfont: {
+            size: 11
+          }
         }
       };
     }

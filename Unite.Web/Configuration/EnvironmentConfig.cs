@@ -5,9 +5,9 @@ public static class EnvironmentConfig
     public static string IdentityHost => Environment.GetEnvironmentVariable("UNITE_IDENTITY_HOST");
     public static string ComposerHost => Environment.GetEnvironmentVariable("UNITE_COMPOSER_HOST");
     public static string AnalysisHost => Environment.GetEnvironmentVariable("UNITE_ANALYSIS_HOST");
-    public static string DonorsFeedHost => Environment.GetEnvironmentVariable("UNITE_DONORS_FEED_HOST");
-    public static string ImagesFeedHost => Environment.GetEnvironmentVariable("UNITE_IMAGES_FEED_HOST");
-    public static string SpecimensFeedHost => Environment.GetEnvironmentVariable("UNITE_SPECIMENS_FEED_HOST");
-    public static string GenomeFeedHost => Environment.GetEnvironmentVariable("UNITE_GENOME_FEED_HOST");
+    public static string FeedDonorsHost => Environment.GetEnvironmentVariable("UNITE_FEED_DONORS_HOST");
+    public static string FeedImagesHost => Environment.GetEnvironmentVariable("UNITE_FEED_IMAGES_HOST");
+    public static string FeedSpecimensHost => Environment.GetEnvironmentVariable("UNITE_FEED_SPECIMENS_HOST");
+    public static string FeedGenomeHost => Environment.GetEnvironmentVariable("UNITE_FEED_GENOME_HOST");
     public static string ViewerCxgHost => Environment.GetEnvironmentVariable("UNITE_VIEWER_CXG_HOST");
 }

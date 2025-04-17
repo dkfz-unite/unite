@@ -24,9 +24,10 @@ const mixin = {
 
     getAnalysisType(type) {
       switch (type) {
-        case "deseq2": return "RNA Differential Expression";
+        case "surv": return "Survival Curve Estimation"
+        case "dm": return "Differential Methylation";
+        case "de": return "Differential Expression";
         case "scell": return "scRNA Dataset Creation";
-        case "kmeier": return "Donors Survival Estimation"
         default: return type;
       }
     }

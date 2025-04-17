@@ -21,9 +21,9 @@
         <div><span class="text-weight-medium">Older</span></div>
       </div>
 
-      <!-- Gender -->
+      <!-- Sex -->
       <div class="row justify-left content-center q-gutter-xs">
-        <div><span class="text-weight-light">Gender:</span></div>
+        <div><span class="text-weight-light">Sex:</span></div>
         <div class="row content-center">
           <div class="u-palette-box bg-orange-5"></div>
         </div>

@@ -13,7 +13,7 @@ export default class SpecimenFiltersCriteria {
     dss = { from: null, to: null };
     dssSelective = { from: null, to: null };
 
-    hasSsms = null;
+    hasSms = null;
     hasCnvs = null;
     hasSvs = null;
     hasExp = null;
@@ -35,7 +35,7 @@ export default class SpecimenFiltersCriteria {
         number += this.dss?.to != null ? 1 : 0;
         number += this.dssSelective?.from != null ? 1 : 0;
         number += this.dssSelective?.to != null ? 1 : 0;
-        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasSms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
         number += this.hasExp != null ? 1 : 0;
@@ -56,7 +56,7 @@ export default class SpecimenFiltersCriteria {
         this.drug = criteria?.drug || [];
         this.dss = criteria?.dss || { from: null, to: null };
         this.dssSelective = criteria?.dssSelective || { from: null, to: null };
-        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasSms = criteria?.hasSms != null ? criteria.hasSms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
         this.hasExp = criteria?.hasExp != null ? criteria.hasExp : null;
@@ -81,7 +81,7 @@ export default class SpecimenFiltersCriteria {
         this.drug = [];
         this.dss = { from: null, to: null };
         this.dssSelective = { from: null, to: null };
-        this.hasSsms = null;
+        this.hasSms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
         this.hasExp = null;

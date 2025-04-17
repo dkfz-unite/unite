@@ -9,7 +9,7 @@ import createDonorStore from "@/domain/donor/store";
 import createImageStore from "@/domain/images/_shared/image/store";
 import createSpecimenStore from "@/domain/specimens/_shared/specimen/store";
 import createGeneStore from "@/domain/genome/gene/store";
-import createSsmStore from "@/domain/genome/variants/ssm/store";
+import createSmStore from "@/domain/genome/variants/sm/store";
 import createCnvStore from "@/domain/genome/variants/cnv/store";
 import createSvStore from "@/domain/genome/variants/sv/store";
 import OncogridStore from "@/visualization/oncogrid/store";
@@ -26,8 +26,8 @@ const store = createStore({
     [Settings.projects.domain]: createModelsStore(Settings.projects.domain),
     [Settings.donor.domain]: createDonorStore(),
     [Settings.donors.domain]: createModelsStore(Settings.donors.domain),
-    [Settings.mri.domain]: createImageStore(),
-    [Settings.mris.domain]: createModelsStore(Settings.mris.domain),
+    [Settings.mr.domain]: createImageStore(),
+    [Settings.mrs.domain]: createModelsStore(Settings.mrs.domain),
     [Settings.material.domain]: createSpecimenStore(),
     [Settings.materials.domain]: createModelsStore(Settings.materials.domain),
     [Settings.line.domain]: createSpecimenStore(),
@@ -38,8 +38,8 @@ const store = createStore({
     [Settings.xenografts.domain]: createModelsStore(Settings.xenografts.domain),
     [Settings.gene.domain]: createGeneStore(),
     [Settings.genes.domain]: createModelsStore(Settings.genes.domain),
-    [Settings.ssm.domain]: createSsmStore(),
-    [Settings.ssms.domain]: createModelsStore(Settings.ssms.domain),
+    [Settings.sm.domain]: createSmStore(),
+    [Settings.sms.domain]: createModelsStore(Settings.sms.domain),
     [Settings.cnv.domain]: createCnvStore(),
     [Settings.cnvs.domain]: createModelsStore(Settings.cnvs.domain),
     [Settings.sv.domain]: createSvStore(),

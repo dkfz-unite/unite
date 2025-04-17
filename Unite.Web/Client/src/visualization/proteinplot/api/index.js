@@ -3,7 +3,7 @@ import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
 const geneUrl = `${settings.urls.composer}/gene`;
-const variantUrl = `${settings.urls.composer}/ssm`;
+const variantUrl = `${settings.urls.composer}/sm`;
 const lolliplotUrl = `${settings.urls.composer}/lolliplot`;
 
 /**

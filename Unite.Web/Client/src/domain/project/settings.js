@@ -33,7 +33,7 @@ export class Tabs {
     domain: "variants",
     title: "Variants",
     crumb: "Variants",
-    icon: "svguse:/icons.svg#u-ssm",
+    icon: "svguse:/icons.svg#u-sm",
   };
 
   static domains = Object.entries(this).map(([key, val]) => val.domain);

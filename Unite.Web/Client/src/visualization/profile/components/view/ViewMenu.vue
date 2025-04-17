@@ -2,7 +2,7 @@
   <q-menu style="width: 270px;">
     <q-list dense class="q-my-sm">
       <q-item>
-        <u-ssm-options v-model="ssms" @update:model-value="update"/>
+        <u-sm-options v-model="sms" @update:model-value="update"/>
       </q-item>
       
       <q-separator class="q-my-xs" />
@@ -32,13 +32,13 @@
 
 <script>
 import UViewFigure from "./ViewFigure.vue";
-import USsmOptions from "./SsmOptions.vue";
+import USmOptions from "./SmOptions.vue";
 import UCnvOptions from "./CnvOptions.vue";
 import USvOptions from "./SvOptions.vue";
 import UExpOptions from "./ExpOptions.vue";
 
 export default {
-  components: { UViewFigure, USsmOptions, UCnvOptions, USvOptions, UExpOptions },
+  components: { UViewFigure, USmOptions, UCnvOptions, USvOptions, UExpOptions },
 
   props: {
     modelValue: {
@@ -51,12 +51,12 @@ export default {
 
   data() {
     return {
-      ssms: {
+      sms: {
         category: "Impact",
-        high: this.modelValue.ssms?.high || false,
-        moderate: this.modelValue.ssms?.moderate || false,
-        low: this.modelValue.ssms?.low || false,
-        unknown: this.modelValue.ssms?.unknown || false
+        high: this.modelValue.sms?.high || false,
+        moderate: this.modelValue.sms?.moderate || false,
+        low: this.modelValue.sms?.low || false,
+        unknown: this.modelValue.sms?.unknown || false
       },
       cnvs: {
         type: this.modelValue.cnvs?.type || false
@@ -74,12 +74,12 @@ export default {
 
   watch: {
     modelValue(value) {
-      this.ssms = {
-        category: value.ssms?.category || "Impact",
-        high: value.ssms?.high || false,
-        moderate: value.ssms?.moderate || false,
-        low: value.ssms?.low || false,
-        unknown: value.ssms?.unknown || false
+      this.sms = {
+        category: value.sms?.category || "Impact",
+        high: value.sms?.high || false,
+        moderate: value.sms?.moderate || false,
+        low: value.sms?.low || false,
+        unknown: value.sms?.unknown || false
       };
       this.cnvs = {
         type: value.cnvs?.type || false
@@ -99,9 +99,9 @@ export default {
     update() {
       let options = {};
 
-      const ssms = this.ssms.high || this.ssms.moderate || this.ssms.low || this.ssms.unknown;
-      if (ssms) {
-        options.ssms = this.ssms;
+      const sms = this.sms.high || this.sms.moderate || this.sms.low || this.sms.unknown;
+      if (sms) {
+        options.sms = this.sms;
       }
 
       const cnvs = this.cnvs.type;

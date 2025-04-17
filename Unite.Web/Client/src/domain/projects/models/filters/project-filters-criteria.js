@@ -4,7 +4,7 @@ export default class ProjectFiltersCriteria {
     id = [];
     name = [];
 
-    hasSsms = null;
+    hasSms = null;
     hasCnvs = null;
     hasSvs = null;
     hasExp = null;
@@ -15,7 +15,7 @@ export default class ProjectFiltersCriteria {
         
         number += this.id?.length || 0;
         number += this.name?.length || 0;
-        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasSms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
         number += this.hasExp != null ? 1 : 0;
@@ -27,7 +27,7 @@ export default class ProjectFiltersCriteria {
     constructor(criteria = null) {
         this.id = criteria?.id || [];
         this.name = criteria?.name || [];
-        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasSms = criteria?.hasSms != null ? criteria.hasSms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
         this.hasExp = criteria?.hasExp != null ? criteria.hasExp : null;
@@ -43,7 +43,7 @@ export default class ProjectFiltersCriteria {
         this.id = [];
         this.name = [];
 
-        this.hasSsms = null;
+        this.hasSms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
         this.hasExp = null;

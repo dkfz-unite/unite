@@ -7,8 +7,8 @@ const filters = [
     expand: false,
     filters: [
       {
-        field: "hasSsms",
-        label: "SSM",
+        field: "hasSms",
+        label: "SM",
         type: FilterType.Boolean,
         nullable: true
       },
@@ -21,6 +21,12 @@ const filters = [
       {
         field: "hasSvs",
         label: "SV",
+        type: FilterType.Boolean,
+        nullable: true
+      },
+      {
+        field: "hasMeth",
+        label: "Meth",
         type: FilterType.Boolean,
         nullable: true
       },

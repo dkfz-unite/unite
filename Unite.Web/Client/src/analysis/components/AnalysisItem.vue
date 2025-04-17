@@ -44,18 +44,20 @@
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
       <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
-        <u-deseq2-results v-if="analysis.type == 'deseq2'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-surv-results v-if="analysis.type == 'surv'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-dm-results v-else-if="analysis.type == 'dm'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-de-results v-else-if="analysis.type == 'de'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
-        <u-kmeier-results v-else-if="analysis.type == 'kmeier'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import UDeseq2Results from "./deseq2/Results.vue";
+import USurvResults from "./surv/Results.vue";
+import UDmResults from "./dm/Results.vue";
+import UDeResults from "./de/Results.vue";
 import UScellResults from "./scell/Results.vue";
-import UKmeierResults from "./kmeier/Results.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -63,9 +65,10 @@ import Settings from "@/_settings/settings";
 
 export default {
   components: {
-    UDeseq2Results,
-    UScellResults,
-    UKmeierResults
+    USurvResults,
+    UDmResults,
+    UDeResults,
+    UScellResults
   },
 
   mixins: [mixin],
@@ -134,11 +137,13 @@ export default {
 
     getFileFormat(analysisType) {
       switch (analysisType) {
-        case "deseq2":
+        case "surv":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "dm":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "de":
           return { type: "application/octet-stream", ext: "tsv" };
         case "scell":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "kmeier":
           return { type: "application/octet-stream", ext: "zip" };
         default:
           throw new Error(`Unknown analysis type: ${analysisType}`);

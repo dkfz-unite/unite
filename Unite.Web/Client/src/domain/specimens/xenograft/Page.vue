@@ -76,7 +76,7 @@
               <u-tab-variants 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showSsms"
+                :disableSms="!showSms"
                 :disableCnvs="!showCnvs"
                 :disableSvs="!showSvs"
               />
@@ -112,8 +112,8 @@
                 <u-genes-tab title="Specimen Genes" :area="Settings.line.domain" :samples="samples" :show-samples="false" />
               </q-tab-panel>
 
-              <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
-                <u-ssms-tab title="Specimen Simple Somatic Mutations (SSM)" :area="Settings.xenograft.domain" :samples="samples" :show-samples="false" />
+              <q-tab-panel :name="Tabs.sms.domain" class="q-py-sm q-px-none">
+                <u-sms-tab title="Specimen Simple Mutations (SM)" :area="Settings.xenograft.domain" :samples="samples" :show-samples="false" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
@@ -146,7 +146,7 @@ import UInterventionsTab from "../_shared/specimen/components/tabs/Interventions
 import UDrugsTab from "../_shared/specimen/components/tabs/DrugsTab.vue";
 import UProfileTab from "@/domain/_shared/entry/components/tabs/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/entry/components/tabs/GenesTab.vue";
-import USsmsTab from "@/domain/_shared/entry/components/tabs/SSMsTab.vue";
+import USmsTab from "@/domain/_shared/entry/components/tabs/SMsTab.vue";
 import UCnvsTab from "@/domain/_shared/entry/components/tabs/CNVsTab.vue";
 import USvsTab from "@/domain/_shared/entry/components/tabs/SVsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
@@ -166,7 +166,7 @@ export default {
     UDrugsTab,
     UProfileTab,
     UGenesTab,
-    USsmsTab,
+    USmsTab,
     UCnvsTab,
     USvsTab
   },

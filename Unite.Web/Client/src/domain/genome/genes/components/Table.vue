@@ -188,9 +188,9 @@ export default {
         });
 
         columns.push({
-          name: "numberOfSsms",
-          label: "#SSMs",
-          field: (row) => row.stats?.ssms,
+          name: "numberOfSms",
+          label: "#SMs",
+          field: (row) => row.stats?.sms,
           sortable: false
         });
 

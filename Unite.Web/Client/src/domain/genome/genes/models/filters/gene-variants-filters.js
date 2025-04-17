@@ -7,7 +7,7 @@ const filters = [
     filters: [
       {
         field: "hasMutations",
-        label: "Has SSMs",
+        label: "Has SMs",
         type: FilterType.Boolean,
         nullable: false,
       },

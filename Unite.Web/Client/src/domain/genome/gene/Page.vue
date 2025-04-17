@@ -31,7 +31,7 @@
               <u-tab-variants 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showSsms"
+                :disableSms="!showSms"
                 :disableCnvs="!showCnvs"
                 :disableSvs="!showSvs" 
               />
@@ -55,8 +55,8 @@
                 <u-donors-tab :gene="gene" />
               </q-tab-panel>
 
-              <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
-                <u-ssms-tab :gene="gene" />
+              <q-tab-panel :name="Tabs.sms.domain" class="q-py-sm q-px-none">
+                <u-sms-tab :gene="gene" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
@@ -84,7 +84,7 @@ import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/Variant
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProteinTab from "./components/tabs/ProteinTab.vue";
 import UDonorsTab from "./components/tabs/DonorsTab.vue";
-import USsmsTab from "./components/tabs/SSMsTab.vue";
+import USmsTab from "./components/tabs/SMsTab.vue";
 import UCnvsTab from "./components/tabs/CNVsTab.vue";
 import USvsTab from "./components/tabs/SVsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
@@ -99,7 +99,7 @@ export default {
     USummaryTab,
     UProteinTab,
     UDonorsTab,
-    USsmsTab,
+    USmsTab,
     UCnvsTab,
     USvsTab
   },
@@ -122,11 +122,11 @@ export default {
 
   computed: {
     showVariants() {
-      return this.showSsms || this.showCnvs || this.showSvs;
+      return this.showSms || this.showCnvs || this.showSvs;
     },
 
-    showSsms() {
-      return this.gene?.stats?.ssms;
+    showSms() {
+      return this.gene?.stats?.sms;
     },
 
     showCnvs() {

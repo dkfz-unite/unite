@@ -50,6 +50,8 @@ export default {
       if (this.selected?.length) {
         if (this.domain == "donors") {
           criteria.donorFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
+        } else if (this.domain == "mrs") {
+          criteria.mrFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
         } else if (this.domain == "materials") {
           criteria.materialFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
         } else if (this.domain == "lines") {
@@ -60,7 +62,7 @@ export default {
           criteria.xenograftFiltersCriteria.referenceId = this.selected.map(item => item.referenceId);
         } else if (this.domain == "genes") {
           criteria.geneFiltersCriteria.symbol = this.selected.map(item => item.symbol);
-        } else if (this.domain == "ssms") {
+        } else if (this.domain == "sms") {
           criteria.mutationFiltersCriteria.id = this.selected.map(item => item.id);
         } else if (this.domain == "cnvs") {
           criteria.copyNumberVariantFiltersCriteria.id = this.selected.map(item => item.id);

@@ -251,7 +251,7 @@ export default {
     },
 
     onGridCellClick(event) {
-      this.$router.push({ name: "ssm", params: { id: event.data.id }});
+      this.$router.push({ name: "sm", params: { id: event.data.id }});
     },
 
     onTrackCellHover(event) {
@@ -288,7 +288,7 @@ export default {
       if (trackCell.type == "age") {
         return trackCell.value != null ? colors.getPaletteColor("purple-6") :
                colors.getPaletteColor("grey-4")
-      } else if (trackCell.type == "gender") {
+      } else if (trackCell.type == "sex") {
         return trackCell.value == "Male" ? colors.getPaletteColor("blue-4") : 
                trackCell.value == "Female" ? colors.getPaletteColor("orange-4") :
                trackCell.value == "Other" ? colors.getPaletteColor("pink-4") :

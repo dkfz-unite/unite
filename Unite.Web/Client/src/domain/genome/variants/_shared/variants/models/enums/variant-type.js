@@ -1,5 +1,5 @@
 export default class VariantType {
-  static SSM = "SSM";
+  static SM = "SM";
   static CNV = "CNV";
   static SV = "SV";
 }

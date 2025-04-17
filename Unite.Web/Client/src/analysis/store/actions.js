@@ -68,35 +68,40 @@ const actions = {
     dispatch("loadAnalyses");
   },
 
-  async runDESeq2Analysis({state, dispatch}, data) {
+  async runSurvAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runSurvAnalysis(data);
+  },
+
+  async runDmAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runDmAnalysis(data);
+  },
+
+  async runDeAnalysis({state, dispatch}, data) {
     data.userId = this.getters["identity/account"].email;
-    return await api.runDESeq2Analysis(data);
+    return await api.runDeAnalysis(data);
   },
 
-  async runSCellAnalysis({state, dispatch}, data) {
+  async runScellAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
-    return await api.runSCellAnalysis(data);
+    return await api.runScellAnalysis(data);
+  },
+  
+  async getScellAnalysisModels({state}) {
+    return await api.getScellAnalysisModels();
   },
 
-  async runKMeierAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runKMeierAnalysis(data);
+  async viewScellAnalysis({state}, data) {
+    return await api.viewScellAnalysis(data.id);
   },
 
-  async getSCellAnalysisModels({state}) {
-    return await api.getSCellAnalysisModels();
+  async updateScellAnalysis({state}, data) {
+    return await api.updateScellAnalysis(data.id);
   },
 
-  async viewSCellAnalysis({state}, data) {
-    return await api.viewSCellAnalysis(data.id);
-  },
-
-  async updateSCellAnalysis({state}, data) {
-    return await api.updateSCellAnalysis(data.id);
-  },
-
-  async stopSCellAnalysis({state}, data) {
-    await api.stopSCellAnalysis(data.id);
+  async stopScellAnalysis({state}, data) {
+    await api.stopScellAnalysis(data.id);
   },
 };
 

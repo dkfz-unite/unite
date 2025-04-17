@@ -7,8 +7,8 @@ const filters = [
     expand: false,
     filters: [
       {
-        field: "hasSsms",
-        label: "SSM",
+        field: "hasSms",
+        label: "SM",
         type: FilterType.Boolean,
         nullable: true
       },

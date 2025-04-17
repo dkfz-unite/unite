@@ -162,12 +162,12 @@ export default {
     },
 
     showImagesTab() {
-      return this.project?.stats.images.mri?.number[0] > 0;
+      return this.project?.stats.images.mr?.number[0] > 0;
           // || this.project?.stats.images.ct?.number[0] > 0;
     },
 
     showSpecimensTab() {
-      return this.project?.stats.specimens.mri?.number[0] > 0
+      return this.project?.stats.specimens.material?.number[0] > 0
           || this.project?.stats.specimens.line?.number[0] > 0
           || this.project?.stats.specimens.organoid?.number[0] > 0
           || this.project?.stats.specimens.xenograft?.number[0] > 0;
@@ -179,7 +179,7 @@ export default {
     },
 
     showVariantsTab() {
-      return this.project?.stats.dna.ssm.number > 0
+      return this.project?.stats.dna.sm.number > 0
           || this.project?.stats.dna.cnv.number > 0
           || this.project?.stats.dna.sv.number > 0;
     }

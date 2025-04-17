@@ -6,7 +6,7 @@ export default class GeneFiltersCriteria {
     biotype = [];
     chromosome = [];
     position = { from: null, to: null };
-    hasSsms = null;
+    hasSms = null;
     hasCnvs = null;
     hasSvs = null;
     hasExp = null;
@@ -20,7 +20,7 @@ export default class GeneFiltersCriteria {
         number += this.chromosome?.length || 0;
         number += this.position?.from != null ? 1 : 0;
         number += this.position?.to != null ? 1 : 0;
-        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasSms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
         number += this.hasExp != null ? 1 : 0;
@@ -34,7 +34,7 @@ export default class GeneFiltersCriteria {
         this.biotype = criteria?.biotype || [];
         this.chromosome = criteria?.chromosome || [];
         this.position = criteria?.position || { from: null, to: null };
-        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasSms = criteria?.hasSms != null ? criteria.hasSms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
         this.hasExp = criteria?.hasExp != null ? criteria.hasExp : null;
@@ -53,7 +53,7 @@ export default class GeneFiltersCriteria {
         this.biotype = [];
         this.chromosome = [];
         this.position = { from: null, to: null };
-        this.hasSsms = null;
+        this.hasSms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
         this.hasExp = null;
