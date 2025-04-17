@@ -153,18 +153,18 @@ export default {
       });
 
       columns.push({
-        name: "kpsBaseline",
-        label: "KPS Baseline",
-        field: (row) => row.clinicalData?.kpsBaseline?.toLocaleString(),
+        name: "steroidsReactive",
+        label: "Steroids Reactive",
+        field: (row) => this.$helpers.content.toBooleanString(row.clinicalData?.steroidsReactive),
         sortable: false,
         align: "left",
         show: false
       });
 
       columns.push({
-        name: "steroidsBaseline",
-        label: "Steroids Baseline",
-        field: (row) => row.clinicalData?.steroidsBaseline?.toLocaleString(),
+        name: "kps",
+        label: "KPS",
+        field: (row) => row.clinicalData?.kps?.toLocaleString(),
         sortable: false,
         align: "left",
         show: false

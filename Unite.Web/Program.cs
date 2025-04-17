@@ -20,19 +20,19 @@ var app = builder.Build();
 var identitySourceUrl = "/api/identity";
 var composerSourceUrl = "/api/composer";
 var analysisSourceUrl = "/api/analysis";
-var donorsFeedSourceUrl = "/api/donors-feed";
-var imagesFeedSourceUrl = "/api/images-feed";
-var specimensFeedSourceUrl = "/api/specimens-feed";
-var genomeFeedSourceUrl = "/api/genome-feed";
+var feedDonorsSourceUrl = "/api/feed-donors";
+var feedImagesSourceUrl = "/api/feedimages";
+var feedSpecimensSourceUrl = "/api/feed-specimens";
+var feedGenomeSourceUrl = "/api/feed-genome";
 var viewerCxgSourceUrl = @"^\/viewer\/cxg(\d+)";
 
 var identityTargetUrl = $"{EnvironmentConfig.IdentityHost}/api";
 var composerTargetUrl = $"{EnvironmentConfig.ComposerHost}/api";
 var analysisTargetUrl = $"{EnvironmentConfig.AnalysisHost}/api";
-var donorsFeedTargetUrl = $"{EnvironmentConfig.DonorsFeedHost}/api";
-var imagesFeedTargetUrl = $"{EnvironmentConfig.ImagesFeedHost}/api";
-var specimensFeedTargetUrl = $"{EnvironmentConfig.SpecimensFeedHost}/api";
-var genomeFeedTargetUrl = $"{EnvironmentConfig.GenomeFeedHost}/api";
+var feedDonorsTargetUrl = $"{EnvironmentConfig.FeedDonorsHost}/api";
+var feedImagesTargetUrl = $"{EnvironmentConfig.FeedImagesHost}/api";
+var feedSpecimensTargetUrl = $"{EnvironmentConfig.FeedSpecimensHost}/api";
+var feedGenomeTargetUrl = $"{EnvironmentConfig.FeedGenomeHost}/api";
 var viewerCxgTargetUrl = $"{EnvironmentConfig.ViewerCxgHost}";
 
 app.UseProxy(options =>
@@ -50,20 +50,20 @@ app.UseProxy(options =>
         (path, query) => $"{path.Replace(analysisSourceUrl, analysisTargetUrl)}{query}"
     );
     options.Map(
-        (path, query) => path.StartsWith(donorsFeedSourceUrl),
-        (path, query) => $"{path.Replace(donorsFeedSourceUrl, donorsFeedTargetUrl)}{query}"
+        (path, query) => path.StartsWith(feedDonorsSourceUrl),
+        (path, query) => $"{path.Replace(feedDonorsSourceUrl, feedDonorsTargetUrl)}{query}"
     );
     options.Map(
-        (path, query) => path.StartsWith(imagesFeedSourceUrl),
-        (path, query) => $"{path.Replace(imagesFeedSourceUrl, imagesFeedTargetUrl)}{query}"
+        (path, query) => path.StartsWith(feedImagesSourceUrl),
+        (path, query) => $"{path.Replace(feedImagesSourceUrl, feedImagesTargetUrl)}{query}"
     );
     options.Map(
-        (path, query) => path.StartsWith(specimensFeedSourceUrl),
-        (path, query) => $"{path.Replace(specimensFeedSourceUrl, specimensFeedTargetUrl)}{query}"
+        (path, query) => path.StartsWith(feedSpecimensSourceUrl),
+        (path, query) => $"{path.Replace(feedSpecimensSourceUrl, feedSpecimensTargetUrl)}{query}"
     );
     options.Map(
-        (path, query) => path.StartsWith(genomeFeedSourceUrl),
-        (path, query) => $"{path.Replace(genomeFeedSourceUrl, genomeFeedTargetUrl)}{query}"
+        (path, query) => path.StartsWith(feedGenomeSourceUrl),
+        (path, query) => $"{path.Replace(feedGenomeSourceUrl, feedGenomeTargetUrl)}{query}"
     );
     options.Map(
         (path, query) => Regex.Match(path, viewerCxgSourceUrl).Success,

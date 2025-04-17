@@ -113,48 +113,36 @@ export default {
   },
 
   methods: {
-    getSeries(data) {
+    getSeries(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
       return [{
-        x: Object.keys(data),
-        y: Object.values(data),
+        x: data.map(mapx),
+        y: data.map(mapy),
         type: "bar",
         orientation: "v"
       }];
     },
 
-    getSeriesRange(data) {      
+    getSeriesRange(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {      
       return [{
-        x: Object.keys(data),
-        y: Object.values(data).map(v => v[1]),
-        base: Object.values(data).map(v => v[1] - v[0]),
+        x: data.map(mapx),
+        y: data.map(mapy).map(v => v[1]),
+        base: data.map(mapy).map(v => v[1] - v[0]),
         hovertemplate: '%{base} - %{y}<extra></extra>',
         type: "bar",
         orientation: "v"
       }];
     },
 
-    getSeriesBox(data) {
-      const entries = Object.entries(data).sort((a, b) => {
-        const aSD = a[1].at(-2);
-        const aCV = a[1].at(-1);
-        const bSD = b[1].at(-2);
-        const bCV = b[1].at(-1);
-
-        if (aCV !== bCV)
-          return bCV - aCV;
-        else
-          return bSD - aSD;
-      });
-      
+    getSeriesBox(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
       return [{
-        x: entries.map(v => v[0]),
-        lowerfence: entries.map(v => v[1][0]),
-        q1: entries.map(v => v[1][1]),
-        median: entries.map(v => v[1][2]),
-        q3: entries.map(v => v[1][3]),
-        upperfence: entries.map(v => v[1][4]),
-        mean: entries.map(v => v[1][5]),
-        sd: entries.map(v => v[1][6]),
+        x: data.map(mapx),
+        lowerfence: data.map(mapy).map(v => v[0]),
+        q1: data.map(mapy).map(v => v[1]),
+        median: data.map(mapy).map(v => v[2]),
+        q3: data.map(mapy).map(v => v[3]),
+        upperfence: data.map(mapy).map(v => v[4]),
+        mean: data.map(mapy).map(v => v[5]),
+        sd: data.map(mapy).map(v => v[6]),
         type: "box",
         boxmean: true,
         boxpoints: false

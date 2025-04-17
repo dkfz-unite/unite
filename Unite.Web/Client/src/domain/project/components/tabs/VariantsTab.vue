@@ -111,9 +111,7 @@ export default {
       responsive: true,
     };    
     
-    if (this.showSsm) {
-      const getType = (value) => enumHelpers.getLabel(value, EffectType.values);
-
+    if (this.showSm) {
       const smPerAnalysis = this.getSeries(this.project.stats.dna.sm.perAnalysis);
       const smPerAnalysisMode = Math.max(...smPerAnalysis[0].y) <= 5 ? "linear" : "auto";
       const smPerType = this.getSeries(this.project.stats.dna.sm.perType);
@@ -121,7 +119,7 @@ export default {
       const smPerBaseAlt = this.getSeries(this.project.stats.dna.sm.perBaseAlt);
       const smPerBaseChange = this.getSeries(this.project.stats.dna.sm.perBaseChange);
       const smPerImpact = this.getSeries(this.project.stats.dna.sm.perEffectImpact);
-      const smPerEffect = this.getSeriesH(this.project.stats.dna.sm.perEffectType, getType);
+      const smPerEffect = this.getSeriesH(this.project.stats.dna.sm.perEffectType, this.getTypeKey);
 
       Plotly.newPlot("sm-per-analysis", smPerAnalysis, this.getLayout("Analysis Type", null, null, smPerAnalysisMode), config);
       Plotly.newPlot("sm-per-type", smPerType, this.getLayout("Variant Type", null, null, "auto"), config);
@@ -152,19 +150,19 @@ export default {
   },
 
   methods: {
-    getSeries(data, mapx = (value) => value, mapy = (value) => value) {
+    getSeries(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
       return [{
-        x: Object.keys(data).map(mapx),
-        y: Object.values(data).map(mapy),
+        x: data.map(mapx),
+        y: data.map(mapy),
         type: "bar",
         orientation: "v"
       }];
     },
 
-    getSeriesH(data, mapx = (value) => value, mapy = (value) => value) {
+    getSeriesH(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
       return [{
-        y: Object.keys(data).map(mapx),
-        x: Object.values(data).map(mapy),
+        y: data.map(mapx),
+        x: data.map(mapy),
         type: "bar",
         orientation: "h"
       }];
@@ -213,6 +211,10 @@ export default {
           }
         }
       };
+    },
+
+    getTypeKey(row, index, array) {
+      return enumHelpers.getLabel(row.key, EffectType.values);
     }
   }
 }

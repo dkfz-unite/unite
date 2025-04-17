@@ -40,17 +40,17 @@ export default {
       responsive: true,
     };
     
-    const mrPerSize = this.getSeries(this.project.stats.images.mr.perSize);
+    const mrPerSize = this.getSeries(this.project.stats.images.mr.perSize, this.getRangeKey);
     const mrPerSizeMode = Math.max(...mrPerSize[0].y) <= 5 ? "linear" : "auto";
 
     Plotly.newPlot("mr-per-size", mrPerSize, this.getLayout("Whole Tumor Size", null, null, mrPerSizeMode), config);
   },
 
   methods: {
-    getSeries(data) {
+    getSeries(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
       return [{
-        x: Object.keys(data),
-        y: Object.values(data),
+        x: data.map(mapx),
+        y: data.map(mapy),
         type: "bar",
         orientation: "v"
       }];
@@ -77,6 +77,15 @@ export default {
           }
         }
       };
+    },
+
+    getRangeKey(row, index, array) {
+      if (index == 0)
+        return `<${row.key - 1}`;
+      else if (index == array.length - 1)
+        return `>${row.key - 1}`;
+      else
+        return `${array[index - 1].key} - ${row.key}`;
     }
   }
 }

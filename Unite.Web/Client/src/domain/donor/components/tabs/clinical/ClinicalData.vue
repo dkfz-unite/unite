@@ -41,7 +41,6 @@
               <td class="u-text-key">Vital Status Changed After (Days)</td>
               <td>{{ clinicalData.vitalStatusChangeDay?.toLocaleString() }}</td>
             </tr>
-
             <tr>
               <td class="u-text-key">Progression Status</td>
               <td>{{ $helpers.content.toBooleanString(clinicalData.progressionStatus, false, "Yes", "No") }}</td>
@@ -50,14 +49,13 @@
               <td class="u-text-key">Progression Status Changed After (Days)</td>
               <td>{{ clinicalData.progressionStatusChangeDay?.toLocaleString() }}</td>
             </tr>
-            
             <tr>
-              <td class="u-text-key">KPS Baseline</td>
-              <td>{{ clinicalData.kpsBaseline }}</td>
+              <td class="u-text-key">Steroids Reactive</td>
+              <td>{{ $helpers.content.toBooleanString(clinicalData.steroidsReactive) }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Steroids Baseline</td>
-              <td>{{ $helpers.content.toBooleanString(clinicalData.steroidsBaseline) }}</td>
+              <td class="u-text-key">KPS</td>
+              <td>{{ clinicalData.kps }}</td>
             </tr>
           </tbody>
         </q-markup-table>

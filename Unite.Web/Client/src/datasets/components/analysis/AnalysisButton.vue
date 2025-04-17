@@ -36,7 +36,7 @@
 import USurvDialog from "@/analysis/components/surv/Dialog.vue";
 import UDmDialog from "@/analysis/components/dm/Dialog.vue";
 import UDeDialog from "@/analysis/components/de/Dialog.vue";
-import UScellDcDialog from "@/analysis/components/scell/Dialog.vue";
+import UScellDialog from "@/analysis/components/scell/Dialog.vue";
 
 
 export default {
