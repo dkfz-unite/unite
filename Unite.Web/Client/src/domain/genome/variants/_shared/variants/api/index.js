@@ -48,8 +48,8 @@ export default class VariantsApi extends ModelsApi {
   async getSubmission(id, type) {
     let url = null;
 
-    if (type == SubmissionType.DNA_SSM)
-      url = `${this.feedUrl}/dna/analysis/${VariantType.SSM}/${id}`;
+    if (type == SubmissionType.DNA_SM)
+      url = `${this.feedUrl}/dna/analysis/${VariantType.SM}/${id}`;
     else if (type == SubmissionType.DNA_CNV)
       url = `${this.feedUrl}/dna/analysis/${VariantType.CNV}/${id}`;
     else if (type == SubmissionType.DNA_SV)

@@ -1,4 +1,4 @@
-import Gender from "../enums/gender";
+import Sex from "../enums/sex";
 import VitalStatus from "../enums/vital-status";
 import ProgressionStatus from "../enums/progression-status";
 
@@ -49,11 +49,11 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "gender",
+    field: "sex",
     label: "Sex",
     type: FilterType.Options,
     valueType: ValueType.String,
-    options: (context) => mapOptions(context?.genderOptions, Gender.values)
+    options: (context) => mapOptions(context?.sexOptions, Sex.values)
   },
   {
     field: "age",
@@ -111,7 +111,7 @@ const filters = [
         label: "Progression Status",
         type: FilterType.Option,
         valueType: ValueType.Boolean,
-        options: (context) => mapOptions(context?.vitalStatusOptions, ProgressionStatus.values),
+        options: (context) => mapOptions(context?.progressionStatusOptions, ProgressionStatus.values),
         // watch: (value, criteria, context) => {
         //   criteria.progressionStatusChangeDay = null;
         // }

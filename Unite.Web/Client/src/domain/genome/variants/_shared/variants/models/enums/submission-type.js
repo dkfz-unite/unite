@@ -1,11 +1,11 @@
 export default class SubmissionType {
   static values = {
-    "DNA SSMs": "dna-ssm",
+    "DNA SMs": "dna-sm",
     "DNA CNVs": "dna-cnv",
     "DNA SVs": "dna-sv"
   }
 
-  static DNA_SSM = this.values["DNA SSMs"];
+  static DNA_SM = this.values["DNA SMs"];
   static DNA_CNV = this.values["DNA CNVs"];
   static DNA_SV = this.values["DNA SVs"];
 

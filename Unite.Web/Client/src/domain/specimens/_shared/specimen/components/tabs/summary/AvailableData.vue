@@ -43,10 +43,10 @@ export default {
       // }
 
       // if (this.specimen.type == "Material" && this.specimen.material?.tumorType != "Normal") {
-      //   data.push({ title: "MRI Images", available: !!this.specimen.data?.mris });
+      //   data.push({ title: "MR Images", available: !!this.specimen.data?.mrs });
       // }
 
-      data.push({ title: "Simple Somatic Mutations (SSM)", available: !!this.specimen.data?.ssms });
+      data.push({ title: "Simple Mutations (SM)", available: !!this.specimen.data?.sms });
       data.push({ title: "Copy Number Variants (CNV)", available: !!this.specimen.data?.cnvs });
       data.push({ title: "Structural Variants (SV)", available: !!this.specimen.data?.svs });
       data.push({ title: "Methylation", available: !!this.specimen.data?.meth });

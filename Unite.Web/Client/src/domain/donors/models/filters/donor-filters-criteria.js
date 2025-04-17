@@ -4,7 +4,7 @@ export default class DonorFiltersCriteria {
     id = [];
     referenceId = [];
 
-    gender = [];
+    sex = [];
     age = { from: null, to: null };
     diagnosis = [];
     primarySite = [];
@@ -19,7 +19,7 @@ export default class DonorFiltersCriteria {
     project = [];
     study = [];
 
-    hasSsms = null;
+    hasSms = null;
     hasCnvs = null;
     hasSvs = null;
     hasMeth = null;
@@ -29,7 +29,7 @@ export default class DonorFiltersCriteria {
         
         number += this.id?.length || 0;
         number += this.referenceId?.length || 0;
-        number += this.gender?.length || 0;
+        number += this.sex?.length || 0;
         number += this.age?.from != null ? 1 : 0;
         number += this.age?.to != null ? 1 : 0;
         number += this.diagnosis?.length || 0;
@@ -45,7 +45,7 @@ export default class DonorFiltersCriteria {
         number += this.mtaProtected != null ? 1 : 0;
         number += this.project?.length || 0;
         number += this.study?.length || 0;
-        number += this.hasSsms != null ? 1 : 0;
+        number += this.hasSms != null ? 1 : 0;
         number += this.hasCnvs != null ? 1 : 0;
         number += this.hasSvs != null ? 1 : 0;
         number += this.hasMeth != null ? 1 : 0;
@@ -58,7 +58,7 @@ export default class DonorFiltersCriteria {
     constructor(criteria = null) {
         this.id = criteria?.id || [];
         this.referenceId = criteria?.referenceId || [];
-        this.gender = criteria?.gender || [];
+        this.sex = criteria?.sex || [];
         this.age = criteria?.age || { from: null, to: null };
         this.diagnosis = criteria?.diagnosis || [];
         this.primarySite = criteria?.primarySite || [];
@@ -71,7 +71,7 @@ export default class DonorFiltersCriteria {
         this.mtaProtected = criteria?.mtaProtected != null ? criteria.mtaProtected : null;
         this.project = criteria?.project || [];
         this.study = criteria?.study || [];
-        this.hasSsms = criteria?.hasSsms != null ? criteria.hasSsms : null;
+        this.hasSms = criteria?.hasSms != null ? criteria.hasSms : null;
         this.hasCnvs = criteria?.hasCnvs != null ? criteria.hasCnvs : null;
         this.hasSvs = criteria?.hasSvs != null ? criteria.hasSvs : null;
         this.hasMeth = criteria?.hasMeth != null ? criteria.hasMeth : null;
@@ -99,7 +99,7 @@ export default class DonorFiltersCriteria {
         this.id = [];
         this.referenceId = [];
 
-        this.gender = [];
+        this.sex = [];
         this.age = { from: null, to: null };
         this.diagnosis = [];
         this.primarySite = [];
@@ -114,7 +114,7 @@ export default class DonorFiltersCriteria {
         this.project = [];
         this.study = [];
 
-        this.hasSsms = null;
+        this.hasSms = null;
         this.hasCnvs = null;
         this.hasSvs = null;
         this.hasMeth = null;

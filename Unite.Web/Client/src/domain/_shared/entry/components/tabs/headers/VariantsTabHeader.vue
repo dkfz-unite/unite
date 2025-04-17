@@ -3,11 +3,11 @@
     <q-menu fit>
       <q-list dense>
         <u-variants-tab-header-item
-          :title="Settings.ssms.title"
-          :icon="Settings.ssms.icon"
-          :active="modelValue == Settings.ssms.domain"
-          :disable="disableSsms"
-          @click="$emit('update:modelValue', Settings.ssms.domain)"
+          :title="Settings.sms.title"
+          :icon="Settings.sms.icon"
+          :active="modelValue == Settings.sms.domain"
+          :disable="disableSms"
+          @click="$emit('update:modelValue', Settings.sms.domain)"
           clickable
         />
         <u-variants-tab-header-item
@@ -49,7 +49,7 @@ export default {
       type: Boolean,
       default: false
     },
-    disableSsms: {
+    disableSms: {
       type: Boolean,
       default: false
     },
@@ -72,7 +72,7 @@ export default {
   computed: {
     tab() {
       switch (this.modelValue) {
-        case Settings.ssms.domain: Settings.ssms.domain;
+        case Settings.sms.domain: Settings.sms.domain;
         case Settings.cnvs.domain: Settings.cnvs.domain;
         case Settings.svs.domain: Settings.svs.domain;
         default: null;
@@ -81,15 +81,15 @@ export default {
 
     icon() {
       switch (this.modelValue) {
-        case Settings.ssms.domain: return Settings.ssms.icon;
+        case Settings.sms.domain: return Settings.sms.icon;
         case Settings.cnvs.domain: return Settings.cnvs.icon;
         case Settings.svs.domain: return Settings.svs.icon;
-        default: return Settings.ssms.icon;
+        default: return Settings.sms.icon;
       }
     },
 
     active() {
-      return [Settings.ssms.domain, Settings.cnvs.domain, Settings.svs.domain].includes(this.modelValue);
+      return [Settings.sms.domain, Settings.cnvs.domain, Settings.svs.domain].includes(this.modelValue);
     }
   }
 }

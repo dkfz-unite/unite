@@ -119,7 +119,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.xenografts.domain,
       model: "xenograft",
-      models: ["donor", "xenograft", "gene", "ssm", "cnv", "sv"]
+      models: ["donor", "xenograft", "gene", "sm", "cnv", "sv"]
     };
   },
 

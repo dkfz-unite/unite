@@ -56,9 +56,9 @@
                 :disable="!showSpecimens"
               />
               <q-tab 
-                :name="Tabs.mris.domain" 
-                :label="Tabs.mris.title" 
-                :icon="Tabs.mris.icon" 
+                :name="Tabs.mrs.domain" 
+                :label="Tabs.mrs.title" 
+                :icon="Tabs.mrs.icon" 
                 :disable="!showImages"
               />
               <q-tab 
@@ -76,7 +76,7 @@
               <u-tab-variants 
                 v-model="tab"
                 :disable="!showVariants"
-                :disableSsms="!showSsms"
+                :disableSms="!showSms"
                 :disableCnvs="!showCnvs"
                 :disableSvs="!showSvs"
               />
@@ -104,8 +104,8 @@
                 <u-ancestry-tab :donor="donor" />
               </q-tab-panel>
 
-              <q-tab-panel :name="Tabs.mris.domain" class="q-py-sm q-px-none">
-                <u-mris-tab :donor="donor" />
+              <q-tab-panel :name="Tabs.mrs.domain" class="q-py-sm q-px-none">
+                <u-mrs-tab :donor="donor" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.profile.domain" class="q-py-sm q-px-none">
@@ -116,8 +116,8 @@
                 <u-genes-tab title="Donor Genes" :area="Settings.donor.domain" :samples="samples" />
               </q-tab-panel>
 
-              <q-tab-panel :name="Tabs.ssms.domain" class="q-py-sm q-px-none">
-                <u-ssms-tab title="Donor Simple Somatic Mutations" :area="Settings.donor.domain" :samples="samples" />
+              <q-tab-panel :name="Tabs.sms.domain" class="q-py-sm q-px-none">
+                <u-sms-tab title="Donor Simple Mutations" :area="Settings.donor.domain" :samples="samples" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.cnvs.domain" class="q-py-sm q-px-none">
@@ -147,10 +147,10 @@ import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UClinicalTab from "./components/tabs/ClinicalTab.vue";
 import UTreatmentsTab from "./components/tabs/TreatmentsTab.vue";
 import UAncestryTab from "./components/tabs/AncestryTab.vue";
-import UMrisTab from "./components/tabs/MrisTab.vue";
+import UMrsTab from "./components/tabs/MrsTab.vue";
 import UProfileTab from "@/domain/_shared/entry/components/tabs/ProfileTab.vue";
 import UGenesTab from "@/domain/_shared/entry/components/tabs/GenesTab.vue";
-import USsmsTab from "@/domain/_shared/entry/components/tabs/SSMsTab.vue";
+import USmsTab from "@/domain/_shared/entry/components/tabs/SMsTab.vue";
 import UCnvsTab from "@/domain/_shared/entry/components/tabs/CNVsTab.vue";
 import USvsTab from "@/domain/_shared/entry/components/tabs/SVsTab.vue";
 import pageTabsMixin from "@/domain/_shared/entry/components/tabs/mixin";
@@ -168,10 +168,10 @@ export default {
     UClinicalTab,
     UTreatmentsTab,
     UAncestryTab,
-    UMrisTab,
+    UMrsTab,
     UProfileTab,
     UGenesTab,
-    USsmsTab,
+    USmsTab,
     UCnvsTab,
     USvsTab
   },
@@ -217,7 +217,7 @@ export default {
     },
 
     showImages() {
-      return this.donor?.data?.mris || this.donor?.data?.cts;
+      return this.donor?.data?.mrs || this.donor?.data?.cts;
     },
 
     showProfile() {
@@ -229,11 +229,11 @@ export default {
     },
 
     showVariants() {
-      return this.showSsms || this.showCnvs || this.showSvs;
+      return this.showSms || this.showCnvs || this.showSvs;
     },
 
-    showSsms() {
-      return this.donor?.data?.ssms;
+    showSms() {
+      return this.donor?.data?.sms;
     },
 
     showCnvs() {

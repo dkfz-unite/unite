@@ -6,9 +6,9 @@
     "studies": [ "Study1" ],
     "clinical_data": {
       "sex": "Female",
-      "age": 45,
+      "enrollment_date": "2020-01-01",
+      "enrollment_age": 45,
       "diagnosis": "Diagnosis1",
-      "diagnosis_date": "2020-01-01",
       "primary_site": "Brain",
       "localization": "Left",
       "vital_status": true,
@@ -28,9 +28,9 @@
     "studies": [ "Study1" ],
     "clinical_data": {
       "sex": "Female",
-      "age": 75,
+      "enrollment_date": "2020-01-01",
+      "enrollment_age": 75,
       "diagnosis": "Diagnosis1",
-      "diagnosis_date": "2020-01-01",
       "primary_site": "Brain",
       "localization": "Right",
       "vital_status": false,

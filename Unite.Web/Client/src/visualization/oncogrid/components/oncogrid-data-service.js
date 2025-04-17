@@ -4,7 +4,7 @@ function getColumns(elements) {
     return {
       id: element.id,
       symbol: element.displayId,
-      gender: element.gender,
+      sex: element.sex,
       age: element.age,
       vitalStatus: element.vitalStatus,
       progressionStatus: element.progressionStatus
@@ -32,7 +32,7 @@ function getEntries(elements) {
       id: element.id,
       rowId: element.geneId,
       columnId: element.donorId,
-      ssm: {
+      sm: {
         code: element.code,
         impact: element.impact,
         effect: element.effect
@@ -43,7 +43,7 @@ function getEntries(elements) {
 
 function GetColumnTracks() {
   return [
-    { group: "Donor", name: "Sex", fieldName: "gender" },
+    { group: "Donor", name: "Sex", fieldName: "sex" },
     { group: "Donor", name: "Age", fieldName: "age" },
     { group: "Donor", name: "Alive", fieldName: "vitalStatus" },
     { group: "Donor", name: "Progression", fieldName: "progressionStatus" }

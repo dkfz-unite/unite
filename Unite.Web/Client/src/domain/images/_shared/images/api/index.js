@@ -19,10 +19,10 @@ export default class ImagesApi extends ModelsApi {
   async getSubmission(id, type) {
     let url = null;
 
-    if (type == SubmissionType.MRI)
-      url = `${this.feedUrl}/entries/${ImageType.Mri}/${id}`;
+    if (type == SubmissionType.MR)
+      url = `${this.feedUrl}/entries/${ImageType.MR}/${id}`;
     else if (type == SubmissionType.CT)
-      url = `${this.feedUrl}/entries/${ImageType.Ct}/${id}`;
+      url = `${this.feedUrl}/entries/${ImageType.CT}/${id}`;
     else if (type == SubmissionType.Radiomics){
       url = `${this.feedUrl}/analysis/radiomics/${id}`;
     }

@@ -4,14 +4,14 @@ import ULinkExternal from "@/_shared/components/base/LinkExternal.vue";
 import ULinkProject from "@/domain/project/components/Link.vue";
 import ULinkDonor from "@/domain/donor/components/Link.vue";
 import ULinkImage from "@/domain/images/_shared/image/components/Link.vue";
-import ULinkMri from "@/domain/images/mri/components/Link.vue";
+import ULinkMr from "@/domain/images/mr/components/Link.vue";
 import ULinkSpecimen from "@/domain/specimens/_shared/specimen/components/Link.vue";
 import ULinkMaterial from "@/domain/specimens/material/components/Link.vue";
 import ULinkLine from "@/domain/specimens/line/components/Link.vue";
 import ULinkOrganoid from "@/domain/specimens/organoid/components/Link.vue";
 import ULinkXenograft from "@/domain/specimens/xenograft/components/Link.vue";
 import ULinkGene from "@/domain/genome/gene/components/Link.vue";
-import ULinkSsm from "@/domain/genome/variants/ssm/components/Link.vue";
+import ULinkSm from "@/domain/genome/variants/sm/components/Link.vue";
 import ULinkCnv from "@/domain/genome/variants/cnv/components/Link.vue";
 import ULinkSv from "@/domain/genome/variants/sv/components/Link.vue";
 
@@ -24,14 +24,14 @@ const plugin = {
       .component("u-link-project", ULinkProject)
       .component("u-link-donor", ULinkDonor)
       .component("u-link-image", ULinkImage)
-      .component("u-link-mri", ULinkMri)
+      .component("u-link-mr", ULinkMr)
       .component("u-link-specimen", ULinkSpecimen)
       .component("u-link-material", ULinkMaterial)
       .component("u-link-line", ULinkLine)
       .component("u-link-organoid", ULinkOrganoid)
       .component("u-link-xenograft", ULinkXenograft)
       .component("u-link-gene", ULinkGene)
-      .component("u-link-ssm", ULinkSsm)
+      .component("u-link-sm", ULinkSm)
       .component("u-link-cnv", ULinkCnv)
       .component("u-link-sv", ULinkSv);
   }

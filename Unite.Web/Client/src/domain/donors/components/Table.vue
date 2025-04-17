@@ -86,9 +86,9 @@ export default {
       });
 
       columns.push({
-        name: "gender",
+        name: "sex",
         label: "Sex",
-        field: (row) => row.clinicalData?.gender,
+        field: (row) => row.clinicalData?.sex,
         sortable: false,
         align: "left"
       });
@@ -153,18 +153,18 @@ export default {
       });
 
       columns.push({
-        name: "kpsBaseline",
-        label: "KPS Baseline",
-        field: (row) => row.clinicalData?.kpsBaseline?.toLocaleString(),
+        name: "steroidsReactive",
+        label: "Steroids Reactive",
+        field: (row) => this.$helpers.content.toBooleanString(row.clinicalData?.steroidsReactive),
         sortable: false,
         align: "left",
         show: false
       });
 
       columns.push({
-        name: "steroidsBaseline",
-        label: "Steroids Baseline",
-        field: (row) => row.clinicalData?.steroidsBaseline?.toLocaleString(),
+        name: "kps",
+        label: "KPS",
+        field: (row) => row.clinicalData?.kps?.toLocaleString(),
         sortable: false,
         align: "left",
         show: false
@@ -196,12 +196,12 @@ export default {
 
       if ([Settings.domain].includes(this.$route.name)){
         columns.push({
-          name: "hasSsms",
-          label: "SSM",
-          field: (row) => this.dataView(row.data.ssms),
+          name: "hasSms",
+          label: "SM",
+          field: (row) => this.dataView(row.data.sms),
           sortable: false,
           align: "center",
-          classes: (row) => this.dataCellClass(row.data.ssms),
+          classes: (row) => this.dataCellClass(row.data.sms),
           headerClasses: this.dataHeaderClass()
         });
 
@@ -267,9 +267,9 @@ export default {
 
       if (["donors"].includes(this.$route.name)){
         columns.push({
-          name: "numberOfSsms",
-          label: "#SSMs",
-          field: (row) => row.stats?.ssms?.toLocaleString(),
+          name: "numberOfSms",
+          label: "#SMs",
+          field: (row) => row.stats?.sms?.toLocaleString(),
           sortable: false
         });
 

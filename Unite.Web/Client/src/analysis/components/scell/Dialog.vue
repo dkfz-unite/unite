@@ -7,7 +7,7 @@
 
     <q-card style="min-width: 420px;">
       <q-card-section>
-        <div class="text-h6">Single Cell RNA Analysis</div>
+        <div class="text-h6">scRNA Dataset Creation</div>
       </q-card-section>
 
       <q-card-section>
@@ -390,7 +390,7 @@ export default {
         }
       };
 
-      const id = await this.$store.dispatch("analysis/runSCellAnalysis", data);
+      const id = await this.$store.dispatch("analysis/runScellAnalysis", data);
       await this.$router.push({ name: "analysis", params: { id: id } });
     },
 
@@ -434,7 +434,7 @@ export default {
     async loadModels() {
       try {
         this.options.model.loading = true;
-        const response = await this.$store.dispatch("analysis/getSCellAnalysisModels");
+        const response = await this.$store.dispatch("analysis/getScellAnalysisModels");
         this.options.model.options = response?.models.map(model => ({
           value: model.filename,
           label: this.getModelName(model.filename),

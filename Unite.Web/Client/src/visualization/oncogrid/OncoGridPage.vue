@@ -90,7 +90,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: "oncogrid",
       model: "oncogrid",
-      models: ["donor", "gene", "ssm", "oncogrid"],
+      models: ["donor", "gene", "sm", "oncogrid"],
 
       filtersCriteria: null,
       filtersContext: null,
@@ -113,15 +113,15 @@ export default {
       filtersCriteria.gene.symbol = genes?.map(gene => gene.symbol);
     }
 
-    if (!filtersCriteria.ssm.effectImpactOptions?.length) {
+    if (!filtersCriteria.sm.effectImpactOptions?.length) {
       let allowedOptions = this.allowedImpacts.map(impact => ({ value: impact, label: impact }));
-      filtersContext.ssm.effectImpactOptions = mapOptions(allowedOptions, EffectImpact.values);
+      filtersContext.sm.effectImpactOptions = mapOptions(allowedOptions, EffectImpact.values);
     }
 
-    if (!filtersCriteria.ssm.impact.length){
-      filtersCriteria.ssm.impact = this.allowedImpacts;
+    if (!filtersCriteria.sm.impact.length){
+      filtersCriteria.sm.impact = this.allowedImpacts;
     } else {
-      filtersCriteria.ssm.impact = filtersCriteria.ssm.impact.filter(impact => this.allowedImpacts.includes(impact));
+      filtersCriteria.sm.impact = filtersCriteria.sm.impact.filter(impact => this.allowedImpacts.includes(impact));
     }
 
     this.filtersCriteria = filtersCriteria;
@@ -131,8 +131,8 @@ export default {
 
   methods: {
     async updateFilters() {
-      if (!this.filtersCriteria.ssm.impact?.length) {
-        this.filtersCriteria.ssm.impact = this.allowedImpacts;
+      if (!this.filtersCriteria.sm.impact?.length) {
+        this.filtersCriteria.sm.impact = this.allowedImpacts;
       }
       await this.loadData();
     },

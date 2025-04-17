@@ -36,8 +36,8 @@ export default {
       return [
         // { title: "Clinical", available: !!this.donor.data.clinical },
         // { title: "Treatments", available: !!this.donor.data.treatments },
-        // { title: "MRI Images", available: !!this.donor.data.mris },
-        { title: "Simple Somatic Mutations (SSM)", available: !!this.donor.data.ssms },
+        // { title: "MR Images", available: !!this.donor.data.mrs },
+        { title: "Simple Mutations (SM)", available: !!this.donor.data.sms },
         { title: "Copy Number Variants (CNV)", available: !!this.donor.data.cnvs },
         { title: "Structural Variants (SV)", available: !!this.donor.data.svs },
         { title: "Methylation", available: !!this.donor.data.meth },

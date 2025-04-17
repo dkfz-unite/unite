@@ -203,12 +203,12 @@ export default {
         });
 
         columns.push({
-          name: "hasSsms",
-          label: "SSM",
-          field: (row) => this.dataView(row.data.ssms),
+          name: "hasSms",
+          label: "SM",
+          field: (row) => this.dataView(row.data.sms),
           sortable: false,
           align: "center",
-          classes: (row) => this.dataCellClass(row.data.ssms),
+          classes: (row) => this.dataCellClass(row.data.sms),
           headerClasses: this.dataHeaderClass()
         });
 
@@ -271,9 +271,9 @@ export default {
       });
 
       columns.push({
-        name: "numberOfSsms",
-        label: "#SSMs",
-        field: (row) => row.stats?.ssms?.toLocaleString(),
+        name: "numberOfSms",
+        label: "#SMs",
+        field: (row) => row.stats?.sms?.toLocaleString(),
         sortable: false
       });
 

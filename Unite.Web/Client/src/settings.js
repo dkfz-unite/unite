@@ -3,9 +3,9 @@ export default {
     identity: "/api/identity",
     composer: "/api/composer",
     analysis: "/api/analysis",
-    donors: "/api/donors-feed",
-    images: "/api/images-feed",
-    specimens: "/api/specimens-feed",
-    genome: "/api/genome-feed"
+    donors: "/api/feed-donors",
+    images: "/api/feed-images",
+    specimens: "/api/feed-specimens",
+    genome: "/api/feed-genome"
   }
 }

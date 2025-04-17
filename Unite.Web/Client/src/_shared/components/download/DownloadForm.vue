@@ -24,8 +24,8 @@
             <div class="row q-pl-md" v-if="hasTreatmentsData">
               <q-checkbox v-model="model.treatments" label="Treatments" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasMrisData">
-              <q-checkbox v-model="model.mris" label="MRI images" :disable="loading" dense />
+            <div class="row" v-if="hasMrsData">
+              <q-checkbox v-model="model.mrs" label="MR images" :disable="loading" dense />
             </div>
             <div class="row" v-if="hasCtsData">
               <q-checkbox v-model="model.cts" label="CT images" :disable="loading" dense />
@@ -39,13 +39,13 @@
             <div class="row q-pl-md" v-if="hasDrugScreeningsData">
               <q-checkbox v-model="model.drugs" label="Drug screenings" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasSsmsData">
-              <q-checkbox v-model="model.ssms" label="Simple somatic mutations (SSM)" :disable="loading" dense />
+            <div class="row" v-if="hasSmsData">
+              <q-checkbox v-model="model.sms" label="Simple mutations (SM)" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md q-gutter-x-sm" v-if="hasSsmsData">
+            <div class="row q-pl-md q-gutter-x-sm" v-if="hasSmsData">
               <div>Affected genes:</div>
-              <q-checkbox v-model="model.ssmsTranscriptsSlim" label="Slim" :disable="loading" dense />
-              <q-checkbox v-model="model.ssmsTranscriptsFull" label="Full" :disable="loading" dense />
+              <q-checkbox v-model="model.smsTranscriptsSlim" label="Slim" :disable="loading" dense />
+              <q-checkbox v-model="model.smsTranscriptsFull" label="Full" :disable="loading" dense />
             </div>
             <div class="row" v-if="hasCnvsData">
               <q-checkbox v-model="model.cnvs" label="Copy number variants (CNV)" :disable="loading" dense />
@@ -128,14 +128,14 @@ export default {
         donors: false,
         clinical: false,
         treatments: false,
-        mris: false,
+        mrs: false,
         cts: false,
         specimens: false,
         interventions: false,
         drugs: false,
-        ssms: false,
-        ssmsTranscriptsSlim: false,
-        ssmsTranscriptsFull: false,
+        sms: false,
+        smsTranscriptsSlim: false,
+        smsTranscriptsFull: false,
         cnvs: false,
         cnvsTranscriptsSlim: false,
         cnvsTranscriptsFull: false,
@@ -162,8 +162,8 @@ export default {
       return this.data?.treatments === true;
     },
 
-    hasMrisData() {
-      return this.data?.mris === true;
+    hasMrsData() {
+      return this.data?.mrs === true;
     },
 
     hasCtsData() {
@@ -207,8 +207,8 @@ export default {
       }
     },
 
-    hasSsmsData() {
-      return this.data?.ssms === true;
+    hasSmsData() {
+      return this.data?.sms === true;
     },
 
     hasCnvsData() {
@@ -238,8 +238,8 @@ export default {
     },
 
     showCaution() {
-      return this.model.ssmsTranscriptsSlim
-          || this.model.ssmsTranscriptsFull
+      return this.model.smsTranscriptsSlim
+          || this.model.smsTranscriptsFull
           || this.model.cnvsTranscriptsSlim
           || this.model.cnvsTranscriptsFull
           || this.model.svsTranscriptsSlim
@@ -263,10 +263,10 @@ export default {
   },
 
   watch: {
-    "model.ssms"(value) {
+    "model.sms"(value) {
       if (!value) {
-        this.model.ssmsTranscriptsSlim = false;
-        this.model.ssmsTranscriptsFull = false;
+        this.model.smsTranscriptsSlim = false;
+        this.model.smsTranscriptsFull = false;
       }
     },
 
@@ -284,17 +284,17 @@ export default {
       }
     },
 
-    "model.ssmsTranscriptsSlim"(value) {
+    "model.smsTranscriptsSlim"(value) {
       if (value) {
-        this.model.ssms = true;
-        this.model.ssmsTranscriptsFull = false;
+        this.model.sms = true;
+        this.model.smsTranscriptsFull = false;
       }
     },
 
-    "model.ssmsTranscriptsFull"(value) {
+    "model.smsTranscriptsFull"(value) {
       if (value) {
-        this.model.ssms = true;
-        this.model.ssmsTranscriptsSlim = false;
+        this.model.sms = true;
+        this.model.smsTranscriptsSlim = false;
       }
     },
 
@@ -336,13 +336,13 @@ export default {
       if (this.hasDonorsData && !this.model.donors) { return false; }
       if (this.hasClinicalData && !this.model.clinical) { return false; }
       if (this.hasTreatmentsData && !this.model.treatments) { return false; }
-      if (this.hasMrisData && !this.model.mris) { return false; }
+      if (this.hasMrsData && !this.model.mrs) { return false; }
       if (this.hasCtsData && !this.model.cts) { return false; }
       if (this.hasSpecimensData && !this.model.specimens) { return false; }
       if (this.hasInterventionsData && !this.model.interventions) { return false; }
       if (this.hasDrugScreeningsData && !this.model.drugs) { return false; }
-      if (this.hasSsmsData && !this.model.ssms) { return false; }
-      if (this.hasSsmsData && !(this.model.ssmsTranscriptsSlim || this.model.ssmsTranscriptsFull)) { return false; }
+      if (this.hasSmsData && !this.model.sms) { return false; }
+      if (this.hasSmsData && !(this.model.smsTranscriptsSlim || this.model.smsTranscriptsFull)) { return false; }
       if (this.hasCnvsData && !this.model.cnvs) { return false; }
       if (this.hasCnvsData && !(this.model.cnvsTranscriptsSlim || this.model.cnvsTranscriptsFull)) { return false; }
       if (this.hasSvsData && !this.model.svs) { return false; }
@@ -357,12 +357,12 @@ export default {
       if (this.hasDonorsData) { this.model.donors = value; }
       if (this.hasClinicalData) { this.model.clinical = value; }
       if (this.hasTreatmentsData) { this.model.treatments = value; }
-      if (this.hasMrisData) { this.model.mris = value; }
+      if (this.hasMrsData) { this.model.mrs = value; }
       if (this.hasCtsData) { this.model.cts = value; }
       if (this.hasSpecimensData) { this.model.specimens = value; }
       if (this.hasInterventionsData) { this.model.interventions = value; }
       if (this.hasDrugScreeningsData) { this.model.drugs = value; }
-      if (this.hasSsmsData) { this.model.ssms = value; this.model.ssmsTranscriptsSlim = value; }
+      if (this.hasSmsData) { this.model.sms = value; this.model.smsTranscriptsSlim = value; }
       if (this.hasCnvsData) { this.model.cnvs = value; this.model.cnvsTranscriptsSlim = value; }
       if (this.hasSvsData) { this.model.svs = value; this.model.svsTranscriptsSlim = value; }
       if (this.hasMethData) { this.model.meth = value; }

@@ -120,7 +120,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.cnvs.domain,
       model: FilterModels.Cnv,
-      models: [FilterModels.Donor, FilterModels.Mri, ...FilterModels.Specimens, FilterModels.Cnv]
+      models: [FilterModels.Donor, FilterModels.Mr, ...FilterModels.Specimens, FilterModels.Cnv]
     };
   },
 

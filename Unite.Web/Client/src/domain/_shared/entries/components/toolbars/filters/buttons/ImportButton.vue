@@ -181,13 +181,13 @@ export default {
       }
 
       if (dataset?.criteria?.donor == null
-        && dataset?.criteria?.mri == null
+        && dataset?.criteria?.mr == null
         && dataset?.criteria?.material == null
         && dataset?.criteria?.line == null
         && dataset?.criteria?.organoid == null
         && dataset?.criteria?.xenograft == null
         && dataset?.criteria?.gene == null
-        && dataset?.criteria?.ssm == null
+        && dataset?.criteria?.sm == null
         && dataset?.criteria?.cnv == null
         && dataset?.criteria?.sv == null) {
         return `Filters criteria should be specified`;

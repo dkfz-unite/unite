@@ -24,7 +24,7 @@ const mixin = {
     },
 
     showProfile() {
-      return this.specimen?.data?.ssms || this.specimen?.data?.cnvs || this.specimen?.data?.svs || this.specimen?.data?.geneExp;
+      return this.specimen?.data?.sms || this.specimen?.data?.cnvs || this.specimen?.data?.svs || this.specimen?.data?.geneExp;
     },
 
     showGenes() {
@@ -32,11 +32,11 @@ const mixin = {
     },
 
     showVariants() {
-      return this.showSsms || this.showCnvs || this.showSvs;
+      return this.showSms || this.showCnvs || this.showSvs;
     },
 
-    showSsms() {
-      return !!this.specimen?.numberOfSsms;
+    showSms() {
+      return !!this.specimen?.numberOfSms;
     },
 
     showCnvs() {

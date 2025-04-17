@@ -39,12 +39,12 @@
       />
     </div>
 
-    <!-- MRI criteria -->
-    <div class="row" v-if="hasGroupFilters(mriFilters, dataset.criteria.mri)">
+    <!-- MR criteria -->
+    <div class="row" v-if="hasGroupFilters(mrFilters, dataset.criteria.mr)">
       <u-criteria-group
-        title="MRI criteria"
-        :criteria="dataset.criteria.mri"
-        :filters="mriFilters"
+        title="MR criteria"
+        :criteria="dataset.criteria.mr"
+        :filters="mrFilters"
       />
     </div>
 
@@ -102,12 +102,12 @@
       />
     </div>
 
-    <!-- SSM criteria -->
-    <div class="row" v-if="hasGroupFilters(ssmFilters, dataset.criteria.ssm)">
+    <!-- SM criteria -->
+    <div class="row" v-if="hasGroupFilters(smFilters, dataset.criteria.sm)">
       <u-criteria-group
-        title="SSM criteria"
-        :criteria="dataset.criteria.ssm"
-        :filters="ssmFilters"
+        title="SM criteria"
+        :criteria="dataset.criteria.sm"
+        :filters="smFilters"
       />
     </div>
 
@@ -138,14 +138,14 @@ import FilterType from "@/_shared/components/filters/filter-type";
 import donorDataFilters from "@/domain/donors/models/filters/donor-data-filters";
 import donorFilters from "@/domain/donors/models/filters/donor-filters";
 import imageDataFilters from "@/domain/images/_shared/images/models/filters/image-data-filters";
-import mriFilters from "@/domain/images/mris/models/filters/mri-filters";
+import mrFilters from "@/domain/images/mrs/models/filters/mr-filters";
 import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
 import materialFilters from "@/domain/specimens/materials/models/filters/material-filters";
 import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
 import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
 import geneFilters from "@/domain/genome/genes/models/filters/gene-filters";
-import ssmFilters from "@/domain/genome/variants/ssms/models/filters/ssm-filters";
+import smFilters from "@/domain/genome/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
 import svFilters from "@/domain/genome/variants/svs/models/filters/sv-filters";
 
@@ -166,14 +166,14 @@ export default {
       donorDataFilters: donorDataFilters,
       donorFilters: donorFilters,
       imageDataFilters: imageDataFilters,
-      mriFilters: mriFilters,
+      mrFilters: mrFilters,
       specimenDataFilters: specimenDataFilters,
       materialFilters: materialFilters,
       lineFilters: lineFilters,
       organoidFilters: organoidFilters,
       xenograftFilters: xenograftFilters,
       geneFilters: geneFilters,
-      ssmFilters: ssmFilters,
+      smFilters: smFilters,
       cnvFilters: cnvFilters,
       svFilters: svFilters
     }
