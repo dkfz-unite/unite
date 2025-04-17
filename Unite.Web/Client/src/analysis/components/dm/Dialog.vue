@@ -151,7 +151,7 @@ export default {
       }));
 
       const data = {
-        type: "meth-dm",
+        type: "dm",
         name: this.name.value,
         description: this.description.value,
         status: null,
