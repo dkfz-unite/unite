@@ -127,7 +127,7 @@ export default {
       }));
 
       const data = {
-        type: "rna-de",
+        type: "de",
         name: this.name.value,
         description: this.description.value,
         status: null,
