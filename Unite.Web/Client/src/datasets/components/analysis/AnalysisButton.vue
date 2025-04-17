@@ -1,8 +1,8 @@
 <template>
-  <u-don-sce-dialog v-if="showSurvAnalysis" ref="SurvDialog" :datasets="datasets" />
-  <u-meth-dm-dialog v-if="showDmAnalysis" ref="DmDialog" :datasets="datasets" />
-  <u-rna-de-dialog v-if="showDeAnalysis" ref="DeDialog" :datasets="datasets" />
-  <u-rnasc-dc-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
+  <u-surv-dialog v-if="showSurvAnalysis" ref="SurvDialog" :datasets="datasets" />
+  <u-dm-dialog v-if="showDmAnalysis" ref="DmDialog" :datasets="datasets" />
+  <u-de-dialog v-if="showDeAnalysis" ref="DeDialog" :datasets="datasets" />
+  <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
@@ -56,10 +56,10 @@ export default {
 
   computed: {
     enableAnalysis() {
-      return this.showDonSceAnalysis
-          || this.showMethDmAnalysis
-          || this.showRnaDeAnalysis
-          || this.showRnascDcAnalysis;
+      return this.showSurvAnalysis
+          || this.showDmDmAnalysis
+          || this.showDeAnalysis
+          || this.showScellAnalysis;
     },
 
     showSurvAnalysis() {
