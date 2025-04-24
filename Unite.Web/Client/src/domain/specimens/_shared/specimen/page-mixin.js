@@ -24,11 +24,11 @@ const mixin = {
     },
 
     showProfile() {
-      return this.specimen?.data?.sms || this.specimen?.data?.cnvs || this.specimen?.data?.svs || this.specimen?.data?.geneExp;
+      return this.specimen?.data?.sms || this.specimen?.data?.cnvs || this.specimen?.data?.svs || this.specimen?.data?.exp;
     },
 
     showGenes() {
-      return this.specimen?.numberOfGenes || this.specimen?.data?.geneExp;
+      return this.specimen?.numberOfGenes || this.specimen?.data?.exp;
     },
 
     showVariants() {

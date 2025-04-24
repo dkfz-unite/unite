@@ -50,8 +50,8 @@ export default {
       data.push({ title: "Copy Number Variants (CNV)", available: !!this.specimen.data?.cnvs });
       data.push({ title: "Structural Variants (SV)", available: !!this.specimen.data?.svs });
       data.push({ title: "Methylation", available: !!this.specimen.data?.meth });
-      data.push({ title: "Bulk Gene Expressions", available: !!this.specimen.data?.geneExp });
-      data.push({ title: "Single Cell Gene Expressions", available: !!this.specimen.data?.geneExpSc });
+      data.push({ title: "Bulk Gene Expressions", available: !!this.specimen.data?.exp });
+      data.push({ title: "Single Cell Gene Expressions", available: !!this.specimen.data?.expSc });
 
       return data;
     }
