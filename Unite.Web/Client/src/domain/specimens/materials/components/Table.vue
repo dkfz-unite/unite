@@ -239,7 +239,7 @@ export default {
         });
 
         columns.push({
-          name: "hasGeneExp",
+          name: "hasExp",
           label: "RNA",
           field: (row) => this.dataView(row.data.exp),
           sortable: false,
@@ -249,7 +249,7 @@ export default {
         });
 
         columns.push({
-          name: "hasGeneExpSc",
+          name: "hasExpSc",
           label: "scRNA",
           field: (row) => this.dataView(row.data.expSc),
           sortable: false,
