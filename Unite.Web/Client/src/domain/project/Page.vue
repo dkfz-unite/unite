@@ -158,7 +158,8 @@ export default {
     ...mapGetters("identity", ["canWriteData"]),
 
     showDonorsTab() {
-      return this.project?.stats.donors.number > 0;
+      return this.project?.stats.donors.number > 0
+          && this.project?.data.clinical
     },
 
     showImagesTab() {
