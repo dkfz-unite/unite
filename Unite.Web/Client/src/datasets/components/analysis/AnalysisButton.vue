@@ -57,7 +57,7 @@ export default {
   computed: {
     enableAnalysis() {
       return this.showSurvAnalysis
-          || this.showDmDmAnalysis
+          || this.showDmAnalysis
           || this.showDeAnalysis
           || this.showScellAnalysis;
     },
