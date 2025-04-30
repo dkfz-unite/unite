@@ -19,7 +19,7 @@
         </q-item>
         <q-item v-if="showDeAnalysis" @click="$refs.DeDialog.show()" clickable v-close-popup dense>
           <q-item-section>
-            <q-item-label>RNA Differential Expression</q-item-label>
+            <q-item-label>Differential Expression</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="showScellAnalysis" @click="$refs.ScellDialog.show()" clickable v-close-popup dense>
@@ -80,7 +80,7 @@ export default {
 
     showScellAnalysis() {
       return this.datasets?.length == 1 &&
-             this.datasets?.every(dataset => dataset.data?.geneExpSc == true);
+             this.datasets?.every(dataset => dataset.data?.expSc == true);
     }
   }
 }
