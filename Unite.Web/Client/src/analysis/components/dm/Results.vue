@@ -178,7 +178,7 @@ export default {
       if (upmethylated.x.length > 0) {
         traces.push({
         name: "Upmethylated",
-        type: "scatter",
+        type: "scattergl",
         mode: "markers",
         x: upmethylated.x,
         y: upmethylated.y,
@@ -194,7 +194,7 @@ export default {
       if (downmethylated.x.length > 0) {
         traces.push({
         name: "Downmethylated",
-        type: "scatter",
+        type: "scattergl",
         mode: "markers",
         x: downmethylated.x,
         y: downmethylated.y,
@@ -210,7 +210,7 @@ export default {
       if (insignificant.x.length > 0) {
         traces.push({
         name: "Insignificant",
-        type: "scatter",
+        type: "scattergl",
         mode: "markers",
         x: insignificant.x,
         y: insignificant.y,
