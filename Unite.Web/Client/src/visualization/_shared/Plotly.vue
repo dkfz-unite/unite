@@ -25,7 +25,7 @@ export default {
     }
   },
 
-  emits: ["click", "hover", "unhover", "zoom", "reset"],
+  emits: ["click", "hover", "unhover", "zoom", "reset", "ready"],
 
   data() {
     return {
@@ -67,6 +67,11 @@ export default {
       // Zoom events
       plot.on("plotly_relayout", (data) => this.onZoom(data));
       plot.on("plotly_doubleclick", (data) => this.onReset(data));
+
+      // Ready event
+      plot.on("plotly_afterplot", (data) => {        
+        this.$emit("ready", data);
+      });
 
       this.created = true;
     },
