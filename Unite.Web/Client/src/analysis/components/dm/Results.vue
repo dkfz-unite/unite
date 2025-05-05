@@ -5,7 +5,7 @@
         :id="id"
         :data="traces" 
         :layout="layout" 
-        :config="config" 
+        :config="config"
       />
     </div>
   </div>
@@ -58,170 +58,121 @@ export default {
   {
     async init() {
       const parsedData = await this.getParsedData(this.data);
-
       this.traces = this.getTraces(parsedData);
-      console.log("Updated Traces Length:", this.traces.length);
-
       this.layout = this.getLayout();
-
-      console.log("Updated Layout:", this.layout);
     },
 
     async getParsedData(data) 
     {
+      const start = performance.now();
       const compressedData = data.stream();
       const decompressedData = compressedData.pipeThrough(new DecompressionStream('gzip'));
-      const text = await new Response(decompressedData).text();
-      const lines = text.trim().split("\n");
-      const headers = lines[0].split(",");
-      const jsonData = lines.slice(1).map(line => {
-        const values = line.split(",");
-        return headers.reduce((obj, header, i) => {
-          obj[header.trim()] = values[i].trim();
-          return obj;
-        }, {});
-      });
-
-      const resultData = jsonData
-        .map((row, index) => {
-
-        const cleanedRow = Object.fromEntries(Object.entries(row).map(([key, value]) => [key.replace(/"/g, ""), value]));
-
-        const adjPValRaw = parseFloat(cleanedRow["adj.P.Val"])
-
-        const logFC = parseFloat(cleanedRow["logFC"])
-          
+      const tsv = await new Response(decompressedData).text();
+      const json = this.toJson(tsv);
+      
+      const enchancerColumns = Object.keys(json[0]).filter(col => col.toLowerCase().includes("enhancer"));
+      
+      const rows = [];
+      for (let i = 0; i < json.length; i++) {
+        const row = json[i];
+        const adjPValRaw = parseFloat(row["adj.P.Val"]);
         const adjPVal = Math.max(adjPValRaw, 1e-300);
-        const negLog10P = -Math.log10(adjPVal);
-        const cpgId = cleanedRow["CpgId"];
-        const gene = cleanedRow["UCSC_RefGene_Name"];
-        const regulatory = cleanedRow["Regulatory_Feature_Name"];
-        const enchancerColumns = Object.keys(cleanedRow).filter(col => col.toLowerCase().includes("enhancer"));
-        var enchancer = "";
-        for (const col of enchancerColumns) {
-          enchancer += `${col}: ${cleanedRow[col]}<br>`;
-        }
+        const logFC = parseFloat(row["logFC"]);
 
-        return {
-          logFC,
-          adjPVal,
-          negLog10P,
-          cpgId,
-          gene,
-          regulatory,
-          enchancer,
-          color:
-            adjPValRaw < 0.05 && logFC > 1
-            ? colors.getPaletteColor("blue")
-            : adjPValRaw < 0.01 && logFC < 1
-            ? colors.getPaletteColor("red")
-            : colors.getPaletteColor("grey"),
-          category:
-            adjPValRaw < 0.05 && logFC > 1
-            ? "Upmethylated"
-            : adjPValRaw < 0.05 && logFC < 1
-            ? "Downmethylated"
-            : "Insignificant",
-          };
-        }).filter((row) => row !== null);
-      return resultData;
+        rows.push({
+          adjPValRaw: adjPValRaw,
+          adjPVal: adjPVal,
+          logFC: logFC,
+          negLog10P: -Math.log10(adjPVal),
+          cpgId: row["CpgId"],
+          gene: row["UCSC_RefGene_Name"],
+          regulatory: row["Regulatory_Feature_Name"],
+          enchancer: enchancerColumns.map(col => `${col}: ${row[col]}`).join("<br>"),
+        });
+      }
+
+      return rows;
     },
 
     getTraces(data) 
     {
       const upmethylated = {
-      x: [],
-      y: [],
-      text: [],
-      marker: { color: colors.getPaletteColor("blue") },
-      };
-      
-      const downmethylated = {
-      x: [],
-      y: [],
-      text: [],
-      marker: { color: colors.getPaletteColor("red") },
-      };
-
-      const insignificant = {
-      x: [],
-      y: [],
-      text: [],
-      marker: { color: colors.getPaletteColor("grey") },
-      };
-
-      data.forEach((d) => {
-
-        const annotationDetails = `Category: ${d.category}<br>CpG: ${d.cpgId}<br>Gene: ${d.gene}<br>Regulator: ${d.regulatory}<br>${d.enchancer}`;
-
-        if (d.adjPVal < 0.05) {
-          if (d.logFC > 0) {
-            upmethylated.x.push(d.logFC);
-            upmethylated.y.push(d.negLog10P);
-            upmethylated.text.push(annotationDetails);
-          } 
-          else {
-          downmethylated.x.push(d.logFC);
-          downmethylated.y.push(d.negLog10P);
-          downmethylated.text.push(annotationDetails);
-          }
-        } 
-        else {
-          insignificant.x.push(d.logFC);
-          insignificant.y.push(d.negLog10P);
-          insignificant.text.push(annotationDetails);
-        }
-      });
-
-      const traces = [];
-
-      if (upmethylated.x.length > 0) {
-        traces.push({
         name: "Upmethylated",
         type: "scattergl",
         mode: "markers",
-        x: upmethylated.x,
-        y: upmethylated.y,
-        text: upmethylated.text,
+        x: [],
+        y: [],
+        text: [],
         marker: {
           color: colors.getPaletteColor("blue"),
           size: 5,
-          opacity: 0.7,
-          },
-        });
-      }
-
-      if (downmethylated.x.length > 0) {
-        traces.push({
+          opacity: 0.7
+        },
+      };
+      
+      const downmethylated = {
         name: "Downmethylated",
         type: "scattergl",
         mode: "markers",
-        x: downmethylated.x,
-        y: downmethylated.y,
-        text: downmethylated.text,
+        x: [],
+        y: [],
+        text: [],
         marker: {
           color: colors.getPaletteColor("red"),
           size: 5,
-          opacity: 0.7,
-          },
-        });
-      }
+          opacity: 0.7
+        },
+      };
 
-      if (insignificant.x.length > 0) {
-        traces.push({
+      const insignificant = {
         name: "Insignificant",
         type: "scattergl",
         mode: "markers",
-        x: insignificant.x,
-        y: insignificant.y,
-        text: insignificant.text,
+        x: [],
+        y: [],
+        text: [],
         marker: {
           color: colors.getPaletteColor("grey"),
           size: 5,
-          opacity: 0.7,
-          },
-        });
+          opacity: 0.7
+        },
+      };
+
+      for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+
+        const category = row.adjPValRaw < 0.05 && row.logFC > 1 ? { key: "Upmethylated", value: 1 }
+                       : row.adjPValRaw < 0.05 && row.logFC < -1 ? { key: "Downmethylated", value: -1 }
+                       : { key: "Insignificant", value: 0 };
+
+        const details = `Category: ${category.key}<br>CpG: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulator: ${row.regulatory}<br>${row.enchancer}`;
+
+        if (category.value == 1) {
+          upmethylated.x.push(row.logFC);
+          upmethylated.y.push(row.negLog10P);
+          upmethylated.text.push(details);
+        } else if (category.value == -1) {
+          downmethylated.x.push(row.logFC);
+          downmethylated.y.push(row.negLog10P);
+          downmethylated.text.push(details);
+        } else {
+          insignificant.x.push(row.logFC);
+          insignificant.y.push(row.negLog10P);
+          insignificant.text.push(details);
+        }
       }
+
+      const traces = [];
+
+      if (upmethylated.x.length > 0)
+        traces.push(upmethylated);
+
+      if (downmethylated.x.length > 0)
+        traces.push(downmethylated);
+
+      if (insignificant.x.length > 0)
+        traces.push(insignificant);
+
       return traces;
     },
 
@@ -279,6 +230,25 @@ export default {
         ],
       };
     },
+
+    toJson(tsv) {
+      const lines = tsv.split("\n");
+      const headers = lines[0].split(",");
+
+      const result = new Array(lines.length - 1);
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(",");
+        const obj = {};
+        for (let j = 0; j < headers.length; j++) {
+          const key = headers[j].trim().replace(/"/g, "");
+          const value = values[j]?.trim();
+          obj[key] = value;
+        }
+        result[i - 1] = obj;
+      }
+      
+      return result;
+    }
   },
 };
 </script>
