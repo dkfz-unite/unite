@@ -1,14 +1,15 @@
 <template>
-   <div class="row">
-    <div class="col">
-      <u-plotly
-        :id="id"
-        :data="traces" 
-        :layout="layout" 
-        :config="config"
-      />
-    </div>
-  </div>
+  <template v-if="!loading">
+    <u-plotly
+      :id="id"
+      :data="traces" 
+      :layout="layout" 
+      :config="config"
+    />
+  </template>
+  <template v-else>
+    <q-inner-loading :showing="true" label="Please wait..."></q-inner-loading>
+  </template>
 </template>
 
 <script>
@@ -38,6 +39,7 @@ export default {
 
   data() {
   return {
+    loading: false,
     traces: [], 
     layout: {},
     config: {},
@@ -64,6 +66,7 @@ export default {
 
     async getParsedData(data) 
     {
+      this.loading = true;
       const start = performance.now();
       const compressedData = data.stream();
       const decompressedData = compressedData.pipeThrough(new DecompressionStream('gzip'));
@@ -90,6 +93,7 @@ export default {
           enchancer: enchancerColumns.map(col => `${col}: ${row[col]}`).join("<br>"),
         });
       }
+      this.loading = false;
 
       return rows;
     },
