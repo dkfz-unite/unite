@@ -39,6 +39,19 @@
         </div>
       </q-card-section>
       <q-card-section>
+        <div class="col">
+          <template v-for="(dataset, index) in datasetsOrdered" :key="index">
+            <div class="row items-center q-gutter-xs q-mb-xs">
+              <q-icon :name="Settings[dataset.domain]?.icon" size="sm" />
+              <div>{{ dataset.name }}</div>
+            </div>
+            <div v-if="index < datasetsOrdered.length - 1" class="row text-hint text-grey-7 q-mb-xs">
+              vs
+            </div>
+          </template>
+        </div>
+      </q-card-section>
+      <q-card-section>
         <div class="col q-gutter-sm">
           <div class="row text-subtitle1">Options</div>
           <!-- PP -->
