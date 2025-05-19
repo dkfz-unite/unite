@@ -41,6 +41,11 @@ export async function runDmAnalysis(data) {
   return await client.post(url, data);
 }
 
+export async function runPcamAnalysis(data) {
+  const url = `${analysisTaskUrl}/pcam`;
+  return await client.post(url, data);
+}
+
 export async function runDeAnalysis(data) {
   const url = `${analysisTaskUrl}/de`;
   return await client.post(url, data);
@@ -80,6 +85,7 @@ export default {
   deleteAnalysis,
   runSurvAnalysis,
   runDmAnalysis,
+  runPcamAnalysis,
   runDeAnalysis,
   runScellAnalysis,
   getScellAnalysisModels,

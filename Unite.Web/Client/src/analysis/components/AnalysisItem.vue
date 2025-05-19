@@ -46,6 +46,7 @@
       <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
         <u-surv-results v-if="analysis.type == 'surv'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-dm-results v-else-if="analysis.type == 'dm'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-pcam-results v-else-if="analysis.type == 'pcam'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-de-results v-else-if="analysis.type == 'de'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
@@ -56,6 +57,7 @@
 <script>
 import USurvResults from "./surv/Results.vue";
 import UDmResults from "./dm/Results.vue";
+import UPcamResults from "./pcam/Results.vue";
 import UDeResults from "./de/Results.vue";
 import UScellResults from "./scell/Results.vue";
 import mixin from "./analysis-mixin";
@@ -67,6 +69,7 @@ export default {
   components: {
     USurvResults,
     UDmResults,
+    UPcamResults,
     UDeResults,
     UScellResults
   },
@@ -140,6 +143,8 @@ export default {
         case "surv":
           return { type: "application/octet-stream", ext: "zip" };
         case "dm":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "pcam":
           return { type: "application/octet-stream", ext: "zip" };
         case "de":
           return { type: "application/octet-stream", ext: "tsv" };
