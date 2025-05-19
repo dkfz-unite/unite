@@ -1,7 +1,7 @@
 import { colors } from "quasar";
 import dataService from "./data-service";
 import { getLabel } from "@/_shared/helpers/enum-helpers";
-import SvType from "@/domain/genome/variants/svs/models/enums/sv-type";
+import SvType from "@/domain/omics/variants/svs/models/enums/sv-type";
 
 function getSvColor(entry) {
   const type = entry.e.type;

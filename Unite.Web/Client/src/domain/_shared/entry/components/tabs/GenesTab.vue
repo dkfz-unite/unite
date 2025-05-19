@@ -52,13 +52,13 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/entry/components/filters/samples/Samples.vue";
-import UDataTable from "@/domain/genome/genes/components/Table.vue";
+import UDataTable from "@/domain/omics/genes/components/Table.vue";
 import tabSamplesMixin from "@/domain/_shared/entry/components/filters/samples/mixin";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
-import Settings from "@/domain/genome/genes/settings";
+import Settings from "@/domain/omics/genes/settings";
 import FilterModel from "@/_shared/components/filters/filter-models";
-import filters from "@/domain/genome/genes/models/filters/gene-filters";
+import filters from "@/domain/omics/genes/models/filters/gene-filters";
 
 import api from "@/domain/specimens/_shared/specimen/api";
 

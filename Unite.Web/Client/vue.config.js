@@ -23,7 +23,7 @@ module.exports = {
       "/api/feed-donors": {target: "http://127.0.0.1:5100", pathRewrite: { '^/api/feed-donors': 'api' } },
       "/api/feed-images": { target: "http://127.0.0.1:5102", pathRewrite: { '^/api/feed-images': 'api' } },
       "/api/feed-specimens": { target: "http://127.0.0.1:5104", pathRewrite: { '^/api/feed-specimens': 'api' } },
-      "/api/feed-genome": { target: "http://127.0.0.1:5106", pathRewrite: { '^/api/feed-genome': 'api' } }
+      "/api/feed-omics": { target: "http://127.0.0.1:5106", pathRewrite: { '^/api/feed-omics': 'api' } }
     }
   }
 }

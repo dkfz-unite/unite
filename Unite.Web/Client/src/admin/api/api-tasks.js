@@ -6,7 +6,7 @@ const tasksUrl = `${settings.urls.composer}/admin/tasks`;
 const donorsFeedUrl = `${settings.urls.donors}`;
 const imagesFeedUrl = `${settings.urls.images}`;
 const specimensFeedUrl = `${settings.urls.specimens}`;
-const genomeFeedUrl = `${settings.urls.genome}`;
+const omicsFeedUrl = `${settings.urls.omics}`;
 
 export async function getGeneralStats() {
   const url = `${tasksUrl}/stats`;
@@ -49,12 +49,12 @@ export async function indexSpecimens() {
 }
 
 export async function indexGenes() {
-  const url = `${genomeFeedUrl}/indexing/genes`;
+  const url = `${omicsFeedUrl}/indexing/genes`;
   return await client.post(url);
 }
 
 export async function indexVariants() {
-  const url = `${genomeFeedUrl}/indexing/variants`;
+  const url = `${omicsFeedUrl}/indexing/variants`;
   return await client.post(url);
 }
 

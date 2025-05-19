@@ -66,7 +66,7 @@ import UOncogrid from "./components/OncoGrid.vue";
 
 import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import FiltersContext from "@/_shared/components/filters/filters-context";
-import EffectImpact from "@/domain/genome/variants/_shared/variants/models/enums/effect-impact";
+import EffectImpact from "@/domain/omics/variants/_shared/variants/models/enums/effect-impact";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 
 import api from "./api";

@@ -6,6 +6,6 @@ export default {
     donors: "/api/feed-donors",
     images: "/api/feed-images",
     specimens: "/api/feed-specimens",
-    genome: "/api/feed-genome"
+    omics: "/api/feed-omics"
   }
 }

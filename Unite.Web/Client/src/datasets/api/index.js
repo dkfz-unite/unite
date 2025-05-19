@@ -1,12 +1,12 @@
 import Settings from "@/_settings/settings";
 import ImageType from "@/domain/images/_shared/images/models/enums/image-type";
 import SpecimenType from "@/domain/specimens/_shared/specimens/models/enums/specimen-type";
-import VariantType from "@/domain/genome/variants/_shared/variants/models/enums/variant-type";
+import VariantType from "@/domain/omics/variants/_shared/variants/models/enums/variant-type";
 import DonorsApi from "@/domain/donors/api";
 import ImagesApi from "@/domain/images/_shared/images/api";
 import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
-import GenesApi from "@/domain/genome/genes/api";
-import VariantsApi from "@/domain/genome/variants/_shared/variants/api";
+import GenesApi from "@/domain/omics/genes/api";
+import VariantsApi from "@/domain/omics/variants/_shared/variants/api";
 
 const fasade = {
   [Settings.donors.domain]: new DonorsApi(),

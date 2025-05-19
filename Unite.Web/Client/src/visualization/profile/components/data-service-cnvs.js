@@ -1,7 +1,7 @@
 import { colors } from "quasar";
 import dataService from "./data-service";
 import { getLabel } from "@/_shared/helpers/enum-helpers";
-import CnvType from "@/domain/genome/variants/cnvs/models/enums/cnv-type";
+import CnvType from "@/domain/omics/variants/cnvs/models/enums/cnv-type";
 
 function getCnvColor(entry) {
   const type = entry.e.type;

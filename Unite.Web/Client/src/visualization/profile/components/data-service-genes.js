@@ -1,7 +1,7 @@
 import { colors } from "quasar";
 import dataService from "./data-service";
 import { getLabel } from "@/_shared/helpers/enum-helpers";
-import Biotype from "@/domain/genome/genes/models/enums/biotype";
+import Biotype from "@/domain/omics/genes/models/enums/biotype";
 
 function getGeneColor(entry) {
   return colors.getPaletteColor("blue-4");

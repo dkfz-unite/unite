@@ -22,14 +22,14 @@
 import UDownloadForm from "@/_shared/components/download/DownloadForm.vue";
 
 import { exportFile } from "quasar";
-import VariantType from "@/domain/genome/variants/_shared/variants/models/enums/variant-type";
+import VariantType from "@/domain/omics/variants/_shared/variants/models/enums/variant-type";
 import Settings from "@/_settings/settings";
 import projectApi from "@/domain/project/api";
 import donorApi from "@/domain/donor/api";
 import imageApi from "@/domain/images/_shared/image/api";
 import specimenApi from "@/domain/specimens/_shared/specimen/api";
-import geneApi from "@/domain/genome/gene/api";
-import variantApi from "@/domain/genome/variants/_shared/variant/api";
+import geneApi from "@/domain/omics/gene/api";
+import variantApi from "@/domain/omics/variants/_shared/variant/api";
 
 export default {
   props: {
