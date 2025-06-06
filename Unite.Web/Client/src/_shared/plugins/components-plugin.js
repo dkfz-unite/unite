@@ -10,10 +10,10 @@ import ULinkMaterial from "@/domain/specimens/material/components/Link.vue";
 import ULinkLine from "@/domain/specimens/line/components/Link.vue";
 import ULinkOrganoid from "@/domain/specimens/organoid/components/Link.vue";
 import ULinkXenograft from "@/domain/specimens/xenograft/components/Link.vue";
-import ULinkGene from "@/domain/genome/gene/components/Link.vue";
-import ULinkSm from "@/domain/genome/variants/sm/components/Link.vue";
-import ULinkCnv from "@/domain/genome/variants/cnv/components/Link.vue";
-import ULinkSv from "@/domain/genome/variants/sv/components/Link.vue";
+import ULinkGene from "@/domain/omics/gene/components/Link.vue";
+import ULinkSm from "@/domain/omics/variants/sm/components/Link.vue";
+import ULinkCnv from "@/domain/omics/variants/cnv/components/Link.vue";
+import ULinkSv from "@/domain/omics/variants/sv/components/Link.vue";
 
 const plugin = {
   install: (app, options) => {

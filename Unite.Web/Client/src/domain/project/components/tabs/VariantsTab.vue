@@ -77,7 +77,7 @@
 <script>
 import Plotly from "plotly.js-dist-min";
 import enumHelpers from "@/_shared/helpers/enum-helpers.js";
-import EffectType from "@/domain/genome/variants/_shared/variants/models/enums/effect-type.js";
+import EffectType from "@/domain/omics/variants/_shared/variants/models/enums/effect-type.js";
 
 export default {
   components: {

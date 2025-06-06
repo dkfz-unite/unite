@@ -68,13 +68,13 @@ import api from "../api/api-submissions";
 import DonorsApi from "@/domain/donors/api";
 import ImagesApi from "@/domain/images/_shared/images/api";
 import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
-import GenesApi from "@/domain/genome/genes/api";
-import VariantsApi from "@/domain/genome/variants/_shared/variants/api";
+import GenesApi from "@/domain/omics/genes/api";
+import VariantsApi from "@/domain/omics/variants/_shared/variants/api";
 import DonorsSubmissionType from "@/domain/donors/models/enums/submission-type";
 import ImagesSubmissionType from "@/domain/images/_shared/images/models/enums/submission-type";
 import SpecimensSubmissionType from "@/domain/specimens/_shared/specimens/models/enums/submission-type";
-import GenomesSubmissionType from "@/domain/genome/genes/models/enums/submission-type";
-import VariantsSubmissionType from "@/domain/genome/variants/_shared/variants/models/enums/submission-type";
+import GenesSubmissionType from "@/domain/omics/genes/models/enums/submission-type";
+import VariantsSubmissionType from "@/domain/omics/variants/_shared/variants/models/enums/submission-type";
 
 export default {
   components: {
@@ -120,8 +120,8 @@ export default {
         return this.$helpers.enum.getLabel(type, ImagesSubmissionType.values);
       else if (SpecimensSubmissionType.includes(type))
         return this.$helpers.enum.getLabel(type, SpecimensSubmissionType.values);
-      else if (GenomesSubmissionType.includes(type))
-        return this.$helpers.enum.getLabel(type, GenomesSubmissionType.values);
+      else if (GenesSubmissionType.includes(type))
+        return this.$helpers.enum.getLabel(type, GenesSubmissionType.values);
       else if (VariantsSubmissionType.includes(type))
         return this.$helpers.enum.getLabel(type, VariantsSubmissionType.values);
       else
@@ -133,7 +133,7 @@ export default {
     },
 
     isComplexType(type) {
-      return (GenomesSubmissionType.includes(type) || VariantsSubmissionType.includes(type) || type == ImagesSubmissionType.Radiomics || type == SpecimensSubmissionType.SPE_DRG);
+      return (GenesSubmissionType.includes(type) || VariantsSubmissionType.includes(type) || type == ImagesSubmissionType.Radiomics || type == SpecimensSubmissionType.SPE_DRG);
     },
 
     notifySuccess(message, caption = undefined) {
@@ -188,7 +188,7 @@ export default {
           this.submission = await this.imagesApi.getSubmission(id,type);
         } else if (SpecimensSubmissionType.includes(type)) {
           this.submission = await this.specimensApi.getSubmission(id,type);
-        } else if (GenomesSubmissionType.includes(type)) {
+        } else if (GenesSubmissionType.includes(type)) {
           this.submission = await this.genesApi.getSubmission(id,type);
         } else if (VariantsSubmissionType.includes(type)) {
           this.submission = await this.variantsApi.getSubmission(id,type);

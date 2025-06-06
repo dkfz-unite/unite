@@ -23,7 +23,7 @@ var analysisSourceUrl = "/api/analysis";
 var feedDonorsSourceUrl = "/api/feed-donors";
 var feedImagesSourceUrl = "/api/feedimages";
 var feedSpecimensSourceUrl = "/api/feed-specimens";
-var feedGenomeSourceUrl = "/api/feed-genome";
+var feedOmicsSourceUrl = "/api/feed-omics";
 var viewerCxgSourceUrl = @"^\/viewer\/cxg(\d+)";
 
 var identityTargetUrl = $"{EnvironmentConfig.IdentityHost}/api";
@@ -32,7 +32,7 @@ var analysisTargetUrl = $"{EnvironmentConfig.AnalysisHost}/api";
 var feedDonorsTargetUrl = $"{EnvironmentConfig.FeedDonorsHost}/api";
 var feedImagesTargetUrl = $"{EnvironmentConfig.FeedImagesHost}/api";
 var feedSpecimensTargetUrl = $"{EnvironmentConfig.FeedSpecimensHost}/api";
-var feedGenomeTargetUrl = $"{EnvironmentConfig.FeedGenomeHost}/api";
+var feedOmicsTargetUrl = $"{EnvironmentConfig.FeedOmicsHost}/api";
 var viewerCxgTargetUrl = $"{EnvironmentConfig.ViewerCxgHost}";
 
 app.UseProxy(options =>
@@ -62,8 +62,8 @@ app.UseProxy(options =>
         (path, query) => $"{path.Replace(feedSpecimensSourceUrl, feedSpecimensTargetUrl)}{query}"
     );
     options.Map(
-        (path, query) => path.StartsWith(feedGenomeSourceUrl),
-        (path, query) => $"{path.Replace(feedGenomeSourceUrl, feedGenomeTargetUrl)}{query}"
+        (path, query) => path.StartsWith(feedOmicsSourceUrl),
+        (path, query) => $"{path.Replace(feedOmicsSourceUrl, feedOmicsTargetUrl)}{query}"
     );
     options.Map(
         (path, query) => Regex.Match(path, viewerCxgSourceUrl).Success,

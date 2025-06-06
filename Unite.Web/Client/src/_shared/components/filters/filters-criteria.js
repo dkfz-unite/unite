@@ -4,10 +4,10 @@ import MaterialFiltersCriteria from "@/domain/specimens/materials/models/filters
 import LineFiltersCriteria from "@/domain/specimens/lines/models/filters/line-filters-criteria";
 import OrganoidFiltersCriteria from "@/domain/specimens/organoids/models/filters/organoid-filters-criteria";
 import XenograftFiltersCriteria from "@/domain/specimens/xenografts/models/filters/xenograft-filters-criteria";
-import GeneFiltersCriteria from "@/domain/genome/genes/models/filters/gene-filters-criteria";
-import MutationFiltersCriteria from "@/domain/genome/variants/sms/models/filters/sm-filters-criteria";
-import CopyNumberVariantFiltersCriteria from "@/domain/genome/variants/cnvs/models/filters/cnv-filters-criteria";
-import StructuralVariantFiltersCriteria from "@/domain/genome/variants/svs/models/filters/sv-filters-criteria";
+import GeneFiltersCriteria from "@/domain/omics/genes/models/filters/gene-filters-criteria";
+import MutationFiltersCriteria from "@/domain/omics/variants/sms/models/filters/sm-filters-criteria";
+import CopyNumberVariantFiltersCriteria from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-criteria";
+import StructuralVariantFiltersCriteria from "@/domain/omics/variants/svs/models/filters/sv-filters-criteria";
 import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {

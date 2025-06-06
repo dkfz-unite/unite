@@ -1,9 +1,9 @@
 import { colors } from "quasar";
 import dataService from "./data-service";
 import { getLabel } from "@/_shared/helpers/enum-helpers";
-import SmType from "@/domain/genome/variants/sms/models/enums/sm-type";
-import EffectImpact from "@/domain/genome/variants/_shared/variants/models/enums/effect-impact";
-import EffectType from "@/domain/genome/variants/_shared/variants/models/enums/effect-type";
+import SmType from "@/domain/omics/variants/sms/models/enums/sm-type";
+import EffectImpact from "@/domain/omics/variants/_shared/variants/models/enums/effect-impact";
+import EffectType from "@/domain/omics/variants/_shared/variants/models/enums/effect-type";
 
 function getVariantText(entry) {
   let tooltip = "";

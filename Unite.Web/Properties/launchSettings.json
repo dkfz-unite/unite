@@ -19,7 +19,7 @@
         "UNITE_FEED_DONORS_HOST": "http://localhost:5100",
         "UNITE_FEED_IMAGES_HOST": "http://localhost:5102",
         "UNITE_FEED_SPECIMENS_HOST": "http://localhost:5104",
-        "UNITE_FEED_GENOME_HOST": "http://localhost:5106",
+        "UNITE_FEED_OMICS_HOST": "http://localhost:5106",
         "UNITE_VIEWER_CXG_HOST": "http://localhost:543{n}"
       }
     },
@@ -35,7 +35,7 @@
         "UNITE_FEED_DONORS_HOST": "http://localhost:5100",
         "UNITE_FEED_IMAGES_HOST": "http://localhost:5102",
         "UNITE_FEED_SPECIMENS_HOST": "http://localhost:5104",
-        "UNITE_FEED_GENOME_HOST": "http://localhost:5106",
+        "UNITE_FEED_OMICS_HOST": "http://localhost:5106",
         "UNITE_VIEWER_CXG_HOST": "http://localhost:543{n}"
       }
     }

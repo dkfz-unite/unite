@@ -14,6 +14,6 @@ export default class FilterModel {
 
   static Images = [this.Mr];
   static Specimens = [this.Material, this.Line, this.Organoid, this.Xenograft];
-  static Genome = [this.Gene, this.Sm, this.Cnv, this.Sv];
-  static All = [this.Donor, ...this.Images, ...this.Specimens, ...this.Genome];
+  static Omics = [this.Gene, this.Sm, this.Cnv, this.Sv];
+  static All = [this.Donor, ...this.Images, ...this.Specimens, ...this.Omics];
 }

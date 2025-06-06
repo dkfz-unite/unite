@@ -35,7 +35,7 @@ UNITE_ANALYSIS_HOST|Analysis Web api|http://localhost:5004|http://analysis.unite
 UNITE_DONORS_FEED_HOST|Donors feed web api|http://localhost:5100|http://feed.donors.unite.net
 UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5102|http://feed.images.unite.net
 UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5104|http://feed.specimens.unite.net
-UNITE_GENOME_FEED_HOST|Genome feed web api|http://localhost:5106|http://feed.genome.unite.net
+UNITE_OMICS_FEED_HOST|Omics feed web api|http://localhost:5106|http://feed.omics.unite.net
 
 ## Proxy
 Application serves as a reverse proxy and redirects requests from web portal to other protected services.
@@ -45,7 +45,7 @@ Application serves as a reverse proxy and redirects requests from web portal to 
 - [api/donors-feed](https://localhost/api/donors-feed) -> [`UNITE_DONORS_FEED_HOST`]/api - donors feed web api
 - [api/images-feed](https://localhost/api/images-feed) -> [`UNITE_IMAGES_FEED_HOST`]/api - images feed web api
 - [api/specimens-feed](https://localhost/api/specimens-feed) -> [`UNITE_SPECIMENS_FEED_HOST`]/api - specimens feed web api
-- [api/genome-feed](https://localhost/api/genome-feed) -> [`UNITE_GENOME_FEED_HOST`]/api - genome feed web api
+- [api/omics-feed](https://localhost/api/omics-feed) -> [`UNITE_OMICS_FEED_HOST`]/api - omics feed web api
 
 ## Installation
 Application requires valid SSL certificate.
@@ -92,7 +92,7 @@ docker run \
 -e UNITE_DONORS_FEED_HOST=http://feed.donors.unite.net \
 -e UNITE_IMAGES_FEED_HOST=http://feed.images.unite.net \
 -e UNITE_SPECIMENS_FEED_HOST=http://feed.specimens.unite.net \
--e UNITE_GENOME_FEED_HOST=http://feed.genome.unite.net \
+-e UNITE_OMICS_FEED_HOST=http://feed.omics.unite.net \
 -d \
 unite.portal:latest
 ```

@@ -51,14 +51,14 @@
 import UFilters from "@/_shared/components/filters/CriteriaFilters.vue";
 import UFiltersButtonClear from "@/_shared/components/filters/FiltersButtonClear.vue";
 import USamples from "@/domain/_shared/entry/components/filters/samples/Samples.vue";
-import UDataTable from "@/domain/genome/variants/cnvs/components/Table.vue";
+import UDataTable from "@/domain/omics/variants/cnvs/components/Table.vue";
 import tabSamplesMixin from "@/domain/_shared/entry/components/filters/samples/mixin";
 import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
-import Settings from "@/domain/genome/variants/cnvs/settings";
+import Settings from "@/domain/omics/variants/cnvs/settings";
 import FilterModel from "@/_shared/components/filters/filter-models";
-import VariantType from "@/domain/genome/variants/_shared/variants/models/enums/variant-type";
-import filters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
+import VariantType from "@/domain/omics/variants/_shared/variants/models/enums/variant-type";
+import filters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
 import api from "@/domain/specimens/_shared/specimen/api";
 
 export default {

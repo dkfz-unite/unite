@@ -14,10 +14,10 @@ import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
 import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
 import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
-import geneFilters from "@/domain/genome/genes/models/filters/gene-filters";
-import smFilters from "@/domain/genome/variants/sms/models/filters/sm-filters";
-import cnvFilters from "@/domain/genome/variants/cnvs/models/filters/cnv-filters";
-import svFilters from "@/domain/genome/variants/svs/models/filters/sv-filters";
+import geneFilters from "@/domain/omics/genes/models/filters/gene-filters";
+import smFilters from "@/domain/omics/variants/sms/models/filters/sm-filters";
+import cnvFilters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
+import svFilters from "@/domain/omics/variants/svs/models/filters/sv-filters";
 import oncogridFilters from "@/visualization/oncogrid/filters/oncogrid-filters";
 
 const models = FilterModels.All;
