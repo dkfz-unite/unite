@@ -59,17 +59,17 @@ export default {
     getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t:50, r:50, b:55, l:50 }) {
       return {
         margin: margin,
-        title: title,
+        title: { text: title },
         dragmode: false,
         xaxis: {
-          title: xtitle,
+          title: { text: xtitle },
           showline: false,
           tickfont: {
             size: 11
           }
         },
         yaxis: {
-          title: ytitle,
+          title: { text: ytitle },
           showline: true,
           tickmode: tickmode,
           tickfont: {

@@ -13,8 +13,10 @@
           </colgroup>
 
           <thead>
-            <th class="bg-grey-3" align="left"><span>Data type</span></th>
-            <th class="bg-grey-3" align="left"><span>Available for N' donors / Total</span></th>
+            <tr>
+              <th class="bg-grey-3" align="left"><span>Data type</span></th>
+              <th class="bg-grey-3" align="left"><span>Available for N' donors / Total</span></th>
+            </tr>
           </thead>
 
           <tbody>
