@@ -99,7 +99,7 @@ export default {
       const expPerMutationMode = Math.max(...expPerMutation[0].y) <= 5 ? "linear" : "auto";
 
       Plotly.newPlot("exp-per-analysis", expPerAnalysis, this.getLayout("Analysis Type", null, null, expPerAnalysisMode), config);
-      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayout("Most Variable Genes (highest CV)", null, "TPM"), config);
+      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayoutLog("Most Variable Genes (highest CV)", null, "TPM"), config);
       Plotly.newPlot("exp-per-mutation", expPerMutation, this.getLayout("Most Mutated Genes", null, null, expPerMutationMode), config);
     }
 
@@ -152,22 +152,46 @@ export default {
     getLayout(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t:50, r:50, b:55, l:50 }) {
       return {
         margin: margin,
-        title: title,
+        title: { text: title },
         dragmode: false,
         xaxis: {
-          title: xtitle,
+          title: { text: xtitle },
           showline: false,
           tickfont: {
             size: 11
           }
         },
         yaxis: {
-          title: ytitle,
+          title: { text: ytitle },
           showline: true,
           tickmode: tickmode,
           tickfont: {
             size: 11
           }
+        }
+      };
+    },
+
+    getLayoutLog(title, xtitle = null, ytitle = null, tickmode = "auto", margin = { t:50, r:50, b:55, l:50 }) {
+      return {
+        margin: margin,
+        title: { text: title },
+        dragmode: false,
+        xaxis: {
+          title: { text: xtitle },
+          showline: true,
+          tickfont: {
+            size: 11
+          }
+        },
+        yaxis: {
+          title: { text: ytitle },
+          showline: true,
+          tickmode: tickmode,
+          tickfont: {
+            size: 11
+          },
+          type: "log"
         }
       };
     }
