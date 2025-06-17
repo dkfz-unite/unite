@@ -95,7 +95,6 @@ export default {
       const expPerAnalysis = this.getSeries(this.project.stats.rna.perAnalysis);
       const expPerAnalysisMode = Math.max(...expPerAnalysis[0].y) <= 5 ? "linear" : "auto";
       const expPerVariation = this.getSeriesBox(this.project.stats.rna.perVariation);
-      // const expPerVariation = this.getSeriesBox(this.getGenes());
       const expPerMutation = this.getSeries(this.project.stats.rna.perMutation);
       const expPerMutationMode = Math.max(...expPerMutation[0].y) <= 5 ? "linear" : "auto";
 
@@ -142,10 +141,10 @@ export default {
         median: data.map(mapy).map(v => v[2]),
         q3: data.map(mapy).map(v => v[3]),
         upperfence: data.map(mapy).map(v => v[4]),
-        mean: data.map(mapy).map(v => v[5]),
+        // mean: data.map(mapy).map(v => v[5]),
         sd: data.map(mapy).map(v => v[6]),
         type: "box",
-        boxmean: true,
+        boxmean: false,
         boxpoints: false
       }];
     },
