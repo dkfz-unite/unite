@@ -99,7 +99,7 @@ export default {
       const expPerMutationMode = Math.max(...expPerMutation[0].y) <= 5 ? "linear" : "auto";
 
       Plotly.newPlot("exp-per-analysis", expPerAnalysis, this.getLayout("Analysis Type", null, null, expPerAnalysisMode), config);
-      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayoutLog("Most Variable Genes (highest CV)", null, "TPM"), config);
+      Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayout("Most Variable Genes (highest CV)", null, "TPM"), config);
       Plotly.newPlot("exp-per-mutation", expPerMutation, this.getLayout("Most Mutated Genes", null, null, expPerMutationMode), config);
     }
 
@@ -145,7 +145,7 @@ export default {
         sd: data.map(mapy).map(v => v[6]),
         type: "box",
         boxmean: true,
-        boxpoints: false
+        boxpoints: true
       }];
     },
 
