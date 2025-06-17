@@ -142,10 +142,10 @@ export default {
         median: data.map(mapy).map(v => v[2]),
         q3: data.map(mapy).map(v => v[3]),
         upperfence: data.map(mapy).map(v => v[4]),
-        // mean: data.map(mapy).map(v => v[5]),
+        mean: data.map(mapy).map(v => v[5]),
         sd: data.map(mapy).map(v => v[6]),
         type: "box",
-        boxmean: false,
+        boxmean: true,
         boxpoints: false
       }];
     },
