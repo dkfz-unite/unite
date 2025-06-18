@@ -5,6 +5,7 @@
       :data="traces"
       :layout="layout"
       :config="config"
+      :style="{ height: '500px', width: '800px' }"
     />
   </template>
   <template v-else>
@@ -76,8 +77,6 @@ export default {
       for (let i = 0; i < json.length; i++) {
         const row = json[i];
 
-        console.log(row)
-
         rows.push({
           Sample: String(row["Sample"]).replace(/^"|"$/g, ''),
           PC1: parseFloat(row["PC1"]),
@@ -90,17 +89,20 @@ export default {
     },
 
     getTraces(data) {
-      // Group data by "group" for coloring
+      const colors = data.map(() => {
+      const r = Math.floor(Math.random() * 200);
+      const g = Math.floor(Math.random() * 200);
+      const b = Math.floor(Math.random() * 200);
+      return `rgb(${r}, ${g}, ${b})`;
+      });
       const groupedData = data.reduce((acc, row) => {
         if (!acc[row.group]) acc[row.group] = [];
         acc[row.group].push(row);
         return acc;
       }, {});
 
-      // Create traces for each group
       const traces = Object.keys(groupedData).map((group) => {
         const groupData = groupedData[group];
-        console.log(groupData)
         
         return {
           name: group,
@@ -108,16 +110,15 @@ export default {
           mode: "markers",
           x: groupData.map((row) => row.PC1),
           y: groupData.map((row) => row.PC2),
-          // text: groupData.map((row) => row.label || ""),
-          // text : `PC_Category: ${row.PC1}<br>PC_Category: ${row.PC2}<br>Sample: ${row.Sample}`,
 
           text: groupData.map(
         (row) => `Sample: ${row.Sample}<br>PC1: ${row.PC1}<br>PC2: ${row.PC2}`
       ), 
           marker: {
             size: 8,
-            opacity: 0.7,
-          },
+            opacity: 1.2,
+            color: colors
+          }
         };
       });
 
