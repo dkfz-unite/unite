@@ -11,15 +11,15 @@ import SvFiltersContext from "@/domain/omics/variants/svs/models/filters/sv-filt
 import OncogridFiltersContext from "@/visualization/oncogrid/filters/oncogrid-filters-context";
 
 export default class FiltersContext {
-    donor = new DonorFiltersContext();
-    mr = new MrFilterContext();
-    material = new MaterialFiltersContext();
-    line = new LineFiltersContext();
-    organoid = new OrganoidFiltersContext();
-    xenograft = new XenograftFiltersContext();
-    gene = new GeneFiltersContext();
-    sm = new SmFiltersContext();
-    cnv = new CnvFiltersContext();
-    sv = new SvFiltersContext();
-    oncogrid = new OncogridFiltersContext();
+  donor: DonorFiltersContext = new DonorFiltersContext();
+  mr: MrFilterContext = new MrFilterContext();
+  material: MaterialFiltersContext = new MaterialFiltersContext();
+  line: LineFiltersContext = new LineFiltersContext();
+  organoid: OrganoidFiltersContext = new OrganoidFiltersContext();
+  xenograft: XenograftFiltersContext = new XenograftFiltersContext();
+  gene: GeneFiltersContext = new GeneFiltersContext();
+  sm: SmFiltersContext = new SmFiltersContext();
+  cnv: CnvFiltersContext = new CnvFiltersContext();
+  sv: SvFiltersContext = new SvFiltersContext();
+  oncogrid: OncogridFiltersContext = new OncogridFiltersContext();
 }

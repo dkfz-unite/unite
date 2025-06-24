@@ -11,9 +11,9 @@ import StructuralVariantFiltersCriteria from "@/domain/omics/variants/svs/models
 import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {
-  from = 0;
-  size = 20;
-  query = null;
+  from: number = 0;
+  size: number = 20;
+  query: string | null = null;
   donor = new DonorFiltersCriteria();
   mr = new MrFiltersCriteria();
   material = new MaterialFiltersCriteria();
@@ -26,7 +26,7 @@ export default class FiltersCriteria {
   sv = new StructuralVariantFiltersCriteria();
   oncogrid = new OncogirdFiltersCriteria();
 
-  get numberOfFilters() {
+  get numberOfFilters(): number {
     let number = 0;
 
     number += !!this.query ? 1 : 0;
@@ -44,7 +44,7 @@ export default class FiltersCriteria {
     return number;
   }
 
-  constructor(criteria = null) {
+  constructor(criteria: FiltersCriteria | null = null) {
     this.from = criteria?.from || 0;
     this.size = criteria?.size || 20;
     this.query = criteria?.query || null;
@@ -58,11 +58,14 @@ export default class FiltersCriteria {
     this.sm = new MutationFiltersCriteria(criteria?.sm);
     this.cnv = new CopyNumberVariantFiltersCriteria(criteria?.cnv);
     this.sv = new StructuralVariantFiltersCriteria(criteria?.sv);
-    this.oncogrid = new OncogirdFiltersCriteria(criteria?.oncogrid);
+    this.oncogrid = new OncogirdFiltersCriteria();
+    if (criteria?.oncogrid) {
+      Object.assign(this.oncogrid, criteria.oncogrid);
+    }
   }
 
-  sanitise() {
-    this.query = this.query?.trim();
+  sanitise(): void {
+    this.query = this.query?.trim() || null;
     this.donor?.sanitise();
     this.mr?.sanitise();
     this.material?.sanitise();
@@ -76,12 +79,12 @@ export default class FiltersCriteria {
     this.oncogrid?.sanitise();
   }
 
-  resetPage() {
+  resetPage(): void {
     this.from = 0;
   }
   
-  clone() {
-    var criteria = new FiltersCriteria();
+  clone(): FiltersCriteria {
+    const criteria = new FiltersCriteria();
 
     criteria.from = this.from;
     criteria.size = this.size;
@@ -101,13 +104,13 @@ export default class FiltersCriteria {
     return criteria;
   }
 
-  copy() {
-    const criteria = {};
+  copy(): any {
+    const criteria: any = {};
 
     for (const property in this) {
       if (Object.hasOwnProperty.call(this, property)) {
-        const value = this[property];
-        if (value?.copy != null) {
+        const value = this[property] as any;
+        if (value && typeof value.copy === 'function') {
           criteria[property] = value.copy();
         }
       }
@@ -116,7 +119,7 @@ export default class FiltersCriteria {
     return criteria;
   }
 
-  clear() {
+  clear(): void {
     this.from = 0;
     this.query = null;
     this.donor.clear();
@@ -131,8 +134,8 @@ export default class FiltersCriteria {
     this.sv.clear();
   }
 
-  toSearchCriteria() {
-    let criteria = {};
+  toSearchCriteria(): any {
+    const criteria: any = {};
     if (this.from != null) criteria.from = this.from;
     if (this.size != null) criteria.size = this.size;
     if (!!this.query) criteria.query = this.query;

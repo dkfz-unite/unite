@@ -1,0 +1,30 @@
+import Criteria from "./criteria";
+
+export default class ValuesCriteria<T> extends Criteria<T[]> {
+  public get value(): T[] | null {
+    return this._value;
+  }
+  public set value(value: T[] | null) {
+    this._value = value;
+  }
+  public get not(): boolean {
+    return this._not;
+  }
+  public set not(value: boolean) {
+    this._not = value;
+  }
+  public get count(): number {
+    return this.value?.length || 0;
+  }
+
+  constructor(value: T[] = new Array<T>()) {
+    super();
+    this._value = value;
+    this._not = false;
+  }
+
+  public override clear(): void {
+    this._value = new Array<T>();
+    this._not = false;
+  }
+}

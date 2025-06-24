@@ -1,0 +1,22 @@
+import SpecimenFiltersCriteria from "../../../_shared/specimens/models/filters/specimen-filters-criteria";
+import ValuesCriteria from "@/_shared/components/filters/models/criteria-values";
+import RangeCriteria from "@/_shared/components/filters/models/criteria-range";
+
+export default class MaterialFiltersCriteria extends SpecimenFiltersCriteria {
+  type = new ValuesCriteria<string>();
+  fixationType = new ValuesCriteria<string>();
+  tumorType = new ValuesCriteria<string>();
+  tumorGrade = new RangeCriteria();
+  source = new ValuesCriteria<string>();
+
+  constructor(criteria: MaterialFiltersCriteria | null = null) {
+    super(criteria);
+  }
+
+  clone() {
+    let criteria = new MaterialFiltersCriteria();
+    Object.assign(criteria, this);
+
+    return criteria;
+  }
+}

@@ -11,7 +11,7 @@
             <template v-for="(groupFilter, j) in filter.filters" :key="j">
               <u-criteria-filter
                 v-if="showFilter(groupFilter)"
-                v-model="filtersCriteria[groupFilter.field]"
+                v-model="filtersCriteria[groupFilter.field].value"
                 :filter="groupFilter"
                 :options="groupFilter.options == null ? null : groupFilter.options(filtersContext)"
                 @update:modelValue="onUpdate($event, groupFilter)"
@@ -25,7 +25,7 @@
       <template v-else>
         <u-criteria-filter
           v-if="showFilter(filter)"
-          v-model="filtersCriteria[filter.field]"
+          v-model="filtersCriteria[filter.field].value"
           :filter="filter"
           :options="filter.options == null ? null : filter.options(filtersContext)"
           @update:modelValue="onUpdate($event, filter)"

@@ -1,5 +1,5 @@
-import FiltersContext from "@/_shared/components/filters/filters-context.js";
-import FiltersCriteria from "@/_shared/components/filters/filters-criteria.js";
+import FiltersContext from "@/_shared/components/filters/filters-context";
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 
 function createState(domain = null) {
   return {
