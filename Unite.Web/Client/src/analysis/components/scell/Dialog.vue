@@ -171,7 +171,7 @@
           <!-- PCA -->
           <div class="row">
             <div class="col q-pa-sm u-check-box">
-              <q-checkbox v-model="options.pca.value" class="row" dense>Perform principal component analysis (PCA)</q-checkbox>
+              <q-checkbox v-model="options.pca.value" class="row" dense>Perform PCA of Methylation Profiles (PCA)</q-checkbox>
               <div v-if="!options.pca.value" class="row text-hint text-grey-7">
                 <span>
                   <span>It's <span class="text-orange-7">highly recommended</span> to perform PCA before clustering.</span><br/>

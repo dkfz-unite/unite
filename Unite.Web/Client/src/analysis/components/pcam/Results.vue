@@ -72,16 +72,20 @@ export default {
       const decompressedData = compressedData.pipeThrough(new DecompressionStream('gzip'));
       const tsv = await new Response(decompressedData).text();
       const json = this.toJson(tsv);
-      
       const rows = [];
       for (let i = 0; i < json.length; i++) {
         const row = json[i];
 
-        rows.push({
+        if(row["Sample"] != undefined) {
+          rows.push({
           Sample: String(row["Sample"]).replace(/^"|"$/g, ''),
           PC1: parseFloat(row["PC1"]),
           PC2: parseFloat(row["PC2"]),
-        });
+          Dataset: String(row["conditions"]).replace(/^"|"$/g, ''),
+          Age: String(row["age"]).replace(/^"|"$/g, ''),
+          Sex: String(row["sex"]).replace(/^"|"$/g, ''),
+          });
+        }
       }
       this.loading = false;
 
@@ -89,15 +93,18 @@ export default {
     },
 
     getTraces(data) {
-      const colors = data.map(() => {
-      const r = Math.floor(Math.random() * 200);
-      const g = Math.floor(Math.random() * 200);
-      const b = Math.floor(Math.random() * 200);
-      return `rgb(${r}, ${g}, ${b})`;
+      const uniqueGroups = [...new Set(data.map(row => row.Datasets))];
+
+      const groupColors = {};
+      uniqueGroups.forEach(group => {
+        const r = Math.floor(Math.random() * 200);
+        const g = Math.floor(Math.random() * 200);
+        const b = Math.floor(Math.random() * 200);
+        groupColors[group] = `rgb(${r}, ${g}, ${b})`;
       });
       const groupedData = data.reduce((acc, row) => {
-        if (!acc[row.group]) acc[row.group] = [];
-        acc[row.group].push(row);
+        if (!acc[row.Dataset]) acc[row.Dataset] = [];
+        acc[row.Dataset].push(row);
         return acc;
       }, {});
 
@@ -112,7 +119,8 @@ export default {
           y: groupData.map((row) => row.PC2),
 
           text: groupData.map(
-        (row) => `Sample: ${row.Sample}<br>PC1: ${row.PC1}<br>PC2: ${row.PC2}`
+        // (row) => `Sample: ${row.Sample}<br>PC1: ${row.PC1}<br>PC2: ${row.PC2}<br>Dataset: ${row.Dataset}<br>Age: ${row.Age}<br>Sex: ${row.Sex}`
+        (row) => `Sample: ${row.Sample}<br>Dataset: ${row.Dataset}`
       ), 
           marker: {
             size: 8,

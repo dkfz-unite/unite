@@ -26,7 +26,7 @@ const mixin = {
       switch (type) {
         case "surv": return "Survival Curve Estimation"
         case "dm": return "Differential Methylation";
-        case "pcam": return "Principle Component Analysis Methylation";
+        case "pcam": return "PCA of Methylation Profiles";
         case "de": return "Differential Expression";
         case "scell": return "scRNA Dataset Creation";
         default: return type;
