@@ -9,6 +9,13 @@ export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCrit
 
   constructor(criteria: CopyNumberVariantFiltersCriteria | null = null) {
     super(criteria);
+
+    if (!criteria)
+      return;
+
+    this.type = new ValuesCriteria<string>(criteria.type?.value);
+    this.del = new BoolCriteria(criteria.del?.value);
+    this.loh = new BoolCriteria(criteria.loh?.value);
   }
 
   clone() {

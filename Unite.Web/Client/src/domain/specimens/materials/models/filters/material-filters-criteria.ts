@@ -11,6 +11,15 @@ export default class MaterialFiltersCriteria extends SpecimenFiltersCriteria {
 
   constructor(criteria: MaterialFiltersCriteria | null = null) {
     super(criteria);
+
+    if (!criteria)
+      return;
+
+    this.type = new ValuesCriteria<string>(criteria.type?.value);
+    this.fixationType = new ValuesCriteria<string>(criteria.fixationType?.value);
+    this.tumorType = new ValuesCriteria<string>(criteria.tumorType?.value);
+    this.tumorGrade = new RangeCriteria(criteria.tumorGrade?.value);
+    this.source = new ValuesCriteria<string>(criteria.source?.value);
   }
 
   clone() {

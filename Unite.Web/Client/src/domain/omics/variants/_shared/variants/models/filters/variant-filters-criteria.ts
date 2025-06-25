@@ -13,6 +13,17 @@ export default class VariantFiltersCriteria extends FiltersCriteriaBase {
 
   constructor(criteria: VariantFiltersCriteria | null = null) {
     super();
+
+    if (!criteria)
+      return;
+
+    this.id = new ValuesCriteria<number>(criteria.id?.value);
+    this.chromosome = new ValuesCriteria<string>(criteria.chromosome?.value);
+    this.position = new RangeCriteria(criteria.position?.value);
+    this.length = new RangeCriteria(criteria.length?.value);
+    this.gene = new ValuesCriteria<string>(criteria.gene?.value);
+    this.impact = new ValuesCriteria<string>(criteria.impact?.value);
+    this.effect = new ValuesCriteria<string>(criteria.effect?.value);
   }
 
   clone() {

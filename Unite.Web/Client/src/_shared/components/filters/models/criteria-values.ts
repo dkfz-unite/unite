@@ -27,4 +27,18 @@ export default class ValuesCriteria<T> extends Criteria<T[]> {
     this._value = new Array<T>();
     this._not = false;
   }
+
+  public toJSON(): any {
+    if (!this.value?.length)
+      return null;
+
+    const json: any = {
+      value: this.value
+    };
+
+    if (this.not)
+      json.not = this.not;
+
+    return json;
+  }
 }

@@ -17,15 +17,29 @@ export default class RangeCriteria extends Criteria<Range> {
     return (this.value?.from !== null || this.value?.to !== null) ? 1 : 0;
   }
 
-  constructor(from: number | null = null, to: number | null = null) {
+  constructor(range: Range | null = null) {
     super();
-    this._value = new Range(from, to);
+    this._value = new Range(range?.from, range?.to);
     this._not = false;
   }
 
   public override clear(): void {
     this._value = new Range();
     this._not = false;
+  }
+
+  public toJSON(): any {
+    if (this.value.from === null && this.value.to === null)
+      return null;
+
+    const json: any = {
+      value: this.value
+    };
+
+    if (this.not)
+      json.not = this.not;
+
+    return json;
   }
 }
 

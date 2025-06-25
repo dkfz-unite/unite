@@ -10,6 +10,15 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
 
   constructor(criteria: LineFiltersCriteria | null = null) {
     super(criteria);
+
+    if (!criteria)
+      return;
+
+    this.cellsSpecies = new ValuesCriteria<string>(criteria.cellsSpecies?.value);
+    this.cellsType = new ValuesCriteria<string>(criteria.cellsType?.value);
+    this.cellsCultureType = new ValuesCriteria<string>(criteria.cellsCultureType?.value);
+    this.intervention = new ValuesCriteria<string>(criteria.intervention?.value);
+    this.name = new ValuesCriteria<string>(criteria.name?.value);
   }
 
   sanitise() {

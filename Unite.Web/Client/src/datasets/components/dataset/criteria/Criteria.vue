@@ -202,15 +202,15 @@ export default {
       const rangeFilters = [FilterType.Range];
 
       if (arrayFilters.includes(filter.type)) {
-        if (!!value?.length) {
+        if (!!value?.value?.length) {
           return true;
         }
       } else if (rangeFilters.includes(filter.type)) {
-        if (value?.from != null || value?.to != null) {
+        if (value?.value?.from != null || value?.value?.to != null) {
            return true;
         }
       } else {
-        if (value != null) {
+        if (value?.value != null) {
           return true;
         }
       }

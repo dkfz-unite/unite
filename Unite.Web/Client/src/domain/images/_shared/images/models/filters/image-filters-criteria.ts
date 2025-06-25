@@ -15,6 +15,19 @@ export default class ImageFiltersCriteria extends FiltersCriteriaBase {
 
   constructor(criteria: ImageFiltersCriteria | null = null) {
     super();
+
+    if (!criteria)
+      return;
+
+    this.id = new ValuesCriteria<number>(criteria.id?.value);
+    this.referenceId = new ValuesCriteria<string>(criteria.referenceId?.value);
+
+    this.hasSms = new BoolCriteria(criteria.hasSms?.value);
+    this.hasCnvs = new BoolCriteria(criteria.hasCnvs?.value);
+    this.hasSvs = new BoolCriteria(criteria.hasSvs?.value);
+    this.hasMeth = new BoolCriteria(criteria.hasMeth?.value);
+    this.hasExp = new BoolCriteria(criteria.hasExp?.value);
+    this.hasExpSc = new BoolCriteria(criteria.hasExpSc?.value);
   }
 
   clone() {

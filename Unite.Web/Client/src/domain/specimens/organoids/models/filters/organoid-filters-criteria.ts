@@ -9,6 +9,13 @@ export default class OrganoidFiltersCriteria extends SpecimenFiltersCriteria {
 
   constructor(criteria: OrganoidFiltersCriteria | null = null) {
     super(criteria);
+
+    if (!criteria)
+      return;
+
+    this.medium = new ValuesCriteria<string>(criteria.medium?.value);
+    this.tumorigenicity = new BoolCriteria(criteria.tumorigenicity?.value);
+    this.intervention = new ValuesCriteria<string>(criteria.intervention?.value);
   }
 
   clone() {

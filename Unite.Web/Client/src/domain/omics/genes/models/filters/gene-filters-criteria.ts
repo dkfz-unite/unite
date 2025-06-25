@@ -16,7 +16,21 @@ export default class GeneFiltersCriteria extends FiltersCriteriaBase {
 
   constructor(criteria: GeneFiltersCriteria | null = null) {
     super();
+
+    if (!criteria)
+      return;
+
+    this.id = new ValuesCriteria<number>(criteria.id?.value);
+    this.symbol = new ValuesCriteria<string>(criteria.symbol?.value);
+    this.biotype = new ValuesCriteria<string>(criteria.biotype?.value);
+    this.chromosome = new ValuesCriteria<string>(criteria.chromosome?.value);
+    this.position = new RangeCriteria(criteria.position?.value);
+    this.hasSms = new BoolCriteria(criteria.hasSms?.value);
+    this.hasCnvs = new BoolCriteria(criteria.hasCnvs?.value);
+    this.hasSvs = new BoolCriteria(criteria.hasSvs?.value);
+    this.hasExp = new BoolCriteria(criteria.hasExp?.value);
   }
+
   clone() {
     let criteria = new GeneFiltersCriteria();
     Object.assign(criteria, this);

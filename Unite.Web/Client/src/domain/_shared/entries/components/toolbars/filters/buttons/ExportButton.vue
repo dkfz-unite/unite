@@ -105,7 +105,7 @@ export default {
     getContent() {
       return {
         domain: this.domain,
-        criteria: this.mergedCriteria.copy()
+        criteria: JSON.parse(JSON.stringify(this.mergedCriteria)) //this.mergedCriteria.copy()
       };
     },
 

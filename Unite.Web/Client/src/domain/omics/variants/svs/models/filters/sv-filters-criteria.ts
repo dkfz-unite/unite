@@ -6,6 +6,11 @@ export default class StructuralVariantFiltersCriteria extends VariantFiltersCrit
 
   constructor(criteria: StructuralVariantFiltersCriteria | null = null) {
     super(criteria);
+
+    if (!criteria)
+      return;
+
+    this.type = new ValuesCriteria<string>(criteria.type?.value);
   }
 
   clone() {

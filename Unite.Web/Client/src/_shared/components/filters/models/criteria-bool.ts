@@ -14,7 +14,7 @@ export default class BoolCriteria extends Criteria<boolean> {
     this._not = value;
   }
   public get count(): number {
-    return this.value ? 1 : 0;
+    return this.value !== null ? 1 : 0;
   }
 
   constructor(value: boolean | null = null)
@@ -27,5 +27,19 @@ export default class BoolCriteria extends Criteria<boolean> {
   public override clear(): void {
     this._value = null;
     this._not = false;
+  }
+
+  public toJSON(): any {
+    if (this.value === null)
+      return null;
+    
+    const json: any = {
+      value: this.value
+    };
+
+    if (this.not)
+      json.not = this.not;
+
+    return json;
   }
 }
