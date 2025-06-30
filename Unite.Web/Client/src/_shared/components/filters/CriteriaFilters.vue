@@ -11,10 +11,12 @@
             <template v-for="(groupFilter, j) in filter.filters" :key="j">
               <u-criteria-filter
                 v-if="showFilter(groupFilter)"
-                v-model="filtersCriteria[groupFilter.field].value"
+                v-model:value="filtersCriteria[groupFilter.field].value"
+                v-model:exclude="filtersCriteria[groupFilter.field].not"
                 :filter="groupFilter"
                 :options="groupFilter.options == null ? null : groupFilter.options(filtersContext)"
-                @update:modelValue="onUpdate($event, groupFilter)"
+                @update:value="onUpdate($event, groupFilter)"
+                @update:exclude="onUpdate($event, groupFilter)"
               />
             </template>
           </div>
@@ -25,10 +27,12 @@
       <template v-else>
         <u-criteria-filter
           v-if="showFilter(filter)"
-          v-model="filtersCriteria[filter.field].value"
+          v-model:value="filtersCriteria[filter.field].value"
+          v-model:exclude="filtersCriteria[filter.field].not"
           :filter="filter"
           :options="filter.options == null ? null : filter.options(filtersContext)"
-          @update:modelValue="onUpdate($event, filter)"
+          @update:value="onUpdate($event, filter)"
+          @update:exclude="onUpdate($event, filter)"
         />
       </template>
     </template>
@@ -93,7 +97,7 @@ export default {
       }
     },
 
-    onUpdate(event, filter) {
+    onUpdate(event, filter) {      
       if (filter.watch != null) {
         filter.watch(event?.target, this.filtersCriteria, this.filtersContext);
       }

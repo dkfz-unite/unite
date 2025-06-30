@@ -3,21 +3,35 @@
     :label="label"
     :placeholder="placeholder"
     :disable="disable"
-    v-model.number="value"
+    v-model.number="filterValue"
     @update:modelValue="onUpdate"
     type="number"
     debounce="500"
     clearable
-    square outlined dense 
-  />
+    square outlined dense>
+    <template v-slot:prepend>
+      <q-icon
+        title="Exclude"
+        name="las la-minus-circle" size="xs"
+        class="q-ma-none q-pa-none cursor-pointer"
+        :color="filterExclude ? 'red' : 'null'"
+        :disable="isEmpty"
+        @click="!isEmpty && onExclude()"
+      />
+    </template>
+  </q-input>
 </template>
 
 <script>
 export default {
   props: {
-    modelValue: {
+    value: {
       type: Number,
       default: null
+    },
+    exclude: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,
@@ -45,28 +59,52 @@ export default {
     }
   },
   
-  emits: ["update:modelValue"],
+  emits: ["update:value", "update:exclude"],
 
   data() {
     return {
-      value: this.modelValue
+      filterValue: this.value,
+      filterExclude: this.exclude
+    }
+  },
+
+  computed: {
+    isEmpty() {
+      return !this.hasValue(this.filterValue);
     }
   },
 
   watch: {
-    modelValue(value) {
-      this.value = value;
+    value(value) {
+      this.filterValue = value;
+    },
+    exclude(value) {
+      this.filterExclude = value;
     }
   },
 
   methods:{
     onUpdate(value) {
-      if (value == null || value == "") {
-        if (this.default != null) {
-          this.value = this.default;
+      if (this.hasValue(value)) {
+        if (this.hasValue(this.default)) {
+          this.filterValue = this.default;
         }
       };
-      this.$emit("update:modelValue", this.value);
+      
+      this.$emit("update:value", this.filterValue);
+
+      if (!this.hasValue(this.filterValue)) {        
+        this.filterExclude = false;
+      }
+    },
+
+    onExclude() {      
+      this.filterExclude = !this.filterExclude;
+      this.$emit("update:exclude", this.filterExclude);           
+    },
+
+    hasValue(value) {
+      return value != null && value != "";
     }
   }
 }

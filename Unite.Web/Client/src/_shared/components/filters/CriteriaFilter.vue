@@ -2,57 +2,66 @@
   <!-- Values filter -->
   <template v-if="filter.type == FilterType.Values">
     <u-values-filter
-      v-model="filterValue"
+      v-model:value="filterValue"
+      v-model:exclude="filterExclude"
       :label="filter.label"
       :placeholder="filter.placeholder"
-      @update:modelValue="onUpdate"
+      @update:value="onUpdate"
+      @update:exclude="onExclude"
     />
   </template>
   
   <!-- Option filter -->
   <template v-else-if="filter.type == FilterType.Option">
     <u-option-filter
-      v-model="filterValue"
+      v-model:value="filterValue"
+      v-model:exclude="filterExclude"
       :label="filter.label"
       :options="filterOptions"
-      @update:modelValue="onUpdate"
+      @update:value="onUpdate"
+      @update:exclude="onExclude"
     />
   </template>
 
   <!-- Options filter -->
   <template v-else-if="filter.type == FilterType.Options">
     <u-options-filter
-      v-model="filterValue"
+      v-model:value="filterValue"
+      v-model:exclude="filterExclude"
       :label="filter.label"
       :options="filterOptions"
-      @update:modelValue="onUpdate"
+      @update:value="onUpdate"
+      @update:exclude="onExclude"
     />
   </template>
 
   <!-- Boolean filter -->
   <template v-else-if="filter.type == FilterType.Boolean">
     <u-boolean-filter
-      v-model="filterValue"
+      v-model:value="filterValue"
       :label="filter.label"
       :nullable="filter.nullable"
-      @update:modelValue="onUpdate"
+      @update:value="onUpdate"
     />
   </template>
 
   <!-- Boolean filter -->
   <template v-else-if="filter.type == FilterType.Number">
     <u-number-filter
-      v-model="filterValue"
+      v-model:value="filterValue"
+      v-model:exclude="filterExclude"
       :label="filter.label"
       :default="filter.default"
-      @update:modelValue="onUpdate"
+      @update:value="onUpdate"
+      @update:exclude="onExclude"
     />
   </template>
 
   <!-- Range filter -->
   <template v-else-if="filter.type == FilterType.Range">
     <u-range-filter
-      v-model="filterValue"
+      v-model:value="filterValue"
+      v-model:exclude="filterExclude"
       :label="filter.label"
       :labelFrom="filter.labelFrom"
       :labelTo="filter.labelTo"
@@ -61,7 +70,8 @@
       :showFrom="filter.showFrom"
       :showTo="filter.showTo"
       :expandable="filter.expandable"
-      @update:modelValue="onUpdate"
+      @update:value="onUpdate"
+      @update:exclude="onExclude"
     />
   </template>
 
@@ -101,9 +111,14 @@ export default {
   },
 
   props: {
-    modelValue: {
+    value: {
       type: [String, Number, Boolean, Object, Array],
       required: false
+    },
+
+    exclude: {
+      type: Boolean,
+      default: false
     },
 
     filter: {
@@ -117,7 +132,7 @@ export default {
     }
   },
 
-  emits: ["update:modelValue"],
+  emits: ["update:value", "update:exclude"],
 
   setup() {
     return {
@@ -128,14 +143,19 @@ export default {
 
   data() {
     return {
-      filterValue: this.modelValue,
+      filterValue: this.value,
+      filterExclude: this.exclude,
       filterOptions: this.options
     };
   },
 
   watch: {
-    modelValue(value) {
+    value(value) {
       this.filterValue = value;
+    },
+
+    exclude(value) {
+      this.filterExclude = value;
     },
 
     options(value) {
@@ -151,7 +171,13 @@ export default {
         value = this.filter.sanitize(value);
       }
 
-      this.$emit("update:modelValue", value);
+      this.$emit("update:value", value);
+    },
+
+    onExclude() {
+      let exclude = this.filterExclude;
+
+      this.$emit("update:exclude", exclude);
     }
   }
 }

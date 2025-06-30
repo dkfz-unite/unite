@@ -1,10 +1,10 @@
 import VariantFiltersCriteria from "../../../_shared/variants/models/filters/variant-filters-criteria";
 import ValuesCriteria from "@/_shared/components/filters/models/criteria-values";
 
-export default class MutationFiltersCriteria extends VariantFiltersCriteria {
+export default class SmFiltersCriteria extends VariantFiltersCriteria {
   type = new ValuesCriteria<string>();
 
-  constructor(criteria: MutationFiltersCriteria | null = null) {
+  constructor(criteria: SmFiltersCriteria | null = null) {
     super(criteria);
 
     if (!criteria)
@@ -14,7 +14,7 @@ export default class MutationFiltersCriteria extends VariantFiltersCriteria {
   }
 
   clone() {
-    let criteria = new MutationFiltersCriteria();
+    let criteria = new SmFiltersCriteria();
     Object.assign(criteria, this);
 
     return criteria;

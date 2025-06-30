@@ -11,13 +11,17 @@
           v-show="showFrom"
           :label="labelFrom || 'From'"
           :placeholder="placeholderFrom"
-          v-model="from"
+          v-model:value="from"
+          v-model:exclude="filterExclude"
+          @update:exclude="onExclude"
         />
         <u-number-filter
           v-show="showTo"
           :label="labelTo || 'To'"
           :placeholder="placeholderTo"
-          v-model="to"
+          v-model:value="to"
+          v-model:exclude="filterExclude"
+          @update:exclude="onExclude"
         />
       </div>
     </q-expansion-item>
@@ -29,13 +33,17 @@
       v-show="showFrom"
       :label="labelFrom || 'From'"
       :placeholder="placeholderFrom"
-      v-model="from"
+      v-model:value="from"
+      v-model:exclude="filterExclude"
+      @update:exclude="onExclude"
     />
     <u-number-filter
       v-show="showTo"
       :label="labelTo || 'To'"
       :placeholder="placeholderTo"
-      v-model="to"
+      v-model:value="to"
+      v-model:exclude="filterExclude"
+      @update:exclude="onExclude"
     />
   </template>
 </template>
@@ -49,9 +57,13 @@ export default {
   },
 
   props: {
-    modelValue: {
+    value: {
       type: Object,
       default: { from: null, to: null }
+    },
+    exclude: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,
@@ -91,35 +103,58 @@ export default {
     }
   },
   
-  emits: ["update:modelValue"],
+  emits: ["update:value", "update:exclude"],
 
   data() {
     return {
-      value: this.modelValue
-    }
-  },
-
-  watch: {
-    modelValue(value) {
-      this.value = value;
+      filterValue: this.value,
+      filterExclude: this.exclude
     }
   },
 
   computed: {
     from: {
-      get() { return this.modelValue?.from },
+      get() { return this.value?.from },
       set(value) {
         const range = { from: value, to: this.to };
-        this.$emit("update:modelValue", range);
+        this.$emit("update:value", range);
+
+        if (!this.hasValue(range)) {
+          this.filterExclude = false;
+        }
       }
     },
 
     to: {
-      get() { return this.modelValue?.to },
+      get() { return this.value?.to },
       set(value) {
         const range = { from: this.from, to: value };
-        this.$emit("update:modelValue", range);
+        this.$emit("update:value", range);
+
+        if (!this.hasValue(range)) {
+          this.filterExclude = false;
+        }
       }
+    }
+  },
+
+  watch: {
+    value(value) {
+      this.filterValue = value;
+    },
+    exclude(value) {
+      this.filterExclude = value;
+    }
+  },
+
+  methods: {
+    onExclude() {
+      this.$emit("update:exclude", this.filterExclude);
+    },
+
+    hasValue(value) {
+      return (value.from != null && value.from != "")
+          || (value.to != null && value.to != "");
     }
   }
 }

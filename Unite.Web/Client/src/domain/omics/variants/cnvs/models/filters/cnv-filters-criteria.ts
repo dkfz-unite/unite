@@ -2,12 +2,12 @@ import VariantFiltersCriteria from "../../../_shared/variants/models/filters/var
 import ValuesCriteria from "@/_shared/components/filters/models/criteria-values";
 import BoolCriteria from "@/_shared/components/filters/models/criteria-bool";
 
-export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCriteria {
+export default class CnvFiltersCriteria extends VariantFiltersCriteria {
   type = new ValuesCriteria<string>();
   del = new BoolCriteria();
   loh = new BoolCriteria();
 
-  constructor(criteria: CopyNumberVariantFiltersCriteria | null = null) {
+  constructor(criteria: CnvFiltersCriteria | null = null) {
     super(criteria);
 
     if (!criteria)
@@ -19,7 +19,7 @@ export default class CopyNumberVariantFiltersCriteria extends VariantFiltersCrit
   }
 
   clone() {
-    let criteria = new CopyNumberVariantFiltersCriteria();
+    let criteria = new CnvFiltersCriteria();
     Object.assign(criteria, this);
 
     return criteria;

@@ -5,9 +5,9 @@ import LineFiltersCriteria from "@/domain/specimens/lines/models/filters/line-fi
 import OrganoidFiltersCriteria from "@/domain/specimens/organoids/models/filters/organoid-filters-criteria";
 import XenograftFiltersCriteria from "@/domain/specimens/xenografts/models/filters/xenograft-filters-criteria";
 import GeneFiltersCriteria from "@/domain/omics/genes/models/filters/gene-filters-criteria";
-import MutationFiltersCriteria from "@/domain/omics/variants/sms/models/filters/sm-filters-criteria";
-import CopyNumberVariantFiltersCriteria from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-criteria";
-import StructuralVariantFiltersCriteria from "@/domain/omics/variants/svs/models/filters/sv-filters-criteria";
+import SmFiltersCriteria from "@/domain/omics/variants/sms/models/filters/sm-filters-criteria";
+import CnvFiltersCriteria from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-criteria";
+import SvFiltersCriteria from "@/domain/omics/variants/svs/models/filters/sv-filters-criteria";
 import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {
@@ -21,9 +21,9 @@ export default class FiltersCriteria {
   organoid = new OrganoidFiltersCriteria();
   xenograft = new XenograftFiltersCriteria();
   gene = new GeneFiltersCriteria();
-  sm = new MutationFiltersCriteria();
-  cnv = new CopyNumberVariantFiltersCriteria();
-  sv = new StructuralVariantFiltersCriteria();
+  sm = new SmFiltersCriteria();
+  cnv = new CnvFiltersCriteria();
+  sv = new SvFiltersCriteria();
   oncogrid = new OncogirdFiltersCriteria();
 
   get numberOfFilters(): number {
@@ -55,9 +55,9 @@ export default class FiltersCriteria {
     this.organoid = new OrganoidFiltersCriteria(criteria?.organoid);
     this.xenograft = new XenograftFiltersCriteria(criteria?.xenograft);
     this.gene = new GeneFiltersCriteria(criteria?.gene);
-    this.sm = new MutationFiltersCriteria(criteria?.sm);
-    this.cnv = new CopyNumberVariantFiltersCriteria(criteria?.cnv);
-    this.sv = new StructuralVariantFiltersCriteria(criteria?.sv);
+    this.sm = new SmFiltersCriteria(criteria?.sm);
+    this.cnv = new CnvFiltersCriteria(criteria?.cnv);
+    this.sv = new SvFiltersCriteria(criteria?.sv);
     this.oncogrid = new OncogirdFiltersCriteria();
     if (criteria?.oncogrid) {
       Object.assign(this.oncogrid, criteria.oncogrid);
