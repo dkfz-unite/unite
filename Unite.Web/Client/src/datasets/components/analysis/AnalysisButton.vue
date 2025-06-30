@@ -14,7 +14,7 @@
         </q-item>
         <q-item v-if="showDmAnalysis" @click="$refs.DmDialog.show()" clickable v-close-popup dense>
           <q-item-section>
-            <q-item-label>Differential Methylation</q-item-label>
+            <q-item-label>Differential Methylation Analysis</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="showDeAnalysis" @click="$refs.DeDialog.show()" clickable v-close-popup dense>
