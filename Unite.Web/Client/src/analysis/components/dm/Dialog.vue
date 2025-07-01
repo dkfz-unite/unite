@@ -7,7 +7,7 @@
 
     <q-card style="min-width: 420px;">
       <q-card-section>
-        <div class="text-h6">Differential Methylation</div>
+        <div class="text-h6">Differential Methylation Analysis</div>
       </q-card-section>
 
       <q-card-section>

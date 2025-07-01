@@ -60,8 +60,10 @@ export default {
   {
     async init() {
       const parsedData = await this.getParsedData(this.data);
+      const maxLogFcValue = Math.max(...parsedData.map(row => parseFloat(row.logFc)).filter(value => !isNaN(value)))
+      const maxAdjPValValue = Math.max(...parsedData.map(row => parseFloat(row.adjPVal)).filter(value => !isNaN(value)))
       this.traces = this.getTraces(parsedData);
-      this.layout = this.getLayout();
+      this.layout = this.getLayout(maxLogFcValue, maxAdjPValValue);
     },
 
     async getParsedData(data) 
@@ -72,21 +74,19 @@ export default {
       const decompressedData = compressedData.pipeThrough(new DecompressionStream('gzip'));
       const tsv = await new Response(decompressedData).text();
       const json = this.toJson(tsv);
-      
-      const enchancerColumns = Object.keys(json[0]).filter(col => col.toLowerCase().includes("enhancer"));
-      
       const rows = [];
       for (let i = 0; i < json.length; i++) {
         const row = json[i];
-        const adjPValRaw = parseFloat(row["adj.P.Val"]);
-        const adjPVal = Math.max(adjPValRaw, 1e-300);
-        const logFC = parseFloat(row["logFC"]);
+        const adjPValRow = row["adj.P.Val"]; 
+        const adjPVal =  -Math.log10(adjPValRow);
+        const logFc = row["logFc"];
+        const count = row["Count"];
+        const enchancerColumns = Object.keys(json[0]).filter(col => col.toLowerCase().includes("enhancer"));
 
         rows.push({
-          adjPValRaw: adjPValRaw,
-          adjPVal: adjPVal,
-          logFC: logFC,
-          negLog10P: -Math.log10(adjPVal),
+          adjPVal,
+          logFc,
+          count: count,
           cpgId: row["CpgId"],
           gene: row["UCSC_RefGene_Name"],
           regulatory: row["Regulatory_Feature_Name"],
@@ -100,157 +100,70 @@ export default {
 
     getTraces(data) 
     {
-      const upmethylated = {
-        name: "Upmethylated",
+      const pointsData = {
+        name: "pointsData",
         type: "scattergl",
         mode: "markers",
-        x: [],
-        y: [],
-        text: [],
-        marker: {
-          color: colors.getPaletteColor("blue"),
-          size: 5,
-          opacity: 0.7
-        },
-      };
-      
-      const downmethylated = {
-        name: "Downmethylated",
-        type: "scattergl",
-        mode: "markers",
-        x: [],
-        y: [],
-        text: [],
-        marker: {
-          color: colors.getPaletteColor("red"),
-          size: 5,
-          opacity: 0.7
-        },
-      };
+        x: data.map(row => row.logFc),
+        y: data.map(row => row.adjPVal),
+        text: data.map(row =>
+    `logFC: ${row.logFc}<br>-log10(adj.P.Val): ${row.adjPVal}<br>Count: ${row.count}<br>CpgId: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulatory: ${row.regulatory}<br>Enhancer: ${row.enhancer}`
+  ),
 
-      const insignificant = {
-        name: "Insignificant",
-        type: "scattergl",
-        mode: "markers",
-        x: [],
-        y: [],
-        text: [],
         marker: {
-          color: colors.getPaletteColor("grey"),
-          size: 5,
-          opacity: 0.7
+          size: 7,
+          opacity: 0.7,
+          color: data.map(row => Math.log10(parseFloat(row.count) || 1)),
+          colorscale: [
+            [0.0, 'white'],
+            [0.2, 'lightblue'],
+            [0.4, 'lightgreen'],
+            [0.6, 'yellow'],
+            [1.0, 'red']
+          ],
+          colorbar: {
+            title: 'Log10(Density)',
+          }
         },
       };
-
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
+        const adjPVal = row.adjPVal;
+        const logFC = row.logFC;
+        const count = row.count;
+        const cpgId = row.cpgId;
 
-        const category = row.adjPValRaw < 0.05 && row.logFC > 1 ? { key: "Upmethylated", value: 1 }
-                       : row.adjPValRaw < 0.05 && row.logFC < -1 ? { key: "Downmethylated", value: -1 }
-                       : { key: "Insignificant", value: 0 };
-
-        const details = `Category: ${category.key}<br>CpG: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulator: ${row.regulatory}<br>${row.enchancer}`;
-
-        if (category.value == 1) {
-          upmethylated.x.push(row.logFC);
-          upmethylated.y.push(row.negLog10P);
-          upmethylated.text.push(details);
-        } else if (category.value == -1) {
-          downmethylated.x.push(row.logFC);
-          downmethylated.y.push(row.negLog10P);
-          downmethylated.text.push(details);
-        } else {
-          insignificant.x.push(row.logFC);
-          insignificant.y.push(row.negLog10P);
-          insignificant.text.push(details);
-        }
+        pointsData.x.push(logFC);
+        pointsData.y.push(adjPVal);
       }
-
       const traces = [];
-
-      if (upmethylated.x.length > 0)
-        traces.push(upmethylated);
-
-      if (downmethylated.x.length > 0)
-        traces.push(downmethylated);
-
-      if (insignificant.x.length > 0)
-        traces.push(insignificant);
-
+      traces.push(pointsData);
       return traces;
     },
 
-    getLayout() 
-    {
+    getLayout(maxLogFcValue, maxAdjPValValue) {
       return {
-        title: {
-          text: this.title,
-          x: 0.03,
-        },
-        modebar: settings.modebar,
-        margin: {
-          t: 40,
-          r: 50,
-          b: 50,
-          l: 60,
-        },
-        xaxis: {
-          title: "log2 Fold Change",
-          showline: true,
-          zeroline: false,
-          range: [-15, 15],
-        },
-        yaxis: {
-          title: "-log10(Adjusted P-value)",
-          showline: true,
-          zeroline: false,
-          range: [0, 4],
-        },
-        shapes: [
-          {
-            type: "line",
-            x0: -15,
-            x1: 15,
-            y0: 1,
-            y1: 1,
-            line: { dash: "dashdot", color: colors.getPaletteColor("black") },
-          },
-          {
-            type: "line",
-            x0: -1,
-            x1: -1,
-            y0: 0,
-            y1: 4,
-            line: { dash: "dashdot", color: colors.getPaletteColor("black") },
-          },
-          {
-            type: "line",
-            x0: 1,
-            x1: 1,
-            y0: 0,
-            y1: 4,
-            line: { dash: "dashdot", color: colors.getPaletteColor("black") },
-          },
-        ],
+        title: this.title + " (Density is meassured from 0 to the maximum value of count)",
+        xaxis: { title: "logFC" , range: [-15,maxLogFcValue+2], showline:  true, zeroline: false,text: "logFC"},
+        yaxis: { title: "-log10(adj.P.Val)" , range: [0, maxAdjPValValue], showline:  true, zeroline: false, text: "-log10(adj.P.Val)"},
       };
     },
 
     toJson(tsv) {
       const lines = tsv.split("\n");
-      const headers = lines[0].split(",");
+      const headers = lines[0].split("\t");
 
-      const result = new Array(lines.length - 1);
+      const result = [];
       for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(",");
+        const values = lines[i].split("\t");
         const obj = {};
         for (let j = 0; j < headers.length; j++) {
           const key = headers[j].trim().replace(/"/g, "");
           const value = values[j]?.trim();
           obj[key] = value;
         }
-        result[i - 1] = obj;
+        result.push(obj);
       }
-      
       return result;
     }
   },
