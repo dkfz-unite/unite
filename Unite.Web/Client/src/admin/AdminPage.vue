@@ -14,6 +14,7 @@
         <q-tabs v-model="tab" dense align="left">
           <q-tab label="Users" icon="las la-user" name="users" />
           <q-tab label="Tasks" icon="las la-tasks" name="tasks" />
+          <q-tab label="Workers" icon="las la-key" name="workers" />
           <q-tab label="Submissions" icon="las la-file-alt" name="submissions" />
         </q-tabs>
         <q-separator />
@@ -29,6 +30,9 @@
           <q-tab-panel name="tasks" class="q-ma-none q-pa-none">
             <u-tasks-tab />
           </q-tab-panel>
+          <q-tab-panel name="workers" class="q-ma-none q-pa-none">
+            <u-workers-tab />
+          </q-tab-panel>
           <q-tab-panel name="submissions" class="q-ma-none q-pa-none">
             <u-submissions-tab />
           </q-tab-panel>
@@ -42,13 +46,15 @@
 import UUsersTab from "./components/UsersTab.vue";
 import UTasksTab from "./components/TasksTab.vue";
 import USubmissionsTab from "./components/SubmissionsTab.vue";
+import UWorkersTab from "./components/WorkersTab.vue";
 import tabPageMixin from "./tab-page-mixin";
 
 export default {
   components: {
     UUsersTab,
     UTasksTab,
-    USubmissionsTab
+    USubmissionsTab,
+    UWorkersTab
   },
 
   mixins: [tabPageMixin],
@@ -58,6 +64,7 @@ export default {
       return this.tab == "users" ? "Users"
            : this.tab == "tasks" ? "Tasks"
            : this.tab == "submissions" ? "Submissions"
+           :this.tab == "workers" ? "Workers"
            : this.tab;
     }
   }
