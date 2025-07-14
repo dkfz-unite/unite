@@ -18,7 +18,7 @@ const filters = [
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.typeOptions, MaterialType.values),
     watch: (value, criteria, context) => {
-      criteria.tumorType = [];
+      criteria.tumorType.value = [];
     }
   },
   {
@@ -28,8 +28,8 @@ const filters = [
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.tumorTypeOptions, TumorType.values),
     show: (value, criteria, context) => {
-      return criteria.type?.length == 1 
-          && criteria.type[0] == MaterialType.Tumor;
+      return criteria.type?.value?.length == 1 
+          && criteria.type.value[0] == MaterialType.Tumor;
     }
   },
   {
@@ -44,8 +44,8 @@ const filters = [
     expandable: false,
     sanitize: (value) => sanitiseRange(value),
     show: (value, criteria, context) => {
-      return criteria.type?.length == 1 
-          && criteria.type[0] == MaterialType.Tumor;
+      return criteria.type?.value?.length == 1 
+          && criteria.type.value[0] == MaterialType.Tumor;
     }
   },
   {
