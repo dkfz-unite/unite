@@ -16,6 +16,7 @@
 import UPlotly from "@/visualization/_shared/Plotly.vue";
 import settings from "@/visualization/_shared/settings";
 import { colors } from "quasar";
+import * as Papa from "papaparse";
 
 export default {
   components: {
@@ -61,11 +62,11 @@ export default {
     async init() {
       const parsedData = await this.getParsedData(this.data);
       const maxLogFcValue = Math.max(...parsedData.map(row => parseFloat(row.logFc)).filter(value => !isNaN(value)))
-      const maxAdjPValValue = Math.max(...parsedData.map(row => parseFloat(row.adjPVal)).filter(value => !isNaN(value)))
+      const maxAdjPValValue = Math.max(...parsedData.map(row => parseFloat(row.adjPVal)).filter(value => !isNaN(value) && value !=Infinity));
+      const minLogFc = Math.min(...parsedData.map(row => parseFloat(row.logFc)).filter(value => !isNaN(value)))
       this.traces = this.getTraces(parsedData);
-      this.layout = this.getLayout(maxLogFcValue, maxAdjPValValue);
+      this.layout = this.getLayout(maxLogFcValue, maxAdjPValValue, minLogFc);
     },
-
     async getParsedData(data) 
     {
       this.loading = true;
@@ -141,30 +142,21 @@ export default {
       return traces;
     },
 
-    getLayout(maxLogFcValue, maxAdjPValValue) {
+    getLayout(maxLogFcValue, maxAdjPValValue, minLogFc) {
       return {
-        title: this.title + " (Density is meassured from 0 to the maximum value of count)",
-        xaxis: { title: "logFC" , range: [-15,maxLogFcValue+2], showline:  true, zeroline: false,text: "logFC"},
-        yaxis: { title: "-log10(adj.P.Val)" , range: [0, maxAdjPValValue], showline:  true, zeroline: false, text: "-log10(adj.P.Val)"},
+        title: { text: this.title + " (Density is meassured from 0 to the maximum value of count)"},
+        xaxis: { title: { text: "logFC" }, range: [minLogFc,maxLogFcValue+2], showline:  true, zeroline: false,text: "logFC"},
+        yaxis: { title: { text: "-log10(adj.P.Val)"} , range: [0, maxAdjPValValue], showline:  true, zeroline: false, text: "-log10(adj.P.Val)"},
       };
     },
-
-    toJson(tsv) {
-      const lines = tsv.split("\n");
-      const headers = lines[0].split("\t");
-
-      const result = [];
-      for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split("\t");
-        const obj = {};
-        for (let j = 0; j < headers.length; j++) {
-          const key = headers[j].trim().replace(/"/g, "");
-          const value = values[j]?.trim();
-          obj[key] = value;
-        }
-        result.push(obj);
-      }
-      return result;
+    toJson(tsv) 
+    {
+      const parsedData = Papa.parse(tsv, {
+      delimiter: "\t", 
+      header: true,   
+      skipEmptyLines: true, 
+      });
+      return parsedData.data; 
     }
   },
 };

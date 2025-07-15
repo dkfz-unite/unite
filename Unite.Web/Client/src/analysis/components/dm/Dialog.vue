@@ -183,13 +183,13 @@ export default {
     async onReset() {
       this.name.value = null;
       this.description.value = null
-      this.options.pp.value = "preprocessIllumina";
+      this.options.pp.value = "Illumina";
     },
 
     async onClose() {
       this.name.value = null;
       this.description.value = null;
-      this.options.pp.value = "preprocessIllumina";
+      this.options.pp.value = "Illumina";
       this.dialog = false;
     }
   }
