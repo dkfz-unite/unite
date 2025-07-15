@@ -126,13 +126,13 @@ export default {
           options: [],
         },
         pp: {
-          value: "preprocessIllumina",
+          value: "Illumina",
           options: [
-            { label: "Illumina", value: "preprocessIllumina" },
-            { label: "SWAN", value: "preprocessSWAN" },
-            { label: "Quantile", value: "preprocessQuantile" },
-            { label: "Noob", value: "preprocessNoob" },
-            { label: "Raw", value: "preprocessRaw" }
+            { label: "Illumina", value: "Illumina" },
+            { label: "SWAN", value: "SWAN" },
+            { label: "Quantile", value: "Quantile" },
+            { label: "Noob", value: "Noob" },
+            { label: "Raw", value: "Raw" }
           ]
         }
       }
