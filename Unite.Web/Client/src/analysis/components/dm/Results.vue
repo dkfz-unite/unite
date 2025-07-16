@@ -82,8 +82,8 @@ export default {
         const adjPVal =  -Math.log10(adjPValRow);
         const logFc = row["logFc"];
         const count = row["Count"];
-        const enchancerColumns = Object.keys(json[0]).filter(col => col.toLowerCase().includes("enhancer"));
-
+        const enhancerColumns = Object.keys(json[0]).filter(col => col.toLowerCase().includes("enhancer"));
+        
         rows.push({
           adjPVal,
           logFc,
@@ -91,7 +91,7 @@ export default {
           cpgId: row["CpgId"],
           gene: row["UCSC_RefGene_Name"],
           regulatory: row["Regulatory_Feature_Name"],
-          enchancer: enchancerColumns.map(col => `${col}: ${row[col]}`).join("<br>"),
+          enhancer: enhancerColumns.map(col => `${col}: ${row[col]}`).join("<br>"),
         });
       }
       this.loading = false;
@@ -108,7 +108,7 @@ export default {
         x: data.map(row => row.logFc),
         y: data.map(row => row.adjPVal),
         text: data.map(row =>
-    `logFC: ${row.logFc}<br>-log10(adj.P.Val): ${row.adjPVal}<br>Count: ${row.count}<br>CpgId: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulatory: ${row.regulatory}<br>Enhancer: ${row.enhancer}`
+        `logFC: ${row.logFc}<br>-log10(adj.P.Val): ${row.adjPVal}<br>Count: ${row.count}<br>CpgId: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulatory: ${row.regulatory}<br>${row.enhancer}`
   ),
 
         marker: {
