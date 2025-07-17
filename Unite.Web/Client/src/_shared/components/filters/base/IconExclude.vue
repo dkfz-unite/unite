@@ -2,7 +2,7 @@
   <q-icon
     title="Exclude"
     class="q-ma-none q-pa-none"
-    :class="{ 'icon-neg' : exclude && !disable, 'icon-pos': !exclude && !disable, 'icon-dis': disable }"
+    :class="{ 'u-icon-neg' : exclude && !disable, 'u-icon-pos': !exclude && !disable, 'u-icon-dis': disable }"
     name="las la-minus-circle" size="22px"
   />
   <!-- :name="exclude ? 'remove_circle' : 'remove_circle_outline'" size="22px" -->
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.icon-pos {
+.u-icon-pos {
   color: $grey-6;
   &:hover {
     cursor: pointer;
@@ -26,7 +26,7 @@ export default {
   }
 }
 
-.icon-neg {
+.u-icon-neg {
   color: $red-5;
   &:hover {
     cursor: pointer;
@@ -34,7 +34,7 @@ export default {
   }
 }
 
-.icon-dis {
+.u-icon-dis {
   color: $grey-4;
 }
 </style>

@@ -1,6 +1,12 @@
 <template>
   <div class="row items-center">
-    <u-icon-exclude v-if="!filterEmpty" class="col-auto q-mr-xs" :exclude="filterExclude" :disable="filterEmpty" @click="!filterEmpty && onExclude()" />
+    <u-icon-exclude
+      v-if="!filterEmpty"
+      class="col-auto q-mr-xs"
+      :exclude="filterExclude"
+      :disable="filterEmpty"
+      @click="!filterEmpty && onExclude()">
+    </u-icon-exclude>
     <q-select
       class="col"
       clear-icon="las la-times-circle"
