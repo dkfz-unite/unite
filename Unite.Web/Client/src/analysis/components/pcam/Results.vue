@@ -17,9 +17,10 @@
   import UPlotly from "@/visualization/_shared/Plotly.vue";
   import settings from "@/visualization/_shared/settings";
   import { colors } from "quasar";
+  import * as Papa from "papaparse";
   export default {
     components: {
-      UPlotly,
+      UPlotly
     },
     props: {
       id: {
@@ -80,14 +81,6 @@
         return rows;
       },
       getTraces(data) {
-        const uniqueGroups = [...new Set(data.map(row => row.Datasets))];
-        const groupColors = {};
-        uniqueGroups.forEach(group => {
-          const r = Math.floor(Math.random() * 200);
-          const g = Math.floor(Math.random() * 200);
-          const b = Math.floor(Math.random() * 200);
-          groupColors[group] = `rgb(${r}, ${g}, ${b})`;
-        });
         const groupedData = data.reduce((acc, row) => {
           if (!acc[row.Dataset]) acc[row.Dataset] = [];
           acc[row.Dataset].push(row);
@@ -95,16 +88,13 @@
         }, {});
         const traces = Object.keys(groupedData).map((group) => {
           const groupData = groupedData[group];
-          
           return {
             name: group,
             type: "scatter",
             mode: "markers",
             x: groupData.map((row) => row.PC1),
             y: groupData.map((row) => row.PC2),
-            text: groupData.map(
-          (row) => `Sample: ${row.Sample}<br>Dataset: ${row.Dataset}`
-        ), 
+            text: groupData.map((row) => `Sample: ${row.Sample}<br>Dataset: ${row.Dataset}`), 
             marker: {
               size: 8,
               opacity: 1.2,
@@ -128,33 +118,21 @@
             l: 60,
           },
           xaxis: {
-            title: "PC1",
+            title: {text : "PC1"},
             showline: true,
             zeroline: false,
           },
           yaxis: {
-            title: "PC2",
+            title: {text : "PC2"},
             showline: true,
             zeroline: false,
           },
         };
       },
-      toJson(tsv) {
-        const lines = tsv.split("\n");
-        const headers = lines[0].split(",");
-        const result = new Array(lines.length - 1);
-        for (let i = 1; i < lines.length; i++) {
-          const values = lines[i].split(",");
-          const obj = {};
-          for (let j = 0; j < headers.length; j++) {
-            const key = headers[j].trim().replace(/"/g, "");
-            const value = values[j]?.trim();
-            obj[key] = value;
-          }
-          result[i - 1] = obj;
-        }
-        
-        return result;
+      toJson(tsv) 
+      {
+        const result = Papa.parse(tsv, { delimiter: ",", header: true, skipEmptyLines: true });
+        return result.data; 
       }
     },
   };
