@@ -1,6 +1,7 @@
 <template>
   <u-surv-dialog v-if="showSurvAnalysis" ref="SurvDialog" :datasets="datasets" />
   <u-dm-dialog v-if="showDmAnalysis" ref="DmDialog" :datasets="datasets" />
+  <u-pcam-dialog v-if="showPcamAnalysis" ref="PcamDialog" :datasets="datasets" />
   <u-de-dialog v-if="showDeAnalysis" ref="DeDialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
 
@@ -16,6 +17,11 @@
           <q-item-section>
             <q-item-label>Differential Methylation Analysis</q-item-label>
           </q-item-section>
+        </q-item>
+        <q-item v-if="showPcamAnalysis" @click="$refs.PcamDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>PCA of Methylation Profiles</q-item-label>
+        </q-item-section>
         </q-item>
         <q-item v-if="showDeAnalysis" @click="$refs.DeDialog.show()" clickable v-close-popup dense>
           <q-item-section>
@@ -35,6 +41,7 @@
 <script>
 import USurvDialog from "@/analysis/components/surv/Dialog.vue";
 import UDmDialog from "@/analysis/components/dm/Dialog.vue";
+import UPcamDialog from "@/analysis/components/pcam/Dialog.vue";
 import UDeDialog from "@/analysis/components/de/Dialog.vue";
 import UScellDialog from "@/analysis/components/scell/Dialog.vue";
 
@@ -43,6 +50,7 @@ export default {
   components: {
     USurvDialog,
     UDmDialog,
+    UPcamDialog,
     UDeDialog,
     UScellDialog
   },
@@ -58,6 +66,7 @@ export default {
     enableAnalysis() {
       return this.showSurvAnalysis
           || this.showDmAnalysis
+          || this.showPcamAnalysis
           || this.showDeAnalysis
           || this.showScellAnalysis;
     },
@@ -70,6 +79,11 @@ export default {
 
     showDmAnalysis() {
       return this.datasets?.length > 1 &&
+             this.datasets?.every(dataset => dataset.data?.meth === true);
+    },
+    
+    showPcamAnalysis() {
+      return this.datasets?.length >= 1 &&
              this.datasets?.every(dataset => dataset.data?.meth === true);
     },
 
