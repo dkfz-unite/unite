@@ -144,7 +144,7 @@ export default {
 
     getLayout(maxLogFcValue, maxAdjPValValue, minLogFc) {
       return {
-        title: { text: this.title + " (Density is meassured from 0 to the maximum value of count)"},
+        title: { text: this.title + " (Density by CpG Count)"},
         xaxis: { title: { text: "logFC" }, range: [minLogFc,maxLogFcValue+2], showline:  true, zeroline: false,text: "logFC"},
         yaxis: { title: { text: "-log10(adj.P.Val)"} , range: [0, maxAdjPValValue], showline:  true, zeroline: false, text: "-log10(adj.P.Val)"},
       };
