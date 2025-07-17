@@ -29,23 +29,23 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
     if (!criteria)
       return;
 
-    this.id = new ValuesCriteria<number>(criteria.id?.value);
-    this.referenceId = new ValuesCriteria<string>(criteria.referenceId?.value);
-    this.mgmtStatus = new ValuesCriteria<string>(criteria.mgmtStatus?.value);
-    this.idhStatus = new ValuesCriteria<string>(criteria.idhStatus?.value);
-    this.idhMutation = new ValuesCriteria<string>(criteria.idhMutation?.value);
-    this.geneExpressionSubtype = new ValuesCriteria<string>(criteria.geneExpressionSubtype?.value);
-    this.methylationSubtype = new ValuesCriteria<string>(criteria.methylationSubtype?.value);
-    this.gCimpMethylation = new BoolCriteria(criteria.gCimpMethylation?.value);
-    this.drug = new ValuesCriteria<string>(criteria.drug?.value);
-    this.dss = new RangeCriteria(criteria.dss?.value);
-    this.dssSelective = new RangeCriteria(criteria.dssSelective?.value);
-    this.hasSms = new BoolCriteria(criteria.hasSms?.value);
-    this.hasCnvs = new BoolCriteria(criteria.hasCnvs?.value);
-    this.hasSvs = new BoolCriteria(criteria.hasSvs?.value);
-    this.hasMeth = new BoolCriteria(criteria.hasMeth?.value);
-    this.hasExp = new BoolCriteria(criteria.hasExp?.value);
-    this.hasExpSc = new BoolCriteria(criteria.hasExpSc?.value);
+    this.id = new ValuesCriteria<number>(criteria.id);
+    this.referenceId = new ValuesCriteria<string>(criteria.referenceId);
+    this.mgmtStatus = new ValuesCriteria<string>(criteria.mgmtStatus);
+    this.idhStatus = new ValuesCriteria<string>(criteria.idhStatus);
+    this.idhMutation = new ValuesCriteria<string>(criteria.idhMutation);
+    this.geneExpressionSubtype = new ValuesCriteria<string>(criteria.geneExpressionSubtype);
+    this.methylationSubtype = new ValuesCriteria<string>(criteria.methylationSubtype);
+    this.gCimpMethylation = new BoolCriteria(criteria.gCimpMethylation);
+    this.drug = new ValuesCriteria<string>(criteria.drug);
+    this.dss = new RangeCriteria(criteria.dss);
+    this.dssSelective = new RangeCriteria(criteria.dssSelective);
+    this.hasSms = new BoolCriteria(criteria.hasSms);
+    this.hasCnvs = new BoolCriteria(criteria.hasCnvs);
+    this.hasSvs = new BoolCriteria(criteria.hasSvs);
+    this.hasMeth = new BoolCriteria(criteria.hasMeth);
+    this.hasExp = new BoolCriteria(criteria.hasExp);
+    this.hasExpSc = new BoolCriteria(criteria.hasExpSc);
   }
 
   clone() {

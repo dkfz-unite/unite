@@ -1,4 +1,6 @@
 <template>
+  <u-icon-exclude v-if="not" />
+  
   <template v-if="value.from != null && value.to != null">
     <span>
       Between 
@@ -27,10 +29,17 @@
 </template>
 
 <script>
+import UIconExclude from './IconExclude.vue';
+
 export default {
+  components: {
+    UIconExclude 
+  },
+
   props: {
     filter: Object,
-    value: Object
+    value: Object,
+    not: [Boolean, null]
   }
 }
 </script>

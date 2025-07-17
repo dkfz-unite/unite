@@ -18,14 +18,14 @@ export default class ProjectFiltersCriteria extends FiltersCriteriaBase {
     if (!criteria)
       return;
 
-    this.id = new ValuesCriteria<number>(criteria.id?.value);
-    this.name = new ValuesCriteria<string>(criteria.name?.value);
+    this.id = new ValuesCriteria<number>(criteria.id);
+    this.name = new ValuesCriteria<string>(criteria.name);
 
-    this.hasSms = new BoolCriteria(criteria.hasSms?.value);
-    this.hasCnvs = new BoolCriteria(criteria.hasCnvs?.value);
-    this.hasSvs = new BoolCriteria(criteria.hasSvs?.value);
-    this.hasExp = new BoolCriteria(criteria.hasExp?.value);
-    this.hasExpSc = new BoolCriteria(criteria.hasExpSc?.value);
+    this.hasSms = new BoolCriteria(criteria.hasSms);
+    this.hasCnvs = new BoolCriteria(criteria.hasCnvs);
+    this.hasSvs = new BoolCriteria(criteria.hasSvs);
+    this.hasExp = new BoolCriteria(criteria.hasExp);
+    this.hasExpSc = new BoolCriteria(criteria.hasExpSc);
   }
 
   clone() {

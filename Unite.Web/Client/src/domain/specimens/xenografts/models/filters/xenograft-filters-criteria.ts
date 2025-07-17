@@ -16,11 +16,11 @@ export default class XenograftFiltersCriteria extends SpecimenFiltersCriteria {
     if (!criteria)
       return;
 
-    this.mouseStrain = new ValuesCriteria<string>(criteria.mouseStrain?.value);
-    this.survivalDays = new RangeCriteria(criteria.survivalDays?.value);
-    this.tumorigenicity = new BoolCriteria(criteria.tumorigenicity?.value);
-    this.tumorGrowthForm = new ValuesCriteria<string>(criteria.tumorGrowthForm?.value);
-    this.intervention = new ValuesCriteria<string>(criteria.intervention?.value);
+    this.mouseStrain = new ValuesCriteria<string>(criteria.mouseStrain);
+    this.survivalDays = new RangeCriteria(criteria.survivalDays);
+    this.tumorigenicity = new BoolCriteria(criteria.tumorigenicity);
+    this.tumorGrowthForm = new ValuesCriteria<string>(criteria.tumorGrowthForm);
+    this.intervention = new ValuesCriteria<string>(criteria.intervention);
   }
 
   clone() {

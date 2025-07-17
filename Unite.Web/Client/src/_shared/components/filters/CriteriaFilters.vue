@@ -97,7 +97,7 @@ export default {
       }
     },
 
-    onUpdate(event, filter) {      
+    onUpdate(event, filter) {
       if (filter.watch != null) {
         filter.watch(event?.target, this.filtersCriteria, this.filtersContext);
       }

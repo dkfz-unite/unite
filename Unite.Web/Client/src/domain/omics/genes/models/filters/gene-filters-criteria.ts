@@ -20,15 +20,15 @@ export default class GeneFiltersCriteria extends FiltersCriteriaBase {
     if (!criteria)
       return;
 
-    this.id = new ValuesCriteria<number>(criteria.id?.value);
-    this.symbol = new ValuesCriteria<string>(criteria.symbol?.value);
-    this.biotype = new ValuesCriteria<string>(criteria.biotype?.value);
-    this.chromosome = new ValuesCriteria<string>(criteria.chromosome?.value);
-    this.position = new RangeCriteria(criteria.position?.value);
-    this.hasSms = new BoolCriteria(criteria.hasSms?.value);
-    this.hasCnvs = new BoolCriteria(criteria.hasCnvs?.value);
-    this.hasSvs = new BoolCriteria(criteria.hasSvs?.value);
-    this.hasExp = new BoolCriteria(criteria.hasExp?.value);
+    this.id = new ValuesCriteria<number>(criteria.id);
+    this.symbol = new ValuesCriteria<string>(criteria.symbol);
+    this.biotype = new ValuesCriteria<string>(criteria.biotype);
+    this.chromosome = new ValuesCriteria<string>(criteria.chromosome);
+    this.position = new RangeCriteria(criteria.position);
+    this.hasSms = new BoolCriteria(criteria.hasSms);
+    this.hasCnvs = new BoolCriteria(criteria.hasCnvs);
+    this.hasSvs = new BoolCriteria(criteria.hasSvs);
+    this.hasExp = new BoolCriteria(criteria.hasExp);
   }
 
   clone() {

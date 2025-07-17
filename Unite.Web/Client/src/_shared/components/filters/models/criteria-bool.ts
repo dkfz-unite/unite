@@ -17,11 +17,11 @@ export default class BoolCriteria extends Criteria<boolean> {
     return this.value !== null ? 1 : 0;
   }
 
-  constructor(value: boolean | null = null)
+  constructor(value: BoolCriteria | null = null)
   {
     super();
-    this._value = value;
-    this._not = false;
+    this._value = value?.value ?? null; 
+    this._not = value?.not || false;
   }
 
   public override clear(): void {

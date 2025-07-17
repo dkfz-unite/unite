@@ -17,10 +17,10 @@ export default class RangeCriteria extends Criteria<Range> {
     return (this.value?.from !== null || this.value?.to !== null) ? 1 : 0;
   }
 
-  constructor(range: Range | null = null) {
+  constructor(criteria: RangeCriteria | null = null) {
     super();
-    this._value = new Range(range?.from, range?.to);
-    this._not = false;
+    this._value = new Range(criteria?.value?.from, criteria?.value?.to);
+    this._not = criteria?.not || false;
   }
 
   public override clear(): void {

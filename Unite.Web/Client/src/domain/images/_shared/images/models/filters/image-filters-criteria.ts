@@ -19,15 +19,15 @@ export default class ImageFiltersCriteria extends FiltersCriteriaBase {
     if (!criteria)
       return;
 
-    this.id = new ValuesCriteria<number>(criteria.id?.value);
-    this.referenceId = new ValuesCriteria<string>(criteria.referenceId?.value);
+    this.id = new ValuesCriteria<number>(criteria.id);
+    this.referenceId = new ValuesCriteria<string>(criteria.referenceId);
 
-    this.hasSms = new BoolCriteria(criteria.hasSms?.value);
-    this.hasCnvs = new BoolCriteria(criteria.hasCnvs?.value);
-    this.hasSvs = new BoolCriteria(criteria.hasSvs?.value);
-    this.hasMeth = new BoolCriteria(criteria.hasMeth?.value);
-    this.hasExp = new BoolCriteria(criteria.hasExp?.value);
-    this.hasExpSc = new BoolCriteria(criteria.hasExpSc?.value);
+    this.hasSms = new BoolCriteria(criteria.hasSms);
+    this.hasCnvs = new BoolCriteria(criteria.hasCnvs);
+    this.hasSvs = new BoolCriteria(criteria.hasSvs);
+    this.hasMeth = new BoolCriteria(criteria.hasMeth);
+    this.hasExp = new BoolCriteria(criteria.hasExp);
+    this.hasExpSc = new BoolCriteria(criteria.hasExpSc);
   }
 
   clone() {

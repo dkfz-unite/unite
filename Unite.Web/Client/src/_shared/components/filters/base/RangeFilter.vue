@@ -9,18 +9,19 @@
       <div class="col q-pt-xs q-gutter-y-sm">
         <u-number-filter
           v-show="showFrom"
-          :label="labelFrom || 'From'"
-          :placeholder="placeholderFrom"
           v-model:value="from"
           v-model:exclude="filterExclude"
+          
+          :label="labelFrom || 'From'"
+          :placeholder="placeholderFrom"
           @update:exclude="onExclude"
         />
         <u-number-filter
           v-show="showTo"
-          :label="labelTo || 'To'"
-          :placeholder="placeholderTo"
           v-model:value="to"
           v-model:exclude="filterExclude"
+          :label="labelTo || 'To'"
+          :placeholder="placeholderTo"
           @update:exclude="onExclude"
         />
       </div>
@@ -33,6 +34,7 @@
       v-show="showFrom"
       :label="labelFrom || 'From'"
       :placeholder="placeholderFrom"
+      :other="to"
       v-model:value="from"
       v-model:exclude="filterExclude"
       @update:exclude="onExclude"
@@ -41,6 +43,7 @@
       v-show="showTo"
       :label="labelTo || 'To'"
       :placeholder="placeholderTo"
+      :other="from"
       v-model:value="to"
       v-model:exclude="filterExclude"
       @update:exclude="onExclude"

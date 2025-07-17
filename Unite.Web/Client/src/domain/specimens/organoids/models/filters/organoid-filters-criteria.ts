@@ -13,9 +13,9 @@ export default class OrganoidFiltersCriteria extends SpecimenFiltersCriteria {
     if (!criteria)
       return;
 
-    this.medium = new ValuesCriteria<string>(criteria.medium?.value);
-    this.tumorigenicity = new BoolCriteria(criteria.tumorigenicity?.value);
-    this.intervention = new ValuesCriteria<string>(criteria.intervention?.value);
+    this.medium = new ValuesCriteria<string>(criteria.medium);
+    this.tumorigenicity = new BoolCriteria(criteria.tumorigenicity);
+    this.intervention = new ValuesCriteria<string>(criteria.intervention);
   }
 
   clone() {

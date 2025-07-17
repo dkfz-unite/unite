@@ -16,22 +16,22 @@
 
           <!-- Values criteria -->
           <template v-if="filter.type == FilterType.Values">
-            <u-values-criteria :filter="filter" :values="criteria[filter.field].value" />
+            <u-values-criteria :filter="filter" :values="criteria[filter.field].value" :not="criteria[filter.field].not" />
           </template>
 
           <!-- Option criteria -->
           <template v-else-if="filter.type == FilterType.Option">
-            <u-option-criteria :filter="filter" :value="criteria[filter.field].value" />
+            <u-option-criteria :filter="filter" :value="criteria[filter.field].value" :not="criteria[filter.field].not"/>
           </template>
 
           <!-- Options criteria -->
           <template v-else-if="filter.type == FilterType.Options">
-            <u-options-criteria :filter="filter" :values="criteria[filter.field].value" />
+            <u-options-criteria :filter="filter" :values="criteria[filter.field].value" :not="criteria[filter.field].not" />
           </template>
 
           <!-- Range criteria -->
           <template v-else-if="filter.type == FilterType.Range">
-            <u-range-criteria :filter="filter" :value="criteria[filter.field].value" />
+            <u-range-criteria :filter="filter" :value="criteria[filter.field].value" :not="criteria[filter.field].not" />
           </template>
 
           <!-- Boolean criteria -->

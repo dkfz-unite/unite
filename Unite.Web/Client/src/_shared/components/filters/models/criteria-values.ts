@@ -17,10 +17,10 @@ export default class ValuesCriteria<T> extends Criteria<T[]> {
     return this.value?.length || 0;
   }
 
-  constructor(value: T[] = new Array<T>()) {
+  constructor(criteria: ValuesCriteria<T> | null = null) {
     super();
-    this._value = value;
-    this._not = false;
+    this._value = criteria?.value ? [...criteria.value] : [];
+    this._not = criteria?.not || false;
   }
 
   public override clear(): void {

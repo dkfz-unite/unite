@@ -13,9 +13,9 @@ export default class CnvFiltersCriteria extends VariantFiltersCriteria {
     if (!criteria)
       return;
 
-    this.type = new ValuesCriteria<string>(criteria.type?.value);
-    this.del = new BoolCriteria(criteria.del?.value);
-    this.loh = new BoolCriteria(criteria.loh?.value);
+    this.type = new ValuesCriteria<string>(criteria.type);
+    this.del = new BoolCriteria(criteria.del);
+    this.loh = new BoolCriteria(criteria.loh);
   }
 
   clone() {

@@ -16,6 +16,19 @@ export default abstract class FiltersCriteriaBase {
     return number;
   }
 
+  public get isNegative(): boolean {
+    let negatives = 0;
+
+    for (const prop in this) {
+      const value = this[prop];
+      if (value instanceof Criteria) {
+        negatives += value?.not == true ? 1 : 0;
+      }
+    }
+
+    return negatives == this.numberOfFilters;
+  }
+
   constructor(criteria: FiltersCriteriaBase | null = null) {
     if (!criteria) return;
   }

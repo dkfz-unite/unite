@@ -17,13 +17,13 @@ export default class VariantFiltersCriteria extends FiltersCriteriaBase {
     if (!criteria)
       return;
 
-    this.id = new ValuesCriteria<number>(criteria.id?.value);
-    this.chromosome = new ValuesCriteria<string>(criteria.chromosome?.value);
-    this.position = new RangeCriteria(criteria.position?.value);
-    this.length = new RangeCriteria(criteria.length?.value);
-    this.gene = new ValuesCriteria<string>(criteria.gene?.value);
-    this.impact = new ValuesCriteria<string>(criteria.impact?.value);
-    this.effect = new ValuesCriteria<string>(criteria.effect?.value);
+    this.id = new ValuesCriteria<number>(criteria.id);
+    this.chromosome = new ValuesCriteria<string>(criteria.chromosome);
+    this.position = new RangeCriteria(criteria.position);
+    this.length = new RangeCriteria(criteria.length);
+    this.gene = new ValuesCriteria<string>(criteria.gene);
+    this.impact = new ValuesCriteria<string>(criteria.impact);
+    this.effect = new ValuesCriteria<string>(criteria.effect);
   }
 
   clone() {

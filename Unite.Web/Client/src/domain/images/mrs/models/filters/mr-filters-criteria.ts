@@ -12,9 +12,9 @@ export default class MrFiltersCriteria extends ImageFiltersCriteria {
     if (!criteria)
       return;
 
-    this.wholeTumor = new RangeCriteria(criteria.wholeTumor?.value);
-    this.contrastEnhancing = new RangeCriteria(criteria.contrastEnhancing?.value);
-    this.nonContrastEnhancing = new RangeCriteria(criteria.nonContrastEnhancing?.value);
+    this.wholeTumor = new RangeCriteria(criteria.wholeTumor);
+    this.contrastEnhancing = new RangeCriteria(criteria.contrastEnhancing);
+    this.nonContrastEnhancing = new RangeCriteria(criteria.nonContrastEnhancing);
   }
 
   clone() {

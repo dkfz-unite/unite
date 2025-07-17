@@ -1,29 +1,30 @@
 <template>
-  <q-input 
-    :label="label"
-    :placeholder="placeholder"
-    :disable="disable"
-    v-model.number="filterValue"
-    @update:modelValue="onUpdate"
-    type="number"
-    debounce="500"
-    clearable
-    square outlined dense>
-    <template v-slot:prepend>
-      <q-icon
-        title="Exclude"
-        name="las la-minus-circle" size="xs"
-        class="q-ma-none q-pa-none cursor-pointer"
-        :color="filterExclude ? 'red' : 'null'"
-        :disable="isEmpty"
-        @click="!isEmpty && onExclude()"
-      />
-    </template>
-  </q-input>
+  <div class="row items-center">
+    <u-icon-exclude v-if="!filterEmpty" class="col-auto q-mr-xs" :exclude="filterExclude" :disable="filterEmpty" @click="!filterEmpty && onExclude()" />
+    <q-input
+      class="col"
+      clear-icon="las la-times-circle"
+      :label="label"
+      :placeholder="placeholder"
+      :disable="disable"
+      v-model.number="filterValue"
+      @update:modelValue="onUpdate"
+      type="number"
+      debounce="500"
+      clearable
+      square outlined dense>
+    </q-input>
+  </div>
 </template>
 
 <script>
+import UIconExclude from "./IconExclude.vue";
+
 export default {
+  components: {
+    UIconExclude
+  },
+
   props: {
     value: {
       type: Number,
@@ -32,6 +33,10 @@ export default {
     exclude: {
       type: Boolean,
       default: false
+    },
+    other: {
+      type: Number,
+      default: null
     },
     label: {
       type: String,
@@ -69,8 +74,8 @@ export default {
   },
 
   computed: {
-    isEmpty() {
-      return !this.hasValue(this.filterValue);
+    filterEmpty() {
+      return !this.hasValue(this.filterValue) && !this.hasValue(this.other);
     }
   },
 
@@ -95,6 +100,7 @@ export default {
 
       if (!this.hasValue(this.filterValue)) {        
         this.filterExclude = false;
+        this.$emit("update:exclude", this.filterExclude);
       }
     },
 

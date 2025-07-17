@@ -14,11 +14,11 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
     if (!criteria)
       return;
 
-    this.cellsSpecies = new ValuesCriteria<string>(criteria.cellsSpecies?.value);
-    this.cellsType = new ValuesCriteria<string>(criteria.cellsType?.value);
-    this.cellsCultureType = new ValuesCriteria<string>(criteria.cellsCultureType?.value);
-    this.intervention = new ValuesCriteria<string>(criteria.intervention?.value);
-    this.name = new ValuesCriteria<string>(criteria.name?.value);
+    this.cellsSpecies = new ValuesCriteria<string>(criteria.cellsSpecies);
+    this.cellsType = new ValuesCriteria<string>(criteria.cellsType);
+    this.cellsCultureType = new ValuesCriteria<string>(criteria.cellsCultureType);
+    this.intervention = new ValuesCriteria<string>(criteria.intervention);
+    this.name = new ValuesCriteria<string>(criteria.name);
   }
 
   sanitise() {
