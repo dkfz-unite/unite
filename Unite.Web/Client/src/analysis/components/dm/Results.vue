@@ -151,12 +151,8 @@ export default {
     },
     toJson(tsv) 
     {
-      const parsedData = Papa.parse(tsv, {
-      delimiter: "\t", 
-      header: true,   
-      skipEmptyLines: true, 
-      });
-      return parsedData.data; 
+      const result = Papa.parse(tsv, { delimiter: "\t", header: true, skipEmptyLines: true });
+      return result.data; 
     }
   },
 };
