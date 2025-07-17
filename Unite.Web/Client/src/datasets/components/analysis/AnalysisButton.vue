@@ -21,7 +21,7 @@
         <q-item v-if="showPcamAnalysis" @click="$refs.PcamDialog.show()" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>PCA of Methylation Profiles</q-item-label>
-          </q-item-section>
+        </q-item-section>
         </q-item>
         <q-item v-if="showDeAnalysis" @click="$refs.DeDialog.show()" clickable v-close-popup dense>
           <q-item-section>
