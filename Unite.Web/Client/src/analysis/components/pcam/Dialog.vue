@@ -94,6 +94,7 @@
   <script>
   import Settings from "@/_settings/settings";
   import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
+
   export default {
     props: {
       datasets: {
@@ -101,11 +102,13 @@
         default: () => [],
       },
     },
+
     setup() {
       return {
         Settings
       }
     },
+
     data() {
       return {
         dialog: false,
@@ -114,7 +117,8 @@
         },
         description: {
           value: null
-        },options: {
+        },
+        options: {
           model: {
             value: null,
             options: [],
@@ -132,6 +136,7 @@
         }
       };
     },
+
     computed: {
       canSubmit() {
         return true;
@@ -140,10 +145,12 @@
         return this.datasets.sort((a, b) => a.order - b.order);
       }
     },
+
     methods: {
       show() {
         this.dialog = true;
       },
+
       async onSubmit() {
         const datasets = this.datasetsOrdered.map(dataset => ({
           id: dataset.id,
@@ -152,26 +159,29 @@
           domain: dataset.domain,
           criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
         }));
+
         const data = {
           type: "pcam",
           name: this.name.value,
           description: this.description.value,
           status: null,
           date: new Date(),
-          data: 
-            {
-                datasets: datasets,
-                options: { pp: this.options.pp.value } 
-            }
+          data: {
+            datasets: datasets,
+            options: { pp: this.options.pp.value } 
+          }
         };
+
         const id = await this.$store.dispatch("analysis/runPcamAnalysis", data);
         await this.$router.push({ name: "analysis", params: { id: id } });
-        },
+      },
+
       async onReset() {
         this.name.value = null;
         this.description.value = null
         this.options.pp.value = "Illumina";
       },
+
       async onClose() {
         this.name.value = null;
         this.description.value = null;

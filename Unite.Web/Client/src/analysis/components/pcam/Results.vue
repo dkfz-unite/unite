@@ -5,7 +5,6 @@
         :data="traces"
         :layout="layout"
         :config="config"
-        :style="{ height: '500px', width: '800px' }"
       />
     </template>
     <template v-else>
@@ -18,10 +17,12 @@
   import settings from "@/visualization/_shared/settings";
   import { colors } from "quasar";
   import * as Papa from "papaparse";
+
   export default {
     components: {
       UPlotly
     },
+
     props: {
       id: {
         type: String,
@@ -36,6 +37,7 @@
         required: true,
       },
     },
+
     data() {
       return {
         loading: false,
@@ -44,20 +46,24 @@
         config: {},
       };
     },
+
     async mounted() {
       await this.init();
     },
+
     watch: {
       async data(value) {
         await this.init();
       },
     },
+
     methods: {
       async init() {
         const parsedData = await this.getParsedData(this.data);
         this.traces = this.getTraces(parsedData);
         this.layout = this.getLayout();
       },
+
       async getParsedData(data) {
         this.loading = true;
         const start = performance.now();
@@ -70,16 +76,17 @@
           const row = json[i];
           if(row["Sample"] != undefined) {
             rows.push({
-            Sample: String(row["Sample"]).replace(/^"|"$/g, ''),
-            PC1: parseFloat(row["PC1"]),
-            PC2: parseFloat(row["PC2"]),
-            Dataset: String(row["condition"]).replace(/^"|"$/g, '')
+              Sample: String(row["Sample"]).replace(/^"|"$/g, ''),
+              PC1: parseFloat(row["PC1"]),
+              PC2: parseFloat(row["PC2"]),
+              Dataset: String(row["condition"]).replace(/^"|"$/g, '')
             });
           }
         }
         this.loading = false;
         return rows;
       },
+
       getTraces(data) {
         const groupedData = data.reduce((acc, row) => {
           if (!acc[row.Dataset]) acc[row.Dataset] = [];
@@ -104,6 +111,7 @@
         });
         return traces;
       },
+
       getLayout() {
         return {
           title: {
@@ -129,8 +137,8 @@
           },
         };
       },
-      toJson(tsv) 
-      {
+
+      toJson(tsv) {
         const result = Papa.parse(tsv, { delimiter: ",", header: true, skipEmptyLines: true });
         return result.data; 
       }
