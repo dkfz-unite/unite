@@ -72,9 +72,7 @@
             Sample: String(row["Sample"]).replace(/^"|"$/g, ''),
             PC1: parseFloat(row["PC1"]),
             PC2: parseFloat(row["PC2"]),
-            Dataset: String(row["conditions"]).replace(/^"|"$/g, ''),
-            Age: String(row["age"]).replace(/^"|"$/g, ''),
-            Sex: String(row["sex"]).replace(/^"|"$/g, ''),
+            Dataset: String(row["condition"]).replace(/^"|"$/g, '')
             });
           }
         }
@@ -105,7 +103,6 @@
             x: groupData.map((row) => row.PC1),
             y: groupData.map((row) => row.PC2),
             text: groupData.map(
-          // (row) => `Sample: ${row.Sample}<br>PC1: ${row.PC1}<br>PC2: ${row.PC2}<br>Dataset: ${row.Dataset}<br>Age: ${row.Age}<br>Sex: ${row.Sex}`
           (row) => `Sample: ${row.Sample}<br>Dataset: ${row.Dataset}`
         ), 
             marker: {

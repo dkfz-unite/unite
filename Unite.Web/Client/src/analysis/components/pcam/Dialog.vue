@@ -120,13 +120,13 @@
             options: [],
           },
           pp: {
-            value: "preprocessIllumina",
+            value: "Illumina",
             options: [
-              { label: "Illumina", value: "preprocessIllumina" },
-              { label: "SWAN", value: "preprocessSWAN" },
-              { label: "Quantile", value: "preprocessQuantile" },
-              { label: "Noob", value: "preprocessNoob" },
-              { label: "Raw", value: "preprocessRaw" }
+              { label: "Illumina", value: "Illumina" },
+              { label: "SWAN", value: "SWAN" },
+              { label: "Quantile", value: "Quantile" },
+              { label: "Noob", value: "Noob" },
+              { label: "Raw", value: "Raw" }
             ]
           }
         }
@@ -170,12 +170,12 @@
       async onReset() {
         this.name.value = null;
         this.description.value = null
-        this.options.pp.value = "preprocessIllumina";
+        this.options.pp.value = "Illumina";
       },
       async onClose() {
         this.name.value = null;
         this.description.value = null;
-        this.options.pp.value = "preprocessIllumina";
+        this.options.pp.value = "Illumina";
         this.dialog = false;
       }
     }
