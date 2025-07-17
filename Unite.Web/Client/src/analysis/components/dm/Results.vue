@@ -101,16 +101,13 @@ export default {
 
     getTraces(data) 
     {
-      const pointsData = {
-        name: "pointsData",
+      const points = {
+        name: "points",
         type: "scattergl",
         mode: "markers",
         x: data.map(row => row.logFc),
         y: data.map(row => row.adjPVal),
-        text: data.map(row =>
-        `logFC: ${row.logFc}<br>-log10(adj.P.Val): ${row.adjPVal}<br>Count: ${row.count}<br>CpgId: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulatory: ${row.regulatory}<br>${row.enhancer}`
-  ),
-
+        text: data.map(row => `logFC: ${row.logFc}<br>-log10(adj.P.Val): ${row.adjPVal}<br>Count: ${row.count}<br>CpgId: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulatory: ${row.regulatory}<br>${row.enhancer}`),
         marker: {
           size: 7,
           opacity: 0.7,
@@ -122,9 +119,7 @@ export default {
             [0.6, 'yellow'],
             [1.0, 'red']
           ],
-          colorbar: {
-            title: 'Log10(Density)',
-          }
+          colorbar: { title: 'Log10(Density)' }
         },
       };
       for (let i = 0; i < data.length; i++) {
@@ -134,11 +129,11 @@ export default {
         const count = row.count;
         const cpgId = row.cpgId;
 
-        pointsData.x.push(logFC);
-        pointsData.y.push(adjPVal);
+        points.x.push(logFC);
+        points.y.push(adjPVal);
       }
       const traces = [];
-      traces.push(pointsData);
+      traces.push(points);
       return traces;
     },
 
