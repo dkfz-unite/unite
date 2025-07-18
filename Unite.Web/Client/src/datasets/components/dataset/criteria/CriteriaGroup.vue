@@ -16,27 +16,27 @@
 
           <!-- Values criteria -->
           <template v-if="filter.type == FilterType.Values">
-            <u-values-criteria :filter="filter" :values="criteria[filter.field]" />
+            <u-values-criteria :filter="filter" :values="criteria[filter.field].value" :not="criteria[filter.field].not" />
           </template>
 
           <!-- Option criteria -->
           <template v-else-if="filter.type == FilterType.Option">
-            <u-option-criteria :filter="filter" :value="criteria[filter.field]" />
+            <u-option-criteria :filter="filter" :value="criteria[filter.field].value" :not="criteria[filter.field].not"/>
           </template>
 
           <!-- Options criteria -->
           <template v-else-if="filter.type == FilterType.Options">
-            <u-options-criteria :filter="filter" :values="criteria[filter.field]" />
+            <u-options-criteria :filter="filter" :values="criteria[filter.field].value" :not="criteria[filter.field].not" />
           </template>
 
           <!-- Range criteria -->
           <template v-else-if="filter.type == FilterType.Range">
-            <u-range-criteria :filter="filter" :value="criteria[filter.field]" />
+            <u-range-criteria :filter="filter" :value="criteria[filter.field].value" :not="criteria[filter.field].not" />
           </template>
 
           <!-- Boolean criteria -->
           <template v-else-if="filter.type == FilterType.Boolean">
-            <u-boolean-criteria :filter="filter" :value="criteria[filter.field]" />
+            <u-boolean-criteria :filter="filter" :value="criteria[filter.field].value" />
           </template>
         </div>
       </template>
@@ -91,16 +91,16 @@ export default {
   },
 
   methods: {
-    hasFilters(filter, value) {
+    hasFilters(filter, value) {      
       const arrayFilters = [FilterType.Values, FilterType.Options];
-      const rangeFilters = [FilterType.Range];
+      const rangeFilters = [FilterType.Range];      
 
       if (arrayFilters.includes(filter.type)) {
-        return !!value?.length;
+        return !!value?.value?.length;
       } else if (rangeFilters.includes(filter.type)) {
-        return value?.from != null || value?.to != null;
+        return value?.value?.from != null || value?.value?.to != null;
       } else {
-        return value != null;
+        return value?.value != null;
       }
     }
   }

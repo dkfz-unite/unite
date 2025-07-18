@@ -1,23 +1,44 @@
 <template>
-  <q-select
-    :label="label"
-    :disable="disable || !hasOptions"
-    :options="options"
-    v-model="value"
-    @update:modelValue="onUpdate"
-    multiple clearable use-chips emit-value map-options
-    square outlined dense options-dense hide-dropdown-icon
-  />
+  <div class="row items-center">
+    <u-icon-exclude
+      v-if="!filterEmpty"
+      class="col-auto q-mr-xs"
+      :exclude="filterExclude"
+      :disable="filterEmpty"
+      @click="!filterEmpty && onExclude()">
+    </u-icon-exclude>
+    <q-select
+      class="col"
+      clear-icon="las la-times-circle"
+      :label="label"
+      :disable="disable || !hasOptions"
+      :options="options"
+      v-model="filterValue"
+      @update:modelValue="onUpdate"
+      multiple clearable use-chips emit-value map-options
+      square outlined dense options-dense hide-dropdown-icon>
+    </q-select>
+  </div>
 </template>
 
 <script>
+import UIconExclude from "./IconExclude.vue";
+
 export default {
+  components: {
+    UIconExclude
+  },
+
   props: {
-    modelValue: {
+    value: {
       type: Array,
       default() {
         return null;
       }
+    },
+    exclude: {
+      type: Boolean,
+      default: false
     },
     options: {
       type: Array,
@@ -35,30 +56,49 @@ export default {
     }
   },
 
-  emits: ["update:modelValue"],
+  emits: ["update:value", "update:exclude"],
 
   data() {
     return {
-      value: this.modelValue
-    }
-  },
-
-  watch: {
-    modelValue(value) {
-      this.value = value;
+      filterValue: this.value,
+      filterExclude: this.exclude
     }
   },
 
   computed: {
+    filterEmpty() {
+      return !this.filterValue?.length;
+    },
+
     hasOptions() {
       return !!this.options?.length;
     },
   },
 
+  watch: {
+    value(value) {
+      this.filterValue = value;
+    },
+
+    exclude(value) {
+      this.filterExclude = value;
+    }
+  },
+
   methods: {
     onUpdate(value) {
-      this.$emit("update:modelValue", value);
+      this.$emit("update:value", value);
+
+      if (this.filterEmpty) {
+        this.filterExclude = false;
+        this.$emit("update:exclude", this.filterExclude);
+      }
     },
+
+    onExclude() {
+      this.filterExclude = !this.filterExclude;
+      this.$emit("update:exclude", this.filterExclude);
+    }
   }
 }
 </script>

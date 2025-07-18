@@ -1,4 +1,6 @@
 <template>
+  <u-icon-exclude v-if="not" />
+  
   <span>
     <q-badge color="grey-2" text-color="black" class="text-body2 text-weight-medium">
       {{ getLabel(value) }}
@@ -7,10 +9,17 @@
 </template>
 
 <script>
+import UIconExclude from './IconExclude.vue';
+
 export default {
+  components: {
+    UIconExclude 
+  },
+
   props: {
     filter: Object,
-    value: [Object, String, Boolean, Number]
+    value: [Object, String, Boolean, Number],
+    not: [Boolean, null]
   },
 
   methods: {

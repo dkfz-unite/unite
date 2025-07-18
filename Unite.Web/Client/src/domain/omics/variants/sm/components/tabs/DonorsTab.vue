@@ -45,7 +45,7 @@ import tabTableMixin from "@/domain/_shared/entry/components/tab-table-mixin";
 
 import { Tabs } from "../../settings";
 import VariantType from "../../../_shared/variants/models/enums/variant-type";
-import MutationFiltersCriteria from "../../../sms/models/filters/sm-filters-criteria";
+import SmFiltersCriteria from "../../../sms/models/filters/sm-filters-criteria";
 import FilterModel from "@/_shared/components/filters/filter-models";
 import filters from "@/domain/donors/models/filters/donor-filters";
 import api from "@/domain/omics/variants/_shared/variant/api";
@@ -81,7 +81,7 @@ export default {
   methods: {
     async fetchData(searchCriteria) {
       if (!searchCriteria.sm)
-        searchCriteria.sm = new MutationFiltersCriteria();
+        searchCriteria.sm = new SmFiltersCriteria();
 
       searchCriteria.sm.id = [this.variant.id];
 

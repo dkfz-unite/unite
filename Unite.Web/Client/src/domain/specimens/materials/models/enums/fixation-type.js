@@ -1,6 +1,6 @@
 export default class FixationType {
   static values = {
-    "FFPE": "FFPEl",
+    "FFPE": "FFPE",
     "Fresh Frozen": "Fresh Frozen"
   };
 }
