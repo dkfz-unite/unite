@@ -58,7 +58,7 @@ export default {
 
     width: {
       type: Number,
-      default: 300
+      default: 330
     }
   },
 

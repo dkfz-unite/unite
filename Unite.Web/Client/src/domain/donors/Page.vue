@@ -63,7 +63,7 @@
               <u-filters-toolbar :domain="domain" />
               <u-datasets-toolbar :domain="domain" />
               <u-upload-button v-if="canWriteData" />
-              <u-oncogrid-link :mode="domain" :disable="!rowsTotal" />
+              <!-- <u-oncogrid-link :mode="domain" :disable="!rowsTotal" /> -->
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
