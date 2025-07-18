@@ -1,10 +1,11 @@
 <template>
   <div class="column q-pa-sm u-check-box">
     <q-checkbox
-      v-model="value"
+      v-model="filterValue"
       :label="label"
       :disable="disable"
       :toggle-indeterminate="nullable"
+      @input="onUpdate"
       @update:modelValue="onUpdate"
       dense
     />
@@ -14,7 +15,7 @@
 <script>
   export default {
     props: {
-      modelValue: {
+      value: {
         type: Boolean,
         default: null
       },
@@ -31,25 +32,31 @@
         default: true
       }
     },
-    
-    emits: ["update:modelValue"],
+
+    emits: ["update:value"],
 
     data() {
       return {
-        value: this.modelValue
+        filterValue: this.value
+      }
+    },
+
+    computed: {
+      isEmpty() {
+        return this.filterValue == null;
       }
     },
 
     watch: {
-      modelValue(value) {
-        this.value = value;
+      value(value) {
+        this.filterValue = value;
       }
     },
 
     methods: {
       onUpdate(value) {
-        this.$emit("update:modelValue", value);
-      },
+        this.$emit("update:value", value);
+      }
     }
   }
 </script>

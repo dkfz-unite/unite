@@ -57,7 +57,7 @@ const filters = [
   },
   {
     field: "age",
-    // label: "Age",
+    label: "Age",
     labelFrom: "Age (From)",
     labelTo: "Age (To)",
     placeholderFrom: "e.g. 50",

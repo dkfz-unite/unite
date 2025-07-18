@@ -1,21 +1,46 @@
 <template>
-  <q-input 
-    :label="label"
-    :placeholder="placeholder"
-    :disable="disable"
-    v-model.number="value"
-    @update:modelValue="onUpdate"
-    type="number"
-    debounce="500"
-    clearable
-    square outlined dense 
-  />
+  <div class="row items-center">
+    <u-icon-exclude
+      v-if="!filterEmpty"
+      class="col-auto q-mr-xs"
+      :exclude="filterExclude"
+      :disable="filterEmpty"
+      @click="!filterEmpty && onExclude()">
+    </u-icon-exclude>
+    <q-input
+      class="col"
+      clear-icon="las la-times-circle"
+      :label="label"
+      :placeholder="placeholder"
+      :disable="disable"
+      v-model.number="filterValue"
+      @update:modelValue="onUpdate"
+      type="number"
+      debounce="500"
+      clearable
+      square outlined dense>
+    </q-input>
+  </div>
 </template>
 
 <script>
+import UIconExclude from "./IconExclude.vue";
+
 export default {
+  components: {
+    UIconExclude
+  },
+
   props: {
-    modelValue: {
+    value: {
+      type: Number,
+      default: null
+    },
+    exclude: {
+      type: Boolean,
+      default: false
+    },
+    other: {
       type: Number,
       default: null
     },
@@ -45,28 +70,53 @@ export default {
     }
   },
   
-  emits: ["update:modelValue"],
+  emits: ["update:value", "update:exclude"],
 
   data() {
     return {
-      value: this.modelValue
+      filterValue: this.value,
+      filterExclude: this.exclude
+    }
+  },
+
+  computed: {
+    filterEmpty() {
+      return !this.hasValue(this.filterValue) && !this.hasValue(this.other);
     }
   },
 
   watch: {
-    modelValue(value) {
-      this.value = value;
+    value(value) {
+      this.filterValue = value;
+    },
+    exclude(value) {
+      this.filterExclude = value;
     }
   },
 
   methods:{
     onUpdate(value) {
-      if (value == null || value == "") {
-        if (this.default != null) {
-          this.value = this.default;
+      if (this.hasValue(value)) {
+        if (this.hasValue(this.default)) {
+          this.filterValue = this.default;
         }
       };
-      this.$emit("update:modelValue", this.value);
+      
+      this.$emit("update:value", this.filterValue);
+
+      if (!this.hasValue(this.filterValue)) {        
+        this.filterExclude = false;
+        this.$emit("update:exclude", this.filterExclude);
+      }
+    },
+
+    onExclude() {      
+      this.filterExclude = !this.filterExclude;
+      this.$emit("update:exclude", this.filterExclude);           
+    },
+
+    hasValue(value) {
+      return value != null && value != "";
     }
   }
 }

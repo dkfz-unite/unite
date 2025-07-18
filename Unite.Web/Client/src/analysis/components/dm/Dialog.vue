@@ -7,7 +7,7 @@
 
     <q-card style="min-width: 420px;">
       <q-card-section>
-        <div class="text-h6">Differential Methylation</div>
+        <div class="text-h6">Differential Methylation Analysis</div>
       </q-card-section>
 
       <q-card-section>
@@ -126,13 +126,13 @@ export default {
           options: [],
         },
         pp: {
-          value: "preprocessIllumina",
+          value: "Illumina",
           options: [
-            { label: "Illumina", value: "preprocessIllumina" },
-            { label: "SWAN", value: "preprocessSWAN" },
-            { label: "Quantile", value: "preprocessQuantile" },
-            { label: "Noob", value: "preprocessNoob" },
-            { label: "Raw", value: "preprocessRaw" }
+            { label: "Illumina", value: "Illumina" },
+            { label: "SWAN", value: "SWAN" },
+            { label: "Quantile", value: "Quantile" },
+            { label: "Noob", value: "Noob" },
+            { label: "Raw", value: "Raw" }
           ]
         }
       }
@@ -183,13 +183,13 @@ export default {
     async onReset() {
       this.name.value = null;
       this.description.value = null
-      this.options.pp.value = "preprocessIllumina";
+      this.options.pp.value = "Illumina";
     },
 
     async onClose() {
       this.name.value = null;
       this.description.value = null;
-      this.options.pp.value = "preprocessIllumina";
+      this.options.pp.value = "Illumina";
       this.dialog = false;
     }
   }

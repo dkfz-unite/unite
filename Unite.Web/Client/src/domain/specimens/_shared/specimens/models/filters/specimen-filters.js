@@ -45,9 +45,9 @@ const filters = [
         valueType: ValueType.String,
         options: (context) => mapOptions(context?.idhStatusOptions, IdhStatus.values),
         watch: (value, criteria, context) => {
-          criteria.idhMutation = [];
-          criteria.geneExpressionSubtype = [];
-          criteria.methylationSubtype = [];
+          criteria.idhMutation.value = [];
+          criteria.geneExpressionSubtype.value = [];
+          criteria.methylationSubtype.value = [];
         }
       },
       {
@@ -57,8 +57,8 @@ const filters = [
         valueType: ValueType.String,
         options: (context) => mapOptions(context?.idhMutationOptions, IdhMutation.values),
         show: (value, criteria, context) => {
-          return criteria.idhStatus?.length == 1 
-              && criteria.idhStatus[0] == IdhStatus.Mutant;
+          return criteria.idhStatus?.value?.length == 1 
+              && criteria.idhStatus.value[0] == IdhStatus.Mutant;
         }
       },
       {
@@ -68,8 +68,8 @@ const filters = [
         valueType: ValueType.String,
         options: (context) => mapOptions(context?.idhMutationOptions, GeneExpressionSubtype.values),
         show: (value, criteria, context) => {
-          return criteria.idhStatus?.length == 1 
-              && criteria.idhStatus[0] == IdhStatus.WildType;
+          return criteria.idhStatus?.value?.length == 1 
+              && criteria.idhStatus.value[0] == IdhStatus.WildType;
         }
       },
       {
@@ -79,8 +79,8 @@ const filters = [
         valueType: ValueType.String,
         options: (context) => mapOptions(context?.idhMutationOptions, MethylationSubtype.values),
         show: (value, criteria, context) => {
-          return criteria.idhStatus?.length == 1 
-              && criteria.idhStatus[0] == IdhStatus.WildType;
+          return criteria.idhStatus?.value?.length == 1 
+              && criteria.idhStatus.value[0] == IdhStatus.WildType;
         }
       },
       {

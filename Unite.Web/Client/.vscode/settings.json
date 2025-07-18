@@ -1,3 +1,4 @@
 {
-  "alias-resolver.type": "custom"
+  "alias-resolver.type": "custom",
+  "editor.tabSize": 2
 }

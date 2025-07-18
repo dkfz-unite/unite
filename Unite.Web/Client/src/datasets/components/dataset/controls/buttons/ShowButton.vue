@@ -25,6 +25,10 @@ export default {
       const domain = this.dataset.domain;
       const criteria = new FiltersCriteria(this.dataset.criteria);
 
+      console.log("Dataset criteria:", this.dataset.criteria);
+      console.log("Filters criteria:", criteria);
+      
+
       this.$store.state[domain].filtersCriteria = criteria;
       this.$router.push({ name: domain });
     }

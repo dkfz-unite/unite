@@ -41,7 +41,7 @@ const filters = [
         valueType: ValueType.String,
         options: (context) => mapOptions(context?.chromosomeOptions, Chromosome.values),
         watch: (value, criteria, context) => {
-          criteria.position = { from: null, to: null };
+          criteria.position.value = { from: null, to: null };
         }
       },
       {
@@ -53,7 +53,7 @@ const filters = [
         type: FilterType.Range,
         valueType: ValueType.Number,
         sanitize: (value) => sanitiseRange(value),
-        show: (value, criteria, context) => criteria.chromosome?.length == 1
+        show: (value, criteria, context) => criteria.chromosome?.value?.length == 1
       }
     ]
   },
