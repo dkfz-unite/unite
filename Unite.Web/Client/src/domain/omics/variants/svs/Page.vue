@@ -62,7 +62,7 @@
             <div class="row q-gutter-x-xs">
               <u-filters-toolbar :domain="domain" />
               <u-datasets-toolbar :domain="domain" />
-              <u-upload-button v-if="canWriteData" />
+              <!-- <u-upload-button v-if="canWriteData" /> -->
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
