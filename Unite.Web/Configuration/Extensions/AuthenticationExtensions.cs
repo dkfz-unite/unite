@@ -37,10 +37,7 @@ public static class AuthenticationExtensions
                 var cache = ResolveCache(context.HttpContext);
                 var actor = context.Principal?.FindFirst(claim => claim.Type == ClaimTypes.Actor)?.Value;
                 var name = context.Principal?.FindFirst(claim => claim.Type == ClaimTypes.Name)?.Value;
-                var id = context.Principal?.FindFirst(claim => claim.Type == ClaimTypes.Sid)?.Value;
-
-                // TODO: Update to normal behavior when the worker token is implemented
-                var tokenId = (id ?? name).Length.ToString();
+                var key = context.Principal?.FindFirst(claim => claim.Type == ClaimTypes.Sid)?.Value;
 
                 if (!string.Equals(actor, "Worker", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -49,26 +46,26 @@ public static class AuthenticationExtensions
                     return;
                 }
 
-                if (string.IsNullOrEmpty(tokenId))
+                if (string.IsNullOrEmpty(key))
                 {
                     context.Fail("Token identifier is not specified.");
                     context.Request.Headers.Remove("Authorization");
                     return;
                 }
 
-                if (!cache.TryGetValue(tokenId, out _))
+                if (!cache.TryGetValue(key, out _))
                 {
-                    var valid = await ValidateWorker(tokenId);
+                    var valid = await ValidateWorker(key);
 
                     if (valid)
                     {
-                        cache.Set(tokenId, true, TimeSpan.FromMinutes(5));
+                        cache.Set(key, true, TimeSpan.FromMinutes(5));
                         context.Success();
                         return;
                     }
                     else
                     {
-                        context.Fail($"Failed to validate worker with id '{tokenId}'");
+                        context.Fail($"Failed to validate worker with id '{key}'");
                         context.Request.Headers.Remove("Authorization");
                         return;
                     }

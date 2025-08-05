@@ -1,122 +1,87 @@
 <template>
-  <u-add-token-dialog ref="addTokenDialog" @confirm="onAddedToken"/>
+  <u-add-token-dialog ref="addTokenDialog" @created="onAddedToken"/>
   <!-- <u-extend-token ref="extendTokenDialog" :value="row??row" @confirm="onExtendedToken"/> -->
   <u-extend-token ref="extendTokenDialog" :value="row" @confirm="onExtendedToken"/>
 
 
   <div class="col">
     <q-table
-            class="u-sticky-header-admin"
-            separator="cell"
-            row-key="id"
-            :rows="rows"
-            :columns="columns"
-            :pagination="{ rowsPerPage: 20 }"
-            @row-click="onRowSelected"
-            dense flat bordered
-          >
-        <template v-slot:body-cell-tokenStatus="props">
-            <q-td :props="props">
-              <span v-if = "props.row.revokeStatus === 'Revoked'" :class="getExpiryClass(props.row.revokeStatus)">
-                {{ props.row.revokeStatus }}
-              </span>
-              <span v-else = "props.row.tokenExpiryDateStatus === 'Expired'" :class="getExpiryClass(props.row.tokenExpiryDateStatus)">
-                {{ props.row.tokenExpiryDateStatus }}
-              </span>
-            </q-td>
-        </template>
+      class="u-sticky-header-admin"
+      separator="cell"
+      row-key="id"
+      :rows="tokens"
+      :columns="columns"
+      :pagination="{ rowsPerPage: 20 }"
+      dense flat bordered
+    >
+      <template v-slot:body-cell-tokenStatus="props">
+        <q-td :props="props">
+          <span v-if="props.row.revoked" class="text-negative">Revoked</span>
+          <span v-else-if="isExpired(props.row.expiryDate)" class="text-negative">Expired</span>
+          <span v-else class="text-positive">{{ formatExpiryDate(props.row.expiryDate) }}</span>
+        </q-td>
+      </template>
 
-        <template v-slot:body-cell-editPermission="props">
-            <q-td :props="props">
-              <template v-if="props.row.revokeStatus === 'Revoked'">
-                <q-btn
-                  flat
-                  dense
-                  size ="sm"
-                  icon="las la-trash"
-                  @click= onDeleteToken(props.row)
-                  align="right"
-                  color="primary"
-                />
-              </template>
-              <template v-else-if = "props.row.tokenExpiryDateStatus === 'Expired'" >
-                <q-btn
-                  flat
-                  dense
-                  size ="sm"
-                  icon="las la-calendar-plus"
-                  @click= onExtendToken(props.row)
-                  align="right"
-                  color="primary"
-                />
-                <q-btn
-                  flat
-                  dense
-                  size ="sm"
-                  icon="las la-trash"
-                  @click= onDeleteToken(props.row)
-                  align="right"
-                  color="primary"
-                />
-              </template>
-              <template v-else>
-                <q-btn
-                  flat
-                  dense
-                  size ="sm"
-                  icon="las la-redo-alt"
-                  @click= onRevokeToken(props.row)
-                  align="right"
-                  color="primary"
-                />
-                <q-btn
-                  flat
-                  dense
-                  size ="sm"
-                  icon="las la-trash"
-                  @click= onDeleteToken(props.row)
-                  align="right"
-                  color="primary"
-                />
-              </template>
-            </q-td>
-          </template>
+      <template v-slot:body-cell-editPermission="props">
+        <q-td :props="props">
+          <q-btn
+            v-if="!(isExpired(props.row.expiryDate) || props.row.revoked)"
+            align="right" icon="las la-redo-alt" color="primary" size ="sm" flat dense
+            @click=onRevokeToken(props.row)
+          />
+          <q-btn
+            v-else-if="isExpired(props.row.expiryDate)"
+            align="right" icon="las la-calendar-plus" color="primary" size ="sm" flat dense
+            @click=onExtendToken(props.row)
+          />
+          <q-btn
+            align="right" icon="las la-trash" color="negative" size ="sm" flat dense
+            @click=onDeleteToken(props.row)
+          />
+        </q-td>
+      </template>
 
-          <template v-slot:top>
+      <template v-slot:top>
+        <div class="col">
+          <div class="row justify-between">
             <div class="col">
-              <div class="row justify-between">
-                <div class="col">
-                  <div class="q-pt-xs">
-                    <span class="text-h6 text-weight-regular">Tokens</span>
-                  </div>
+              <div class="q-pt-xs">
+                <span class="text-h6 text-weight-regular">Tokens</span>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="row q-gutter-x-xs items-start">
+                <div class="q-pt-xs">
+                  <span class="text-h6 text-weight-regular">Add</span>
                 </div>
-                <div class="col-auto">
-                  <div class="row q-gutter-x-xs items-start">
-                    <div class="q-pt-xs">
-                      <span class="text-h6 text-weight-regular">Add Token : </span>
-                    </div>
-                    <div class="u-pt-1">
-                      <q-btn
-                        icon="las la-plus-circle"
-                        @click=onAddToken
-                        :loading="loading"
-                      />
-                    </div>
-                  </div>
+                <div class="u-pt-1">
+                  <q-btn
+                    title="Add Token"
+                    icon="las la-plus-circle"
+                    :loading="loading"
+                    @click=onAddToken
+                  />
                 </div>
               </div>
             </div>
-          </template>
+          </div>
+        </div>
+      </template>
     </q-table>
   </div>
+
+  <!-- Copy pupup should be on the right -->
+  <!-- If we start extend token, close the window and then open it again - all values are preserved -->
+  <!-- If we have extended token, it's value is preserverd and next time we open the model, the value is shown -->
 </template>
 
 <script>
 import UPermissionsCell from "./users/PermissionsCell.vue";
-import api from "../api/api-tokens";
-import UAddTokenDialog from "./workers/AddToken.vue";
-import UExtendToken from "./workers/ExtendToken.vue";
+import UAddTokenDialog from "./tokens/AddTokenDialog.vue";
+import UExtendToken from "./tokens/ExtendTokenDialog.vue";
+
 import dayjs from "dayjs";
+import api from "../api/api-tokens";
 
 export default {
   components: {
@@ -125,12 +90,6 @@ export default {
     UExtendToken
   },
 
-  // props:{
-  //   row: {
-  //     type: Object,
-  //     default: null
-  //   }
-  // },
 
   data() {
     return {
@@ -163,36 +122,21 @@ export default {
   methods: {
     async loadTokens() {
       try {
-        this.loadingTokens = true;
-
+        this.loading = true;
         this.tokens = await api.get();
-        this.rows = [];
-        this.tokens.forEach(element => {
-          this.rows.push({
-            id: element.id,
-            name: element.name,
-            description: element.description,
-            tokenExpiryDateStatus: element.tokenExpiryDate!==undefined ?
-            this.formatExpiryDate(element.tokenExpiryDate) : null,
-            tokenExpiryDate: element.tokenExpiryDate,
-            permissions: element.permissions,
-            revoked: element.revoked,
-            revokeStatus: element.revoked ? "Revoked" : ""
-          });
-        });
       } finally {
-        this.loadingTokens = false;
+        this.loading = false;
       }
     },
 
-    formatExpiryDate(tokenExpiryDate) {
-      const expiry = dayjs(tokenExpiryDate);
+    formatExpiryDate(expiryDate) {
+      const expiry = dayjs(expiryDate);
       const now = dayjs();
-      const diffInMinutes = expiry.diff(now, 'minute');
-      const diffInHours = expiry.diff(now, 'hour');
-      const diffInDays = expiry.diff(now, 'day');
+      const diffInMinutes = expiry.diff(now, "minute");
+      const diffInHours = expiry.diff(now, "hour");
+      const diffInDays = expiry.diff(now, "day");
       
-      if (diffInDays >= 1) {
+      if (diffInDays >= 1) { // Why >= 1 not > 0?
         return `${diffInDays} day(s) remaining`;
       } 
       else if(diffInHours > 0) {
@@ -202,15 +146,8 @@ export default {
         return `${diffInMinutes} min(s) remaining`;
       } 
       else {
-        return `Expired`;
+        return null;
       }
-    },
-
-    getExpiryClass(value) {
-      if (!value || value === 'Expired' || value === 'Revoked') {
-        return 'text-negative'; 
-      }
-      return 'text-positive'; 
     },
   
     async onAddToken() {
@@ -243,12 +180,15 @@ export default {
       await this.loadTokens();
     },
 
-    async onRowSelected(event, row, index) {
-      if (row == this.row)
-        return;
-      this.row = row;
-      await this.loadTokens();
+    isExpired(date) {
+      return dayjs(date).isBefore(dayjs());
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.u-pt-1 {
+  padding-top: 1px;
+}
+</style>

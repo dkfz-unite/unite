@@ -16,7 +16,7 @@ export async function addToken(token) {
 }
 
 export async function extendToken(id, token) {
-  const url = `${workerUrl}/${id}/token`;
+  const url = `${workerUrl}/${id}`;
   return await client.put(url, token);
 }
 
