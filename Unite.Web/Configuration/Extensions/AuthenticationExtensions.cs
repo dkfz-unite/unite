@@ -41,37 +41,30 @@ public static class AuthenticationExtensions
 
                 if (!string.Equals(actor, "Worker", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    context.Success();
-                    context.Request.Headers.Remove("Authorization");
                     return;
                 }
 
                 if (string.IsNullOrEmpty(key))
                 {
-                    context.Fail("Token identifier is not specified.");
                     context.Request.Headers.Remove("Authorization");
                     return;
                 }
 
                 if (!cache.TryGetValue(key, out _))
                 {
-                    var valid = await ValidateWorker(key);
+                    var valid = await ValidateToken(key);
 
                     if (valid)
                     {
-                        cache.Set(key, true, TimeSpan.FromMinutes(5));
-                        context.Success();
+                        cache.Set(key, true, TimeSpan.FromMinutes(1));
                         return;
                     }
                     else
                     {
-                        context.Fail($"Failed to validate worker with id '{key}'");
                         context.Request.Headers.Remove("Authorization");
                         return;
                     }
                 }
-
-                context.Success();
             }
         };
     }
@@ -83,12 +76,12 @@ public static class AuthenticationExtensions
         return _cache;
     }
 
-    private static async Task<bool> ValidateWorker(string id)
+    private static async Task<bool> ValidateToken(string key)
     {
         using var handler = new HttpClientHandler { UseProxy = false };
         using var client = new HttpClient(handler);
 
-        var url = $"{EnvironmentConfig.IdentityHost}/api/worker/token/{id}/active";
+        var url = $"{EnvironmentConfig.IdentityHost}/api/token/{key}/active";
         var response = await client.GetAsync(url);
 
         return response.IsSuccessStatusCode;
