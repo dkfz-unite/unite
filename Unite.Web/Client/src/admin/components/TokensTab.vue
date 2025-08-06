@@ -1,8 +1,6 @@
 <template>
-  <u-add-token-dialog ref="addTokenDialog" @created="onAddedToken"/>
-  <!-- <u-extend-token ref="extendTokenDialog" :value="row??row" @confirm="onExtendedToken"/> -->
-  <u-extend-token ref="extendTokenDialog" :value="row" @confirm="onExtendedToken"/>
-
+  <u-add-token-dialog ref="addTokenDialog" @created="loadTokens"/>
+  <u-extend-token-dialog ref="extendTokenDialog" @updated="loadTokens"/>
 
   <div class="col">
     <q-table
@@ -69,35 +67,26 @@
       </template>
     </q-table>
   </div>
-
-  <!-- Copy pupup should be on the right -->
-  <!-- If we start extend token, close the window and then open it again - all values are preserved -->
-  <!-- If we have extended token, it's value is preserverd and next time we open the model, the value is shown -->
 </template>
 
 <script>
-import UPermissionsCell from "./users/PermissionsCell.vue";
 import UAddTokenDialog from "./tokens/AddTokenDialog.vue";
-import UExtendToken from "./tokens/ExtendTokenDialog.vue";
+import UExtendTokenDialog from "./tokens/ExtendTokenDialog.vue";
 
 import dayjs from "dayjs";
 import api from "../api/api-tokens";
 
 export default {
   components: {
-    UPermissionsCell,
     UAddTokenDialog,
-    UExtendToken
+    UExtendTokenDialog
   },
 
 
   data() {
     return {
       loading: false,
-      selected: [],
-      rows: [],
       tokens: [],
-      value: null,
       columns: [
           { name: "name", label: "Name", align: "left", field: "name" },
           { name: "description", label: "Description", align: "left", field: "description" },
@@ -106,12 +95,6 @@ export default {
           format: val => Array.isArray(val) ? val.map(access => access.replace("Data.","")).join(", ") : "" },
           { name: "editPermission", label: "Token Actions", align: "left"},
       ]
-    }
-  },
-
-  computed: {
-    canConfirm() {
-      return (this.permissions?.length >  0);
     }
   },
 
@@ -128,46 +111,13 @@ export default {
         this.loading = false;
       }
     },
-
-    formatExpiryDate(expiryDate) {
-      const expiry = dayjs(expiryDate);
-      const now = dayjs();
-      const diffInMinutes = expiry.diff(now, "minute");
-      const diffInHours = expiry.diff(now, "hour");
-      const diffInDays = expiry.diff(now, "day");
-      
-      if (diffInDays >= 1) { // Why >= 1 not > 0?
-        return `${diffInDays} day(s) remaining`;
-      } 
-      else if(diffInHours > 0) {
-        return `${diffInHours} hour(s) remaining`;
-      }
-      else if (diffInMinutes > 0) {
-        return `${diffInMinutes} min(s) remaining`;
-      } 
-      else {
-        return null;
-      }
-    },
   
     async onAddToken() {
       this.$refs.addTokenDialog.show();
     },
 
-    async onAddedToken() {
-      await this.loadTokens();
-    },
-
-    async onExtendedWorkerToken(expiry) {
-      await api.extendToken(expiry);
-    },
-
-    async onExtendedToken() {
-      await this.loadTokens();
-    },
-
-    async onExtendToken() {
-      this.$refs.extendTokenDialog.show();
+    async onExtendToken(row) {
+      this.$refs.extendTokenDialog.show(row.id, row);
     },
 
     async onRevokeToken(row) {
@@ -182,7 +132,28 @@ export default {
 
     isExpired(date) {
       return dayjs(date).isBefore(dayjs());
-    }
+    },
+
+    formatExpiryDate(expiryDate) {
+      const expiry = dayjs(expiryDate);
+      const now = dayjs();
+      const diffInMinutes = expiry.diff(now, "minute");
+      const diffInHours = expiry.diff(now, "hour");
+      const diffInDays = expiry.diff(now, "day");
+      
+      if (diffInDays > 0) {
+        return `${diffInDays} day(s) remaining`;
+      } 
+      else if(diffInHours > 0) {
+        return `${diffInHours} hour(s) remaining`;
+      }
+      else if (diffInMinutes > 0) {
+        return `${diffInMinutes} min(s) remaining`;
+      } 
+      else {
+        return null;
+      }
+    },
   }
 }
 </script>

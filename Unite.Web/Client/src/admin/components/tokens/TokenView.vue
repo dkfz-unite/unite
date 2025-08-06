@@ -27,7 +27,7 @@
 export default {
   props: {
     value: {
-      type: Object,
+      type: [String],
       required: true
     },
 
@@ -47,9 +47,9 @@ export default {
     async copyToClipboard(value) {
       try {
         await navigator.clipboard.writeText(value);
-        this.$q.notify({ type: 'positive', message: 'Token copied to clipboard!' });
+        this.$q.notify({ type: "positive", position: "bottom-right", timeout: 3000, message: "Token copied to clipboard." });
       } catch (error) {
-        this.$q.notify({ type: 'negative', message: 'Failed to copy token.' });
+        this.$q.notify({ type: "negative", position: "bottom-right", timeout: 3000, message: "Failed to copy token." });
       }
     }
   }
