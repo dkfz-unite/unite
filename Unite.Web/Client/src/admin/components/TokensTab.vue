@@ -24,15 +24,18 @@
         <q-td :props="props">
           <q-btn
             v-if="!(isExpired(props.row.expiryDate) || props.row.revoked)"
+            title="Revoke"
             align="right" icon="las la-redo-alt" color="primary" size ="sm" flat dense
             @click=onRevokeToken(props.row)
           />
           <q-btn
             v-else-if="isExpired(props.row.expiryDate)"
+            title="Extend"
             align="right" icon="las la-calendar-plus" color="primary" size ="sm" flat dense
             @click=onExtendToken(props.row)
           />
           <q-btn
+            title="Delete"
             align="right" icon="las la-trash" color="negative" size ="sm" flat dense
             @click=onDeleteToken(props.row)
           />
@@ -90,10 +93,9 @@ export default {
       columns: [
           { name: "name", label: "Name", align: "left", field: "name" },
           { name: "description", label: "Description", align: "left", field: "description" },
-          { name: "tokenStatus", label: "Token Status", align: "left"},
-          { name: "permissions", label: "Permissions", align: "left", field: "permissions" ,
-          format: val => Array.isArray(val) ? val.map(access => access.replace("Data.","")).join(", ") : "" },
-          { name: "editPermission", label: "Token Actions", align: "left"},
+          { name: "tokenStatus", label: "Token Status", align: "left" },
+          { name: "permissions", label: "Permissions", align: "left", field: "permissions", format: val => val?.map(p => p.replace("Data.", "")).join(", ") },
+          { name: "editPermission", label: "Token Actions", align: "left" },
       ]
     }
   },
