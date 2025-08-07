@@ -39,10 +39,11 @@
 
       <div class="u-pt-1">
         <q-btn
+          title="Add User"
           icon="las la-plus-circle"
-          @click="submitForm"
           :loading="loading"
-          :disable="!valid" 
+          :disable="!valid"
+          @click="submitForm"
         />
       </div>
     </div>
