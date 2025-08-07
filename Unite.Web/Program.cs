@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Unite.Web.Configuration;
+using Unite.Web.Configuration.Extensions;
 using Unite.Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,12 +9,15 @@ builder.Logging.ClearProviders();
 
 builder.Logging.AddConsole();
 
+builder.Services.AddMemoryCache();
 
 builder.Services.AddSpaStaticFiles(configuration =>
 {
     configuration.RootPath = "Client/dist";
 });
 
+builder.Services.AddAuthentication(options => options.AddJwtAuthenticationOptions())
+                .AddJwtBearer(options => options.AddJwtBearerOptions());
 
 var app = builder.Build();
 
@@ -68,7 +72,7 @@ app.UseProxy(options =>
     options.Map(
         (path, query) => Regex.Match(path, viewerCxgSourceUrl).Success,
         (path, query) =>
-        {            
+        {
             var match = Regex.Match(path, viewerCxgSourceUrl);
             var number = match.Groups[1].Value;
             var host = viewerCxgTargetUrl.Replace("{n}", $"{number:00}");
@@ -76,6 +80,7 @@ app.UseProxy(options =>
         }
     );
 });
+
 
 app.UseHsts();
 
