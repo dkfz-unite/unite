@@ -20,21 +20,21 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "species",
+    field: "cellsSpecies",
     label: "Cells Species",
     type: FilterType.Options,
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.speciesOptions, CellsSpecies.values)
   },
   {
-    field: "type",
+    field: "cellsType",
     label: "Cells Type",
     type: FilterType.Options,
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.typeOptions, CellsType.values)
   },
   {
-    field: "cultureType",
+    field: "cellsCultureType",
     label: "Cells Culture Type",
     type: FilterType.Options,
     valueType: ValueType.String,
