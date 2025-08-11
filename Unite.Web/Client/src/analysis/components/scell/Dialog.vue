@@ -354,7 +354,7 @@ export default {
 
     async onSubmit() {
       const datasets = this.datasetsOrdered.map(dataset => ({
-        key: dataset.key,
+        id: dataset.id,
         name: dataset.name,
         order: dataset.order, 
         domain: dataset.domain,
