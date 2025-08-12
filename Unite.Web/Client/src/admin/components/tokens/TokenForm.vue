@@ -18,8 +18,8 @@
     </div>
     <div class="row items-center q-gutter-xs">
       <span class="u-label">Permissions</span>
-      <q-checkbox @update:modelValue="onUpdatePermissions" v-model="permissions" val="Data.Read" label="Data.Read" dense disable />
-      <q-checkbox @update:modelValue="onUpdatePermissions" v-model="permissions" val="Data.Write" label="Data.Write" dense />
+      <q-checkbox @update:modelValue="onUpdatePermissions" v-model="permissions" val="Data.Read" label="Read" dense disable />
+      <q-checkbox @update:modelValue="onUpdatePermissions" v-model="permissions" val="Data.Write" label="Write" dense />
     </div>
   </div>
 </template>
