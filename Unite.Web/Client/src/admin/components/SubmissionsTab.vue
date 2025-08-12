@@ -161,7 +161,7 @@ export default {
     },
 
     async onApproveSubmissions() {
-      await this.approveSubmission();
+      await this.approveSubmissions();
     },
 
     async onRejectSubmission() {
