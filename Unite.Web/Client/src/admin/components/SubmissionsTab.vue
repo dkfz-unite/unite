@@ -14,15 +14,17 @@
           :pagination="{ rowsPerPage: 20 }"
           :loading="loadingSubmissions"
           @row-click="onRowSelected"
-          dense flat bordered
-        >
-
-        <template v-slot:body-cell="props">
-          <q-td :props="props" :class="{ 'text-primary': props.row.id == row?.id }">
-            {{ props.value }}
-          </q-td>
-        </template>
+          dense flat bordered>
+          <template v-slot:body-cell="props">
+            <q-td :props="props" :class="{ 'text-primary': props.row.id == row?.id }">
+              {{ props.value }}
+            </q-td>
+          </template>
         </q-table>
+        <div v-if="rows?.length">
+          <q-btn label="Approve All" color="green" icon="las la-check-circle" dense flat no-caps @click="onApproveSubmissions" />
+          <q-btn label="Reject All" color="red" icon="las la-times-circle" dense flat no-caps @click="onRejectSubmissions" />
+        </div>
       </div>
 
       <!-- Right -->
@@ -158,12 +160,23 @@ export default {
       await this.approveSubmission();
     },
 
+    async onApproveSubmissions() {
+      await this.approveSubmission();
+    },
+
     async onRejectSubmission() {
       this.$refs.rejectDialog.show();
     },
 
+    async onRejectSubmissions() {
+      this.$refs.rejectDialog.show();
+    },
+
     async onRejected(reason) {
-      await this.rejectSubmission(reason);
+      if (this.row != null)
+        await this.rejectSubmission(reason);
+      else 
+        await this.rejectSubmissions();
     },
 
     async loadSubmissions() {
@@ -207,12 +220,24 @@ export default {
       this.notifySuccess(`Submission '${id}' was approved`);
     },
 
+    async approveSubmissions() {
+      await api.approveAll();
+      await this.loadSubmissions();
+      this.notifySuccess("All submissions were approved");
+    },
+
     async rejectSubmission(reason) {
       const id = this.row.id;
       await api.reject(id, reason);
       await this.loadSubmissions();
       this.notifySuccess(`Submission '${id}' was rejected`);
-    }
+    },
+
+    async rejectSubmissions() {
+      await api.rejectAll();
+      await this.loadSubmissions();
+      this.notifySuccess("All submissions were rejected");
+    } 
   }
 };
 </script>

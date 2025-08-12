@@ -5,7 +5,10 @@
     @keyup.enter="canConfirm && onConfirm()">
     <q-card>
       <q-card-section style="width: 400px;">
-        <div class="text-h6">Reject submission {{ value }}</div>
+        <div class="text-h6">
+          <template v-if="value != null">Reject submission {{ value }}</template>
+          <template v-else>Reject all submissions</template>
+        </div>
       </q-card-section>
 
       <q-card-section class="q-gutter-y-sm">

@@ -6,6 +6,9 @@
       persistent>
   
       <q-card style="min-width: 420px;">
+        <q-card-section>
+          <div class="text-h6">PCA of Methylation Profiles</div>
+        </q-card-section>
   
         <q-card-section>
           <div class="col q-gutter-sm">

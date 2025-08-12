@@ -14,8 +14,19 @@ export async function approve(id) {
   return await client.post(url);
 }
 
+export async function approveAll() {
+  const url = `${submissionsUrl}/approve`;
+  return await client.post(url);
+}
+
 export async function reject(id, reason) {
   const url = `${submissionsUrl}/${id}/reject`;
+  const data = { reason: reason };
+  return await client.post(url, data);
+}
+
+export async function rejectAll(reason) {
+  const url = `${submissionsUrl}/reject`;
   const data = { reason: reason };
   return await client.post(url, data);
 }
@@ -23,5 +34,7 @@ export async function reject(id, reason) {
 export default {
   get,
   approve,
-  reject
+  approveAll,
+  reject,
+  rejectAll
 }
