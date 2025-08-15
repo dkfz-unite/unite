@@ -42,7 +42,10 @@
           </template>
 
           <template v-else>
-            <q-card-section>
+            <q-card-selection v-if="status=='Not Found'">
+              <div style="color: red;" align="center">Submission {{submission}} not found</div>
+            </q-card-selection>
+            <q-card-section v-else>
               <div class="col q-gutter-sm">
                 <div class="row">
                   <span>
@@ -119,8 +122,13 @@ export default {
   methods: {
     async onCheck() {
       const response = await api.getStatus(this.submission);
-      this.status = response.status;
-      this.comment = response.comment;
+      if (response) {
+        this.status = response.status;
+        this.comment = response.comment;
+      } 
+      else {
+        this.status = "Not Found";
+      }
     },
 
     async onClear() {
