@@ -22,7 +22,7 @@
             <div class="text-h6">Track submission</div>
           </q-card-section>
 
-          <template v-if="!status">
+          <template v-if="!error&&!status">
             <q-card-section>
               <div class="col">
                 <div class="row">
@@ -42,7 +42,10 @@
           </template>
 
           <template v-else>
-            <q-card-section>
+            <q-card-selection v-if="error">
+              <div class="text-red q-pa-md">submission {{submission}} not found</div>
+            </q-card-selection>
+            <q-card-section v-else>
               <div class="col q-gutter-sm">
                 <div class="row">
                   <span>
@@ -106,7 +109,8 @@ export default {
     return {
       submission: null,
       status: null,
-      comment: null
+      comment: null,
+      error: null
     }
   },
 
@@ -119,14 +123,20 @@ export default {
   methods: {
     async onCheck() {
       const response = await api.getStatus(this.submission);
-      this.status = response.status;
-      this.comment = response.comment;
+      if (response) {
+        this.status = response.status;
+        this.comment = response.comment;
+      } 
+      else {
+        this.error = true;
+      }
     },
 
     async onClear() {
       this.submission = null;
       this.status = null;
       this.comment = null;
+      this.error = null;
     }
   }
 }
