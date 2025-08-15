@@ -43,7 +43,7 @@
 
           <template v-else>
             <q-card-selection v-if="error">
-              <div class="text-red text-center">Submission {{submission}} not found</div>
+              <div class="text-red q-pa-md">submission {{submission}} not found</div>
             </q-card-selection>
             <q-card-section v-else>
               <div class="col q-gutter-sm">
