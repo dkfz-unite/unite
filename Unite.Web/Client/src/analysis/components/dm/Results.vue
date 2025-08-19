@@ -108,6 +108,7 @@ export default {
         x: data.map(row => row.logFc),
         y: data.map(row => row.adjPVal),
         text: data.map(row => `logFC: ${row.logFc}<br>-log10(adj.P.Val): ${row.adjPVal}<br>Count: ${row.count}<br>CpgId: ${row.cpgId}<br>Gene: ${row.gene}<br>Regulatory: ${row.regulatory}<br>${row.enhancer}`),
+        hoverlabel: this.getTooltipStyle(colors.getPaletteColor("grey-6")),
         marker: {
           size: 7,
           opacity: 0.7,
@@ -144,10 +145,19 @@ export default {
         yaxis: { title: { text: "-log10(adj.P.Val)"} , range: [0, maxAdjPValValue], showline:  true, zeroline: false, text: "-log10(adj.P.Val)"},
       };
     },
+
     toJson(tsv) 
     {
       const result = Papa.parse(tsv, { delimiter: "\t", header: true, skipEmptyLines: true });
       return result.data; 
+    },
+
+    getTooltipStyle(color) {
+      return {
+        bgcolor: colors.getPaletteColor("white"),
+        bordercolor: color,
+        font: { color: colors.getPaletteColor("black") }
+      }
     }
   },
 };
