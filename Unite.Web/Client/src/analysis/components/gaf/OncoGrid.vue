@@ -40,13 +40,13 @@
 
     <div class="row">
       <div class="col-10">
-        <q-card class="q-pa-sm">
-          <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
-        </q-card>
+        <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
       </div>
 
+      <q-separator class="col-auto" vertical />
+
       <div class="col-2">
-        <u-color-legend class="q-px-md" title="Effects" :items="colorPalette" />
+        <u-color-legend class="q-px-md" title="Effects" :items="getColorPalette()" />
       </div>
     </div>
   </div>
@@ -59,10 +59,10 @@ import UHistogramBarTooltip from "./tooltips/HistogramBarTooltip.vue";
 import UGridCellTolltip from "./tooltips/GridCellTooltip.vue";
 import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
 import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
-import UColorLegend from "../../_shared/genome/ColorLegend.vue";
+import UColorLegend from "@/visualization/_shared/genome/ColorLegend.vue";
 
-import impactsMap from "../../_shared/genome/impacts-map.js";
-import effectsMap from "../../_shared/genome/effects-map.js";
+import impactsMap from "@/visualization/_shared/genome/impacts-map.js";
+import effectsMap from "@/visualization/_shared/genome/effects-map.js";
 import oncogridColors from "./oncogrid-colors.js";
 import donorTracks from "./oncogrid-tracks-donor";
 import * as d3 from "d3";
@@ -95,17 +95,7 @@ export default {
     };
   },
 
-  computed: {
-    colorPalette() {
-      const groups = this.data?.observations.groupBy(observation => observation.effect);
-      const keys = [...groups.keys()];
-      const pallete = keys.map(key => effectsMap.get(key));
-
-      return pallete;
-    }
-  },
-
-  mounted() {
+  async mounted() {
     this.data.observations.forEach(element => {
       element.consequence = element.effect;
     });
@@ -122,6 +112,7 @@ export default {
       trackHeight: 15,
       scaleToFit: true,
       width: 1000,
+      height: 320,
       trackLegendLabel: "<i class='las la-question-circle'></i>",
       margin: { top: 0, right: 0, bottom: 0, left: 0 }
     };
@@ -129,21 +120,28 @@ export default {
     this.initializeGrid(parameters);
   },
 
+  unmounted() {
+    console.log("OncoGrid component unmounted");
+    
+  },
+
   methods: {
+    getColorPalette() {
+      if (!this.data)
+        return [];
+
+      const groups = this.data?.observations.groupBy(observation => observation.effect);
+      const keys = [...groups.keys()];
+      const pallete = keys.map(key => effectsMap.get(key));
+
+      return pallete;
+    },
+
     initializeGrid(parameters) {
       this.oncoGrid = new OncoGrid(parameters);
       this.oncoGrid.setGridLines(this.showGridLines);
       this.oncoGrid.render();
       this.addEvents();
-
-      // NOTE: These events are legacy and do not work in moder JS with Vite package manager
-      // this.oncoGrid.on("histogramMouseOver", this.onHistogramHover);
-      // this.oncoGrid.on("histogramClick", this.onHistogramClick);
-      // this.oncoGrid.on("gridMouseOver", this.onGridCellHover);
-      // this.oncoGrid.on("gridClick", this.onGridCellClick1);
-      // this.oncoGrid.on("trackLegendMouseOver", this.onTrackGroupHover);
-      // this.oncoGrid.on("trackMouseOver", this.onTrackCellHover);
-      // this.oncoGrid.on("trackClick", this.onTrackCellClick);
     },
 
     addEvents() {
@@ -209,12 +207,12 @@ export default {
       if (event.data.x != undefined) {
         properties = [
           { key: "Donor", value: event.data.displayId },
-          { key: "Mutations", value: event.data.count },
+          { key: "Variants", value: event.data.count },
         ];
       } else if (event.data.y != undefined) {
         properties = [
           { key: "Gene", value: event.data.symbol },
-          { key: "Mutations", value: event.data.count },
+          { key: "Variants", value: event.data.count },
         ];
       }
 
@@ -241,7 +239,9 @@ export default {
       let properties = [
         { key: "Donor", value: donor},
         { key: "Gene", value: gene },
-        { key: "Mutation", value: event.data?.code },
+        { key: "Position", value: event.data.position },
+        { key: "Type", value: event.data.type },
+        { key: "Change", value: event.data.change },
         { key: "Impact", value: impact.name, color: impact.color },
         { key: "Effect", value: effect.name, color: effect.color },
       ];
@@ -284,7 +284,7 @@ export default {
       }
     },
 
-    getDonorTrackCellColor(trackCell) {
+    getDonorTrackCellColor(trackCell) {      
       if (trackCell.type == "age") {
         return trackCell.value != null ? colors.getPaletteColor("purple-6") :
                colors.getPaletteColor("grey-4")
@@ -341,7 +341,7 @@ export default {
   #oncoGrid .background {
     fill: $grey-1;
     stroke: $grey-10;
-    stroke-width: 0.1;
+    stroke-width: 0.2;
   }
 
   /* Grid line */
@@ -386,7 +386,7 @@ export default {
 
   /* Gene label */
   #oncoGrid .og-gene-label {
-    font-size: 0.55rem;
+    font-size: 0.6rem;
   }
 
   /* Gene label (hover) */

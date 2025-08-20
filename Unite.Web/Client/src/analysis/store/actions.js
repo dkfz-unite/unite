@@ -88,6 +88,11 @@ const actions = {
     return await api.runDeAnalysis(data);
   },
 
+  async runGafAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runGafAnalysis(data);
+  },
+
   async runScellAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
     return await api.runScellAnalysis(data);
@@ -107,7 +112,7 @@ const actions = {
 
   async stopScellAnalysis({state}, data) {
     await api.stopScellAnalysis(data.id);
-  },
+  }
 };
 
 export default actions;

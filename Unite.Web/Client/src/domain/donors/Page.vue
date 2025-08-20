@@ -63,7 +63,6 @@
               <u-filters-toolbar :domain="domain" />
               <u-datasets-toolbar :domain="domain" />
               <u-upload-button v-if="canWriteData" />
-              <!-- <u-oncogrid-link :mode="domain" :disable="!rowsTotal" /> -->
               <u-search-bar v-model="filtersCriteria.query" @update:modelValue="updateFilters" />
             </div>
           </template>
@@ -83,7 +82,6 @@ import UStatus from "@/domain/_shared/entries/components/status/Status.vue";
 import UFiltersToolbar from "@/domain/_shared/entries/components/toolbars/filters/FiltersToolbar.vue";
 import UDatasetsToolbar from "@/domain/_shared/entries/components/toolbars/datasets/DatasetsToolbar.vue";
 import USearchBar from "@/_shared/components/table/header/SearchBar.vue";
-import UOncogridLink from "@/visualization/oncogrid/OncogridLink.vue";
 import UUploadButton from "./components/UploadButton.vue";
 import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin";
 
@@ -104,7 +102,6 @@ export default {
     UStatus,
     UFiltersToolbar,
     UDatasetsToolbar,
-    UOncogridLink,
     USearchBar,
     UUploadButton
   },

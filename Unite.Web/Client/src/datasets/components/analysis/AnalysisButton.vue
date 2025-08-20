@@ -3,6 +3,7 @@
   <u-dm-dialog v-if="showDmAnalysis" ref="DmDialog" :datasets="datasets" />
   <u-pcam-dialog v-if="showPcamAnalysis" ref="PcamDialog" :datasets="datasets" />
   <u-de-dialog v-if="showDeAnalysis" ref="DeDialog" :datasets="datasets" />
+  <u-gaf-dialog v-if="showGafAnalysis" ref="GafDialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
@@ -15,7 +16,7 @@
         </q-item>
         <q-item v-if="showDmAnalysis" @click="$refs.DmDialog.show()" clickable v-close-popup dense>
           <q-item-section>
-            <q-item-label>Differential Methylation Analysis</q-item-label>
+            <q-item-label>Differential Methylation</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="showPcamAnalysis" @click="$refs.PcamDialog.show()" clickable v-close-popup dense>
@@ -26,6 +27,11 @@
         <q-item v-if="showDeAnalysis" @click="$refs.DeDialog.show()" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Differential Expression</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item v-if="showGafAnalysis" @click="$refs.GafDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>Gene Alteration Frequency</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="showScellAnalysis" @click="$refs.ScellDialog.show()" clickable v-close-popup dense>
@@ -43,6 +49,7 @@ import USurvDialog from "@/analysis/components/surv/Dialog.vue";
 import UDmDialog from "@/analysis/components/dm/Dialog.vue";
 import UPcamDialog from "@/analysis/components/pcam/Dialog.vue";
 import UDeDialog from "@/analysis/components/de/Dialog.vue";
+import UGafDialog from "@/analysis/components/gaf/Dialog.vue";
 import UScellDialog from "@/analysis/components/scell/Dialog.vue";
 
 
@@ -52,6 +59,7 @@ export default {
     UDmDialog,
     UPcamDialog,
     UDeDialog,
+    UGafDialog,
     UScellDialog
   },
 
@@ -68,6 +76,7 @@ export default {
           || this.showDmAnalysis
           || this.showPcamAnalysis
           || this.showDeAnalysis
+          || this.showGafAnalysis
           || this.showScellAnalysis;
     },
 
@@ -90,6 +99,11 @@ export default {
     showDeAnalysis() {
       return this.datasets?.length == 2 &&
              this.datasets?.every(dataset => dataset.data?.exp == true);
+    },
+
+    showGafAnalysis() {
+      return this.datasets?.length == 1 &&
+             this.datasets?.every(dataset => dataset.data?.sms === true);
     },
 
     showScellAnalysis() {
