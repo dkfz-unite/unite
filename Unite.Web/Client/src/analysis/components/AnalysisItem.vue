@@ -7,6 +7,7 @@
         <q-btn :disable="!isEnded" @click="onDelete" icon="las la-trash" color="red" no-caps flat dense>Delete</q-btn>
       </div>
     </q-card-section>
+
     <q-separator />
 
     <!-- Analysis -->
@@ -39,12 +40,12 @@
         </div>
       </div>
     </q-card-section>
+
     <q-separator />
 
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
-      <!-- <div class="col q-pa-sm" :style="{ height: analysis.type != 'gaf' ? $q.screen.height * 0.65 + 'px' : null }"> -->
-      <div class="col q-pa-sm" :style="{ minHeight: $q.screen.height * 0.65 + 'px' }">
+      <div class="col q-pa-sm" :style="{ minHeight: $q.screen.height * 0.62 + 'px'}">
         <u-surv-results v-if="analysis.type == 'surv'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-dm-results v-else-if="analysis.type == 'dm'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-pcam-results v-else-if="analysis.type == 'pcam'" :id="analysis.id" :title="title" :data="analysis.results" />

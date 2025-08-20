@@ -1,11 +1,15 @@
 <template>
   <template v-if="!loading">
-    <!-- Content -->
-    <iframe v-if="url" :src="url" class="fit" style="border: 0px;"></iframe>
+    <div :style="{ height: $q.screen.height * 0.6 + 'px' }">
+      <!-- Content -->
+      <iframe v-if="url" :src="url" class="fit" style="border: 0px;">
+        Your browser does not support iframes.
+      </iframe>
 
-    <!-- Message -->
-    <div v-else class="fit text-center">
-      No results available. Refresh the page and try again.
+      <!-- Message -->
+      <div v-else class="fit text-center">
+        No results available. Refresh the page and try again.
+      </div>
     </div>
   </template>
 
