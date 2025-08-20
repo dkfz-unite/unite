@@ -8,7 +8,6 @@ import GeneFiltersContext from "@/domain/omics/genes/models/filters/gene-filters
 import SmFiltersContext from "@/domain/omics/variants/sms/models/filters/sm-filters-context";
 import CnvFiltersContext from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-context";
 import SvFiltersContext from "@/domain/omics/variants/svs/models/filters/sv-filters-context";
-import OncogridFiltersContext from "@/visualization/oncogrid/filters/oncogrid-filters-context";
 
 export default class FiltersContext {
   donor: DonorFiltersContext = new DonorFiltersContext();
@@ -21,5 +20,4 @@ export default class FiltersContext {
   sm: SmFiltersContext = new SmFiltersContext();
   cnv: CnvFiltersContext = new CnvFiltersContext();
   sv: SvFiltersContext = new SvFiltersContext();
-  oncogrid: OncogridFiltersContext = new OncogridFiltersContext();
 }

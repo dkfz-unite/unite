@@ -18,7 +18,6 @@ import geneFilters from "@/domain/omics/genes/models/filters/gene-filters";
 import smFilters from "@/domain/omics/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
 import svFilters from "@/domain/omics/variants/svs/models/filters/sv-filters";
-import oncogridFilters from "@/visualization/oncogrid/filters/oncogrid-filters";
 
 const models = FilterModels.All;
 
@@ -128,7 +127,6 @@ const mixin = {
         case FilterModels.Sm: return smFilters;
         case FilterModels.Cnv: return cnvFilters;
         case FilterModels.Sv: return svFilters;
-        case FilterModels.Oncogrid: return oncogridFilters;
         default: return null;
       }
     },

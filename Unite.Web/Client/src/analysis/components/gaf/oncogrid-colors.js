@@ -1,4 +1,4 @@
-import effectsMap from "../../_shared/genome/effects-map.js";
+import effectsMap from "@/visualization/_shared/genome/effects-map.js";
 
 const colors = {};
 

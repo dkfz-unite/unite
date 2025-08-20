@@ -8,7 +8,6 @@ import GeneFiltersCriteria from "@/domain/omics/genes/models/filters/gene-filter
 import SmFiltersCriteria from "@/domain/omics/variants/sms/models/filters/sm-filters-criteria";
 import CnvFiltersCriteria from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-criteria";
 import SvFiltersCriteria from "@/domain/omics/variants/svs/models/filters/sv-filters-criteria";
-import OncogirdFiltersCriteria from "@/visualization/oncogrid/filters/oncogrid-filters-criteria";
 
 export default class FiltersCriteria {
   from: number = 0;
@@ -24,7 +23,6 @@ export default class FiltersCriteria {
   sm = new SmFiltersCriteria();
   cnv = new CnvFiltersCriteria();
   sv = new SvFiltersCriteria();
-  oncogrid = new OncogirdFiltersCriteria();
 
   get numberOfFilters(): number {
     let number = 0;
@@ -58,10 +56,6 @@ export default class FiltersCriteria {
     this.sm = new SmFiltersCriteria(criteria?.sm);
     this.cnv = new CnvFiltersCriteria(criteria?.cnv);
     this.sv = new SvFiltersCriteria(criteria?.sv);
-    this.oncogrid = new OncogirdFiltersCriteria();
-    if (criteria?.oncogrid) {
-      Object.assign(this.oncogrid, criteria.oncogrid);
-    }
   }
 
   sanitise(): void {
@@ -76,7 +70,6 @@ export default class FiltersCriteria {
     this.sm?.sanitise();
     this.cnv.sanitise();
     this.sv.sanitise();
-    this.oncogrid?.sanitise();
   }
 
   resetPage(): void {
@@ -99,7 +92,6 @@ export default class FiltersCriteria {
     criteria.sm = this.sm?.clone();
     criteria.cnv = this.cnv.clone();
     criteria.sv = this.sv.clone();
-    criteria.oncogrid = this.oncogrid?.clone();
 
     return criteria;
   }
@@ -149,7 +141,6 @@ export default class FiltersCriteria {
     if (this.sm?.numberOfFilters > 0) criteria.sm = this.sm;
     if (this.cnv?.numberOfFilters > 0) criteria.cnv = this.cnv;
     if (this.sv?.numberOfFilters > 0) criteria.sv = this.sv;
-    if (this.oncogrid?.numberOfFilters > 0) criteria.oncoGrid = this.oncogrid;
     return criteria;
   }
 }
