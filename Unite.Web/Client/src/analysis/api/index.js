@@ -51,6 +51,11 @@ export async function runDeAnalysis(data) {
   return await client.post(url, data);
 }
 
+export async function runGafAnalysis(data) {
+  const url = `${analysisTaskUrl}/gaf`;
+  return await client.post(url, data);
+}
+
 export async function runScellAnalysis(data) {
   const url = `${analysisTaskUrl}/scell`;
   return await client.post(url, data);
@@ -87,6 +92,7 @@ export default {
   runDmAnalysis,
   runPcamAnalysis,
   runDeAnalysis,
+  runGafAnalysis,
   runScellAnalysis,
   getScellAnalysisModels,
   viewScellAnalysis,

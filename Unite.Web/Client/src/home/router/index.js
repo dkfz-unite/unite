@@ -28,7 +28,6 @@ import svRoutes from "../../domain/omics/variants/sv/router";
 import svsRoutes from "../../domain/omics/variants/svs/router";
 import filtersRoutes from "../../datasets/router";
 import analysisRoutes from "../../analysis/router";
-import oncogridRoutes from "../../visualization/oncogrid/router";
 import adminRoutes from "../../admin/router";
 import store from "../store";
 
@@ -59,7 +58,6 @@ const routes = [
   ...svsRoutes,
   ...filtersRoutes,
   ...analysisRoutes,
-  ...oncogridRoutes,
   ...adminRoutes,
   ...submissionsRoutes,
 ];

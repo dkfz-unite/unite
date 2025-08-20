@@ -10,7 +10,6 @@ export default class FilterModel {
   static Sm = "sm";
   static Cnv = "cnv";
   static Sv = "sv";
-  static Oncogrid = "oncogrid";
 
   static Images = [this.Mr];
   static Specimens = [this.Material, this.Line, this.Organoid, this.Xenograft];

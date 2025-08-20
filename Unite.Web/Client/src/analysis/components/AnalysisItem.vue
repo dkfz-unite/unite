@@ -43,11 +43,13 @@
 
     <!-- Results -->
     <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
-      <div class="col q-pa-sm" :style="{ height: $q.screen.height * 0.65 + 'px' }">
+      <!-- <div class="col q-pa-sm" :style="{ height: analysis.type != 'gaf' ? $q.screen.height * 0.65 + 'px' : null }"> -->
+      <div class="col q-pa-sm" :style="{ minHeight: $q.screen.height * 0.65 + 'px' }">
         <u-surv-results v-if="analysis.type == 'surv'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-dm-results v-else-if="analysis.type == 'dm'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-pcam-results v-else-if="analysis.type == 'pcam'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-de-results v-else-if="analysis.type == 'de'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-gaf-results v-else-if="analysis.type == 'gaf'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
@@ -59,6 +61,7 @@ import USurvResults from "./surv/Results.vue";
 import UDmResults from "./dm/Results.vue";
 import UPcamResults from "./pcam/Results.vue";
 import UDeResults from "./de/Results.vue";
+import UGafResults from "./gaf/Results.vue";
 import UScellResults from "./scell/Results.vue";
 import mixin from "./analysis-mixin";
 
@@ -71,6 +74,7 @@ export default {
     UDmResults,
     UPcamResults,
     UDeResults,
+    UGafResults,
     UScellResults
   },
 
@@ -148,6 +152,8 @@ export default {
           return { type: "application/octet-stream", ext: "zip" };
         case "de":
           return { type: "application/octet-stream", ext: "tsv" };
+        case "gaf":
+          return { type: "application/octet-stream", ext: "json" };
         case "scell":
           return { type: "application/octet-stream", ext: "zip" };
         default:
