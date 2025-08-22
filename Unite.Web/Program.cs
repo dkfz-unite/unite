@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using Unite.Web.Configuration;
 using Unite.Web.Configuration.Extensions;
 using Unite.Web.Middleware;
+using Yarp.ReverseProxy.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,32 @@ builder.Services.AddSpaStaticFiles(configuration =>
 
 builder.Services.AddAuthentication(options => options.AddJwtAuthenticationOptions())
                 .AddJwtBearer(options => options.AddJwtBearerOptions());
+
+builder.Services.AddReverseProxy().LoadFromMemory(
+    routes:
+    [
+        new RouteConfig
+        {
+            RouteId = "composer", ClusterId = "composer",
+            Match = new() { Path = "/api/composer/{**catch-all}" },
+            Transforms =
+            [
+                new Dictionary<string, string> { ["PathRemovePrefix"] = "/api/composer" }
+            ]
+        }
+    ],
+    clusters:
+    [
+        new ClusterConfig
+        {
+            ClusterId = "composer",
+            Destinations = new Dictionary<string, DestinationConfig>
+            {
+                ["d1"] = new DestinationConfig{ Address = $"{EnvironmentConfig.ComposerHost}/api/" }
+            }
+        }
+    ]
+);
 
 var app = builder.Build();
 
@@ -45,10 +72,10 @@ app.UseProxy(options =>
         (path, query) => path.StartsWith(identitySourceUrl),
         (path, query) => $"{path.Replace(identitySourceUrl, identityTargetUrl)}{query}"
     );
-    options.Map(
-        (path, query) => path.StartsWith(composerSourceUrl),
-        (path, query) => $"{path.Replace(composerSourceUrl, composerTargetUrl)}{query}"
-    );
+    // options.Map(
+    //     (path, query) => path.StartsWith(composerSourceUrl),
+    //     (path, query) => $"{path.Replace(composerSourceUrl, composerTargetUrl)}{query}"
+    // );
     options.Map(
         (path, query) => path.StartsWith(analysisSourceUrl),
         (path, query) => $"{path.Replace(analysisSourceUrl, analysisTargetUrl)}{query}"
@@ -85,6 +112,8 @@ app.UseProxy(options =>
 app.UseHsts();
 
 app.UseHttpsRedirection();
+
+app.MapReverseProxy();
 
 app.UseSpaStaticFiles();
 
