@@ -4,7 +4,7 @@
 
     <u-show-button :dataset="dataset" />
 
-    <u-download-button :dataset="dataset" />
+    <u-download-button v-if="showDownload" :dataset="dataset" />
 
     <!-- <q-separator vertical /> -->
 
@@ -17,6 +17,7 @@ import UShowButton from "./buttons/ShowButton.vue";
 import UExportButton from "./buttons/ExportButton.vue";
 import UDownloadButton from "./buttons/DownloadButton.vue";
 import UDeleteButtomn from "./buttons/DeleteButton.vue";
+import settings from "@/_settings/settings";
 
 export default {
   components: {
@@ -30,6 +31,21 @@ export default {
     dataset: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    showDownload() {
+      const domains = [
+        settings.donors.domain,
+        settings.mrs.domain,
+        settings.materials.domain,
+        settings.lines.domain,
+        settings.organoids.domain,
+        settings.xenografts.domain
+      ];
+
+      return domains.includes(this.dataset?.domain);
     }
   },
 
