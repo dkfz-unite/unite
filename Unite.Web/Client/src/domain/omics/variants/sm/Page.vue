@@ -10,13 +10,13 @@
 
       <q-space />
 
-      <u-download-button
+      <!-- <u-download-button
         v-if="variant"
         :id="variant.id"
         :reference="variant.id"
         :data="variant.data"
         :domain="Settings.sms.domain">
-      </u-download-button>
+      </u-download-button> -->
     </div>
 
     <div class="row" v-if="variant">
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
+// import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import UProteinTab from "./components/tabs/ProteinTab.vue";
 import UDonorsTab from "./components/tabs/DonorsTab.vue";
@@ -84,7 +84,7 @@ import api from "../_shared/variant/api";
 
 export default {
   components:{
-    UDownloadButton,
+    // UDownloadButton,
     USummaryTab,
     UProteinTab,
     UDonorsTab
