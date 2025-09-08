@@ -93,10 +93,10 @@ export default {
         case Settings.lines.domain: return await specimenApi.downloadData(id, model);
         case Settings.organoids.domain: return await specimenApi.downloadData(id, model);
         case Settings.xenografts.domain: return await specimenApi.downloadData(id, model);
-        case Settings.genes.domain: return await geneApi.downloadData(id, model);
-        case Settings.sms.domain: return await variantApi.downloadData(id, VariantType.SM, model);
-        case Settings.cnvs.domain: return await variantApi.downloadData(id, VariantType.CNV, model);
-        case Settings.svs.domain: return await variantApi.downloadData(id, VariantType.SV, model);
+        // case Settings.genes.domain: return await geneApi.downloadData(id, model);
+        // case Settings.sms.domain: return await variantApi.downloadData(id, VariantType.SM, model);
+        // case Settings.cnvs.domain: return await variantApi.downloadData(id, VariantType.CNV, model);
+        // case Settings.svs.domain: return await variantApi.downloadData(id, VariantType.SV, model);
         default: return null;
       }
     }

@@ -15,53 +15,44 @@
               <q-checkbox v-model="selectAll" label="All" :disable="loading" dense />
             </div>
             <q-separator />
-            <div class="row" v-if="hasDonorsData">
-              <q-checkbox v-model="model.donors" label="Donors" :disable="loading" dense />
+            <div class="row" v-if="hasDonorData">
+              <q-checkbox v-model="model.donor" label="Donors" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md" v-if="hasClinicalData">
-              <q-checkbox v-model="model.clinical" label="Clinical" :disable="loading" dense />
+            <div class="row q-pl-md" v-if="hasTreatmentData">
+              <q-checkbox v-model="model.treatment" label="Treatments" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md" v-if="hasTreatmentsData">
-              <q-checkbox v-model="model.treatments" label="Treatments" :disable="loading" dense />
+            <div class="row" v-if="hasImageData">
+              <q-checkbox v-model="model.image" label="Images" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasMrsData">
-              <q-checkbox v-model="model.mrs" label="MR images" :disable="loading" dense />
+            <div class="row" v-if="hasSpecimenData">
+              <q-checkbox v-model="model.specimen" label="Specimens" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasCtsData">
-              <q-checkbox v-model="model.cts" label="CT images" :disable="loading" dense />
+            <div class="row q-pl-md" v-if="hasInterventionData">
+              <q-checkbox v-model="model.intervention" label="Interventions" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasSpecimensData">
-              <q-checkbox v-model="model.specimens" label="Specimens" :disable="loading" dense />
+            <div class="row q-pl-md" v-if="hasDrugScreeningData">
+              <q-checkbox v-model="model.drug" label="Drug screenings" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md" v-if="hasInterventionsData">
-              <q-checkbox v-model="model.interventions" label="Interventions" :disable="loading" dense />
+            <div class="row" v-if="hasSmData">
+              <q-checkbox v-model="model.sm" label="Simple mutations (SM)" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md" v-if="hasDrugScreeningsData">
-              <q-checkbox v-model="model.drugs" label="Drug screenings" :disable="loading" dense />
+            <div class="row q-pl-md q-gutter-x-sm" v-if="hasSmData">
+              <div>Consequences:</div>
+              <q-checkbox v-model="model.smTranscript" label="Transcript" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasSmsData">
-              <q-checkbox v-model="model.sms" label="Simple mutations (SM)" :disable="loading" dense />
+            <div class="row" v-if="hasCnvData">
+              <q-checkbox v-model="model.cnv" label="Copy number variants (CNV)" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md q-gutter-x-sm" v-if="hasSmsData">
-              <div>Affected genes:</div>
-              <q-checkbox v-model="model.smsTranscriptsSlim" label="Slim" :disable="loading" dense />
-              <q-checkbox v-model="model.smsTranscriptsFull" label="Full" :disable="loading" dense />
+            <div class="row q-pl-md q-gutter-x-sm" v-if="hasCnvData">
+              <div>Consequences:</div>
+              <q-checkbox v-model="model.cnvTranscript" label="Transcript" :disable="loading" dense />
             </div>
-            <div class="row" v-if="hasCnvsData">
-              <q-checkbox v-model="model.cnvs" label="Copy number variants (CNV)" :disable="loading" dense />
+            <div class="row" v-if="hasSvData">
+              <q-checkbox v-model="model.sv" label="Structural variants (SV)" :disable="loading" dense />
             </div>
-            <div class="row q-pl-md q-gutter-x-sm" v-if="hasCnvsData">
-              <div>Affected genes:</div>
-              <q-checkbox v-model="model.cnvsTranscriptsSlim" label="Slim" :disable="loading" dense />
-              <q-checkbox v-model="model.cnvsTranscriptsFull" label="Full" :disable="loading" dense />
-            </div>
-            <div class="row" v-if="hasSvsData">
-              <q-checkbox v-model="model.svs" label="Structural variants (SV)" :disable="loading" dense />
-            </div>
-            <div class="row q-pl-md q-gutter-x-sm" v-if="hasSvsData">
-              <div>Affected genes:</div>
-              <q-checkbox v-model="model.svsTranscriptsSlim" label="Slim" :disable="loading" dense />
-              <q-checkbox v-model="model.svsTranscriptsFull" label="Full" :disable="loading" dense />
+            <div class="row q-pl-md q-gutter-x-sm" v-if="hasSvData">
+              <div>Consequences:</div>
+              <q-checkbox v-model="model.svTranscript" label="Transcript" :disable="loading" dense />
             </div>
             <div class="row" v-if="hasGeneExpData">
               <q-checkbox v-model="model.geneExp" label="Bulk gene expressions" :disable="loading" dense />
@@ -73,7 +64,7 @@
             <!-- Caution message -->
             <div class="row q-pl-md" v-if="showCaution">
               <div class="col text-warning">
-                <div class="row" style="width: 350px;">Note, including variant Effects may significantly increase file size and make it hard to read.</div>
+                <div class="row" style="width: 350px;">Note, including variant consequences may significantly increase file size and make it hard to read.</div>
               </div>
             </div>
           </div>
@@ -125,52 +116,38 @@ export default {
   data() {
     return {
       model: {
-        donors: false,
-        clinical: false,
-        treatments: false,
-        mrs: false,
-        cts: false,
-        specimens: false,
-        interventions: false,
-        drugs: false,
-        sms: false,
-        smsTranscriptsSlim: false,
-        smsTranscriptsFull: false,
-        cnvs: false,
-        cnvsTranscriptsSlim: false,
-        cnvsTranscriptsFull: false,
-        svs: false,
-        svsTranscriptsSlim: false,
-        svsTranscriptsFull: false,
-        geneExp: false,
-        geneExpSc: false,
-        meth: false
+        donor: false,
+        treatment: false,
+        image: false,
+        specimen: false,
+        intervention: false,
+        drug: false,
+        sm: false,
+        smTranscript: false,
+        cnv: false,
+        cnvTranscript: false,
+        sv: false,
+        svTranscript: false,
+        geneExp: false
       }
     };
   },
 
   computed: {
-    hasDonorsData() {
+    hasDonorData() {
       return true;
     },
 
-    hasClinicalData() {
-      return this.data?.clinical === true;
-    },
-
-    hasTreatmentsData() {
+    hasTreatmentData() {
       return this.data?.treatments === true;
     },
 
-    hasMrsData() {
-      return this.data?.mrs === true;
+    hasImageData() {
+      return this.data?.mrs === true
+          || this.data?.cts === true;
     },
 
-    hasCtsData() {
-      return this.data?.cts === true
-    },
-
-    hasSpecimensData() {
+    hasSpecimenData() {
       const specimensDomain = specimenDomains.includes(this.domain);
 
       if (specimensDomain) {
@@ -183,7 +160,7 @@ export default {
       }
     },
 
-    hasInterventionsData() {
+    hasInterventionData() {
       const specimensDomain = specimenDomains.includes(this.domain);
 
       if (specimensDomain) {
@@ -195,7 +172,7 @@ export default {
       }
     },
 
-    hasDrugScreeningsData() {
+    hasDrugScreeningData() {
       const specimensDomain = specimenDomains.includes(this.domain);
 
       if (specimensDomain) {
@@ -207,29 +184,29 @@ export default {
       }
     },
 
-    hasSmsData() {
+    hasSmData() {
       return this.data?.sms === true;
     },
 
-    hasCnvsData() {
+    hasCnvData() {
       return this.data?.cnvs === true;
     },
 
-    hasSvsData() {
+    hasSvData() {
       return this.data?.svs === true;
     },
 
-    hasMethData() {
-      return this.data?.meth === true;
-    },
+    // hasMethData() {
+    //   return this.data?.meth === true;
+    // },
 
     hasGeneExpData() {
       return this.data?.exp === true;
     },
 
-    hasGeneExpScData() {
-      return this.data?.expSc === true;
-    },
+    // hasGeneExpScData() {
+    //   return this.data?.expSc === true;
+    // },
 
     canSubmit() {
       for (const key in this.model) {
@@ -238,12 +215,9 @@ export default {
     },
 
     showCaution() {
-      return this.model.smsTranscriptsSlim
-          || this.model.smsTranscriptsFull
-          || this.model.cnvsTranscriptsSlim
-          || this.model.cnvsTranscriptsFull
-          || this.model.svsTranscriptsSlim
-          || this.model.svsTranscriptsFull;
+      return this.model.smTranscript
+          || this.model.cnvTranscript
+          || this.model.svTranscript;
     },
 
     selectAll: {
@@ -263,66 +237,39 @@ export default {
   },
 
   watch: {
-    "model.sms"(value) {
+    "model.sm"(value) {
       if (!value) {
-        this.model.smsTranscriptsSlim = false;
-        this.model.smsTranscriptsFull = false;
+        this.model.smTranscript = false;
       }
     },
 
-    "model.cnvs"(value) {
+    "model.cnv"(value) {
       if (!value) {
-        this.model.cnvsTranscriptsSlim = false;
-        this.model.cnvsTranscriptsFull = false;
+        this.model.cnvTranscript = false;
       }
     },
 
-    "model.svs"(value) {
+    "model.sv"(value) {
       if (!value) {
-        this.model.svsTranscriptsSlim = false;
-        this.model.svsTranscriptsFull = false;
+        this.model.svTranscript = false;
       }
     },
 
-    "model.smsTranscriptsSlim"(value) {
+    "model.smTranscript"(value) {
       if (value) {
-        this.model.sms = true;
-        this.model.smsTranscriptsFull = false;
+        this.model.sm = true;
       }
     },
 
-    "model.smsTranscriptsFull"(value) {
+    "model.cnvTranscript"(value) {
       if (value) {
-        this.model.sms = true;
-        this.model.smsTranscriptsSlim = false;
+        this.model.cnv = true;
       }
     },
 
-    "model.cnvsTranscriptsSlim"(value) {
+    "model.svTranscript"(value) {
       if (value) {
-        this.model.cnvs = true;
-        this.model.cnvsTranscriptsFull = false;
-      }
-    },
-
-    "model.cnvsTranscriptsFull"(value) {
-      if (value) {
-        this.model.cnvs = true;
-        this.model.cnvsTranscriptsSlim = false;
-      }
-    },
-
-    "model.svsTranscriptsSlim"(value) {
-      if (value) {
-        this.model.svs = true;
-        this.model.svsTranscriptsFull = false;
-      }
-    },
-
-    "model.svsTranscriptsFull"(value) {
-      if (value) {
-        this.model.svs = true;
-        this.model.svsTranscriptsSlim = false;
+        this.model.sv = true;
       }
     }
   },
@@ -333,41 +280,37 @@ export default {
 
   methods: {
     checkSelection() {
-      if (this.hasDonorsData && !this.model.donors) { return false; }
-      if (this.hasClinicalData && !this.model.clinical) { return false; }
-      if (this.hasTreatmentsData && !this.model.treatments) { return false; }
-      if (this.hasMrsData && !this.model.mrs) { return false; }
-      if (this.hasCtsData && !this.model.cts) { return false; }
-      if (this.hasSpecimensData && !this.model.specimens) { return false; }
-      if (this.hasInterventionsData && !this.model.interventions) { return false; }
-      if (this.hasDrugScreeningsData && !this.model.drugs) { return false; }
-      if (this.hasSmsData && !this.model.sms) { return false; }
-      if (this.hasSmsData && !(this.model.smsTranscriptsSlim || this.model.smsTranscriptsFull)) { return false; }
-      if (this.hasCnvsData && !this.model.cnvs) { return false; }
-      if (this.hasCnvsData && !(this.model.cnvsTranscriptsSlim || this.model.cnvsTranscriptsFull)) { return false; }
-      if (this.hasSvsData && !this.model.svs) { return false; }
-      if (this.hasSvsData && !(this.model.svsTranscriptsSlim || this.model.svsTranscriptsFull)) { return false; }
-      if (this.hasMethData && !this.model.meth) { return false; }
+      if (this.hasDonorData && !this.model.donor) { return false; }
+      if (this.hasTreatmentData && !this.model.treatment) { return false; }
+      if (this.hasImageData && !this.model.image) { return false; }
+      if (this.hasSpecimenData && !this.model.specimen) { return false; }
+      if (this.hasInterventionData && !this.model.intervention) { return false; }
+      if (this.hasDrugScreeningData && !this.model.drug) { return false; }
+      if (this.hasSmData && !this.model.sm) { return false; }
+      if (this.hasSmData && !this.model.smTranscript) { return false; }
+      if (this.hasCnvData && !this.model.cnv) { return false; }
+      if (this.hasCnvData && !this.model.cnvTranscript) { return false; }
+      if (this.hasSvData && !this.model.sv) { return false; }
+      if (this.hasSvData && !this.model.svTranscript) { return false; }
+      // if (this.hasMethData && !this.model.meth) { return false; }
       if (this.hasGeneExpData && !this.model.geneExp) { return false; }
-      if (this.hasGeneExpScData && !this.model.geneExpSc) { return false; }
+      // if (this.hasGeneExpScData && !this.model.geneExpSc) { return false; }
       return true;
     },
 
     changeSelection(value) {
-      if (this.hasDonorsData) { this.model.donors = value; }
-      if (this.hasClinicalData) { this.model.clinical = value; }
-      if (this.hasTreatmentsData) { this.model.treatments = value; }
-      if (this.hasMrsData) { this.model.mrs = value; }
-      if (this.hasCtsData) { this.model.cts = value; }
-      if (this.hasSpecimensData) { this.model.specimens = value; }
-      if (this.hasInterventionsData) { this.model.interventions = value; }
-      if (this.hasDrugScreeningsData) { this.model.drugs = value; }
-      if (this.hasSmsData) { this.model.sms = value; this.model.smsTranscriptsSlim = value; }
-      if (this.hasCnvsData) { this.model.cnvs = value; this.model.cnvsTranscriptsSlim = value; }
-      if (this.hasSvsData) { this.model.svs = value; this.model.svsTranscriptsSlim = value; }
-      if (this.hasMethData) { this.model.meth = value; }
+      if (this.hasDonorData) { this.model.donor = value; }
+      if (this.hasTreatmentData) { this.model.treatment = value; }
+      if (this.hasImageData) { this.model.image = value; }
+      if (this.hasSpecimenData) { this.model.specimen = value; }
+      if (this.hasInterventionData) { this.model.intervention = value; }
+      if (this.hasDrugScreeningData) { this.model.drug = value; }
+      if (this.hasSmData) { this.model.sm = value; this.model.smTranscript = value; }
+      if (this.hasCnvData) { this.model.cnv = value; this.model.cnvTranscript = value; }
+      if (this.hasSvData) { this.model.sv = value; this.model.svTranscript = value; }
+      // if (this.hasMethData) { this.model.meth = value; }
       if (this.hasGeneExpData) { this.model.geneExp = value; }
-      if (this.hasGeneExpScData) { this.model.geneExpSc = value; }
+      // if (this.hasGeneExpScData) { this.model.geneExpSc = value; }
     },
 
     onSubmit() {
