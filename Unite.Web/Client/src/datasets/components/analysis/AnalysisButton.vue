@@ -83,7 +83,7 @@ export default {
     },
     
     showPcamAnalysis() {
-      return this.datasets?.length >= 1 &&
+      return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.meth === true);
     },
 

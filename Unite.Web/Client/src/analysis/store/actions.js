@@ -47,10 +47,17 @@ const actions = {
     state.analyses.get(data.id).status = status;
   },
 
-  async loadAnalysisMeta({state}, data) {
+  async loadAnalysisResults({state}, data) {
     if (state.analyses.get(data.id).results) return;
 
-    const blob = await api.getAnalysisMeta(data.id);
+    const blob = await api.getAnalysisResults(data.id);
+    return blob;
+  },
+
+  async loadAnalysisMeta({state}, data) {
+    if (state.analyses.get(data.id).meta) return;
+
+    const blob = await api.getAnalysisMeta(data.id,"meta");
     return blob;
   },
 
