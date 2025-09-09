@@ -48,7 +48,7 @@
       <div class="col q-pa-sm" :style="{ minHeight: $q.screen.height * 0.62 + 'px'}">
         <u-surv-results v-if="analysis.type == 'surv'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-dm-results v-else-if="analysis.type == 'dm'" :id="analysis.id" :title="title" :data="analysis.results" />
-        <u-pcam-results v-else-if="analysis.type == 'pcam'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-pcam-results v-else-if="analysis.type == 'pcam'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
         <u-de-results v-else-if="analysis.type == 'de'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-gaf-results v-else-if="analysis.type == 'gaf'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
@@ -126,7 +126,12 @@ export default {
   methods: {
     async onLoad() {      
       const payload = { id: this.analysis.id };
-      const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      const content = await this.$store.dispatch("analysis/loadAnalysisResults", payload);
+      
+      if(this.analysis.type == 'pcam' )
+      {
+        this.analysis.meta = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      }
       this.analysis.results = content;
     },
 
