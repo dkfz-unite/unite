@@ -57,7 +57,7 @@ const actions = {
   async loadAnalysisMeta({state}, data) {
     if (state.analyses.get(data.id).meta) return;
 
-    const blob = await api.getAnalysisMeta(data.id,"meta");
+    const blob = await api.getAnalysisMeta(data.id);
     return blob;
   },
 
