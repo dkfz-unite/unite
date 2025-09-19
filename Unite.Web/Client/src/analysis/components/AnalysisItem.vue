@@ -120,14 +120,19 @@ export default {
 
   methods: {
     async onLoad() {      
-      const payload = { id: this.analysis.id };
-      const content = await this.$store.dispatch("analysis/loadAnalysisResults", payload);
-      
-      if(this.analysis.type == 'pcam' )
-      {
-        this.analysis.meta = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+      if (this.analysis.type === "pcam") {
+        if (!this.analysis.meta) {
+          const payload = { id: this.analysis.id, file = "metadata" };
+          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+          this.analysis.meta = content;
+        }
       }
-      this.analysis.results = content;
+
+      if (!this.analysis.results) {
+        const payload = { id: this.analysis.id };
+        const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+        this.analysis.results = content;
+      }
     },
 
     async onDownload() {

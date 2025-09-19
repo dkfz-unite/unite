@@ -16,14 +16,9 @@ export async function getAnalysisStatus(id) {
   return await client.put(url);
 }
 
-export async function getAnalysisResults(id) {
+export async function getAnalysisMeta(id, file = null) {
   const url = `${analysisTaskUrl}/${id}/meta`;
-  return await client.get(url, { responseType: "blob", params:{file: "results"} });
-}
-
-export async function getAnalysisMeta(id) {
-  const url = `${analysisTaskUrl}/${id}/meta`;
-  return await client.get(url, { responseType: "blob", params: {file: "metadata"} });
+  return await client.get(url, { responseType: "blob", params: { file: file } });
 }
 
 export async function getAnalysisData(id) {
@@ -85,7 +80,6 @@ export async function stopScellAnalysis(data) {
 export default {
   loadAnalyses,
   getAnalysisStatus,
-  getAnalysisResults,
   getAnalysisMeta,
   getAnalysisData,
   deleteAnalysis,
