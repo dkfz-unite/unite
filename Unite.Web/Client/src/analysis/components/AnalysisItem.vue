@@ -122,7 +122,7 @@ export default {
     async onLoad() {      
       if (this.analysis.type === "pcam") {
         if (!this.analysis.meta) {
-          const payload = { id: this.analysis.id, file = "metadata" };
+          const payload = { id: this.analysis.id, file: "metadata" };
           const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
           this.analysis.meta = content;
         }
