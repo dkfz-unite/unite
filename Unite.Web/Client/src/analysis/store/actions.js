@@ -48,9 +48,15 @@ const actions = {
   },
 
   async loadAnalysisMeta({state}, data) {
-    if (state.analyses.get(data.id).results) return;
+    // TODO: Optimize to cache the file and not request it again
+    // if (data.file) {
+    //   const blob = await api.getAnalysisMeta(data.id, data.file);
+    //   return blob;
+    // }
 
-    const blob = await api.getAnalysisMeta(data.id);
+    // if (state.analyses.get(data.id).meta) return;
+
+    const blob = await api.getAnalysisMeta(data.id, data.file);
     return blob;
   },
 

@@ -16,9 +16,9 @@ export async function getAnalysisStatus(id) {
   return await client.put(url);
 }
 
-export async function getAnalysisMeta(id) {
+export async function getAnalysisMeta(id, file = null) {
   const url = `${analysisTaskUrl}/${id}/meta`;
-  return await client.get(url, { responseType: "blob" });
+  return await client.get(url, { responseType: "blob", params: { file: file } });
 }
 
 export async function getAnalysisData(id) {
