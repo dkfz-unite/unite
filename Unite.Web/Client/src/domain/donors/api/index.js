@@ -1,7 +1,7 @@
 import settings from "@/settings";
 import ModelsApi from "@/domain/_shared/entries/api";
 import Settings from "../settings";
-import SubmissionType from "../models/enums/submission-type";
+import SubmissionType from "@/domain/_shared/common/data/enums/submission-type";
 
 const formats = {
   json: { name: "json", path: "", headers: { "Content-Type": "application/json" } },

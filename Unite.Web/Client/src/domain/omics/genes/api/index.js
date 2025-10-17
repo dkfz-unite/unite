@@ -1,6 +1,6 @@
 import settings from "@/settings";
 import ModelsApi from "@/domain/_shared/entries/api";
-import SubmissionType from "../models/enums/submission-type";
+import SubmissionType from "@/domain/_shared/common/data/enums/submission-type";
 import Settings from "../settings";
 
 const formats = {
@@ -51,7 +51,9 @@ export default class GenesApi extends ModelsApi {
     else if (type == SubmissionType.RNASC_EXP)
       url = `${this.feedUrl}/rnasc/analysis/exp/${id}`;
     else if (type == SubmissionType.METH)
-      url = `${this.feedUrl}/dna/analysis/meth/${id}`;
+      url = `${this.feedUrl}/meth/sample/${id}`;
+    else if (type == SubmissionType.METH_LVL)
+      url = `${this.feedUrl}/meth/analysis/levels/${id}`;
     else
       throw new Error(`Invalid submission type: ${type}`);
 

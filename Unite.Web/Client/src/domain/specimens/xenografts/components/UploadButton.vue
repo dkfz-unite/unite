@@ -68,7 +68,7 @@
 <script>
 import UUploadDialog from "@/domain/_shared/entries/components/upload/UploadDialog.vue";
 import SpecimenType from "../../_shared/specimens/models/enums/specimen-type";
-import SpecimensApi from "../../_shared/specimens/api";
+import SpecimensFeedApi from "@/domain/submissions/api/api-feed-specimens";
 
 export default {
   components: {
@@ -77,7 +77,7 @@ export default {
 
   setup() {
     return {
-      specimensApi: new SpecimensApi(SpecimenType.Xenograft),
+      specimensFeedApi: new SpecimensFeedApi(),
     };
   },
 
@@ -91,15 +91,15 @@ export default {
 
   methods: {
     async uploadSpecimens(data, format) {
-      return await this.specimensApi.uploadXenografts(data, format);
+      return await this.specimensFeedApi.uploadXenografts(data, format);
     },
 
     async uploadInterventions(data, format) {
-      return await this.specimensApi.uploadInterventions(data, format);
+      return await this.specimensFeedApi.uploadInterventions(data, format);
     },
 
     async uploadDrugs(data, format) {
-      return await this.specimensApi.uploadDrugs(data, format);
+      return await this.specimensFeedApi.uploadDrugs(data, format);
     }
   }
 }

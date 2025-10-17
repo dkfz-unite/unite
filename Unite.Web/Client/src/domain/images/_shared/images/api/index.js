@@ -1,6 +1,6 @@
 import ModelsApi from "@/domain/_shared/entries/api";
 import settings from "@/settings";
-import SubmissionType from "../models/enums/submission-type";
+import SubmissionType from "@/domain/_shared/common/data/enums/submission-type";
 import ImageType from "../models/enums/image-type";
 
 export default class ImagesApi extends ModelsApi {
