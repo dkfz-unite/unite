@@ -6,8 +6,8 @@
     <q-card>
       <q-card-section style="width: 400px;">
         <div class="text-h6">
-          <template v-if="value != null">Reject submission {{ value }}</template>
-          <template v-else>Reject all submissions</template>
+          <template v-if="ids.length === 1">Reject submission {{ ids[0] }}</template>
+          <template v-else>Reject {{ ids.length }} submissions</template>
         </div>
       </q-card-section>
 
@@ -27,14 +27,11 @@
 
 <script>
 export default {
-  props: {
-    value: [Number, null],
-  },
-
   data() {
     return {
       dialog: false,
-      reason: null,
+      ids: [],
+      reason: null
     }
   },
 
@@ -45,7 +42,9 @@ export default {
   },
 
   methods: {
-    show() {
+    show(ids) {
+      this.ids = ids;
+      this.reason = null;
       this.dialog = true;
     },
 
@@ -54,16 +53,15 @@ export default {
     },
 
     onClose() {
+      this.ids = [];
       this.reason = null;
       this.dialog = false;
     },
 
     onConfirm() {
-      const reason = this.reason;
+      this.$emit("confirm", this.ids, this.reason);
 
-      this.$emit("confirm", reason);
-      this.reason = null;
-      this.dialog = false;
+      this.onClose();
     }
   }
 }

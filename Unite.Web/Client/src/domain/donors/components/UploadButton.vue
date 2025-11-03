@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import DonorsApi from "../api";
+import DonorsFeedApi from "@/domain/submissions/api/api-feed-donors";
 import UUploadDialog from "@/domain/_shared/entries/components/upload/UploadDialog.vue";
 
 export default {
@@ -58,7 +58,7 @@ export default {
 
   setup() {
     return {
-      donorsApi: new DonorsApi(),
+      donorsFeedApi: new DonorsFeedApi(),
     };
   },
 
@@ -71,11 +71,11 @@ export default {
 
   methods: {
     async uploadDonors(data, format) {
-      return await this.donorsApi.uploadDonors(data, format);
+      return await this.donorsFeedApi.uploadDonors(data, format);
     },
 
     async uploadTreatments(data, format) {
-      return await this.donorsApi.uploadTreatments(data, format);
+      return await this.donorsFeedApi.uploadTreatments(data, format);
     }
   }
 
