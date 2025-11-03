@@ -14,9 +14,9 @@ export async function approve(id) {
   return await client.post(url);
 }
 
-export async function approveAll() {
+export async function approveAll(ids) {
   const url = `${submissionsUrl}/approve`;
-  return await client.post(url);
+  return await client.post(url, ids);
 }
 
 export async function reject(id, reason) {
@@ -25,9 +25,9 @@ export async function reject(id, reason) {
   return await client.post(url, data);
 }
 
-export async function rejectAll(reason) {
+export async function rejectAll(ids, reason) {
   const url = `${submissionsUrl}/reject`;
-  const data = { reason: reason };
+  const data = { ids: ids, reason: reason };
   return await client.post(url, data);
 }
 

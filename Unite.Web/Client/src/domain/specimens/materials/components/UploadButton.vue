@@ -21,7 +21,7 @@
 
 <script>
 import UUploadDialog from "@/domain/_shared/entries/components/upload/UploadDialog.vue";
-import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
+import SpecimensFeedApi from "@/domain/submissions/api/api-feed-specimens";
 
 export default {
   components: {
@@ -30,7 +30,7 @@ export default {
 
   setup() {
     return {
-      specimensApi: new SpecimensApi(),
+      specimensFeedApi: new SpecimensFeedApi(),
     };
   },
 
@@ -42,7 +42,7 @@ export default {
 
   methods: {
     async uploadSpecimens(data, format) {
-      return await this.specimensApi.uploadMaterials(data, format);
+      return await this.specimensFeedApi.uploadMaterials(data, format);
     }
   }
 }

@@ -1,5 +1,5 @@
 import ModelsApi from "@/domain/_shared/entries/api";
-import SubmissionType from "../models/enums/submission-type";
+import SubmissionType from "@/domain/_shared/common/data/enums/submission-type";
 import SpecimenType from "../models/enums/specimen-type";
 import settings from "@/settings";
 

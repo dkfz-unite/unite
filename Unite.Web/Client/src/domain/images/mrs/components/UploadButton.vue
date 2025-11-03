@@ -21,7 +21,7 @@
 
 <script>
 import UUploadDialog from "@/domain/_shared/entries/components/upload/UploadDialog.vue";
-import ImagesApi from "../api";
+import ImagesFeedApi from "@/domain/submissions/api/api-feed-images";
 
 export default {
   components: {
@@ -30,7 +30,7 @@ export default {
 
   setup() {
     return {
-      imagesApi: new ImagesApi(),
+      imagesFeedApi: new ImagesFeedApi(),
     };
   },
 
@@ -42,7 +42,7 @@ export default {
 
   methods: {
     async uploadImages(data, format) {
-      return await this.imagesApi.uploadMrs(data, format);
+      return await this.imagesFeedApi.uploadMrs(data, format);
     }
   }
 }

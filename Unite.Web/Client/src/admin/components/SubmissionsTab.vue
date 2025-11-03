@@ -1,5 +1,5 @@
 <template>
-  <u-reject-dialog ref="rejectDialog" :value="row?.id" @confirm="onRejected" />
+  <u-reject-dialog ref="rejectDialog" @confirm="onRejected" />
 
   <div class="col">
     <div class="row q-col-gutter-xs">
@@ -7,24 +7,33 @@
       <div class="col-3">
         <q-table
           class="u-sticky-header-admin"
+          title="Submissions"
           separator="cell"
+          selection="multiple"
           row-key="id"
           :rows="rows"
           :columns="columns"
-          :pagination="{ rowsPerPage: 20 }"
+          v-model:selected="rowsSelected"
+          :pagination="{ rowsPerPage: 50 }"
           :loading="loadingSubmissions"
-          @row-click="onRowSelected"
+          @row-click="onRowClick"
+          @selection="onRowSelect"
           dense flat bordered>
           <template v-slot:body-cell="props">
             <q-td :props="props" :class="{ 'text-primary': props.row.id == row?.id }">
               {{ props.value }}
             </q-td>
           </template>
+          <template v-slot:top-right="props">
+            <div  class="row items-center q-gutter-x-sm" style="height: 34px;">
+              <div v-if="rowsSelected?.length">
+                <q-btn label="Approve" color="green" icon="las la-check-circle" dense flat no-caps @click="onApproveSubmissions" />
+                <q-btn label="Reject" color="red" icon="las la-times-circle" dense flat no-caps @click="onRejectSubmissions" />
+                <span class="q-ml-sm text-weight-medium">{{ rowsSelected.length }} Selected</span>
+              </div>
+            </div>
+          </template>
         </q-table>
-        <div v-if="rows?.length">
-          <q-btn label="Approve All" color="green" icon="las la-check-circle" dense flat no-caps @click="onApproveSubmissions" />
-          <q-btn label="Reject All" color="red" icon="las la-times-circle" dense flat no-caps @click="onRejectSubmissions" />
-        </div>
       </div>
 
       <!-- Right -->
@@ -43,12 +52,18 @@
           <q-separator />
 
           <div class="row q-py-xs q-px-md">
-            <div class="col" style="height: 480px; overflow: auto;">
-              <div v-if="isComplexType(row?.type)">  
-                <u-json-viewer :value="submission"/>
+            <div class="col adaptive-height">
+              <div class="row" v-if="SubmissionType.isDonorsType(row?.type)">
+                <u-donors-viewer :data="submission" :type="row.type" />
               </div>
-              <div v-else>
-                <u-tsv-viewer :value="submission"/>
+              <div class="row" v-else-if="SubmissionType.isImagesType(row?.type)">
+                <u-images-viewer :data="submission" :type="row.type" />
+              </div>
+              <div class="row" v-else-if="SubmissionType.isSpecimensType(row?.type)">
+                <u-specimens-viewer :data="submission" :type="row.type" />
+              </div>
+              <div class="row" v-else-if="SubmissionType.isOmicsType(row?.type)">
+                <u-omics-viewer :data="submission" :type="row.type" />
               </div>
             </div>
           </div>
@@ -63,35 +78,35 @@
 
 <script>
 import URejectDialog from "../components/submissions/RejectDialog.vue";
-import UTsvViewer from '../components/submissions/TsvViewer.vue';
-import UJsonViewer from '../components/submissions/JsonViewer.vue';
+import UDonorsViewer from "../components/submissions/DonorsViewer.vue";
+import UImagesViewer from "../components/submissions/ImagesViewer.vue";
+import USpecimensViewer from "../components/submissions/SpecimensViewer.vue";
+import UOmicsViewer from "../components/submissions/OmicsViewer.vue";
 
 import api from "../api/api-submissions";
-import DonorsApi from "@/domain/donors/api";
-import ImagesApi from "@/domain/images/_shared/images/api";
-import SpecimensApi from "@/domain/specimens/_shared/specimens/api";
-import GenesApi from "@/domain/omics/genes/api";
-import VariantsApi from "@/domain/omics/variants/_shared/variants/api";
-import DonorsSubmissionType from "@/domain/donors/models/enums/submission-type";
-import ImagesSubmissionType from "@/domain/images/_shared/images/models/enums/submission-type";
-import SpecimensSubmissionType from "@/domain/specimens/_shared/specimens/models/enums/submission-type";
-import GenesSubmissionType from "@/domain/omics/genes/models/enums/submission-type";
-import VariantsSubmissionType from "@/domain/omics/variants/_shared/variants/models/enums/submission-type";
+import DonorsFeedApi from "@/domain/submissions/api/api-feed-donors";
+import ImagesFeedApi from "@/domain/submissions/api/api-feed-images";
+import SpecimensFeedApi from "@/domain/submissions/api/api-feed-specimens";
+import OmicsFeedApi from "@/domain/submissions/api/api-feed-omics";
+
+import SubmissionType from "@/domain/submissions/models/enums/submission-type";
 
 export default {
   components: {
     URejectDialog,
-    UTsvViewer,
-    UJsonViewer
+    UDonorsViewer,
+    UImagesViewer,
+    USpecimensViewer,
+    UOmicsViewer
    },
 
   setup() {
     return {
-      donorsApi: new DonorsApi(),
-      imagesApi: new ImagesApi(),
-      specimensApi: new SpecimensApi(),
-      genesApi: new GenesApi(),
-      variantsApi: new VariantsApi(),
+      donorsFeedApi: new DonorsFeedApi(),
+      imagesFeedApi: new ImagesFeedApi(),
+      specimensApi: new SpecimensFeedApi(),
+      omicsFeedApi: new OmicsFeedApi(),
+      SubmissionType: SubmissionType
     };
   },
 
@@ -102,10 +117,11 @@ export default {
       submission: null,
       row: null,
       rows: [],
+      rowsSelected: [],
       columns: [
-        { name: "id", label: "Id", align: "left", field: "id" },
-        { name: "type", label: "Type", align: "left", field: row => this.getTypeLabel(row.type) },
-        { name: "date", label: "Date", align: "right", field: row => this.getDateLabel(row.date) }
+        { name: "id", label: "Id", align: "left", field: "id", sortable: true },
+        { name: "type", label: "Type", align: "left", sortable: true, field: row => this.getTypeLabel(row.type) },
+        { name: "date", label: "Date", align: "right", sortable: true, field: row => this.getDateLabel(row.date) }
       ]
     };
   },
@@ -116,26 +132,11 @@ export default {
 
   methods: {
     getTypeLabel(type) {
-      if (DonorsSubmissionType.includes(type))
-        return this.$helpers.enum.getLabel(type, DonorsSubmissionType.values);
-      else if (ImagesSubmissionType.includes(type))
-        return this.$helpers.enum.getLabel(type, ImagesSubmissionType.values);
-      else if (SpecimensSubmissionType.includes(type))
-        return this.$helpers.enum.getLabel(type, SpecimensSubmissionType.values);
-      else if (GenesSubmissionType.includes(type))
-        return this.$helpers.enum.getLabel(type, GenesSubmissionType.values);
-      else if (VariantsSubmissionType.includes(type))
-        return this.$helpers.enum.getLabel(type, VariantsSubmissionType.values);
-      else
-        return "Unknown";
+      return SubmissionType.getLabel(type);
     },
 
     getDateLabel(date) {
       return this.$helpers.content.toDateTimeString(date);
-    },
-
-    isComplexType(type) {
-      return (GenesSubmissionType.includes(type) || VariantsSubmissionType.includes(type) || type == ImagesSubmissionType.Radiomics || type == SpecimensSubmissionType.SPE_DRG);
     },
 
     notifySuccess(message, caption = undefined) {
@@ -148,7 +149,7 @@ export default {
       });
     },
 
-    async onRowSelected(event, row, index) {
+    async onRowClick(event, row, index) {      
       if (row == this.row)
         return;
 
@@ -156,27 +157,43 @@ export default {
       await this.loadSubmission(row.id, row.type);
     },
 
+    async onRowSelect(event) {
+      if (event.keys.length != 1)
+        return;
+
+      const row = this.rows.find(row => row.id == event.keys[0]);
+      if (row == this.row)
+        return;
+      
+      this.row = row;      
+      await this.loadSubmission(row.id, row.type);
+    },
+
     async onApproveSubmission() {
-      await this.approveSubmission();
+      const id = this.row.id;      
+      await this.approveSubmission(id);
     },
 
     async onApproveSubmissions() {
-      await this.approveSubmissions();
+      const ids = this.rowsSelected.map(row => row.id);      
+      await this.approveSubmissions(ids);
     },
 
     async onRejectSubmission() {
-      this.$refs.rejectDialog.show();
+      const id = this.row.id;
+      this.$refs.rejectDialog.show([id]);
     },
 
     async onRejectSubmissions() {
-      this.$refs.rejectDialog.show();
+      const ids = this.rowsSelected.map(row => row.id);
+      this.$refs.rejectDialog.show(ids);
     },
 
-    async onRejected(reason) {
-      if (this.row != null)
-        await this.rejectSubmission(reason);
-      else 
-        await this.rejectSubmissions();
+    async onRejected(ids, reason) {
+      if (ids.length > 1)
+        await this.rejectSubmissions(ids, reason);
+      else
+        await this.rejectSubmission(id, reason);
     },
 
     async loadSubmissions() {
@@ -191,20 +208,19 @@ export default {
     },
 
     async loadSubmission(id, type) {
+      // TODO: Chache submissions to avoid multiple server calls for the same data
       try {
         this.submission = null;
         this.loadingSubmission = true;
 
-        if (DonorsSubmissionType.includes(type)) {
-          this.submission = await this.donorsApi.getSubmission(id, type);
-        } else if (ImagesSubmissionType.includes(type)) {
-          this.submission = await this.imagesApi.getSubmission(id,type);
-        } else if (SpecimensSubmissionType.includes(type)) {
+        if (SubmissionType.isDonorsType(type)) {
+          this.submission = await this.donorsFeedApi.getSubmission(id, type);
+        } else if (SubmissionType.isImagesType(type)) {
+          this.submission = await this.imagesFeedApi.getSubmission(id,type);
+        } else if (SubmissionType.isSpecimensType(type)) {
           this.submission = await this.specimensApi.getSubmission(id,type);
-        } else if (GenesSubmissionType.includes(type)) {
-          this.submission = await this.genesApi.getSubmission(id,type);
-        } else if (VariantsSubmissionType.includes(type)) {
-          this.submission = await this.variantsApi.getSubmission(id,type);
+        } else if (SubmissionType.isOmicsType(type)) {
+          this.submission = await this.omicsFeedApi.getSubmission(id,type);
         } else {
           console.error("Invalid submission type");
         }
@@ -213,31 +229,51 @@ export default {
       }
     },
 
-    async approveSubmission() {
-      const id = this.row.id;
+    async approveSubmission(id) {
       await api.approve(id);
       await this.loadSubmissions();
       this.notifySuccess(`Submission '${id}' was approved`);
+      this.row = null;
     },
 
-    async approveSubmissions() {
-      await api.approveAll();
+    async approveSubmissions(ids) {
+      await api.approveAll(ids);
       await this.loadSubmissions();
-      this.notifySuccess("All submissions were approved");
+      this.notifySuccess("Selected submissions were approved");
+      this.rowsSelected = [];
     },
 
-    async rejectSubmission(reason) {
-      const id = this.row.id;
+    async rejectSubmission(id, reason) {
       await api.reject(id, reason);
       await this.loadSubmissions();
       this.notifySuccess(`Submission '${id}' was rejected`);
+      this.row = null;
     },
 
-    async rejectSubmissions() {
-      await api.rejectAll();
+    async rejectSubmissions(ids, reason) {
+      await api.rejectAll(ids, reason);
       await this.loadSubmissions();
-      this.notifySuccess("All submissions were rejected");
+      this.notifySuccess("Selected submissions were rejected");
+      this.rowsSelected = [];
     } 
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.adaptive-height {
+  overflow: auto;
+
+  @media screen and (min-width: $breakpoint-xs){
+    height: 530px;
+  }
+
+  @media screen and (min-width: $breakpoint-md){
+    height: 530px;
+  }
+
+  @media screen and (min-width: $breakpoint-lg){
+    height: 660px;
+  }
+}
+</style>

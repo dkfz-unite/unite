@@ -25,13 +25,13 @@ export default class ImagesApi extends ModelsApi {
    * @param {"json"|"tsv"} format data format (default: "json").
    * @returns {Promise<Object>} A promise that resolves with the upload results.
    */
-  async uploadMrs(data, format = formats.json.name) {
-    validateFormat(format);
+  // async uploadMrs(data, format = formats.json.name) {
+  //   validateFormat(format);
 
-    const url = `${this.feedUrl}/entries/mr${formats[format].path}`;
-    const body = data;
-    const config = { headers: formats[format].headers };
+  //   const url = `${this.feedUrl}/entries/mr${formats[format].path}`;
+  //   const body = data;
+  //   const config = { headers: formats[format].headers };
     
-    return this.client.post(url, body, config);
-  }
+  //   return this.client.post(url, body, config);
+  // }
 }
