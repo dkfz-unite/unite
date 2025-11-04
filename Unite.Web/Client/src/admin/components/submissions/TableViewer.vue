@@ -1,6 +1,6 @@
 <template>
   <div class="col">
-    <q-table :rows="entries" separator="cell" flat bordered dense>
+    <q-table :rows="entries" :pagination="{ rowsPerPage: rows }" separator="cell" flat bordered dense>
       <template v-slot:header-cell="props">
         <q-th :props="props" class="text-lowercase">
           {{ props.col.label || props.col.name }}
@@ -16,6 +16,10 @@ export default {
     entries: {
       type: Array,
       required: true
+    },
+    rows: {
+      type: Number,
+      default: 10
     }
   }
 }

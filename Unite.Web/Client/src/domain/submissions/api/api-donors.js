@@ -1,5 +1,5 @@
 import ApiClient from "@/_shared/api/api-client";
-import DonorsSubmissionType from "../models/enums/submission-type-donors";
+import DonorSubmissionType from "../models/enums/submission-type-donor";
 import settings from "@/settings";
 
 const client = new ApiClient();
@@ -31,9 +31,9 @@ export async function getSubmissionStatus(id) {
 export async function getSubmission(id, type) {
   let url = null;
 
-  if (type == DonorsSubmissionType.DON)
+  if (type == DonorSubmissionType.DON)
     url = `${feedUrl}/entries/${id}`;
-  else if (type == DonorsSubmissionType.DON_TRT)
+  else if (type == DonorSubmissionType.DON_TRT)
     url = `${feedUrl}/treatments/${id}`;
 
   if (!url)

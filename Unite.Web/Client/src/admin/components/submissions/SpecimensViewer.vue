@@ -21,7 +21,7 @@
 import UTableViewer from "./TableViewer.vue";
 import mixin from "./viewer-mixin.js";
 
-import SubmissionType from "@/domain/_shared/common/data/enums/submission-type";
+import SubmissionType from "@/domain/submissions/models/enums/submission-type-specimen";
 
 export default {
   components: {
@@ -34,37 +34,55 @@ export default {
     return {
       tab: "specimens",
       specimenRows: [],
-      interventionRows: []
+      interventionRows: [],
+      drugRows: []
     };
   },
 
   mounted() {
-    const flatten = ["molecular_data"];
+    if (SubmissionType.isEntryType(this.type)) {
+      this.tab = "specimens";
 
-    if (this.type === SubmissionType.MAT) {
-      flatten.push("material");
-    } else if (this.type === SubmissionType.LNE) {
-      flatten.push("line");
-    } else if (this.type === SubmissionType.ORG) {
-      flatten.push("organoid");
-    } else if (this.type === SubmissionType.XEN) {
-      flatten.push("xenograft");
+      const ignore = ["id", "parent_id", "parent_type", "donor_id", "creation_date", "creation_day", "interventions"];
+      const flatten = ["material", "line", "organoid", "xenograft", "info", "molecular_data"];
+
+      this.specimenRows = this.data
+        .map(spe => ({
+          id: spe.id,
+          parent_id: spe.parent_id,
+          parent_type: SubmissionType.getLabel(spe.parent_type),
+          donor_id: spe.donor_id,
+          creation_date: spe.creation_date,
+          creation_day: spe.creation_day,
+          ...this.mapProps(spe, ignore, flatten)
+        }));
+
+      this.interventionRows = this.data
+        .filter(spe => !!spe.interventions)
+        .flatMap(spe => spe.interventions.map(int => ({
+          specimen_id: spe.id,
+          specimen_type: SubmissionType.getLabel(this.type),
+          specimen_donor_id: spe.donor_id,
+          ...int
+        })));
+
+      return;
     }
 
-    this.specimenRows = this.data.map(spe => ({
-      id: spe.id,
-      parent_id: spe.parent_id,
-      donor_id: spe.donor_id,
-      creation_date: spe.creation_date,
-      ...this.mapProps(spe, ["id", "parent_id", "donor_id", "creation_date", "interventions", "info"], flatten)
-    }));
+    if (SubmissionType.isListType(this.type)) {
+      this.tab = "interventions";
 
-    this.interventionRows = this.data.filter(spe => !!spe.interventions).flatMap(spe => spe.interventions.map(int => ({
-      specimen_id: spe.id,
-      specimen_type: SubmissionType.getLabel(this.type),
-      specimen_donor_id: spe.donor_id,
-      ...int
-    })));
+      this.interventionRows = this.data
+        .filter(spe => !!spe.entries)
+        .flatMap(spe => spe.entries.map(int => ({
+          donor_id: spe.donor_id,
+          specimen_id: spe.specimen_id,
+          specimen_type: spe.type,
+          ...int
+        })));
+
+      return;
+    }
   }
 }
 </script>

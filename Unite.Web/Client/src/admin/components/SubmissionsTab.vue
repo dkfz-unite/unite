@@ -54,13 +54,17 @@
           <div class="row q-py-xs q-px-md">
             <div class="col adaptive-height">
               <div class="row" v-if="SubmissionType.isDonorsType(row?.type)">
-                <u-donors-viewer :data="submission" :type="row.type" />
+                <!-- <u-donors-viewer :data="submission" :type="row.type" /> -->
+                 <u-donor-entries v-if="SubmissionType.Donors.isEntryType(row.type)" :data="submission" :type="row.type" />
+                 <u-donor-records v-else-if="SubmissionType.Donors.isListType(row.type)" :data="submission" :type="row.type" />
               </div>
               <div class="row" v-else-if="SubmissionType.isImagesType(row?.type)">
                 <u-images-viewer :data="submission" :type="row.type" />
               </div>
               <div class="row" v-else-if="SubmissionType.isSpecimensType(row?.type)">
-                <u-specimens-viewer :data="submission" :type="row.type" />
+                <u-specimen-entries v-if="SubmissionType.Specimens.isEntryType(row.type)" :data="submission" :type="row.type" />
+                <u-specimen-records v-else-if="SubmissionType.Specimens.isListType(row.type)" :data="submission" :type="row.type" />
+                <u-specimen-analysis v-else-if="SubmissionType.Specimens.isAnalysisType(row.type)" :data="submission" :type="row.type" />
               </div>
               <div class="row" v-else-if="SubmissionType.isOmicsType(row?.type)">
                 <u-omics-viewer :data="submission" :type="row.type" />
@@ -81,7 +85,14 @@ import URejectDialog from "../components/submissions/RejectDialog.vue";
 import UDonorsViewer from "../components/submissions/DonorsViewer.vue";
 import UImagesViewer from "../components/submissions/ImagesViewer.vue";
 import USpecimensViewer from "../components/submissions/SpecimensViewer.vue";
+import USpecimenViewer from "../components/submissions/SpecimenViewer.vue";
 import UOmicsViewer from "../components/submissions/OmicsViewer.vue";
+
+import UDonorEntries from "./submissions/donors/Entries.vue";
+import UDonorRecords from "./submissions/donors/Records.vue";
+import USpecimenEntries from "./submissions/specimens/Entries.vue";
+import USpecimenRecords from "./submissions/specimens/Records.vue";
+import USpecimenAnalysis from "./submissions/specimens/Analysis.vue";
 
 import api from "../api/api-submissions";
 import DonorsFeedApi from "@/domain/submissions/api/api-feed-donors";
@@ -97,7 +108,14 @@ export default {
     UDonorsViewer,
     UImagesViewer,
     USpecimensViewer,
-    UOmicsViewer
+    USpecimenViewer,
+    UOmicsViewer,
+
+    UDonorEntries,
+    UDonorRecords,
+    USpecimenEntries,
+    USpecimenRecords,
+    USpecimenAnalysis
    },
 
   setup() {

@@ -1,10 +1,13 @@
 <template>
   <div class="col">
+    <!-- Sample mode -->
     <template v-if="isSample">
       <div class="row">
-          <u-sample-view :sample="data" />
-        </div>
+        <u-sample-view :sample="data" />
+      </div>
     </template>
+
+    <!-- Analysis mode -->
     <template v-else>
       <template v-if="data.tsample">
         <div class="row">
@@ -38,11 +41,11 @@
 </template>
 
 <script>
-import USampleView from "./SampleView.vue";
+import USampleView from "./OmicsSampleViewer.vue";
 import UTableViewer from "./TableViewer.vue";
 import mixin from "./viewer-mixin.js";
 
-import SubmissionType from "@/domain/submissions/models/enums/submission-type";
+import SubmissionType from "@/domain/submissions/models/enums/submission-type-omics";
 
 export default {
   components: {
@@ -62,7 +65,7 @@ export default {
 
   computed: {
     isSample() {
-      return SubmissionType.Omics.isSampleType(this.type);
+      return SubmissionType.isSampleType(this.type);
     }
   }
 }

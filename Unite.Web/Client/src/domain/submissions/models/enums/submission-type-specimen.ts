@@ -16,4 +16,16 @@ export default class SpecimenSubmissionType extends SubmissionTypeBase {
     [SpecimenSubmissionType.SPE_INT, "Specimen Intervention"],
     [SpecimenSubmissionType.SPE_DRG, "Specimen Drugs Screening"],
   ]);
+
+  static isEntryType(type: string): boolean {
+    return [this.MAT, this.LNE, this.ORG, this.XEN].includes(type);
+  }
+
+  static isListType(type: string): boolean {
+    return type === this.SPE_INT;
+  }
+
+  static isAnalysisType(type: string): boolean {
+    return type === this.SPE_DRG;
+  }
 }
