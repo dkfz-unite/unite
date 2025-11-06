@@ -1,5 +1,5 @@
 import FeedApi, { Format } from "./api-feed";
-import DonorsSubmissionType from "../models/enums/submission-type-donors";
+import DonorSubmissionType from "../models/enums/submission-type-donor";
 import settings from "@/settings";
 
 export default class DonorsFeedApi extends FeedApi {
@@ -46,9 +46,9 @@ export default class DonorsFeedApi extends FeedApi {
   public async getSubmission(id: string, type: string): Promise<any> {
     let url = null;
     
-    if (type == DonorsSubmissionType.DON)
+    if (type == DonorSubmissionType.DON)
       url = `${this.feedUrl}/entries/${id}`;
-    else if (type == DonorsSubmissionType.DON_TRT)
+    else if (type == DonorSubmissionType.DON_TRT)
       url = `${this.feedUrl}/treatments/${id}`;
     else
       throw new Error(`Invalid submission type: ${type}`);

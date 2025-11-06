@@ -10,4 +10,12 @@ export default class ImageSubmissionType extends SubmissionTypeBase {
     [ImageSubmissionType.CT, "CT Image"],
     [ImageSubmissionType.IMG_RAD, "Radiomics Feature"],
   ]);
+
+  static isEntryType(type: string): boolean {
+    return [this.MR, this.CT].includes(type);
+  }
+
+  static isAnalysisType(type: string): boolean {
+    return type === this.IMG_RAD;
+  }
 }
