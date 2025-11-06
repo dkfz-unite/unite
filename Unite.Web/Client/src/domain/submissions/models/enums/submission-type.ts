@@ -1,10 +1,10 @@
-import DonorsSubmissionType from "./submission-type-donors";
+import DonorSubmissionType from "./submission-type-donor";
 import ImageSubmissionType from "./submission-type-image";
 import OmicsSubmissionType from "./submission-type-omics";
 import SpecimenSubmissionType from "./submission-type-specimen";
 
 export default class SubmissionType {
-  static readonly Donors = DonorsSubmissionType;
+  static readonly Donors = DonorSubmissionType;
   static readonly Images = ImageSubmissionType;
   static readonly Specimens = SpecimenSubmissionType;
   static readonly Omics = OmicsSubmissionType;

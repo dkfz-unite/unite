@@ -24,19 +24,23 @@ const mixin = {
       const mapped = {};
 
       Object.keys(obj).forEach(key => {
-        if (ignore.includes(key)) {
+        if (ignore?.includes(key)) {
           return;
         }
 
-        if (flat.includes(key)) {
-          Object.keys(obj[key]).forEach(subKey => {
-            mapped[subKey] = obj[key][subKey];
-          });
+        if (flat?.includes(key)) {
+          if (obj[key] != null) {
+            Object.keys(obj[key]).forEach(subKey => {
+              mapped[subKey] = obj[key][subKey];
+            });
+          }
           return;
         }
 
-        if (wrap.includes(key)) {
-          mapped[key] = obj[key].join(", ");
+        if (wrap?.includes(key)) {
+          if (obj[key]?.length) {
+            mapped[key] = obj[key].join(", ");
+          }
           return;
         }
 
