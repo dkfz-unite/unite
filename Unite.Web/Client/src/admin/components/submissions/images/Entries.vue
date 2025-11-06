@@ -1,7 +1,7 @@
 <template>
   <div class="col">
     <q-tabs class="q-ml-xs" dense align="left" v-model="tab">
-      <q-tab v-if="imageRows?.length" :name="tabs.images" no-caps>Donors ({{ imageRows.length }})</q-tab>
+      <q-tab v-if="imageRows?.length" :name="tabs.images" no-caps>Images ({{ imageRows.length }})</q-tab>
     </q-tabs>
 
     <q-tab-panels v-model="tab">

@@ -1,5 +1,5 @@
 import ModelsApi from "@/domain/_shared/entries/api";
-import SubmissionType from "@/domain/_shared/common/data/enums/submission-type";
+import SubmissionType from "@/domain/submissions/models/enums/submission-type-specimen";
 import SpecimenType from "../models/enums/specimen-type";
 import settings from "@/settings";
 
@@ -115,33 +115,5 @@ export default class SpecimensApi extends ModelsApi {
     const config = { headers: formats[format].headers };
 
     return this.client.post(url, body, config);
-  }
-
-  
-  /**
-   * Get submission document.
-   * @param {number|string} id submission id.
-   * @param {SubmissionType} type submission type.
-   * @returns {Promise<Object>} A promise that resolves with the submission document.
-   */
-  async getSubmission(id, type) {
-    let url = null;
-
-    if (type == SubmissionType.MAT)
-      url = `${this.feedUrl}/entries/${SpecimenType.Material}/${id}`;
-    else if (type == SubmissionType.LNE)
-      url = `${this.feedUrl}/entries/${SpecimenType.Line}/${id}`;
-    else if (type == SubmissionType.ORG)
-      url = `${this.feedUrl}/entries/${SpecimenType.Organoid}/${id}`;
-    else if (type == SubmissionType.XEN)
-      url = `${this.feedUrl}/entries/${SpecimenType.Xenograft}/${id}`;
-    else if (type == SubmissionType.SPE_INT)
-      url = `${this.feedUrl}/interventions/${id}`;
-    else if (type == SubmissionType.SPE_DRG)
-      url = `${this.feedUrl}/analysis/drugs/${id}`;
-    else
-      throw new Error(`Invalid submission type: ${type}`);
-
-    return await this.client.get(url);
   }
 }
