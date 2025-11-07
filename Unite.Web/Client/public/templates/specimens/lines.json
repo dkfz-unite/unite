@@ -24,7 +24,8 @@
       "idh_mutation": null,
       "gene_expression_subtype": "Classical",
       "methylation_subtype": "H3-K27",
-      "gcimp_methylation": true
+      "gcimp_methylation": true,
+      "gene_knockouts": ["EGFR", "PTEN"]
     }
   },
   {

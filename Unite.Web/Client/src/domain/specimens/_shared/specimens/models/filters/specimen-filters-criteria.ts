@@ -12,6 +12,7 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
   geneExpressionSubtype = new ValuesCriteria<string>();
   methylationSubtype = new ValuesCriteria<string>();
   gCimpMethylation = new BoolCriteria();
+  geneKnockout = new ValuesCriteria<string>();
   drug = new ValuesCriteria<string>();
   dss = new RangeCriteria();
   dssSelective = new RangeCriteria();
@@ -37,6 +38,7 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
     this.geneExpressionSubtype = new ValuesCriteria<string>(criteria.geneExpressionSubtype);
     this.methylationSubtype = new ValuesCriteria<string>(criteria.methylationSubtype);
     this.gCimpMethylation = new BoolCriteria(criteria.gCimpMethylation);
+    this.geneKnockout = new ValuesCriteria<string>(criteria.geneKnockout);
     this.drug = new ValuesCriteria<string>(criteria.drug);
     this.dss = new RangeCriteria(criteria.dss);
     this.dssSelective = new RangeCriteria(criteria.dssSelective);

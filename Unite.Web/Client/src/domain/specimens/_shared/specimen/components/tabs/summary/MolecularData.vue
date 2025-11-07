@@ -37,6 +37,10 @@
               <td class="u-text-key">G-CIMP Methylation</td>
               <td>{{ $helpers.content.toBooleanString(molecularData.gcimpMethylation) }}</td>
             </tr>
+            <tr>
+              <td class="u-text-key">Gene Knockouts</td>
+              <td>{{ molecularData.geneKnockouts?.join(", ") }}</td>
+            </tr>
           </tbody>
         </q-markup-table>
       </div>
