@@ -88,6 +88,14 @@ const filters = [
         label: "G-CIMP Methylation",
         type: FilterType.Boolean,
         default: null
+      },
+      {
+        field: "geneKnockout",
+        label: "Gene Knockouts",
+        placeholder: "e.g. TTN, EGFR",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value)
       }
     ]
   },

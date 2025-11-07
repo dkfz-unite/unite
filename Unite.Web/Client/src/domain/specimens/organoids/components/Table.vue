@@ -176,6 +176,15 @@ export default {
         show: false
       });
 
+      columns.push({
+        name: "geneKnockouts",
+        label: "Gene Knockouts",
+        field: (row) => row.molecularData?.geneKnockouts?.join(", "),
+        sortable: false,
+        align: "left",
+        show: false
+      });
+
       if ([Settings.domain].includes(this.$route.name)){
         columns.push({
           name: "hasDrugs",
