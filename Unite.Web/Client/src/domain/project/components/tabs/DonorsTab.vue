@@ -11,16 +11,16 @@
           <span class="text-h6 u-text-title">General</span>
         </div>
         <div class="row">
-          <div class="col-2">
+          <div class="col-2" v-if="perAge">
             <div id="don-per-age" style="height: 300px;"></div>
           </div>
-          <div class="col-2">
+          <div class="col-2" v-if="perSex">
             <div id="don-per-sex" style="height: 300px;"></div>
           </div>
-          <div class="col-2">
+          <div class="col-2" v-if="perVitalStatus">
             <div id="don-per-vital" style="height: 300px;"></div>
           </div>
-          <div class="col-2">
+          <div class="col-2" v-if="perProgressionStatus">
             <div id="don-per-prog" style="height: 300px;"></div>
           </div>
         </div>
@@ -43,26 +43,51 @@ export default {
     }
   },
 
+  computed: {
+    perAge() {
+      return !!this.project.stats.donors?.perAge;
+    },
+    perSex() {
+      return !!this.project.stats.donors?.perSex;
+    },
+    perVitalStatus() {
+      return !!this.project.stats.donors?.perVitalStatus;
+    },
+    perProgressionStatus() {
+      return !!this.project.stats.donors?.perProgressionStatus;
+    }
+  },
+
   mounted() {
     const config = {
       displayModeBar: false,
       displaylogo: false,
       responsive: true,
     };
-    
-    const donPerAge = this.getSeries(this.project.stats.donors.perAge, this.getRangeKey);
-    const donPerAgeMode = Math.max(...donPerAge[0].y) <= 5 ? "linear" : "auto";
-    const donPerSex = this.getSeries(this.project.stats.donors.perSex);
-    const donPerSexMode = Math.max(...donPerSex[0].y) <= 5 ? "linear" : "auto";
-    const donPerVital = this.getSeries(this.project.stats.donors.perVitalStatus, this.getVitalStatusKey);
-    const donPerVitalMode = Math.max(...donPerVital[0].y) <= 5 ? "linear" : "auto";
-    const donPerProg = this.getSeries(this.project.stats.donors.perProgressionStatus, this.getProgressionStatusKey);
-    const donPerProgMode = Math.max(...donPerProg[0].y) <= 5 ? "linear" : "auto";
 
-    Plotly.newPlot("don-per-age", donPerAge, this.getLayout("Age", null, null, donPerAgeMode), config);
-    Plotly.newPlot("don-per-sex", donPerSex, this.getLayout("Sex", null, null, donPerSexMode), config);
-    Plotly.newPlot("don-per-vital", donPerVital, this.getLayout("Vital Status", null, null, donPerVitalMode), config);
-    Plotly.newPlot("don-per-prog", donPerProg, this.getLayout("Progression Status", null, null, donPerProgMode), config);
+    if (this.perAge) {
+      const donPerAge = this.getSeries(this.project.stats.donors.perAge, this.getRangeKey);
+      const donPerAgeMode = Math.max(...donPerAge[0].y) <= 5 ? "linear" : "auto";
+      Plotly.newPlot("don-per-age", donPerAge, this.getLayout("Age", null, null, donPerAgeMode), config);
+    }
+    
+    if (this.perSex) {
+      const donPerSex = this.getSeries(this.project.stats.donors.perSex);
+      const donPerSexMode = Math.max(...donPerSex[0].y) <= 5 ? "linear" : "auto";
+      Plotly.newPlot("don-per-sex", donPerSex, this.getLayout("Sex", null, null, donPerSexMode), config);
+    }
+    
+    if (this.perVitalStatus) {
+      const donPerVital = this.getSeries(this.project.stats.donors.perVitalStatus, this.getVitalStatusKey);
+      const donPerVitalMode = Math.max(...donPerVital[0].y) <= 5 ? "linear" : "auto";
+      Plotly.newPlot("don-per-vital", donPerVital, this.getLayout("Vital Status", null, null, donPerVitalMode), config);
+    }
+
+    if (this.perProgressionStatus) {
+      const donPerProg = this.getSeries(this.project.stats.donors.perProgressionStatus, this.getProgressionStatusKey);
+      const donPerProgMode = Math.max(...donPerProg[0].y) <= 5 ? "linear" : "auto";
+      Plotly.newPlot("don-per-prog", donPerProg, this.getLayout("Progression Status", null, null, donPerProgMode), config);
+    }
   },
 
   methods: {
