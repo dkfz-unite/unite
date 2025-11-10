@@ -124,12 +124,24 @@ export default {
     },
 
     getRangeKey(row, index, array) {
-      if (index == 0)
-        return `<${row.key - 1}`;
-      else if (index == array.length - 1)
-        return `>${row.key - 1}`;
-      else
-        return `${array[index - 1].key} - ${row.key}`;
+      if (array[0].key == null) {
+        if (index == 0)
+          return "Unknown";
+        if (index == 1)
+          return `<${row.key}`;
+        // else if (index == array.length - 1)
+        //   return `>${row.key}`;
+        else
+          return `${array[index - 1].key} - ${row.key}`;
+      }
+      else {
+        if (index == 0)
+          return `<${row.key - 1}`;
+        else if (index == array.length - 1)
+          return `>${row.key - 1}`;
+        else
+          return `${array[index - 1].key} - ${row.key}`;
+      }
     },
 
     getVitalStatusKey(row, index, array) {
