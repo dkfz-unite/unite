@@ -68,6 +68,21 @@
               />
             </div>
           </div>
+
+          <!-- SM -->
+           <div class="row">
+            <div class="col">
+              <q-select
+                v-model="options.sm.value"
+                :options="options.sm.options"
+                label="Mutation impact"
+                clear-icon="las la-times-circle"
+                @clear="options.sm.value = options.sm.default"
+                multiple clearable use-chips
+                dense options-dense square outlined
+              />
+            </div>
+          </div>
       </div>
       </q-card-section>
 
@@ -132,6 +147,11 @@ export default {
         genes: {
           value: 20,
           min: 50
+        },
+        sm: {
+          value: ["High", "Moderate"],
+          options: ["High", "Moderate", "Low"],
+          default: ["High", "Moderate"]
         }
       }
     };
@@ -166,7 +186,8 @@ export default {
 
       const options = {
         donors: this.options.donors.value,
-        genes: this.options.genes.value
+        genes: this.options.genes.value,
+        sm: this.options.sm.value
       };
 
       const data = {
@@ -189,6 +210,7 @@ export default {
     async onReset() {
       this.options.donors.value = null;
       this.options.genes.value = false;
+      this.options.sm.value = this.options.sm.default;
     },
 
     async onClose() {
@@ -196,6 +218,7 @@ export default {
       this.description.value = null;
       this.options.donors.value = null;
       this.options.genes.value = false;
+      this.options.sm.value = this.options.sm.default;
       this.dialog = false;
     }
   }
