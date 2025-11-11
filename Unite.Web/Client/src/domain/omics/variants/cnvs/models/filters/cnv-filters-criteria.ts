@@ -18,10 +18,14 @@ export default class CnvFiltersCriteria extends VariantFiltersCriteria {
     this.loh = new BoolCriteria(criteria.loh);
   }
 
-  clone() {
-    let criteria = new CnvFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new CnvFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : CnvFiltersCriteria {
+    return new CnvFiltersCriteria(this);
   }
 }

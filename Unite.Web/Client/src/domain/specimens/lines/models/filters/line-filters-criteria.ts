@@ -25,10 +25,14 @@ export default class LineFiltersCriteria extends SpecimenFiltersCriteria {
     super.sanitise();
   }
 
-  clone() {
-    let criteria = new LineFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new LineFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : LineFiltersCriteria {
+    return new LineFiltersCriteria(this);
   }
 }

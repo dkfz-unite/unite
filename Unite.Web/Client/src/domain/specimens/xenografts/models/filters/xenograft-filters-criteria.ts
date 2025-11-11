@@ -23,10 +23,14 @@ export default class XenograftFiltersCriteria extends SpecimenFiltersCriteria {
     this.intervention = new ValuesCriteria<string>(criteria.intervention);
   }
 
-  clone() {
-    let criteria = new XenograftFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new XenograftFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : XenograftFiltersCriteria {
+    return new XenograftFiltersCriteria(this);
   }
 }
