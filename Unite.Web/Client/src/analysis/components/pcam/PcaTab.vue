@@ -2,10 +2,10 @@
   <q-card>
     <u-filter-items
       :pcs="pcs" 
-      :category="category"
+      :categories="categories"
       v-model:xAxis="selectedX"
       v-model:yAxis="selectedY"
-      v-model:categoryValue="selectedCategory"
+      v-model:category="selectedCategory"
     />
     <q-separator />
   </q-card>
@@ -50,11 +50,11 @@
         required: true,
       },
       data: {
-        type: Array,
+        type: [Object, Array, Blob],
         required: true,
       },
       meta:{
-        type: Array,
+        type: [Object, Array, Blob],
         required: true,
       }
     },
@@ -64,7 +64,7 @@
         loading: false,
         parsedData: [],
         pcs: [],
-        category: [],
+        categories: [],
         selectedX: "PC1",
         selectedY: "PC2",
         selectedCategory: "sample_id",
@@ -104,11 +104,12 @@
     methods: {
       async init() {
         this.parsedData = await this.getParsedData(this.data, this.meta);
+
         if (this.parsedData.length > 0) {
           this.pcs = Object.keys(this.parsedData[0]).filter(
             (key) => key.startsWith("PC")
           );
-          this.category = Object.keys(this.metadataRows[0]);
+          this.categories = Object.keys(this.metadataRows[0]).filter(c => c !== "path");
         }
 
         this.traces = this.getTraces(this.parsedData);
@@ -117,7 +118,6 @@
 
       async getParsedData(results, metadata) {
         this.loading = true;
-        const start = performance.now();
         const resultsTsv = await new Response(results).text();
         this.resultsRows = this.toJson(resultsTsv);
         const metadataTsv = await new Response(metadata).text();
@@ -128,16 +128,9 @@
       },
 
       getTraces(data) {
-        const groupedData = data.reduce((value, row) => {
-          if (!value[row[this.selectedCategory]]) 
-          {
-            value[row[this.selectedCategory]] = [];
-          }
-          value[row[this.selectedCategory]].push(row);
-          return value;
-        }, {});
-        const traces = Object.keys(groupedData).map((group) => {
-          const groupData = groupedData[group];
+        const groups = data.groupBy(row => row[this.selectedCategory]);
+
+        const traces = Array.from(groups.entries()).map(([group, groupData]) => {
           return {
             name: group,
             type: "scatter",
@@ -152,6 +145,7 @@
             }
           };
         });
+
         return traces;
       },
 
