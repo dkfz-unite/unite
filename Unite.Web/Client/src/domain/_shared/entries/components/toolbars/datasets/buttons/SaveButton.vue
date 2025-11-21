@@ -145,25 +145,25 @@ export default {
         return clone;
       } else {
         if (this.domain == Settings.donors.domain) {
-          clone.donor.referenceId = selected.map(item => item.referenceId);
+          clone.donor.referenceId.value = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.mrs.domain) {
-          clone.mr.referenceId = selected.map(item => item.referenceId);
+          clone.mr.referenceId.value = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.materials.domain) {
-          clone.material.referenceId = selected.map(item => item.referenceId);
+          clone.material.referenceId.value = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.lines.domain) {
-          clone.line.referenceId = selected.map(item => item.referenceId);
+          clone.line.referenceId.value = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.organoids.domain) {
-          clone.organoid.referenceId = selected.map(item => item.referenceId);
+          clone.organoid.referenceId.value = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.xenografts.domain) {
-          clone.xenograft.referenceId = selected.map(item => item.referenceId);
+          clone.xenograft.referenceId.value = selected.map(item => item.referenceId);
         } else if (this.domain == Settings.genes.domain) {
-          clone.gene.symbol = selected.map(item => item.symbol);
+          clone.gene.symbol.value = selected.map(item => item.symbol);
         } else if (this.domain == Settings.sms.domain) {
-          clone.sm.id = selected.map(item => item.id);
+          clone.sm.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.cnvs.domain) {
-          clone.cnv.id = selected.map(item => item.id);
+          clone.cnv.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.svs.domain) {
-          clone.sv.id = selected.map(item => item.id);
+          clone.sv.id.value = selected.map(item => item.id);
         }
 
         return clone;

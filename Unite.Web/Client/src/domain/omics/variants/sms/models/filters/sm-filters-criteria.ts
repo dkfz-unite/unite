@@ -13,10 +13,14 @@ export default class SmFiltersCriteria extends VariantFiltersCriteria {
     this.type = new ValuesCriteria<string>(criteria.type);
   }
 
-  clone() {
-    let criteria = new SmFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new SmFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : SmFiltersCriteria {
+    return new SmFiltersCriteria(this);
   }
 }

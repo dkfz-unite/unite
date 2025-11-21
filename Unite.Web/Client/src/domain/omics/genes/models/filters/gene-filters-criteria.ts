@@ -31,10 +31,14 @@ export default class GeneFiltersCriteria extends FiltersCriteriaBase {
     this.hasExp = new BoolCriteria(criteria.hasExp);
   }
 
-  clone() {
-    let criteria = new GeneFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new GeneFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : GeneFiltersCriteria {
+    return new GeneFiltersCriteria(this);
   }
 }

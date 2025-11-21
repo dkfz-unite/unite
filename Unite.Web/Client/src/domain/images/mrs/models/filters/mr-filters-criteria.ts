@@ -17,10 +17,14 @@ export default class MrFiltersCriteria extends ImageFiltersCriteria {
     this.nonContrastEnhancing = new RangeCriteria(criteria.nonContrastEnhancing);
   }
 
-  clone() {
-    let criteria = new MrFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new MrFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : MrFiltersCriteria {
+    return new MrFiltersCriteria(this);
   }
 }

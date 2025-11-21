@@ -22,10 +22,14 @@ export default class MaterialFiltersCriteria extends SpecimenFiltersCriteria {
     this.source = new ValuesCriteria<string>(criteria.source);
   }
 
-  clone() {
-    let criteria = new MaterialFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new MaterialFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : MaterialFiltersCriteria {
+    return new MaterialFiltersCriteria(this);
   }
 }

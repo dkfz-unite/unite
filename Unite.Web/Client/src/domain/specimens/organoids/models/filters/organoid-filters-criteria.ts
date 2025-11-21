@@ -18,10 +18,14 @@ export default class OrganoidFiltersCriteria extends SpecimenFiltersCriteria {
     this.intervention = new ValuesCriteria<string>(criteria.intervention);
   }
 
-  clone() {
-    let criteria = new OrganoidFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new OrganoidFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : OrganoidFiltersCriteria {
+    return new OrganoidFiltersCriteria(this);
   }
 }

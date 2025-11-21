@@ -4,23 +4,20 @@
       v-model="xModel"
       :options="xOptions"
       label="XAxis"
-      outlined
-      dense
       class="q-mb-sm"
+      outlined dense
     />
     <q-select
       v-model="yModel"
       :options="yOptions"
       label="YAxis"
-      outlined
-      dense
+      outlined dense
     />
     <q-select
-      v-model="colorModel"
-      :options="colorOptions"
-      label="Coloring"
-      outlined
-      dense
+      v-model="categoryModel"
+      :options="categoryOptions"
+      label="Category"
+      outlined dense
     />
   </div>
 </template>
@@ -29,12 +26,14 @@
 export default {
   props: {
     pcs: { type: Array, required: true },
-    xAxis: String,
-    yAxis: String,
-    category: { type: Array, required: true },
-    categoryValue: String
+    categories: { type: Array, required: true },
+    xAxis: { type: String },
+    yAxis: { type: String },
+    category: { type: String }
   },
-  emits: ["update:xAxis", "update:yAxis", "update:categoryValue"],
+
+  emits: ["update:xAxis", "update:yAxis", "update:category"],
+
   computed: {
     xModel: {
       get() {
@@ -54,12 +53,12 @@ export default {
       },
     },
 
-    colorModel: {
+    categoryModel: {
       get() {
-        return this.categoryValue;
+        return this.category;
       },
       set(val) {
-        this.$emit("update:categoryValue", val);
+        this.$emit("update:category", val);
       },
     },
 
@@ -71,8 +70,8 @@ export default {
       return this.pcs.filter((pc) => pc !== this.xModel);
     },
 
-    colorOptions() {
-      return this.category.filter((x) => x !== this.colorModel);
+    categoryOptions() {
+      return this.categories.filter((x) => x !== this.categoryModel);
     },
   },
 };

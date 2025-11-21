@@ -13,10 +13,14 @@ export default class SvFiltersCriteria extends VariantFiltersCriteria {
     this.type = new ValuesCriteria<string>(criteria.type);
   }
 
-  clone() {
-    let criteria = new SvFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new SvFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : SvFiltersCriteria {
+    return new SvFiltersCriteria(this);
   }
 }

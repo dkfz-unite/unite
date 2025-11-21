@@ -61,10 +61,14 @@ export default class DonorFiltersCriteria extends FiltersCriteriaBase {
     this.hasExpSc = new BoolCriteria(criteria.hasExpSc);
   }
 
-  clone() {
-    let criteria = new DonorFiltersCriteria();
-    Object.assign(criteria, this);
+  // clone() {
+  //   let criteria = new DonorFiltersCriteria();
+  //   Object.assign(criteria, this);
 
-    return criteria;
+  //   return criteria;
+  // }
+
+  clone() : DonorFiltersCriteria {
+    return new DonorFiltersCriteria(this);
   }
 }
