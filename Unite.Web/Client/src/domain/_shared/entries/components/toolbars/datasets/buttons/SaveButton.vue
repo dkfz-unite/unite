@@ -145,19 +145,19 @@ export default {
         return clone;
       } else {
         if (this.domain == Settings.donors.domain) {
-          clone.donor.referenceId.value = selected.map(item => item.referenceId);
+          clone.donor.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.mrs.domain) {
-          clone.mr.referenceId.value = selected.map(item => item.referenceId);
+          clone.mr.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.materials.domain) {
-          clone.material.referenceId.value = selected.map(item => item.referenceId);
+          clone.material.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.lines.domain) {
-          clone.line.referenceId.value = selected.map(item => item.referenceId);
+          clone.line.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.organoids.domain) {
-          clone.organoid.referenceId.value = selected.map(item => item.referenceId);
+          clone.organoid.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.xenografts.domain) {
-          clone.xenograft.referenceId.value = selected.map(item => item.referenceId);
+          clone.xenograft.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.genes.domain) {
-          clone.gene.symbol.value = selected.map(item => item.symbol);
+          clone.gene.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.sms.domain) {
           clone.sm.id.value = selected.map(item => item.id);
         } else if (this.domain == Settings.cnvs.domain) {
