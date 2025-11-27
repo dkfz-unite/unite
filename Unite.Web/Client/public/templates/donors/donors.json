@@ -17,8 +17,8 @@
       "progression_status": false,
       "progression_status_change_date": "2021-01-01",
       "progression_status_change_day": null,
-      "kps_baseline": 90,
-      "steroids_baseline": true
+      "steroids_reactive": true,
+      "kps": 90
     }
   },
   {
@@ -39,8 +39,8 @@
       "progression_status": true,
       "progression_status_change_date": "2020-03-01",
       "progression_status_change_day": null,
-      "kps_baseline": 50,
-      "steroids_baseline": false
+      "steroids_reactive": false,
+      "kps": 50
     }
   }
 ]
