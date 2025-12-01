@@ -205,7 +205,7 @@ export default {
       if (ids.length > 1)
         await this.rejectSubmissions(ids, reason);
       else
-        await this.rejectSubmission(id, reason);
+        await this.rejectSubmission(ids[0], reason);
     },
 
     async loadSubmissions() {
