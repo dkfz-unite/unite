@@ -10,10 +10,10 @@
     "implanted_cells_number": 10500,
     "tumorigenicity": true,
     "molecular_data": {
-      "mgmt_status": "Methylated",
-      "idh_status": "Wild Type",
+      "mgmt_status": true,
+      "idh_status": false,
       "idh_mutation": null,
-      "gene_expression_subtype": "Classical",
+      "expression_subtype": "Classical",
       "methylation_subtype": "H3-K27",
       "gcimp_methylation": true,
       "gene_knockouts": ["EGFR", "PTEN"]
@@ -30,10 +30,12 @@
     "implanted_cells_number": 45000,
     "tumorigenicity": true,
     "molecular_data": {
-      "mgmt_status": "Unmethylated",
-      "idh_status": "Mutant",
+      "mgmt_status": false,
+      "idh_status": true,
       "idh_mutation": "IDH1 R132H",
-      "gene_expression_subtype": null,
+      "tert_status": true,
+      "tert_mutation": "C228T",
+      "expression_subtype": null,
       "methylation_subtype": null,
       "gcimp_methylation": false
     }
