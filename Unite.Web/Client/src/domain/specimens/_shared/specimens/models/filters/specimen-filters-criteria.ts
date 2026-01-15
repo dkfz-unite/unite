@@ -6,10 +6,15 @@ import FiltersCriteriaBase from "@/_shared/components/filters/filters-criteria-b
 export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
   id = new ValuesCriteria<number>();
   referenceId = new ValuesCriteria<string>();
-  mgmtStatus = new ValuesCriteria<string>();
-  idhStatus = new ValuesCriteria<string>();
+  condition = new ValuesCriteria<string>();
+  tumorType = new ValuesCriteria<string>();
+  tumorGrade = new RangeCriteria();
+  mgmtStatus = new BoolCriteria();
+  idhStatus = new BoolCriteria();
   idhMutation = new ValuesCriteria<string>();
-  geneExpressionSubtype = new ValuesCriteria<string>();
+  tertStatus = new BoolCriteria();
+  tertMutation = new ValuesCriteria<string>();
+  expressionSubtype = new ValuesCriteria<string>();
   methylationSubtype = new ValuesCriteria<string>();
   gCimpMethylation = new BoolCriteria();
   geneKnockout = new ValuesCriteria<string>();
@@ -32,10 +37,15 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
 
     this.id = new ValuesCriteria<number>(criteria.id);
     this.referenceId = new ValuesCriteria<string>(criteria.referenceId);
-    this.mgmtStatus = new ValuesCriteria<string>(criteria.mgmtStatus);
-    this.idhStatus = new ValuesCriteria<string>(criteria.idhStatus);
+    this.condition = new ValuesCriteria<string>(criteria.condition);
+    this.tumorType = new ValuesCriteria<string>(criteria.tumorType);
+    this.tumorGrade = new RangeCriteria(criteria.tumorGrade);
+    this.mgmtStatus = new BoolCriteria(criteria.mgmtStatus);
+    this.idhStatus = new BoolCriteria(criteria.idhStatus);
     this.idhMutation = new ValuesCriteria<string>(criteria.idhMutation);
-    this.geneExpressionSubtype = new ValuesCriteria<string>(criteria.geneExpressionSubtype);
+    this.tertStatus = new BoolCriteria(criteria.tertStatus);
+    this.tertMutation = new ValuesCriteria<string>(criteria.tertMutation);
+    this.expressionSubtype = new ValuesCriteria<string>(criteria.expressionSubtype);
     this.methylationSubtype = new ValuesCriteria<string>(criteria.methylationSubtype);
     this.gCimpMethylation = new BoolCriteria(criteria.gCimpMethylation);
     this.geneKnockout = new ValuesCriteria<string>(criteria.geneKnockout);

@@ -26,12 +26,8 @@
               <td>{{ specimen.material.creationDay }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Type</td>
-              <td>{{ specimen.material.type }}</td>
-            </tr>
-            <tr>
-              <td class="u-text-key">Fixation Type</td>
-              <td>{{ specimen.material.fixationType }}</td>
+              <td class="u-text-key">Condition</td>
+              <td>{{ specimen.material.condition }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Tumor Type</td>
@@ -40,6 +36,10 @@
             <tr>
               <td class="u-text-key">Tumor Grade</td>
               <td>{{ specimen.material.tumorGrade }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Fixation Type</td>
+              <td>{{ specimen.material.fixationType }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Source</td>
@@ -56,7 +56,8 @@
 
 export default {
   props: {
-    specimen: Object
+    specimen: Object,
+    required: true
   }
 }
 </script>

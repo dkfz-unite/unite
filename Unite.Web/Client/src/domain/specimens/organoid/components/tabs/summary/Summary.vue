@@ -6,9 +6,7 @@
 
     <div class="row">
       <div class="col">
-        <q-markup-table
-          class="table-strip" separator="cell"
-          dense flat bordered>
+        <q-markup-table class="table-strip" separator="cell" dense flat bordered>
           <colgroup>
             <col span="1" :style="{ width: $q.screen.lt.md ? '50%' : '30%' }" />
             <col span="1" :style="{ width: $q.screen.lt.md ? '50%' : '70%' }" />
@@ -26,6 +24,18 @@
             <tr>
               <td class="u-text-key">Creation Day</td>
               <td>{{ specimen.organoid.creationDay }}</td>
+            </tr>
+            <tr v-if="!!specimen.organoid.condition">
+              <td class="u-text-key">Condition</td>
+              <td>{{ specimen.organoid.condition }}</td>
+            </tr>
+            <tr v-if="!!specimen.organoid.tumorType">
+              <td class="u-text-key">Tumor Type</td>
+              <td>{{ specimen.organoid.tumorType }}</td>
+            </tr>
+            <tr v-if="!!specimen.organoid.tumorGrade">
+              <td class="u-text-key">Tumor Grade</td>
+              <td>{{ specimen.organoid.tumorGrade }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Implanted Cells Number</td>

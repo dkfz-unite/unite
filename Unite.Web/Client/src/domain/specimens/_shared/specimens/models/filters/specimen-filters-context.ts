@@ -1,7 +1,8 @@
 export default class SpecimenFiltersContext {
-  mgmtStatusOptions: any = null;
-  idhStatusOptions: any = null;
+  conditionOptions: any = null;
+  tumorTypeOptions: any = null;
   idhMutationOptions: any = null;
-  geneExpressionSubtypeOptions: any = null;
+  tertMutationOptions: any = null;
+  expressionSubtypeOptions: any = null;
   methylationSubtypeOptions: any = null;
 }

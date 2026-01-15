@@ -4,11 +4,10 @@ import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray, sanitiseRange } from "@/_shared/components/filters/filter-criteria-helpers";
-import specimenFilters from "../../../_shared/specimens/models/filters/specimen-filters";
+import { specimen, molecular, drugs } from "../../../_shared/specimens/models/filters/specimen-filters";
 
 const filters = [
-  specimenFilters[0],
-  specimenFilters[1],
+  ...specimen,
   {
     field: "mouseStrain",
     label: "Mouse Strain",
@@ -49,8 +48,8 @@ const filters = [
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.tumorGrowthFormOptions, TumorGrowthForm.values)
   },
-  specimenFilters[2],
-  specimenFilters[3]
+  ...molecular,
+  ...drugs
 ];
 
 export default filters;

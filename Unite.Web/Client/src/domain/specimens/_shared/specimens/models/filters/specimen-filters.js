@@ -1,7 +1,8 @@
-import MgmtStatus from "../enums/mgmt-status";
-import IdhStatus from "../enums/idh-status";
+import ConditionType from "../enums/condition-type";
+import TumorType from "../enums/tumor-type";
 import IdhMutation from "../enums/idh_mutation";
-import GeneExpressionSubtype from "../enums/gene-expression-subtype";
+import TertMutation from "../enums/tert-mutation";
+import ExpressionSubtype from "../enums/expression-subtype";
 import MethylationSubtype from "../enums/methylation-subtype";
 
 import FilterType from "@/_shared/components/filters/filter-type";
@@ -9,7 +10,7 @@ import ValueType from "@/_shared/components/filters/filter-value-type";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
 
-const filters = [
+const specimen = [
   {
     field: "id",
     label: "ID",
@@ -27,27 +28,64 @@ const filters = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
+    field: "condition",
+    label: "Condition",
+    type: FilterType.Options,
+    valueType: ValueType.String,
+    options: (context) => mapOptions(context?.conditionOptions, ConditionType.values),
+    watch: (value, criteria, context) => {
+      criteria.tumorType.value = [];
+      // criteria.tumorGrade.value = null;
+    }
+  },
+  {
+    field: "tumorType",
+    label: "Tumor Type",
+    type: FilterType.Options,
+    valueType: ValueType.String,
+    options: (context) => mapOptions(context?.tumorTypeOptions, TumorType.values),
+    show: (value, criteria, context) => {
+      return criteria.condition?.value?.length == 1 
+          && criteria.condition.value[0] == ConditionType.Tumor;
+    }
+  },
+  {
+    field: "tumorGrade",
+    label: "Tumor Grade",
+    labelFrom: "Tumor Grade (From)",
+    labelTo: "Tumor Grade (To)",
+    placeholderFrom: "e.g. 1",
+    placeholderTo: "e.g. 5",
+    type: FilterType.Range,
+    valueType: ValueType.Number,
+    expandable: false,
+    sanitize: (value) => sanitiseRange(value),
+    show: (value, criteria, context) => {
+      return criteria.condition?.value?.length == 1 
+          && criteria.condition.value[0] == ConditionType.Tumor;
+    }
+  }
+];
+
+const molecular = [
+  {
     group: "molecular",
     label: "Molecular Data",
     expand: false,
     filters: [
       {
         field: "mgmtStatus",
-        label: "MGMT Status",
-        type: FilterType.Options,
-        valueType: ValueType.String,
-        options: (context) => mapOptions(context?.mgmtStatusOptions, MgmtStatus.values)
+        label: "MGMT Methylated",
+        type: FilterType.Boolean,
+        default: null
       },
       {
         field: "idhStatus",
-        label: "IDH Status",
-        type: FilterType.Options,
-        valueType: ValueType.String,
-        options: (context) => mapOptions(context?.idhStatusOptions, IdhStatus.values),
+        label: "IDH Mutated",
+        type: FilterType.Boolean,
+        default: null,
         watch: (value, criteria, context) => {
           criteria.idhMutation.value = [];
-          criteria.geneExpressionSubtype.value = [];
-          criteria.methylationSubtype.value = [];
         }
       },
       {
@@ -57,31 +95,41 @@ const filters = [
         valueType: ValueType.String,
         options: (context) => mapOptions(context?.idhMutationOptions, IdhMutation.values),
         show: (value, criteria, context) => {
-          return criteria.idhStatus?.value?.length == 1 
-              && criteria.idhStatus.value[0] == IdhStatus.Mutant;
+          return criteria.idhStatus.value == true;
         }
       },
       {
-        field: "geneExpressionSubtype",
-        label: "Gene Expression Subtype",
+        field: "tertStatus",
+        label: "TERT Mutated",
+        type: FilterType.Boolean,
+        default: null,
+        watch: (value, criteria, context) => {
+          criteria.tertMutation.value = [];
+        }
+      },
+      {
+        field: "tertMutation",
+        label: "TERT Mutation",
         type: FilterType.Options,
         valueType: ValueType.String,
-        options: (context) => mapOptions(context?.idhMutationOptions, GeneExpressionSubtype.values),
+        options: (context) => mapOptions(context?.tertMutationOptions, TertMutation.values),
         show: (value, criteria, context) => {
-          return criteria.idhStatus?.value?.length == 1 
-              && criteria.idhStatus.value[0] == IdhStatus.WildType;
+          return criteria.tertStatus.value == true;
         }
+      },
+      {
+        field: "expressionSubtype",
+        label: "Expression Subtype",
+        type: FilterType.Options,
+        valueType: ValueType.String,
+        options: (context) => mapOptions(context?.expressionSubtypeOptions, ExpressionSubtype.values)
       },
       {
         field: "methylationSubtype",
         label: "Methylation Subtype",
         type: FilterType.Options,
         valueType: ValueType.String,
-        options: (context) => mapOptions(context?.idhMutationOptions, MethylationSubtype.values),
-        show: (value, criteria, context) => {
-          return criteria.idhStatus?.value?.length == 1 
-              && criteria.idhStatus.value[0] == IdhStatus.WildType;
-        }
+        options: (context) => mapOptions(context?.methylationSubtypeOptions, MethylationSubtype.values)
       },
       {
         field: "gCimpMethylation",
@@ -98,7 +146,10 @@ const filters = [
         sanitize: (value) => sanitiseArray(value)
       }
     ]
-  },
+  }
+];
+
+const drugs = [
   {
     group: "drugs",
     label: "Drug Screening",
@@ -126,4 +177,17 @@ const filters = [
   }
 ];
 
-export default filters;
+const all = [
+  ...specimen,
+  ...molecular,
+  ...drugs
+];
+
+export default all;
+
+export {
+  specimen,
+  molecular,
+  drugs,
+  all
+};
