@@ -67,6 +67,48 @@ const specimen = [
   }
 ];
 
+const classification = [
+  {
+    group: "classification",
+    label: "Tumor Classification",
+    expand: false,
+    show: (value, criteria, context) => {
+      return criteria.condition?.value?.length == 1 
+          && criteria.condition.value[0] == ConditionType.Tumor;
+    },
+    filters: [
+      {
+        field: "tumorSuperfamily",
+        label: "Superfamily",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value)
+      },
+      {
+        field: "tumorFamily",
+        label: "Family",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value)
+      },
+      {
+        field: "tumorClass",
+        label: "Class",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value)
+      },
+      {
+        field: "tumorSubclass",
+        label: "Subclass",
+        type: FilterType.Values,
+        valueType: ValueType.String,
+        sanitize: (value) => sanitiseArray(value)
+      }
+    ]
+  }
+];
+
 const molecular = [
   {
     group: "molecular",
@@ -179,6 +221,7 @@ const drugs = [
 
 const all = [
   ...specimen,
+  ...classification,
   ...molecular,
   ...drugs
 ];
@@ -187,6 +230,7 @@ export default all;
 
 export {
   specimen,
+  classification,
   molecular,
   drugs,
   all

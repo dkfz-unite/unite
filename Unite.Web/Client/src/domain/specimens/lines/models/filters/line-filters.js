@@ -6,7 +6,7 @@ import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
-import { specimen, molecular, drugs } from "../../../_shared/specimens/models/filters/specimen-filters";
+import { specimen, classification, molecular, drugs } from "../../../_shared/specimens/models/filters/specimen-filters";
 
 const filters = [
   ...specimen,
@@ -47,6 +47,7 @@ const filters = [
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
   },
+  ...classification,
   ...molecular,
   ...drugs
 ];

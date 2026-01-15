@@ -9,6 +9,10 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
   condition = new ValuesCriteria<string>();
   tumorType = new ValuesCriteria<string>();
   tumorGrade = new RangeCriteria();
+  tumorSuperfamily = new ValuesCriteria<string>();
+  tumorFamily = new ValuesCriteria<string>();
+  tumorClass = new ValuesCriteria<string>();
+  tumorSubclass = new ValuesCriteria<string>();
   mgmtStatus = new BoolCriteria();
   idhStatus = new BoolCriteria();
   idhMutation = new ValuesCriteria<string>();
@@ -40,6 +44,10 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
     this.condition = new ValuesCriteria<string>(criteria.condition);
     this.tumorType = new ValuesCriteria<string>(criteria.tumorType);
     this.tumorGrade = new RangeCriteria(criteria.tumorGrade);
+    this.tumorSuperfamily = new ValuesCriteria<string>(criteria.tumorSuperfamily);
+    this.tumorFamily = new ValuesCriteria<string>(criteria.tumorFamily);
+    this.tumorClass = new ValuesCriteria<string>(criteria.tumorClass);
+    this.tumorSubclass = new ValuesCriteria<string>(criteria.tumorSubclass);
     this.mgmtStatus = new BoolCriteria(criteria.mgmtStatus);
     this.idhStatus = new BoolCriteria(criteria.idhStatus);
     this.idhMutation = new ValuesCriteria<string>(criteria.idhMutation);
