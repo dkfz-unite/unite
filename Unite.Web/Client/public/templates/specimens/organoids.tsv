@@ -1,3 +1,5 @@
 id	donor_id	parent_id	parent_type	creation_date	creation_day	medium	implanted_cells_number	tumorigenicity	mgmt_status	idh_status	idh_mutation	tert_status	tert_mutation	expression_subtype	methylation_subtype	gcimp_methylation	gene_knockouts
-Organoid1	Donor1	Line1	Line	2020-02-05		Medium1	10500	true	true	false				Classical	H3-K27	true	EGFR, PTEN
-Organoid1	Donor2	Line1	Line	2020-02-05		Medium2	45000	true	false	true	IDH1 R132H	true	C228T			false
+SOG001	D001	SLN001	Line	2024-07-02		DMEM/F12 + B27 + N2 + EGF 20 ng/mL + FGF2 20 ng/mL	500000	true	true	false		true	C228T	Classical	RTKII	false	EGFR, PTEN
+SOG002	D001	SLN001	Line	2024-07-02		DMEM/F12 + B27 + N2 + EGF 20 ng/mL + FGF2 20 ng/mL	500000	true	true	false		true	C228T	Classical	RTKII	false	EGFR, PTEN
+SOG001	D003	SLN001	Line	2022-09-20		DMEM/F12 + B27 + N2 + EGF 20 ng/mL + FGF2 20 ng/mL	600000	true	false	false		true	C228T	Mesenchymal	RTKI	false	EGFR, PTEN
+SOG002	D003	SLN001	Line	2022-09-20		DMEM/F12 + B27 + N2 + EGF 20 ng/mL + FGF2 20 ng/mL	600000	true	false	false		true	C228T	Mesenchymal	RTKI	false	EGFR, PTEN

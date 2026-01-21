@@ -1,46 +1,168 @@
 [
   {
-    "id": "Donor1",
+    "id": "D001",
     "mta": true,
-    "projects": [ "Project1" ],
-    "studies": [ "Study1" ],
+    "projects": [
+      "PRG001"
+    ],
+    "studies": [
+      "STD001"
+    ],
     "clinical_data": {
+      "enrollment_date": "2024-06-14",
+      "enrollment_age": 46,
       "sex": "Female",
-      "enrollment_date": "2020-01-01",
-      "enrollment_age": 45,
-      "diagnosis": "Diagnosis1",
+      "diagnosis": "Glioblastoma",
       "primary_site": "Brain",
       "localization": "Left",
       "vital_status": true,
-      "vital_status_change_date": "2021-01-01",
+      "vital_status_change_date": null,
       "vital_status_change_day": null,
       "progression_status": false,
-      "progression_status_change_date": "2021-01-01",
+      "progression_status_change_date": null,
       "progression_status_change_day": null,
       "steroids_reactive": true,
       "kps": 90
-    }
+    },
+    "treatments": [
+      {
+        "therapy": "Surgery",
+        "details": "Left frontal lobe tumor; gross total resection; no complications.",
+        "start_date": "2024-06-18",
+        "start_day": null,
+        "end_date": "2024-06-18",
+        "duration_days": null,
+        "results": "Post-op MRI indicates near-total resection."
+      },
+      {
+        "therapy": "Temozolomide",
+        "details": "Stupp protocol: 5/28-day cycles, total of 6 cycles.",
+        "start_date": "2024-07-15",
+        "start_day": null,
+        "end_date": "2024-12-01",
+        "duration_days": null,
+        "results": "No evidence of progression at 6 months."
+      }
+    ]
   },
   {
-    "id": "Donor2",
+    "id": "D002",
     "mta": true,
-    "projects": [ "Project1" ],
-    "studies": [ "Study1" ],
+    "projects": [
+      "PRG001"
+    ],
+    "studies": [
+      "STD001"
+    ],
     "clinical_data": {
+      "enrollment_date": "2022-05-20",
+      "enrollment_age": 74,
       "sex": "Female",
-      "enrollment_date": "2020-01-01",
-      "enrollment_age": 75,
-      "diagnosis": "Diagnosis1",
+      "diagnosis": "Glioblastoma",
       "primary_site": "Brain",
       "localization": "Right",
       "vital_status": false,
-      "vital_status_change_date": "2021-01-01",
+      "vital_status_change_date": "2023-01-15",
       "vital_status_change_day": null,
       "progression_status": true,
-      "progression_status_change_date": "2020-03-01",
+      "progression_status_change_date": "2022-10-01",
       "progression_status_change_day": null,
       "steroids_reactive": false,
       "kps": 50
-    }
+    },
+    "treatments": [
+      {
+        "therapy": "Chemoradiation",
+        "details": "Hypofractionated RT (40 Gy/15 fx) with temozolomide due to poor performance status.",
+        "start_date": "2022-05-30",
+        "start_day": null,
+        "end_date": "2022-06-20",
+        "duration_days": null,
+        "results": "Initial disease control; early progression noted."
+      }
+    ]
+  },
+  {
+    "id": "D003",
+    "mta": true,
+    "projects": [
+      "PRG001"
+    ],
+    "studies": [
+      "STD001"
+    ],
+    "clinical_data": {
+      "enrollment_date": "2022-09-03",
+      "enrollment_age": 47,
+      "sex": "Male",
+      "diagnosis": "Glioblastoma",
+      "primary_site": "Brain",
+      "localization": "Left",
+      "vital_status": true,
+      "vital_status_change_date": null,
+      "vital_status_change_day": null,
+      "progression_status": false,
+      "progression_status_change_date": null,
+      "progression_status_change_day": null,
+      "steroids_reactive": true,
+      "kps": 90
+    },
+    "treatments": [
+      {
+        "therapy": "Surgery",
+        "details": "Left temporal lobe; subtotal resection due to proximity to eloquent cortex.",
+        "start_date": "2022-09-06",
+        "start_day": null,
+        "end_date": "2022-09-06",
+        "duration_days": null,
+        "results": "Residual tumor noted on post-op MRI."
+      },
+      {
+        "therapy": "Temozolomide",
+        "details": "6 cycles adjuvant TMZ per Stupp protocol.",
+        "start_date": "2022-10-03",
+        "start_day": null,
+        "end_date": "2023-03-20",
+        "duration_days": null,
+        "results": "Stable disease through adjuvant therapy."
+      }
+    ]
+  },
+  {
+    "id": "D004",
+    "mta": true,
+    "projects": [
+      "PRG001"
+    ],
+    "studies": [
+      "STD001"
+    ],
+    "clinical_data": {
+      "sex": "Male",
+      "enrollment_date": "2021-11-05",
+      "enrollment_age": 76,
+      "diagnosis": "Glioblastoma",
+      "primary_site": "Brain",
+      "localization": "Right",
+      "vital_status": false,
+      "vital_status_change_date": "2022-07-12",
+      "vital_status_change_day": null,
+      "progression_status": true,
+      "progression_status_change_date": "2022-02-10",
+      "progression_status_change_day": null,
+      "steroids_reactive": false,
+      "kps": 50
+    },
+    "treatments": [
+      {
+        "therapy": "Chemoradiation",
+        "details": "Standard RT (60 Gy/30 fx) with temozolomide; treatment interrupted twice due to fatigue.",
+        "start_date": "2021-11-15",
+        "start_day": null,
+        "end_date": "2021-12-27",
+        "duration_days": null,
+        "results": "Partial response; progression within months."
+      }
+    ]
   }
 ]

@@ -1,6 +1,11 @@
-id	donor_id	parent_id	parent_type	creation_date	creation_day	type	fixation_type	tumor_type	tumor_grade	source	mgmt_status	idh_status	idh_mutation	tert_status	tert_mutation	expression_subtype	methylation_subtype	gcimp_methylation	gene_knockouts
-Material1	Donor1			2020-01-15		Normal	Fresh Frozen			Blood								
-Material2	Donor1			2020-01-15		Tumor	FFPE	Primary	1	Tissue	true	false		false		Classical	H3-K27	true	EGFR, PTEN
-Material1	Donor2			2020-01-15		Normal	Fresh Frozen			Blood									
-Material2	Donor2			2020-01-15		Tumor	FFPE	Primary	1	Tissue	false	true	IDH1 R132H	true	C228T			false	
-Material3	Donor2			2020-03-01		Tumor	FFPE	Recurrent	2	CSF	false	true	IDH1 R132H	true	C228T			false
+id	donor_id	parent_id	parent_type	creation_date	creation_day	condition	tumor_type	tumor_grade	fixation_type	source	tumor_superfamily	tumor_family	tumor_class	tumor_subclass	mgmt_status	idh_status	idh_mutation	tert_status	tert_mutation	expression_subtype	methylation_subtype	gcimp_methylation	gene_knockouts
+SMT001	D001			2024-06-14		Normal			Fresh Frozen	Blood												
+SMT002	D001			2024-06-18		Tumor	Primary	4	FFPE	Tissue	Glioma	Diffuse glioma	Glioblastoma	IDH-wildtype	true	false		true	C228T	Classical	RTKII	false	EGFR, PTEN
+SMT003	D001			2025-04-10		Tumor	Recurrent	4	Fresh Frozen	CSF	Glioma	Diffuse glioma	Glioblastoma	IDH-wildtype	true	false		true	C228T	Classical	Mesenchymal	false	EGFR, PTEN
+SMT001	D002			2022-05-20		Normal			Fresh Frozen	Blood												
+SMT002	D002			2022-10-05		Tumor	Recurrent	4	Fresh Frozen	CSF	Glioma	Diffuse glioma	Glioblastoma	IDH-mutant	true	true	IDH1 R132H	false				true	TP53, ATRX
+SMT001	D003			2022-09-03		Normal			Fresh Frozen	Blood												
+SMT002	D003			2022-09-06		Tumor	Primary	4	Fresh Frozen	Tissue	Glioma	Diffuse glioma	Glioblastoma	IDH-wildtype	false	false		true	C228T	Mesenchymal	RTKI	false	EGFR, PTEN
+SMT003	D003			2023-08-15		Tumor	Recurrent	4	Fresh Frozen	CSF	Glioma	Diffuse glioma	Glioblastoma	IDH-wildtype	false	false		true	C228T	Mesenchymal	Mesenchymal	false	EGFR, PTEN
+SMT001	D004			2021-11-05		Normal			Fresh Frozen	Blood												
+SMT002	D004			2022-02-15		Tumor	Recurrent	4	Fresh Frozen	CSF	Glioma	Diffuse glioma	Glioblastoma	IDH-mutant	true	true	IDH1 R132H	false				true	TP53, ATRX

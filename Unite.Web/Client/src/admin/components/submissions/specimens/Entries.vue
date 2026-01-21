@@ -49,7 +49,7 @@ export default {
 
   mounted() {
     const ignore = ["id", "parent_id", "parent_type", "donor_id", "creation_date", "creation_day", "interventions"];
-    const flatten = ["material", "line", "organoid", "xenograft", "info", "molecular_data"];
+    const flatten = ["material", "line", "organoid", "xenograft", "info", "tumor_classification", "molecular_data"];
 
     this.specimenRows = this.data
       .map(spe => ({
