@@ -25,6 +25,18 @@
               <td class="u-text-key">Creation Day</td>
               <td>{{ specimen.line.creationDay }}</td>
             </tr>
+            <tr v-if="!!specimen.line.condition">
+              <td class="u-text-key">Condition</td>
+              <td>{{ specimen.line.condition }}</td>
+            </tr>
+            <tr v-if="!!specimen.line.tumorType">
+              <td class="u-text-key">Tumor Type</td>
+              <td>{{ specimen.line.tumorType }}</td>
+            </tr>
+            <tr v-if="!!specimen.line.tumorGrade">
+              <td class="u-text-key">Tumor Grade</td>
+              <td>{{ specimen.line.tumorGrade }}</td>
+            </tr>
             <tr>
               <td class="u-text-key">Species</td>
               <td>{{ specimen.line.cellsSpecies }}</td>
@@ -45,9 +57,12 @@
 </template>
 
 <script>
+import { specimen } from '@/domain/specimens/_shared/specimens/models/filters/specimen-filters';
+
 export default {
   props: {
-    specimen: Object
+    specimen: Object,
+    required: true
   }
 }
 </script>

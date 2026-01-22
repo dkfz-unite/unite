@@ -1,4 +1,4 @@
-export default class GeneExpressionSubtype {
+export default class ExpressionSubtype {
     static values = {
         "Classical": "Classical",
         "Mesenchymal": "Mesenchymal",

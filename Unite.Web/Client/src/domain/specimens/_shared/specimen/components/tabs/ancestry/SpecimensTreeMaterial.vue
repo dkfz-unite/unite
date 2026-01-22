@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import MaterialType from "@/domain/specimens/materials/models/enums/material-type";
-import TumorType from "@/domain/specimens/materials/models/enums/tumor-type";
+import ConditionType from "@/domain/specimens/_shared/specimens/models/enums/condition-type";
+import TumorType from "@/domain/specimens/_shared/specimens/models/enums/tumor-type";
 
 export default {
   props: {
@@ -30,18 +30,18 @@ export default {
   },
 
   methods: {
-    getType(specimen) {
-      if (specimen.type === MaterialType.Normal) {
-        return specimen.type;
-      } else if (specimen.type === MaterialType.Tumor) {
-        return specimen.tumorType ?? specimen.type;
+    getType(specimen) {     
+      if (specimen.condition === ConditionType.Normal) {
+        return specimen.condition;
+      } else if (specimen.condition === ConditionType.Tumor) {
+        return specimen.tumorType ?? specimen.condition;
       } else {
         return "Unknown";
       }
     },
 
     getColor(specimen) {
-      if (specimen.type === MaterialType.Normal) {
+      if (specimen.condition === ConditionType.Normal) {
         return "text-green";
       } else if (specimen.tumorType === TumorType.Primary) {
         return "text-blue-5";
@@ -49,7 +49,7 @@ export default {
         return "text-blue-7";
       } else if (specimen.tumorType === TumorType.Recurrent) {
         return "text-blue-9";
-      } else if (specimen.type === MaterialType.Tumor) {
+      } else if (specimen.condition === ConditionType.Tumor) {
         return "text-blue-5";
       } else {
         return "text-black";

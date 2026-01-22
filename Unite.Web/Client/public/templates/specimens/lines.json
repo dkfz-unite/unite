@@ -1,59 +1,64 @@
 [
   {
-    "id": "Line1",
-    "donor_id": "Donor1",
-    "parent_id": "Material2",
+    "id": "SLN001",
+    "donor_id": "D001",
+    "parent_id": "SMT002",
     "parent_type": "Material",
-    "creation_date": "2020-02-01",
-    "creation_day": null,
-    "cells_species": "Human",
-    "cells_type": "Stem Cell",
-    "cells_culture_type": "Suspension",
-    "info": {
-      "name": "D1M2L1",
-      "depositor_name": "Depositor Golden",
-      "depositor_establishment": "Line Deposition Centre",
-      "establishment_date": "2020-02-01",
-      "pubmed_link": "https://pubmed.ncbi.nlm.nih.gov",
-      "atcc_link": "https://www.atcc.org",
-      "expasy_link": "https://www.expasy.org"
-    },
-    "molecular_data": {
-      "mgmt_status": "Methylated",
-      "idh_status": "Wild Type",
-      "idh_mutation": null,
-      "gene_expression_subtype": "Classical",
-      "methylation_subtype": "H3-K27",
-      "gcimp_methylation": true,
-      "gene_knockouts": ["EGFR", "PTEN"]
-    }
-  },
-  {
-    "id": "Line1",
-    "donor_id": "Donor2",
-    "parent_id": "Material2",
-    "parent_type": "Material",
-    "creation_date": "2020-02-01",
+    "creation_date": "2024-06-25",
     "creation_day": null,
     "cells_species": "Human",
     "cells_type": "Differentiated",
     "cells_culture_type": "Adherent",
     "info": {
-      "name": "D2M2L1",
+      "name": "D001-SMT002-SLN001",
       "depositor_name": "Depositor Golden",
       "depositor_establishment": "Line Deposition Centre",
-      "establishment_date": "2020-02-01",
+      "establishment_date": "2024-06-25",
       "pubmed_link": "https://pubmed.ncbi.nlm.nih.gov",
       "atcc_link": "https://www.atcc.org",
       "expasy_link": "https://www.expasy.org"
     },
     "molecular_data": {
-      "mgmt_status": "Unmethylated",
-      "idh_status": "Mutant",
-      "idh_mutation": "IDH1 R132H",
-      "gene_expression_subtype": null,
-      "methylation_subtype": null,
-      "gcimp_methylation": false
+      "mgmt_status": true,
+      "idh_status": false,
+      "idh_mutation": null,
+      "tert_status": true,
+      "tert_mutation": "C228T",
+      "expression_subtype": "Classical",
+      "methylation_subtype": "RTKII",
+      "gcimp_methylation": false,
+      "gene_knockouts": ["EGFR", "PTEN"]
+    }
+  },
+  {
+    "id": "SLN001",
+    "donor_id": "D003",
+    "parent_id": "SMT002",
+    "parent_type": "Material",
+    "creation_date": "2022-09-13",
+    "creation_day": null,
+    "cells_species": "Human",
+    "cells_type": "Differentiated",
+    "cells_culture_type": "Adherent",
+    "info": {
+      "name": "D003-SMT002-SLN001",
+      "depositor_name": "Depositor Golden",
+      "depositor_establishment": "Line Deposition Centre",
+      "establishment_date": "2022-09-13",
+      "pubmed_link": "https://pubmed.ncbi.nlm.nih.gov",
+      "atcc_link": "https://www.atcc.org",
+      "expasy_link": "https://www.expasy.org"
+    },
+    "molecular_data": {
+      "mgmt_status": false,
+      "idh_status": false,
+      "idh_mutation": null,
+      "tert_status": true,
+      "tert_mutation": "C228T",
+      "expression_subtype": "Mesenchymal",
+      "methylation_subtype": "RTKI",
+      "gcimp_methylation": false,
+      "gene_knockouts": ["EGFR", "PTEN"]
     }
   }
 ]

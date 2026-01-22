@@ -4,6 +4,7 @@
       <!-- Filters group -->
       <template v-if="filter.group">
         <q-expansion-item
+          v-if="showFilter(filter)"
           :label="filter.label"
           :model-value="filter.expand != null ? filter.expand : true"
           dense dense-toggle>

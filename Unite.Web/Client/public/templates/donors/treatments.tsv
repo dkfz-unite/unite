@@ -1,5 +1,7 @@
 donor_id	therapy	details	start_date	start_day	end_date	duration_days	results
-Donor1	Therapy1	Patient specific therapy details.	2020-01-15		2020-01-15		Patient specific therapy results.
-Donor1	Therapy2	Patient specific therapy details.	2020-02-01		2020-03-01		Patient specific therapy results.
-Donor2	Therapy1	Patient specific therapy details.	2020-01-15		2020-01-15		Patient specific therapy results.
-Donor2	Therapy2	Patient specific therapy details.	2020-02-01		2020-03-01		Patient specific therapy results.
+D001	Surgery	Left frontal lobe tumor; gross total resection; no complications.	2024-06-18		2024-06-18		Post-op MRI indicates near-total resection.
+D001	Temozolomide	Stupp protocol: 5/28-day cycles, total of 6 cycles.	2024-07-15		2024-12-01		No evidence of progression at 6 months.
+D002	Chemoradiation	Hypofractionated RT (40 Gy/15 fx) with temozolomide due to poor performance status.	2022-05-30		2022-06-20		Initial disease control; early progression noted.
+D003	Surgery	Left temporal lobe; subtotal resection due to proximity to eloquent cortex.	2022-09-06		2022-09-06		Residual tumor noted on post-op MRI.
+D003	Temozolomide	6 cycles adjuvant TMZ per Stupp protocol.	2022-10-03		2023-03-20		Stable disease through adjuvant therapy.
+D004	Chemoradiation	Standard RT (60 Gy/30 fx) with temozolomide; treatment interrupted twice due to fatigue.	2021-11-15		2021-12-27		Partial response; progression within months.

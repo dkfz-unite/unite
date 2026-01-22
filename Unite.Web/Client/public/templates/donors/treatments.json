@@ -1,47 +1,75 @@
 [
   {
-    "donor_id": "Donor1",
+    "donor_id": "D001",
     "entries": [
       {
-        "therapy": "Therapy1",
-        "details": "Patient specific therapy details.",
-        "start_date": "2020-01-15",
+        "therapy": "Surgery",
+        "details": "Left frontal lobe tumor; gross total resection; no complications.",
+        "start_date": "2024-06-18",
         "start_day": null,
-        "end_date": "2020-01-15",
+        "end_date": "2024-06-18",
         "duration_days": null,
-        "results": "Patient specific therapy results."
+        "results": "Post-op MRI indicates near-total resection."
       },
       {
-        "therapy": "Therapy2",
-        "details": "Patient specific therapy details.",
-        "start_date": "2020-02-01",
+        "therapy": "Temozolomide",
+        "details": "Stupp protocol: 5/28-day cycles, total of 6 cycles.",
+        "start_date": "2024-07-15",
         "start_day": null,
-        "end_date": "2020-03-01",
+        "end_date": "2024-12-01",
         "duration_days": null,
-        "results": "Patient specific therapy results."
+        "results": "No evidence of progression at 6 months."
       }
     ]
   },
   {
-    "donor_id": "Donor2",
+    "donor_id": "D002",
     "entries": [
       {
-        "therapy": "Therapy1",
-        "details": "Patient specific therapy details.",
-        "start_date": "2020-01-15",
+        "therapy": "Chemoradiation",
+        "details": "Hypofractionated RT (40 Gy/15 fx) with temozolomide due to poor performance status.",
+        "start_date": "2022-05-30",
         "start_day": null,
-        "end_date": "2020-01-15",
+        "end_date": "2022-06-20",
         "duration_days": null,
-        "results": "Patient specific therapy results."
+        "results": "Initial disease control; early progression noted."
+      }
+    ]
+  },
+  {
+    "donor_id": "D003",
+    "entries": [
+      {
+        "therapy": "Surgery",
+        "details": "Left temporal lobe; subtotal resection due to proximity to eloquent cortex.",
+        "start_date": "2022-09-06",
+        "start_day": null,
+        "end_date": "2022-09-06",
+        "duration_days": null,
+        "results": "Residual tumor noted on post-op MRI."
       },
       {
-        "therapy": "Therapy2",
-        "details": "Patient specific therapy details.",
-        "start_date": "2020-02-01",
+        "therapy": "Temozolomide",
+        "details": "6 cycles adjuvant TMZ per Stupp protocol.",
+        "start_date": "2022-10-03",
         "start_day": null,
-        "end_date": "2020-03-01",
+        "end_date": "2023-03-20",
         "duration_days": null,
-        "results": "Patient specific therapy results."
+        "results": "Stable disease through adjuvant therapy."
+      }
+    ]
+  },
+  {
+    "donor_id": "D004",
+    "entries": [
+      {
+        "therapy": "Chemoradiation",
+        "details": "Standard RT (60 Gy/30 fx) with temozolomide; treatment interrupted twice due to fatigue.",
+        "start_date": "2021-11-15",
+        "start_day": null,
+        "end_date": "2021-12-27",
+        "duration_days": null,
+        "results": "Partial response; progression within months."
       }
     ]
   }

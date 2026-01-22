@@ -1,151 +1,97 @@
 [
   {
-    "donor_id": "Donor1",
-    "specimen_id": "Line1",
-    "specimen_type": "Line",
-    "entries": [
-      {
-        "type": "Drug1",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-05",
-        "start_day": null,
-        "end_date": "2020-02-10",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
-      },
-      {
-        "type": "Drug2",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-10",
-        "start_day": null,
-        "end_date": "2020-02-15",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
-      }
-    ]
-  },
-  {
-    "donor_id": "Donor2",
-    "specimen_id": "Line1",
-    "specimen_type": "Line",
-    "entries": [
-      {
-        "type": "Drug1",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-05",
-        "start_day": null,
-        "end_date": "2020-02-10",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
-      },
-      {
-        "type": "Drug2",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-10",
-        "start_day": null,
-        "end_date": "2020-02-15",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
-      }
-    ]
-  },
-  {
-    "donor_id": "Donor1",
-    "specimen_id": "Organoid1",
+    "donor_id": "D001",
+    "specimen_id": "SOG002",
     "specimen_type": "Organoid",
     "entries": [
       {
-        "type": "Drug1",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-05",
+        "type": "Panobinostat",
+        "details": "Panobinostat exposure on organoids: 20 nM, 72h cycles with media refresh; selected as top GOF from DSA.",
+        "start_date": "2024-07-02",
         "start_day": null,
-        "end_date": "2020-02-10",
+        "end_date": "2024-07-16",
         "duration_days": null,
-        "results": "Specimen specific intervention results"
-      },
-      {
-        "type": "Drug2",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-10",
-        "start_day": null,
-        "end_date": "2020-02-15",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
+        "results": "~80–90% viability reduction by day 7; compact spheroid morphology and reduced proliferation markers."
       }
     ]
   },
   {
-    "donor_id": "Donor2",
-    "specimen_id": "Organoid1",
+    "donor_id": "D003",
+    "specimen_id": "SOG002",
     "specimen_type": "Organoid",
     "entries": [
       {
-        "type": "Drug1",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-05",
+        "type": "Temozolomide",
+        "details": "Temozolomide exposure on organoids: 100 μM, 48h on/24h off cycles; top GOF from DSA.",
+        "start_date": "2022-09-20",
         "start_day": null,
-        "end_date": "2020-02-10",
+        "end_date": "2022-10-04",
         "duration_days": null,
-        "results": "Specimen specific intervention results"
-      },
-      {
-        "type": "Drug2",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-10",
-        "start_day": null,
-        "end_date": "2020-02-15",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
+        "results": "~60–75% viability reduction; increased apoptosis markers; growth delay versus untreated." 
       }
     ]
   },
   {
-    "donor_id": "Donor1",
-    "specimen_id": "Xenograft1",
+    "donor_id": "D001",
+    "specimen_id": "SXG002",
     "specimen_type": "Xenograft",
     "entries": [
       {
-        "type": "Drug1",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-05",
+        "type": "Paclitaxel",
+        "details": "Paclitaxel 10 mg/kg IV weekly ×3 starting at implantation; second-highest efficacy by GOF.",
+        "start_date": "2024-07-09",
         "start_day": null,
-        "end_date": "2020-02-10",
+        "end_date": "2024-07-30",
         "duration_days": null,
-        "results": "Specimen specific intervention results"
-      },
-      {
-        "type": "Drug2",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-10",
-        "start_day": null,
-        "end_date": "2020-02-15",
-        "duration_days": null,
-        "results": "Specimen specific intervention results"
+        "results": "Invasive growth retained; survival extended to 35–50 days (vs 30–45 untreated)."
       }
     ]
   },
   {
-    "donor_id": "Donor2",
-    "specimen_id": "Xenograft1",
+    "donor_id": "D001",
+    "specimen_id": "SXG003",
     "specimen_type": "Xenograft",
     "entries": [
       {
-        "type": "Drug1",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-05",
+        "type": "Panobinostat",
+        "details": "Panobinostat 10 mg/kg IP qod ×14 days with matrix encapsulation; top drug by GOF.",
+        "start_date": "2024-07-09",
         "start_day": null,
-        "end_date": "2020-02-10",
+        "end_date": "2024-08-06",
         "duration_days": null,
-        "results": "Specimen specific intervention results"
-      },
+        "results": "Encapsulated tumor growth with limited infiltration; survival 60–90 days."
+      }
+    ]
+  },
+  {
+    "donor_id": "D003",
+    "specimen_id": "SXG002",
+    "specimen_type": "Xenograft",
+    "entries": [
       {
-        "type": "Drug2",
-        "details": "Specimen specific intervention details",
-        "start_date": "2020-02-10",
+        "type": "Selumetinib",
+        "details": "Selumetinib 25 mg/kg PO bid ×21 days; second-best efficacy by GOF (tie-broken by GOF+DSSS).",
+        "start_date": "2022-09-27",
         "start_day": null,
-        "end_date": "2020-02-15",
+        "end_date": "2022-10-18",
         "duration_days": null,
-        "results": "Specimen specific intervention results"
+        "results": "Invasive growth maintained; survival improved to 55–75 days (vs 50–70 untreated)."
+      }
+    ]
+  },
+  {
+    "donor_id": "D003",
+    "specimen_id": "SXG003",
+    "specimen_type": "Xenograft",
+    "entries": [
+      {
+        "type": "Temozolomide",
+        "details": "Temozolomide 50 mg/kg PO daily 5/7 ×2 cycles; top drug by GOF.",
+        "start_date": "2022-09-27",
+        "start_day": null,
+        "end_date": "2022-10-25",
+        "duration_days": null,
+        "results": "Encapsulated tumors with minimal invasion; survival 100–140 days."
       }
     ]
   }

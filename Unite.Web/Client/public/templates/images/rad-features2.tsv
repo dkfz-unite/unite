@@ -1,0 +1,34 @@
+# donor_id: D002
+# image_id: MR001
+# image_type: MR
+# analysis_type: RFE
+# analysis_date: 2022-05-20
+name	value
+first_order_mean_intensity	540.0
+first_order_median_intensity	535.5
+first_order_std_intensity	92.0
+first_order_skewness	-0.06
+first_order_kurtosis	3.25
+first_order_entropy	8.10
+shape_volume	200.0
+shape_surface_area	720.0
+shape_sphericity	0.58
+shape_compactness	0.68
+glcm_contrast	11.5
+glcm_homogeneity	0.70
+glcm_correlation	0.57
+glcm_entropy	7.4
+glrlm_short_run_emphasis	0.53
+glrlm_long_run_emphasis	3.6
+glrlm_gray_level_non_uniformity	105.0
+glrlm_run_length_non_uniformity	88.0
+glszm_small_area_emphasis	0.44
+glszm_large_area_emphasis	18.0
+glszm_zone_size_non_uniformity	128.0
+ngtdm_coarseness	0.30
+ngtdm_contrast	11.9
+ngtdm_busyness	0.92
+ngtdm_complexity	168.0
+first_order_min_intensity	110.0
+first_order_max_intensity	1020.0
+glcm_dissimilarity	2.05
