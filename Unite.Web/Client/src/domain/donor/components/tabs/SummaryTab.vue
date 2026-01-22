@@ -6,6 +6,12 @@
         <div class="row">
           <u-summary :donor="donor" />
         </div>
+        <div>
+          <u-clinical-data :donor="donor" />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5 q-gutter-y-sm">
         <div class="row">
           <u-available-data :donor="donor" />
         </div>
@@ -16,11 +22,13 @@
 
 <script>
 import USummary from "./summary/Summary.vue";
+import UClinicalData from "./summary/ClinicalData.vue";
 import UAvailableData from "./summary/AvailableData.vue";
 
 export default {
   components: {
     USummary,
+    UClinicalData,
     UAvailableData
   },
 
