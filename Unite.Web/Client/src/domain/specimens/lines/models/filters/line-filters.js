@@ -6,11 +6,10 @@ import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type";
 import { mapOptions } from "@/_shared/components/filters/filter-options-helpers";
 import { sanitiseArray } from "@/_shared/components/filters/filter-criteria-helpers";
-import specimenFilters from "../../../_shared/specimens/models/filters/specimen-filters";
+import { specimen, classification, molecular, drugs } from "../../../_shared/specimens/models/filters/specimen-filters";
 
 const filters = [
-  specimenFilters[0],
-  specimenFilters[1],
+  ...specimen,
   {
     field: "name",
     label: "Public Name",
@@ -48,8 +47,9 @@ const filters = [
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
   },
-  specimenFilters[2],
-  specimenFilters[3]
+  ...classification,
+  ...molecular,
+  ...drugs
 ];
 
 export default filters;

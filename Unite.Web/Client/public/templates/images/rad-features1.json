@@ -1,0 +1,44 @@
+{
+  "sample": {
+    "donor_id": "D003",
+    "image_id": "MR001",
+    "image_type": "MR",
+    "analysis_type": "RFE",
+    "analysis_date": "2022-09-03"
+  },
+  "entries": [
+    { "name": "first_order_mean_intensity", "value": 525.0 },
+    { "name": "first_order_median_intensity", "value": 520.2 },
+    { "name": "first_order_std_intensity", "value": 88.0 },
+    { "name": "first_order_skewness", "value": -0.10 },
+    { "name": "first_order_kurtosis", "value": 3.35 },
+    { "name": "first_order_entropy", "value": 7.90 },
+
+    { "name": "shape_volume", "value": 130.0 },
+    { "name": "shape_surface_area", "value": 490.0 },
+    { "name": "shape_sphericity", "value": 0.62 },
+    { "name": "shape_compactness", "value": 0.71 },
+
+    { "name": "glcm_energy", "value": 0.20 },
+    { "name": "glcm_contrast", "value": 10.1 },
+    { "name": "glcm_homogeneity", "value": 0.73 },
+    { "name": "glcm_correlation", "value": 0.60 },
+
+    { "name": "glrlm_short_run_emphasis", "value": 0.56 },
+    { "name": "glrlm_long_run_emphasis", "value": 3.3 },
+    { "name": "glrlm_gray_level_non_uniformity", "value": 95.0 },
+
+    { "name": "glszm_small_area_emphasis", "value": 0.47 },
+    { "name": "glszm_zone_size_non_uniformity", "value": 115.0 },
+
+    { "name": "ngtdm_coarseness", "value": 0.33 },
+    { "name": "ngtdm_contrast", "value": 10.8 },
+    { "name": "ngtdm_busyness", "value": 0.85 },
+
+    { "name": "first_order_min_intensity", "value": 120.0 },
+    { "name": "first_order_max_intensity", "value": 980.0 },
+    { "name": "glcm_dissimilarity", "value": 1.85 },
+    { "name": "glrlm_high_gray_level_run_emphasis", "value": 2.1 },
+    { "name": "glszm_zone_percentage", "value": 0.42 }
+  ]
+}

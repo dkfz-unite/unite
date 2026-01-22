@@ -15,19 +15,27 @@
           <tbody>
             <tr>
               <td class="u-text-key">MGMT Status</td>
-              <td>{{ molecularData.mgmtStatus }}</td>
+              <td>{{ $helpers.content.toBooleanString(molecularData.mgmtStatus, "Methylated", "Unmethylated") }}</td>
             </tr>
             <tr>
               <td class="u-text-key">IDH Status</td>
-              <td>{{ molecularData.idhStatus }}</td>
+              <td>{{ $helpers.content.toBooleanString(molecularData.idhStatus, "Mutant", "Wild Type") }}</td>
             </tr>
             <tr>
               <td class="u-text-key">IDH Mutation</td>
               <td>{{ molecularData.idhMutation }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Gene Expression Subtype</td>
-              <td>{{ molecularData.geneExpressionSubtype }}</td>
+              <td class="u-text-key">TERT Status</td>
+              <td>{{ $helpers.content.toBooleanString(molecularData.tertStatus, "Mutant", "Wild Type") }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">TERT Mutation</td>
+              <td>{{ molecularData.tertMutation }}</td>
+            </tr>
+            <tr>
+              <td class="u-text-key">Expression Subtype</td>
+              <td>{{ molecularData.expressionSubtype }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Methylation Subtype</td>

@@ -1,14 +1,43 @@
 {
   "sample": {
-    "donor_id": "Donor1",
-    "image_id": "MR1",
+    "donor_id": "D001",
+    "image_id": "MR001",
     "image_type": "MR",
     "analysis_type": "RFE",
-    "analysis_date": "2020-01-01"
+    "analysis_date": "2024-06-14"
   },
   "entries": [
-    { "name": "feature_1", "value": "value_1" },
-    { "name": "feature_2", "value": "value_2" },
-    { "name": "feature_3", "value": "value_3" }
+    { "name": "first_order_mean_intensity", "value": 520.4 },
+    { "name": "first_order_median_intensity", "value": 515.8 },
+    { "name": "first_order_std_intensity", "value": 85.6 },
+    { "name": "first_order_skewness", "value": -0.12 },
+    { "name": "first_order_kurtosis", "value": 3.4 },
+    { "name": "first_order_entropy", "value": 7.85 },
+
+    { "name": "shape_volume", "value": 120.0 },
+    { "name": "shape_surface_area", "value": 460.0 },
+    { "name": "shape_sphericity", "value": 0.63 },
+    { "name": "shape_compactness", "value": 0.72 },
+    { "name": "shape_elongation", "value": 0.58 },
+
+    { "name": "glcm_energy", "value": 0.21 },
+    { "name": "glcm_contrast", "value": 9.8 },
+    { "name": "glcm_homogeneity", "value": 0.74 },
+    { "name": "glcm_correlation", "value": 0.62 },
+    { "name": "glcm_entropy", "value": 6.9 },
+
+    { "name": "glrlm_short_run_emphasis", "value": 0.55 },
+    { "name": "glrlm_long_run_emphasis", "value": 3.2 },
+    { "name": "glrlm_gray_level_non_uniformity", "value": 92.0 },
+    { "name": "glrlm_run_length_non_uniformity", "value": 78.0 },
+
+    { "name": "glszm_small_area_emphasis", "value": 0.48 },
+    { "name": "glszm_large_area_emphasis", "value": 15.3 },
+    { "name": "glszm_zone_size_non_uniformity", "value": 110.0 },
+
+    { "name": "ngtdm_coarseness", "value": 0.32 },
+    { "name": "ngtdm_contrast", "value": 10.5 },
+    { "name": "ngtdm_busyness", "value": 0.87 },
+    { "name": "ngtdm_complexity", "value": 152.0 }
   ]
 }

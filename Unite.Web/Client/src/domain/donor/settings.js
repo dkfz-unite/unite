@@ -5,12 +5,6 @@ export class Tabs {
     crumb: "Summary",
     icon: "las la-info-circle"
   };
-  static clinical = {
-    domain: "clinical",
-    title: "Clinical Data",
-    crumb: "Clinical",
-    icon: "las la-stethoscope"
-  };
   static treatments = {
     domain: "treatments",
     title: "Treatments",

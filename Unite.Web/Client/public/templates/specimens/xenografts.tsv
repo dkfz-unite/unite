@@ -1,3 +1,7 @@
-id	donor_id	parent_id	parent_type	creation_date	creation_day	mouse_strain	group_size	implant_type	implant_location	implanted_cells_number	tumorigenicity	tumor_growth_form	survival_days	mgmt_status	idh_status	idh_mutation	gene_expression_subtype	methylation_subtype	gcimp_methylation	gene_knockouts
-Xenograft1	Donor1	Line1	Line	2020-02-05		Nude	20	Orhtotopical	Striatal	750000	true	Invasive	20-30	Methylated	Wild Type		Classical	H3-K27	true	EGFR, PTEN
-Xenograft1	Donor2	Line1	Line	2020-02-05		Nude	30	Orhtotopical	Cortical	550000	true	Invasive	15-20	Unmethylated	Mutant	IDH1 R132H			false	
+id	donor_id	parent_id	parent_type	creation_date	creation_day	mouse_strain	group_size	implant_type	implant_location	implanted_cells_number	tumorigenicity	tumor_growth_form	survival_days	mgmt_status	idh_status	idh_mutation	tert_status	tert_mutation	expression_subtype	methylation_subtype	gcimp_methylation	gene_knockouts
+SXG001	D001	SLN001	Line	2024-07-09		Nude	10	Orhtotopical	Striatal	1000000	true	Invasive	30-45	true	false		true	C228T	Mesenchymal	RTKII	false	EGFR, PTEN
+SXG002	D001	SLN001	Line	2024-07-09		Nude	10	Orhtotopical	Striatal	1000000	true	Invasive	35-50	true	false		true	C228T	Mesenchymal	RTKII	false	EGFR, PTEN
+SXG003	D001	SLN001	Line	2024-07-09		Nude	10	Orhtotopical	Striatal	1000000	true	Encapsulated	60-90	true	false		true	C228T	Mesenchymal	RTKII	false	EGFR, PTEN
+SXG001	D003	SLN001	Line	2022-09-27		Nude	8	Orhtotopical	Cortical	800000	true	Invasive	50-70	false	false		true	C228T	Classical	RTKI	false	EGFR, PTEN
+SXG002	D003	SLN001	Line	2022-09-27		Nude	8	Orhtotopical	Cortical	800000	true	Invasive	55-75	false	false		true	C228T	Classical	RTKI	false	EGFR, PTEN
+SXG003	D003	SLN001	Line	2022-09-27		Nude	8	Orhtotopical	Cortical	800000	true	Encapsulated	100-140	false	false		true	C228T	Classical	RTKI	false	EGFR, PTEN

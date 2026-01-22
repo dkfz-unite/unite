@@ -7,8 +7,14 @@
           <u-summary :specimen="specimen" />
         </div>
         <div class="row">
+          <u-classification :specimen="specimen" />
+        </div>
+        <div class="row">
           <u-molecular-data :specimen="specimen" />
         </div>
+      </div>
+
+      <div class="col-12 col-md-5 q-gutter-y-sm">
         <div class="row">
           <u-available-data :specimen="specimen" />
         </div>
@@ -19,12 +25,14 @@
 
 <script>
 import USummary from "./summary/Summary.vue";
+import UClassification from "@/domain/specimens/_shared/specimen/components/tabs/summary/TumorClassification.vue";
 import UMolecularData from "@/domain/specimens/_shared/specimen/components/tabs/summary/MolecularData.vue";
 import UAvailableData from "@/domain/specimens/_shared/specimen/components/tabs/summary/AvailableData.vue";
 
 export default {
   components: {
     USummary,
+    UClassification,
     UMolecularData,
     UAvailableData
   },

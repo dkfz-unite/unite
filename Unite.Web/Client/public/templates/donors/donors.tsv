@@ -1,3 +1,5 @@
-id	mta	projects	studies	enrollment_date	enrollment_age	sex	diagnosis	primary_site	localization	vital_status	vital_status_change_date	vital_status_change_day	progression_status	progression_status_change_date	progression_status_change_day	kps	steroids_reactive
-Donor1	true	Project1	Study1	2020-01-01	45	Female	Diagnosis1	Brain	Left	true	2021-01-01		false	2021-01-01		90	true
-Donor2	true	Project1	Study1	2020-01-01	75	Female	Diagnosis1	Brain	Right	false	2021-01-01		true	2020-03-01		50	false
+id	mta	projects	studies	enrollment_date	enrollment_age	sex	diagnosis	primary_site	localization	vital_status	vital_status_change_date	vital_status_change_day	progression_status	progression_status_change_date	progression_status_change_day	steroids_reactive	kps
+D001	true	PRG001	STD001	2024-06-14	46	Female	Glioblastoma	Brain	Left	true	2025-10-12		false	2025-06-01		true	90
+D002	true	PRG001	STD001	2022-05-20	74	Female	Glioblastoma	Brain	Right	false	2023-01-15		true	2022-07-01		false	50
+D003	true	PRG001	STD001	2022-09-03	47	Male	Glioblastoma	Brain	Left	true	2025-08-30		false	2023-06-10		true	90
+D004	true	PRG001	STD001	2021-11-05	76	Male	Glioblastoma	Brain	Right	false	2022-09-12		true	2022-06-15		false	50

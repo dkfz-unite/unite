@@ -1,13 +1,7 @@
 donor_id	specimen_id	specimen_type	type	details	start_date	start_day	end_date	duration_days	results
-Donor1	Line1	Line	Drug1	Specimen specific intervention details	2020-02-05		2020-02-05		Specimen specific intervention results
-Donor1	Line1	Line	Drug2	Specimen specific intervention details	2020-02-10		2020-02-15		Specimen specific intervention results
-Donor2	Line1	Line	Drug1	Specimen specific intervention details	2020-02-05		2020-02-05		Specimen specific intervention results
-Donor2	Line1	Line	Drug2	Specimen specific intervention details	2020-02-10		2020-02-15		Specimen specific intervention results
-Donor1	Organoid1	Organoid	Drug1	Specimen specific intervention details	2020-02-05		2020-02-05		Specimen specific intervention results
-Donor1	Organoid1	Organoid	Drug2	Specimen specific intervention details	2020-02-10		2020-02-15		Specimen specific intervention results
-Donor2	Organoid1	Organoid	Drug1	Specimen specific intervention details	2020-02-05		2020-02-05		Specimen specific intervention results
-Donor2	Organoid1	Organoid	Drug2	Specimen specific intervention details	2020-02-10		2020-02-15		Specimen specific intervention results
-Donor1	Xenograft1	Xenograft	Drug1	Specimen specific intervention details	2020-02-05		2020-02-05		Specimen specific intervention results
-Donor1	Xenograft1	Xenograft	Drug2	Specimen specific intervention details	2020-02-10		2020-02-15		Specimen specific intervention results
-Donor2	Xenograft1	Xenograft	Drug1	Specimen specific intervention details	2020-02-05		2020-02-05		Specimen specific intervention results
-Donor2	Xenograft1	Xenograft	Drug2	Specimen specific intervention details	2020-02-10		2020-02-15		Specimen specific intervention results
+D001	SOG002	Organoid	Panobinostat	Panobinostat exposure on organoids: 20 nM, 72h cycles with media refresh; selected as top GOF from DSA.	2024-07-02		2024-07-16		~80–90% viability reduction by day 7; compact spheroid morphology and reduced proliferation markers.
+D003	SOG002	Organoid	Temozolomide	Temozolomide exposure on organoids: 100 μM, 48h on/24h off cycles; top GOF from DSA.	2022-09-20		2022-10-04		~60–75% viability reduction; increased apoptosis markers; growth delay versus untreated.
+D001	SXG002	Xenograft	Paclitaxel	Paclitaxel 10 mg/kg IV weekly ×3 starting at implantation; second-highest efficacy by GOF.	2024-07-09		2024-07-30		Invasive growth retained; survival extended to 35–50 days (vs 30–45 untreated).
+D001	SXG003	Xenograft	Panobinostat	Panobinostat 10 mg/kg IP qod ×14 days with matrix encapsulation; top drug by GOF.	2024-07-09		2024-08-06		Encapsulated tumor growth with limited infiltration; survival 60–90 days.
+D003	SXG002	Xenograft	Selumetinib	Selumetinib 25 mg/kg PO bid ×21 days; second-best efficacy by GOF (tie-broken by GOF+DSSS).	2022-09-27		2022-10-18		Invasive growth maintained; survival improved to 55–75 days (vs 50–70 untreated).
+D003	SXG003	Xenograft	Temozolomide	Temozolomide 50 mg/kg PO daily 5/7 ×2 cycles; top drug by GOF.	2022-09-27		2022-10-25		Encapsulated tumors with minimal invasion; survival 100–140 days.

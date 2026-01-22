@@ -38,12 +38,6 @@
                 :icon="Tabs.summary.icon" 
               />
               <q-tab 
-                :name="Tabs.clinical.domain" 
-                :label="Tabs.clinical.title" 
-                :icon="Tabs.clinical.icon" 
-                :disable="!showClinical" 
-              />
-              <q-tab 
                 :name="Tabs.treatments.domain" 
                 :label="Tabs.treatments.title" 
                 :icon="Tabs.treatments.icon" 
@@ -90,10 +84,6 @@
             <q-tab-panels v-model="tab" class="fit">
               <q-tab-panel :name="Tabs.summary.domain" class="q-py-sm q-px-none">
                 <u-summary-tab :donor="donor" />
-              </q-tab-panel>
-
-              <q-tab-panel :name="Tabs.clinical.domain" class="q-py-sm q-px-none">
-                <u-clinical-tab :donor="donor" />
               </q-tab-panel>
 
               <q-tab-panel :name="Tabs.treatments.domain" class="q-py-sm q-px-none">
@@ -144,7 +134,6 @@ import UDownloadButton from "@/domain/_shared/entry/components/download/Download
 import UDeleteButton from "./components/delete/DeleteButton.vue";
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
-import UClinicalTab from "./components/tabs/ClinicalTab.vue";
 import UTreatmentsTab from "./components/tabs/TreatmentsTab.vue";
 import UAncestryTab from "./components/tabs/AncestryTab.vue";
 import UMrsTab from "./components/tabs/MrsTab.vue";
@@ -165,7 +154,6 @@ export default {
     UDeleteButton,
     UTabVariants,
     USummaryTab,
-    UClinicalTab,
     UTreatmentsTab,
     UAncestryTab,
     UMrsTab,
@@ -203,10 +191,6 @@ export default {
 
   computed: {
     ...mapGetters("identity", ["canWriteData"]),
-
-    showClinical() {
-      return this.donor?.data?.clinical;
-    },
 
     showTreatments() {
       return this.donor?.data?.treatments
