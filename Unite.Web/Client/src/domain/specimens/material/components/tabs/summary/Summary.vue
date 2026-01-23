@@ -26,7 +26,7 @@
               <td>{{ specimen.material.creationDay }}</td>
             </tr>
             <tr>
-              <td class="u-text-key">Condition</td>
+              <td class="u-text-key">Category</td>
               <td>{{ specimen.material.condition }}</td>
             </tr>
             <tr>

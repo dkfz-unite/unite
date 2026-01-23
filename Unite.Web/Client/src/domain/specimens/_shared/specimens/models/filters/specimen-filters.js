@@ -29,7 +29,7 @@ const specimen = [
   },
   {
     field: "condition",
-    label: "Condition",
+    label: "Category",
     type: FilterType.Options,
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.conditionOptions, ConditionType.values),

@@ -54,7 +54,7 @@ const specimensTableMixin = {
 
       columns.push({
         name: "condition",
-        label: "Condition",
+        label: "Category",
         field: (row) => selector(row)?.condition,
         sortable: false,
         align: "left"
