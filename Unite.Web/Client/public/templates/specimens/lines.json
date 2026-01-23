@@ -6,6 +6,9 @@
     "parent_type": "Material",
     "creation_date": "2024-06-25",
     "creation_day": null,
+    "category": null,
+    "tumor_type": null,
+    "tumor_grade": null,
     "cells_species": "Human",
     "cells_type": "Differentiated",
     "cells_culture_type": "Adherent",
@@ -18,6 +21,7 @@
       "atcc_link": "https://www.atcc.org",
       "expasy_link": "https://www.expasy.org"
     },
+    "tumor_classification": null,
     "molecular_data": {
       "mgmt_status": true,
       "idh_status": false,
@@ -37,6 +41,9 @@
     "parent_type": "Material",
     "creation_date": "2022-09-13",
     "creation_day": null,
+    "category": null,
+    "tumor_type": null,
+    "tumor_grade": null,
     "cells_species": "Human",
     "cells_type": "Differentiated",
     "cells_culture_type": "Adherent",
@@ -49,6 +56,7 @@
       "atcc_link": "https://www.atcc.org",
       "expasy_link": "https://www.expasy.org"
     },
+    "tumor_classification": null,
     "molecular_data": {
       "mgmt_status": false,
       "idh_status": false,

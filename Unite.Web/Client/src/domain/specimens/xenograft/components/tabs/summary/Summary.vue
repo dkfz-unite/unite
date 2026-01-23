@@ -26,7 +26,7 @@
               <td>{{ specimen.xenograft.creationDay }}</td>
             </tr>
             <tr v-if="!!specimen.xenograft.condition">
-              <td class="u-text-key">Condition</td>
+              <td class="u-text-key">Category</td>
               <td>{{ specimen.xenograft.condition }}</td>
             </tr>
             <tr v-if="!!specimen.xenograft.tumorType">

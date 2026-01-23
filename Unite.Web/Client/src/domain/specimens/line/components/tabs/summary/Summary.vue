@@ -26,7 +26,7 @@
               <td>{{ specimen.line.creationDay }}</td>
             </tr>
             <tr v-if="!!specimen.line.condition">
-              <td class="u-text-key">Condition</td>
+              <td class="u-text-key">Category</td>
               <td>{{ specimen.line.condition }}</td>
             </tr>
             <tr v-if="!!specimen.line.tumorType">
