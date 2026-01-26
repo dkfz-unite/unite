@@ -53,9 +53,9 @@ const specimensTableMixin = {
       });
 
       columns.push({
-        name: "condition",
+        name: "category",
         label: "Category",
-        field: (row) => selector(row)?.condition,
+        field: (row) => selector(row)?.category,
         sortable: false,
         align: "left"
       });

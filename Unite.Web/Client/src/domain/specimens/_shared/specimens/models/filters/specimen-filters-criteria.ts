@@ -6,7 +6,7 @@ import FiltersCriteriaBase from "@/_shared/components/filters/filters-criteria-b
 export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
   id = new ValuesCriteria<number>();
   referenceId = new ValuesCriteria<string>();
-  condition = new ValuesCriteria<string>();
+  category = new ValuesCriteria<string>();
   tumorType = new ValuesCriteria<string>();
   tumorGrade = new RangeCriteria();
   tumorSuperfamily = new ValuesCriteria<string>();
@@ -41,7 +41,7 @@ export default class SpecimenFiltersCriteria extends FiltersCriteriaBase {
 
     this.id = new ValuesCriteria<number>(criteria.id);
     this.referenceId = new ValuesCriteria<string>(criteria.referenceId);
-    this.condition = new ValuesCriteria<string>(criteria.condition);
+    this.category = new ValuesCriteria<string>(criteria.category);
     this.tumorType = new ValuesCriteria<string>(criteria.tumorType);
     this.tumorGrade = new RangeCriteria(criteria.tumorGrade);
     this.tumorSuperfamily = new ValuesCriteria<string>(criteria.tumorSuperfamily);
