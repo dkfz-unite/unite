@@ -27,7 +27,7 @@
             </tr>
             <tr>
               <td class="u-text-key">Category</td>
-              <td>{{ specimen.material.condition }}</td>
+              <td>{{ specimen.material.category }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Tumor Type</td>

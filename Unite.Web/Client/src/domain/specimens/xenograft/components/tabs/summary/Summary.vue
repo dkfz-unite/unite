@@ -25,9 +25,9 @@
               <td class="u-text-key">Creation Day</td>
               <td>{{ specimen.xenograft.creationDay }}</td>
             </tr>
-            <tr v-if="!!specimen.xenograft.condition">
+            <tr v-if="!!specimen.xenograft.category">
               <td class="u-text-key">Category</td>
-              <td>{{ specimen.xenograft.condition }}</td>
+              <td>{{ specimen.xenograft.category }}</td>
             </tr>
             <tr v-if="!!specimen.xenograft.tumorType">
               <td class="u-text-key">Tumor Type</td>

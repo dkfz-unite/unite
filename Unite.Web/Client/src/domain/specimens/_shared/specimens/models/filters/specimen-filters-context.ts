@@ -1,5 +1,5 @@
 export default class SpecimenFiltersContext {
-  conditionOptions: any = null;
+  categoryOptions: any = null;
   tumorTypeOptions: any = null;
   idhMutationOptions: any = null;
   tertMutationOptions: any = null;

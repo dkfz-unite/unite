@@ -25,9 +25,9 @@
               <td class="u-text-key">Creation Day</td>
               <td>{{ specimen.organoid.creationDay }}</td>
             </tr>
-            <tr v-if="!!specimen.organoid.condition">
+            <tr v-if="!!specimen.organoid.category">
               <td class="u-text-key">Category</td>
-              <td>{{ specimen.organoid.condition }}</td>
+              <td>{{ specimen.organoid.category }}</td>
             </tr>
             <tr v-if="!!specimen.organoid.tumorType">
               <td class="u-text-key">Tumor Type</td>

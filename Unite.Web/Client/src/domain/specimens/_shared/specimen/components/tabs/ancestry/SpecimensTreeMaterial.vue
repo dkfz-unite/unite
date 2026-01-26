@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import ConditionType from "@/domain/specimens/_shared/specimens/models/enums/condition-type";
+import CategoryType from "@/domain/specimens/_shared/specimens/models/enums/category-type";
 import TumorType from "@/domain/specimens/_shared/specimens/models/enums/tumor-type";
 
 export default {
@@ -31,17 +31,17 @@ export default {
 
   methods: {
     getType(specimen) {     
-      if (specimen.condition === ConditionType.Normal) {
-        return specimen.condition;
-      } else if (specimen.condition === ConditionType.Tumor) {
-        return specimen.tumorType ?? specimen.condition;
+      if (specimen.category === CategoryType.Normal) {
+        return specimen.category;
+      } else if (specimen.category === CategoryType.Tumor) {
+        return specimen.tumorType ?? specimen.category;
       } else {
         return "Unknown";
       }
     },
 
     getColor(specimen) {
-      if (specimen.condition === ConditionType.Normal) {
+      if (specimen.category === CategoryType.Normal) {
         return "text-green";
       } else if (specimen.tumorType === TumorType.Primary) {
         return "text-blue-5";
@@ -49,7 +49,7 @@ export default {
         return "text-blue-7";
       } else if (specimen.tumorType === TumorType.Recurrent) {
         return "text-blue-9";
-      } else if (specimen.condition === ConditionType.Tumor) {
+      } else if (specimen.category === CategoryType.Tumor) {
         return "text-blue-5";
       } else {
         return "text-black";

@@ -1,4 +1,4 @@
-export default class ConditionType {
+export default class CategoryType {
   static values = {
     "Normal": "Normal",
     "Tumor": "Tumor"

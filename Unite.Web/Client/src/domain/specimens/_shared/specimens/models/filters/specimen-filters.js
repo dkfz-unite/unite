@@ -1,4 +1,4 @@
-import ConditionType from "../enums/condition-type";
+import CategoryType from "../enums/category-type";
 import TumorType from "../enums/tumor-type";
 import IdhMutation from "../enums/idh_mutation";
 import TertMutation from "../enums/tert-mutation";
@@ -28,11 +28,11 @@ const specimen = [
     sanitize: (value) => sanitiseArray(value)
   },
   {
-    field: "condition",
+    field: "category",
     label: "Category",
     type: FilterType.Options,
     valueType: ValueType.String,
-    options: (context) => mapOptions(context?.conditionOptions, ConditionType.values),
+    options: (context) => mapOptions(context?.categoryOptions, CategoryType.values),
     watch: (value, criteria, context) => {
       criteria.tumorType.value = [];
       // criteria.tumorGrade.value = null;
@@ -45,8 +45,8 @@ const specimen = [
     valueType: ValueType.String,
     options: (context) => mapOptions(context?.tumorTypeOptions, TumorType.values),
     show: (value, criteria, context) => {
-      return criteria.condition?.value?.length == 1 
-          && criteria.condition.value[0] == ConditionType.Tumor;
+      return criteria.category?.value?.length == 1 
+          && criteria.category.value[0] == CategoryType.Tumor;
     }
   },
   {
@@ -61,8 +61,8 @@ const specimen = [
     expandable: false,
     sanitize: (value) => sanitiseRange(value),
     show: (value, criteria, context) => {
-      return criteria.condition?.value?.length == 1 
-          && criteria.condition.value[0] == ConditionType.Tumor;
+      return criteria.category?.value?.length == 1 
+          && criteria.category.value[0] == CategoryType.Tumor;
     }
   }
 ];
@@ -73,8 +73,8 @@ const classification = [
     label: "Tumor Classification",
     expand: false,
     show: (value, criteria, context) => {
-      return criteria.condition?.value?.length == 1 
-          && criteria.condition.value[0] == ConditionType.Tumor;
+      return criteria.category?.value?.length == 1 
+          && criteria.category.value[0] == CategoryType.Tumor;
     },
     filters: [
       {
