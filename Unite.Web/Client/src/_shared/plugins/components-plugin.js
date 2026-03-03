@@ -11,6 +11,7 @@ import ULinkLine from "@/domain/specimens/line/components/Link.vue";
 import ULinkOrganoid from "@/domain/specimens/organoid/components/Link.vue";
 import ULinkXenograft from "@/domain/specimens/xenograft/components/Link.vue";
 import ULinkGene from "@/domain/omics/gene/components/Link.vue";
+import ULinkProtein from "@/domain/omics/protein/components/Link.vue";
 import ULinkSm from "@/domain/omics/variants/sm/components/Link.vue";
 import ULinkCnv from "@/domain/omics/variants/cnv/components/Link.vue";
 import ULinkSv from "@/domain/omics/variants/sv/components/Link.vue";
@@ -31,6 +32,7 @@ const plugin = {
       .component("u-link-organoid", ULinkOrganoid)
       .component("u-link-xenograft", ULinkXenograft)
       .component("u-link-gene", ULinkGene)
+      .component("u-link-protein", ULinkProtein)
       .component("u-link-sm", ULinkSm)
       .component("u-link-cnv", ULinkCnv)
       .component("u-link-sv", ULinkSv);

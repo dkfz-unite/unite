@@ -15,6 +15,7 @@ import organoidFilters from "@/domain/specimens/organoids/models/filters/organoi
 import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
 import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
 import geneFilters from "@/domain/omics/genes/models/filters/gene-filters";
+import proteinFilters from "@/domain/omics/proteins/models/filters/protein-filters";
 import smFilters from "@/domain/omics/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
 import svFilters from "@/domain/omics/variants/svs/models/filters/sv-filters";
@@ -90,6 +91,7 @@ const mixin = {
         case FilterModels.Organoid: return "Organoid Filters";
         case FilterModels.Xenograft: return "Xenograft Filters";
         case FilterModels.Gene: return "Gene Filters";
+        case FilterModels.Protein: return "Protein Filters";
         case FilterModels.Sm: return "SM Filters";
         case FilterModels.Cnv: return "CNV Filters";
         case FilterModels.Sv: return "SV Filters";
@@ -107,6 +109,7 @@ const mixin = {
         case FilterModels.Organoid: return "svguse:/icons.svg#u-organoid";
         case FilterModels.Xenograft: return "svguse:/icons.svg#u-xenograft";
         case FilterModels.Gene: return "svguse:/icons.svg#u-gene";
+        case FilterModels.Protein: return "svguse:/icons.svg#u-protein";
         case FilterModels.Sm: return "svguse:/icons.svg#u-sm";
         case FilterModels.Cnv: return "svguse:/icons.svg#u-cnv";
         case FilterModels.Sv: return "svguse:/icons.svg#u-sv";
@@ -124,6 +127,7 @@ const mixin = {
         case FilterModels.Organoid: return this.route == "organoids" ? [...organoidFilters, ...specimenDataFilters] : organoidFilters;
         case FilterModels.Xenograft: return this.route == "xenografts" ? [...xenograftFilters, ...specimenDataFilters] : xenograftFilters;
         case FilterModels.Gene: return geneFilters;
+        case FilterModels.Protein: return proteinFilters;
         case FilterModels.Sm: return smFilters;
         case FilterModels.Cnv: return cnvFilters;
         case FilterModels.Sv: return svFilters;

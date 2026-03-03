@@ -1,5 +1,4 @@
 import Chromosome from "../enums/chromosome";
-import Biotype from "../enums/biotype";
 
 import FilterType from "@/_shared/components/filters/filter-type";
 import ValueType from "@/_shared/components/filters/filter-value-type"
@@ -16,19 +15,20 @@ const filters = [
     sanitize: (value) => sanitiseArray(value, true)
   },
   {
+    field: "accession",
+    label: "Accession",
+    placeholder: "e.g. P00533",
+    type: FilterType.Values,
+    valueType: ValueType.String,
+    sanitize: (value) => sanitiseArray(value)
+  },
+  {
     field: "symbol",
     label: "Name",
     placeholder: "e.g. TTN",
     type: FilterType.Values,
     valueType: ValueType.String,
     sanitize: (value) => sanitiseArray(value)
-  },
-  {
-    field: "biotype",
-    label: "Biotype",
-    type: FilterType.Options,
-    valueType: ValueType.String,
-    options: (context) => mapOptions(context?.biotypeOptions, Biotype.values)
   },
   {
     group: "location",
@@ -58,39 +58,14 @@ const filters = [
     ]
   },
   {
-    field: "tpm",
-    label: "TPM",
-    placeholderFrom: "e.g. 100",
-    placeholderTo: "e.g. 1000",
+    field: "intensity",
+    label: "Intensity",
+    placeholderFrom: "e.g. 1.5",
+    placeholderTo: "e.g. 1.8",
     type: FilterType.Range,
     valueType: ValueType.Number,
     sanitize: (value) => sanitiseRange(value),
   }
-  // {
-  //   field: "hasSms",
-  //   label: "SM",
-  //   type: FilterType.Boolean,
-  //   default: null,
-  // },
-  // {
-  //   field: "hasCnvs",
-  //   label: "CNV",
-  //   type: FilterType.Boolean,
-  //   default: null,
-  // },
-  // {
-  //   field: "hasSvs",
-  //   label: "SV",
-  //   type: FilterType.Boolean,
-  //   default: null,
-  // },
-  // {
-  //   field: "hasGeneExp",
-  //   label: "RNA",
-  //   type: FilterType.Boolean,
-  //   nullable: false,
-  //   default: false,
-  // }
 ];
 
 export default filters;

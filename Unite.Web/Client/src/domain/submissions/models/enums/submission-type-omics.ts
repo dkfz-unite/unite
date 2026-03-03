@@ -11,6 +11,8 @@ export default class OmicsSubmissionType extends SubmissionTypeBase {
   static readonly RNA_EXP = "rna-exp";
   static readonly RNASC = "rnasc";
   static readonly RNASC_EXP = "rnasc-exp";
+  static readonly PROT = "prot";
+  static readonly PROT_EXP = "prot-exp";
 
   static readonly map = new Map<string, string>([
     [OmicsSubmissionType.DNA, "DNA Sample"],
@@ -22,15 +24,17 @@ export default class OmicsSubmissionType extends SubmissionTypeBase {
     [OmicsSubmissionType.RNA, "RNA Sample"],
     [OmicsSubmissionType.RNA_EXP, "RNA Expression"],
     [OmicsSubmissionType.RNASC, "scRNA Sample"],
-    [OmicsSubmissionType.RNASC_EXP, "scRNA Expression"]
+    [OmicsSubmissionType.RNASC_EXP, "scRNA Expression"],
+    [OmicsSubmissionType.PROT, "Proteomics Sample"],
+    [OmicsSubmissionType.PROT_EXP, "Protein Expression"]
   ]);
 
   static isSampleType(type: string): boolean {
-    return [this.DNA, this.METH, this.RNA, this.RNASC].includes(type);
+    return [this.DNA, this.METH, this.RNA, this.RNASC, this.PROT].includes(type);
   }
 
   static isDataType(type: string): boolean {
-    return [this.DNA_SM, this.DNA_CNV, this.DNA_SV, this.RNA_EXP].includes(type);
+    return [this.DNA_SM, this.DNA_CNV, this.DNA_SV, this.RNA_EXP, this.PROT_EXP].includes(type);
   };
 
   static IsResourceType(type: string): boolean {

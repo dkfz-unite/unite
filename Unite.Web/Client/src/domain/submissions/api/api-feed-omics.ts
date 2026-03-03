@@ -31,6 +31,10 @@ export default class OmicsFeedApi extends FeedApi {
       url = `${this.feedUrl}/rnasc/sample/${id}`;
     else if (type == OmicsSubmissionType.RNASC_EXP)
       url = `${this.feedUrl}/rnasc/analysis/exp/${id}`;
+    else if (type == OmicsSubmissionType.PROT)
+      url = `${this.feedUrl}/prot/sample/${id}`;
+    else if (type == OmicsSubmissionType.PROT_EXP)
+      url = `${this.feedUrl}/prot/analysis/exp/${id}`;
     else
       throw new Error(`Invalid submission type: ${type}`);
 

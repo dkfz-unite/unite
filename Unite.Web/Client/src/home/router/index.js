@@ -20,6 +20,8 @@ import xenograftRoutes from "../../domain/specimens/xenograft/router";
 import xenograftsRoutes from "../../domain/specimens/xenografts/router";
 import geneRoutes from "../../domain/omics/gene/router";
 import genesRoutes from "../../domain/omics/genes/router";
+import proteinRoutes from "../../domain/omics/protein/router";
+import proteinsRoutes from "../../domain/omics/proteins/router";
 import smRoutes from "../../domain/omics/variants/sm/router";
 import smsRoutes from "../../domain/omics/variants/sms/router";
 import cnvRoutes from "../../domain/omics/variants/cnv/router";
@@ -50,6 +52,8 @@ const routes = [
   ...xenograftsRoutes,
   ...geneRoutes,
   ...genesRoutes,
+  ...proteinRoutes,
+  ...proteinsRoutes,
   ...smRoutes,
   ...smsRoutes,
   ...cnvRoutes,

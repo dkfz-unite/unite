@@ -11,8 +11,8 @@
           <q-toggle dense v-model="reads" @update:model-value="update" />
         </div>
         <div class="row justify-between">
-          <u-view-figure type="square" color="orange-4" :active="pkm">PKM</u-view-figure>
-          <q-toggle dense v-model="pkm" @update:model-value="update" />
+          <u-view-figure type="square" color="orange-4" :active="tpm">TPM</u-view-figure>
+          <q-toggle dense v-model="tpm" @update:model-value="update" />
         </div>
         <div class="row justify-between">
           <u-view-figure type="square" color="green-4" :active="fpkm">FPKM</u-view-figure>
@@ -43,14 +43,14 @@ export default {
   data() {
     return {
       reads: this.setValue(this.modelValue.reads, false),
-      pkm: this.setValue(this.modelValue.pkm, false),
+      tpm: this.setValue(this.modelValue.tpm, false),
       fpkm: this.setValue(this.modelValue.fpkm, true)
     }
   },
 
   computed: {
     show() {
-      return this.reads || this.pkm || this.fpkm;
+      return this.reads || this.tpm || this.fpkm;
     }
   },
 
@@ -58,7 +58,7 @@ export default {
     update() {
       this.$emit("update:modelValue", {
         reads: this.reads,
-        pkm: this.pkm,
+        tpm: this.tpm,
         fpkm: this.fpkm,
         show: this.show
       });
