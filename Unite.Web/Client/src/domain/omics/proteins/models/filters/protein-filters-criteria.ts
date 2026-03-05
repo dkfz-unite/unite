@@ -9,7 +9,7 @@ export default class ProteinFiltersCriteria extends FiltersCriteriaBase {
   symbol = new ValuesCriteria<string>();
   chromosome = new ValuesCriteria<string>();
   position = new RangeCriteria();
-  intensity = new RangeCriteria();
+  expression = new RangeCriteria();
 
   constructor(criteria: ProteinFiltersCriteria | null = null) {
     super();
@@ -22,7 +22,7 @@ export default class ProteinFiltersCriteria extends FiltersCriteriaBase {
     this.symbol = new ValuesCriteria<string>(criteria.symbol);
     this.chromosome = new ValuesCriteria<string>(criteria.chromosome);
     this.position = new RangeCriteria(criteria.position);
-    this.intensity = new RangeCriteria(criteria.intensity);
+    this.expression = new RangeCriteria(criteria.expression);
   }
 
   clone() : ProteinFiltersCriteria {

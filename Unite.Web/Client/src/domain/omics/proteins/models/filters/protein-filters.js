@@ -58,7 +58,7 @@ const filters = [
     ]
   },
   {
-    field: "intensity",
+    field: "expression",
     label: "Intensity",
     placeholderFrom: "e.g. 1.5",
     placeholderTo: "e.g. 1.8",
