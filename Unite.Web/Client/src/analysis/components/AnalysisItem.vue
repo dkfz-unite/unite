@@ -49,9 +49,10 @@
         <u-surv-results v-if="analysis.type == 'surv'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-dm-results v-else-if="analysis.type == 'dm'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-pcam-results v-else-if="analysis.type == 'pcam'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
-        <u-de-results v-else-if="analysis.type == 'de'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-deg-results v-else-if="analysis.type == 'deg'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-gaf-results v-else-if="analysis.type == 'gaf'" :id="analysis.id" :title="title" :data="analysis.results" />
-        <u-scell-results  v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-dep-results v-else-if="analysis.type == 'dep'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
+        <u-scell-results v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
@@ -61,8 +62,9 @@
 import USurvResults from "./surv/Results.vue";
 import UDmResults from "./dm/Results.vue";
 import UPcamResults from "./pcam/Results.vue";
-import UDeResults from "./de/Results.vue";
+import UDegResults from "./deg/Results.vue";
 import UGafResults from "./gaf/Results.vue";
+import UDepResults from "./dep/Results.vue";
 import UScellResults from "./scell/Results.vue";
 import mixin from "./analysis-mixin";
 
@@ -74,8 +76,9 @@ export default {
     USurvResults,
     UDmResults,
     UPcamResults,
-    UDeResults,
+    UDegResults,
     UGafResults,
+    UDepResults,
     UScellResults
   },
 
@@ -131,6 +134,12 @@ export default {
           const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
           this.analysis.meta = content;
         }
+      } else if (this.analysis.type === "dep") {
+         if (!this.analysis.meta) {
+          const payload = { id: this.analysis.id, file: "annotations.tsv" };
+          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+          this.analysis.meta = content;
+        }
       }
 
       if (!this.analysis.results) {
@@ -153,6 +162,12 @@ export default {
       this.$emit("delete");
     },
 
+    async onRestart() {
+      const payload = { id: this.analysis.id };
+      await this.$store.dispatch("analysis/restartAnalysis", payload);
+      this.$emit("delete");
+    },
+
     getFileFormat(analysisType) {
       switch (analysisType) {
         case "surv":
@@ -161,7 +176,7 @@ export default {
           return { type: "application/octet-stream", ext: "zip" };
         case "pcam":
           return { type: "application/octet-stream", ext: "zip" };
-        case "de":
+        case "deg":
           return { type: "application/octet-stream", ext: "tsv" };
         case "gaf":
           return { type: "application/octet-stream", ext: "json" };

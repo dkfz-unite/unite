@@ -31,3 +31,8 @@ Array.prototype.groupBy = function (property = (item) => item) {
 Array.prototype.distinct = function () {
   return [...new Set(this)];
 };
+
+Math.roundTo = function(number, decimals = 0) {
+  const factor = Math.pow(10, decimals);
+  return Math.round(number * factor) / factor;
+};
