@@ -77,8 +77,9 @@ export default {
           stableId: columns[0],
           accessionId: columns[1],
           symbol: columns[2],
-          description: columns[3],
-          source: columns[4]
+          gene: columns[3],
+          description: columns[4],
+          source: columns[5]
         });
       }
 
@@ -209,7 +210,9 @@ export default {
     getTooltipData(entries, title) {
       return entries.map(entry => 
         `Name: ${this.annotations.get(entry.id).symbol}<br>` +
+        `Accession: ${this.annotations.get(entry.id).accessionId}<br>` +
         `Description: ${this.annotations.get(entry.id).description}<br>` +
+        `Gene: ${this.annotations.get(entry.id).gene}<br>` +
         `Log2 Fold Change: ${Math.roundTo(entry.log2, 4)}<br>` +
         `Adjusted P-Value: ${Math.roundTo(entry.padj, 4)}<br>` +
         `Category: ${title}`);
