@@ -55,7 +55,7 @@
               <q-checkbox v-model="model.svTranscript" label="Transcript" :disable="loading" dense />
             </div>
             <div class="row" v-if="hasGeneExpData">
-              <q-checkbox v-model="model.geneExp" label="Bulk gene expressions" :disable="loading" dense />
+              <q-checkbox v-model="model.geneExp" label="Gene expressions" :disable="loading" dense />
             </div>
             <!-- <div class="row" v-if="hasGeneExpScData">
               <q-checkbox v-model="model.geneExpSc" label="Single cell gene expressions" :disable="loading" dense />
@@ -213,7 +213,7 @@ export default {
     // },
 
     hasProtExpData() {
-      return this.data?.protExp === true;
+      return this.data?.prot === true;
     },
 
     canSubmit() {
