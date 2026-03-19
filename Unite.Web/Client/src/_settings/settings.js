@@ -15,6 +15,8 @@ import XenograftSettings from "@/domain/specimens/xenograft/settings";
 import XenograftsSettings from "@/domain/specimens/xenografts/settings";
 import GeneSettings from "@/domain/omics/gene/settings";
 import GenesSettings from "@/domain/omics/genes/settings";
+import ProteinSettings from "@/domain/omics/protein/settings";
+import ProteinsSettings from "@/domain/omics/proteins/settings";
 import SmSettings from "@/domain/omics/variants/sm/settings";
 import SmsSettings from "@/domain/omics/variants/sms/settings";
 import CnvSettings from "@/domain/omics/variants/cnv/settings";
@@ -43,6 +45,9 @@ export default class Settings {
   static xenografts = XenograftsSettings;
   static gene = GeneSettings;
   static genes = GenesSettings;
+  static protein = ProteinSettings;
+  static proteins = ProteinsSettings;
+  
   static sm = SmSettings;
   static sms = SmsSettings;
   static cnv = CnvSettings;
@@ -61,6 +66,7 @@ export default class Settings {
     this.organoids,
     this.xenografts,
     this.genes,
+    this.proteins,
     this.sms,
     this.cnvs,
     this.svs

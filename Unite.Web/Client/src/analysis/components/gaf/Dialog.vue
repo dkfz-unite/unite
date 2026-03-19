@@ -146,7 +146,7 @@ export default {
         },
         genes: {
           value: 20,
-          min: 50
+          max: 50
         },
         sm: {
           value: ["High", "Moderate"],

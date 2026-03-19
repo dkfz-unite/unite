@@ -2,8 +2,9 @@
   <u-surv-dialog v-if="showSurvAnalysis" ref="SurvDialog" :datasets="datasets" />
   <u-dm-dialog v-if="showDmAnalysis" ref="DmDialog" :datasets="datasets" />
   <u-pcam-dialog v-if="showPcamAnalysis" ref="PcamDialog" :datasets="datasets" />
-  <u-de-dialog v-if="showDeAnalysis" ref="DeDialog" :datasets="datasets" />
+  <u-deg-dialog v-if="showDegAnalysis" ref="DegDialog" :datasets="datasets" />
   <u-gaf-dialog v-if="showGafAnalysis" ref="GafDialog" :datasets="datasets" />
+  <u-dep-dialog v-if="showDepAnalysis" ref="DepDialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
@@ -24,9 +25,14 @@
             <q-item-label>PCA of Methylation Profiles</q-item-label>
         </q-item-section>
         </q-item>
-        <q-item v-if="showDeAnalysis" @click="$refs.DeDialog.show()" clickable v-close-popup dense>
+        <q-item v-if="showDegAnalysis" @click="$refs.DegDialog.show()" clickable v-close-popup dense>
           <q-item-section>
-            <q-item-label>Differential Expression</q-item-label>
+            <q-item-label>Differential <strong>Gene</strong> Expression</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item v-if="showDepAnalysis" @click="$refs.DepDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>Differential <strong>Protein</strong> Expression</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="showGafAnalysis" @click="$refs.GafDialog.show()" clickable v-close-popup dense>
@@ -48,8 +54,9 @@
 import USurvDialog from "@/analysis/components/surv/Dialog.vue";
 import UDmDialog from "@/analysis/components/dm/Dialog.vue";
 import UPcamDialog from "@/analysis/components/pcam/Dialog.vue";
-import UDeDialog from "@/analysis/components/de/Dialog.vue";
+import UDegDialog from "@/analysis/components/deg/Dialog.vue";
 import UGafDialog from "@/analysis/components/gaf/Dialog.vue";
+import UDepDialog from "@/analysis/components/dep/Dialog.vue";
 import UScellDialog from "@/analysis/components/scell/Dialog.vue";
 
 
@@ -58,8 +65,9 @@ export default {
     USurvDialog,
     UDmDialog,
     UPcamDialog,
-    UDeDialog,
+    UDegDialog,
     UGafDialog,
+    UDepDialog,
     UScellDialog
   },
 
@@ -75,8 +83,9 @@ export default {
       return this.showSurvAnalysis
           || this.showDmAnalysis
           || this.showPcamAnalysis
-          || this.showDeAnalysis
+          || this.showDegAnalysis
           || this.showGafAnalysis
+          || this.showDepAnalysis
           || this.showScellAnalysis;
     },
 
@@ -96,7 +105,7 @@ export default {
              this.datasets?.every(dataset => dataset.data?.meth === true);
     },
 
-    showDeAnalysis() {
+    showDegAnalysis() {
       return this.datasets?.length == 2 &&
              this.datasets?.every(dataset => dataset.data?.exp == true);
     },
@@ -104,6 +113,11 @@ export default {
     showGafAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.sms === true);
+    },
+
+    showDepAnalysis() {
+      return this.datasets?.length == 2 &&
+             this.datasets?.every(dataset => dataset.data?.prot === true);
     },
 
     showScellAnalysis() {

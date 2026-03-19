@@ -7,7 +7,7 @@
 
     <q-card style="min-width: 300px;">
       <q-card-section>
-        <div class="text-h6">Differential Expression</div>
+        <div class="text-h6">Differential Gene Expression</div>
       </q-card-section>
 
       <q-card-section>
@@ -127,7 +127,7 @@ export default {
       }));
 
       const data = {
-        type: "de",
+        type: "deg",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -138,7 +138,7 @@ export default {
         }
       };
 
-      const id = await this.$store.dispatch("analysis/runDeAnalysis", data);
+      const id = await this.$store.dispatch("analysis/runDegAnalysis", data);
       await this.$router.push({ name: "analysis", params: { id: id } });
     },
 

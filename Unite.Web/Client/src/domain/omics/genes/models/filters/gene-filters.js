@@ -57,6 +57,15 @@ const filters = [
       }
     ]
   },
+  {
+    field: "tpm",
+    label: "TPM",
+    placeholderFrom: "e.g. 100",
+    placeholderTo: "e.g. 1000",
+    type: FilterType.Range,
+    valueType: ValueType.Number,
+    sanitize: (value) => sanitiseRange(value),
+  }
   // {
   //   field: "hasSms",
   //   label: "SM",

@@ -241,6 +241,16 @@ const specimensTableMixin = {
         classes: (row) => this.dataCellClass(row.data.expSc),
         headerClasses: this.dataHeaderClass()
       });
+
+      columns.push({
+        name: "hasProt",
+        label: "Prot",
+        field: (row) => this.dataView(row.data.prot),
+        sortable: false,
+        align: "center",
+        classes: (row) => this.dataCellClass(row.data.prot),
+        headerClasses: this.dataHeaderClass()
+      });
     },
 
     addStatsColumns(columns = []) {

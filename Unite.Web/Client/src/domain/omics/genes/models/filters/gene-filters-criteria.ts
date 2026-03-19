@@ -9,6 +9,7 @@ export default class GeneFiltersCriteria extends FiltersCriteriaBase {
   biotype = new ValuesCriteria<string>();
   chromosome = new ValuesCriteria<string>();
   position = new RangeCriteria();
+  tpm = new RangeCriteria();
   hasSms = new BoolCriteria();
   hasCnvs = new BoolCriteria();
   hasSvs = new BoolCriteria();
@@ -25,6 +26,7 @@ export default class GeneFiltersCriteria extends FiltersCriteriaBase {
     this.biotype = new ValuesCriteria<string>(criteria.biotype);
     this.chromosome = new ValuesCriteria<string>(criteria.chromosome);
     this.position = new RangeCriteria(criteria.position);
+    this.tpm = new RangeCriteria(criteria.tpm);
     this.hasSms = new BoolCriteria(criteria.hasSms);
     this.hasCnvs = new BoolCriteria(criteria.hasCnvs);
     this.hasSvs = new BoolCriteria(criteria.hasSvs);

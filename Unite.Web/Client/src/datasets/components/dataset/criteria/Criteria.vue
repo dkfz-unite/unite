@@ -102,6 +102,15 @@
       />
     </div>
 
+    <!-- Protein criteria -->
+    <div class="row" v-if="hasGroupFilters(proteinFilters, dataset.criteria.protein)">
+      <u-criteria-group
+        title="Protein criteria"
+        :criteria="dataset.criteria.protein"
+        :filters="proteinFilters"
+      />
+    </div>
+
     <!-- SM criteria -->
     <div class="row" v-if="hasGroupFilters(smFilters, dataset.criteria.sm)">
       <u-criteria-group
@@ -145,6 +154,7 @@ import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
 import xenograftFilters from "@/domain/specimens/xenografts/models/filters/xenograft-filters";
 import geneFilters from "@/domain/omics/genes/models/filters/gene-filters";
+import proteinFilters from "@/domain/omics/proteins/models/filters/protein-filters";
 import smFilters from "@/domain/omics/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
 import svFilters from "@/domain/omics/variants/svs/models/filters/sv-filters";
@@ -173,6 +183,7 @@ export default {
       organoidFilters: organoidFilters,
       xenograftFilters: xenograftFilters,
       geneFilters: geneFilters,
+      proteinFilters: proteinFilters,
       smFilters: smFilters,
       cnvFilters: cnvFilters,
       svFilters: svFilters

@@ -66,7 +66,7 @@ export default {
       },
       exps: {
         reads: this.modelValue.exps?.reads || false,
-        pkm: this.modelValue.exps?.tpm || false,
+        tpm: this.modelValue.exps?.tpm || false,
         fpkm: this.modelValue.exps?.fpkm || false
       }
     }
@@ -89,7 +89,7 @@ export default {
       };
       this.exps = {
         reads: value.exps?.reads || false,
-        pkm: value.exps?.tpm || false,
+        tpm: value.exps?.tpm || false,
         fpkm: value.exps?.fpkm || false
       }
     }
@@ -114,7 +114,7 @@ export default {
         options.svs = this.svs;
       }
 
-      const exps = this.exps.reads || this.exps.pkm || this.exps.fpkm;
+      const exps = this.exps.reads || this.exps.tpm || this.exps.fpkm;
       if (exps) {
         options.exps = this.exps;
       }
