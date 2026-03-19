@@ -5,6 +5,7 @@ import LineFiltersCriteria from "@/domain/specimens/lines/models/filters/line-fi
 import OrganoidFiltersCriteria from "@/domain/specimens/organoids/models/filters/organoid-filters-criteria";
 import XenograftFiltersCriteria from "@/domain/specimens/xenografts/models/filters/xenograft-filters-criteria";
 import GeneFiltersCriteria from "@/domain/omics/genes/models/filters/gene-filters-criteria";
+import ProteinFiltersCriteria from "@/domain/omics/proteins/models/filters/protein-filters-criteria";
 import SmFiltersCriteria from "@/domain/omics/variants/sms/models/filters/sm-filters-criteria";
 import CnvFiltersCriteria from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-criteria";
 import SvFiltersCriteria from "@/domain/omics/variants/svs/models/filters/sv-filters-criteria";
@@ -20,6 +21,7 @@ export default class FiltersCriteria {
   organoid = new OrganoidFiltersCriteria();
   xenograft = new XenograftFiltersCriteria();
   gene = new GeneFiltersCriteria();
+  protein = new ProteinFiltersCriteria();
   sm = new SmFiltersCriteria();
   cnv = new CnvFiltersCriteria();
   sv = new SvFiltersCriteria();
@@ -35,6 +37,7 @@ export default class FiltersCriteria {
     number += this.organoid.numberOfFilters;
     number += this.xenograft.numberOfFilters;
     number += this.gene.numberOfFilters;
+    number += this.protein.numberOfFilters;
     number += this.sm.numberOfFilters;
     number += this.cnv.numberOfFilters;
     number += this.sv.numberOfFilters;
@@ -53,6 +56,7 @@ export default class FiltersCriteria {
     this.organoid = new OrganoidFiltersCriteria(criteria?.organoid);
     this.xenograft = new XenograftFiltersCriteria(criteria?.xenograft);
     this.gene = new GeneFiltersCriteria(criteria?.gene);
+    this.protein = new ProteinFiltersCriteria(criteria?.protein);
     this.sm = new SmFiltersCriteria(criteria?.sm);
     this.cnv = new CnvFiltersCriteria(criteria?.cnv);
     this.sv = new SvFiltersCriteria(criteria?.sv);
@@ -67,6 +71,7 @@ export default class FiltersCriteria {
     this.organoid?.sanitise();
     this.xenograft?.sanitise();
     this.gene?.sanitise();
+    this.protein?.sanitise();
     this.sm?.sanitise();
     this.cnv.sanitise();
     this.sv.sanitise();
@@ -89,6 +94,7 @@ export default class FiltersCriteria {
     criteria.organoid = this.organoid?.clone();
     criteria.xenograft = this.xenograft?.clone();
     criteria.gene = this.gene?.clone();
+    criteria.protein = this.protein?.clone();
     criteria.sm = this.sm?.clone();
     criteria.cnv = this.cnv.clone();
     criteria.sv = this.sv.clone();
@@ -121,6 +127,7 @@ export default class FiltersCriteria {
     this.organoid.clear();
     this.xenograft.clear();
     this.gene.clear();
+    this.protein.clear();
     this.sm.clear();
     this.cnv.clear();
     this.sv.clear();
@@ -138,6 +145,7 @@ export default class FiltersCriteria {
     if (this.organoid?.numberOfFilters > 0) criteria.organoid = this.organoid;
     if (this.xenograft?.numberOfFilters > 0) criteria.xenograft = this.xenograft;
     if (this.gene?.numberOfFilters > 0) criteria.gene = this.gene;
+    if (this.protein?.numberOfFilters > 0) criteria.protein = this.protein;
     if (this.sm?.numberOfFilters > 0) criteria.sm = this.sm;
     if (this.cnv?.numberOfFilters > 0) criteria.cnv = this.cnv;
     if (this.sv?.numberOfFilters > 0) criteria.sv = this.sv;

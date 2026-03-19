@@ -66,6 +66,12 @@
     />
 
     <q-route-tab
+      :label="Settings.proteins.title"
+      :icon="Settings.proteins.icon"
+      :to="{ name: Settings.proteins.domain }"
+    />
+
+    <q-route-tab
       label="Variants"
       :icon="getVariantsIcon()"
       :to="getVariantsRoute()"

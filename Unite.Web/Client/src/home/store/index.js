@@ -9,6 +9,7 @@ import createDonorStore from "@/domain/donor/store";
 import createImageStore from "@/domain/images/_shared/image/store";
 import createSpecimenStore from "@/domain/specimens/_shared/specimen/store";
 import createGeneStore from "@/domain/omics/gene/store";
+import createProteinStore from "@/domain/omics/protein/store";
 import createSmStore from "@/domain/omics/variants/sm/store";
 import createCnvStore from "@/domain/omics/variants/cnv/store";
 import createSvStore from "@/domain/omics/variants/sv/store";
@@ -37,6 +38,8 @@ const store = createStore({
     [Settings.xenografts.domain]: createModelsStore(Settings.xenografts.domain),
     [Settings.gene.domain]: createGeneStore(),
     [Settings.genes.domain]: createModelsStore(Settings.genes.domain),
+    [Settings.protein.domain]: createProteinStore(),
+    [Settings.proteins.domain]: createModelsStore(Settings.proteins.domain),
     [Settings.sm.domain]: createSmStore(),
     [Settings.sms.domain]: createModelsStore(Settings.sms.domain),
     [Settings.cnv.domain]: createCnvStore(),

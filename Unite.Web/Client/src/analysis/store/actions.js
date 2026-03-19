@@ -89,14 +89,19 @@ const actions = {
     return await api.runPcamAnalysis(data);
   },
 
-  async runDeAnalysis({state, dispatch}, data) {
-    data.userId = this.getters["identity/account"].email;
-    return await api.runDeAnalysis(data);
+  async runDegAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runDegAnalysis(data);
   },
 
   async runGafAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
     return await api.runGafAnalysis(data);
+  },
+
+  async runDepAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runDepAnalysis(data);
   },
 
   async runScellAnalysis({state, dispatch}, data) {

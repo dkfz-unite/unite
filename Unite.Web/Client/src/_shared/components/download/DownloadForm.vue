@@ -60,6 +60,9 @@
             <!-- <div class="row" v-if="hasGeneExpScData">
               <q-checkbox v-model="model.geneExpSc" label="Single cell gene expressions" :disable="loading" dense />
             </div> -->
+            <div class="row" v-if="hasProtExpData">
+              <q-checkbox v-model="model.protExp" label="Protein expressions" :disable="loading" dense />
+            </div>
 
             <!-- Caution message -->
             <div class="row q-pl-md" v-if="showCaution">
@@ -128,7 +131,8 @@ export default {
         cnvTranscript: false,
         sv: false,
         svTranscript: false,
-        geneExp: false
+        geneExp: false,
+        protExp: false
       }
     };
   },
@@ -207,6 +211,10 @@ export default {
     // hasGeneExpScData() {
     //   return this.data?.expSc === true;
     // },
+
+    hasProtExpData() {
+      return this.data?.protExp === true;
+    },
 
     canSubmit() {
       for (const key in this.model) {
@@ -295,6 +303,7 @@ export default {
       // if (this.hasMethData && !this.model.meth) { return false; }
       if (this.hasGeneExpData && !this.model.geneExp) { return false; }
       // if (this.hasGeneExpScData && !this.model.geneExpSc) { return false; }
+      if (this.hasProtExpData && !this.model.protExp) { return false; }
       return true;
     },
 
@@ -311,6 +320,7 @@ export default {
       // if (this.hasMethData) { this.model.meth = value; }
       if (this.hasGeneExpData) { this.model.geneExp = value; }
       // if (this.hasGeneExpScData) { this.model.geneExpSc = value; }
+      if (this.hasProtExpData) { this.model.protExp = value; }
     },
 
     onSubmit() {

@@ -5,6 +5,7 @@ import LineFiltersContext from "@/domain/specimens/lines/models/filters/line-fil
 import OrganoidFiltersContext from "@/domain/specimens/organoids/models/filters/organoid-filters-context";
 import XenograftFiltersContext from "@/domain/specimens/xenografts/models/filters/xenograft-filters-context";
 import GeneFiltersContext from "@/domain/omics/genes/models/filters/gene-filters-context";
+import ProteinFiltersContext from "@/domain/omics/proteins/models/filters/protein-filters-context";
 import SmFiltersContext from "@/domain/omics/variants/sms/models/filters/sm-filters-context";
 import CnvFiltersContext from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-context";
 import SvFiltersContext from "@/domain/omics/variants/svs/models/filters/sv-filters-context";
@@ -17,6 +18,7 @@ export default class FiltersContext {
   organoid: OrganoidFiltersContext = new OrganoidFiltersContext();
   xenograft: XenograftFiltersContext = new XenograftFiltersContext();
   gene: GeneFiltersContext = new GeneFiltersContext();
+  protein: ProteinFiltersContext = new ProteinFiltersContext();
   sm: SmFiltersContext = new SmFiltersContext();
   cnv: CnvFiltersContext = new CnvFiltersContext();
   sv: SvFiltersContext = new SvFiltersContext();
