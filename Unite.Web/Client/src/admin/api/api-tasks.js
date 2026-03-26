@@ -53,6 +53,11 @@ export async function indexGenes() {
   return await client.post(url);
 }
 
+export async function indexProteins() {
+  const url = `${omicsFeedUrl}/indexing/proteins`;
+  return await client.post(url);
+}
+
 export async function indexVariants() {
   const url = `${omicsFeedUrl}/indexing/variants`;
   return await client.post(url);
@@ -69,5 +74,6 @@ export default {
   indexImages,
   indexSpecimens,
   indexGenes,
+  indexProteins,
   indexVariants
 }
