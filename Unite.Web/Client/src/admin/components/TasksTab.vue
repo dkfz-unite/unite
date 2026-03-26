@@ -57,6 +57,7 @@
             <q-btn @click="indexImages" :loading="loading.images" label="Images" class="q-px-sm" dense no-caps />
             <q-btn @click="indexSpecimens" :loading="loading.specimens" label="Specimens" class="q-px-sm" dense no-caps />
             <q-btn @click="indexGenes"  :loading="loading.genes" label="Genes" class="q-px-sm" dense no-caps />
+            <q-btn @click="indexProteins" :loading="loading.proteins" label="Proteins" class="q-px-sm" dense no-caps />
             <q-btn @click="indexVariants" :loading="loading.variants" label="Variants" class="q-px-sm" dense no-caps />
           </td>
         </tr>
@@ -84,6 +85,7 @@ export default {
         images: false,
         specimens: false,
         genes: false,
+        proteins: false,
         variants: false
       }
     }
@@ -156,6 +158,12 @@ export default {
       this.loading.genes = true;
       await api.indexGenes();
       this.loading.genes = false;
+    },
+
+    async indexProteins() {
+      this.loading.proteins = true;
+      await api.indexProteins();
+      this.loading.proteins = false;
     },
 
     async indexVariants() {
