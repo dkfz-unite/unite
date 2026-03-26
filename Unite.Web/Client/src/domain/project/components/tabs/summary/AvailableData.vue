@@ -46,27 +46,27 @@
             </tr>
             <tr>
               <td class="u-text-key">Simple mutations (SM)</td>
-              <td>{{ getNumber(project.stats.dna.sm.number) }}</td>
+              <td>{{ getNumbers(project.stats.dna.sm.number) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Copy number variants (CNV)</td>
-              <td>{{ getNumber(project.stats.dna.cnv.number) }}</td>
+              <td>{{ getNumbers(project.stats.dna.cnv.number) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Structural variants (SV)</td>
-              <td>{{ getNumber(project.stats.dna.sv.number) }}</td>
+              <td>{{ getNumbers(project.stats.dna.sv.number) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">DNA Methylation</td>
-              <td>{{ getNumber(project.stats.meth.number) }}</td>
+              <td>{{ getNumbers(project.stats.meth.number) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Bulk Gene expressions</td>
-              <td>{{ getNumber(project.stats.rna.number) }}</td>
+              <td>{{ getNumbers(project.stats.rna.number) }}</td>
             </tr>
             <tr>
               <td class="u-text-key">Single cell Gene expressions</td>
-              <td>{{ getNumber(project.stats.rnasc.number) }}</td>
+              <td>{{ getNumbers(project.stats.rnasc.number) }}</td>
             </tr>
           </tbody>
         </q-markup-table>

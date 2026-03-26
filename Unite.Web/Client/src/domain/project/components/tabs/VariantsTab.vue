@@ -92,15 +92,15 @@ export default {
 
   computed: {
     showSm() {
-      return this.project.stats.dna.sm.number > 0;
+      return this.project.stats.dna.sm.number[0] > 0;
     },
 
     showCnv() {
-      return this.project.stats.dna.cnv.number > 0;
+      return this.project.stats.dna.cnv.number[0] > 0;
     },
 
     showSv() {
-      return this.project.stats.dna.sv.number > 0;
+      return this.project.stats.dna.sv.number[0] > 0;
     }
   },
 
