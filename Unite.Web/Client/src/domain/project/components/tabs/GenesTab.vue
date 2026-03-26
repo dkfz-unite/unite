@@ -76,11 +76,11 @@ export default {
 
   computed: {
     showRna() {
-      return this.project.stats.rna.number > 0;
+      return this.project.stats.rna.number[0] > 0;
     },
 
     showRnasc() {
-      return this.project.stats.rnasc.number > 0;
+      return this.project.stats.rnasc.number[0] > 0;
     }
   },
 

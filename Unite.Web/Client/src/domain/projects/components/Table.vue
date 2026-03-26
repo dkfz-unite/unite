@@ -137,7 +137,7 @@ export default {
       columns.push({
         name: "sm",
         label: "SM",
-        field: (row) => this.getNumber(row.stats.dna.sm.number),
+        field: (row) => this.getNumbers(row.stats.dna.sm.number),
         sortable: false,
         align: "right"
       });
@@ -145,7 +145,7 @@ export default {
       columns.push({
         name: "cnv",
         label: "CNV",
-        field: (row) => this.getNumber(row.stats.dna.cnv.number),
+        field: (row) => this.getNumbers(row.stats.dna.cnv.number),
         sortable: false,
         align: "right"
       });
@@ -153,7 +153,7 @@ export default {
       columns.push({
         name: "sv",
         label: "SV",
-        field: (row) => this.getNumber(row.stats.dna.sv.number),
+        field: (row) => this.getNumbers(row.stats.dna.sv.number),
         sortable: false,
         align: "right"
       });
@@ -161,7 +161,7 @@ export default {
       columns.push({
         name: "meth",
         label: "Meth",
-        field: (row) => this.getNumber(row.stats.meth.number),
+        field: (row) => this.getNumbers(row.stats.meth.number),
         sortable: false,
         align: "right"
       });
@@ -169,7 +169,7 @@ export default {
       columns.push({
         name: "exp",
         label: "RNA",
-        field: (row) =>  this.getNumber(row.stats.rna.number),
+        field: (row) =>  this.getNumbers(row.stats.rna.number),
         sortable: false,
         align: "right"
       });
@@ -177,7 +177,7 @@ export default {
       columns.push({
         name: "expSc",
         label: "scRNA",
-        field: (row) => this.getNumber(row.stats.rnasc.number),
+        field: (row) => this.getNumbers(row.stats.rnasc.number),
         sortable: false,
         align: "right"
       });
