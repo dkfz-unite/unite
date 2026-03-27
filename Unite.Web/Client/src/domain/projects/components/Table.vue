@@ -182,6 +182,14 @@ export default {
         align: "right"
       });
 
+      // columns.push({
+      //   name: "prot",
+      //   label: "Prot",
+      //   field: (row) => this.getNumbers(row.stats.prot.number),
+      //   sortable: false,
+      //   align: "right"
+      // });
+
       return columns;
     }
   },

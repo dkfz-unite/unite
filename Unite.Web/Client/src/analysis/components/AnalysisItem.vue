@@ -178,6 +178,8 @@ export default {
           return { type: "application/octet-stream", ext: "zip" };
         case "deg":
           return { type: "application/octet-stream", ext: "tsv" };
+        case "dep":
+          return { type: "application/octet-stream", ext: "zip" };
         case "gaf":
           return { type: "application/octet-stream", ext: "json" };
         case "scell":

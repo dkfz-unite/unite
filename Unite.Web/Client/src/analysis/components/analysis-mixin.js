@@ -28,6 +28,7 @@ const mixin = {
         case "dm": return "Differential Methylation Analysis";
         case "pcam": return "PCA of Methylation Profiles";
         case "deg": return "Differential Gene Expression";
+        case "dep": return "Differential Protein Expression";
         case "gaf": return "Gene Alteration Frequency";
         case "scell": return "scRNA Dataset Creation";
         default: return type;
