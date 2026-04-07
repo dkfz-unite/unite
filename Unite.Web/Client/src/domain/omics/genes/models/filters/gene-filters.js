@@ -58,10 +58,10 @@ const filters = [
     ]
   },
   {
-    field: "tpm",
-    label: "TPM",
-    placeholderFrom: "e.g. 100",
-    placeholderTo: "e.g. 1000",
+    field: "expression",
+    label: "Expression",
+    placeholderFrom: "Log2(tpm+1) e.g. 1",
+    placeholderTo: "Log2(tpm+1) e.g. 1.7",
     type: FilterType.Range,
     valueType: ValueType.Number,
     sanitize: (value) => sanitiseRange(value),

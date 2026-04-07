@@ -60,8 +60,8 @@ const filters = [
   {
     field: "expression",
     label: "Intensity",
-    placeholderFrom: "e.g. 1.5",
-    placeholderTo: "e.g. 1.8",
+    placeholderFrom: "Lo2(i+1) e.g. 1.5",
+    placeholderTo: "Log2(i+1) e.g. 1.8",
     type: FilterType.Range,
     valueType: ValueType.Number,
     sanitize: (value) => sanitiseRange(value),

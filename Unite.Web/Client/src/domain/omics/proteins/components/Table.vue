@@ -27,6 +27,18 @@
         </q-td>
       </template>
 
+      <template v-slot:body-cell-gene="props">
+        <q-td :props="props">
+          <u-link-gene v-if="props.value" :id="props.value.id">{{ props.value.symbol }}</u-link-gene>
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-transcript="props">
+        <q-td :props="props">
+          <u-link-external v-if="props.value" :to="getTranscriptLink(props.value.stableId)">{{ props.value.symbol }}</u-link-external>
+        </q-td>
+      </template>
+
       <!-- <template v-slot:header-cell-expression="props">
         <q-th :props="props">
           <span>
@@ -136,6 +148,22 @@ export default {
         align: "left"
       });
 
+      columns.push({
+        name: "gene",
+        label: "Gene",
+        field: (row) => row.gene,
+        sortable: false,
+        align: "left"
+      });
+
+      columns.push({
+        name: "transcript",
+        label: "Transcript",
+        field: (row) => row.transcript,
+        sortable: false,
+        align: "left"
+      });
+
       // if(this.showExpressions){
       //   columns.push({
       //     name: "expression",
@@ -211,7 +239,11 @@ export default {
       } else {
         return null;
       }
-    }
+    },
+
+    getTranscriptLink(stableId) {
+      return `https://www.ensembl.org/homo_sapiens/Transcript/Summary?t=${stableId}&db=core`;
+    }   
   }
 };
 </script>
