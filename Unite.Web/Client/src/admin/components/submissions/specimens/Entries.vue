@@ -48,8 +48,8 @@ export default {
   },
 
   mounted() {
-    const ignore = ["id", "parent_id", "parent_type", "donor_id", "creation_date", "creation_day", "interventions"];
-    const flatten = ["material", "line", "organoid", "xenograft", "info", "tumor_classification", "molecular_data"];
+    const ignore = ["id", "parent_id", "parent_type", "donor_id", "creation_date", "category", "tumor_type", "tumor_grade", "creation_day", "interventions"];
+    const flatten = ["material", "line", "organoid", "xenograft", "info", "tumor_classification"];
 
     this.specimenRows = this.data
       .map(spe => ({
@@ -57,10 +57,15 @@ export default {
         parent_id: spe.parent_id,
         parent_type: SubmissionType.getLabel(spe.parent_type),
         donor_id: spe.donor_id,
+        category: spe.category,
+        tumor_type: spe.tumor_type,
+        tumor_grade: spe.tumor_grade,
         creation_date: spe.creation_date,
         creation_day: spe.creation_day,
-        ...this.mapProps(spe, ignore, flatten)
+        ...this.mapProps(spe, ignore, flatten),
       }));
+
+    console.log(this.specimenRows);
 
     this.interventionRows = this.data
       .filter(spe => !!spe.interventions)

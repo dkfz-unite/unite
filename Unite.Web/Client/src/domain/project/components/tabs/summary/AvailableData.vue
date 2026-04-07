@@ -68,6 +68,10 @@
               <td class="u-text-key">Single cell Gene expressions</td>
               <td>{{ getNumbers(project.stats.rnasc.number) }}</td>
             </tr>
+            <tr>
+              <td class="u-text-key">Protein expressions</td>
+              <td>{{ getNumbers(project.stats.prot.number) }}</td>
+            </tr>
           </tbody>
         </q-markup-table>
       </div>
