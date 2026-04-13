@@ -38,7 +38,8 @@
             </div>
           </div>
         </q-card-section>
-        <q-card-section>
+
+        <!-- <q-card-section>
           <div class="col">
             <template v-for="(dataset, index) in datasetsOrdered" :key="index">
               <div class="row items-center q-gutter-xs q-mb-xs">
@@ -50,7 +51,8 @@
               </div>
             </template>
           </div>
-        </q-card-section>
+        </q-card-section> -->
+        
         <q-card-section>
           <div class="col q-gutter-sm">
             <div class="row text-subtitle1">Options</div>

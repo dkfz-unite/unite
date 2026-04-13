@@ -74,6 +74,11 @@ const actions = {
     dispatch("loadAnalyses");
   },
 
+  async runAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runAnalysis(data.type, data);
+  },
+
   async runSurvAnalysis({state, dispatch}, data) {
     data.userid = this.getters["identity/account"].email;
     return await api.runSurvAnalysis(data);

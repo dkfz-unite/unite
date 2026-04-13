@@ -31,6 +31,11 @@ export async function deleteAnalysis(id) {
   return await client.delete(url);
 }
 
+export async function runAnalysis(type, data) {
+  const url = `${analysisTaskUrl}/${type}`;
+  return await client.post(url, data);
+}
+
 export async function runSurvAnalysis(data) {
   const url = `${analysisTaskUrl}/surv`;
   return await client.post(url, data);
@@ -93,6 +98,7 @@ export default {
   getAnalysisMeta,
   getAnalysisData,
   deleteAnalysis,
+  runAnalysis,
   runSurvAnalysis,
   runDmAnalysis,
   runPcamAnalysis,
