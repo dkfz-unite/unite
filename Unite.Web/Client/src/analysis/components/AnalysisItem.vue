@@ -52,6 +52,7 @@
         <u-deg-results v-else-if="analysis.type == 'deg'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-gaf-results v-else-if="analysis.type == 'gaf'" :id="analysis.id" :title="title" :data="analysis.results" />
         <u-dep-results v-else-if="analysis.type == 'dep'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
+        <u-umapp-results v-else-if="analysis.type == 'umapp'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
         <u-scell-results v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
@@ -65,6 +66,7 @@ import UPcamResults from "./pcam/Results.vue";
 import UDegResults from "./deg/Results.vue";
 import UGafResults from "./gaf/Results.vue";
 import UDepResults from "./dep/Results.vue";
+import UUmappResults from "./umapp/Results.vue";
 import UScellResults from "./scell/Results.vue";
 import mixin from "./analysis-mixin";
 
@@ -79,6 +81,7 @@ export default {
     UDegResults,
     UGafResults,
     UDepResults,
+    UUmappResults,
     UScellResults
   },
 
@@ -140,6 +143,12 @@ export default {
           const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
           this.analysis.meta = content;
         }
+      } else if (this.analysis.type === "umapp") {
+         if (!this.analysis.meta) {
+          const payload = { id: this.analysis.id, file: "annotations.tsv" };
+          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+          this.analysis.meta = content;
+        }
       }
 
       if (!this.analysis.results) {
@@ -182,6 +191,8 @@ export default {
           return { type: "application/octet-stream", ext: "zip" };
         case "gaf":
           return { type: "application/octet-stream", ext: "json" };
+        case "umapp":
+          return { type: "application/octet-stream", ext: "zip" };
         case "scell":
           return { type: "application/octet-stream", ext: "zip" };
         default:

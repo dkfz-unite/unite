@@ -6,6 +6,7 @@
   <u-gaf-dialog v-if="showGafAnalysis" ref="GafDialog" :datasets="datasets" />
   <u-dep-dialog v-if="showDepAnalysis" ref="DepDialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
+  <u-umapp-dialog v-if="showUmappAnalysis" ref="UmappDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
@@ -45,6 +46,11 @@
             <q-item-label>scRNA Dataset Creation</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item v-if="showUmappAnalysis" @click="$refs.UmappDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>UMAP of <strong>Protein</strong> Expression Profiles</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-menu>
   </q-btn>
@@ -58,6 +64,7 @@ import UDegDialog from "@/analysis/components/deg/Dialog.vue";
 import UGafDialog from "@/analysis/components/gaf/Dialog.vue";
 import UDepDialog from "@/analysis/components/dep/Dialog.vue";
 import UScellDialog from "@/analysis/components/scell/Dialog.vue";
+import UUmappDialog from "@/analysis/components/umapp/Dialog.vue";
 
 
 export default {
@@ -68,7 +75,8 @@ export default {
     UDegDialog,
     UGafDialog,
     UDepDialog,
-    UScellDialog
+    UScellDialog,
+    UUmappDialog,
   },
 
   props: {
@@ -86,7 +94,8 @@ export default {
           || this.showDegAnalysis
           || this.showGafAnalysis
           || this.showDepAnalysis
-          || this.showScellAnalysis;
+          || this.showScellAnalysis
+          || this.showUmappAnalysis;
     },
 
     showSurvAnalysis() {
@@ -123,6 +132,11 @@ export default {
     showScellAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.expSc == true);
+    },
+
+    showUmappAnalysis() {
+      return this.datasets?.length == 1 &&
+             this.datasets?.every(dataset => dataset.data?.prot == true);
     }
   }
 }

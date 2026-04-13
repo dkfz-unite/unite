@@ -31,6 +31,7 @@ const mixin = {
         case "dep": return "Differential Protein Expression";
         case "gaf": return "Gene Alteration Frequency";
         case "scell": return "scRNA Dataset Creation";
+        case "umapp": return "UMAP of Protein Expression Profiles";
         default: return type;
       }
     }

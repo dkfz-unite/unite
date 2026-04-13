@@ -183,10 +183,12 @@
       joinTables(results, metadata) {
         const resultsMap = new Map(results.map(row => [row['Sample'], row]));
         const metadataMap = new Map(metadata.map(row => [row['sample_id'], row]));
+        
         const keys = new Set([
           ...results.map(row => row['Sample']),
           ...metadata.map(row => row['sample_id'])
         ]);
+
         return Array.from(keys).map(key => {
           const mappedResults = resultsMap.get(key) || null;
           const mappedMetadata = metadataMap.get(key) || null ;
