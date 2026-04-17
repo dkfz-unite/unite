@@ -53,8 +53,8 @@
         </div>
       </q-card-section> -->
 
-      <q-card-section>
-        <div class="col q-gutter-sm">
+      <q-card-section class="row q-col-gutter-lg q-pr-none">
+        <div class="col col-6 q-gutter-sm">
           <div class="row text-subtitle1">Preprocessing  Options</div>
 
           <!-- Normalization method -->
@@ -134,45 +134,27 @@
               <q-checkbox
                 v-model="options.requireMinFractionOneClass.value"
                 label="Require non-missing fraction in one class"
+                @vue:updated="onFractionClassChange"
                 dense square outlined
               />
             </div>
           </div>
-        </div>
-      </q-card-section>
 
-      <q-card-section>
-        <div class="col q-gutter-sm">
-          <div class="row text-subtitle1">Feature Selection Options</div>
-
-          <!-- Method -->
+          <!-- Class property -->
           <div class="row">
             <div class="col">
               <q-select
-                v-model="options.featureSelectionMethod.value"
-                :options="options.featureSelectionMethod.options"
-                label="Method" map-options
+                v-model="options.classProperty.value"
+                :options="options.classProperty.options"
+                :disable="options.requireMinFractionOneClass.value === false"
+                label="Class property"
                 dense options-dense square outlined
               />
             </div>
           </div>
-
-          <!-- Features number -->
-          <div class="row">
-            <div class="col">
-              <q-input
-                v-model="options.featureSelectionFeaturesNumber.value"
-                label="Features number"
-                type="number" :min="options.featureSelectionFeaturesNumber.min" step="1"
-                dense square outlined
-              />
-            </div>
-          </div>
         </div>
-      </q-card-section>
 
-      <q-card-section>
-        <div class="col q-gutter-sm">
+        <div class="col col-6 q-gutter-sm">
           <div class="row text-subtitle1">UMAP Options</div>
 
           <!-- Neighbors number -->
@@ -235,6 +217,40 @@
             </div>
           </div>
         </div>
+      </q-card-section>
+
+      <q-card-section>
+        <div class="col q-gutter-sm">
+          <div class="row text-subtitle1">Feature Selection Options</div>
+
+          <!-- Method -->
+          <div class="row">
+            <div class="col">
+              <q-select
+                v-model="options.featureSelectionMethod.value"
+                :options="options.featureSelectionMethod.options"
+                label="Method" map-options
+                dense options-dense square outlined
+              />
+            </div>
+          </div>
+
+          <!-- Features number -->
+          <div class="row">
+            <div class="col">
+              <q-input
+                v-model="options.featureSelectionFeaturesNumber.value"
+                label="Features number"
+                type="number" :min="options.featureSelectionFeaturesNumber.min" step="1"
+                dense square outlined
+              />
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+
+      <q-card-section>
+        
       </q-card-section>
 
       <q-separator />
@@ -336,6 +352,11 @@ export default {
           value: false,
           default: false
         },
+        classProperty: {
+          value: null,
+          default: null,
+          options: []
+        },
 
         featureSelectionMethod: {
           value: "variance",
@@ -393,9 +414,21 @@ export default {
     }
   },
 
+  async mounted() {
+    this.options.classProperty.options = await this.$store.dispatch("analysis/getMetadataOptions");
+  },
+
   methods: {
     show() {
       this.dialog = true;
+    },
+
+    onFractionClassChange() {
+      if (!this.options.requireMinFractionOneClass.value) {
+        this.options.classProperty.value = this.options.classProperty.default;
+      } else {
+        this.options.classProperty.value = this.options.classProperty.options[0] || null;
+      }
     },
 
     async onSubmit() {
@@ -415,6 +448,7 @@ export default {
         "batch_correction_method": this.options.batchCorrectionMethod.value,
         "min_non_missing_fraction": this.options.minNonMissingFraction.value,
         "require_min_fraction_one_class": this.options.requireMinFractionOneClass.value,
+        "class_property": this.options.classProperty.value,
         "feature_selection_method": this.options.featureSelectionMethod.value,
         "feature_selection_n_features": this.options.featureSelectionFeaturesNumber.value,
         "umap_n_neighbors": this.options.umapNeighborsNumber.value,
@@ -449,6 +483,7 @@ export default {
       this.options.batchCorrectionMethod.value = this.options.batchCorrectionMethod.default;
       this.options.minNonMissingFraction.value = this.options.minNonMissingFraction.default;
       this.options.requireMinFractionOneClass.value = this.options.requireMinFractionOneClass.default;
+      this.options.classProperty.value = this.options.classProperty.default;
       this.options.featureSelectionMethod.value = this.options.featureSelectionMethod.default;
       this.options.featureSelectionFeaturesNumber.value = this.options.featureSelectionFeaturesNumber.default;
       this.options.umapNeighborsNumber.value = this.options.umapNeighborsNumber.default;

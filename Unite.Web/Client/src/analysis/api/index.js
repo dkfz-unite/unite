@@ -91,6 +91,10 @@ export async function stopScellAnalysis(data) {
   return await client.delete(url);
 }
 
+export async function getMetadataOptions() {
+  const url = `${analysisUrl}/metadata/options`;
+  return await client.get(url);
+}
 
 export default {
   loadAnalyses,
@@ -109,5 +113,6 @@ export default {
   getScellAnalysisModels,
   viewScellAnalysis,
   updateScellAnalysis,
-  stopScellAnalysis
+  stopScellAnalysis,
+  getMetadataOptions
 };
