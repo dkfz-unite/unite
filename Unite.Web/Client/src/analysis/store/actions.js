@@ -1,4 +1,4 @@
-import api from "../api";
+import api, { getMetadataOptions } from "../api";
 
 const PROCESSED_STATUS = "Processed";
 const FAILED_STATUS = "Failed";
@@ -128,6 +128,10 @@ const actions = {
 
   async stopScellAnalysis({state}, data) {
     await api.stopScellAnalysis(data.id);
+  },
+
+  async getMetadataOptions({state}, data) {
+    return await api.getMetadataOptions();
   }
 };
 
