@@ -43,6 +43,7 @@ export default class FiltersCriteria {
     number += this.sm.numberOfFilters;
     number += this.cnv.numberOfFilters;
     number += this.sv.numberOfFilters;
+    number += this.cnvProfile.numberOfFilters;
 
     return number;
   }
@@ -62,6 +63,7 @@ export default class FiltersCriteria {
     this.sm = new SmFiltersCriteria(criteria?.sm);
     this.cnv = new CnvFiltersCriteria(criteria?.cnv);
     this.sv = new SvFiltersCriteria(criteria?.sv);
+    this.cnvProfile = new CnvProfileFiltersCriteria(criteria?.cnvProfile);
   }
 
   sanitise(): void {
@@ -77,6 +79,7 @@ export default class FiltersCriteria {
     this.sm?.sanitise();
     this.cnv.sanitise();
     this.sv.sanitise();
+    this.cnvProfile.sanitise();
   }
 
   resetPage(): void {
@@ -100,6 +103,7 @@ export default class FiltersCriteria {
     criteria.sm = this.sm?.clone();
     criteria.cnv = this.cnv.clone();
     criteria.sv = this.sv.clone();
+    criteria.cnvProfile = this.cnvProfile.clone();
 
     return criteria;
   }
@@ -133,6 +137,7 @@ export default class FiltersCriteria {
     this.sm.clear();
     this.cnv.clear();
     this.sv.clear();
+    this.cnvProfile.clear();
   }
 
   toSearchCriteria(): any {
@@ -151,6 +156,7 @@ export default class FiltersCriteria {
     if (this.sm?.numberOfFilters > 0) criteria.sm = this.sm;
     if (this.cnv?.numberOfFilters > 0) criteria.cnv = this.cnv;
     if (this.sv?.numberOfFilters > 0) criteria.sv = this.sv;
+    if (this.cnvProfile?.numberOfFilters > 0) criteria.cnvProfile = this.cnvProfile;
     return criteria;
   }
 }
