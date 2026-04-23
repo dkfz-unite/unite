@@ -9,6 +9,7 @@ import ProteinFiltersCriteria from "@/domain/omics/proteins/models/filters/prote
 import SmFiltersCriteria from "@/domain/omics/variants/sms/models/filters/sm-filters-criteria";
 import CnvFiltersCriteria from "@/domain/omics/variants/cnvs/models/filters/cnv-filters-criteria";
 import SvFiltersCriteria from "@/domain/omics/variants/svs/models/filters/sv-filters-criteria";
+import CnvProfileFiltersCriteria from "@/domain/omics/variants/cnvProfiles/models/filters/cnv-profile-filters-criteria";
 
 export default class FiltersCriteria {
   from: number = 0;
@@ -25,6 +26,7 @@ export default class FiltersCriteria {
   sm = new SmFiltersCriteria();
   cnv = new CnvFiltersCriteria();
   sv = new SvFiltersCriteria();
+  cnvProfile = new CnvProfileFiltersCriteria();
 
   get numberOfFilters(): number {
     let number = 0;
