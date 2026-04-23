@@ -19,6 +19,7 @@ import proteinFilters from "@/domain/omics/proteins/models/filters/protein-filte
 import smFilters from "@/domain/omics/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
 import svFilters from "@/domain/omics/variants/svs/models/filters/sv-filters";
+import cnvProfileFilters from "@/domain/omics/variants/cnvProfiles/models/filters/cnv-profile-filters";
 
 const models = FilterModels.All;
 
@@ -96,6 +97,7 @@ const mixin = {
         case FilterModels.Cnv: return "CNV Filters";
         case FilterModels.Sv: return "SV Filters";
         case FilterModels.Organoid: return "Oncogrid Filters";
+        case FilterModels.CnvProfile: return "CNV Profile Filters";
         default: return "Filters";
       }
     },
@@ -114,6 +116,7 @@ const mixin = {
         case FilterModels.Cnv: return "svguse:/icons.svg#u-cnv";
         case FilterModels.Sv: return "svguse:/icons.svg#u-sv";
         case FilterModels.Oncogrid: return "las la-th";
+        case FilterModels.CnvProfile: return "svguse:/icons.svg#u-cnv";
         default: return null;
       }
     },
@@ -131,6 +134,7 @@ const mixin = {
         case FilterModels.Sm: return smFilters;
         case FilterModels.Cnv: return cnvFilters;
         case FilterModels.Sv: return svFilters;
+        case FilterModels.CnvProfile: return cnvProfileFilters;
         default: return null;
       }
     },
