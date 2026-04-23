@@ -119,7 +119,7 @@ export default {
       drawer: this.$store.state.leftDrawer,
       domain: Settings.donors.domain,
       model: FilterModels.Donor,
-      models: FilterModels.All
+      models: FilterModels.DonorModels
     };
   },
 
