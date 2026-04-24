@@ -44,14 +44,14 @@ const mixin = {
 
     model: {
       type: String,
-      required: true/*,
-      validator: value => models.includes(value)*/
+      required: true,
+      validator: value => models.includes(value)
     },
 
     models: {
       type: Array,
-      required: true/*,
-      validator: value =>  value.every(v => models.includes(v))*/
+      required: true,
+      validator: value =>  value.every(v => models.includes(v))
     },
   },
 
