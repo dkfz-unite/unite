@@ -3,7 +3,6 @@ import ValuesCriteria from "@/_shared/components/filters/models/criteria-values"
 import RangeCriteria from "@/_shared/components/filters/models/criteria-range";
 
 export default class CnvProfileFiltersCriteria extends FiltersCriteriaBase {
-    specimenId = new ValuesCriteria<number>();
     chromosome = new ValuesCriteria<string>();
     chromosomeArm = new ValuesCriteria<string>();
     gain = new RangeCriteria();
@@ -16,7 +15,6 @@ export default class CnvProfileFiltersCriteria extends FiltersCriteriaBase {
         if (!criteria)
             return;
 
-        this.specimenId = new ValuesCriteria<number>(criteria.specimenId);
         this.chromosome = new ValuesCriteria<string>(criteria.chromosome);
         this.chromosomeArm = new ValuesCriteria<string>(criteria.chromosomeArm);
         this.gain = new RangeCriteria(criteria.gain);
