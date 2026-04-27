@@ -116,7 +116,7 @@ const mixin = {
         case FilterModels.Cnv: return "svguse:/icons.svg#u-cnv";
         case FilterModels.Sv: return "svguse:/icons.svg#u-sv";
         case FilterModels.Oncogrid: return "las la-th";
-        case FilterModels.CnvProfile: return "svguse:/icons.svg#u-cnv";
+        case FilterModels.CnvProfile: return "svguse:/icons.svg#u-cnvp";
         default: return null;
       }
     },
