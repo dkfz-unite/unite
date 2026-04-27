@@ -11,9 +11,10 @@ export default class FilterModel {
   static Sm = "sm";
   static Cnv = "cnv";
   static Sv = "sv";
+  static CnvProfile = "cnvProfile";
 
   static Images = [this.Mr];
   static Specimens = [this.Material, this.Line, this.Organoid, this.Xenograft];
-  static Omics = [this.Gene, this.Protein, this.Sm, this.Cnv, this.Sv];
+  static Omics = [this.Gene, this.Protein, this.Sm, this.Cnv, this.CnvProfile, this.Sv];
   static All = [this.Donor, ...this.Images, ...this.Specimens, ...this.Omics];
 }
