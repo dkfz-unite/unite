@@ -13,11 +13,11 @@
     </div>
 
     <!-- Donor data criteria -->
-    <div class="row" v-if="hasGroupFilters(donorDataFilters, dataset.criteria.donor)">
+    <div class="row" v-if="hasGroupFilters(dataFilters, dataset.criteria.donor)">
       <u-criteria-group
         title="Donor data criteria"
         :criteria="dataset.criteria.donor"
-        :filters="donorDataFilters"
+        :filters="dataFilters"
       />
     </div>
 
@@ -30,12 +30,12 @@
       />
     </div>
 
-    <!-- Image data criteria -->
-    <div class="row" v-if="hasGroupFilters(imageDataFilters, dataset.criteria.image)">
+    <!-- MR data criteria -->
+    <div class="row" v-if="hasGroupFilters(dataFilters, dataset.criteria.mr)">
       <u-criteria-group
         title="Image data criteria"
-        :criteria="dataset.criteria.image"
-        :filters="imageDataFilters"
+        :criteria="dataset.criteria.mr"
+        :filters="dataFilters"
       />
     </div>
 
@@ -48,12 +48,12 @@
       />
     </div>
 
-    <!-- Specimen data criteria -->
-    <div class="row" v-if="hasGroupFilters(specimenDataFilters, dataset.criteria.specimen)">
+    <!-- Material data criteria -->
+    <div class="row" v-if="hasGroupFilters(dataFilters, dataset.criteria.material)">
       <u-criteria-group
         title="Specimen data criteria"
-        :criteria="dataset.criteria.specimen"
-        :filters="specimenDataFilters"
+        :criteria="dataset.criteria.material"
+        :filters="dataFilters"
       />
     </div>
 
@@ -66,6 +66,15 @@
       />
     </div>
 
+    <!-- Cell Line data criteria -->
+    <div class="row" v-if="hasGroupFilters(dataFilters, dataset.criteria.line)">
+      <u-criteria-group
+        title="Cell line data criteria"
+        :criteria="dataset.criteria.line"
+        :filters="dataFilters"
+      />
+    </div>
+
     <!-- Cell Line criteria -->
     <div class="row" v-if="hasGroupFilters(lineFilters, dataset.criteria.line)">
       <u-criteria-group
@@ -75,12 +84,30 @@
       />
     </div>
 
+    <!-- Organoid data criteria -->
+    <div class="row" v-if="hasGroupFilters(dataFilters, dataset.criteria.organoid)">
+      <u-criteria-group
+        title="Organoid data criteria"
+        :criteria="dataset.criteria.organoid"
+        :filters="dataFilters"
+      />
+    </div>
+
     <!-- Organoid criteria -->
     <div class="row" v-if="hasGroupFilters(organoidFilters, dataset.criteria.organoid)">
       <u-criteria-group
         title="Organoid criteria"
         :criteria="dataset.criteria.organoid"
         :filters="organoidFilters"
+      />
+    </div>
+
+    <!-- Xenograft data criteria -->
+    <div class="row" v-if="hasGroupFilters(dataFilters, dataset.criteria.xenograft)">
+      <u-criteria-group
+        title="Xenograft data criteria"
+        :criteria="dataset.criteria.xenograft"
+        :filters="dataFilters"
       />
     </div>
 
@@ -144,11 +171,9 @@
 import UCriteriaGroup from "./CriteriaGroup.vue";
 
 import FilterType from "@/_shared/components/filters/filter-type";
-import donorDataFilters from "@/domain/donors/models/filters/donor-data-filters";
+import dataFilters from "@/domain/_shared/entries/models/filters/data-filters";
 import donorFilters from "@/domain/donors/models/filters/donor-filters";
-import imageDataFilters from "@/domain/images/_shared/images/models/filters/image-data-filters";
 import mrFilters from "@/domain/images/mrs/models/filters/mr-filters";
-import specimenDataFilters from "@/domain/specimens/_shared/specimens/models/filters/specimen-data-filters";
 import materialFilters from "@/domain/specimens/materials/models/filters/material-filters";
 import lineFilters from "@/domain/specimens/lines/models/filters/line-filters";
 import organoidFilters from "@/domain/specimens/organoids/models/filters/organoid-filters";
@@ -173,11 +198,9 @@ export default {
 
   setup() {
     return {
-      donorDataFilters: donorDataFilters,
+      dataFilters: dataFilters,
       donorFilters: donorFilters,
-      imageDataFilters: imageDataFilters,
       mrFilters: mrFilters,
-      specimenDataFilters: specimenDataFilters,
       materialFilters: materialFilters,
       lineFilters: lineFilters,
       organoidFilters: organoidFilters,
