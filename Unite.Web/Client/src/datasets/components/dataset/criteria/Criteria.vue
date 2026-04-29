@@ -156,6 +156,15 @@
       />
     </div>
 
+    <!-- CNV profile criteria -->
+    <div class="row" v-if="hasGroupFilters(cnvprofileFilters, dataset.criteria.cnvProfile)">
+      <u-criteria-group
+        title="CNV profile criteria"
+        :criteria="dataset.criteria.cnvProfile"
+        :filters="cnvprofileFilters"
+      />
+    </div>
+
     <!-- SV criteria -->
     <div class="row" v-if="hasGroupFilters(svFilters, dataset.criteria.sv)">
       <u-criteria-group
@@ -182,6 +191,7 @@ import geneFilters from "@/domain/omics/genes/models/filters/gene-filters";
 import proteinFilters from "@/domain/omics/proteins/models/filters/protein-filters";
 import smFilters from "@/domain/omics/variants/sms/models/filters/sm-filters";
 import cnvFilters from "@/domain/omics/variants/cnvs/models/filters/cnv-filters";
+import cnvprofileFilters from "@/domain/omics/variants/cnvProfiles/models/filters/cnv-profile-filters";
 import svFilters from "@/domain/omics/variants/svs/models/filters/sv-filters";
 
 export default {
@@ -209,6 +219,7 @@ export default {
       proteinFilters: proteinFilters,
       smFilters: smFilters,
       cnvFilters: cnvFilters,
+      cnvprofileFilters: cnvprofileFilters,
       svFilters: svFilters
     }
   },
