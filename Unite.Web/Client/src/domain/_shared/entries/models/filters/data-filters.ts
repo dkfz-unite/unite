@@ -26,7 +26,7 @@ const filters = [
       },
       {
         field: "hasMeth",
-        label: "Meth",
+        label: "Methylation",
         type: FilterType.Boolean,
         nullable: true
       },
@@ -39,6 +39,12 @@ const filters = [
       {
         field: "hasExpSc",
         label: "scRNA",
+        type: FilterType.Boolean,
+        nullable: true
+      },
+      {
+        field: "hasProt",
+        label: "Proteomics",
         type: FilterType.Boolean,
         nullable: true
       }

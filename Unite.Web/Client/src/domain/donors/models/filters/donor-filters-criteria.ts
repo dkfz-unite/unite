@@ -1,9 +1,9 @@
 import ValuesCriteria from "@/_shared/components/filters/models/criteria-values";
 import RangeCriteria from "@/_shared/components/filters/models/criteria-range";
 import BoolCriteria from "@/_shared/components/filters/models/criteria-bool";
-import FiltersCriteriaBase from "@/_shared/components/filters/filters-criteria-base";
+import DataFiltersCriteria from "@/domain/_shared/entries/models/filters/data-filters-criteria";
 
-export default class DonorFiltersCriteria extends FiltersCriteriaBase {
+export default class DonorFiltersCriteria extends DataFiltersCriteria {
   id = new ValuesCriteria<number>();
   referenceId = new ValuesCriteria<string>();
 
@@ -21,13 +21,6 @@ export default class DonorFiltersCriteria extends FiltersCriteriaBase {
   mtaProtected = new BoolCriteria();
   project = new ValuesCriteria<string>();
   study = new ValuesCriteria<string>();
-
-  hasSms = new BoolCriteria();
-  hasCnvs = new BoolCriteria();
-  hasSvs = new BoolCriteria();
-  hasMeth = new BoolCriteria();
-  hasExp = new BoolCriteria();
-  hasExpSc = new BoolCriteria();
 
   constructor(criteria: DonorFiltersCriteria | null = null) {
     super(criteria);
@@ -52,21 +45,7 @@ export default class DonorFiltersCriteria extends FiltersCriteriaBase {
     this.mtaProtected = new BoolCriteria(criteria.mtaProtected);
     this.project = new ValuesCriteria<string>(criteria.project);
     this.study = new ValuesCriteria<string>(criteria.study);
-
-    this.hasSms = new BoolCriteria(criteria.hasSms);
-    this.hasCnvs = new BoolCriteria(criteria.hasCnvs);
-    this.hasSvs = new BoolCriteria(criteria.hasSvs);
-    this.hasMeth = new BoolCriteria(criteria.hasMeth);
-    this.hasExp = new BoolCriteria(criteria.hasExp);
-    this.hasExpSc = new BoolCriteria(criteria.hasExpSc);
   }
-
-  // clone() {
-  //   let criteria = new DonorFiltersCriteria();
-  //   Object.assign(criteria, this);
-
-  //   return criteria;
-  // }
 
   clone() : DonorFiltersCriteria {
     return new DonorFiltersCriteria(this);

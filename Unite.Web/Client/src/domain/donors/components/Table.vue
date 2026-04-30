@@ -216,6 +216,16 @@ export default {
         });
 
         columns.push({
+          name: "hasCnvps",
+          label: "CNVp",
+          field: (row) => this.dataView(row.data.cnvps),
+          sortable: false,
+          align: "center",
+          classes: (row) => this.dataCellClass(row.data.cnvps),
+          headerClasses: this.dataHeaderClass()
+        });
+
+        columns.push({
           name: "hasSvs",
           label: "SV",
           field: (row) => this.dataView(row.data.svs),

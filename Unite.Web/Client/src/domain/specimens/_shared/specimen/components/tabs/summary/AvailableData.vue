@@ -48,10 +48,12 @@ export default {
 
       data.push({ title: "Simple Mutations (SM)", available: !!this.specimen.data?.sms });
       data.push({ title: "Copy Number Variants (CNV)", available: !!this.specimen.data?.cnvs });
+      data.push({ title: "Copy Number Variant Profiles (CNVp)", available: !!this.specimen.data?.cnvps });
       data.push({ title: "Structural Variants (SV)", available: !!this.specimen.data?.svs });
       data.push({ title: "Methylation", available: !!this.specimen.data?.meth });
       data.push({ title: "Bulk Gene Expressions", available: !!this.specimen.data?.exp });
       data.push({ title: "Single Cell Gene Expressions", available: !!this.specimen.data?.expSc });
+      data.push({ title: "Protein Expressions", available: !!this.specimen.data?.prot });
 
       return data;
     }

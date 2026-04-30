@@ -36,10 +36,12 @@ export default {
       return [
         { title: "Simple Mutations (SM)", available: !!this.image.data.sms },
         { title: "Copy Number Variants (CNV)", available: !!this.image.data.cnvs },
+        { title: "Copy Number Variant Profiles (CNVp)", available: !!this.image.data.cnvps },
         { title: "Structural Variants (SV)", available: !!this.image.data.svs },
         { title: "Methylation", available: !!this.image.data.meth },
         { title: "Bulk Gene Expressions", available: !!this.image.data.exp },
         { title: "Single Cell Gene Expressions", available: !!this.image.data.expSc },
+        { title: "Protein Expressions", available: !!this.image.data.prot }
       ];
     }
   }

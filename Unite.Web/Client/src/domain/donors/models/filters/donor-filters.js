@@ -164,8 +164,7 @@ const filters = [
         // show: (value, criteria, context) => criteria.mtaProtected == true
       },
     ]
-  },
-  
+  }
 ];
 
 export default filters;
