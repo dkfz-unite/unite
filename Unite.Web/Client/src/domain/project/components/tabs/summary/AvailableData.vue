@@ -53,6 +53,10 @@
               <td>{{ getNumbers(project.stats.dna.cnv.number) }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Copy number variant profiles (CNVp)</td>
+              <td>{{ getNumbers(project.stats.dna.cnvp.number) }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Structural variants (SV)</td>
               <td>{{ getNumbers(project.stats.dna.sv.number) }}</td>
             </tr>

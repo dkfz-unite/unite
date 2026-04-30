@@ -151,6 +151,14 @@ export default {
       });
 
       columns.push({
+        name: "cnvp",
+        label: "CNVp",
+        field: (row) => this.getNumbers(row.stats.dna.cnvp.number),
+        sortable: false,
+        align: "right"
+      });
+
+      columns.push({
         name: "sv",
         label: "SV",
         field: (row) => this.getNumbers(row.stats.dna.sv.number),
