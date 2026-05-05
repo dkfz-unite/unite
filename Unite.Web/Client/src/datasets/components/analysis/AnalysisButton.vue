@@ -51,6 +51,11 @@
             <q-item-label>UMAP of <strong>Protein</strong> Expression Profiles</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item v-if="showCnvProfileAnalysis" @click="$refs.UmappDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>OncoGrid of CNV Profiles</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-menu>
   </q-btn>
@@ -137,6 +142,11 @@ export default {
     showUmappAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.prot == true);
+    },
+
+    showCnvProfileAnalysis() {
+      return this.datasets?.length == 1 /*&&
+          this.datasets?.every(dataset => dataset.data?.prot == true)*/;
     }
   }
 }
