@@ -62,7 +62,7 @@ import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 import UColorLegend from "@/visualization/_shared/genome/ColorLegend.vue";
 
 import impactsMap from "@/visualization/_shared/genome/impacts-map.js";
-import effectsMap from "@/visualization/_shared/genome/effects-map.js";
+import effectsMap from "@/visualization/_shared/genome/effects-map2.js";
 import oncogridColors from "./oncogrid-colors.js";
 import donorTracks from "./oncogrid-tracks-donor";
 import * as d3 from "d3";
@@ -108,7 +108,7 @@ export default {
       donorTracks: donorTracks,
       donorFillFunc: this.getDonorTrackCellColor,
       donorOpacityFunc: this.getDonorTrackCellOpacity,
-      // colorMap: oncogridColors,
+      colorMap: oncogridColors,
       trackHeight: 15,
       scaleToFit: true,
       width: 1000,
