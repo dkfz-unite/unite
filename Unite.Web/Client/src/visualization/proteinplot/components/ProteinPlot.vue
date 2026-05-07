@@ -24,7 +24,7 @@
 import { colors } from "quasar";
 import RandomColors from "../../_shared/random-colors";
 import impactsMap from "../../_shared/genome/impacts-map";
-import effectsMap from "../../_shared/genome/effects-map";
+import effectsMap from "../../_shared/genome/effects-map-impact";
 import settings from "../../_shared/settings";
 import UPlotly from "../../_shared/Plotly.vue";
 import UColorLegend from "../../_shared/genome/ColorLegend.vue";

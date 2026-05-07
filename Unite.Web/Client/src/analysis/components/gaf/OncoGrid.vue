@@ -46,7 +46,17 @@
       <q-separator class="col-auto" vertical />
 
       <div class="col-2">
-        <u-color-legend class="q-px-md" title="Effects" :items="getColorPalette()" />
+        <div class="q-px-md q-mb-sm">
+          <div class="text-caption text-grey-6 q-mb-xs">Color by:</div>
+          <q-btn-toggle
+            v-model="colorScheme" dense no-caps unelevated
+            :options="[
+              { label: 'Effect', value: 'effect' },
+              { label: 'Impact', value: 'impact' }
+            ]"
+          />
+        </div>
+        <u-color-legend class="q-px-md" :title="colorScheme === 'impact' ? 'Impact' : 'Effects'" :items="getColorPalette()" />
       </div>
     </div>
   </div>
@@ -62,8 +72,8 @@ import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
 import UColorLegend from "@/visualization/_shared/genome/ColorLegend.vue";
 
 import impactsMap from "@/visualization/_shared/genome/impacts-map.js";
-import effectsMap from "@/visualization/_shared/genome/effects-map2.js";
-import oncogridColors from "./oncogrid-colors.js";
+import effectsMapEffect from "@/visualization/_shared/genome/effects-map-effect.js";
+import effectsMapImpact from "@/visualization/_shared/genome/effects-map-impact.js";
 import donorTracks from "./oncogrid-tracks-donor";
 import * as d3 from "d3";
 
@@ -84,6 +94,7 @@ export default {
       showGridLines: true,
       crosshairMode: false,
       heatMapMode: false,
+      colorScheme: "effect",
 
       targetHistogramBar: false,
       targetHistogramBarData: null,
@@ -100,24 +111,28 @@ export default {
       element.consequence = element.effect;
     });
 
-    let parameters = {
-      element: "#oncoGrid",
-      donors: this.data.donors,
-      genes: this.data.genes,
-      observations: this.data.observations,
-      donorTracks: donorTracks,
-      donorFillFunc: this.getDonorTrackCellColor,
-      donorOpacityFunc: this.getDonorTrackCellOpacity,
-      colorMap: oncogridColors,
-      trackHeight: 15,
-      scaleToFit: true,
-      width: 1000,
-      height: 320,
-      trackLegendLabel: "<i class='las la-question-circle'></i>",
-      margin: { top: 0, right: 0, bottom: 0, left: 0 }
-    };
+    this.initializeGrid(this.buildParameters());
+  },
 
-    this.initializeGrid(parameters);
+  watch: {
+    colorScheme() {
+      const el = document.getElementById("oncoGrid");
+      if (el) el.innerHTML = "";
+      this.initializeGrid(this.buildParameters());
+    }
+  },
+
+  computed: {
+    activeEffectsMap() {
+      return this.colorScheme === "impact" ? effectsMapImpact : effectsMapEffect;
+    },
+    activeColorMap() {
+      const map = {};
+      this.activeEffectsMap.forEach((value, key) => {
+        map[key] = value.color;
+      });
+      return map;
+    }
   },
 
   unmounted() {
@@ -130,11 +145,32 @@ export default {
       if (!this.data)
         return [];
 
-      const groups = this.data?.observations.groupBy(observation => observation.effect);
-      const keys = [...groups.keys()];
-      const pallete = keys.map(key => effectsMap.get(key));
+      if (this.colorScheme === "impact") {
+        const groups = this.data.observations.groupBy(o => o.impact);
+        return [...groups.keys()].map(key => impactsMap.get(key)).filter(Boolean);
+      }
 
-      return pallete;
+      const groups = this.data.observations.groupBy(o => o.effect);
+      return [...groups.keys()].map(key => this.activeEffectsMap.get(key)).filter(Boolean);
+    },
+
+    buildParameters() {
+      return {
+        element: "#oncoGrid",
+        donors: this.data.donors,
+        genes: this.data.genes,
+        observations: this.data.observations,
+        donorTracks: donorTracks,
+        donorFillFunc: this.getDonorTrackCellColor,
+        donorOpacityFunc: this.getDonorTrackCellOpacity,
+        colorMap: this.activeColorMap,
+        trackHeight: 15,
+        scaleToFit: true,
+        width: 1000,
+        height: 320,
+        trackLegendLabel: "<i class='las la-question-circle'></i>",
+        margin: { top: 0, right: 0, bottom: 0, left: 0 }
+      };
     },
 
     initializeGrid(parameters) {
@@ -234,7 +270,9 @@ export default {
       let donor = this.data.donors.find(donor => donor.id == event.data.donorId)?.displayId;
       let gene = this.data.genes.find(gene => gene.id == event.data.geneId)?.symbol;
       let impact = impactsMap.get(event.data.impact);
-      let effect = effectsMap.get(event.data.effect);
+      let effect = this.colorScheme === "impact"
+          ? effectsMapImpact.get(event.data.effect)
+          : effectsMapEffect.get(event.data.effect);
 
       let properties = [
         { key: "Donor", value: donor},
