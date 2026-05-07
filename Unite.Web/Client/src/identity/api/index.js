@@ -83,11 +83,12 @@ export async function logIn(email, password, provider) {
 }
 
 export async function logOut() {
+  tokenHelpers.remove();
+  
   const provider = getIdentityProvider();
   const url = getIdentityUrl(provider, "logout");
 
   await client.post(url, null);
-  tokenHelpers.remove();
 }
 
 export default {

@@ -108,7 +108,7 @@ export default {
       donorTracks: donorTracks,
       donorFillFunc: this.getDonorTrackCellColor,
       donorOpacityFunc: this.getDonorTrackCellOpacity,
-      colorMap: oncogridColors,
+      // colorMap: oncogridColors,
       trackHeight: 15,
       scaleToFit: true,
       width: 1000,
