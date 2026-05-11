@@ -7,6 +7,7 @@
   <u-dep-dialog v-if="showDepAnalysis" ref="DepDialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
   <u-umapp-dialog v-if="showUmappAnalysis" ref="UmappDialog" :datasets="datasets" />
+  <u-cnv-profiles-dialog v-if="showCnvProfileAnalysis" ref="CnvProfilesDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
@@ -51,7 +52,7 @@
             <q-item-label>UMAP of <strong>Protein</strong> Expression Profiles</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="showCnvProfileAnalysis" @click="$refs.UmappDialog.show()" clickable v-close-popup dense>
+        <q-item v-if="showCnvProfileAnalysis" @click="$refs.CnvProfilesDialog.show()" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>OncoGrid of CNV Profiles</q-item-label>
           </q-item-section>
@@ -70,7 +71,7 @@ import UGafDialog from "@/analysis/components/gaf/Dialog.vue";
 import UDepDialog from "@/analysis/components/dep/Dialog.vue";
 import UScellDialog from "@/analysis/components/scell/Dialog.vue";
 import UUmappDialog from "@/analysis/components/umapp/Dialog.vue";
-
+import UCnvProfilesDialog from "@/analysis/components/cnv-profiles/Dialog.vue";
 
 export default {
   components: {
@@ -82,6 +83,7 @@ export default {
     UDepDialog,
     UScellDialog,
     UUmappDialog,
+    UCnvProfilesDialog
   },
 
   props: {
@@ -100,7 +102,8 @@ export default {
           || this.showGafAnalysis
           || this.showDepAnalysis
           || this.showScellAnalysis
-          || this.showUmappAnalysis;
+          || this.showUmappAnalysis
+          || this.showCnvProfileAnalysis;
     },
 
     showSurvAnalysis() {
