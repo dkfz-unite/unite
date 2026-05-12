@@ -37,7 +37,7 @@
         <u-data-item title="SM" :show="!!data.sms" />
         <u-data-item title="CNV" :show="!!data.cnvs" />
         <u-data-item title="SV" :show="!!data.svs" />
-        <u-data-item title="METH" :show="!!data.meth" />
+        <u-data-item title="Methylation" :show="!!data.meth" />
       </u-data-group>
       <u-data-group title="RNA" :show="!!data.exp || !!data.expSc">
         <u-data-item title="Expressions" :show="!!data.exp" />
