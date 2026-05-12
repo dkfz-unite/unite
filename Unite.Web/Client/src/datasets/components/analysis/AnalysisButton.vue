@@ -54,7 +54,7 @@
         </q-item>
         <q-item v-if="showCnvProfileAnalysis" @click="$refs.CnvProfilesDialog.show()" clickable v-close-popup dense>
           <q-item-section>
-            <q-item-label>OncoGrid of CNV Profiles</q-item-label>
+            <q-item-label>CNV Profiles</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>

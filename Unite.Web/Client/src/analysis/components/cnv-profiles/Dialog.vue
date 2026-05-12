@@ -122,7 +122,7 @@ export default {
       }));
       
       const data = {
-        type: "surv",
+        type: "cnv-profile",
         name: this.name.value,
         description: this.description.value,
         status: null,
