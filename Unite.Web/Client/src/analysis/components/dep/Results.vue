@@ -97,7 +97,7 @@ export default {
         values.push({
           id: columns[0],
           log2: +columns[1],
-          padj: +columns[4]
+          padj: +columns[5]
         });
       }
 
