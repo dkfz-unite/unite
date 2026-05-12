@@ -97,6 +97,7 @@ export default {
         values.push({
           id: columns[0],
           log2: +columns[1],
+          pval: +columns[4],
           padj: +columns[5]
         });
       }
@@ -123,7 +124,7 @@ export default {
           type: "scattergl",
           mode: "markers",
           x: values.upregulated.map(row => row.log2),
-          y: values.upregulated.map(row => -Math.log10(row.padj)),
+          y: values.upregulated.map(row => -Math.log10(row.pval)),
           customdata: values.upregulated.map(row => ({id: row.id})),
           hoverinfo: "text",
           hovertext: this.getTooltipData(values.upregulated, "Upregulated"),
@@ -137,7 +138,7 @@ export default {
           type: "scattergl",
           mode: "markers",
           x: values.downregulated.map(row => row.log2),
-          y: values.downregulated.map(row => -Math.log10(row.padj)),
+          y: values.downregulated.map(row => -Math.log10(row.pval)),
           customdata: values.downregulated.map(row => ({id: row.id})),
           hoverinfo: "text",
           hovertext: this.getTooltipData(values.downregulated, "Downregulated"),
@@ -151,7 +152,7 @@ export default {
           type: "scattergl",
           mode: "markers",
           x: values.insignificant.map(row => row.log2),
-          y: values.insignificant.map(row => -Math.log10(row.padj)),
+          y: values.insignificant.map(row => -Math.log10(row.pval)),
           customdata: values.insignificant.map(row => ({id: row.id})),
           hoverinfo: "text",
           hovertext: this.getTooltipData(values.insignificant, "Insignificant"),
@@ -198,7 +199,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: "-log10(Adjusted P-Value)",
+            text: "-log10(P-Value)",
             standoff: 0
           },
           showline: true,
