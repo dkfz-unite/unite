@@ -37,11 +37,16 @@
         <u-data-item title="SM" :show="!!data.sms" />
         <u-data-item title="CNV" :show="!!data.cnvs" />
         <u-data-item title="SV" :show="!!data.svs" />
-        <u-data-item title="METH" :show="!!data.meth" />
+        <u-data-item title="Methylation" :show="!!data.meth" />
       </u-data-group>
-      <u-data-group title="RNA" :show="!!data.exp || !!data.expSc">
-        <u-data-item title="Bulk Expressions" :show="!!data.exp" />
-        <u-data-item title="Single Cell Expressions" :show="!!data.expSc" />
+      <u-data-group title="RNA" :show="!!data.exp">
+        <u-data-item title="Expressions" :show="!!data.exp" />
+      </u-data-group>
+      <u-data-group title="scRNA" :show="!!data.expSc">
+        <u-data-item title="Expressions" :show="!!data.expSc" />
+      </u-data-group>
+      <u-data-group title="Proteomics" :show="!!data.prot">
+        <u-data-item title="Expressions" :show="!!data.prot" />
       </u-data-group>
     </div>
   </div>
