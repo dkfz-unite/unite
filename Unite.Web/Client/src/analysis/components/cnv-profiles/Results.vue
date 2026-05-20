@@ -1,12 +1,12 @@
 <template>
   <div class="row">
     <div class="col">
-      <u-plotly
-        :id="id"
-        :data="traces" 
-        :layout="layout" 
-        :config="config" 
-      />
+      <u-heatmap/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <u-tile-plot :definition="tilesDefinition"/>
     </div>
   </div>
   <div class="row q-pl-sm" v-if="meta.rank != null">
@@ -17,14 +17,18 @@
   </div>
 </template>
 
-<script>
-import UPlotly from "@/visualization/_shared/Plotly.vue";
+<script lang="ts">
 import settings from "@/visualization/_shared/settings";
 import { colors } from "quasar";
 
+import UHeatmap from "./Heatmap.vue";
+import UTilePlot from "./TilePlot.vue";
+import TilesDefinition from "./tilesDefinition.ts";
+
 export default {
   components: {
-    UPlotly
+    UHeatmap,
+    UTilePlot
   },
 
   props: {
@@ -47,7 +51,47 @@ export default {
       meta: "",
       traces: null,
       layout: null,
-      config: null
+      config: null,
+      tilesDefinition: Object.assign(new TilesDefinition(), {
+        dimensions: new Set([
+          {
+            key: "samples",
+            values: [120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131]
+          },
+          {
+            key: "chromosomeArms",
+            values: ["chr1p", "chr1q", "chr2p", "chr2q", "chr3p", "chr3q", "chr4p", "chr4q"]
+          },
+          {
+            key: "cnv-profile",
+            values: ["gain", "loss", "neutral"]
+          }
+        ]),
+        points: [
+          [0, 0, 1], [0, 1, 0], [0, 2, 2], [0, 3, 1], [0, 4, 0], [0, 5, 1], [0, 6, 2], [0, 7, 0],
+          [1, 0, 0], [1, 1, 2], [1, 2, 1], [1, 3, 1], [1, 4, 2], [1, 5, 0], [1, 6, 1], [1, 7, 1]
+        ],
+        axes: {
+          x: "samples",
+          y: "chromosomeArms"
+        },
+        events: [
+          {
+            dimension: "cnv-profile",
+            colors: ["red", "blue", "gray"]
+          }
+        ],
+        defaultEvents: [2],
+        xGroups: [
+          { title: "gx1", values: [2, 1, 0, 3] },
+          { title: "gx2", values: [4, 5, 6, 7] },
+          { title: "gx3", values: [8, 9, 10, 11] }
+        ],
+        yGroups: [
+          { title: "gy1", values: [0, 1, 2, 3] },
+          { title: "gy2", values: [4, 5, 6, 7] }
+        ]
+      })
     }
   },
 
@@ -65,88 +109,11 @@ export default {
   methods: {
     async init() {
       this.meta = await this.getMeta(this.data);
-      this.traces = this.getTraces(this.meta);
-      this.layout = this.getLayout(this.meta);
     },
 
     async getMeta(blob) {
       const json = await blob.text();
       return JSON.parse(json);
-    },
-
-    getTraces(data) {
-      const tracks = [];
-
-      for (const key in data.curves) {
-        const curve = data.curves[key];
-        
-        tracks.push({
-          name: key,
-          type: "scatter",
-          mode: "markers+lines",
-          x: curve.time,
-          y: curve.survival_prob,
-          error_y: {
-            array: curve.survival_prob.map((value, i) => Math.abs(value - curve.conf_int_upper[i])),
-            arrayminus: curve.survival_prob.map((value, i) => Math.abs(value - curve.conf_int_lower[i])),
-            visible: true,
-            color: colors.getPaletteColor("grey-4"),
-            thickness: 1,
-            width: 2,
-          },
-          marker: {
-            // color: colors.getPaletteColor("red-5"),
-            size: 4
-          },
-          line: {
-            // color: colors.getPaletteColor("red-5"),
-            width: 1
-          }
-        });
-      }
-
-      return tracks;
-    },
-
-    getLayout(data) {
-      const values = Object.keys(data.curves).map(key => data.curves[key].time);
-      const minTime = values.reduce((acc, value) => Math.min(acc, ...value), 0);
-      const maxTime = values.reduce((acc, value) => Math.max(acc, ...value), 0);
-
-      return {
-        title: {
-          text: this.title,
-          x: 0.03,
-        },
-        modebar: settings.modebar,
-        margin: {
-          t: 40,
-          r: 50,
-          b: 40,
-          l: 50
-        },
-        showlegend: true,
-        xaxis: {
-          title: {
-            text: "Time (Days)",
-            standoff: 0
-          },
-          range: [minTime - 5, maxTime + 5],
-          showline: true,
-          zeroline: false,
-          minallowed: 0
-        },
-        yaxis: {
-          title: {
-            text: "Probability (%)",
-            standoff: 0
-          },
-          range: [0, 1.1],
-          showline: true,
-          zeroline: false,
-          minallowed: 0
-        }
-      };
     }
   }
 }
