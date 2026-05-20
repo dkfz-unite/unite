@@ -40,6 +40,7 @@
                   :context="filtersContext[model]"
                   :filters="getFilters(model)"
                   @update="onUpdate"
+                  @filter="onFilter"
                 />
               </div>
               <div class="row" v-if="filtersCriteria[model].numberOfFilters">

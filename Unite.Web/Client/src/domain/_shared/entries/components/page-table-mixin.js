@@ -85,6 +85,11 @@ const mixin = {
       }
     },
 
+    async filterField(data) {
+      await this.autocomplete(data.model, data.field, data.event.value);
+      data.event.abort();
+    },
+
     async loadData() {
       try {
         this.loading = true;
@@ -103,6 +108,12 @@ const mixin = {
     async fetchData(searchCriteria) {
       // Should be implemented in component
       throw "Method 'async fetchData(searchCriteria)' should be implemented in component";
+    },
+
+    async autocomplete(model, field, query) {
+      // Should be implemented in component
+      // No exception is thrown
+      // console.log({ model, field, query });
     }
   }
 };

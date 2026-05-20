@@ -13,8 +13,10 @@
       :label="label"
       :placeholder="placeholder"
       :disable="disable"
+      :options="filterOptions"
       v-model="filterValue"
       @update:modelValue="onUpdate"
+      @filter="onFilter"
       new-value-mode="add-unique"
       multiple clearable use-input use-chips
       square outlined dense options-dense hide-dropdown-icon>
@@ -37,7 +39,17 @@ export default {
         return null;
       }
     },
+    options: {
+      type: Array,
+      default() {
+        return null;
+      }
+    },
     exclude: {
+      type: Boolean,
+      default: false
+    },
+    completable: {
       type: Boolean,
       default: false
     },
@@ -55,12 +67,13 @@ export default {
     }
   },
 
-  emits: ["update:value", "update:exclude"],
+  emits: ["update:value", "update:exclude", "filter"],
 
   data() {
     return {
       filterValue: this.value,
-      filterExclude: this.exclude
+      filterExclude: this.exclude,
+      filterOptions: this.options
     }
   },
 
@@ -76,10 +89,24 @@ export default {
     },
     exclude(value) {
       this.filterExclude = value;
-    }
+    },
+    options(value) {
+      this.filterOptions = value;
+    } 
   },
 
   methods: {
+    onFilter(val, update, abort) {
+      if (this.completable === true) {
+        this.$emit("filter", { value: val, update, abort } );
+          setTimeout(() => {
+            abort();
+          }, 500);
+      } else {
+        abort();
+      }
+    },
+
     onUpdate(value) {
       this.$emit("update:value", value);
 
@@ -92,7 +119,7 @@ export default {
     onExclude() {
       this.filterExclude = !this.filterExclude;
       this.$emit("update:exclude", this.filterExclude);        
-    }
+    },
   }
 }
 </script>

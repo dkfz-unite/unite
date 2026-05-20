@@ -6,8 +6,11 @@
       v-model:exclude="filterExclude"
       :label="filter.label"
       :placeholder="filter.placeholder"
+      :options="filterOptions"
+      :completable="completable"
       @update:value="onUpdate"
       @update:exclude="onExclude"
+      @filter="onFilter"
     />
   </template>
   
@@ -129,10 +132,15 @@ export default {
     options: {
       type: Array,
       default: () => null
+    },
+
+    completable: {
+      type: Boolean,
+      default: false
     }
   },
 
-  emits: ["update:value", "update:exclude"],
+  emits: ["update:value", "update:exclude", "filter"],
 
   setup() {
     return {
@@ -164,6 +172,10 @@ export default {
   },
 
   methods: {
+    onFilter(event) {
+      this.$emit("filter", event);
+    },
+
     onUpdate() {
       let value = this.filterValue;
 

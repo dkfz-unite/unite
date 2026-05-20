@@ -16,8 +16,10 @@
                 v-model:exclude="filtersCriteria[groupFilter.field].not"
                 :filter="groupFilter"
                 :options="groupFilter.options == null ? null : groupFilter.options(filtersContext)"
+                :completable="groupFilter.completable === true"
                 @update:value="onUpdate($event, groupFilter)"
                 @update:exclude="onUpdate($event, groupFilter)"
+                @filter="onFilter($event, groupFilter)"
               />
             </template>
           </div>
@@ -32,8 +34,10 @@
           v-model:exclude="filtersCriteria[filter.field].not"
           :filter="filter"
           :options="filter.options == null ? null : filter.options(filtersContext)"
+          :completable="filter.completable === true"
           @update:value="onUpdate($event, filter)"
           @update:exclude="onUpdate($event, filter)"
+          @filter="onFilter($event, filter)"
         />
       </template>
     </template>
@@ -63,7 +67,7 @@ export default {
     }
   },
 
-  emits: ["update"],
+  emits: ["update", "filter"],
 
   data() {
     return {
@@ -104,6 +108,10 @@ export default {
       }
       
       this.$emit("update", this.filtersCriteria);
+    },
+
+    onFilter(event, filter) {
+      this.$emit("filter", { event, field: filter.field });
     }
   }
 }
