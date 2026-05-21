@@ -23,7 +23,7 @@ import { colors } from "quasar";
 
 import UHeatmap from "./Heatmap.vue";
 import UTileSet from "./TileSet.vue";
-import TileSetDefinition, {AxesDefinition, DimensionDefinition} from "./tileSetDefinition";
+import TileSetDefinition, {DimensionDefinition, Group, TileProperty} from "./tileSetDefinition";
 
 export default {
   components: {
@@ -80,48 +80,42 @@ export default {
     buildTilesDefinition(): TileSetDefinition {
       const definition = new TileSetDefinition();
 
-      definition.dimensions = new Set<DimensionDefinition>([
-        {
-          key: "samples",
-          values: [120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131]
-        },
-        {
-          key: "chromosomeArms",
-          values: ["chr1p", "chr1q", "chr2p", "chr2q", "chr3p", "chr3q", "chr4p", "chr4q"]
-        },
-        {
-          key: "cnv-profile",
-          values: ["gain", "loss", "neutral"]
-        }
+      let columns = new DimensionDefinition();
+      columns.title = "Samples";
+      columns.values = new Set<any>([
+        120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131
       ]);
+      definition.columns = columns;
 
-      definition.points = [
-        [0, 0, 1], [0, 1, 0], [0, 2, 2], [0, 3, 1], [0, 4, 0], [0, 5, 1], [0, 6, 2], [0, 7, 0],
-        [1, 0, 2], [1, 1, 1], [1, 2, 1], [1, 3, 0], [1, 4, 2], [1, 5, 2], [1, 6, 1], [1, 7, 1]
-      ];
+      let rows = new DimensionDefinition();
+      rows.title = "Chromosome Arms";
+      rows.values = new Set<any>([
+        "chr1p", "chr1q", "chr2p", "chr2q", "chr3p", "chr3q", "chr4p", "chr4q"
+      ]);
+      definition.rows = rows;
 
-      definition.axes = new AxesDefinition();
-      definition.axes.x = "samples";
-      definition.axes.y = "chromosomeArms";
+      let propertyCnvProfile = new TileProperty();
+      propertyCnvProfile.key = "cnv-profile";
+      propertyCnvProfile.values = new Set<any>(["gain", "loss", "neutral"]);
 
-      definition.events = [
-        {
-          dimension: "cnv-profile",
-          colors: ["red", "blue", "gray"]
-        }
-      ];
+      definition.tileProperties = [ propertyCnvProfile ];
+      definition.defaultTile = [ [0, 2] ];
 
-      definition.defaultEvents = [2];
+      let mainGroup = new Group();
+      mainGroup.title = "main";
+      mainGroup.indices = new Set<number>([ 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131 ]);
 
-      definition.xGroups = [
-        { title: "gx1", values: [2, 1, 0, 3] },
-        { title: "gx2", values: [4, 5, 6, 7] },
-        { title: "gx3", values: [8, 9, 10, 11] }
-      ];
+      definition.columnGroups = [ mainGroup ];
 
-      definition.yGroups = [
-        { title: "gy1", values: [0, 1, 2, 3] },
-        { title: "gy2", values: [4, 5, 6, 7] }
+      definition.tiles = [
+          [ [0, 0], [0, 0] ],  [ [1, 0], [0, 1] ],
+          [ [0, 1], [0, 2] ],  [ [1, 1], [0, 1] ],
+          [ [0, 2], [0, 0] ],  [ [1, 2], [0, 0] ],
+          [ [0, 3], [0, 1] ],  [ [1, 3], [0, 2] ],
+          [ [0, 4], [0, 1] ],  [ [1, 4], [0, 1] ],
+          [ [0, 5], [0, 2] ],  [ [1, 5], [0, 2] ],
+          [ [0, 6], [0, 1] ],  [ [1, 6], [0, 0] ],
+          [ [0, 7], [0, 0] ],  [ [1, 7], [0, 1] ]
       ];
 
       return definition;
