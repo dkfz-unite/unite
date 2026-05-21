@@ -2,15 +2,12 @@
   <div class="canvas-container" ref="container">
     <canvas
         ref="canvas"
-        @mousemove="onMouseMove"
-        @mouseleave="onMouseLeave"
-        @click="onClick"
     />
   </div>
 </template>
 
 <script lang="ts">
-import TileSetDefinition from "./tileSetDefinition";
+import TileSetDefinition, {Tile} from "./tileSetDefinition";
 
 export default {
   props: {
@@ -27,40 +24,79 @@ export default {
   },
 
   mounted() {
-    this.drawCanvas()
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('resize', this.resizeCanvas);
   },
 
   methods: {
+    resizeCanvas() {
+      const container = this.$refs.container as HTMLElement;
+      const canvas = this.$refs.canvas as HTMLCanvasElement;
+
+      canvas.width = container.offsetWidth;
+      canvas.height = 20 * this.definition.rows.values.size;
+      // optionally fix the height too:
+      // canvas.height = container.offsetHeight;
+
+      this.drawCanvas(); // re-draw after resize
+    },
+
     drawCanvas() {
-      const canvas = this.$refs.canvas
-      if (!canvas) return
-      const ctx = canvas.getContext('2d')
+      const canvas = this.$refs.canvas;
+      if (!canvas)
+        return;
 
-      const xDimension = this.getXDimension();
-      const yDimension = this.getYDimension();
-      const tileWidth = 10;
-      const tileHeight = 10;
-      const columnsCount = this.getValuesCount(xDimension);
-      const rowsCount = this.getValuesCount(yDimension);
-      const eventDefinition = this.getFirstEventDefinition();
+      const ctx = canvas.getContext('2d');
 
-      canvas.width  = columnsCount * tileWidth;
-      canvas.height = rowsCount * tileHeight;
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const columns = this.definition.columns;
+      const columnCount = columns.values.size;
 
-      const defualtEventIndex = this.definition.defaultEvents[0];
+      const rows = this.definition.rows;
+      const rowsCount = rows.values.size;
 
-      for (let i = 0; i < columnsCount; i++) {
-        let x = i * tileWidth;
+      const properties = this.definition.tileProperties;
 
+      const columnWidth = Math.floor(canvas.width / columnCount);
+      const rowHeight = 20;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      //Fill canvas with default tile
+      const defaultTile: Tile = this.definition.defaultTile;
+      for(let i = 0; i < columnCount; i++) {
+        let x = i * columnWidth;
         for (let j = 0; j < rowsCount; j++) {
-          const point = this.getPoint(i, j);
-          const eventIndex = point ? point[2] : defualtEventIndex;
-          const eventColor = eventDefinition.colors[eventIndex];
+          let y = j * rowHeight;
+          this.drawTile(x, y, columnWidth, rowHeight, defaultTile, ctx);
+        }
+      }
 
-          ctx.fillStyle = eventColor;
-          let y = j * tileHeight;
-          ctx.fillRect(x, y, tileWidth, tileHeight);
+      let x = 0, y = 0;
+      for(let tile of this.definition.tiles) {
+        x = tile[0][0] * columnWidth;
+        y = tile[0][1] * rowHeight;
+
+        this.drawTile(x, y, columnWidth, rowHeight, tile, ctx);
+      }
+    },
+
+    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, canvasContext: CanvasRenderingContext2D) {
+      const propertyIndex = tile[1][0];
+      const valueColor = this.definition.tileProperties[propertyIndex].colors[tile[1][1]];
+
+      canvasContext.fillStyle = valueColor;
+      canvasContext.fillRect(x, y, tileWidth, tileHeight);
+    },
+
+    getTile(col: number, row: number) {
+      for(const tile of this.definition.tiles) {
+        let position = tile[0];
+        if(position[0] == col && position[1] == row) {
+          return tile;
         }
       }
     },
@@ -194,8 +230,9 @@ export default {
 }
 
 .canvas-container {
-  position: relative;
+  //position: relative;
   overflow: auto;
+  width: 100%;
 }
 
 canvas {

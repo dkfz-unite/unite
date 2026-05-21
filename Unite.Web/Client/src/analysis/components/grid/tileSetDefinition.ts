@@ -6,15 +6,10 @@ export class DimensionDefinition {
 export class TileProperty {
     key: string;
     values: Set<any>;
+    colors: Array<string>;
 }
 
 export class Tile extends Array<Array<any>> {
-
-}
-
-export class Group {
-    title: string;
-    indices: Set<number>;
 }
 
 export default class TileSetDefinition {
@@ -23,6 +18,4 @@ export default class TileSetDefinition {
     tileProperties: Array<TileProperty>;
     tiles: Array<Tile>;
     defaultTile: Tile;
-    columnGroups: Array<Group>;
-    rowGroups: Array<Group>;
 }

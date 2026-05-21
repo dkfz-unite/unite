@@ -1,9 +1,9 @@
 <template>
-  <div class="row">
+  <!--div class="row">
     <div class="col">
       <u-heatmap/>
     </div>
-  </div>
+  </div-->
   <div class="row">
     <div class="col">
       <u-tile-plot :definition="tilesDefinition"/>
@@ -22,8 +22,8 @@ import settings from "@/visualization/_shared/settings";
 import { colors } from "quasar";
 
 import UHeatmap from "./Heatmap.vue";
-import UTileSet from "./TileSet.vue";
-import TileSetDefinition, {DimensionDefinition, Group, TileProperty} from "./tileSetDefinition";
+import UTileSet from "../grid/TileSet.vue";
+import TileSetDefinition, {DimensionDefinition, Group, TileProperty} from "../grid/tileSetDefinition";
 
 export default {
   components: {
@@ -97,15 +97,10 @@ export default {
       let propertyCnvProfile = new TileProperty();
       propertyCnvProfile.key = "cnv-profile";
       propertyCnvProfile.values = new Set<any>(["gain", "loss", "neutral"]);
+      propertyCnvProfile.colors = ["red", "blue", "gray"];
 
       definition.tileProperties = [ propertyCnvProfile ];
-      definition.defaultTile = [ [0, 2] ];
-
-      let mainGroup = new Group();
-      mainGroup.title = "main";
-      mainGroup.indices = new Set<number>([ 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131 ]);
-
-      definition.columnGroups = [ mainGroup ];
+      definition.defaultTile = [ [], [0, 2] ];
 
       definition.tiles = [
           [ [0, 0], [0, 0] ],  [ [1, 0], [0, 1] ],
