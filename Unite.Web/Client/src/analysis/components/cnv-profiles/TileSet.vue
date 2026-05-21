@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-import TilesDefinition from "./tilesDefinition";
+import TileSetDefinition from "./tileSetDefinition";
 
 export default {
   props: {
     definition: {
-      type: TilesDefinition,
+      type: TileSetDefinition,
       required: true
     }
   },
@@ -42,9 +42,7 @@ export default {
       const tileHeight = 10;
       const columnsCount = this.getValuesCount(xDimension);
       const rowsCount = this.getValuesCount(yDimension);
-
       const eventDefinition = this.getFirstEventDefinition();
-      const eventDimension = this.getDimension(eventDefinition.dimension);
 
       canvas.width  = columnsCount * tileWidth;
       canvas.height = rowsCount * tileHeight;
@@ -57,11 +55,9 @@ export default {
 
         for (let j = 0; j < rowsCount; j++) {
           const point = this.getPoint(i, j);
-          var eventIndex = defualtEventIndex;
-          if(point)
-            eventIndex = point[2];
-
+          const eventIndex = point ? point[2] : defualtEventIndex;
           const eventColor = eventDefinition.colors[eventIndex];
+
           ctx.fillStyle = eventColor;
           let y = j * tileHeight;
           ctx.fillRect(x, y, tileWidth, tileHeight);
