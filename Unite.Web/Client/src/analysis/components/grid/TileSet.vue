@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import TileSetDefinition, {Tile} from "./tileSetDefinition";
+import TileSetDefinition, {Tile, TileProperty} from "./tileSetDefinition";
 
 export default {
   props: {
@@ -71,7 +71,7 @@ export default {
         let x = i * columnWidth;
         for (let j = 0; j < rowsCount; j++) {
           let y = j * rowHeight;
-          this.drawTile(x, y, columnWidth, rowHeight, defaultTile, ctx);
+          this.drawTile(x, y, columnWidth, rowHeight, defaultTile, properties, ctx);
         }
       }
 
@@ -80,13 +80,13 @@ export default {
         x = tile[0][0] * columnWidth;
         y = tile[0][1] * rowHeight;
 
-        this.drawTile(x, y, columnWidth, rowHeight, tile, ctx);
+        this.drawTile(x, y, columnWidth, rowHeight, tile, properties, ctx);
       }
     },
 
-    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, canvasContext: CanvasRenderingContext2D) {
+    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, properties: Array<TileProperty>, canvasContext: CanvasRenderingContext2D) {
       const propertyIndex = tile[1][0];
-      const valueColor = this.definition.tileProperties[propertyIndex].colors[tile[1][1]];
+      const valueColor = properties[propertyIndex].colors[tile[1][1]];
 
       canvasContext.fillStyle = valueColor;
       canvasContext.fillRect(x, y, tileWidth, tileHeight);
