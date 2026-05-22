@@ -23,7 +23,7 @@ import { colors } from "quasar";
 
 import UHeatmap from "./Heatmap.vue";
 import UTileSet from "../grid/TileSet.vue";
-import TileSetDefinition, {DimensionDefinition, Group, TileProperty} from "../grid/tileSetDefinition";
+import TileSetDefinition, {DimensionDefinition, Tile, TileProperty} from "../grid/tileSetDefinition";
 
 export default {
   components: {
@@ -100,9 +100,9 @@ export default {
       propertyCnvProfile.colors = ["red", "blue", "gray"];
 
       definition.tileProperties = [ propertyCnvProfile ];
-      definition.defaultTile = [ [], [0, 2] ];
+      definition.defaultTile = Tile.create([0, 0], [0, 2]);
 
-      definition.tiles = [
+      const tiles: Tile[] = [
         [ [0, 0], [0, 0] ],  [ [1, 0], [0, 1] ],  [ [2, 0], [0, 0] ],  [ [3, 0], [0, 1] ],  [ [4, 0], [0, 2] ],  [ [5, 0], [0, 1] ],  [ [6, 0], [0, 2] ],  [ [7, 0], [0, 0] ],  [ [8, 0], [0, 1] ],  [ [9, 0], [0, 2] ],  [ [10, 0], [0, 0] ],  [ [11, 0], [0, 1] ],
         [ [0, 1], [0, 2] ],  [ [1, 1], [0, 1] ],  [ [2, 1], [0, 2] ],  [ [3, 1], [0, 0] ],  [ [4, 1], [0, 0] ],  [ [5, 1], [0, 1] ],  [ [6, 1], [0, 0] ],  [ [7, 1], [0, 2] ],  [ [8, 1], [0, 1] ],  [ [9, 1], [0, 0] ],  [ [10, 1], [0, 2] ],  [ [11, 1], [0, 1] ],
         [ [0, 2], [0, 0] ],  [ [1, 2], [0, 0] ],  [ [2, 2], [0, 1] ],  [ [3, 2], [0, 2] ],  [ [4, 2], [0, 0] ],  [ [5, 2], [0, 1] ],  [ [6, 2], [0, 2] ],  [ [7, 2], [0, 1] ],  [ [8, 2], [0, 0] ],  [ [9, 2], [0, 2] ],  [ [10, 2], [0, 1] ],  [ [11, 2], [0, 0] ],
@@ -112,6 +112,7 @@ export default {
         [ [0, 6], [0, 1] ],  [ [1, 6], [0, 0] ],  [ [2, 6], [0, 2] ],  [ [3, 6], [0, 2] ],  [ [4, 6], [0, 1] ],  [ [5, 6], [0, 1] ],  [ [6, 6], [0, 0] ],  [ [7, 6], [0, 2] ],  [ [8, 6], [0, 1] ],  [ [9, 6], [0, 0] ],  [ [10, 6], [0, 2] ],  [ [11, 6], [0, 1] ],
         [ [0, 7], [0, 0] ],  [ [1, 7], [0, 1] ],  [ [2, 7], [0, 1] ],  [ [3, 7], [0, 2] ],  [ [4, 7], [0, 0] ],  [ [5, 7], [0, 1] ],  [ [6, 7], [0, 2] ],  [ [7, 7], [0, 0] ],  [ [8, 7], [0, 1] ],  [ [9, 7], [0, 2] ],  [ [10, 7], [0, 0] ],  [ [11, 7], [0, 1] ],
       ];
+      definition.tiles = tiles;
 
       return definition;
     }

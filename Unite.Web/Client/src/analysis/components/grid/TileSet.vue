@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import TileSetDefinition, {Tile, TileProperty} from "./tileSetDefinition";
+import TileSetDefinition, {PropertyValue, Tile, TilePosition, TileProperty} from "./tileSetDefinition";
 
 export default {
   props: {
@@ -76,20 +76,25 @@ export default {
       }
 
       let x = 0, y = 0;
-      for(let tile of this.definition.tiles) {
-        x = tile[0][0] * columnWidth;
-        y = tile[0][1] * rowHeight;
+      for(const tile of this.definition.tiles) {
+        const pos = Tile.getPosition(tile);
+        x = TilePosition.getColumn(pos) * columnWidth;
+        y = TilePosition.getRow(pos) * rowHeight;
 
         this.drawTile(x, y, columnWidth, rowHeight, tile, properties, ctx);
       }
     },
 
     drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, properties: Array<TileProperty>, canvasContext: CanvasRenderingContext2D) {
-      const propertyIndex = tile[1][0];
-      const valueColor = properties[propertyIndex].colors[tile[1][1]];
+      const propertyValue = Tile.getFirstPropertyValue(tile);
+      if(propertyValue) {
+        const index = PropertyValue.getIndex(propertyValue);
+        const value = PropertyValue.getValue(propertyValue);
+        const valueColor = properties[index].colors[value];
 
-      canvasContext.fillStyle = valueColor;
-      canvasContext.fillRect(x, y, tileWidth, tileHeight);
+        canvasContext.fillStyle = valueColor;
+        canvasContext.fillRect(x, y, tileWidth, tileHeight);
+      }
     },
 
     getTile(col: number, row: number) {
@@ -99,40 +104,6 @@ export default {
           return tile;
         }
       }
-    },
-
-    getPoint(col: number, row: number) {
-      for(const point of this.definition.points) {
-        if(point[0] === col && point[1] === row) {
-          return point;
-        }
-      }
-    },
-
-    getXDimension() {
-      const axisKey = this.definition.axes.x;
-      return this.getDimension(axisKey);
-    },
-
-    getYDimension() {
-      const axisKey = this.definition.axes.y;
-      return this.getDimension(axisKey);
-    },
-
-    getDimension(key: string) {
-      for(const dimension of this.definition.dimensions ) {
-        if (dimension.key === key)
-          return dimension;
-      }
-    },
-
-    getValuesCount(dimension) {
-      return dimension.values.length;
-    },
-
-    getFirstEventDefinition() {
-      if(this.definition.events.length > 0)
-        return this.definition.events[0];
     },
 
     // ── Mouse helpers ─────────────────────────────────────────────────────
