@@ -1,13 +1,22 @@
 <template>
   <div class="canvas-container" ref="container">
-    <canvas
-        ref="canvas"
+    <canvas ref="canvas"/>
+  </div>
+  <div class="canvas-container" ref="container_two">
+    <u-two-canvas
+        ref="twoCanvas"
+        v-if="canvasWidth"
+        :width="canvasWidth"
+        :height="canvasHeight"
+        @ready="onCanvasReady"
+        @resize="onCanvasResize"
     />
   </div>
 </template>
 
 <script lang="ts">
 import TileSetDefinition, {PropertyValue, Tile, TilePosition, TileProperty} from "./tileSetDefinition";
+import UTwoCanvas from "@/_shared/components/graphics/TwoCanvas.vue"
 
 export default {
   props: {
@@ -17,40 +26,56 @@ export default {
     }
   },
 
+  components: {
+    UTwoCanvas
+  },
+
   data() {
     return {
-
+      canvasWidth: 0,
+      canvasHeight: 0,
+      resizeObserver: null
     }
   },
 
   mounted() {
-    this.resizeCanvas();
-    window.addEventListener('resize', this.resizeCanvas);
+    this.resizeObserver = new ResizeObserver(() => {
+      this.resizeTwoCanvas();
+    })
+    this.resizeObserver.observe(this.$refs.container)
+
+    this.resizeTwoCanvas();
   },
 
   beforeUnmount() {
-    window.removeEventListener('resize', this.resizeCanvas);
+    this.resizeObserver.disconnect()
   },
 
   methods: {
-    resizeCanvas() {
-      const container = this.$refs.container as HTMLElement;
-      const canvas = this.$refs.canvas as HTMLCanvasElement;
-
-      canvas.width = container.offsetWidth;
-      canvas.height = 20 * this.definition.rows.values.size;
-      // optionally fix the height too:
-      // canvas.height = container.offsetHeight;
-
-      this.drawCanvas(); // re-draw after resize
+    onCanvasReady(two) {
+      this.two = two;
+      this.drawTwoCanvas();
     },
 
-    drawCanvas() {
-      const canvas = this.$refs.canvas;
-      if (!canvas)
-        return;
+    onCanvasResize(two) {
+      this.two.clear();
+      this.drawTwoCanvas();
+    },
 
-      const ctx = canvas.getContext('2d');
+    resizeTwoCanvas() {
+      const container = this.$refs.container_two as HTMLElement;
+
+      const width = container.offsetWidth;
+      const height = 20 * this.definition.rows.values.size;
+
+      this.canvasWidth = width;
+      this.canvasHeight = height;
+      console.log("resize: w=" + width + ", height=" + height);
+    },
+
+    drawTwoCanvas() {
+      if (!this.two)
+        return;
 
       const columns = this.definition.columns;
       const columnCount = columns.values.size;
@@ -60,10 +85,8 @@ export default {
 
       const properties = this.definition.tileProperties;
 
-      const columnWidth = Math.floor(canvas.width / columnCount);
+      const columnWidth = Math.floor(this.canvasWidth / columnCount);
       const rowHeight = 20;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       //Fill canvas with default tile
       const defaultTile: Tile = this.definition.defaultTile;
@@ -71,7 +94,7 @@ export default {
         let x = i * columnWidth;
         for (let j = 0; j < rowsCount; j++) {
           let y = j * rowHeight;
-          this.drawTile(x, y, columnWidth, rowHeight, defaultTile, properties, ctx);
+          this.drawTile(x, y, columnWidth, rowHeight, defaultTile, properties, this.two);
         }
       }
 
@@ -81,19 +104,22 @@ export default {
         x = TilePosition.getColumn(pos) * columnWidth;
         y = TilePosition.getRow(pos) * rowHeight;
 
-        this.drawTile(x, y, columnWidth, rowHeight, tile, properties, ctx);
+        this.drawTile(x, y, columnWidth, rowHeight, tile, properties, this.two);
       }
+
+      this.$refs.twoCanvas.redraw();
+      console.log("draw canvas");
     },
 
-    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, properties: Array<TileProperty>, canvasContext: CanvasRenderingContext2D) {
+    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, properties: Array<TileProperty>, graphicContext: any) {
       const propertyValue = Tile.getFirstPropertyValue(tile);
       if(propertyValue) {
         const index = PropertyValue.getIndex(propertyValue);
         const value = PropertyValue.getValue(propertyValue);
         const valueColor = properties[index].colors[value];
 
-        canvasContext.fillStyle = valueColor;
-        canvasContext.fillRect(x, y, tileWidth, tileHeight);
+        const rect = graphicContext.makeRectangle(0, 0, 120, 80)
+        rect.fill = valueColor
       }
     },
 
