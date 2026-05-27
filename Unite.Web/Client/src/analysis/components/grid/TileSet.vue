@@ -62,7 +62,6 @@ export default {
     },
 
     drawGrid() {
-      console.log("drawGrid");
       if (!this.two)
         return;
 
