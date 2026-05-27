@@ -80,6 +80,8 @@ export default {
     buildTilesDefinition(): TileSetDefinition {
       const definition = new TileSetDefinition();
 
+      definition.tileHeight = 10;
+
       let columns = new DimensionDefinition();
       columns.title = "Samples";
       columns.values = new Set<any>([

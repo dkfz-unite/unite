@@ -35,6 +35,12 @@ export default {
     }
   },
 
+  computed: {
+    tileHieght() {
+      return this.definition.tileHeight ? this.definition.tileHeight : 20;
+    }
+  },
+
   mounted() {
     this.resizeObserver = new ResizeObserver(() => {
       this.resizeTwoCanvas();
@@ -63,11 +69,10 @@ export default {
       const container = this.$refs.container as HTMLElement;
 
       const width = container.offsetWidth;
-      const height = 20 * this.definition.rows.values.size;
+      const height = this.tileHieght * this.definition.rows.values.size;
 
       this.canvasWidth = width;
       this.canvasHeight = height;
-      console.log("resize: w=" + width + ", height=" + height);
     },
 
     drawTwoCanvas() {
@@ -83,7 +88,7 @@ export default {
       const properties = this.definition.tileProperties;
 
       const columnWidth = Math.floor(this.canvasWidth / columnCount);
-      const rowHeight = 20;
+      const rowHeight = this.tileHieght;
 
       //Fill canvas with default tile
       const defaultTile: Tile = this.definition.defaultTile;
@@ -105,7 +110,6 @@ export default {
       }
 
       this.$refs.twoCanvas.redraw();
-      console.log("draw canvas");
     },
 
     drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, properties: Array<TileProperty>, graphicContext: any) {
@@ -117,7 +121,7 @@ export default {
 
         const dx = tileWidth / 2;
         const dy = tileHeight / 2;
-        
+
         const rect = graphicContext.makeRectangle(x + dx, y + dy, tileWidth, tileHeight);
         rect.fill = valueColor;
       }
