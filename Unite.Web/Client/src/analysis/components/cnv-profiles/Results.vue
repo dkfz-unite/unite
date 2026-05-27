@@ -1,12 +1,34 @@
 <template>
-  <!--div class="row">
+  <div class="row q-col-gutter-sm">
     <div class="col">
-      <u-heatmap/>
+      <u-tile-set :definition="tilesDefinition"/>
     </div>
-  </div-->
-  <div class="row">
     <div class="col">
-      <u-tile-plot :definition="tilesDefinition"/>
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
+    </div>
+    <div class="col">
+      <u-tile-set :definition="tilesDefinition"/>
     </div>
   </div>
   <div class="row q-pl-sm" v-if="meta.rank != null">
@@ -21,14 +43,12 @@
 import settings from "@/visualization/_shared/settings";
 import { colors } from "quasar";
 
-import UHeatmap from "./Heatmap.vue";
 import UTileSet from "../grid/TileSet.vue";
 import TileSetDefinition, {DimensionDefinition, Tile, TileProperty} from "../grid/tileSetDefinition";
 
 export default {
   components: {
-    UHeatmap,
-    UTilePlot: UTileSet
+    UTileSet
   },
 
   props: {

@@ -36,7 +36,7 @@ export default {
   },
 
   computed: {
-    tileHieght() {
+    tileHeight() {
       return this.definition.tileHeight ? this.definition.tileHeight : 20;
     }
   },
@@ -68,8 +68,9 @@ export default {
     resizeTwoCanvas() {
       const container = this.$refs.container as HTMLElement;
 
-      const width = container.offsetWidth;
-      const height = this.tileHieght * this.definition.rows.values.size;
+      const rect = container.getBoundingClientRect();
+      const width = rect.width;
+      const height = this.tileHeight * this.definition.rows.values.size;
 
       this.canvasWidth = width;
       this.canvasHeight = height;
@@ -87,8 +88,8 @@ export default {
 
       const properties = this.definition.tileProperties;
 
-      const columnWidth = Math.floor(this.canvasWidth / columnCount);
-      const rowHeight = this.tileHieght;
+      const columnWidth = this.canvasWidth / columnCount;
+      const rowHeight = this.tileHeight;
 
       //Fill canvas with default tile
       const defaultTile: Tile = this.definition.defaultTile;

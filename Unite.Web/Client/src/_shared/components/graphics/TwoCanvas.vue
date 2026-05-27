@@ -49,3 +49,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+:deep(svg) {
+  display: block;
+}
+</style>
