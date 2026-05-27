@@ -1,8 +1,5 @@
 <template>
   <div class="canvas-container" ref="container">
-    <canvas ref="canvas"/>
-  </div>
-  <div class="canvas-container" ref="container_two">
     <u-two-canvas
         ref="twoCanvas"
         v-if="canvasWidth"
@@ -63,7 +60,7 @@ export default {
     },
 
     resizeTwoCanvas() {
-      const container = this.$refs.container_two as HTMLElement;
+      const container = this.$refs.container as HTMLElement;
 
       const width = container.offsetWidth;
       const height = 20 * this.definition.rows.values.size;
@@ -118,8 +115,11 @@ export default {
         const value = PropertyValue.getValue(propertyValue);
         const valueColor = properties[index].colors[value];
 
-        const rect = graphicContext.makeRectangle(0, 0, 120, 80)
-        rect.fill = valueColor
+        const dx = tileWidth / 2;
+        const dy = tileHeight / 2;
+        
+        const rect = graphicContext.makeRectangle(x + dx, y + dy, tileWidth, tileHeight);
+        rect.fill = valueColor;
       }
     },
 
