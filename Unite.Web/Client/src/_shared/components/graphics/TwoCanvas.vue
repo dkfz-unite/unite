@@ -7,23 +7,13 @@ import Two from 'two.js'
 
 export default {
   props: {
-    width: { type: Number, required: true },
     height: { type: Number, required: true },
-  },
-
-  watch: {
-    width(val) {
-      this.resize()
-    },
-    height(val) {
-      this.resize()
-    }
   },
 
   mounted() {
     this.two = new Two({
       type: Two.Types.svg,
-      width: this.width,
+      width: "100%",
       height: this.height,
     }).appendTo(this.$refs.container)
 
@@ -36,13 +26,6 @@ export default {
   },
 
   methods: {
-    resize() {
-      this.two.width = this.width
-      this.two.height = this.height
-      this.two.renderer.setSize(this.width, this.height)
-      this.$emit('resize', this.two)
-    },
-
     redraw() {
       this.two.update()
     }

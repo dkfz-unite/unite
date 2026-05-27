@@ -2,11 +2,8 @@
   <div class="canvas-container" ref="container">
     <u-two-canvas
         ref="twoCanvas"
-        v-if="canvasWidth"
-        :width="canvasWidth"
         :height="canvasHeight"
         @ready="onCanvasReady"
-        @resize="onCanvasResize"
     />
   </div>
 </template>
@@ -29,25 +26,29 @@ export default {
 
   data() {
     return {
-      canvasWidth: 0,
-      canvasHeight: 0,
-      resizeObserver: null
+      resizeObserver: null,
+      containerObserved: false
     }
   },
 
   computed: {
     tileHeight() {
       return this.definition.tileHeight ? this.definition.tileHeight : 20;
+    },
+    canvasHeight() {
+      return this.tileHeight * this.definition.rows.values.size;
     }
   },
 
   mounted() {
     this.resizeObserver = new ResizeObserver(() => {
-      this.resizeTwoCanvas();
+      if (!this.containerObserved) {
+        this.containerObserved = true
+        return
+      }
+      this.drawGrid()
     })
     this.resizeObserver.observe(this.$refs.container)
-
-    this.resizeTwoCanvas();
   },
 
   beforeUnmount() {
@@ -57,28 +58,15 @@ export default {
   methods: {
     onCanvasReady(two) {
       this.two = two;
-      this.drawTwoCanvas();
+      this.drawGrid();
     },
 
-    onCanvasResize(two) {
-      this.two.clear();
-      this.drawTwoCanvas();
-    },
-
-    resizeTwoCanvas() {
-      const container = this.$refs.container as HTMLElement;
-
-      const rect = container.getBoundingClientRect();
-      const width = rect.width;
-      const height = this.tileHeight * this.definition.rows.values.size;
-
-      this.canvasWidth = width;
-      this.canvasHeight = height;
-    },
-
-    drawTwoCanvas() {
+    drawGrid() {
+      console.log("drawGrid");
       if (!this.two)
         return;
+
+      this.two.clear();
 
       const columns = this.definition.columns;
       const columnCount = columns.values.size;
@@ -88,7 +76,8 @@ export default {
 
       const properties = this.definition.tileProperties;
 
-      const columnWidth = this.canvasWidth / columnCount;
+      const width = this.$refs.container.getBoundingClientRect().width
+      const columnWidth = width / columnCount;
       const rowHeight = this.tileHeight;
 
       //Fill canvas with default tile

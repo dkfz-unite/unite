@@ -3,7 +3,7 @@
     <div class="col">
       <u-tile-set :definition="tilesDefinition"/>
     </div>
-    <div class="col">
+    <!--div class="col">
       <u-tile-set :definition="tilesDefinition"/>
     </div>
     <div class="col">
@@ -29,7 +29,7 @@
     </div>
     <div class="col">
       <u-tile-set :definition="tilesDefinition"/>
-    </div>
+    </div-->
   </div>
   <div class="row q-pl-sm" v-if="meta.rank != null">
     <span class="q-gutter-x-sm">
