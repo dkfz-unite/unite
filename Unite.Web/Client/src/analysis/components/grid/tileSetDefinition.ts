@@ -54,5 +54,6 @@ export default class TileSetDefinition {
     tileProperties: Array<TileProperty>;
     tiles: Array<Tile>;
     defaultTile: Tile;
+    tileWidth: number;
     tileHeight: number;
 }

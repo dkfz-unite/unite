@@ -35,6 +35,10 @@ export default {
     tileHeight() {
       return this.definition.tileHeight ? this.definition.tileHeight : 20;
     },
+    tileWidth() {
+      return this.definition.tileWidth ? this.definition.tileWidth : 5;
+    },
+
     canvasHeight() {
       return this.tileHeight * this.definition.rows.values.size;
     }
@@ -75,8 +79,7 @@ export default {
 
       const properties = this.definition.tileProperties;
 
-      const width = this.$refs.container.getBoundingClientRect().width
-      const columnWidth = width / columnCount;
+      const columnWidth = this.tileWidth;
       const rowHeight = this.tileHeight;
 
       //Fill canvas with default tile
@@ -113,6 +116,7 @@ export default {
 
         const rect = graphicContext.makeRectangle(x + dx, y + dy, tileWidth, tileHeight);
         rect.fill = valueColor;
+        rect.noStroke();
       }
     },
 

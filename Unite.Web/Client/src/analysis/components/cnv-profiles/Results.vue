@@ -1,14 +1,8 @@
 <template>
-  <div class="row q-col-gutter-sm">
+  <div class="row q-col-gutter-sm" ref="setsRow">
     <div class="col" v-for="(definition, index) in tileDefinitions" :key="index">
       <u-tile-set :definition="definition"/>
     </div>
-  </div>
-  <div class="row q-pl-sm" v-if="meta.rank != null">
-    <span class="q-gutter-x-sm">
-      <span>&Chi;<sup>2</sup>: <b>{{ meta.rank.chi2 }}</b></span> 
-      <span>P-Value: <b>{{ meta.rank.p }}</b></span>
-    </span>
   </div>
 </template>
 
@@ -43,11 +37,12 @@ export default {
       traces: null,
       layout: null,
       config: null,
-      tileDefinitions: this.buildTileDefinitions(12)
+      tileDefinitions: []
     }
   },
 
-  async mounted() {    
+  async mounted() {
+    this.tileDefinitions = this.buildTileDefinitions(10);
     await this.init();
   },
 
@@ -70,14 +65,32 @@ export default {
 
     buildTileDefinitions(setsCount: number): TileSetDefinition[] {
       const definitions: TileSetDefinition[] = [];
+      const sampleCounts: number[] = [];
+      let totalSampleCount = 0;
 
+      for(let i = 0; i < setsCount; i++) {
+        const samplesCount = this.randomInt(12, 32);
+        totalSampleCount += samplesCount;
+        sampleCounts.push(samplesCount);
+      }
+
+      const totalWidth = this.$refs.setsRow.getBoundingClientRect().width;
+      const gapsWidth = 8 * setsCount;
+
+      const tileWidth = (totalWidth - gapsWidth) / totalSampleCount;
       const tileHeight = 10;
       let sampleId = 120;
 
       let rows = new DimensionDefinition();
       rows.title = "Chromosome Arms";
       rows.values = new Set<any>([
-        "chr1p", "chr1q", "chr2p", "chr2q", "chr3p", "chr3q", "chr4p", "chr4q"
+        "chr1p", "chr1q", "chr2p", "chr2q", "chr3p", "chr3q", "chr4p", "chr4q",
+        "chr5p", "chr5q", "chr6p", "chr6q", "chr7p", "chr7q", "chr8p", "chr8q",
+        "chr9p", "chr9q", "chr10p", "chr10q", "chr11p", "chr11q", "chr12p", "chr12q",
+        "chr13p", "chr13q", "chr14p", "chr14q", "chr15p", "chr15q", "chr16p", "chr16q",
+        "chr17p", "chr17q", "chr18p", "chr18q", "chr19p", "chr19q", "chr20p", "chr20q",
+        "chr21p", "chr21q", "chr22p", "chr22q", "chr23p", "chr23q", "chrXp", "chrXq",
+        "chrYp", "chrYq"
       ]);
 
       let propertyCnvProfile = new TileProperty();
@@ -92,7 +105,7 @@ export default {
 
         let columns = new DimensionDefinition();
         columns.title = "Samples " + (i + 1);
-        const samplesCount = 12;
+        const samplesCount = sampleCounts[i];
         columns.values = new Set<any>();
         for(let j = 0; j < samplesCount; j++) {
           columns.values.add(sampleId++);
@@ -130,6 +143,10 @@ export default {
       }
 
       return tiles
+    },
+
+    randomInt(a: number, b: number): number {
+      return Math.floor(Math.random() * (b - a + 1)) + a
     }
   }
 }
