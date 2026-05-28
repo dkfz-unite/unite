@@ -19,6 +19,14 @@ export default {
     definition: {
       type: TileSetDefinition,
       required: true
+    },
+    tileWidth: {
+      type: Number,
+      required: true
+    },
+    tileHeight: {
+      type: Number,
+      required: true
     }
   },
 
@@ -34,13 +42,6 @@ export default {
   },
 
   computed: {
-    tileHeight() {
-      return this.definition.tileHeight ? this.definition.tileHeight : 20;
-    },
-    tileWidth() {
-      return this.definition.tileWidth ? this.definition.tileWidth : 5;
-    },
-
     canvasWidth() {
       return this.tileWidth * this.definition.columns.values.size;
     },

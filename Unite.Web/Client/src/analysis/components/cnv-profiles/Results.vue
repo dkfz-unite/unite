@@ -1,8 +1,10 @@
 <template>
   <div class="row q-col-gutter-sm" ref="setsRow">
-    <div class="col-auto" v-for="(definition, index) in tileDefinitions" :key="index">
-      <u-tile-set :definition="definition"/>
-    </div>
+    <template v-if="initialized">
+      <div class="col-auto" v-for="(definition, index) in tileDefinitions" :key="index">
+        <u-tile-set :definition="definition" :tile-width="tileWidth" :tile-height="tileHeight"/>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -37,12 +39,23 @@ export default {
       traces: null,
       layout: null,
       config: null,
-      tileDefinitions: []
+      initialized: false,
+      tileDefinitions: this.buildTilesData(10),
+      tileWidth: 0,
+      tileHeight: 0,
+      resizeObserver: null
     }
   },
 
   async mounted() {
-    this.tileDefinitions = this.buildTileDefinitions(32);
+    this.resizeObserver = new ResizeObserver(() => {
+      this.resizeTiles();
+      if (!this.initialized) {
+        this.initialized = true
+      }
+    })
+    this.resizeObserver.observe(this.$refs.setsRow)
+
     await this.init();
   },
 
@@ -51,8 +64,7 @@ export default {
       await this.init();
     }
   },
-
-
+  
   methods: {
     async init() {
       this.meta = await this.getMeta(this.data);
@@ -63,43 +75,16 @@ export default {
       return JSON.parse(json);
     },
 
-    buildTileDefinitions(setsCount: number): TileSetDefinition[] {
+    buildTilesData(setsCount: number) {
       const definitions: TileSetDefinition[] = [];
       const sampleCounts: number[] = [];
-      let totalSampleCount = 0;
 
       for(let i = 0; i < setsCount; i++) {
         const samplesCount = this.randomInt(4, 50);
-        totalSampleCount += samplesCount;
         sampleCounts.push(samplesCount);
       }
 
-      /*const rowEl = this.$refs.setsRow as HTMLElement;
-      const style = window.getComputedStyle(rowEl);
-      const paddingLeft = parseFloat(style.paddingLeft);
-      const paddingRight = parseFloat(style.paddingRight);
-      const totalWidth = rowEl.getBoundingClientRect().width - paddingLeft - paddingRight;*/
-
-      const rowEl = this.$refs.setsRow as HTMLElement
-      const style = window.getComputedStyle(rowEl)
-      const paddingLeft = parseFloat(style.paddingLeft)
-      const paddingRight = parseFloat(style.paddingRight)
-
-// inject a temporary full-width probe element
-      const probe = document.createElement('div')
-      probe.style.width = '100%'
-      rowEl.appendChild(probe)
-      const totalWidth = probe.getBoundingClientRect().width
-      rowEl.removeChild(probe)
-
-      const gap = 8;
-      const gapsWidth = gap * setsCount  // all cols have padding, including first and last
-
-      const tileWidth = (totalWidth - gapsWidth) / totalSampleCount;
-      const tileHeight = 10;
       let sampleId = 120;
-
-      console.log("totalWidth: ", totalWidth, "setsCount: ", setsCount, "gap: ", gap,"gapsWidth: ", gapsWidth, "tileWidth: ", tileWidth);
 
       let rows = new DimensionDefinition();
       rows.title = "Chromosome Arms";
@@ -131,8 +116,6 @@ export default {
           columns.values.add(sampleId++);
         }
 
-        definition.tileWidth = tileWidth;
-        definition.tileHeight = tileHeight;
         definition.columns = columns;
         definition.rows = rows;
         definition.tileProperties = [ propertyCnvProfile ];
@@ -166,6 +149,32 @@ export default {
       }
 
       return tiles
+    },
+
+    resizeTiles(): void {
+      const setsCount = this.tileDefinitions.length;
+      const rowEl = this.$refs.setsRow as HTMLElement
+
+      // inject a temporary full-width probe element
+      const probe = document.createElement('div')
+      probe.style.width = '100%'
+      rowEl.appendChild(probe)
+      const totalWidth = probe.getBoundingClientRect().width
+      rowEl.removeChild(probe)
+
+      const gap = 8;
+      const gapsWidth = gap * setsCount;  // all cols have padding, including first and last
+
+      let totalSampleCount = 0;
+      for(let definition of this.tileDefinitions) {
+        totalSampleCount += definition.columns.values.size;
+      }
+
+      const tileWidth = (totalWidth - gapsWidth) / totalSampleCount;
+      const tileHeight = 10;
+
+      this.tileWidth = tileWidth;
+      this.tileHeight = tileHeight;
     },
 
     randomInt(a: number, b: number): number {
