@@ -1,6 +1,6 @@
 <template>
   <div class="row q-col-gutter-sm" ref="setsRow">
-    <div class="col" v-for="(definition, index) in tileDefinitions" :key="index">
+    <div class="col-auto" v-for="(definition, index) in tileDefinitions" :key="index">
       <u-tile-set :definition="definition"/>
     </div>
   </div>
@@ -42,7 +42,7 @@ export default {
   },
 
   async mounted() {
-    this.tileDefinitions = this.buildTileDefinitions(10);
+    this.tileDefinitions = this.buildTileDefinitions(32);
     await this.init();
   },
 
@@ -69,17 +69,37 @@ export default {
       let totalSampleCount = 0;
 
       for(let i = 0; i < setsCount; i++) {
-        const samplesCount = this.randomInt(12, 32);
+        const samplesCount = this.randomInt(4, 50);
         totalSampleCount += samplesCount;
         sampleCounts.push(samplesCount);
       }
 
-      const totalWidth = this.$refs.setsRow.getBoundingClientRect().width;
-      const gapsWidth = 8 * setsCount;
+      /*const rowEl = this.$refs.setsRow as HTMLElement;
+      const style = window.getComputedStyle(rowEl);
+      const paddingLeft = parseFloat(style.paddingLeft);
+      const paddingRight = parseFloat(style.paddingRight);
+      const totalWidth = rowEl.getBoundingClientRect().width - paddingLeft - paddingRight;*/
+
+      const rowEl = this.$refs.setsRow as HTMLElement
+      const style = window.getComputedStyle(rowEl)
+      const paddingLeft = parseFloat(style.paddingLeft)
+      const paddingRight = parseFloat(style.paddingRight)
+
+// inject a temporary full-width probe element
+      const probe = document.createElement('div')
+      probe.style.width = '100%'
+      rowEl.appendChild(probe)
+      const totalWidth = probe.getBoundingClientRect().width
+      rowEl.removeChild(probe)
+
+      const gap = 8;
+      const gapsWidth = gap * setsCount  // all cols have padding, including first and last
 
       const tileWidth = (totalWidth - gapsWidth) / totalSampleCount;
       const tileHeight = 10;
       let sampleId = 120;
+
+      console.log("totalWidth: ", totalWidth, "setsCount: ", setsCount, "gap: ", gap,"gapsWidth: ", gapsWidth, "tileWidth: ", tileWidth);
 
       let rows = new DimensionDefinition();
       rows.title = "Chromosome Arms";
@@ -111,6 +131,7 @@ export default {
           columns.values.add(sampleId++);
         }
 
+        definition.tileWidth = tileWidth;
         definition.tileHeight = tileHeight;
         definition.columns = columns;
         definition.rows = rows;
@@ -120,6 +141,8 @@ export default {
 
         definitions.push(definition);
       }
+
+      definitions.sort((a, b) => b.columns.values.size - a.columns.values.size);
 
       return definitions;
     },

@@ -2,7 +2,9 @@
   <div class="canvas-container" ref="container">
     <u-two-canvas
         ref="twoCanvas"
+        :width="canvasWidth"
         :height="canvasHeight"
+        type="svg"
         @ready="onCanvasReady"
     />
   </div>
@@ -37,6 +39,10 @@ export default {
     },
     tileWidth() {
       return this.definition.tileWidth ? this.definition.tileWidth : 5;
+    },
+
+    canvasWidth() {
+      return this.tileWidth * this.definition.columns.values.size;
     },
 
     canvasHeight() {

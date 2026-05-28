@@ -7,13 +7,21 @@ import Two from 'two.js'
 
 export default {
   props: {
+    width: { type: Number, required: true },
     height: { type: Number, required: true },
+    type: { type: String, default: 'svg' }
   },
 
   mounted() {
+    const types = {
+      svg: Two.Types.svg,
+      canvas: Two.Types.canvas,
+      webgl: Two.Types.webgl
+    }
+
     this.two = new Two({
-      type: Two.Types.svg,
-      width: "100%",
+      type: types[this.type] ?? Two.Types.svg,
+      width: this.width,
       height: this.height,
     }).appendTo(this.$refs.container)
 
@@ -32,8 +40,9 @@ export default {
   }
 }
 </script>
+
 <style scoped>
-:deep(svg) {
+:deep(svg), :deep(canvas) {
   display: block;
 }
 </style>
