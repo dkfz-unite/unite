@@ -8,13 +8,25 @@ export default class Analysis {
   datasets: any[];
   options: OptionsGroup[];
 
+  constructor(type: AnalysisType = null, datasets: any[] = [], options: OptionsGroup[] = []) {
+    this.type = type;
+    this.name = null;
+    this.description = null;
+    this.datasets = datasets;
+    this.options = options;
+  }
+
   reset(): void {
     this.name = null;
     this.description = null;
+    this.resetOptions();
+  };
+
+  resetOptions(): void {
     for (const step of this.options) {
       step.reset();
     }
-  };
+  }
 
   toPayload(): any {
     let options = {};

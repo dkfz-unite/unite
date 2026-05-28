@@ -7,6 +7,7 @@
   <u-dep-dialog v-if="showDepAnalysis" ref="DepDialog" :datasets="datasets" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
   <u-umapp-dialog v-if="showUmappAnalysis" ref="UmappDialog" :datasets="datasets" />
+  <u-cedp-dialog v-if="showCedpAnalysis" ref="CedpDialog" :datasets="datasets" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
@@ -51,6 +52,11 @@
             <q-item-label>UMAP of <strong>Protein</strong> Expression Profiles</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item v-if="showCedpAnalysis" @click="$refs.CedpDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label><strong>Protein</strong> expression distribution per condition</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-menu>
   </q-btn>
@@ -65,7 +71,7 @@ import UGafDialog from "@/analysis/components/gaf/Dialog.vue";
 import UDepDialog from "@/analysis/components/dep/Dialog.vue";
 import UScellDialog from "@/analysis/components/scell/Dialog.vue";
 import UUmappDialog from "@/analysis/components/umapp/Dialog.vue";
-
+import UCedpDialog from "@/analysis/components/cedp/Dialog.vue";
 
 export default {
   components: {
@@ -77,6 +83,7 @@ export default {
     UDepDialog,
     UScellDialog,
     UUmappDialog,
+    UCedpDialog
   },
 
   props: {
@@ -95,7 +102,8 @@ export default {
           || this.showGafAnalysis
           || this.showDepAnalysis
           || this.showScellAnalysis
-          || this.showUmappAnalysis;
+          || this.showUmappAnalysis
+          || this.showCedpAnalysis;
     },
 
     showSurvAnalysis() {
@@ -137,6 +145,11 @@ export default {
     showUmappAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.prot == true);
+    },
+
+    showCedpAnalysis() {
+      return this.datasets?.length == 1 &&
+             this.datasets?.every(dataset => dataset.data?.prot === true);
     }
   }
 }

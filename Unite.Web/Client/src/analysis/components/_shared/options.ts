@@ -1,3 +1,5 @@
+import OptionType from "./option-type";
+
 export class OptionsGroup {
   title: string;
   options: IOption[];
@@ -58,8 +60,8 @@ export class NumberOption extends Option<number> {
   }
 }
 
-export class SelectOption<T> extends Option<T> {
-  options: SelectValue<T>[] = [];
+export class SelectOption extends Option<string> {
+  options: SelectValue[] = [];
 
   override reset(): void {
     const defaultOption = this.options.find(opt => opt.isDefault);
@@ -71,18 +73,18 @@ export class SelectOption<T> extends Option<T> {
     }
   }
 
-  constructor(key: string, title: string, options: SelectValue<T>[] = []) {
+  constructor(key: string, title: string, options: SelectValue[] = []) {
     super(key, title, options?.find(opt => opt.isDefault)?.value);
     this.options = options;
   }
 }
 
-export class SelectValue<T> {
+export class SelectValue {
   label: string;
-  value: T;
+  value: string;
   isDefault: boolean = false;
 
-  constructor(label: string, value: T, isDefault: boolean = false) {
+  constructor(label: string, value: string, isDefault: boolean = false) {
     this.label = label;
     this.value = value;
     this.isDefault = isDefault;
