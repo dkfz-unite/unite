@@ -1,19 +1,19 @@
+import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import AnalysisType from "./analysis-type";
 import { OptionsGroup } from "./options";
 
-export default class Analysis {
-  type: AnalysisType;
+export default abstract class Analysis {
   name: string;
   description: string;
   datasets: any[];
-  options: OptionsGroup[];
 
-  constructor(type: AnalysisType = null, datasets: any[] = [], options: OptionsGroup[] = []) {
-    this.type = type;
+  abstract type: AnalysisType;
+  abstract options: OptionsGroup[];
+
+  constructor(datasets: any[]) {
     this.name = null;
     this.description = null;
     this.datasets = datasets;
-    this.options = options;
   }
 
   reset(): void {
@@ -29,7 +29,8 @@ export default class Analysis {
   }
 
   toPayload(): any {
-    let options = {};
+    const options = {};
+    const datasets = [];
 
     for (const group of this.options) {
       for (const option of group.options) {
@@ -37,15 +38,26 @@ export default class Analysis {
       }
     }
 
+    for (const dataset of this.datasets) {
+      datasets.push({
+        id: dataset.id,
+        name: dataset.name,
+        order: dataset.order, 
+        domain: dataset.domain,
+        criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
+      });
+    }
+
     const data = {
+      id: null,
       type: this.type,
       name: this.name,
       description: this.description,
       status: null,
       date: new Date(),
       data: {
-        datasets: this.datasets,
-        options: options
+        options: options,
+        datasets: datasets
       }
     };
 

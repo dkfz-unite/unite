@@ -32,6 +32,13 @@
 </template>
 
 <script>
+// TODO: Extract section title to dialog component, so that options view can be reused outside
+// Add "readonly" mode for each option component
+// Think of adding same "readonly" mechanism to filter components as well
+// Options component should be able to:
+// 1. Load static list of options from backend
+// 2. Autocomplete options from backend
+
 import UBooleanOption from "./options/BooleanOption.vue";
 import UNumberOption from "./options/NumberOption.vue";
 import USelectOption from "./options/SelectOption.vue";
@@ -51,6 +58,8 @@ export default {
     UNumberOption,
     USelectOption
   },
+
+  emits: ["request"],
 
   data() {
     return {

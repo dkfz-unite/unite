@@ -1,9 +1,5 @@
 <template>
-  <u-dialog
-    title="Protein expression distribution per condition"
-    ref="dialog"
-    :analysis="analysis"
-  />
+  <u-dialog ref="dialog" />
 </template>
 
 <script>
@@ -24,18 +20,11 @@ export default {
     },
   },
 
-  data() {
-    const analysis = new Analysis(Analysis.CEDP, this.datasets, options);
-
-    return {
-      analysis
-    }
-  },
-
   methods: {
     show() {
-      this.$refs.dialog.show();
+      const analysis = new Analysis(AnalysisType.CEDP, options, this.datasets);
+      this.$refs.dialog.show(analysis);
     }
   }
-} 
+}
 </script>
