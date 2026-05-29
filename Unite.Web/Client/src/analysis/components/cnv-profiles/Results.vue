@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-col-gutter-sm" ref="setsRow">
+  <div class="row q-col-gutter-sm" style="flex-wrap: nowrap;" ref="setsRow">
     <template v-if="initialized">
       <div class="col-auto" v-for="(definition, index) in tileDefinitions" :key="index">
         <u-tile-set :definition="definition" :tile-width="tileWidth" :tile-height="tileHeight"/>
@@ -153,28 +153,30 @@ export default {
 
     resizeTiles(): void {
       const setsCount = this.tileDefinitions.length;
-      const rowEl = this.$refs.setsRow as HTMLElement
-
-      // inject a temporary full-width probe element
-      const probe = document.createElement('div')
-      probe.style.width = '100%'
-      rowEl.appendChild(probe)
-      const totalWidth = probe.getBoundingClientRect().width
-      rowEl.removeChild(probe)
-
-      const gap = 8;
-      const gapsWidth = gap * setsCount;  // all cols have padding, including first and last
 
       let totalSampleCount = 0;
       for(let definition of this.tileDefinitions) {
         totalSampleCount += definition.columns.values.size;
       }
 
+      const rowEl = this.$refs.setsRow as HTMLElement;
+      if(!rowEl)
+        return;
+      const style = window.getComputedStyle(rowEl);
+      const paddingLeft = parseFloat(style.paddingLeft);
+      const paddingRight = parseFloat(style.paddingRight);
+      const totalWidth = rowEl.getBoundingClientRect().width - paddingLeft - paddingRight;
+
+      const gap = 8;
+      const gapsWidth = gap * setsCount;  // all cols have padding, including first and last
+
       const tileWidth = (totalWidth - gapsWidth) / totalSampleCount;
       const tileHeight = 10;
 
       this.tileWidth = tileWidth;
       this.tileHeight = tileHeight;
+
+      //console.log("tileWidth", tileWidth, "tileHeight", tileHeight, "totalWidth", totalWidth, "gapsWidth", gapsWidth);
     },
 
     randomInt(a: number, b: number): number {

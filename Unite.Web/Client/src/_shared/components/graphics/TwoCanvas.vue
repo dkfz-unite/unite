@@ -12,6 +12,21 @@ export default {
     type: { type: String, default: 'svg' }
   },
 
+  watch: {
+    width(val) {
+      if(this.two) {
+        this.two.width = val
+        this.two.renderer.setSize(val, this.height)
+      }
+    },
+    height(val) {
+      if(this.two) {
+        this.two.height = val
+        this.two.renderer.setSize(this.width, val)
+      }
+    }
+  },
+
   mounted() {
     const types = {
       svg: Two.Types.svg,
