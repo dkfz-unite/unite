@@ -4,7 +4,7 @@
         ref="twoCanvas"
         :width="canvasWidth"
         :height="canvasHeight"
-        type="svg"
+        type="canvas"
         @ready="onCanvasReady"
     />
   </div>
@@ -91,13 +91,9 @@ export default {
 
       //Fill canvas with default tile
       const defaultTile: Tile = this.definition.defaultTile;
-      for(let i = 0; i < columnCount; i++) {
-        let x = i * columnWidth;
-        for (let j = 0; j < rowsCount; j++) {
-          let y = j * rowHeight;
-          this.drawTile(x, y, columnWidth, rowHeight, defaultTile, properties, this.two);
-        }
-      }
+      const defaultTileFirstProperty = Tile.getFirstPropertyValue(defaultTile);
+      const defaultTileColor = this.getTileColorValue(defaultTileFirstProperty, properties);
+      this.drawTile(0, 0, columnWidth * columns.values.size, rowHeight * rows.values.size, defaultTileColor, this.two);
 
       let x = 0, y = 0;
       for(const tile of this.definition.tiles) {
@@ -105,26 +101,32 @@ export default {
         x = TilePosition.getColumn(pos) * columnWidth;
         y = TilePosition.getRow(pos) * rowHeight;
 
-        this.drawTile(x, y, columnWidth, rowHeight, tile, properties, this.two);
+        const tileFirstProperty = Tile.getFirstPropertyValue(tile);
+        const tileColor = this.getTileColorValue(tileFirstProperty, properties);
+
+        if(tileFirstProperty[1] != 2) {
+          this.drawTile(x, y, columnWidth, rowHeight, tileColor, this.two);
+        }
       }
 
       this.$refs.twoCanvas.redraw();
     },
 
-    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, tile: Tile, properties: Array<TileProperty>, graphicContext: any) {
-      const propertyValue = Tile.getFirstPropertyValue(tile);
+    getTileColorValue(propertyValue: PropertyValue, properties: Array<TileProperty>) {
       if(propertyValue) {
         const index = PropertyValue.getIndex(propertyValue);
         const value = PropertyValue.getValue(propertyValue);
-        const valueColor = properties[index].colors[value];
-
-        const dx = tileWidth / 2;
-        const dy = tileHeight / 2;
-
-        const rect = graphicContext.makeRectangle(x + dx, y + dy, tileWidth, tileHeight);
-        rect.fill = valueColor;
-        rect.noStroke();
+        return properties[index].colors[value];
       }
+    },
+
+    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, color: string, graphicContext: any) {
+      const dx = tileWidth / 2;
+      const dy = tileHeight / 2;
+
+      const rect = graphicContext.makeRectangle(x + dx, y + dy, tileWidth, tileHeight);
+      rect.fill = color;
+      //rect.noStroke();
     },
 
     getTile(col: number, row: number) {
