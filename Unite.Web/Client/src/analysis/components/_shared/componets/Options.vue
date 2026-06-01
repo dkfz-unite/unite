@@ -1,13 +1,12 @@
 <template>
   <div class="col q-gutter-sm">
     <div class="row">
-      <span class="text-subtitle text-grey">Options</span>
-    </div>
-
-    <div class="row">
       <div class="col">
         <q-option-group
-          v-model="step" :options="options.map((group, index) => ({ label: group.title, value: index }))" dense inline />
+          v-model="step"
+          :options="options.map((group, index) => ({ label: group.title, value: index }))"
+          dense inline
+        />
       </div>
     </div>
 
@@ -16,13 +15,15 @@
         <q-tab-panels v-model="step" class="q-ma-none q-pa-none">
           <q-tab-panel v-for="(group, index) in options" :key="index" :name="index" class="q-px-none q-py-xs">
             <div class="col q-gutter-sm">
-              <div v-for="option in group.options" :key="option.key" class="row">
-                <div class="col">
-                  <u-boolean-option v-if="isBooleanOption(option)" :option="option" />
-                  <u-number-option v-else-if="isNumberOption(option)" :option="option" />
-                  <u-select-option v-else-if="isSelectOption(option)" :option="option" />
+              <template v-for="option in group.options" :key="option.key">
+                <div v-if="show(option, group.options)" class="row">
+                  <div class="col">
+                    <u-boolean-option v-if="isBooleanOption(option)" :option="option" :readonly="readonly" />
+                    <u-number-option v-else-if="isNumberOption(option)" :option="option" :readonly="readonly" />
+                    <u-select-option v-else-if="isSelectOption(option)" :option="option" :readonly="readonly" />
+                  </div>
                 </div>
-              </div>
+              </template>
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -32,7 +33,6 @@
 </template>
 
 <script>
-// TODO: Extract section title to dialog component, so that options view can be reused outside
 // Add "readonly" mode for each option component
 // Think of adding same "readonly" mechanism to filter components as well
 // Options component should be able to:
@@ -50,6 +50,10 @@ export default {
     options: {
       type: Array,
       required: true
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -78,6 +82,14 @@ export default {
 
     isSelectOption(option) {
       return option instanceof SelectOption;
+    },
+
+    show(option, options) {
+      // if (!!option.show) {
+      //   console.log("show option", option);
+      //   console.log("all options", options);
+      // }
+      return !option.show || option.show(options);
     }
   }
 }

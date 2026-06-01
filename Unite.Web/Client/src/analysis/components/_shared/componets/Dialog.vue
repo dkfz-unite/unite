@@ -6,26 +6,52 @@
     persistent>
 
     <q-card v-if="analysis" style="min-width: 350px;">
+      <!-- Title -->
       <q-card-section>
         <div class="text-h6">{{ title }}</div>
       </q-card-section>
       <q-separator />
 
+      <!-- General -->
       <q-card-section>
-        <u-general :analysis="analysis" />
+        <div class="col">
+          <div class="row q-mb-sm">
+            <span class="text-subtitle text-grey">General</span>
+          </div>
+          <div class="row">
+            <u-general :analysis="analysis" />
+          </div>
+        </div>
       </q-card-section>
       <q-separator />
 
+      <!-- Datasets -->
       <q-card-section>
-        <u-datasets :datasets="analysis.datasets" />
-      </q-card-section>
-       <q-separator />
-
-      <q-card-section>
-        <u-options :options="analysis.options" @request="onRequest"/>
+        <div class="col">
+          <div class="row q-mb-sm">
+            <span class="text-subtitle text-grey">Datasets</span>
+          </div>
+          <div class="row">
+            <u-datasets :datasets="analysis.datasets" />
+          </div>
+        </div>
       </q-card-section>
       <q-separator />
 
+      <!-- Options -->
+      <q-card-section>
+        <div class="col">
+          <div class="row q-mb-sm">
+            <span class="text-subtitle text-grey">Options</span>
+          </div>
+          <div class="row">
+            <u-options :options="analysis.options" @request="onRequest"/>
+          </div>
+        </div>
+      </q-card-section>
+      <q-separator />
+
+      <!-- Actions -->
       <q-card-actions align="right" class="text-primary">
         <q-btn label="Reset" @click="onReset" dense flat no-caps />
         <q-btn label="Cancel" @click="onClose" dense flat no-caps v-close-popup />

@@ -1,9 +1,6 @@
 <template>
   <div class="col q-gutter-sm">
     <div class="row">
-      <span class="text-subtitle text-grey">General</span>
-    </div>
-    <div class="row">
       <div class="col">
         <q-input
           label="Name (Optional)"

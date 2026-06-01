@@ -1,6 +1,19 @@
-import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue } from "../_shared/options";
+import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue, SelectMethod, IOption } from "../_shared/options";
 
 const options = [
+  // General
+  new OptionsGroup("General", [
+    new SelectOption("feature_type", "Feature type", [
+      new SelectValue("Protein", "protein", true),
+      new SelectValue("Gene", "gene")
+    ]), 
+    
+    new SelectOption("protein", "Protein", [], SelectMethod.Filter, (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "protein"),
+    new SelectOption("gene", "Gene", [], SelectMethod.Filter, (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "gene"),
+    new SelectOption("condition_property", "Condition property", [], SelectMethod.Once)
+  ]),
+
+  // Preprocessing
   new OptionsGroup("Preprocessing", [
     new SelectOption("normalization_method", "Normalization method", [
       new SelectValue("Median", "median", true),

@@ -21,6 +21,7 @@ export interface IOption {
   title: string;
   value: any;
   default: any;
+  show: (options: IOption[]) => boolean;
 
   reset(): void;
 }
@@ -30,16 +31,18 @@ export abstract class Option<T> implements IOption {
   title: string;
   value: T;
   default: T;
+  show: (options: IOption[]) => boolean = null;
 
   reset(): void {
     this.value = this.default;
   }
 
-  constructor(key: string, title: string, defaultValue: T = null) {
+  constructor(key: string, title: string, defaultValue: T = null, show: (options: IOption[]) => boolean = null) {
     this.key = key;
     this.title = title;
     this.default = defaultValue;
     this.value = defaultValue;
+    this.show = show;
   }
 }
 
@@ -52,8 +55,8 @@ export class NumberOption extends Option<number> {
   step: number = null;
 
 
-  constructor(key: string, title: string, defaultValue: number = null, min: number = null, max: number = null, step: number = null) {
-    super(key, title, defaultValue);
+  constructor(key: string, title: string, defaultValue: number = null, min: number = null, max: number = null, step: number = null, show: (options: IOption[]) => boolean = null) {
+    super(key, title, defaultValue, show);
     this.min = min;
     this.max = max;
     this.step = step;
@@ -62,6 +65,7 @@ export class NumberOption extends Option<number> {
 
 export class SelectOption extends Option<string> {
   options: SelectValue[] = [];
+  lazy: SelectMethod = null;
 
   override reset(): void {
     const defaultOption = this.options.find(opt => opt.isDefault);
@@ -73,9 +77,10 @@ export class SelectOption extends Option<string> {
     }
   }
 
-  constructor(key: string, title: string, options: SelectValue[] = []) {
-    super(key, title, options?.find(opt => opt.isDefault)?.value);
+  constructor(key: string, title: string, options: SelectValue[] = [], lazy: SelectMethod = null, show: (options: IOption[]) => boolean = null) {
+    super(key, title, options?.find(opt => opt.isDefault)?.value, show);
     this.options = options;
+    this.lazy = lazy;
   }
 }
 
@@ -89,4 +94,9 @@ export class SelectValue {
     this.value = value;
     this.isDefault = isDefault;
   }
+}
+
+export enum SelectMethod {
+  Filter = "filter",
+  Once = "once"
 }
