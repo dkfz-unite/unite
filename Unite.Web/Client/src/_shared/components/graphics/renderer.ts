@@ -3,6 +3,7 @@
 export interface Renderer {
     clear(): void
     fillRect(x: number, y: number, w: number, h: number, color: string): void
+    drawRect(x: number, y: number, w: number, h: number, fillColor: string, borderColor: string, borderWidth?: number): void
     drawLine(x1: number, y1: number, x2: number, y2: number, color: string, lineWidth?: number): void
     drawText(text: string, x: number, y: number, color: string, font?: string): void
     resize(width: number, height: number): void
@@ -59,6 +60,15 @@ class CanvasRenderer implements Renderer {
         this.log.push({ type: 'fillRect', x, y, w, h, color })
         this.ctx.fillStyle = color
         this.ctx.fillRect(x, y, w, h)
+    }
+
+    drawRect(x: number, y: number, w: number, h: number, fillColor: string, borderColor = "black", borderWidth = 1): void {
+        this.log.push({ type: 'drawRect', x, y, w, h, fillColor, borderColor, borderWidth })
+        this.ctx.fillStyle = fillColor
+        this.ctx.fillRect(x, y, w, h)
+        this.ctx.strokeStyle = borderColor
+        this.ctx.lineWidth = borderWidth
+        this.ctx.strokeRect(x, y, w, h)
     }
 
     drawLine(x1: number, y1: number, x2: number, y2: number, color: string, lineWidth = 1): void {
@@ -145,6 +155,18 @@ class SvgRenderer implements Renderer {
         this.pending.push(el)
     }
 
+    drawRect(x: number, y: number, w: number, h: number, fillColor: string, borderColor = "black", borderWidth = 1): void {
+        const el = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+        el.setAttribute('x', String(x))
+        el.setAttribute('y', String(y))
+        el.setAttribute('width', String(w))
+        el.setAttribute('height', String(h))
+        el.setAttribute('fill', fillColor)
+        el.setAttribute('stroke', borderColor)
+        el.setAttribute('stroke-width', String(borderWidth))
+        this.pending.push(el)
+    }
+
     drawLine(x1: number, y1: number, x2: number, y2: number, color: string, lineWidth = 1): void {
         const el = document.createElementNS('http://www.w3.org/2000/svg', 'line')
         el.setAttribute('x1', String(x1))
@@ -191,6 +213,7 @@ class SvgRenderer implements Renderer {
 
 type DrawCall =
     | { type: 'fillRect'; x: number; y: number; w: number; h: number; color: string }
+    | { type: 'drawRect'; x: number; y: number; w: number; h: number; fillColor: string; borderColor: string; borderWidth: number }
     | { type: 'drawLine'; x1: number; y1: number; x2: number; y2: number; color: string; lineWidth: number }
     | { type: 'drawText'; text: string; x: number; y: number; color: string; font: string }
 
@@ -203,6 +226,9 @@ function replayToSVG(log: DrawCall[], width: number, height: number): string {
         switch (call.type) {
             case 'fillRect':
                 parts.push(`<rect x="${call.x}" y="${call.y}" width="${call.w}" height="${call.h}" fill="${call.color}" stroke="none"/>`)
+                break
+            case 'drawRect':
+                parts.push(`<rect x="${call.x}" y="${call.y}" width="${call.w}" height="${call.h}" fill="${call.fillColor}" stroke="${call.borderColor}" stroke-width="${call.borderWidth}"/>`)
                 break
             case 'drawLine':
                 parts.push(`<line x1="${call.x1}" y1="${call.y1}" x2="${call.x2}" y2="${call.y2}" stroke="${call.color}" stroke-width="${call.lineWidth}"/>`)

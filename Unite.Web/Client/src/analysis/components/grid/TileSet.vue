@@ -1,18 +1,10 @@
 <template>
-  <div class="canvas-container" ref="container">
-    <u-two-canvas
-        ref="twoCanvas"
-        :width="canvasWidth"
-        :height="canvasHeight"
-        type="canvas"
-        @ready="onCanvasReady"
-    />
-  </div>
+  <div class="canvas-container" ref="container"></div>
 </template>
 
 <script lang="ts">
 import TileSetDefinition, {PropertyValue, Tile, TilePosition, TileProperty} from "./tileSetDefinition";
-import UTwoCanvas from "@/_shared/components/graphics/TwoCanvas.vue"
+import {Renderer, createRenderer} from "@/_shared/components/graphics/renderer"
 
 export default {
   props: {
@@ -30,17 +22,6 @@ export default {
     }
   },
 
-  components: {
-    UTwoCanvas
-  },
-
-  data() {
-    return {
-      resizeObserver: null,
-      containerObserved: false
-    }
-  },
-
   computed: {
     canvasWidth() {
       return this.tileWidth * this.definition.columns.values.size;
@@ -51,32 +32,29 @@ export default {
     }
   },
 
+  watch: {
+    canvasWidth: 'redraw',
+    canvasHeight: 'redraw'
+  },
+
   mounted() {
-    this.resizeObserver = new ResizeObserver(() => {
-      if (!this.containerObserved) {
-        this.containerObserved = true
-        return
-      }
-      this.drawGrid()
-    })
-    this.resizeObserver.observe(this.$refs.container)
+    this.renderer = createRenderer("canvas", this.$refs.container, this.canvasWidth, this.canvasHeight) as Renderer;
+    this.redraw();
   },
 
   beforeUnmount() {
-    this.resizeObserver.disconnect()
+    this.renderer.destroy();
   },
 
   methods: {
-    onCanvasReady(two) {
-      this.two = two;
-      this.drawGrid();
+    redraw() {
+      this.renderer.resize(this.canvasWidth, this.canvasHeight)
+      this.drawGrid(this.renderer)
     },
 
-    drawGrid() {
-      if (!this.two)
-        return;
-
-      this.two.clear();
+    drawGrid(renderer: any) {
+      //console.time('drawGrid')
+      renderer.clear();
 
       const columns = this.definition.columns;
       const columnCount = columns.values.size;
@@ -93,7 +71,7 @@ export default {
       const defaultTile: Tile = this.definition.defaultTile;
       const defaultTileFirstProperty = Tile.getFirstPropertyValue(defaultTile);
       const defaultTileColor = this.getTileColorValue(defaultTileFirstProperty, properties);
-      this.drawTile(0, 0, columnWidth * columns.values.size, rowHeight * rows.values.size, defaultTileColor, this.two);
+      renderer.drawRect(0, 0, columnWidth * columnCount, rowHeight * rowsCount, defaultTileColor);
 
       let x = 0, y = 0;
       for(const tile of this.definition.tiles) {
@@ -105,11 +83,12 @@ export default {
         const tileColor = this.getTileColorValue(tileFirstProperty, properties);
 
         if(tileFirstProperty[1] != 2) {
-          this.drawTile(x, y, columnWidth, rowHeight, tileColor, this.two);
+          renderer.drawRect(x, y, columnWidth, rowHeight, tileColor);
         }
       }
 
-      this.$refs.twoCanvas.redraw();
+      renderer.render();
+      //console.timeEnd('drawGrid')
     },
 
     getTileColorValue(propertyValue: PropertyValue, properties: Array<TileProperty>) {
@@ -118,15 +97,6 @@ export default {
         const value = PropertyValue.getValue(propertyValue);
         return properties[index].colors[value];
       }
-    },
-
-    drawTile(x: number, y: number, tileWidth: number, tileHeight: number, color: string, graphicContext: any) {
-      const dx = tileWidth / 2;
-      const dy = tileHeight / 2;
-
-      const rect = graphicContext.makeRectangle(x + dx, y + dy, tileWidth, tileHeight);
-      rect.fill = color;
-      //rect.noStroke();
     },
 
     getTile(col: number, row: number) {
