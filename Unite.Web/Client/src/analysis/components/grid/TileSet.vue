@@ -49,11 +49,11 @@ export default {
   methods: {
     redraw() {
       this.renderer.resize(this.canvasWidth, this.canvasHeight)
-      this.drawGrid(this.renderer)
+      this.draw(this.renderer)
     },
 
-    drawGrid(renderer: any) {
-      //console.time('drawGrid')
+    draw(renderer: any) {
+      //console.time('draw')
       renderer.clear();
 
       const columns = this.definition.columns;
@@ -82,13 +82,13 @@ export default {
         const tileFirstProperty = Tile.getFirstPropertyValue(tile);
         const tileColor = this.getTileColorValue(tileFirstProperty, properties);
 
-        if(tileFirstProperty[1] != 2) {
+        if(PropertyValue.getValue(tileFirstProperty) != PropertyValue.getValue(defaultTileFirstProperty)) {
           renderer.drawRect(x, y, columnWidth, rowHeight, tileColor);
         }
       }
 
       renderer.render();
-      //console.timeEnd('drawGrid')
+      //console.timeEnd('draw')
     },
 
     getTileColorValue(propertyValue: PropertyValue, properties: Array<TileProperty>) {
