@@ -21,6 +21,7 @@ const filters = [
     placeholder: "e.g. TTN",
     type: FilterType.Values,
     valueType: ValueType.String,
+    // completable: true,
     sanitize: (value) => sanitiseArray(value)
   },
   {

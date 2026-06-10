@@ -117,6 +117,15 @@ export default {
       });
 
       columns.push({
+        name: "treatments",
+        label: "Treatments",
+        field: (row) => row.treatments?.map(treatment => treatment.therapy).join(", "),
+        sortable: false,
+        align: "left",
+        show: false
+      }); 
+
+      columns.push({
         name: "vitalStatus",
         label: "Alive",
         field: (row) => this.$helpers.content.toBooleanString(row.clinicalData?.vitalStatus),
@@ -192,7 +201,7 @@ export default {
         field: (row) => row.studies,
         sortable: false,
         align: "left"
-      });
+      });     
 
       if ([Settings.domain].includes(this.$route.name)){
         columns.push({

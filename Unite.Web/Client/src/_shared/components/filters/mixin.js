@@ -53,7 +53,7 @@ const mixin = {
     },
   },
 
-  emits: ["update:model", "update", "open", "hide"],
+  emits: ["update:model", "update", "filter", "open", "hide"],
 
   data() {
     return {
@@ -79,6 +79,12 @@ const mixin = {
   methods: {
     onUpdate(value) {
       this.$emit("update");
+    },
+
+    onFilter(value) {
+      this.$emit("filter", { ...value, model: this.filtersModel });
+      // console.log({ ...value, model: this.filtersModel });
+      value.event.abort();
     },
 
     // TODO: Reuse dedicated domain title settings.

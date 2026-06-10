@@ -17,6 +17,7 @@
         :models="models"
         v-model:model="model"
         @update="updateFilters"
+        @filter="filterField"
         @hide="$refs.drawer.minimize()"
       />
     </template>
@@ -89,9 +90,11 @@ import pageTableMixin from "@/domain/_shared/entries/components/page-table-mixin
 import Settings from "@/_settings/settings";
 import FilterModels from "@/_shared/components/filters/filter-models";
 import GenesApi from "./api";
+import AutocompleteApi from "@/_shared/api/api-autocomplete.ts";
 import { mapGetters } from "vuex";
 
-const api = new GenesApi();
+const domainApi = new GenesApi();
+const autocompleteApi = new AutocompleteApi();
 
 export default {
   components: {
@@ -113,7 +116,7 @@ export default {
     return {
       Settings
     }
-  },
+  }, 
 
   data() {
     return {
@@ -130,11 +133,24 @@ export default {
 
   methods: {
     async fetchData(searchCriteria) {
-      return await api.search(searchCriteria);
+      return await domainApi.search(searchCriteria);
     },
 
     async updateStatus() {
-      return await api.status();
+      return await domainApi.status();
+    },
+
+    async autocomplete(model, field, query) {
+      if (model == FilterModels.Gene) {
+        const options = await autocompleteApi.values(model, field, query);
+        console.log(options);
+        // TODO: Use FiltersContext to set options for a field.
+        // Store last query and options in filter context.
+        // Trigger autocomplete only if query is different from last query.
+        // return options;
+      } else {
+        return [];
+      }
     }
   }
 }
