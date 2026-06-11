@@ -1,0 +1,355 @@
+<template>
+  <div class="col q-gutter-sm">
+    <u-histogram-bar-tooltip :target="targetHistogramBar" :data="targetHistogramBarData" />
+    <u-grid-cell-tolltip :target="targetGridCell" :data="targetGridCellData" />
+    <u-track-cell-tooltip :target="targetTrackCell" :data="targetTrackCellData" />
+    <u-clinical-data-track-tooltip :target="clinicalDataTrack" />
+
+    <div class="row">
+      <q-btn-group>
+        <q-btn
+            icon="las la-border-all"
+            title="Toggle grid lines"
+            :class="{ 'bg-grey-3 text-blue-8': showGridLines }"
+            @click="toggleGridLines()"
+        />
+        <q-btn
+            icon="las la-burn"
+            title="Toggle heat map"
+            :class="{ 'bg-grey-3 text-blue-8': heatMapMode }"
+            @click="toggleHeatMap()"
+        />
+        <q-btn
+            icon="las la-crosshairs"
+            title="Toggle zoom"
+            :class="{ 'bg-grey-3 text-blue-8': crosshairMode }"
+            @click="toggleCrosshair()"
+        />
+        <q-btn
+            icon="las la-sort-amount-down"
+            title="Reset genes"
+            @click="toggleCluster()"
+        />
+        <q-btn
+            icon="las la-undo-alt"
+            title="Reset grid"
+            @click="reloadGrid()"
+        />
+      </q-btn-group>
+    </div>
+
+    <div class="row">
+      <div class="col-10">
+        <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
+      </div>
+
+      <q-separator class="col-auto" vertical />
+
+      <div class="col-2">
+        <u-color-legend class="q-px-md" title="Effects" :items="getColorPalette()" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+
+import { colors } from "quasar";
+
+//import UHistogramBarTooltip from "./tooltips/HistogramBarTooltip.vue";
+//import UGridCellTolltip from "./tooltips/GridCellTooltip.vue";
+//import UTrackCellTooltip from "./tooltips/TrackCellTooltip.vue";
+//import UClinicalDataTrackTooltip from "./tooltips/ClinicalDataTrackTooltip.vue";
+//import UniteOncoGrid from '@dkfz-unite/oncogrid';
+
+import UColorLegend from "@/visualization/_shared/genome/ColorLegend.vue";
+
+import impactsMap from "@/visualization/_shared/genome/impacts-map.js";
+import effectsMap from "@/visualization/_shared/genome/effects-map.js";
+import oncogridColors from "./oncogrid-colors.js";
+import donorTracks from "./oncogrid-tracks-donor";
+import * as d3 from "d3";
+import UHistogramBarTooltip from "@/analysis/components/gaf/tooltips/HistogramBarTooltip.vue";
+import UGridCellTolltip from "@/analysis/components/gaf/tooltips/GridCellTooltip.vue";
+import UTrackCellTooltip from "@/analysis/components/gaf/tooltips/TrackCellTooltip.vue";
+import UClinicalDataTrackTooltip from "@/analysis/components/gaf/tooltips/ClinicalDataTrackTooltip.vue";
+
+export default {
+  components: {
+    UHistogramBarTooltip,
+    UGridCellTolltip,
+    UTrackCellTooltip,
+    UClinicalDataTrackTooltip,
+    UColorLegend
+  },
+
+  props: ["data"],
+
+  data() {
+    return {
+      oncoGrid: null,
+      showGridLines: true,
+      crosshairMode: false,
+      heatMapMode: false,
+
+      targetHistogramBar: false,
+      targetHistogramBarData: null,
+      targetGridCell: false,
+      targetGridCellData: null,
+      targetTrackCell: false,
+      targetTrackCellData: null,
+      clinicalDataTrack: false
+    };
+  },
+
+  async mounted() {
+    this.data.observations.forEach(element => {
+      element.consequence = element.effect;
+    });
+
+    let parameters = {
+      element: "#oncoGrid",
+      donors: this.data.donors,
+      genes: this.data.genes,
+      ssmObservations: this.data.observations,  // was: observations
+      donorTracks: donorTracks,
+      donorFillFunc: this.getDonorTrackCellColor,
+      donorOpacityFunc: this.getDonorTrackCellOpacity,
+      colorMap: {                               // was: flat map
+        mutation: {
+          missense_variant: '#ff9b6c',
+          frameshift_variant: '#57dba4',
+          stop_gained: '#af57db',
+          start_lost: '#ff2323',
+          stop_lost: '#d3ec00',
+          initiator_codon_variant: '#5abaff'
+        }
+      },
+      trackHeight: 15,
+      scaleToFit: true,
+      width: 1000,
+      height: 320,
+      trackLegendLabel: "<i class='las la-question-circle'></i>",
+      margin: { top: 0, right: 0, bottom: 0, left: 0 }
+    };
+
+    this.initializeGrid(parameters);
+  },
+
+  unmounted() {
+    console.log("OncoGrid component unmounted");
+
+  },
+
+  methods: {
+    getColorPalette() {
+      if (!this.data)
+        return [];
+
+      const groups = this.data?.observations.groupBy(observation => observation.effect);
+      const keys = [...groups.keys()];
+      const pallete = keys.map(key => effectsMap.get(key));
+
+      return pallete;
+    },
+
+    initializeGrid(parameters) {
+      this.oncoGrid = new OncoGrid(parameters);
+      this.oncoGrid.setGridLines(this.showGridLines);
+      this.oncoGrid.render();
+      this.addEvents();
+    },
+
+    addEvents() {
+      const parseEvent = function(event) {
+        return {
+          target: event.target,
+          data: event.target.__data__
+        };
+      };
+
+      setTimeout(() => {
+        const itemBars = d3.selectAll("[data-domain-index]");
+        const gridCells = d3.selectAll("[data-obs-index]");
+        const trackCells = d3.selectAll("[data-track-data-index]");
+        const trackLabels = d3.selectAll(".og-track-group-label");
+
+        itemBars.on("mouseover", (event) => this.onItemBarHover(parseEvent(event)));
+        gridCells.on("mouseover", (event) => this.onGridCellHover(parseEvent(event)));
+        trackCells.on("mouseover", (event) => this.onTrackCellHover(parseEvent(event)));
+        trackLabels.on("mouseover", (event) => this.onTrackLabelHover(parseEvent(event)));
+
+        itemBars.on("click", (event) => this.onItemBarClick(parseEvent(event)));
+        gridCells.on("click", (event) => this.onGridCellClick(parseEvent(event)));
+        trackCells.on("click", (event) => this.onTrackCellClick(parseEvent(event)));
+      }, 0);
+    },
+
+    toggleGridLines() {
+      this.showGridLines = !this.showGridLines;
+      this.oncoGrid.setGridLines(this.showGridLines);
+    },
+
+    toggleHeatMap() {
+      this.heatMapMode = !this.heatMapMode;
+      this.oncoGrid.setHeatmap(this.heatMapMode);
+    },
+
+    toggleCrosshair() {
+      this.crosshairMode = !this.crosshairMode;
+      this.oncoGrid.setCrosshair(this.crosshairMode);
+    },
+
+    toggleCluster() {
+      //this.oncoGrid.cluster();
+    },
+
+    reloadGrid() {
+      this.showGridLines = true;
+      this.crosshairMode = false;
+      this.heatMapMode = false;
+
+      this.oncoGrid.reload();
+      this.oncoGrid.setGridLines(this.showGridLines);
+      this.oncoGrid.setCrosshair(this.crosshairMode);
+      this.oncoGrid.setHeatmap(this.heatMapMode);
+      this.addEvents();
+    },
+
+    onItemBarHover(event) {
+      let element = event.target;
+      let properties = null;
+
+      if (event.data.x != undefined) {
+        properties = [
+          { key: "Donor", value: event.data.displayId },
+          { key: "Variants", value: event.data.count },
+        ];
+      } else if (event.data.y != undefined) {
+        properties = [
+          { key: "Gene", value: event.data.symbol },
+          { key: "Variants", value: event.data.count },
+        ];
+      }
+
+      this.targetHistogramBarData = properties;
+      this.targetHistogramBar = element;
+    },
+
+    onItemBarClick(event) {
+      if (event.data.x != undefined) {
+        this.$router.push({ name: "donor", params: { id: event.data.id }});
+      } else if (event.data.y != undefined) {
+        this.$router.push({ name: "gene", params: { id: event.data.id }});
+      }
+    },
+
+    onGridCellHover(event) {
+      let element = event.target;
+
+      let donor = this.data.donors.find(donor => donor.id == event.data.donorId)?.displayId;
+      let gene = this.data.genes.find(gene => gene.id == event.data.geneId)?.symbol;
+      let impact = impactsMap.get(event.data.impact);
+      let effect = effectsMap.get(event.data.effect);
+
+      let properties = [
+        { key: "Donor", value: donor},
+        { key: "Gene", value: gene },
+        { key: "Position", value: event.data.position },
+        { key: "Type", value: event.data.type },
+        { key: "Change", value: event.data.change },
+        { key: "Impact", value: impact.name, color: impact.color },
+        { key: "Effect", value: effect.name, color: effect.color },
+      ];
+
+      this.targetGridCellData = properties;
+      this.targetGridCell = element;
+    },
+
+    onGridCellClick(event) {
+      this.$router.push({ name: "sm", params: { id: event.data.id }});
+    },
+
+    onTrackCellHover(event) {
+      let element = event.target;
+
+      let donor = this.data.donors.find(donor => donor.id == event.data.id)?.displayId;
+      let key = event.data.displayName;
+      let value = event.data.type === "vitalStatus" ? event.data.value ? "Yes" : "No"
+          : event.data.type === "progressionStatus" ? event.data.value ? "Yes" : "No"
+              : event.data.value;
+
+      let properties = [
+        { key: "Donor", value: donor },
+        { key: key, value: value }
+      ];
+
+      this.targetTrackCellData = properties;
+      this.targetTrackCell = element;
+    },
+
+    onTrackCellClick(event) {
+      this.$router.push({ name: "donor", params: { id: event.data.id, tab: "clinical" }});
+    },
+
+    onTrackLabelHover(data) {
+      var element = data.target;
+
+      if (data.target.innerHTML == "Clinical Data") {
+        this.clinicalDataTrack = element;
+      }
+    },
+
+    getDonorTrackCellColor(trackCell) {
+      if (trackCell.type == "age") {
+        return trackCell.value != null ? colors.getPaletteColor("purple-6") :
+            colors.getPaletteColor("grey-4")
+      } else if (trackCell.type == "sex") {
+        return trackCell.value == "Male" ? colors.getPaletteColor("blue-4") :
+            trackCell.value == "Female" ? colors.getPaletteColor("orange-4") :
+                trackCell.value == "Other" ? colors.getPaletteColor("pink-4") :
+                    colors.getPaletteColor("grey-4");
+      } else if (trackCell.type == "vitalStatus") {
+        return trackCell.value == true ? colors.getPaletteColor("green-4") :
+            trackCell.value == false ? colors.getPaletteColor("red-4") :
+                colors.getPaletteColor("grey-4");
+      } else if (trackCell.type == "progressionStatus") {
+        return trackCell.value == true ? colors.getPaletteColor("red-4") :
+            trackCell.value == false ? colors.getPaletteColor("green-4") :
+                colors.getPaletteColor("grey-4");
+      } else {
+        return colors.getPaletteColor("grey-4");
+      }
+    },
+
+    getDonorTrackCellOpacity(trackCell) {
+      if (trackCell.type == "age") {
+        return trackCell.value / 100 + 0.1;
+      } else {
+        return 1;
+      }
+    },
+
+
+    getImpactColor(impact) {
+      switch (impact) {
+        case "High": return "red";
+        case "Moderate": return "orange";
+        case "Low": return "green";
+        default: return "grey";
+      }
+    },
+
+    getHoverElement() {
+      var elements = document.querySelectorAll(":hover");
+      var element = elements[elements.length -1];
+
+      return element;
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+
+</style>
