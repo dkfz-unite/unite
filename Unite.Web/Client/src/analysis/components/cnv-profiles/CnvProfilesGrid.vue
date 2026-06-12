@@ -136,11 +136,6 @@ export default {
     this.initializeGrid(parameters);
   },
 
-  unmounted() {
-    console.log("OncoGrid component unmounted");
-
-  },
-
   methods: {
     getColorPalette() {
       if (!this.data)
@@ -154,7 +149,7 @@ export default {
     },
 
     initializeGrid(parameters) {
-      this.oncoGrid = new OncoGrid(parameters);
+      this.oncoGrid = new UniteOncoGrid(parameters);
       this.oncoGrid.setGridLines(this.showGridLines);
       this.oncoGrid.render();
       this.addEvents();
