@@ -5,7 +5,7 @@
     <u-track-cell-tooltip :target="targetTrackCell" :data="targetTrackCellData" />
     <u-clinical-data-track-tooltip :target="clinicalDataTrack" />
 
-    <div class="row">
+    <!--div class="row">
       <q-btn-group>
         <q-btn
             icon="las la-border-all"
@@ -36,18 +36,20 @@
             @click="reloadGrid()"
         />
       </q-btn-group>
-    </div>
+    </div-->
 
     <div class="row">
       <div class="col-10">
         <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
       </div>
 
+      <!--
       <q-separator class="col-auto" vertical />
 
       <div class="col-2">
         <u-color-legend class="q-px-md" title="Effects" :items="getColorPalette()" />
       </div>
+      -->
     </div>
   </div>
 </template>
@@ -103,33 +105,21 @@ export default {
   },
 
   async mounted() {
-    this.data.observations.forEach(element => {
-      element.consequence = element.effect;
-    });
-
     let parameters = {
       element: "#oncoGrid",
       donors: this.data.donors,
       genes: this.data.genes,
       ssmObservations: this.data.observations,  // was: observations
-      donorTracks: donorTracks,
-      donorFillFunc: this.getDonorTrackCellColor,
-      donorOpacityFunc: this.getDonorTrackCellOpacity,
-      colorMap: {                               // was: flat map
+      colorMap: {
         mutation: {
-          missense_variant: '#ff9b6c',
-          frameshift_variant: '#57dba4',
-          stop_gained: '#af57db',
-          start_lost: '#ff2323',
-          stop_lost: '#d3ec00',
-          initiator_codon_variant: '#5abaff'
+          gain:       'red',
+          loss:       'blue',
+          neutral:    'gray'
         }
       },
-      trackHeight: 15,
       scaleToFit: true,
       width: 1000,
       height: 320,
-      trackLegendLabel: "<i class='las la-question-circle'></i>",
       margin: { top: 0, right: 0, bottom: 0, left: 0 }
     };
 

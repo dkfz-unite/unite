@@ -1,11 +1,11 @@
 <template>
-  <div class="row q-col-gutter-sm" style="flex-wrap: nowrap;" ref="setsRow">
+  <!--div class="row q-col-gutter-sm" style="flex-wrap: nowrap;" ref="setsRow">
     <template v-if="initialized">
       <div class="col-auto" v-for="(definition, index) in tileDefinitions" :key="index">
         <u-tile-set :definition="definition" :tile-width="tileWidth" :tile-height="tileHeight"/>
       </div>
     </template>
-  </div>
+  </div-->
   <div class="row" style="flex-wrap: nowrap;">
     <div class="col">
       <u-cnv-profiles-grid v-if="meta" :data="meta" />
@@ -58,13 +58,13 @@ export default {
   },
 
   async mounted() {
-    this.resizeObserver = new ResizeObserver(() => {
+    /*this.resizeObserver = new ResizeObserver(() => {
       this.resizeTiles();
       if (!this.initialized) {
         this.initialized = true
       }
     })
-    this.resizeObserver.observe(this.$refs.setsRow)
+    this.resizeObserver.observe(this.$refs.setsRow)*/
 
     await this.init();
   },
@@ -80,10 +80,102 @@ export default {
       this.meta = await this.getMeta(this.data);
     },
 
+    generateRows() {
+      return [
+        { "id": "1", "symbol": "chr1p" },
+        { "id": "2", "symbol": "chr1q" },
+        { "id": "3", "symbol": "chr2p" },
+        { "id": "4", "symbol": "chr2q" },
+        { "id": "5", "symbol": "chr3p" },
+        { "id": "6", "symbol": "chr3q" },
+        { "id": "7", "symbol": "chr4p" },
+        { "id": "8", "symbol": "chr4q" },
+        { "id": "9", "symbol": "chr5p" },
+        { "id": "10", "symbol": "chr5q" },
+        { "id": "11", "symbol": "chr6p" },
+        { "id": "12", "symbol": "chr6q" },
+        { "id": "13", "symbol": "chr7p" },
+        { "id": "14", "symbol": "chr7q" },
+        { "id": "15", "symbol": "chr8p" },
+        { "id": "16", "symbol": "chr8q" },
+        { "id": "17", "symbol": "chr9p" },
+        { "id": "18", "symbol": "chr9q" },
+        { "id": "19", "symbol": "chr10p" },
+        { "id": "20", "symbol": "chr10q" },
+        { "id": "21", "symbol": "chr11p" },
+        { "id": "22", "symbol": "chr11q" },
+        { "id": "23", "symbol": "chr12p" },
+        { "id": "24", "symbol": "chr12q" },
+        { "id": "25", "symbol": "chr14p" },
+        { "id": "26", "symbol": "chr14q" },
+        { "id": "27", "symbol": "chr15p" },
+        { "id": "28", "symbol": "chr15q" },
+        { "id": "29", "symbol": "chr16p" },
+        { "id": "30", "symbol": "chr16q" },
+        { "id": "31", "symbol": "chr17p" },
+        { "id": "32", "symbol": "chr17q" },
+        { "id": "33", "symbol": "chr18p" },
+        { "id": "34", "symbol": "chr18q" },
+        { "id": "35", "symbol": "chr19p" },
+        { "id": "36", "symbol": "chr19q" },
+        { "id": "37", "symbol": "chr20p" },
+        { "id": "38", "symbol": "chr20q" },
+        { "id": "39", "symbol": "chr21p" },
+        { "id": "40", "symbol": "chr22q" },
+        { "id": "41", "symbol": "chr23p" },
+        { "id": "42", "symbol": "chr23q" },
+        { "id": "43", "symbol": "chrXp" },
+        { "id": "44", "symbol": "chrXq" },
+        { "id": "45", "symbol": "chrYp" },
+        { "id": "46", "symbol": "chrYq" }
+      ];
+    },
+
+    generateColumns(count) {
+      let columns = [];
+
+      for(let i = 0; i < count; i++) {
+        let id = (i + 1).toString();
+        columns.push({ "id": id, "displayId": "D00" + id });
+      }
+
+      return columns;
+    },
+
+    getRandomConsequenceIndex() {
+      var rand = Math.random();
+      if (rand < 0.60) {
+        return 2; // neutral - 60%
+      } else if (rand < 0.80) {
+        return 0; // gain - 20%
+      } else {
+        return 1; // loss - 20%
+      }
+    },
+
+    generateObservations(columns, rows) {
+      let observations = [];
+      let consequences = [ "gain", "loss", "neutral" ];
+
+
+      for (let i = 0; i < rows.length; i++) {
+        for (let j = 0; j < columns.length; j++) {
+          let consequenceIndex = this.getRandomConsequenceIndex();
+
+          if(consequenceIndex != 2) {
+            let id = (i * rows.length + j + 1).toString();
+            observations.push({ "id": id, "donorId": columns[j].id, "geneId": rows[i].id, "type": "mutation", "consequence": consequences[consequenceIndex], "ids": [id] });
+          }
+        }
+      }
+
+      return observations;
+    },
+
     async getMeta(blob) {
-      /*const json = await blob.text();
-      return JSON.parse(json);*/
-      let data = {
+      const json = await blob.text();
+      //return JSON.parse(json);
+      /*let data = {
         "genes": [
           { "id": "3", "symbol": "PRKCZ", "biotype": "protein_coding", "chromosome": "1", "strand": true },
           { "id": "185", "symbol": "PER3", "biotype": "protein_coding", "chromosome": "1", "strand": true },
@@ -140,6 +232,16 @@ export default {
           { "id": "18", "donorId": "1", "geneId": "746", "type": "mutation", "consequence": "missense_variant", "ids": ["18"], "position": "1:27875719", "change": "G > T", "impact": "Moderate", "effect": "missense_variant" },
           { "id": "19", "donorId": "1", "geneId": "727", "type": "mutation", "consequence": "missense_variant", "ids": ["19"], "position": "1:28054002", "change": "C > A", "impact": "Moderate", "effect": "missense_variant" }
         ]
+      };*/
+
+      let rows = this.generateRows();
+      let columns = this.generateColumns(1000);
+      let observations = this.generateObservations(columns, rows);
+
+      let data = {
+        genes: rows,
+        donors: columns,
+        observations: observations
       };
 
       return data;
