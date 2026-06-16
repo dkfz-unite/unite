@@ -1,5 +1,3 @@
-import OptionType from "./option-type";
-
 export class OptionsGroup {
   title: string;
   options: IOption[];
@@ -16,12 +14,15 @@ export class OptionsGroup {
   }
 }
 
-export interface IOption {
+export interface IOptionParams {
   key: string;
   title: string;
+  default?: any;
+  show?: (options: IOption[]) => boolean;
+}
+
+export interface IOption extends IOptionParams {
   value: any;
-  default: any;
-  show: (options: IOption[]) => boolean;
 
   reset(): void;
 }
@@ -37,50 +38,50 @@ export abstract class Option<T> implements IOption {
     this.value = this.default;
   }
 
-  constructor(key: string, title: string, defaultValue: T = null, show: (options: IOption[]) => boolean = null) {
-    this.key = key;
-    this.title = title;
-    this.default = defaultValue;
-    this.value = defaultValue;
-    this.show = show;
+  constructor(params: IOptionParams) {
+    this.key = params.key;
+    this.title = params.title;
+    this.default = params.default;
+    this.value = params.default;
+    this.show = params.show;
   }
 }
 
 export class BooleanOption extends Option<boolean> {
 }
 
-export class NumberOption extends Option<number> {
+export interface UNumberOptionParams extends IOptionParams {
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
+export class NumberOption extends Option<number> implements UNumberOptionParams{
   min: number = null;
   max: number = null;
   step: number = null;
 
-
-  constructor(key: string, title: string, defaultValue: number = null, min: number = null, max: number = null, step: number = null, show: (options: IOption[]) => boolean = null) {
-    super(key, title, defaultValue, show);
-    this.min = min;
-    this.max = max;
-    this.step = step;
+  constructor(params: UNumberOptionParams) {
+    super(params);
+    this.min = params.min;
+    this.max = params.max;
+    this.step = params.step;
   }
 }
 
-export class SelectOption extends Option<string> {
+export interface ISelectOptionParams extends IOptionParams {
+  options?: SelectValue[];
+  lazy?: SelectMethod;
+}
+
+export class SelectOption extends Option<string> implements ISelectOptionParams {
   options: SelectValue[] = [];
   lazy: SelectMethod = null;
 
-  override reset(): void {
-    const defaultOption = this.options.find(opt => opt.isDefault);
-
-    if (defaultOption) {
-      this.value = defaultOption.value;
-    } else {
-      this.value = null;
-    }
-  }
-
-  constructor(key: string, title: string, options: SelectValue[] = [], lazy: SelectMethod = null, show: (options: IOption[]) => boolean = null) {
-    super(key, title, options?.find(opt => opt.isDefault)?.value, show);
-    this.options = options;
-    this.lazy = lazy;
+  constructor(params: ISelectOptionParams) {
+    super(params);
+    this.options = params.options || [];
+    this.lazy = params.lazy || null;
   }
 }
 
@@ -89,10 +90,9 @@ export class SelectValue {
   value: string;
   isDefault: boolean = false;
 
-  constructor(label: string, value: string, isDefault: boolean = false) {
+  constructor(label: string, value: string) {
     this.label = label;
     this.value = value;
-    this.isDefault = isDefault;
   }
 }
 

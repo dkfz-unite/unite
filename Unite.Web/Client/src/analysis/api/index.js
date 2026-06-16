@@ -2,6 +2,7 @@ import settings from "@/settings";
 import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
+const composerUrl = `${settings.urls.composer}`;
 const analysisUrl = `${settings.urls.analysis}`;
 const analysisTaskUrl = `${settings.urls.analysis}/analysis`;
 const analysisTasksUrl = `${settings.urls.analysis}/analyses`;
@@ -96,6 +97,11 @@ export async function getMetadataOptions() {
   return await client.get(url);
 }
 
+export async function getAutocompleteOptions(data) {
+  const url = `${composerUrl}/autocomplete?model=${data.model}&field=${data.field}&query=${data.query || ""}`;
+  return await client.get(url);
+}
+
 export default {
   loadAnalyses,
   getAnalysisStatus,
@@ -114,5 +120,6 @@ export default {
   viewScellAnalysis,
   updateScellAnalysis,
   stopScellAnalysis,
-  getMetadataOptions
+  getMetadataOptions,
+  getAutocompleteOptions
 };

@@ -2,11 +2,11 @@ import Analysis from "../_shared/analysis";
 import AnalysisType from "../_shared/analysis-type";
 import options from "./options";
 
-export default class CedpAnalysis extends Analysis {
-  type = AnalysisType.CEDP;
+export default class DepAnalysis extends Analysis {
+  type = AnalysisType.DEP;
   options = options;
 
   static create(datasets: any[]) {
-    return new CedpAnalysis(datasets);
+    return new DepAnalysis(datasets);
   }
 }

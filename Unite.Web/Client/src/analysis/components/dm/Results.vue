@@ -67,6 +67,7 @@ export default {
       this.traces = this.getTraces(parsedData);
       this.layout = this.getLayout(maxLogFcValue, maxAdjPValValue, minLogFc);
     },
+
     async getParsedData(data) 
     {
       this.loading = true;
@@ -76,6 +77,7 @@ export default {
       const tsv = await new Response(decompressedData).text();
       const json = this.toJson(tsv);
       const rows = [];
+
       for (let i = 0; i < json.length; i++) {
         const row = json[i];
         const adjPValRow = row["adj.P.Val"]; 

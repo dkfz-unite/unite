@@ -132,6 +132,10 @@ const actions = {
 
   async getMetadataOptions({state}, data) {
     return await api.getMetadataOptions();
+  },
+
+  async getAutocompleteOptions({state}, data) {
+    return await api.getAutocompleteOptions(data);
   }
 };
 

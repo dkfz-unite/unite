@@ -3,41 +3,100 @@ import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue, S
 const options = [
   // General
   new OptionsGroup("General", [
-    new SelectOption("feature_type", "Feature type", [
-      new SelectValue("Protein", "protein", true),
-      new SelectValue("Gene", "gene")
-    ]), 
+    new SelectOption({
+      key: "feature_type",
+      title: "Feature type",
+      default: "protein",
+      options: [
+        new SelectValue("Protein", "protein"),
+        new SelectValue("Gene", "gene")
+      ]
+    }), 
     
-    new SelectOption("protein", "Protein", [], SelectMethod.Filter, (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "protein"),
-    new SelectOption("gene", "Gene", [], SelectMethod.Filter, (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "gene"),
-    new SelectOption("condition_property", "Condition property", [], SelectMethod.Once)
+    new SelectOption({
+      key: "protein",
+      title: "Protein",
+      lazy: SelectMethod.Filter,
+      show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "protein"
+    }),
+
+    new SelectOption({
+      key: "gene",
+      title: "Gene",
+      lazy: SelectMethod.Filter,
+      show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "gene"
+    }),
+
+    new SelectOption({
+      key: "condition_property",
+      title: "Condition property",
+      options: [],
+      lazy: SelectMethod.Once
+    })
   ]),
 
   // Preprocessing
   new OptionsGroup("Preprocessing", [
-    new SelectOption("normalization_method", "Normalization method", [
-      new SelectValue("Median", "median", true),
-      new SelectValue("Quantile", "quantile")
-    ]),
+    new SelectOption({
+      key: "normalization_method",
+      title: "Normalization method",
+      default: "median",
+      options: [
+        new SelectValue("Median", "median"),
+        new SelectValue("Quantile", "quantile")
+      ]
+    }),
 
-    new NumberOption("normalization_log_offset", "Normalization log offset", 0.1, 0, 1, 0.1),
+    new NumberOption({
+      key: "normalization_log_offset",
+      title: "Normalization log offset",
+      default: 0.1,
+      min: 0,
+      max: 1,
+      step: 0.1
+    }),
 
-    new SelectOption("imputation_method", "Imputation method", [
-      new SelectValue("MinDet", "mindet", true),
-      new SelectValue("MinProb", "minprob")
-    ]),
+    new SelectOption({
+      key: "imputation_method",
+      title: "Imputation method",
+      default: "mindet",
+      options: [
+        new SelectValue("MinDet", "mindet"),
+        new SelectValue("MinProb", "minprob")
+      ]
+    }),
 
-    new BooleanOption("stratify_imputation_by_batch", "Stratify imputation by batch", false),
+    new BooleanOption({
+      key: "stratify_imputation_by_batch",
+      title: "Stratify imputation by batch",
+      default: false
+    }),
 
-    new SelectOption("batch_correction_method", "Batch correction method", [
-      new SelectValue("ComBat", "combat"),
-      new SelectValue("Limma", "limma"),
-      new SelectValue("None", null, true)
-    ]),
+    new SelectOption({
+      key: "batch_correction_method",
+      title: "Batch correction method",
+      default: null,
+      options: [
+        new SelectValue("ComBat", "combat"),
+        new SelectValue("Limma", "limma"),
+        new SelectValue("None", null)
+      ]
+    }),
 
-    new NumberOption("min_non_missing_fraction", "Minimum non-missing values fraction", 0.7, 0, 1, 0.1),
+    new NumberOption({
+      key: "min_non_missing_fraction",
+      title: "Minimum non-missing values fraction",
+      default: 0.7,
+      min: 0,
+      max: 1,
+      step: 0.1
+    }),
 
-    new BooleanOption("require_min_fraction_one_class", "Require non-missing fraction in one class", true)
+    new BooleanOption({
+      key: "require_min_fraction_one_class",
+      title: "Require non-missing fraction in one class",
+      default: true
+    })
   ])
 ];
 

@@ -1,11 +1,11 @@
 <template>
   <q-dialog
-    v-model="dialog" 
+    v-model="dialog"
     @keyup.esc="onClose"
     @keyup.enter="onSubmit"
     persistent>
 
-    <q-card v-if="analysis" style="min-width: 350px;">
+    <q-card v-if="analysis" style="min-width: 400px;">
       <!-- Title -->
       <q-card-section>
         <div class="text-h6">{{ title }}</div>
@@ -39,21 +39,21 @@
       <q-separator />
 
       <!-- Options -->
-      <q-card-section>
+      <q-card-section v-if="analysis.options">
         <div class="col">
           <div class="row q-mb-sm">
             <span class="text-subtitle text-grey">Options</span>
           </div>
           <div class="row">
-            <u-options :options="analysis.options" @request="onRequest"/>
+            <u-options :options="analysis.options" :height="optionsHeight" @request="onRequest"/>
           </div>
         </div>
       </q-card-section>
-      <q-separator />
+      <q-separator v-if="analysis.options" />
 
       <!-- Actions -->
       <q-card-actions align="right" class="text-primary">
-        <q-btn label="Reset" @click="onReset" dense flat no-caps />
+        <q-btn label="Reset" @click="onReset" dense flat no-caps v-if="analysis.options != null" />
         <q-btn label="Cancel" @click="onClose" dense flat no-caps v-close-popup />
         <q-btn label="Start" @click="onSubmit" dense flat no-caps v-close-popup />
       </q-card-actions>
@@ -74,6 +74,13 @@ export default {
     UGeneral,
     UDatasets,
     UOptions
+  },
+
+  props: {
+     optionsHeight: {
+      type: Number,
+      default: 200,
+    }
   },
 
   emits: ["request", "submit"],
@@ -103,16 +110,17 @@ export default {
       this.analysis.resetOptions();
     },
 
-    onRequest(option) {
-      this.$emit("request", option);
+    onRequest(params) {
+      this.$emit("request", params);
     },
 
     async onSubmit() {
-      console.log(this.analysis.toPayload());
       this.$emit("submit", this.analysis.toPayload());
 
       const id = await this.$store.dispatch("analysis/runAnalysis", this.analysis.toPayload());
       await this.$router.push({ name: "analysis", params: { id: id } });
+
+      this.onClose();
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="col q-gutter-sm">
     <div class="row">
-      <div class="col">
+      <div class="col" align="left">
         <q-option-group
           v-model="step"
           :options="options.map((group, index) => ({ label: group.title, value: index }))"
@@ -11,7 +11,7 @@
     </div>
 
     <div class="row">
-      <div class="col">
+      <div class="col" :style="{ height: height + 'px', overflowY: 'auto' }">
         <q-tab-panels v-model="step" class="q-ma-none q-pa-none">
           <q-tab-panel v-for="(group, index) in options" :key="index" :name="index" class="q-px-none q-py-xs">
             <div class="col q-gutter-sm">
@@ -20,7 +20,7 @@
                   <div class="col">
                     <u-boolean-option v-if="isBooleanOption(option)" :option="option" :readonly="readonly" />
                     <u-number-option v-else-if="isNumberOption(option)" :option="option" :readonly="readonly" />
-                    <u-select-option v-else-if="isSelectOption(option)" :option="option" :readonly="readonly" />
+                    <u-select-option v-else-if="isSelectOption(option)" :option="option" :readonly="readonly" @request="onRequest" />
                   </div>
                 </div>
               </template>
@@ -54,6 +54,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    height: {
+      type: Number,
+      default: 300
     }
   },
 
@@ -85,12 +89,17 @@ export default {
     },
 
     show(option, options) {
-      // if (!!option.show) {
-      //   console.log("show option", option);
-      //   console.log("all options", options);
-      // }
-      return !option.show || option.show(options);
-    }
+      const show = !option.show || option.show(options);
+      
+      if (!show)
+        option.value = option.default;
+
+      return show;
+    },
+
+    onRequest(params) {
+      this.$emit("request", params);
+    } 
   }
 }
 </script>

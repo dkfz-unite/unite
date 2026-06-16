@@ -1,51 +1,70 @@
-import { Options, SelectOption, SelectValue, BooleanOption, NumberOption } from "../_shared/options";
+import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue, SelectMethod, IOption } from "../_shared/options";
 
-export default class AnalysisOptions extends Options {
-  normalizationMethod: SelectOption<string>;
-  normalizationLogOffset: NumberOption;
-  imputationMethod: SelectOption<string>;
-  stratifyImputationByBatch: BooleanOption;
-  batchCorrectionMethod: SelectOption<string>;
-  minNonMissingFraction: NumberOption;
-  requireMinFractionOneClass: BooleanOption;
+const options = [
+  // Preprocessing
+  new OptionsGroup("Preprocessing", [
+    new SelectOption({
+      key: "normalization_method",
+      title: "Normalization method",
+      default: "median",
+      options: [
+        new SelectValue("Median", "median"),
+        new SelectValue("Quantile", "quantile")
+      ]
+    }),
 
-  constructor() {
-    super();
+    new NumberOption({
+      key: "normalization_log_offset",
+      title: "Normalization log offset",
+      default: 0.1,
+      min: 0,
+      max: 1,
+      step: 0.1
+    }),
 
-    this.normalizationMethod = new SelectOption<string>([
-      new SelectValue("Median", "median", true),
-      new SelectValue("Quantile", "quantile")
-    ]);
+    new SelectOption({
+      key: "imputation_method",
+      title: "Imputation method",
+      default: "mindet",
+      options: [
+        new SelectValue("MinDet", "mindet"),
+        new SelectValue("MinProb", "minprob")
+      ]
+    }),
 
-    this.normalizationLogOffset = new NumberOption(0.1, 0, 1);
+    new BooleanOption({
+      key: "stratify_imputation_by_batch",
+      title: "Stratify imputation by batch",
+      default: false
+    }),
 
-    this.imputationMethod = new SelectOption<string>([
-      new SelectValue("MinDet", "mindet", true),
-      new SelectValue("MinProb", "minprob")
-    ]);
+    // Always null for differential analysis
+    // new SelectOption({
+    //   key: "batch_correction_method",
+    //   title: "Batch correction method",
+    //   default: null,
+    //   options: [
+    //     new SelectValue("ComBat", "combat"),
+    //     new SelectValue("Limma", "limma"),
+    //     new SelectValue("None", null)
+    //   ]
+    // }),
 
-    this.stratifyImputationByBatch = new BooleanOption(false);
+    new NumberOption({
+      key: "min_non_missing_fraction",
+      title: "Minimum non-missing values fraction",
+      default: 0.7,
+      min: 0,
+      max: 1,
+      step: 0.1
+    }),
 
-    this.batchCorrectionMethod = new SelectOption<string>([
-      new SelectValue("ComBat", "combat"),
-      new SelectValue("Limma", "limma"),
-      new SelectValue("None", null, true)
-    ]);
+    new BooleanOption({
+      key: "require_min_fraction_one_class",
+      title: "Require non-missing fraction in one class",
+      default: true
+    })
+  ])
+];
 
-    this.minNonMissingFraction = new NumberOption(0.7, 0, 1);
-
-    this.requireMinFractionOneClass = new BooleanOption(true);
-  }
-
-  toDictionary() {
-    return {
-      "normalization_method": this.normalizationMethod.value,
-      "normalization_log_offset": this.normalizationLogOffset.value,
-      "imputation_method": this.imputationMethod.value,
-      "stratify_imputation_by_batch": this.stratifyImputationByBatch.value,
-      "batch_correction_method": this.batchCorrectionMethod.value,
-      "min_non_missing_fraction": this.minNonMissingFraction.value,
-      "require_min_fraction_one_class": this.requireMinFractionOneClass.value
-    };
-  }
-}
+export default options;

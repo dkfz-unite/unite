@@ -11,7 +11,10 @@
     :options="options"
     :label="option.title"
     :loading="loading"
+    :use-input="writable"
+    :clearable="writable"
     @filter="onFilter"
+    @clear="option.options = []"
     emit-value map-options dense options-dense square outlined
   />
 </template>
@@ -31,7 +34,7 @@ export default {
     }
   },
 
-  emits: ['load'],
+  emits: ['request'],
 
   data() {
     return {
@@ -48,6 +51,10 @@ export default {
 
     options() {
       return this.option.options;
+    },
+
+    writable() {
+      return this.option.lazy == SelectMethod.Filter;
     }
   },
 
@@ -63,24 +70,23 @@ export default {
         this.abort = null;
       }
 
-      if (!old?.length) {
-        this.option.value = this.options[0].value;
-      }
-
       this.loading = false;
     }
   },
 
   mounted() {
-    if (this.option.lazy != null) {
+    if (this.readonly == true)
+      return;
+    
+    if (this.option.lazy == SelectMethod.Once) {
       this.loading = true;
-      this.$emit('load', { option: this.option, value: null });
+      this.$emit('request', { option: this.option, value: null });
     }
   },
 
   methods: {
     onFilter(val, update, abort) {
-      if (this.option.lazy !== SelectMethod.Filter) {
+      if (this.option.lazy !== SelectMethod.Filter || val?.length < 3 || val == this.option.value) {
         update();
         abort();
         return;
@@ -89,7 +95,7 @@ export default {
       this.loading = true;
       this.update = update;
       this.abort = abort;
-      this.$emit('load', { option: this.option, value: val });
+      this.$emit('request', { option: this.option, value: val });
     }
   }
 }
