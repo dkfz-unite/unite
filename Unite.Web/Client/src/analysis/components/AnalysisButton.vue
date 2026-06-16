@@ -9,7 +9,7 @@
   <u-umapp-dialog ref="UmappDialog" :datasets="datasets" />
   <u-cedp-dialog ref="cedpDialog" :datasets="datasets" />
 
-  <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis()" flat dense no-caps>
+  <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
     <q-menu>
       <q-list>
         <q-item v-if="$refs.SurvDialog.canShow()" @click="$refs.SurvDialog.show()" clickable v-close-popup dense>
@@ -63,16 +63,16 @@
 </template>
 
 <script>
-import USurvDialog from "@/analysis/components/surv/Dialog.vue";
-import UDmDialog from "@/analysis/components/dm/Dialog.vue";
-import UPcamDialog from "@/analysis/components/pcam/Dialog.vue";
-import UDegDialog from "@/analysis/components/deg/Dialog.vue";
-import UGafDialog from "@/analysis/components/gaf/Dialog.vue";
-import UDepDialog from "@/analysis/components/dep/Dialog.vue";
-import UScellDialog from "@/analysis/components/scell/Dialog.vue";
-import UUmappDialog from "@/analysis/components/umapp/Dialog.vue";
-import UCedpDialog from "@/analysis/components/cedp/Dialog.vue";
-import CedpAnalysis from "@/analysis/components/cedp/analysis";
+import USurvDialog from "./surv/Dialog.vue";
+import UDmDialog from "./dm/Dialog.vue";
+import UPcamDialog from "./pcam/Dialog.vue";
+import UDegDialog from "./deg/Dialog.vue";
+import UGafDialog from "./gaf/Dialog.vue";
+import UDepDialog from "./dep/Dialog.vue";
+import UScellDialog from "./scell/Dialog.vue";
+import UUmappDialog from "./umapp/Dialog.vue";
+import UCedpDialog from "./cedp/Dialog.vue";
+import CedpAnalysis from "./cedp/analysis";
 
 export default {
   components: {
@@ -101,18 +101,17 @@ export default {
   },
 
   computed: {
-    // enableAnalysis() {
-    //   return true;
-    //   // return this.$refs.SurvDialog.canShow()
-    //   //     || this.$refs.DmDialog.canShow()
-    //   //     || this.$refs.PcamDialog.canShow()
-    //   //     || this.$refs.DegDialog.canShow()
-    //   //     || this.showGafAnalysis
-    //   //     || this.$refs.DepDialog.canShow()
-    //   //     || this.showScellAnalysis
-    //   //     || this.$refs.UmappDialog.canShow()
-    //   //     || this.$refs.cedpDialog.canShow();
-    // },
+    enableAnalysis() {
+      return this.$refs.SurvDialog?.canShow()
+          || this.$refs.DmDialog?.canShow()
+          || this.$refs.PcamDialog?.canShow()
+          || this.$refs.DegDialog?.canShow()
+          || this.showGafAnalysis
+          || this.$refs.DepDialog?.canShow()
+          || this.showScellAnalysis
+          || this.$refs.UmappDialog?.canShow()
+          || this.$refs.cedpDialog?.canShow();
+    },
 
     showGafAnalysis() {
       return this.datasets?.length == 1 &&
@@ -123,23 +122,6 @@ export default {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.expSc == true);
     }
-  },
-
-  methods: {
-    enableAnalysis() {
-      
-      return this.$refs.SurvDialog?.canShow()
-          || this.$refs.DmDialog?.canShow()
-          || this.$refs.PcamDialog?.canShow()
-          || this.$refs.DegDialog?.canShow()
-          || this.showGafAnalysis
-          || this.$refs.DepDialog?.canShow()
-          || this.showScellAnalysis
-          || this.$refs.UmappDialog?.canShow()
-          || this.$refs.cedpDialog?.canShow();
-      // console.log(this.$refs);
-      // return true;
-    },
   }
 }
 </script>
