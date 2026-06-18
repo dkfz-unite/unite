@@ -6,7 +6,7 @@ const options = [
     new SelectOption({
       key: "feature_type",
       title: "Feature type",
-      default: "protein",
+      default: "gene",
       options: [
         new SelectValue("Protein", "protein"),
         new SelectValue("Gene", "gene")
@@ -86,7 +86,7 @@ const options = [
     new NumberOption({
       key: "min_non_missing_fraction",
       title: "Minimum non-missing values fraction",
-      default: 0.7,
+      default: 0.5,
       min: 0,
       max: 1,
       step: 0.1
@@ -95,7 +95,15 @@ const options = [
     new BooleanOption({
       key: "require_min_fraction_one_class",
       title: "Require non-missing fraction in one class",
-      default: true
+      default: false
+    }),
+
+    new SelectOption({
+      key: "class_property",
+      title: "Class property",
+      show: options => options.some(option => option.key === "require_min_fraction_one_class" && option.value === true),
+      options: [],
+      lazy: SelectMethod.Once
     })
   ])
 ];

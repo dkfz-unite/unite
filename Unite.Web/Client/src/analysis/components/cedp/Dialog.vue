@@ -4,7 +4,8 @@
 
 <script>
 import UDialog from "../_shared/componets/Dialog.vue";
-import Analysis from "./analysis.js";
+import { SelectValue } from "../_shared/options.ts";
+import Analysis from "./analysis.ts";
 
 export default {
   components: {
@@ -30,12 +31,12 @@ export default {
 
    async  onRequest(params) {
       // TODO: simplify this
-      if (params.option.key == "condition_property") {
+      if (["condition_property", "class_property"].includes(params.option.key)) {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");
-        params.option.options = values.map(value => ({ key: value, label: value }));
+        params.option.options = values.map(value => new SelectValue(value, value));
       } else if (["gene", "protein"].includes(params.option.key)) {
         const values = await this.$store.dispatch("analysis/getAutocompleteOptions", { model: params.option.key, field: "symbol", query: params.value });
-        params.option.options = values.map(value => ({ key: value, label: value }));
+        params.option.options = values.map(value => new SelectValue(value, value));
       }
     }
   }

@@ -4,7 +4,8 @@
 
 <script>
 import UDialog from "../_shared/componets/Dialog.vue";
-import Analysis from "./analysis.js";
+import { SelectValue } from "../_shared/options.ts";
+import Analysis from "./analysis.ts";
 
 export default {
   components: {
@@ -31,7 +32,7 @@ export default {
     async onRequest(params) {
       if (params.option.key == "class_property") {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");
-        params.option.options = values.map(value => ({ key: value, label: value }));
+        params.option.options = values.map(value => new SelectValue(value, value));
       }
     }
   }
