@@ -52,7 +52,7 @@ const options = [
     new NumberOption({
       key: "min_non_missing_fraction",
       title: "Minimum non-missing values fraction",
-      default: 0.5,
+      default: 0.7,
       min: 0,
       max: 1,
       step: 0.1
