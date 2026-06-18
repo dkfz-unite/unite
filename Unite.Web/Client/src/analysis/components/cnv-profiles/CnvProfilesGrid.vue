@@ -110,6 +110,7 @@ export default {
       donors: this.data.donors,
       genes: this.data.genes,
       ssmObservations: this.data.observations,  // was: observations
+      donorTracks: this.data.sampleTracks,
       colorMap: {
         mutation: {
           gain:       'red',
@@ -117,6 +118,8 @@ export default {
           neutral:    'gray'
         }
       },
+      donorFillFunc: this.data.sampleFillFunc,
+      donorOpacityFunc: function(d) { return 1; },
       scaleToFit: true,
       width: 1000,
       height: 320,
@@ -159,10 +162,10 @@ export default {
         const trackCells = d3.selectAll("[data-track-data-index]");
         const trackLabels = d3.selectAll(".og-track-group-label");
 
-        itemBars.on("mouseover", (event) => this.onItemBarHover(parseEvent(event)));
+        /*itemBars.on("mouseover", (event) => this.onItemBarHover(parseEvent(event)));
         gridCells.on("mouseover", (event) => this.onGridCellHover(parseEvent(event)));
         trackCells.on("mouseover", (event) => this.onTrackCellHover(parseEvent(event)));
-        trackLabels.on("mouseover", (event) => this.onTrackLabelHover(parseEvent(event)));
+        trackLabels.on("mouseover", (event) => this.onTrackLabelHover(parseEvent(event)));*/
 
         itemBars.on("click", (event) => this.onItemBarClick(parseEvent(event)));
         gridCells.on("click", (event) => this.onGridCellClick(parseEvent(event)));
@@ -336,5 +339,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  #oncoGrid .og-track-data {
+    shape-rendering: crispEdges;
+  }
 </style>

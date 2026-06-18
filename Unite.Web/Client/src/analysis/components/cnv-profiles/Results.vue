@@ -131,12 +131,27 @@ export default {
       ];
     },
 
+    getRandomIndex(weights) {
+      let rand = Math.random();
+      let sum = 0;
+
+      for(let i = 0; i < weights.length; i++) {
+        let weight = weights[i];
+        sum += weight;
+        if(sum >= rand)
+          return i;
+      }
+    },
+
     generateColumns(count) {
-      let columns = [];
+      let columns = []
+      let types = ["type 1", "type 2", "type 3", "type 4", "type 5", "type 6"];
+      const typeWeights = [0.5, 0.2, 0.1, 0.1, 0.05, 0.05];
 
       for(let i = 0; i < count; i++) {
         let id = (i + 1).toString();
-        columns.push({ "id": id, "displayId": "D00" + id });
+        const typeIndex = this.getRandomIndex(typeWeights);
+        columns.push({ "id": id, "displayId": "D00" + id, "type": types[typeIndex], typeWeight: typeWeights[typeIndex] });
       }
 
       return columns;
@@ -170,6 +185,33 @@ export default {
       }
 
       return observations;
+    },
+
+    sortTypes(field) {
+      return function (a, b) {
+        // primary sort: by weight descending (higher weight = more to the left)
+        let weightDiff = b.typeWeight - a.typeWeight;
+        if (weightDiff !== 0) return weightDiff;
+
+        // secondary sort: by type name for stable grouping within same weight
+        let typeA = a[field];
+        let typeB = b[field];
+        if (typeA < typeB) return -1;
+        if (typeA > typeB) return 1;
+        return 0;
+      }
+    },
+
+    generateTracks() {
+      return [
+        {
+          group: "Types",
+          name: "Type",
+          fieldName: "type",
+          type: "type",
+          sort: this.sortTypes
+        }
+      ];
     },
 
     async getMeta(blob) {
@@ -235,13 +277,26 @@ export default {
       };*/
 
       let rows = this.generateRows();
-      let columns = this.generateColumns(1000);
+      let columns = this.generateColumns(100);
       let observations = this.generateObservations(columns, rows);
+      let tracks = this.generateTracks();
 
       let data = {
         genes: rows,
         donors: columns,
-        observations: observations
+        observations: observations,
+        sampleTracks: tracks,
+        sampleFillFunc: function(d) {
+          const colors = {
+            'type 1': '#e41a1c',
+            'type 2': '#377eb8',
+            'type 3': '#4daf4a',
+            'type 4': '#984ea3',
+            'type 5': '#ff7f00',
+            'type 6': '#a65628'
+          };
+          return colors[d.value] || '#ccc';
+        }
       };
 
       return data;
