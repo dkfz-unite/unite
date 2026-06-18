@@ -186,7 +186,7 @@ export default {
         case "pcam":
           return { type: "application/octet-stream", ext: "zip" };
         case "deg":
-          return { type: "application/octet-stream", ext: "tsv" };
+          return { type: "application/octet-stream", ext: "zip" };
         case "dep":
           return { type: "application/octet-stream", ext: "zip" };
         case "gaf":

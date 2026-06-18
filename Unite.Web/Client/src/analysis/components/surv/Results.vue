@@ -100,7 +100,8 @@ export default {
           },
           line: {
             // color: colors.getPaletteColor("red-5"),
-            width: 1
+            width: 1,
+            shape: "hv",
           }
         });
       }
