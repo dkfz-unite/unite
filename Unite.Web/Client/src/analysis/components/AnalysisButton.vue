@@ -9,7 +9,7 @@
   <u-umapp-dialog ref="UmappDialog" :datasets="datasets" />
   <u-cedp-dialog ref="cedpDialog" :datasets="datasets" />
 
-  <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis" flat dense no-caps>
+  <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis()" flat dense no-caps>
     <q-menu>
       <q-list>
         <q-item v-if="$refs.SurvDialog.canShow()" @click="$refs.SurvDialog.show()" clickable v-close-popup dense>
@@ -101,20 +101,20 @@ export default {
   },
 
   computed: {
-    enableAnalysis() {
-      const canRun = this.$refs.SurvDialog?.canShow()
-          || this.$refs.DmDialog?.canShow()
-          || this.$refs.PcamDialog?.canShow()
-          || this.$refs.DegDialog?.canShow()
-          || this.showGafAnalysis
-          || this.$refs.DepDialog?.canShow()
-          || this.showScellAnalysis
-          || this.$refs.UmappDialog?.canShow()
-          || this.$refs.cedpDialog?.canShow();
+    // enableAnalysis() {
+    //   const canRun = this.$refs.SurvDialog?.canShow()
+    //       || this.$refs.DmDialog?.canShow()
+    //       || this.$refs.PcamDialog?.canShow()
+    //       || this.$refs.DegDialog?.canShow()
+    //       || this.showGafAnalysis
+    //       || this.$refs.DepDialog?.canShow()
+    //       || this.showScellAnalysis
+    //       || this.$refs.UmappDialog?.canShow()
+    //       || this.$refs.cedpDialog?.canShow();
 
-      console.log("enableAnalysis", canRun);
-      return canRun;
-    },
+    //   console.log("enableAnalysis", canRun);
+    //   return canRun;
+    // },
 
     showGafAnalysis() {
       return this.datasets?.length == 1 &&
@@ -124,6 +124,20 @@ export default {
     showScellAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.expSc == true);
+    }
+  },
+
+  methods: {
+    enableAnalysis() {
+      return this.$refs.SurvDialog?.canShow()
+          || this.$refs.DmDialog?.canShow()
+          || this.$refs.PcamDialog?.canShow()
+          || this.$refs.DegDialog?.canShow()
+          || this.showGafAnalysis
+          || this.$refs.DepDialog?.canShow()
+          || this.showScellAnalysis
+          || this.$refs.UmappDialog?.canShow()
+          || this.$refs.cedpDialog?.canShow();
     }
   }
 }
