@@ -1,5 +1,5 @@
 <template>
-  <u-dialog ref="dialog" @request="onRequest"/>
+  <u-dialog ref="dialog" @request="onRequest" :options-height="300"/>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
 
    async  onRequest(params) {
       // TODO: simplify this
-      if (["condition_property", "class_property"].includes(params.option.key)) {
+      if (["condition_property"].includes(params.option.key)) {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");
         params.option.options = values.map(value => new SelectValue(value, value));
       } else if (["gene", "protein"].includes(params.option.key)) {

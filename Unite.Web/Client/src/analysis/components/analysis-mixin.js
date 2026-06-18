@@ -1,3 +1,5 @@
+import { AnalysisTitle } from "./_shared/analysis-type";
+
 const mixin = {
   methods: {
     getProgressColor(status) {
@@ -23,17 +25,20 @@ const mixin = {
     },
 
     getAnalysisType(type) {
-      switch (type) {
-        case "surv": return "Survival Curve Estimation"
-        case "dm": return "Differential Methylation Analysis";
-        case "pcam": return "PCA of Methylation Profiles";
-        case "deg": return "Differential Gene Expression";
-        case "dep": return "Differential Protein Expression";
-        case "gaf": return "Gene Alteration Frequency";
-        case "scell": return "scRNA Dataset Creation";
-        case "umapp": return "UMAP of Protein Expression Profiles";
-        default: return type;
-      }
+      const title = AnalysisTitle[type];
+      return title || type;
+
+      // switch (type) {
+      //   case "surv": return "Survival Curve Estimation"
+      //   case "dm": return "Differential Methylation Analysis";
+      //   case "pcam": return "PCA of Methylation Profiles";
+      //   case "deg": return "Differential Gene Expression";
+      //   case "dep": return "Differential Protein Expression";
+      //   case "gaf": return "Gene Alteration Frequency";
+      //   case "scell": return "scRNA Dataset Creation";
+      //   case "umapp": return "UMAP of Protein Expression Profiles";
+      //   default: return type;
+      // }
     }
   }
 }

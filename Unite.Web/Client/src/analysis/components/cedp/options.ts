@@ -1,10 +1,24 @@
 import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue, SelectMethod, IOption } from "../_shared/options";
 
+export const keys = {
+  feature_type: "feature_type",
+  protein: "protein",
+  gene: "gene",
+  condition_property: "condition_property",
+  normalization_method: "normalization_method",
+  normalization_log_offset: "normalization_log_offset",
+  imputation_method: "imputation_method",
+  stratify_imputation_by_batch: "stratify_imputation_by_batch",
+  batch_correction_method: "batch_correction_method",
+  min_non_missing_fraction: "min_non_missing_fraction",
+  require_min_fraction_one_class: "require_min_fraction_one_class"
+}
+
 const options = [
   // General
   new OptionsGroup("General", [
     new SelectOption({
-      key: "feature_type",
+      key: keys.feature_type,
       title: "Feature type",
       default: "gene",
       options: [
@@ -14,21 +28,21 @@ const options = [
     }), 
     
     new SelectOption({
-      key: "protein",
+      key: keys.protein,
       title: "Protein",
       lazy: SelectMethod.Filter,
       show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "protein"
     }),
 
     new SelectOption({
-      key: "gene",
+      key: keys.gene,
       title: "Gene",
       lazy: SelectMethod.Filter,
       show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "gene"
     }),
 
     new SelectOption({
-      key: "condition_property",
+      key: keys.condition_property,
       title: "Condition property",
       options: [],
       lazy: SelectMethod.Once
@@ -38,7 +52,7 @@ const options = [
   // Preprocessing
   new OptionsGroup("Preprocessing", [
     new SelectOption({
-      key: "normalization_method",
+      key: keys.normalization_method,
       title: "Normalization method",
       default: "median",
       options: [
@@ -48,7 +62,7 @@ const options = [
     }),
 
     new NumberOption({
-      key: "normalization_log_offset",
+      key: keys.normalization_log_offset,
       title: "Normalization log offset",
       default: 0.1,
       min: 0,
@@ -57,7 +71,7 @@ const options = [
     }),
 
     new SelectOption({
-      key: "imputation_method",
+      key: keys.imputation_method,
       title: "Imputation method",
       default: "mindet",
       options: [
@@ -67,13 +81,13 @@ const options = [
     }),
 
     new BooleanOption({
-      key: "stratify_imputation_by_batch",
+      key: keys.stratify_imputation_by_batch,
       title: "Stratify imputation by batch",
       default: false
     }),
 
     new SelectOption({
-      key: "batch_correction_method",
+      key: keys.batch_correction_method,
       title: "Batch correction method",
       default: null,
       options: [
@@ -84,26 +98,18 @@ const options = [
     }),
 
     new NumberOption({
-      key: "min_non_missing_fraction",
+      key: keys.min_non_missing_fraction,
       title: "Minimum non-missing values fraction",
-      default: 0.5,
+      default: 0.7,
       min: 0,
       max: 1,
       step: 0.1
     }),
 
     new BooleanOption({
-      key: "require_min_fraction_one_class",
+      key: keys.require_min_fraction_one_class,
       title: "Require non-missing fraction in one class",
-      default: false
-    }),
-
-    new SelectOption({
-      key: "class_property",
-      title: "Class property",
-      show: options => options.some(option => option.key === "require_min_fraction_one_class" && option.value === true),
-      options: [],
-      lazy: SelectMethod.Once
+      default: true
     })
   ])
 ];

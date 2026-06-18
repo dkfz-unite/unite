@@ -55,7 +55,7 @@
       <q-card-actions align="right" class="text-primary">
         <q-btn label="Reset" @click="onReset" dense flat no-caps v-if="analysis.options != null" />
         <q-btn label="Cancel" @click="onClose" dense flat no-caps v-close-popup />
-        <q-btn label="Start" @click="onSubmit" dense flat no-caps v-close-popup />
+        <q-btn label="Start" @click="onSubmit" :disable="!canSubmit()" dense flat no-caps v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -112,6 +112,10 @@ export default {
 
     onRequest(params) {
       this.$emit("request", params);
+    },
+
+    canSubmit() {
+      return this.analysis?.canSubmit() == true;
     },
 
     async onSubmit() {
