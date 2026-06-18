@@ -112,7 +112,7 @@ export default {
           || this.$refs.UmappDialog?.canShow()
           || this.$refs.cedpDialog?.canShow();
 
-      copnsole.log("enableAnalysis", canRun);
+      console.log("enableAnalysis", canRun);
       return canRun;
     },
 
