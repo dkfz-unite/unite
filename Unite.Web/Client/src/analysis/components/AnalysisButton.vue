@@ -102,7 +102,7 @@ export default {
 
   computed: {
     enableAnalysis() {
-      return this.$refs.SurvDialog?.canShow()
+      const canRun = this.$refs.SurvDialog?.canShow()
           || this.$refs.DmDialog?.canShow()
           || this.$refs.PcamDialog?.canShow()
           || this.$refs.DegDialog?.canShow()
@@ -111,6 +111,9 @@ export default {
           || this.showScellAnalysis
           || this.$refs.UmappDialog?.canShow()
           || this.$refs.cedpDialog?.canShow();
+
+      copnsole.log("enableAnalysis", canRun);
+      return canRun;
     },
 
     showGafAnalysis() {
