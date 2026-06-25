@@ -5,7 +5,7 @@
     <u-track-cell-tooltip :target="targetTrackCell" :data="targetTrackCellData" />
     <u-clinical-data-track-tooltip :target="clinicalDataTrack" />
 
-    <!--div class="row">
+    <div class="row">
       <q-btn-group>
         <q-btn
             icon="las la-border-all"
@@ -13,33 +13,33 @@
             :class="{ 'bg-grey-3 text-blue-8': showGridLines }"
             @click="toggleGridLines()"
         />
-        <q-btn
+        <!--q-btn
             icon="las la-burn"
             title="Toggle heat map"
             :class="{ 'bg-grey-3 text-blue-8': heatMapMode }"
             @click="toggleHeatMap()"
-        />
+        /-->
         <q-btn
             icon="las la-crosshairs"
             title="Toggle zoom"
             :class="{ 'bg-grey-3 text-blue-8': crosshairMode }"
             @click="toggleCrosshair()"
         />
-        <q-btn
+        <!--q-btn
             icon="las la-sort-amount-down"
             title="Reset genes"
             @click="toggleCluster()"
-        />
+        /-->
         <q-btn
             icon="las la-undo-alt"
             title="Reset grid"
             @click="reloadGrid()"
         />
       </q-btn-group>
-    </div-->
+    </div>
 
     <div class="row">
-      <div class="col-10">
+      <div class="col-12">
         <div id="oncoGrid" :class="{ 'og-crosshair-mode' : crosshairMode }" />
       </div>
 
@@ -111,6 +111,7 @@ export default {
       genes: this.data.genes,
       ssmObservations: this.data.observations,  // was: observations
       donorTracks: this.data.sampleTracks,
+      accountableConsequences: ["gain", "loss"],
       colorMap: {
         mutation: {
           gain:       'red',
@@ -123,7 +124,13 @@ export default {
       scaleToFit: true,
       width: 1000,
       height: 320,
-      margin: { top: 0, right: 0, bottom: 0, left: 0 }
+      //margin: { top: 0, right: 0, bottom: 0, left: 0 }
+      margin: {
+        left: 40,
+        top: 30,
+        right: 100,
+        bottom: 15
+      }
     };
 
     this.initializeGrid(parameters);

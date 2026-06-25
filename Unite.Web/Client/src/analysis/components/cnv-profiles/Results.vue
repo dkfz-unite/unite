@@ -277,7 +277,7 @@ export default {
       };*/
 
       let rows = this.generateRows();
-      let columns = this.generateColumns(100);
+      let columns = this.generateColumns(1000);
       let observations = this.generateObservations(columns, rows);
       let tracks = this.generateTracks();
 
