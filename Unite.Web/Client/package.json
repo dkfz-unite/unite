@@ -12,7 +12,7 @@
     "preview": "npm run copy-oncogrid && vite preview"
   },
   "dependencies": {
-    "@dkfz-unite/oncogrid": "^3.1.4",
+    "@dkfz-unite/oncogrid": "^3.1.5",
     "@quasar/extras": "^1.16.17",
     "axios": "^1.8.1",
     "bitecs": "^0.4.0",
