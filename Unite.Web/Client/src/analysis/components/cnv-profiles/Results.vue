@@ -128,25 +128,14 @@ export default {
       return columns;
     },
 
-    getRandomConsequenceIndex() {
-      var rand = Math.random();
-      if (rand < 0.60) {
-        return 2; // neutral - 60%
-      } else if (rand < 0.80) {
-        return 0; // gain - 20%
-      } else {
-        return 1; // loss - 20%
-      }
-    },
-
     generateObservations(columns, rows) {
       let observations = [];
       let consequences = [ "gain", "loss", "neutral" ];
-
+      const consequenceWeights = [0.2, 0.2, 0.6];
 
       for (let i = 0; i < rows.length; i++) {
         for (let j = 0; j < columns.length; j++) {
-          let consequenceIndex = this.getRandomConsequenceIndex();
+          let consequenceIndex = this.getRandomIndex(consequenceWeights);
 
           if(consequenceIndex != 2) {
             let id = (i * rows.length + j + 1).toString();
