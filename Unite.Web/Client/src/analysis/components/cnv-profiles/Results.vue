@@ -32,7 +32,22 @@ export default {
 
   data() {
     return {
-      meta: ""
+      meta: "",
+      tumorTypeColors: {},
+      colorPalette: [
+        '#e41a1c',
+        '#377eb8',
+        '#4daf4a',
+        '#984ea3',
+        '#ff7f00',
+        '#a65628',
+        '#f781bf',
+        '#999999',
+        '#66c2a5',
+        '#fc8d62',
+        '#8da0cb',
+        '#e78ac3'
+      ]
     }
   },
 
@@ -174,10 +189,7 @@ export default {
       ];
     },
 
-    async getMeta(blob) {
-      const json = await blob.text();
-      //return JSON.parse(json);
-
+    generateData() {
       let rows = this.generateRows();
       let columns = this.generateColumns(1000);
       let observations = this.generateObservations(columns, rows);
@@ -202,6 +214,114 @@ export default {
       };
 
       return data;
+    },
+
+    getRows(analysisData) {
+      let rows = [];
+
+      for(let i = 0; i < analysisData.chromosomeArms.length; i++) {
+        let chromosomeArm = analysisData.chromosomeArms[i];
+        rows.push({ id:  i, symbol: chromosomeArm.chromosome + chromosomeArm.arm });
+      }
+
+      return rows;
+    },
+
+    getColumns(analysisData) {
+      let tumorTypes = {};
+      let columns = [];
+
+      for(let i = 0; i < analysisData.samples.length; i++) {
+        let sample = analysisData.samples[i];
+
+        columns.push({ id: sample.id, displayId: sample.id, tumorType: sample.tumorType });
+        if(!tumorTypes.hasOwnProperty(sample.tumorType)) {
+          tumorTypes[sample.tumorType] = 0;
+        }
+        tumorTypes[sample.tumorType]++;
+      }
+
+      for(let column of columns) {
+        column.tumorTypeCount = tumorTypes[column.tumorType];
+      }
+
+      return columns;
+    },
+
+    getObservations(analysisData) {
+      let observations = [];
+
+      for(let i = 0; i < analysisData.observations.length; i++) {
+        let observation = analysisData.observations[i];
+
+        let id = (i).toString();
+        observations.push({ id: id, donorId: observation.sampleId, geneId: observation.chromosomeArmIndex, "type": "mutation", "consequence": observation.event, "ids": [id] });
+      }
+
+      return observations;
+    },
+
+    sortTumorTypes(field) {
+      return function (a, b) {
+        // primary sort: by weight descending (higher weight = more to the left)
+        let weightDiff = b.tumorTypeCount - a.tumorTypeCount;
+        if (weightDiff !== 0) return weightDiff;
+
+        // secondary sort: by type name for stable grouping within same weight
+        let typeA = a[field];
+        let typeB = b[field];
+        if (typeA < typeB) return -1;
+        if (typeA > typeB) return 1;
+        return 0;
+      }
+    },
+
+    getTracks() {
+      return [
+        {
+          group: "Tracks",
+          name: "Tumor Type",
+          fieldName: "tumorType",
+          type: "tumorType",
+          sort: this.sortTumorTypes
+        }
+      ];
+    },
+
+    getTumorTypeColor(tumorType) {
+      if (!this.tumorTypeColors.hasOwnProperty(tumorType)) {
+        const index = Object.keys(this.tumorTypeColors).length % this.colorPalette.length;
+        this.tumorTypeColors[tumorType] = this.colorPalette[index];
+      }
+      return this.tumorTypeColors[tumorType];
+    },
+
+    async getData(blob) {
+      const json = await blob.text();
+      const analysisData = JSON.parse(json);
+
+      this.tumorTypeColors = {};
+
+      let rows = this.getRows(analysisData);
+      let columns = this.getColumns(analysisData);
+      let observations = this.getObservations(analysisData);
+      let tracks = this.getTracks();
+
+      let data = {
+        genes: rows,
+        donors: columns,
+        observations: observations,
+        sampleTracks: tracks,
+        sampleFillFunc: (d) => this.getTumorTypeColor(d.value)
+      };
+
+      return data;
+    },
+
+    async getMeta(blob) {
+      const generateData = false;
+
+      return generateData ? this.generateData() : await this.getData(blob);
     }
   }
 }
