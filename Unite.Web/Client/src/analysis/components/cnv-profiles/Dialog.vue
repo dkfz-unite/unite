@@ -36,12 +36,6 @@
               />
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <q-radio v-model="progression.value" :val="false" label="Survival" />
-              <q-radio v-model="progression.value" :val="true" label="Progression" />
-            </div>
-          </div>
         </div>
       </q-card-section>
 
@@ -90,9 +84,6 @@ export default {
       },
       description: {
         value: null
-      },
-      progression: {
-        value: false
       }
     };
   },
@@ -130,7 +121,7 @@ export default {
         data: 
         {
           datasets: datasets,
-          options: { progression: this.progression.value }
+          options: { }
         }
       };
 
@@ -141,7 +132,6 @@ export default {
     async onClose() {
       this.name.value = null;
       this.description.value = null;
-      this.progression.value = false;
       this.dialog = false;
     }
   }

@@ -35,8 +35,6 @@ export default {
       meta: "",
       tumorTypeColors: {},
       colorPalette: [
-        '#e41a1c',
-        '#377eb8',
         '#4daf4a',
         '#984ea3',
         '#ff7f00',
@@ -46,7 +44,9 @@ export default {
         '#66c2a5',
         '#fc8d62',
         '#8da0cb',
-        '#e78ac3'
+        '#e78ac3',
+        '#e41a1c',
+        '#377eb8'
       ]
     }
   },
@@ -137,7 +137,13 @@ export default {
       for(let i = 0; i < count; i++) {
         let id = (i + 1).toString();
         const typeIndex = this.getRandomIndex(typeWeights);
-        columns.push({ "id": id, "displayId": "D00" + id, "type": types[typeIndex], typeWeight: typeWeights[typeIndex] });
+        columns.push({
+              "id": id,
+              displayId: "D00" + id,
+              type: types[typeIndex],
+              typeWeight: typeWeights[typeIndex],
+              donorId: 1
+            });
       }
 
       return columns;
@@ -154,7 +160,14 @@ export default {
 
           if(consequenceIndex != 2) {
             let id = (i * rows.length + j + 1).toString();
-            observations.push({ "id": id, "donorId": columns[j].id, "geneId": rows[i].id, "type": "mutation", "consequence": consequences[consequenceIndex], "ids": [id] });
+            observations.push({
+              id: id,
+              donorId: columns[j].id,
+              geneId: rows[i].id,
+              type: "mutation",
+              consequence: consequences[consequenceIndex],
+              ids: [id]
+            });
           }
         }
       }
@@ -202,12 +215,12 @@ export default {
         sampleTracks: tracks,
         sampleFillFunc: function(d) {
           const colors = {
-            'type 1': '#e41a1c',
-            'type 2': '#377eb8',
             'type 3': '#4daf4a',
             'type 4': '#984ea3',
             'type 5': '#ff7f00',
-            'type 6': '#a65628'
+            'type 6': '#a65628',
+            'type 1': '#e41a1c',
+            'type 2': '#377eb8'
           };
           return colors[d.value] || '#ccc';
         }
@@ -234,7 +247,13 @@ export default {
       for(let i = 0; i < analysisData.samples.length; i++) {
         let sample = analysisData.samples[i];
 
-        columns.push({ id: sample.id, displayId: sample.id, tumorType: sample.tumorType });
+        columns.push({
+          id: sample.id,
+          displayId: sample.donorId,
+          tumorType: sample.tumorType,
+          donorId: sample.donorId,
+        });
+
         if(!tumorTypes.hasOwnProperty(sample.tumorType)) {
           tumorTypes[sample.tumorType] = 0;
         }
@@ -319,7 +338,7 @@ export default {
     },
 
     async getMeta(blob) {
-      const generateData = false;
+      const generateData = true;
 
       return generateData ? this.generateData() : await this.getData(blob);
     }
