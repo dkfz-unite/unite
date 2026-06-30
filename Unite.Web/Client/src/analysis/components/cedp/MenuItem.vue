@@ -1,32 +1,42 @@
 <template>
-  <u-dialog ref="dialog" @request="onRequest" :options-height="300"/>
+  <u-dialog v-if="canShow" ref="dialog" @request="onRequest" :options-height="300" />
+
+  <u-menu-item v-if="canShow" @click="show()">
+    <strong>Protein</strong> expression distribution per condition
+  </u-menu-item>
 </template>
 
 <script>
-import UDialog from "../_shared/componets/Dialog.vue";
+import UMenuItem from "../_shared/componets/MenuItem.vue";
+import UDialog from "./Dialog.vue";
 import { SelectValue } from "../_shared/options.ts";
 import { keys } from "./options.ts";
 import Analysis from "./analysis.ts";
 
 export default {
   components: {
-    UDialog
+    UDialog,
+    UMenuItem
   },
 
   props: {
-    analysis: {
-      type: Analysis,
-      required: true
+    datasets: {
+      type: Array,
+      default: () => [],
     }
+  },
+
+  computed: {
+    canShow: () => Analysis.canCreate(this.datasets)
   },
 
   methods: {
     show() {
-      this.$refs.dialog.show(this.analysis);
+      const payload = { datasets: this.datasets };
+      this.$refs.dialog.show(payload);
     },
 
     async onRequest(params) {
-      // TODO: simplify this
       if (params.option.key == keys.condition_property ) {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");
         params.option.options = values.map(value => new SelectValue(value, value));

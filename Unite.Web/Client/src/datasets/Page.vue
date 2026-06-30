@@ -42,7 +42,7 @@
     </div> -->
 
     <div class="row">
-      <u-analysis-button v-if="dataset" :datasets="selectedDatasets" />
+      <u-analysis-button-start v-if="dataset" :datasets="selectedDatasets" />
     </div>
 
     <div v-if="dataset" class="row">
@@ -84,7 +84,7 @@ import UDrawer from "@/_shared/components/base/Drawer.vue";
 import UDatasetsButtonShow from "./components/datasets/buttons/ButtonShow.vue";
 import UDatasets from "./components/datasets/Datasets.vue";
 import UDatasetsMini from "./components/datasets/DatasetsMini.vue";
-import UAnalysisButton from "@/analysis/components/AnalysisButton.vue";
+import UAnalysisButtonStart from "@/analysis/components/AnalysisButtonStart.vue";
 import UDataset from "./components/dataset/Dataset.vue";
 import UControlsToolbar from "./components/dataset/controls/Toolbar.vue";
 import { mapGetters } from "vuex";
@@ -97,7 +97,7 @@ export default {
   components: {
     UDrawer,
     UDatasetsButtonShow,
-    UAnalysisButton,
+    UAnalysisButtonStart,
     UControlsToolbar,
     UDatasets,
     UDatasetsMini,

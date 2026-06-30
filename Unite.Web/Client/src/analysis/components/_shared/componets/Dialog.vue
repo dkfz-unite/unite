@@ -96,7 +96,7 @@ export default {
   methods: {
     show(analysis) {
       this.analysis = analysis;
-      this.analysis.name = this.analysis.datasets.map(d => d.name).join(" vs ");
+      this.analysis.name = this.analysis.datasets?.map(d => d.name).join(" vs ");
       this.title = AnalysisTitle[this.analysis.type];
       this.dialog = true;
     },
@@ -111,15 +111,17 @@ export default {
     },
 
     onRequest(params) {
+      params.analysis = this.analysis;
       this.$emit("request", params);
     },
 
     canSubmit() {
-      return this.analysis?.canSubmit() == true;
+      return this.analysis?.canStart() == true;
     },
 
     async onSubmit() {
       this.$emit("submit", this.analysis.toPayload());
+      // console.log(this.analysis.toPayload());
 
       const id = await this.$store.dispatch("analysis/runAnalysis", this.analysis.toPayload());
       await this.$router.push({ name: "analysis", params: { id: id } });

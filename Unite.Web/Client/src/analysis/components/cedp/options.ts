@@ -2,8 +2,7 @@ import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue, S
 
 export const keys = {
   feature_type: "feature_type",
-  protein: "protein",
-  gene: "gene",
+  feature: "feature",
   condition_property: "condition_property",
   normalization_method: "normalization_method",
   normalization_log_offset: "normalization_log_offset",
@@ -28,22 +27,17 @@ const options = [
     }), 
     
     new SelectOption({
-      key: keys.protein,
-      title: "Protein",
-      lazy: SelectMethod.Filter,
-      show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "protein"
-    }),
-
-    new SelectOption({
-      key: keys.gene,
-      title: "Gene",
-      lazy: SelectMethod.Filter,
-      show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "gene"
+      key: keys.feature,
+      title: "Feature",
+      default: null,
+      options: [],
+      lazy: SelectMethod.Filter
     }),
 
     new SelectOption({
       key: keys.condition_property,
       title: "Condition property",
+      default: null,
       options: [],
       lazy: SelectMethod.Once
     })

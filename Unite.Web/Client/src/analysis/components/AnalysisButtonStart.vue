@@ -72,7 +72,7 @@ import UDepDialog from "./dep/Dialog.vue";
 import UScellDialog from "./scell/Dialog.vue";
 import UUmappDialog from "./umapp/Dialog.vue";
 import UCedpDialog from "./cedp/Dialog.vue";
-import CedpAnalysis from "./cedp/analysis";
+import CedpAnalysis from "./cedp/analysis.js";
 
 export default {
   components: {

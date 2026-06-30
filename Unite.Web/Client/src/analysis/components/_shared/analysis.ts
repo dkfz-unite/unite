@@ -3,19 +3,35 @@ import AnalysisType from "./analysis-type";
 import { OptionsGroup, IOption } from "./options";
 
 export default abstract class Analysis {
-  name: string;
-  description: string;
-  datasets: any[];
   abstract type: AnalysisType;
   abstract options: OptionsGroup[];
 
-  constructor(datasets: any[]) {
-    this.name = null;
-    this.description = null;
-    this.datasets = datasets;
+  id: string = null;
+  name: string = null;
+  description: string = null;
+  datasets: any[] = [];
+  status: string = null;
+  message: string = null;
+
+  constructor(payload: any = null) {
+    this.id = payload?.id ?? null;
+    this.name = payload?.name ?? null;
+    this.description = payload?.description ?? null;
+    this.datasets = payload?.data?.datasets ?? [];
+    this.status = payload?.status ?? null;
+    this.message = payload?.message ?? null;
+
+    if (payload?.data?.options) {
+      for (const key in payload.data.options) {
+        const option = this.findOption(key);
+
+        if (option)
+          option.value = payload.data.options[key];
+      }
+    }
   }
 
-  canSubmit(): boolean {
+  canStart(): boolean {
     return true;
   }
 
@@ -23,7 +39,15 @@ export default abstract class Analysis {
     this.name = null;
     this.description = null;
     this.resetOptions();
-  };
+  }
+
+  resetOptions(): void {
+    if (this.options?.length > 0) {
+      for (const step of this.options) {
+        step.reset();
+      }
+    }
+  }
 
   findOption(key: string): IOption {
     if (this.options?.length > 0) {
@@ -35,14 +59,6 @@ export default abstract class Analysis {
     }
 
     return null;
-  }
-
-  resetOptions(): void {
-    if (this.options?.length > 0) {
-      for (const step of this.options) {
-        step.reset();
-      }
-    }
   }
 
   toPayload(): any {
@@ -60,7 +76,7 @@ export default abstract class Analysis {
     };
 
     return data;
-  };
+  }
 
   convertOptions(): any {
     const options = {};
@@ -90,5 +106,9 @@ export default abstract class Analysis {
     }
 
     return datasets;
+  }
+
+  static canCreate(datasets: any[]): boolean {
+    return datasets?.length > 0;
   }
 }
