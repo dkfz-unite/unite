@@ -232,9 +232,9 @@ export default {
     getRows(analysisData) {
       let rows = [];
 
-      for(let i = 0; i < analysisData.chromosomeArms.length; i++) {
-        let chromosomeArm = analysisData.chromosomeArms[i];
-        rows.push({ id:  i, symbol: chromosomeArm.chromosome + chromosomeArm.arm });
+      for(let i = 0; i < analysisData.dnaRegions.length; i++) {
+        let dnaRegion = analysisData.dnaRegions[i];
+        rows.push({ id:  dnaRegion.id, symbol: dnaRegion.chromosome + dnaRegion.arm });
       }
 
       return rows;
@@ -274,7 +274,13 @@ export default {
         let observation = analysisData.observations[i];
 
         let id = (i).toString();
-        observations.push({ id: id, donorId: observation.sampleId, geneId: observation.chromosomeArmIndex, "type": "mutation", "consequence": observation.event, "ids": [id] });
+        observations.push({
+          id: id,
+          donorId: observation.sampleId,
+          geneId: observation.dnaRegionId,
+          type: "mutation",
+          consequence: observation.event, ids: [id]
+        });
       }
 
       return observations;
