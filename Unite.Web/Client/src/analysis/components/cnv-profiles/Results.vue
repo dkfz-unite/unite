@@ -338,7 +338,7 @@ export default {
     },
 
     async getMeta(blob) {
-      const generateData = true;
+      const generateData = false;
 
       return generateData ? this.generateData() : await this.getData(blob);
     }
