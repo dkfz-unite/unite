@@ -39,6 +39,24 @@
         </div>
       </q-card-section>
 
+      <q-card-section>
+        <div class="col q-gutter-sm">
+          <div class="row text-subtitle1">Options</div>
+
+          <!-- EventThreshold -->
+          <div class="row">
+            <div class="col">
+              <q-input
+                  v-model="options.eventThreshold.value"
+                  label="Event Threshold"
+                  type="number" :min="0" :max="1"
+                  dense square outlined
+              />
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+
       <q-card-actions  align="right" class="text-primary">
         <q-btn
           label="Cancel"
@@ -84,6 +102,11 @@ export default {
       },
       description: {
         value: null
+      },
+      options: {
+        eventThreshold: {
+          value: 0.8
+        }
       }
     };
   },
@@ -121,7 +144,9 @@ export default {
         data: 
         {
           datasets: datasets,
-          options: { }
+          options: {
+            eventThreshold: this.options.eventThreshold.value
+          }
         }
       };
 
