@@ -25,6 +25,7 @@ jobs:
         run: |
           docker build \
             --platform linux/amd64 \
+            --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:amd64 \
             .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:amd64
@@ -46,6 +47,7 @@ jobs:
         run: |
           docker build \
             --platform linux/arm64 \
+            --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:arm64 \
             .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:arm64
