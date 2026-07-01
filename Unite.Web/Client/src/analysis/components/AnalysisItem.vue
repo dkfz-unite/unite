@@ -54,6 +54,7 @@
         <u-dep-results v-else-if="analysis.type == 'dep'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
         <u-umapp-results v-else-if="analysis.type == 'umapp'" :id="analysis.id" :title="title" :data="analysis.results" :meta="analysis.meta"/>
         <u-scell-results v-else-if="analysis.type == 'scell'" :id="analysis.id" :title="title" :data="analysis.results" />
+        <u-cnv-profiles v-else-if="analysis.type == 'cnv-profile'" :id="analysis.id" :title="title" :data="analysis.results" />
       </div>
     </q-card-section>
   </q-card>
@@ -68,6 +69,7 @@ import UGafResults from "./gaf/Results.vue";
 import UDepResults from "./dep/Results.vue";
 import UUmappResults from "./umapp/Results.vue";
 import UScellResults from "./scell/Results.vue";
+import UCnvProfiles from "./cnv-profiles/Results.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -82,7 +84,8 @@ export default {
     UGafResults,
     UDepResults,
     UUmappResults,
-    UScellResults
+    UScellResults,
+    UCnvProfiles
   },
 
   mixins: [mixin],

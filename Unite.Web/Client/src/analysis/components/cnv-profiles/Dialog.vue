@@ -7,10 +7,8 @@
 
     <q-card style="min-width: 420px;">
       <q-card-section>
-        <div class="text-h6">Gene Alteration Frequency</div>
+        <div class="text-h6">CNV Profiles</div>
       </q-card-section>
-      
-      <q-separator />
 
       <q-card-section>
         <div class="col q-gutter-sm">
@@ -45,55 +43,21 @@
         <div class="col q-gutter-sm">
           <div class="row text-subtitle1">Options</div>
 
-          <!-- Donors -->
-          <!-- <div class="row">
-            <div class="col">
-              <q-input
-                v-model="options.donors.value"
-                label="Number of donors"
-                type="number" :min="1" :max="options.donors.max"
-                dense square outlined
-              />
-            </div>
-          </div> -->
-
-          <!-- Genes -->
+          <!-- EventThreshold -->
           <div class="row">
             <div class="col">
               <q-input
-                v-model="options.genes.value"
-                label="Number of genes"
-                type="number" :min="1" :max="options.genes.max"
-                dense square outlined
-              />
-            </div>
-          </div>
-
-          <!-- SM -->
-           <div class="row">
-            <div class="col">
-              <q-select
-                v-model="options.sm.value"
-                :options="options.sm.options"
-                label="Mutation impact"
-                clear-icon="las la-times-circle"
-                @clear="options.sm.value = options.sm.default"
-                multiple clearable use-chips
-                dense options-dense square outlined
+                  v-model="options.eventThreshold.value"
+                  label="Event Threshold"
+                  type="number" :min="0" :max="1" :step="0.1"
+                  dense square outlined
               />
             </div>
           </div>
         </div>
       </q-card-section>
 
-      <q-separator />
-
       <q-card-actions  align="right" class="text-primary">
-        <q-btn
-          label="Reset"
-          @click="onReset"
-          dense flat no-caps
-        />
         <q-btn
           label="Cancel"
           @click="onClose"
@@ -130,7 +94,7 @@ export default {
     }
   },
 
-  data() { 
+  data() {
     return {
       dialog: false,
       name: {
@@ -140,18 +104,8 @@ export default {
         value: null
       },
       options: {
-        donors: {
-          value: 50,
-          max: 200
-        },
-        genes: {
-          value: 20,
-          max: 50
-        },
-        sm: {
-          value: ["High", "Moderate"],
-          options: ["High", "Moderate", "Low"],
-          default: ["High", "Moderate"]
+        eventThreshold: {
+          value: 0.8
         }
       }
     };
@@ -167,9 +121,6 @@ export default {
     }
   },
 
-  mounted() {
-  },
-
   methods: {
     show() {
       this.dialog = true;
@@ -183,15 +134,9 @@ export default {
         domain: dataset.domain,
         criteria: new FiltersCriteria(dataset.criteria).toSearchCriteria() 
       }));
-
-      const options = {
-        donors: this.options.donors.value,
-        genes: this.options.genes.value,
-        sm: this.options.sm.value
-      };
-
+      
       const data = {
-        type: "gaf",
+        type: "cnv-profile",
         name: this.name.value,
         description: this.description.value,
         status: null,
@@ -199,26 +144,19 @@ export default {
         data: 
         {
           datasets: datasets,
-          options: options
+          options: {
+            eventThreshold: this.options.eventThreshold.value
+          }
         }
       };
 
-      const id = await this.$store.dispatch("analysis/runGafAnalysis", data);
+      const id = await this.$store.dispatch("analysis/runCnvProfileAnalysis", data);
       await this.$router.push({ name: "analysis", params: { id: id } });
-    },
-
-    async onReset() {
-      this.options.donors.value = null;
-      this.options.genes.value = false;
-      this.options.sm.value = this.options.sm.default;
     },
 
     async onClose() {
       this.name.value = null;
       this.description.value = null;
-      this.options.donors.value = null;
-      this.options.genes.value = false;
-      this.options.sm.value = this.options.sm.default;
       this.dialog = false;
     }
   }

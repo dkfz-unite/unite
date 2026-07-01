@@ -113,6 +113,11 @@ const actions = {
     data.userid = this.getters["identity/account"].email;
     return await api.runScellAnalysis(data);
   },
+
+  async runCnvProfileAnalysis({state, dispatch}, data) {
+    data.userid = this.getters["identity/account"].email;
+    return await api.runCnvProfileAnalysis(data);
+  },
   
   async getScellAnalysisModels({state}) {
     return await api.getScellAnalysisModels();

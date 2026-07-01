@@ -4,11 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "cp-oncogrid-min": "cp node_modules/@dkfz-unite/oncogrid/dist/oncogrid.min.js public/unite.oncogrid.min.js",
+    "cp-oncogrid-debug": "cp node_modules/@dkfz-unite/oncogrid/dist/oncogrid-debug.js public/unite.oncogrid-debug.js",
+    "copy-oncogrid": "npm run cp-oncogrid-min && npm run cp-oncogrid-debug",
+    "dev": "npm run copy-oncogrid && vite",
+    "build": "npm run copy-oncogrid && vite build",
+    "preview": "npm run copy-oncogrid && vite preview"
   },
   "dependencies": {
+    "@dkfz-unite/oncogrid": "^3.1.6",
     "@quasar/extras": "^1.16.17",
     "axios": "^1.8.1",
     "d3": "^7.9.0",
