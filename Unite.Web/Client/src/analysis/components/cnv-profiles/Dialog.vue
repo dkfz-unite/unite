@@ -49,7 +49,7 @@
               <q-input
                   v-model="options.eventThreshold.value"
                   label="Event Threshold"
-                  type="number" :min="0" :max="1"
+                  type="number" :min="0" :max="1" :step="0.1"
                   dense square outlined
               />
             </div>
