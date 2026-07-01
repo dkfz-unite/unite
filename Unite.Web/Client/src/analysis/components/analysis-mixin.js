@@ -32,6 +32,7 @@ const mixin = {
         case "gaf": return "Gene Alteration Frequency";
         case "scell": return "scRNA Dataset Creation";
         case "umapp": return "UMAP of Protein Expression Profiles";
+        case "cnv-profile": return "CNV Profiles";
         default: return type;
       }
     }

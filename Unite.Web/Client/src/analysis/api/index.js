@@ -71,6 +71,11 @@ export async function runScellAnalysis(data) {
   return await client.post(url, data);
 }
 
+export async function runCnvProfileAnalysis(data) {
+  const url = `${analysisTaskUrl}/cnv-profile`;
+  return await client.post(url, data);
+}
+
 export async function getScellAnalysisModels() {
   const url = `${analysisTaskUrl}/scell/models`;
   return await client.get(url);
@@ -110,6 +115,7 @@ export default {
   runGafAnalysis,
   runDepAnalysis,
   runScellAnalysis,
+  runCnvProfileAnalysis,
   getScellAnalysisModels,
   viewScellAnalysis,
   updateScellAnalysis,
