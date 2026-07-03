@@ -315,10 +315,23 @@ export default {
 
     getTumorTypeColor(tumorType) {
       if (!this.tumorTypeColors.hasOwnProperty(tumorType)) {
-        const index = Object.keys(this.tumorTypeColors).length % this.colorPalette.length;
-        this.tumorTypeColors[tumorType] = this.colorPalette[index];
+        const index = Object.keys(this.tumorTypeColors).length;
+
+        this.tumorTypeColors[tumorType] = index < this.colorPalette.length
+            ? this.colorPalette[index]
+            : this.generateColor(index - this.colorPalette.length);
       }
       return this.tumorTypeColors[tumorType];
+    },
+
+    generateColor(offset) {
+      // golden angle ensures each new hue is maximally spread from previous ones
+      const goldenAngle = 137.508;
+      const hue = (offset * goldenAngle) % 360;
+      const saturation = 65;
+      const lightness = 45;
+
+      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
     },
 
     async getData(blob) {
