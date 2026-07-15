@@ -171,6 +171,10 @@ export default {
   },
 
   methods: {
+    canShow(datasets) {
+      return datasets?.length == 1 && datasets?.every(dataset => dataset.data?.sms === true);
+    },
+
     show() {
       this.dialog = true;
     },

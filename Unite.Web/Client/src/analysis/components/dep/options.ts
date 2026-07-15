@@ -38,18 +38,6 @@ const options = [
       default: false
     }),
 
-    // Always null for differential analysis
-    // new SelectOption({
-    //   key: "batch_correction_method",
-    //   title: "Batch correction method",
-    //   default: null,
-    //   options: [
-    //     new SelectValue("ComBat", "combat"),
-    //     new SelectValue("Limma", "limma"),
-    //     new SelectValue("None", null)
-    //   ]
-    // }),
-
     new NumberOption({
       key: "min_non_missing_fraction",
       title: "Minimum non-missing values fraction",

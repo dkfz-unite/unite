@@ -1,5 +1,5 @@
 <template>
-  <u-dialog ref="dialog" />
+  <u-dialog :analysis="model" ref="dialog" :options-height="260" />
 </template>
 
 <script>
@@ -12,20 +12,28 @@ export default {
   },
 
   props: {
-    datasets: {
-      type: Array,
-      default: () => [],
-    },
+    analysis: {
+      type: Analysis,
+      default: () => new Analysis([])
+    }
+  },
+
+  data() {
+    return {
+      model: this.analysis
+    };
   },
 
   methods: {
-    canShow() {
-      return this.datasets?.length == 2 && this.datasets.every(dataset => dataset.data?.prot == true);
+    canShow(datasets) {
+      return datasets?.length == 2 && datasets.every(dataset => dataset.data?.prot == true);
     },
     
-    show() {
-      const analysis = new Analysis(this.datasets);
-      this.$refs.dialog.show(analysis);
+    show(datasets) {
+      if (datasets?.length)
+        this.model.datasets = datasets;
+
+      this.$refs.dialog.show();
     }
   }
 }

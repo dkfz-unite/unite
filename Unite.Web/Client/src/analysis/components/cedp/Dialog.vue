@@ -1,5 +1,5 @@
 <template>
-  <u-dialog ref="dialog" @request="onRequest" :options-height="300"/>
+  <u-dialog :analysis="model" ref="dialog" @request="onRequest" :options-height="300"/>
 </template>
 
 <script>
@@ -13,23 +13,31 @@ export default {
   },
 
   props: {
-    datasets: {
-      type: Array,
-      default: () => [],
-    },
+    analysis: {
+      type: Analysis,
+      default: () => new Analysis([])
+    }
+  },
+
+  data() {
+    return {
+      model: this.analysis
+    };
   },
 
   methods: {
-    canShow() {
-      return this.datasets?.length == 1 && this.datasets[0].data?.prot == true;
+    canShow(datasets) {
+      return datasets?.length == 1 && datasets.every(dataset => dataset.data?.prot == true);
     },
     
-    show() {
-      const analysis = new Analysis(this.datasets);
-      this.$refs.dialog.show(analysis);
+    show(datasets) {
+      if (datasets?.length)
+        this.model.datasets = datasets;
+
+      this.$refs.dialog.show();
     },
 
-   async  onRequest(params) {
+    async onRequest(params) {
       // TODO: simplify this
       if (["condition_property"].includes(params.option.key)) {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");

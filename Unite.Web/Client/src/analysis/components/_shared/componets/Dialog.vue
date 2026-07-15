@@ -26,7 +26,7 @@
       <q-separator />
 
       <!-- Datasets -->
-      <q-card-section>
+      <q-card-section v-if="analysis.datasets">
         <div class="col">
           <div class="row q-mb-sm">
             <span class="text-subtitle text-grey">Datasets</span>
@@ -77,8 +77,12 @@ export default {
   },
 
   props: {
-     optionsHeight: {
-      type: Number,
+    analysis: {
+      type: Analysis,
+      required: true
+    },
+    optionsHeight: {
+      type: [Number, String],
       default: 200,
     }
   },
@@ -88,15 +92,13 @@ export default {
   data() {
     return {
       dialog: false,
-      title: null,
-      analysis: null
+      title: null
     }
   },
 
   methods: {
-    show(analysis) {
-      this.analysis = analysis;
-      this.analysis.name = this.analysis.datasets.map(d => d.name).join(" vs ");
+    show() {
+      this.analysis.name = this.analysis.datasets?.map(d => d.name).join(" vs ");
       this.title = AnalysisTitle[this.analysis.type];
       this.dialog = true;
     },

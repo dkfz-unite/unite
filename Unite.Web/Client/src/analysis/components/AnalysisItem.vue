@@ -4,6 +4,7 @@
     <q-card-section class="q-pa-none q-ma-none">
       <div class="row items-center q-gutter-x-sm q-ml-xs">
         <q-btn :disable="!isReady" @click="onDownload" icon="las la-file-download" color="secondary" no-caps dense flat>Download</q-btn>
+        <q-btn :disable="!isEnded" @click="onRestart" icon="las la-redo-alt" color="orange" no-caps dense flat></q-btn>
         <q-btn :disable="!isEnded" @click="onDelete" icon="las la-trash" color="red" no-caps flat dense>Delete</q-btn>
       </div>
     </q-card-section>
@@ -18,9 +19,22 @@
         <!-- Description -->
         <div class="row" v-if="analysis.description"> {{ analysis.description }}</div>
         <!-- Type, Date and Status -->
-        <div class="row q-gutter-x-lg">
+        <div class="row q-gutter-x-lg items-center">
           <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div>
           <div class="text-weight-regular">{{ $helpers.content.toDateTimeString(analysis.date) }}</div>
+          <q-btn v-if="analysis.data.options" no-caps flat dense>
+            <!-- Show Options Icon and label -->
+            <q-icon name="las la-sliders-h" size="xs" />
+            <span class="text-weight-normal q-ml-xs">Options</span>
+            <q-popup-proxy>
+              <div class="col q-gutter-xs q-pa-sm">
+                <div v-for="(value, key) in analysis.data.options" class="row align-center q-gutter-x-xs">
+                  <div class="text-grey-9">{{ key }}:</div>
+                  <div class="text-weight-medium text-black">{{ value ?? "None" }}</div>
+                </div>
+              </div>
+            </q-popup-proxy>
+          </q-btn>
           <div :class="`text-${getProgressColor(analysis.status)} text-weight-medium`">{{ analysis.status || "Created" }}</div>
         </div>
         <!-- Datasets -->
@@ -172,9 +186,14 @@ export default {
     },
 
     async onRestart() {
-      const payload = { id: this.analysis.id };
-      await this.$store.dispatch("analysis/restartAnalysis", payload);
-      this.$emit("delete");
+      if (this.analysis.type === "cedp")
+        console.log(new CedpAnalysis(this.analysis));
+      else
+        console.log(this.analysis);
+
+      this.analysis.status = null;
+      this.analysis.data.id = this.analysis.id;
+      await this.$store.dispatch("analysis/runAnalysis", this.analysis);
     },
 
     getFileFormat(analysisType) {
