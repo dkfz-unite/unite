@@ -81,6 +81,10 @@ export default {
       type: Analysis,
       required: true
     },
+    creation: {
+      type: Boolean,
+      default: true
+    },
     optionsHeight: {
       type: [Number, String],
       default: 200,

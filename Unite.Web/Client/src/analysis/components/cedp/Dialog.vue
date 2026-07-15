@@ -25,6 +25,12 @@ export default {
     };
   },
 
+  watch: {
+    analysis(newValue) {
+      this.model = newValue;
+    }
+  },
+
   methods: {
     canShow(datasets) {
       return datasets?.length == 1 && datasets.every(dataset => dataset.data?.prot == true);

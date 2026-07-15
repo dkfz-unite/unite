@@ -24,6 +24,12 @@ export default {
     };
   },
 
+  watch: {
+    analysis(newValue) {
+      this.model = newValue;
+    }
+  },
+
   methods: {
     canShow(datasets) {
       return datasets?.length == 2 && datasets.every(dataset => dataset.data?.exp == true);
