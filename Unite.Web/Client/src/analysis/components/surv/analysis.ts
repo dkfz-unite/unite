@@ -12,8 +12,4 @@ export default class SurvAnalysis extends Analysis {
 
     return options;
   }
-
-  static create(datasets: any[]) {
-    return new SurvAnalysis(datasets);
-  }
 }

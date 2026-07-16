@@ -1,4 +1,6 @@
 import api, { getMetadataOptions } from "../api";
+import DepAnalysis from "../components/dep/analysis";
+import AnalysisFactory from "../components/_shared/analysis-factory";
 
 const PROCESSED_STATUS = "Processed";
 const FAILED_STATUS = "Failed";
@@ -10,9 +12,10 @@ const actions = {
     };
 
     const entries = await api.loadAnalyses(payload);
+
     const analyses = entries.map(entry => {
       entry.data = JSON.parse(entry.data);
-      return [entry.id, entry];
+      return [entry.id, AnalysisFactory.create(entry)];
     });
 
     state.analyses = new Map(analyses);

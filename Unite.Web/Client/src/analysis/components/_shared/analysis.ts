@@ -2,7 +2,12 @@ import FiltersCriteria from "@/_shared/components/filters/filters-criteria";
 import AnalysisType from "./analysis-type";
 import { OptionsGroup, IOption } from "./options";
 
+type AnalysisConstructor<T extends Analysis> = new (datasets: any[]) => T;
+
 export default abstract class Analysis {
+  id: string;
+  date: Date;
+  status: string;
   name: string;
   description: string;
   datasets: any[];
@@ -10,6 +15,9 @@ export default abstract class Analysis {
   abstract options: OptionsGroup[];
 
   constructor(datasets: any[]) {
+    this.id = null;
+    this.date = new Date();
+    this.status = null;
     this.name = null;
     this.description = null;
     this.datasets = datasets;
@@ -23,7 +31,7 @@ export default abstract class Analysis {
     this.name = null;
     this.description = null;
     this.resetOptions();
-  };
+  }
 
   findOption(key: string): IOption {
     if (this.options?.length > 0) {
@@ -47,7 +55,7 @@ export default abstract class Analysis {
 
   toPayload(): any {
     const data = {
-      id: null,
+      id: this.id,
       type: this.type,
       name: this.name,
       description: this.description,
@@ -60,7 +68,7 @@ export default abstract class Analysis {
     };
 
     return data;
-  };
+  }
 
   convertOptions(): any {
     const options = {};
@@ -90,5 +98,33 @@ export default abstract class Analysis {
     }
 
     return datasets;
+  }
+
+  static fromPayload<T extends Analysis>(this: AnalysisConstructor<T>, payload: any): T {
+    const analysis = new this([]);
+
+    Analysis.map(payload, analysis);
+
+    return analysis;
+  }
+
+  static map(from: any, to: Analysis): void {
+    to.id = from.id;
+    to.date = new Date(from.date);
+    to.status = from.status;
+    to.name = from.name;
+    to.description = from.description;
+
+    if (from.data?.options) {
+      for (const key in from.data.options) {
+        const option = to.findOption(key);
+        if (option)
+          option.value = from.data.options[key];
+      }
+    }
+
+    if (from.data?.datasets) {
+      to.datasets = from.data.datasets;
+    }
   }
 }

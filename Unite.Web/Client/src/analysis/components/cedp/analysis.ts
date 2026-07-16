@@ -26,8 +26,4 @@ export default class CedpAnalysis extends Analysis {
 
     return options;
   }
-
-  static create(datasets: any[]) {
-    return new CedpAnalysis(datasets);
-  }
 }

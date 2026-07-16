@@ -5,8 +5,4 @@ import options from "./options";
 export default class DepAnalysis extends Analysis {
   type = AnalysisType.DEP;
   options = options;
-
-  static create(datasets: any[]) {
-    return new DepAnalysis(datasets);
-  }
 }

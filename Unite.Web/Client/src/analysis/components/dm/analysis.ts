@@ -5,8 +5,4 @@ import options from "./options";
 export default class DmAnalysis extends Analysis {
   type = AnalysisType.DM;
   options = options;
-
-  static create(datasets: any[]) {
-    return new DmAnalysis(datasets);
-  }
 }

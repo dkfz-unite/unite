@@ -14,7 +14,7 @@
       <div class="col" :style="{ height: height + 'px', overflowY: 'auto' }">
         <q-tab-panels v-model="step" class="q-ma-none q-pa-none">
           <q-tab-panel v-for="(group, index) in options" :key="index" :name="index" class="q-px-none q-py-xs">
-            <div class="col q-gutter-sm">
+            <div class="col" :class="readonly ? 'q-gutter-xs' : 'q-gutter-sm'">
               <template v-for="option in group.options" :key="option.key">
                 <div v-if="show(option, group.options)" class="row">
                   <div class="col">

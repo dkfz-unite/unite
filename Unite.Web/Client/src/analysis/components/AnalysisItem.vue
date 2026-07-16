@@ -22,24 +22,30 @@
         <div class="row q-gutter-x-lg items-center">
           <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div>
           <div class="text-weight-regular">{{ $helpers.content.toDateTimeString(analysis.date) }}</div>
-          <q-btn v-if="analysis.data.options" no-caps flat dense>
-            <!-- Show Options Icon and label -->
+          <q-btn v-if="analysis.options" no-caps flat dense>
             <q-icon name="las la-sliders-h" size="xs" />
             <span class="text-weight-normal q-ml-xs">Options</span>
-            <q-popup-proxy>
-              <div class="col q-gutter-xs q-pa-sm">
+            <q-popup-proxy class="q-pa-sm q-pb-none">
+              <!-- <div class="col q-gutter-xs q-px-sm q-pt-sm">
                 <div v-for="(value, key) in analysis.data.options" class="row align-center q-gutter-x-xs">
                   <div class="text-grey-9">{{ key }}:</div>
                   <div class="text-weight-medium text-black">{{ value ?? "None" }}</div>
                 </div>
-              </div>
+              </div> -->
+              <u-options :options="analysis.options" :height="null" readonly />
             </q-popup-proxy>
           </q-btn>
           <div :class="`text-${getProgressColor(analysis.status)} text-weight-medium`">{{ analysis.status || "Created" }}</div>
         </div>
         <!-- Datasets -->
         <div class="row">
-          <div class="col">
+          <div class="col" v-if="analysis.datasets.length > 0">
+            <div v-for="dataset in analysis.datasets" class="row items-center q-gutter-xs">
+              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
+              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
+            </div>
+          </div>
+          <div class="col" v-else-if="!!analysis.data && analysis.data.datasets.length > 0">
             <div v-for="dataset in analysis.data.datasets" class="row items-center q-gutter-xs">
               <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
               <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
@@ -82,6 +88,7 @@ import UGafResults from "./gaf/Results.vue";
 import UDepResults from "./dep/Results.vue";
 import UUmappResults from "./umapp/Results.vue";
 import UScellResults from "./scell/Results.vue";
+import UOptions from "./_shared/componets/Options.vue";
 import mixin from "./analysis-mixin";
 
 import { exportFile } from "quasar";
@@ -96,7 +103,8 @@ export default {
     UGafResults,
     UDepResults,
     UUmappResults,
-    UScellResults
+    UScellResults,
+    UOptions
   },
 
   mixins: [mixin],
@@ -186,14 +194,8 @@ export default {
     },
 
     async onRestart() {
-      if (this.analysis.type === "cedp")
-        console.log(new CedpAnalysis(this.analysis));
-      else
-        console.log(this.analysis);
-
       this.analysis.status = null;
-      this.analysis.data.id = this.analysis.id;
-      await this.$store.dispatch("analysis/runAnalysis", this.analysis);
+      await this.$store.dispatch("analysis/runAnalysis", this.analysis.toPayload());
     },
 
     getFileFormat(analysisType) {
