@@ -3,7 +3,7 @@ import AnalysisType from "../_shared/analysis-type";
 import options from "./options";
 import { keys } from "./options";
 
-export default class CedpAnalysis extends Analysis {
+export default class GafAnalysis extends Analysis {
   type = AnalysisType.GAF;
   options = options;
 

@@ -102,14 +102,26 @@ export class SelectManyOption extends Option<string[]> implements ISelectOptionP
   }
 }
 
+export class FileOption extends Option<File> {
+  accept: string = null;
+  size: number = null;
+
+  constructor(params: IOptionParams & { accept?: string, size?: number }) {
+    super(params);
+    this.accept = params.accept || null;
+    this.size = params.size || null;
+  }
+}
+
 export class SelectValue {
   label: string;
   value: string;
-  isDefault: boolean = false;
+  details: string;
 
-  constructor(label: string, value: string) {
+  constructor(label: string, value: string, details: string = null) {
     this.label = label;
     this.value = value;
+    this.details = details;
   }
 }
 

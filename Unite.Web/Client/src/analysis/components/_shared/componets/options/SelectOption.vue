@@ -17,8 +17,33 @@
     @filter="onFilter"
     @clear="option.options = []"
     @update:model-value="onUpdate"
-    emit-value map-options dense options-dense square outlined
-  />
+    emit-value map-options dense options-dense square outlined>
+    <template v-slot:option="scope">
+      <q-item v-bind="scope.itemProps">
+        <q-item-section :class="{ 'q-py-xs': scope.opt.details }">
+          <q-item-label>{{ scope.opt.label }}</q-item-label>
+          <q-item-label v-if="scope.opt.details" class="text-wrap" style="max-width: 300px;" caption v-html="scope.opt.details" />
+        </q-item-section>
+      </q-item>
+    </template>
+    <!-- <template v-slot:option="scope">
+      <q-item v-bind="scope.itemProps">
+        <q-item-section class="q-py-xs">
+          <q-item-label class="text-weight-medium">{{ scope.opt.label }}</q-item-label>
+          <q-item-label class="text-wrap" style="max-width: 300px;" caption>{{ scope.opt.details }}</q-item-label>
+          <q-item-label caption>
+            <span>
+              <span>
+                <span class="text-weight-bold">{{ scope.opt.types }} types</span>
+              </span>
+              <span class="text-weight-bold q-ml-lg">{{ scope.opt.date }}</span>
+            </span>
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+    </template> -->
+
+  </q-select>
 </template>
 
 <script>
@@ -48,7 +73,19 @@ export default {
 
   computed: {
     label() {
-      return this.options?.find(option => option.value === this.option.value)?.label || this.option.value;
+      if (this.option instanceof SelectManyOption && this.option.value?.length > 0) {
+        const labels = [];
+
+        for (const value of this.option.value) {
+          const label = this.options?.find(option => option.value === value)?.label || value;
+          labels.push(label);
+        }
+
+        return labels.join(", ");
+      }
+      else {
+        return this.options?.find(option => option.value === this.option.value)?.label || this.option.value;
+      }
     },
 
     options() {

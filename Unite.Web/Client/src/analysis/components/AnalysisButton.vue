@@ -5,7 +5,7 @@
   <u-deg-dialog ref="DegDialog" />
   <u-gaf-dialog ref="GafDialog" />
   <u-dep-dialog ref="DepDialog" />
-  <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
+  <u-scell-dialog ref="ScellDialog" />
   <u-umapp-dialog ref="UmappDialog" />
   <u-cedp-dialog ref="cedpDialog" />
 
@@ -42,7 +42,12 @@
             <q-item-label>Gene Alteration Frequency</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="showScellAnalysis" @click="$refs.ScellDialog.show()" clickable v-close-popup dense>
+        <!-- <q-item v-if="showScellAnalysis" @click="$refs.ScellDialog.show()" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>scRNA Dataset Creation</q-item-label>
+          </q-item-section>
+        </q-item> -->
+        <q-item v-if="$refs.ScellDialog.canShow(datasets)" @click="$refs.ScellDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>scRNA Dataset Creation</q-item-label>
           </q-item-section>

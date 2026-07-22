@@ -67,15 +67,16 @@
     </div>
 
     <div v-if="analysis" class="col">
-      <u-cedp-viewer v-if="analysis.type === 'cedp'" :analysis="analysis" @delete="onDeleted" />
-      <u-deg-viewer v-else-if="analysis.type === 'deg'" :analysis="analysis" @delete="onDeleted" />
-      <u-dep-viewer v-else-if="analysis.type === 'dep'" :analysis="analysis" @delete="onDeleted" />
-      <u-dm-viewer v-else-if="analysis.type === 'dm'" :analysis="analysis" @delete="onDeleted" />
-      <u-pcam-viewer v-else-if="analysis.type === 'pcam'" :analysis="analysis" @delete="onDeleted" />
-      <u-surv-viewer v-else-if="analysis.type === 'surv'" :analysis="analysis" @delete="onDeleted" />
-      <u-umapp-viewer v-else-if="analysis.type === 'umapp'" :analysis="analysis" @delete="onDeleted" />
-      <u-gaf-viewer v-else-if="analysis.type === 'gaf'" :analysis="analysis" @delete="onDeleted" />
-      <u-analysis-item v-else :analysis="analysis" @delete="onDeleted" />
+      <u-cedp-viewer v-if="analysis.type === AnalysisType.CEDP" :analysis="analysis" @delete="onDeleted" />
+      <u-deg-viewer v-else-if="analysis.type === AnalysisType.DEG" :analysis="analysis" @delete="onDeleted" />
+      <u-dep-viewer v-else-if="analysis.type === AnalysisType.DEP" :analysis="analysis" @delete="onDeleted" />
+      <u-dm-viewer v-else-if="analysis.type === AnalysisType.DM" :analysis="analysis" @delete="onDeleted" />
+      <u-pcam-viewer v-else-if="analysis.type === AnalysisType.PCAM" :analysis="analysis" @delete="onDeleted" />
+      <u-surv-viewer v-else-if="analysis.type === AnalysisType.SURV" :analysis="analysis" @delete="onDeleted" />
+      <u-umapp-viewer v-else-if="analysis.type === AnalysisType.UMAPP" :analysis="analysis" @delete="onDeleted" />
+      <u-gaf-viewer v-else-if="analysis.type === AnalysisType.GAF" :analysis="analysis" @delete="onDeleted" />
+      <u-scell-viewer v-else-if="analysis.type === AnalysisType.SCELL" :analysis="analysis" @delete="onDeleted" />
+      <div v-else class="fixed-center"><span>Analysis type not supported</span></div>
     </div>
 
     <div v-if="!analyses?.size" class="col">
@@ -91,9 +92,6 @@ import UDrawer from "../_shared/components/base/Drawer.vue";
 import UAnalysesButtonShow from "./components/AnalysesButtonShow.vue";
 import UAnalysesButtonHide from "./components/AnalysesButtonHide.vue";
 import UAnalysisListItem from "./components/AnalysisListItem.vue";
-import UAnalysisItem from "./components/AnalysisItem.vue";
-import Settings from "@/_settings/settings";
-
 import UDepViewer from "./components/dep/Viewer.vue";
 import UCedpViewer from "./components/cedp/Viewer.vue";
 import UDegViewer from "./components/deg/Viewer.vue";
@@ -102,6 +100,10 @@ import UPcamViewer from "./components/pcam/Viewer.vue";
 import USurvViewer from "./components/surv/Viewer.vue";
 import UUmappViewer from "./components/umapp/Viewer.vue";
 import UGafViewer from "./components/gaf/Viewer.vue";
+import UScellViewer from "./components/scell/Viewer.vue";
+import Settings from "@/_settings/settings";
+import AnalysisType from "./components/_shared/analysis-type.js";
+
 
 export default {
   components: {
@@ -109,7 +111,6 @@ export default {
     UAnalysesButtonShow,
     UAnalysesButtonHide,
     UAnalysisListItem,
-    UAnalysisItem,
     UDepViewer,
     UCedpViewer,
     UDegViewer,
@@ -117,12 +118,14 @@ export default {
     UPcamViewer,
     USurvViewer,
     UUmappViewer,
-    UGafViewer
+    UGafViewer,
+    UScellViewer
   },
 
   setup() {
     return {
-      Settings
+      Settings,
+      AnalysisType
     }
   },
 
