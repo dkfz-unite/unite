@@ -37,41 +37,6 @@ export async function runAnalysis(type, data) {
   return await client.post(url, data);
 }
 
-export async function runSurvAnalysis(data) {
-  const url = `${analysisTaskUrl}/surv`;
-  return await client.post(url, data);
-}
-
-export async function runDmAnalysis(data) {
-  const url = `${analysisTaskUrl}/dm`;
-  return await client.post(url, data);
-}
-
-export async function runPcamAnalysis(data) {
-  const url = `${analysisTaskUrl}/pcam`;
-  return await client.post(url, data);
-}
-
-export async function runDegAnalysis(data) {
-  const url = `${analysisTaskUrl}/deg`;
-  return await client.post(url, data);
-}
-
-export async function runGafAnalysis(data) {
-  const url = `${analysisTaskUrl}/gaf`;
-  return await client.post(url, data);
-}
-
-export async function runDepAnalysis(data) {
-  const url = `${analysisTaskUrl}/dep`;
-  return await client.post(url, data);
-}
-
-export async function runScellAnalysis(data) {
-  const url = `${analysisTaskUrl}/scell`;
-  return await client.post(url, data);
-}
-
 export async function getScellAnalysisModels() {
   const url = `${analysisTaskUrl}/scell/models`;
   return await client.get(url);
@@ -114,13 +79,6 @@ export default {
   getAnalysisData,
   deleteAnalysis,
   runAnalysis,
-  runSurvAnalysis,
-  runDmAnalysis,
-  runPcamAnalysis,
-  runDegAnalysis,
-  runGafAnalysis,
-  runDepAnalysis,
-  runScellAnalysis,
   getScellAnalysisModels,
   viewScellAnalysis,
   updateScellAnalysis,

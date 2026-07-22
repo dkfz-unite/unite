@@ -81,41 +81,6 @@ const actions = {
     data.userid = this.getters["identity/account"].email;
     return await api.runAnalysis(data.type, data);
   },
-
-  async runSurvAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runSurvAnalysis(data);
-  },
-
-  async runDmAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runDmAnalysis(data);
-  },
-
-  async runPcamAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runPcamAnalysis(data);
-  },
-
-  async runDegAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runDegAnalysis(data);
-  },
-
-  async runGafAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runGafAnalysis(data);
-  },
-
-  async runDepAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runDepAnalysis(data);
-  },
-
-  async runScellAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runScellAnalysis(data);
-  },
   
   async getScellAnalysisModels({state}) {
     return await api.getScellAnalysisModels();
