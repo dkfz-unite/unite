@@ -74,6 +74,7 @@
       <u-pcam-viewer v-else-if="analysis.type === 'pcam'" :analysis="analysis" @delete="onDeleted" />
       <u-surv-viewer v-else-if="analysis.type === 'surv'" :analysis="analysis" @delete="onDeleted" />
       <u-umapp-viewer v-else-if="analysis.type === 'umapp'" :analysis="analysis" @delete="onDeleted" />
+      <u-gaf-viewer v-else-if="analysis.type === 'gaf'" :analysis="analysis" @delete="onDeleted" />
       <u-analysis-item v-else :analysis="analysis" @delete="onDeleted" />
     </div>
 
@@ -100,6 +101,7 @@ import UDmViewer from "./components/dm/Viewer.vue";
 import UPcamViewer from "./components/pcam/Viewer.vue";
 import USurvViewer from "./components/surv/Viewer.vue";
 import UUmappViewer from "./components/umapp/Viewer.vue";
+import UGafViewer from "./components/gaf/Viewer.vue";
 
 export default {
   components: {
@@ -114,7 +116,8 @@ export default {
     UDmViewer,
     UPcamViewer,
     USurvViewer,
-    UUmappViewer
+    UUmappViewer,
+    UGafViewer
   },
 
   setup() {

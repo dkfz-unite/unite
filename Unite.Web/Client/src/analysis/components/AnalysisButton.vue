@@ -3,7 +3,7 @@
   <u-dm-dialog ref="DmDialog" />
   <u-pcam-dialog ref="PcamDialog" />
   <u-deg-dialog ref="DegDialog" />
-  <u-gaf-dialog v-if="showGafAnalysis" ref="GafDialog" :datasets="datasets" />
+  <u-gaf-dialog ref="GafDialog" />
   <u-dep-dialog ref="DepDialog" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
   <u-umapp-dialog ref="UmappDialog" />
@@ -37,7 +37,7 @@
             <q-item-label>Differential <strong>Protein</strong> Expression</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="showGafAnalysis" @click="$refs.GafDialog.show()" clickable v-close-popup dense>
+        <q-item v-if="$refs.GafDialog.canShow(datasets)" @click="$refs.GafDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Gene Alteration Frequency</q-item-label>
           </q-item-section>
@@ -101,11 +101,6 @@ export default {
   },
 
   computed: {
-    showGafAnalysis() {
-      return this.datasets?.length == 1 &&
-             this.datasets?.every(dataset => dataset.data?.sms === true);
-    },
-
     showScellAnalysis() {
       return this.datasets?.length == 1 &&
              this.datasets?.every(dataset => dataset.data?.expSc == true);
@@ -118,7 +113,7 @@ export default {
           || this.$refs.DmDialog?.canShow(this.datasets)
           || this.$refs.PcamDialog?.canShow(this.datasets)
           || this.$refs.DegDialog?.canShow(this.datasets)
-          || this.showGafAnalysis
+          || this.$refs.GafDialog?.canShow(this.datasets)
           || this.$refs.DepDialog?.canShow(this.datasets)
           || this.showScellAnalysis
           || this.$refs.UmappDialog?.canShow(this.datasets)

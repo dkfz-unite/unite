@@ -20,7 +20,7 @@ export default {
       required: true
     },
     data: {
-      type: Array,
+      type: [String, Array, Object, Blob],
       required: true
     }
   },

@@ -7,6 +7,7 @@ import DmAnalysis from "../dm/analysis";
 import PcamAnalysis from "../pcam/analysis";
 import SurvAnalysis from "../surv/analysis";
 import UmappAnalysis from "../umapp/analysis";
+import GafAnalysis from "../gaf/analysis";
 
 export default class AnalysisFactory {
   static create(payload: any): Analysis {
@@ -20,6 +21,7 @@ export default class AnalysisFactory {
       case AnalysisType.PCAM: return PcamAnalysis.fromPayload(payload);
       case AnalysisType.SURV: return SurvAnalysis.fromPayload(payload);
       case AnalysisType.UMAPP: return UmappAnalysis.fromPayload(payload);
+      case AnalysisType.GAF: return GafAnalysis.fromPayload(payload);
       default: return payload;
     }
   }
