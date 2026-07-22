@@ -12,10 +12,10 @@ export default class CedpAnalysis extends Analysis {
     const gene = this.findOption(keys.gene);
     const protein = this.findOption(keys.protein);
     const conditionProperty = this.findOption(keys.condition_property);
-
+    
     return conditionProperty.value != null &&
-         ((feature.value === "gene" && gene.value != null) ||
-          (feature.value === "protein" && protein.value != null));
+           ((feature.value === "gene" && gene.value != null) ||
+            (feature.value === "protein" && protein.value != null));
   }
 
   convertOptions() {

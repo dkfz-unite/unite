@@ -67,7 +67,14 @@
     </div>
 
     <div v-if="analysis" class="col">
-      <u-analysis-item :analysis="analysis" @delete="onDeleted" />
+      <u-cedp-viewer v-if="analysis.type === 'cedp'" :analysis="analysis" @delete="onDeleted" />
+      <u-deg-viewer v-else-if="analysis.type === 'deg'" :analysis="analysis" @delete="onDeleted" />
+      <u-dep-viewer v-else-if="analysis.type === 'dep'" :analysis="analysis" @delete="onDeleted" />
+      <u-dm-viewer v-else-if="analysis.type === 'dm'" :analysis="analysis" @delete="onDeleted" />
+      <u-pcam-viewer v-else-if="analysis.type === 'pcam'" :analysis="analysis" @delete="onDeleted" />
+      <u-surv-viewer v-else-if="analysis.type === 'surv'" :analysis="analysis" @delete="onDeleted" />
+      <u-umapp-viewer v-else-if="analysis.type === 'umapp'" :analysis="analysis" @delete="onDeleted" />
+      <u-analysis-item v-else :analysis="analysis" @delete="onDeleted" />
     </div>
 
     <div v-if="!analyses?.size" class="col">
@@ -86,6 +93,14 @@ import UAnalysisListItem from "./components/AnalysisListItem.vue";
 import UAnalysisItem from "./components/AnalysisItem.vue";
 import Settings from "@/_settings/settings";
 
+import UDepViewer from "./components/dep/Viewer.vue";
+import UCedpViewer from "./components/cedp/Viewer.vue";
+import UDegViewer from "./components/deg/Viewer.vue";
+import UDmViewer from "./components/dm/Viewer.vue";
+import UPcamViewer from "./components/pcam/Viewer.vue";
+import USurvViewer from "./components/surv/Viewer.vue";
+import UUmappViewer from "./components/umapp/Viewer.vue";
+
 export default {
   components: {
     UDrawer,
@@ -93,6 +108,13 @@ export default {
     UAnalysesButtonHide,
     UAnalysisListItem,
     UAnalysisItem,
+    UDepViewer,
+    UCedpViewer,
+    UDegViewer,
+    UDmViewer,
+    UPcamViewer,
+    USurvViewer,
+    UUmappViewer
   },
 
   setup() {

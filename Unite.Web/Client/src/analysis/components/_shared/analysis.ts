@@ -100,6 +100,25 @@ export default abstract class Analysis {
     return datasets;
   }
 
+  clone(to: Analysis): void {
+    to.id = this.id;
+    to.date = this.date;
+    to.status = this.status;
+    to.name = this.name;
+    to.description = this.description;
+    to.datasets = this.datasets;
+
+    if (this.options?.length > 0) {
+      for (const step of this.options) {
+        for (const option of step.options) {
+          const toOption = to.findOption(option.key);
+          if (toOption)
+            toOption.value = option.value;
+        }
+      }
+    }
+  }
+
   static fromPayload<T extends Analysis>(this: AnalysisConstructor<T>, payload: any): T {
     const analysis = new this([]);
 

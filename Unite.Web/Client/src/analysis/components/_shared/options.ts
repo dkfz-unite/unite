@@ -17,8 +17,10 @@ export class OptionsGroup {
 export interface IOptionParams {
   key: string;
   title: string;
+  hint?: string;
   default?: any;
   show?: (options: IOption[]) => boolean;
+  watch?: (options: IOption[], option: IOption) => void;
 }
 
 export interface IOption extends IOptionParams {
@@ -30,9 +32,11 @@ export interface IOption extends IOptionParams {
 export abstract class Option<T> implements IOption {
   key: string;
   title: string;
+  hint: string;
   value: T;
   default: T;
   show: (options: IOption[]) => boolean = null;
+  watch: (options: IOption[], option: IOption) => void = null;
 
   reset(): void {
     this.value = this.default;
@@ -41,9 +45,11 @@ export abstract class Option<T> implements IOption {
   constructor(params: IOptionParams) {
     this.key = params.key;
     this.title = params.title;
+    this.hint = params.hint;
     this.default = params.default;
     this.value = params.default;
     this.show = params.show;
+    this.watch = params.watch;
   }
 }
 
@@ -76,6 +82,17 @@ export interface ISelectOptionParams extends IOptionParams {
 
 export class SelectOption extends Option<string> implements ISelectOptionParams {
   options: SelectValue[] = [];
+  lazy: SelectMethod = null;
+
+  constructor(params: ISelectOptionParams) {
+    super(params);
+    this.options = params.options || [];
+    this.lazy = params.lazy || null;
+  }
+}
+
+export class SelectManyOption extends Option<string[]> implements ISelectOptionParams {
+  options: SelectValue[] = []
   lazy: SelectMethod = null;
 
   constructor(params: ISelectOptionParams) {

@@ -37,7 +37,7 @@ export default {
       required: true
     },
     data: {
-      type: Object,
+      type: [String, Array, Object, Blob],
       required: true
     }
   },

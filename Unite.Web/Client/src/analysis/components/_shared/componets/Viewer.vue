@@ -1,0 +1,212 @@
+<template>
+  <slot name="dialog" />
+
+  <q-card flat bordered class="q-pa-none">
+    <!-- Controls -->
+    <q-card-section class="q-pa-none q-ma-none">
+      <div class="row items-center q-gutter-x-sm q-ml-xs">
+        <q-btn :disable="!isReady" @click="onDownload" icon="las la-file-download" color="secondary" no-caps dense flat>Download</q-btn>
+        <q-btn :disable="!isEnded" @click="onRestart" icon="las la-redo-alt" color="orange" no-caps dense flat></q-btn>
+        <q-btn :disable="!isEnded" @click="onDelete" icon="las la-trash" color="red" no-caps flat dense>Delete</q-btn>
+      </div>
+    </q-card-section>
+
+    <q-separator />
+
+    <!-- Analysis -->
+    <q-card-section>
+      <div class="col q-gutter-y-xs">
+        <!-- Name -->
+        <div class="row text-h6">{{ analysis.name || analysis.id }}</div>
+
+        <!-- Description -->
+        <div class="row" v-if="analysis.description"> {{ analysis.description }}</div>
+
+        <!-- Type, Date, Status, Options -->
+        <div class="row q-gutter-x-lg items-center">
+          <!-- Type -->
+          <!-- <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div> -->
+          <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div>
+          <!-- Date -->
+          <div class="text-weight-regular">{{ $helpers.content.toDateTimeString(analysis.date) }}</div>
+          <!-- Options -->
+          <q-btn v-if="analysis.options" no-caps flat dense>
+            <q-icon name="las la-sliders-h" size="xs" />
+            <span class="text-weight-normal q-ml-xs">Options</span>
+            <q-popup-proxy class="q-pa-sm q-pb-none">
+              <!-- <div class="col q-gutter-xs q-px-sm q-pt-sm">
+                <div v-for="(value, key) in analysis.data.options" class="row align-center q-gutter-x-xs">
+                  <div class="text-grey-9">{{ key }}:</div>
+                  <div class="text-weight-medium text-black">{{ value ?? "None" }}</div>
+                </div>
+              </div> -->
+              <u-options :options="analysis.options" :height="null" readonly />
+            </q-popup-proxy>
+          </q-btn>
+          <!-- Status -->
+          <div :class="`text-${getProgressColor(analysis.status)} text-weight-medium`">{{ analysis.status || "Created" }}</div>
+        </div>
+
+        <!-- Datasets -->
+        <div class="row">
+          <u-datasets :datasets="analysis.datasets" />
+
+          <!-- <div class="col" v-if="analysis.datasets.length > 0">
+            <div v-for="dataset in analysis.datasets" class="row items-center q-gutter-xs">
+              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
+              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
+            </div>
+          </div>
+          <div class="col" v-else-if="!!analysis.data && analysis.data.datasets.length > 0">
+            <div v-for="dataset in analysis.data.datasets" class="row items-center q-gutter-xs">
+              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
+              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
+            </div>
+          </div> -->
+        </div>
+
+        <!-- Results Button -->
+        <div class="row items-center q-gutter-x-lg">
+          <div v-if="isReady && !analysis.results">
+            <q-btn @click="onLoad" color="blue-5" no-caps dense flat>Show results</q-btn>
+          </div>
+        </div>
+      </div>
+    </q-card-section>
+
+    <q-separator />
+
+    <!-- Results -->
+    <q-card-section v-if="isReady && !!analysis.results" class="q-pa-none q-ma-none">
+      <div class="col q-pa-sm" :style="{ minHeight: $q.screen.height * 0.62 + 'px'}">
+        <slot name="results" />
+      </div>
+    </q-card-section>
+  </q-card>
+</template>
+
+<script>
+import UDatasets from "./Datasets.vue";
+import UOptions from "./Options.vue";
+import mixin from "../../analysis-mixin.js";
+
+import { exportFile } from "quasar";
+import Settings from "@/_settings/settings";
+
+export default {
+  components: {
+    UDatasets,
+    UOptions
+  },
+
+  mixins: [mixin],
+
+  props: {
+    analysis: {
+      type: Object,
+      required: true
+    },
+    dialog: {
+      type: Object,
+      default: () => null
+    }
+  },
+
+  setup() {
+    return {
+      Settings
+    }
+  },
+
+  emits: ["load", "download", "delete"],
+
+  computed: {
+    isReady() {
+      return this.analysis.status == "Processed";
+    },
+
+    isFailed() {
+      return this.analysis.status == "Failed";
+    },
+
+    isEnded() {
+      return this.isReady || this.isFailed;
+    }
+  },
+
+  methods: {
+    async onLoad() {
+      if (this.analysis.type === "pcam") {
+        if (!this.analysis.meta) {
+          const payload = { id: this.analysis.id, file: "metadata" };
+          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+          this.analysis.meta = content;
+        }
+      } else if (this.analysis.type === "dep") {
+         if (!this.analysis.meta) {
+          const payload = { id: this.analysis.id, file: "annotations.tsv" };
+          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+          this.analysis.meta = content;
+        }
+      } else if (this.analysis.type === "umapp") {
+         if (!this.analysis.meta) {
+          const payload = { id: this.analysis.id, file: "annotations.tsv" };
+          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+          this.analysis.meta = content;
+        }
+      }
+
+      if (!this.analysis.results) {
+        const payload = { id: this.analysis.id };
+        const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+        this.analysis.results = content;
+      }
+
+      this.$emit("load");
+    },
+
+    async onDownload() {
+      const payload = { id: this.analysis.id };
+      const format = this.getFileFormat(this.analysis.type);
+      const content = await this.$store.dispatch("analysis/loadAnalysisData", payload);
+      exportFile(`${this.analysis.id}.${format.ext}`, content, format.type);
+
+       this.$emit("download");
+    },
+
+    async onDelete() {
+      const payload = { id: this.analysis.id };
+      this.$store.dispatch("analysis/deleteAnalysis", payload);
+
+      this.$emit("delete");
+    },
+
+    async onRestart() {
+      this.dialog?.showEdit(this.analysis);
+    },
+
+    getFileFormat(analysisType) {
+      switch (analysisType) {
+        case "surv":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "dm":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "pcam":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "deg":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "dep":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "gaf":
+          return { type: "application/octet-stream", ext: "json" };
+        case "umapp":
+          return { type: "application/octet-stream", ext: "zip" };
+        case "scell":
+          return { type: "application/octet-stream", ext: "zip" };
+        default:
+          throw new Error(`Unknown analysis type: ${analysisType}`);
+      }
+    }
+  }
+}
+</script>

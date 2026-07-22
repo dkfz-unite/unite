@@ -1,38 +1,38 @@
 <template>
-  <u-surv-dialog ref="SurvDialog" :datasets="datasets" />
-  <u-dm-dialog ref="DmDialog" :datasets="datasets" />
-  <u-pcam-dialog ref="PcamDialog" :datasets="datasets" />
-  <u-deg-dialog ref="DegDialog" :datasets="datasets" />
+  <u-surv-dialog ref="SurvDialog" />
+  <u-dm-dialog ref="DmDialog" />
+  <u-pcam-dialog ref="PcamDialog" />
+  <u-deg-dialog ref="DegDialog" />
   <u-gaf-dialog v-if="showGafAnalysis" ref="GafDialog" :datasets="datasets" />
-  <u-dep-dialog ref="DepDialog" :datasets="datasets" />
+  <u-dep-dialog ref="DepDialog" />
   <u-scell-dialog v-if="showScellAnalysis" ref="ScellDialog" :datasets="datasets" />
-  <u-umapp-dialog ref="UmappDialog" :datasets="datasets" />
-  <u-cedp-dialog ref="cedpDialog" :datasets="datasets" />
+  <u-umapp-dialog ref="UmappDialog" />
+  <u-cedp-dialog ref="cedpDialog" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis()" flat dense no-caps>
     <q-menu>
       <q-list>
-        <q-item v-if="$refs.SurvDialog.canShow(datasets)" @click="$refs.SurvDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.SurvDialog.canShow(datasets)" @click="$refs.SurvDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Survival Curve Estimation</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="$refs.DmDialog.canShow(datasets)" @click="$refs.DmDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.DmDialog.canShow(datasets)" @click="$refs.DmDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Differential Methylation</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="$refs.PcamDialog.canShow(datasets)" @click="$refs.PcamDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.PcamDialog.canShow(datasets)" @click="$refs.PcamDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>PCA of Methylation Profiles</q-item-label>
         </q-item-section>
         </q-item>
-        <q-item v-if="$refs.DegDialog.canShow(datasets)" @click="$refs.DegDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.DegDialog.canShow(datasets)" @click="$refs.DegDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Differential <strong>Gene</strong> Expression</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="$refs.DepDialog.canShow(datasets)" @click="$refs.DepDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.DepDialog.canShow(datasets)" @click="$refs.DepDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>Differential <strong>Protein</strong> Expression</q-item-label>
           </q-item-section>
@@ -47,12 +47,12 @@
             <q-item-label>scRNA Dataset Creation</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="$refs.UmappDialog.canShow(datasets)" @click="$refs.UmappDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.UmappDialog.canShow(datasets)" @click="$refs.UmappDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>UMAP of <strong>Protein</strong> Expression Profiles</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="$refs.cedpDialog.canShow(datasets)" @click="$refs.cedpDialog.show(datasets)" clickable v-close-popup dense>
+        <q-item v-if="$refs.cedpDialog.canShow(datasets)" @click="$refs.cedpDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label><strong>Protein</strong> expression distribution per condition</q-item-label>
           </q-item-section>

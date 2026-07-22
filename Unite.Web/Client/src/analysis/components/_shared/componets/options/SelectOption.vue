@@ -5,27 +5,29 @@
     <div>{{ label }}</div>
   </div>
   <!-- Editable -->
-  <q-select
-    v-else
+  <q-select v-else
     v-model="option.value"
     :options="options"
     :label="option.title"
     :loading="loading"
+    :multiple="multiple"
+    :use-chips="multiple"
     :use-input="writable"
     :clearable="writable"
     @filter="onFilter"
     @clear="option.options = []"
+    @update:model-value="onUpdate"
     emit-value map-options dense options-dense square outlined
   />
 </template>
 
 <script>
-import { SelectOption, SelectMethod } from "../../options";
+import { SelectOption, SelectManyOption, SelectMethod } from "../../options";
 
 export default {
   props: {
     option: {
-      type: SelectOption,
+      type: [SelectOption, SelectManyOption],
       required: true
     },
     readonly: {
@@ -34,7 +36,7 @@ export default {
     }
   },
 
-  emits: ['request'],
+  emits: ["request", "update"],
 
   data() {
     return {
@@ -55,6 +57,10 @@ export default {
 
     writable() {
       return this.option.lazy == SelectMethod.Filter;
+    },
+
+    multiple() {
+      return this.option instanceof SelectManyOption;
     }
   },
 
@@ -96,6 +102,10 @@ export default {
       this.update = update;
       this.abort = abort;
       this.$emit('request', { option: this.option, value: val });
+    },
+
+    onUpdate() {
+      this.$emit('update', this.option);
     }
   }
 }

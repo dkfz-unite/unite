@@ -1,10 +1,12 @@
-import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectValue, SelectMethod, IOption } from "../_shared/options";
+import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectManyOption, SelectValue, SelectMethod, IOption } from "../_shared/options";
 
 export const keys = {
   feature_type: "feature_type",
   protein: "protein",
   gene: "gene",
   condition_property: "condition_property",
+  condition_value: "condition_value",
+  model_type: "model_type",
   normalization_method: "normalization_method",
   normalization_log_offset: "normalization_log_offset",
   imputation_method: "imputation_method",
@@ -28,17 +30,17 @@ const options = [
     }), 
     
     new SelectOption({
-      key: keys.protein,
-      title: "Protein",
-      lazy: SelectMethod.Filter,
-      show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "protein"
-    }),
-
-    new SelectOption({
       key: keys.gene,
       title: "Gene",
       lazy: SelectMethod.Filter,
-      show: (options: IOption[]) => options?.find(o => o.key === "feature_type")?.value === "gene"
+      show: (options: IOption[]) => options?.find(o => o.key === keys.feature_type)?.value === "gene"
+    }),
+
+    new SelectOption({
+      key: keys.protein,
+      title: "Protein",
+      lazy: SelectMethod.Filter,
+      show: (options: IOption[]) => options?.find(o => o.key === keys.feature_type)?.value === "protein"
     }),
 
     new SelectOption({
@@ -46,6 +48,26 @@ const options = [
       title: "Condition property",
       options: [],
       lazy: SelectMethod.Once
+    }),
+
+    new SelectManyOption({
+      key: keys.condition_value,
+      title: "Condition value(s) (optional)",
+      options: [],
+      lazy: SelectMethod.Once,
+      show: (options: IOption[]) => options?.find(o => o.key === keys.condition_property)?.value != null
+    }),
+
+    new SelectOption({
+      key: keys.model_type,
+      title: "Linear model type",
+      hint: "<b>Ordinary Least-Squares</b> - Standard linear model with ordinary least squares regression.<br>" +
+            "<b>Robust Rank-Based</b> - Robust linear model with rank-based estimation.",
+      default: "lm",
+      options: [
+        new SelectValue("Ordinary Least-Squares", "lm"),
+        new SelectValue("Robust Rank-Based", "rfit")
+      ]
     })
   ]),
 

@@ -97,6 +97,11 @@ export async function getMetadataOptions() {
   return await client.get(url);
 }
 
+export async function getMetadataValues(property) {
+  const url = `${analysisUrl}/metadata/values?key=${property}`;
+  return await client.get(url);
+}
+
 export async function getAutocompleteOptions(data) {
   const url = `${composerUrl}/autocomplete?model=${data.model}&field=${data.field}&query=${data.query || ""}`;
   return await client.get(url);
@@ -121,5 +126,6 @@ export default {
   updateScellAnalysis,
   stopScellAnalysis,
   getMetadataOptions,
+  getMetadataValues,
   getAutocompleteOptions
 };
