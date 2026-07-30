@@ -25,7 +25,6 @@
         <!-- Type, Date, Status, Options -->
         <div class="row q-gutter-x-lg items-center">
           <!-- Type -->
-          <!-- <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div> -->
           <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div>
           <!-- Date -->
           <div class="text-weight-regular">{{ $helpers.content.toDateTimeString(analysis.date) }}</div>
@@ -34,12 +33,6 @@
             <q-icon name="las la-sliders-h" size="xs" />
             <span class="text-weight-normal q-ml-xs">Options</span>
             <q-popup-proxy class="q-pa-sm q-pb-none">
-              <!-- <div class="col q-gutter-xs q-px-sm q-pt-sm">
-                <div v-for="(value, key) in analysis.data.options" class="row align-center q-gutter-x-xs">
-                  <div class="text-grey-9">{{ key }}:</div>
-                  <div class="text-weight-medium text-black">{{ value ?? "None" }}</div>
-                </div>
-              </div> -->
               <u-options :options="analysis.options" :height="null" readonly />
             </q-popup-proxy>
           </q-btn>
@@ -50,19 +43,6 @@
         <!-- Datasets -->
         <div class="row">
           <u-datasets :datasets="analysis.datasets" />
-
-          <!-- <div class="col" v-if="analysis.datasets.length > 0">
-            <div v-for="dataset in analysis.datasets" class="row items-center q-gutter-xs">
-              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
-              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
-            </div>
-          </div>
-          <div class="col" v-else-if="!!analysis.data && analysis.data.datasets.length > 0">
-            <div v-for="dataset in analysis.data.datasets" class="row items-center q-gutter-xs">
-              <q-icon :name="Settings[dataset.domain]?.icon" size="sm"/>
-              <u-link :to="{ name: 'datasets', params: { domain: dataset.domain, id: dataset.id } }">{{ dataset.name }}</u-link>
-            </div>
-          </div> -->
         </div>
 
         <!-- Results Button -->
@@ -90,6 +70,7 @@ import UDatasets from "./Datasets.vue";
 import UOptions from "./Options.vue";
 import mixin from "../../analysis-mixin.js";
 
+import AnalysisType from "../analysis-type.js";
 import { exportFile } from "quasar";
 import Settings from "@/_settings/settings";
 
@@ -109,7 +90,11 @@ export default {
     dialog: {
       type: Object,
       default: () => null
-    }
+    },
+    loader: {
+      type: Function,
+      default: () => null
+    },
   },
 
   setup() {
@@ -136,24 +121,8 @@ export default {
 
   methods: {
     async onLoad() {
-      if (this.analysis.type === "pcam") {
-        if (!this.analysis.meta) {
-          const payload = { id: this.analysis.id, file: "metadata" };
-          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
-          this.analysis.meta = content;
-        }
-      } else if (this.analysis.type === "dep") {
-         if (!this.analysis.meta) {
-          const payload = { id: this.analysis.id, file: "annotations.tsv" };
-          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
-          this.analysis.meta = content;
-        }
-      } else if (this.analysis.type === "umapp") {
-         if (!this.analysis.meta) {
-          const payload = { id: this.analysis.id, file: "annotations.tsv" };
-          const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
-          this.analysis.meta = content;
-        }
+      if (this.loader != null) {
+        await this.loader();
       }
 
       if (!this.analysis.results) {
@@ -186,25 +155,14 @@ export default {
     },
 
     getFileFormat(analysisType) {
-      switch (analysisType) {
-        case "surv":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "dm":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "pcam":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "deg":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "dep":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "gaf":
-          return { type: "application/octet-stream", ext: "json" };
-        case "umapp":
-          return { type: "application/octet-stream", ext: "zip" };
-        case "scell":
-          return { type: "application/octet-stream", ext: "zip" };
-        default:
-          throw new Error(`Unknown analysis type: ${analysisType}`);
+      const knownType = Object.values(AnalysisType).includes(analysisType);
+
+      if (!knownType) {
+        throw new Error(`Unknown analysis type: ${analysisType}`);
+      } else if (analysisType == AnalysisType.GAF) {
+        return { type: "application/json", ext: "json" };
+      } else {
+        return { type: "application/octet-stream", ext: "zip" };
       }
     }
   }

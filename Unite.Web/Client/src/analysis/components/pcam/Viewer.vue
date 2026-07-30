@@ -1,5 +1,5 @@
 <template>
-  <u-viewer :analysis="analysis" :dialog="dialog" @delete="$emit('delete')">
+  <u-viewer :analysis="analysis" :dialog="dialog" :loader="onLoad" @delete="$emit('delete')">
     <template #dialog>
       <u-dialog ref="dialog" />
     </template>
@@ -40,6 +40,16 @@ export default {
 
   mounted() {
     this.dialog = this.$refs.dialog;
+  },
+
+  methods: {
+    async onLoad() {
+      if (!this.analysis.meta) {
+        const payload = { id: this.analysis.id, file: "metadata" };
+        const content = await this.$store.dispatch("analysis/loadAnalysisMeta", payload);
+        this.analysis.meta = content;
+      }
+    }
   }
 }
 </script>

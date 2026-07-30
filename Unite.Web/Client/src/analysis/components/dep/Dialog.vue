@@ -1,5 +1,5 @@
 <template>
-  <u-dialog ref="dialog" :options-height="260" />
+  <u-dialog ref="dialog" :options-height="290" />
 </template>
 
 <script>
