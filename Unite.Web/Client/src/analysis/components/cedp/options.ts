@@ -2,8 +2,7 @@ import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectManyOpti
 
 export const keys = {
   feature_type: "feature_type",
-  protein: "protein",
-  gene: "gene",
+  feature_name: "feature_name",
   condition_property: "condition_property",
   condition_value: "condition_value",
   model_type: "model_type",
@@ -30,17 +29,9 @@ const options = [
     }), 
     
     new SelectOption({
-      key: keys.gene,
-      title: "Gene",
-      lazy: SelectMethod.Filter,
-      show: (options: IOption[]) => options?.find(o => o.key === keys.feature_type)?.value === "gene"
-    }),
-
-    new SelectOption({
-      key: keys.protein,
-      title: "Protein",
-      lazy: SelectMethod.Filter,
-      show: (options: IOption[]) => options?.find(o => o.key === keys.feature_type)?.value === "protein"
+      key: keys.feature_name,
+      title: "Feature",
+      lazy: SelectMethod.Filter
     }),
 
     new SelectOption({

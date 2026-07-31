@@ -39,24 +39,28 @@ export default {
 
     async onRequest(params) {
       // TODO: simplify this
-      if ([keys.condition_property].includes(params.option.key)) {
+      if (params.option.key == keys.condition_property) {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");
         params.option.options = values.map(value => new SelectValue(value, value));
-      } else if ([keys.condition_value].includes(params.option.key)) {
+      } else if (params.option.key == keys.condition_value) {
         const property = this.analysis.findOption(keys.condition_property).value;
         const values = await this.$store.dispatch("analysis/getMetadataValues", { property: property });
         params.option.options = values.map(value => new SelectValue(value, value));
-      } else if ([keys.gene, keys.protein].includes(params.option.key)) {
-        const values = await this.$store.dispatch("analysis/getAutocompleteOptions", { model: params.option.key, field: "symbol", query: params.value });
+      } else if (params.option.key == keys.feature_name) {
+        const featureType = this.analysis.findOption(keys.feature_type).value;
+        const values = await this.$store.dispatch("analysis/getAutocompleteOptions", { model: featureType, field: "symbol", query: params.value });
         params.option.options = values.map(value => new SelectValue(value, value));
       }
     },
 
     async onUpdate(option) {
-      if ([keys.condition_property].includes(option.key)) {
+      if (option.key == keys.feature_type) {
+        const featureNameOption = this.analysis.findOption(keys.feature_name);
+        featureNameOption.value = null;
+        featureNameOption.options = [];
+      } else if (option.key == keys.condition_property) {
         const valueOption = this.analysis.findOption(keys.condition_value);
         const values = await this.$store.dispatch("analysis/getMetadataValues", { property: option.value });
-
         valueOption.value = null;
         valueOption.options = values.map(value => new SelectValue(value, value));
       }

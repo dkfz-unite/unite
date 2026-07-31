@@ -8,22 +8,9 @@ export default class CedpAnalysis extends Analysis {
   options = options;
 
   canSubmit(): boolean {
-    const feature = this.findOption(keys.feature_type);
-    const gene = this.findOption(keys.gene);
-    const protein = this.findOption(keys.protein);
+    const featureName = this.findOption(keys.feature_name);
     const conditionProperty = this.findOption(keys.condition_property);
     
-    return conditionProperty.value != null &&
-           ((feature.value === "gene" && gene.value != null) ||
-            (feature.value === "protein" && protein.value != null));
-  }
-
-  convertOptions() {
-    let options = super.convertOptions();
-    options.feature = options.gene || options.protein;
-    delete options.gene;
-    delete options.protein;
-
-    return options;
+    return featureName.value != null && conditionProperty.value != null;
   }
 }
