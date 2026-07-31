@@ -8,7 +8,8 @@ enum AnalysisType {
   GAF = "gaf",
   SCELL = "scell",
   SURV = "surv",
-  UMAPP = "umapp"
+  UMAPP = "umapp",
+  CNVP = "cnv-profile"
 }
 
 export default AnalysisType;
@@ -23,5 +24,6 @@ export const AnalysisTitle : Record<AnalysisType, string> = {
   [AnalysisType.GAF]: "Gene alteration frequency",
   [AnalysisType.SCELL]: "Single cell dataset creation",
   [AnalysisType.SURV]: "Survival curve estimation",
-  [AnalysisType.UMAPP]: "UMAP of protein expression profiles"
+  [AnalysisType.UMAPP]: "UMAP of protein expression profiles",
+  [AnalysisType.CNVP]: "CNV Profiles"
 }
