@@ -8,6 +8,7 @@
   <u-scell-dialog ref="ScellDialog" />
   <u-umapp-dialog ref="UmappDialog" />
   <u-cedp-dialog ref="cedpDialog" />
+  <u-cnvp-dialog ref="cnvpDialog" />
 
   <q-btn label="Analysis" icon="las la-chart-pie" :disable="!enableAnalysis()" flat dense no-caps>
     <q-menu>
@@ -42,11 +43,6 @@
             <q-item-label>Gene Alteration Frequency</q-item-label>
           </q-item-section>
         </q-item>
-        <!-- <q-item v-if="showScellAnalysis" @click="$refs.ScellDialog.show()" clickable v-close-popup dense>
-          <q-item-section>
-            <q-item-label>scRNA Dataset Creation</q-item-label>
-          </q-item-section>
-        </q-item> -->
         <q-item v-if="$refs.ScellDialog.canShow(datasets)" @click="$refs.ScellDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
             <q-item-label>scRNA Dataset Creation</q-item-label>
@@ -59,7 +55,12 @@
         </q-item>
         <q-item v-if="$refs.cedpDialog.canShow(datasets)" @click="$refs.cedpDialog.showNew(datasets)" clickable v-close-popup dense>
           <q-item-section>
-            <q-item-label><strong>Protein</strong> expression distribution per condition</q-item-label>
+            <q-item-label><strong>Protein</strong> Expression Distribution per Condition</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item v-if="$refs.cnvpDialog.canShow(datasets)" @click="$refs.cnvpDialog.showNew(datasets)" clickable v-close-popup dense>
+          <q-item-section>
+            <q-item-label>CNV Profiles Grid</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -77,7 +78,7 @@ import UDepDialog from "./dep/Dialog.vue";
 import UScellDialog from "./scell/Dialog.vue";
 import UUmappDialog from "./umapp/Dialog.vue";
 import UCedpDialog from "./cedp/Dialog.vue";
-import CedpAnalysis from "./cedp/analysis";
+import UCnvpDialog from "./cnvp/Dialog.vue";
 
 export default {
   components: {
@@ -89,7 +90,8 @@ export default {
     UDepDialog,
     UScellDialog,
     UUmappDialog,
-    UCedpDialog
+    UCedpDialog,
+    UCnvpDialog
   },
 
   props: {
@@ -97,12 +99,6 @@ export default {
       type: Array,
       default: () => [],
     },
-  },
-
-  setup() {
-    return {
-      CedpAnalysis
-    }
   },
 
   computed: {
@@ -120,9 +116,10 @@ export default {
           || this.$refs.DegDialog?.canShow(this.datasets)
           || this.$refs.GafDialog?.canShow(this.datasets)
           || this.$refs.DepDialog?.canShow(this.datasets)
-          || this.showScellAnalysis
+          || this.$refs.ScellDialog?.canShow(this.datasets)
           || this.$refs.UmappDialog?.canShow(this.datasets)
-          || this.$refs.cedpDialog?.canShow(this.datasets);
+          || this.$refs.cedpDialog?.canShow(this.datasets)
+          || this.$refs.cnvpDialog?.canShow(this.datasets);
     }
   }
 }

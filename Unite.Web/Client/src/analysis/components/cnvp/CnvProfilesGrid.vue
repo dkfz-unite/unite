@@ -33,11 +33,6 @@
 </template>
 
 <script lang="ts">
-
-import { colors } from "quasar";
-
-import impactsMap from "@/visualization/_shared/genome/impacts-map.js";
-import effectsMap from "@/visualization/_shared/genome/effects-map.js";
 import * as d3 from "d3";
 import UTrackCellTooltip from "@/analysis/components/gaf/tooltips/TrackCellTooltip.vue";
 
