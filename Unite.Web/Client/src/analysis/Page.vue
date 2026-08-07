@@ -76,6 +76,7 @@
       <u-umapp-viewer v-else-if="analysis.type === AnalysisType.UMAPP" :analysis="analysis" @delete="onDeleted" />
       <u-gaf-viewer v-else-if="analysis.type === AnalysisType.GAF" :analysis="analysis" @delete="onDeleted" />
       <u-scell-viewer v-else-if="analysis.type === AnalysisType.SCELL" :analysis="analysis" @delete="onDeleted" />
+      <u-cnvp-viewer v-else-if="analysis.type === AnalysisType.CNVP" :analysis="analysis" @delete="onDeleted" />
       <div v-else class="fixed-center"><span>Analysis type not supported</span></div>
     </div>
 
@@ -101,6 +102,7 @@ import USurvViewer from "./components/surv/Viewer.vue";
 import UUmappViewer from "./components/umapp/Viewer.vue";
 import UGafViewer from "./components/gaf/Viewer.vue";
 import UScellViewer from "./components/scell/Viewer.vue";
+import UCnvpViewer from "./components/cnvp/Viewer.vue";
 import Settings from "@/_settings/settings";
 import AnalysisType from "./components/_shared/analysis-type.js";
 
@@ -119,7 +121,8 @@ export default {
     USurvViewer,
     UUmappViewer,
     UGafViewer,
-    UScellViewer
+    UScellViewer,
+    UCnvpViewer
   },
 
   setup() {

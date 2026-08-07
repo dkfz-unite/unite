@@ -3,7 +3,7 @@ import { BooleanOption, NumberOption, OptionsGroup, SelectOption, SelectManyOpti
 export const keys = {
   event_threshold: "event_threshold",
   track_property: "track_property",
-  track_value: "track_value"
+  track_property_value: "track_property_value"
 }
 
 const options = [
@@ -26,8 +26,8 @@ const options = [
     }),
 
     new SelectManyOption({
-      key: keys.track_value,
-      title: "Track values (optional)",
+      key: keys.track_property_value,
+      title: "Track property values (optional)",
       options: [],
       lazy: SelectMethod.Once,
       show: (options: IOption[]) => options?.find(o => o.key === keys.track_property)?.value?.length == 1

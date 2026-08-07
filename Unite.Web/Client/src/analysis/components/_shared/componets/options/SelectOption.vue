@@ -2,7 +2,7 @@
   <!-- Readonly -->
   <div v-if="readonly" class="row items-center q-gutter-xs">
     <div class="text-grey">{{ option.title }}: </div>
-    <div>{{ label }}</div>
+    <div style="max-width: 300px;">{{ label }}</div>
   </div>
   <!-- Editable -->
   <q-select v-else

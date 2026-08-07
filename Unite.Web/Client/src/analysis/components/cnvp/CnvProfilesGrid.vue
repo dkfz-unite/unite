@@ -5,21 +5,21 @@
     <div class="row">
       <q-btn-group>
         <q-btn
-            icon="las la-border-all"
-            title="Toggle grid lines"
-            :class="{ 'bg-grey-3 text-blue-8': showGridLines }"
-            @click="toggleGridLines()"
+          icon="las la-border-all"
+          title="Toggle grid lines"
+          :class="{ 'bg-grey-3 text-blue-8': showGridLines }"
+          @click="toggleGridLines()"
         />
         <q-btn
-            icon="las la-crosshairs"
-            title="Toggle zoom"
-            :class="{ 'bg-grey-3 text-blue-8': crosshairMode }"
-            @click="toggleCrosshair()"
+          icon="las la-crosshairs"
+          title="Toggle zoom"
+          :class="{ 'bg-grey-3 text-blue-8': crosshairMode }"
+          @click="toggleCrosshair()"
         />
         <q-btn
-            icon="las la-undo-alt"
-            title="Reset grid"
-            @click="reloadGrid()"
+          icon="las la-undo-alt"
+          title="Reset grid"
+          @click="reloadGrid()"
         />
       </q-btn-group>
     </div>
@@ -34,6 +34,7 @@
 
 <script lang="ts">
 import * as d3 from "d3";
+import { colors} from "quasar";
 import UTrackCellTooltip from "@/analysis/components/gaf/tooltips/TrackCellTooltip.vue";
 
 export default {
@@ -61,12 +62,12 @@ export default {
       genes: this.data.genes,
       ssmObservations: this.data.observations,  // was: observations
       donorTracks: this.data.sampleTracks,
-      accountableConsequences: ["gain", "loss"],
+      accountableConsequences: ["Gain", "Loss"],
       colorMap: {
         mutation: {
-          gain:       'red',
-          loss:       'blue',
-          neutral:    'gray'
+          Gain:       colors.getPaletteColor("green-4"),
+          Loss:       colors.getPaletteColor("red-4"),
+          Neutral:    colors.getPaletteColor("grey-4")
         }
       },
       donorFillFunc: this.data.sampleFillFunc,
@@ -150,7 +151,7 @@ export default {
     },
 
     onTrackCellClick(event) {
-      let donorId = this.data.donors.find(donor => donor.id == event.data.id)?.donorId;
+      const donorId = this.data.donors.find(donor => donor.id == event.data.id)?.donorId;
       if(donorId) {
         this.$router.push({ name: "donor", params: { id: donorId, tab: "summary" }});
       }

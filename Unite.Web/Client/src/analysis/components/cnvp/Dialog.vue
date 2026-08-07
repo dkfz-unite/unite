@@ -41,7 +41,7 @@ export default {
       if (params.option.key == keys.track_property) {
         const values = await this.$store.dispatch("analysis/getMetadataOptions");
         params.option.options = values.map(value => new SelectValue(value, value));
-      } else if (params.option.key == keys.track_value) {
+      } else if (params.option.key == keys.track_property_value) {
         const property = this.analysis.findOption(keys.track_property).value;
         const values = await this.$store.dispatch("analysis/getMetadataValues", { property: property });
         params.option.options = values.map(value => new SelectValue(value, value));
@@ -50,7 +50,7 @@ export default {
 
     async onUpdate(option) {
       if (option.key == keys.track_property) {
-        const valueOption = this.analysis.findOption(keys.track_value);
+        const valueOption = this.analysis.findOption(keys.track_property_value);
         if (option.value?.length == 1) {
           const values = await this.$store.dispatch("analysis/getMetadataValues", { property: option.value });
           valueOption.value = null;
