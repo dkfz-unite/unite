@@ -26,7 +26,7 @@ const options = [
         new SelectValue("Protein", "protein"),
         new SelectValue("Gene", "gene")
       ]
-    }), 
+    }),
     
     new SelectOption({
       key: keys.feature_name,

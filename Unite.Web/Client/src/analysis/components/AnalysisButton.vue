@@ -101,13 +101,6 @@ export default {
     },
   },
 
-  computed: {
-    showScellAnalysis() {
-      return this.datasets?.length == 1 &&
-             this.datasets?.every(dataset => dataset.data?.expSc == true);
-    }
-  },
-
   methods: {
     enableAnalysis() {
       return this.$refs.SurvDialog?.canShow(this.datasets)
