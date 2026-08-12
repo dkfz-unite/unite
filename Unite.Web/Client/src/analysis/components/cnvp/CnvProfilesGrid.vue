@@ -35,7 +35,7 @@
 <script lang="ts">
 import * as d3 from "d3";
 import { colors} from "quasar";
-import UTrackCellTooltip from "@/analysis/components/gaf/tooltips/TrackCellTooltip.vue";
+import UTrackCellTooltip from "@/analysis/components/gaf/EventGridTooltip.vue";
 
 export default {
   components: {
