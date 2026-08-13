@@ -46,8 +46,9 @@ const actions = {
   },
 
   async loadAnalysisStatus({state, dispatch}, data) {
-    const status = await api.getAnalysisStatus(data.id);
-    state.analyses.get(data.id).status = status;
+    const response = await api.getAnalysisStatus(data.id);
+    state.analyses.get(data.id).status = response.status;
+    state.analyses.get(data.id).comment = response.comment;
   },
 
   async loadAnalysisMeta({state}, data) {

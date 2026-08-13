@@ -8,6 +8,7 @@ export default abstract class Analysis {
   id: string;
   date: Date;
   status: string;
+  comment: string;
   name: string;
   description: string;
   datasets: any[];
@@ -18,12 +19,24 @@ export default abstract class Analysis {
     this.id = null;
     this.date = new Date();
     this.status = null;
+    this.comment = null;
     this.name = null;
     this.description = null;
     this.datasets = datasets;
   }
 
   canSubmit(): boolean {
+    if (this.options?.length > 0) {
+      for (const step of this.options) {
+        for (const option of step.options) {
+          if (option.required == true) {
+            if (option.value == null || option.value?.length == 0)
+              return false;
+          }
+        }
+      }
+    }
+
     return true;
   }
 
@@ -131,6 +144,7 @@ export default abstract class Analysis {
     to.id = from.id;
     to.date = new Date(from.date);
     to.status = from.status;
+    to.comment = from.comment;
     to.name = from.name;
     to.description = from.description;
 

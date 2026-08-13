@@ -26,18 +26,34 @@
         <div class="row q-gutter-x-lg items-center">
           <!-- Type -->
           <div class="text-weight-regular">{{ getAnalysisType(analysis.type) }}</div>
+
           <!-- Date -->
           <div class="text-weight-regular">{{ $helpers.content.toDateTimeString(analysis.date) }}</div>
+
           <!-- Options -->
-          <q-btn v-if="analysis.options" no-caps flat dense>
-            <q-icon name="las la-sliders-h" size="xs" />
-            <span class="text-weight-normal q-ml-xs">Options</span>
-            <q-popup-proxy class="q-pa-sm q-pb-none">
-              <u-options :options="analysis.options" :height="null" readonly />
-            </q-popup-proxy>
-          </q-btn>
+          <div>
+            <q-btn v-if="analysis.options" no-caps flat dense>
+              <q-icon name="las la-sliders-h" size="xs" />
+              <span class="text-weight-normal q-ml-xs">Options</span>
+              <q-popup-proxy class="q-pa-sm q-pb-none">
+                <u-options :options="analysis.options" :height="null" readonly />
+              </q-popup-proxy>
+            </q-btn>
+          </div>
+
           <!-- Status -->
-          <div :class="`text-${getProgressColor(analysis.status)} text-weight-medium`">{{ analysis.status || "Created" }}</div>
+          <div v-if="analysis.comment">
+            <q-btn no-caps flat dense>
+              <q-icon :color="getProgressColor(analysis.status)" name="las la-exclamation-circle" size="xs" />
+              <span :class="`text-${getProgressColor(analysis.status)} text-weight-medium q-ml-xs`">{{ analysis.status || "Created" }}</span>
+              <q-popup-proxy class="q-pa-sm q-pb-none">
+                <div style="max-width: 300px; word-wrap: break-word;">{{ analysis.comment }}</div>
+              </q-popup-proxy>
+            </q-btn>
+          </div>
+          <div v-else>
+            <div :class="`text-${getProgressColor(analysis.status)} text-weight-medium`">{{ analysis.status || "Created" }}</div>
+          </div>
         </div>
 
         <!-- Datasets -->

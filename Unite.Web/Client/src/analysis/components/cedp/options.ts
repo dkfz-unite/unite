@@ -21,6 +21,7 @@ const options = [
     new SelectOption({
       key: keys.feature_type,
       title: "Feature type",
+      required: true,
       default: "gene",
       options: [
         new SelectValue("Protein", "protein"),
@@ -31,12 +32,14 @@ const options = [
     new SelectOption({
       key: keys.feature_name,
       title: "Feature",
+      required: true,
       lazy: SelectMethod.Filter
     }),
 
     new SelectOption({
       key: keys.condition_property,
       title: "Condition property",
+      required: true,
       options: [],
       lazy: SelectMethod.Once
     }),

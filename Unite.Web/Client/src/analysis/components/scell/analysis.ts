@@ -7,12 +7,6 @@ export default class ScellAnalysis extends Analysis {
   type = AnalysisType.SCELL;
   options = options;
 
-  canSubmit(): boolean {
-    const embedding = this.findOption(keys.embedding);
-    
-    return embedding.value?.length > 0;
-  }
-
   override toPayload() {
     const payload = super.toPayload();
 

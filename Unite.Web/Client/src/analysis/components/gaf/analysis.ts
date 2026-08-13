@@ -6,10 +6,4 @@ import { keys } from "./options";
 export default class GafAnalysis extends Analysis {
   type = AnalysisType.GAF;
   options = options;
-
-  canSubmit(): boolean {
-    const sm = this.findOption(keys.sm);
-    
-    return sm.value?.length > 0;
-  }
 }

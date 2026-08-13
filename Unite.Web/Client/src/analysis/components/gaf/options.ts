@@ -30,6 +30,7 @@ const options = [
     new SelectManyOption({
       key: keys.sm,
       title: "Mutation impact(s)",
+      required: true,
       default: ["Hight", "Moderate"],
       options: [
         new SelectValue("High", "High"),

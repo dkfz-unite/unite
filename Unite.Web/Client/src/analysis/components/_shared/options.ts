@@ -17,6 +17,7 @@ export class OptionsGroup {
 export interface IOptionParams {
   key: string;
   title: string;
+  required?: boolean;
   hint?: string;
   default?: any;
   show?: (options: IOption[]) => boolean;
@@ -32,6 +33,7 @@ export interface IOption extends IOptionParams {
 export abstract class Option<T> implements IOption {
   key: string;
   title: string;
+  required: boolean;
   hint: string;
   value: T;
   default: T;
@@ -45,6 +47,7 @@ export abstract class Option<T> implements IOption {
   constructor(params: IOptionParams) {
     this.key = params.key;
     this.title = params.title;
+    this.required = params.required || false;
     this.hint = params.hint;
     this.default = params.default;
     this.value = params.default;

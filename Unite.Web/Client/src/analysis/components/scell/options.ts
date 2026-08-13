@@ -89,6 +89,7 @@ const options = [
     new SelectManyOption({
       key: keys.embedding,
       title: "Embeddings",
+      required: true,
       default: ["umap"],
       options: [
         new SelectValue("UMAP", "umap"),
