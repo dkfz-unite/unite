@@ -5,7 +5,7 @@
     </template>
 
     <template #results>
-      <u-results :id="analysis.id" :title="analysis.name" :data="analysis.results" :meta="analysis.meta" />
+      <u-results :id="analysis.id" :title="analysis.name" :data="analysis.results" />
     </template>
   </u-viewer>
 </template>
