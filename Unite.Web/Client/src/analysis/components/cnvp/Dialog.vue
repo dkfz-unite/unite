@@ -21,7 +21,7 @@ export default {
 
   methods: {
     canShow(datasets) {
-      return datasets?.length == 1; //&& datasets?.every(dataset => dataset.data?.cnvps == true);
+      return datasets?.length == 1 && datasets?.every(dataset => dataset.data?.cnvps == true);
     },
     
     showNew(datasets) {
