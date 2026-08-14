@@ -41,9 +41,11 @@ export default {
       required: true
     },
     data: {
+      type: [String, Array, Object, Blob],
       required: true
     },
     meta: {
+      type: [String, Array, Object, Blob],
       required: true
     }
   },
