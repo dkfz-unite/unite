@@ -28,9 +28,11 @@ export default {
       required: true
     },
     data: {
+      type: [String, Array, Object, Blob],
       required: true
     },
     meta: {
+      type: [String, Array, Object, Blob],
       required: true
     }
   },
@@ -103,8 +105,8 @@ export default {
       }
 
       const all = values;
-      const significant = values.filter(value => value.padj <= 0.05);
-      const insignificant = values.filter(value => value.padj > 0.05);
+      const significant = values.filter(value => value.pval <= 0.05);
+      const insignificant = values.filter(value => value.pval > 0.05);
       const upregulated = significant.filter(value => value.log2 > 0);
       const downregulated = significant.filter(value => value.log2 < 0);
 

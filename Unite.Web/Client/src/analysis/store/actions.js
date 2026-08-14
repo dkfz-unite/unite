@@ -1,4 +1,6 @@
 import api, { getMetadataOptions } from "../api";
+import DepAnalysis from "../components/dep/analysis";
+import AnalysisFactory from "../components/_shared/analysis-factory";
 
 const PROCESSED_STATUS = "Processed";
 const FAILED_STATUS = "Failed";
@@ -10,9 +12,10 @@ const actions = {
     };
 
     const entries = await api.loadAnalyses(payload);
+
     const analyses = entries.map(entry => {
       entry.data = JSON.parse(entry.data);
-      return [entry.id, entry];
+      return [entry.id, AnalysisFactory.create(entry)];
     });
 
     state.analyses = new Map(analyses);
@@ -43,8 +46,9 @@ const actions = {
   },
 
   async loadAnalysisStatus({state, dispatch}, data) {
-    const status = await api.getAnalysisStatus(data.id);
-    state.analyses.get(data.id).status = status;
+    const response = await api.getAnalysisStatus(data.id);
+    state.analyses.get(data.id).status = response.status;
+    state.analyses.get(data.id).comment = response.comment;
   },
 
   async loadAnalysisMeta({state}, data) {
@@ -78,46 +82,6 @@ const actions = {
     data.userid = this.getters["identity/account"].email;
     return await api.runAnalysis(data.type, data);
   },
-
-  async runSurvAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runSurvAnalysis(data);
-  },
-
-  async runDmAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runDmAnalysis(data);
-  },
-
-  async runPcamAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runPcamAnalysis(data);
-  },
-
-  async runDegAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runDegAnalysis(data);
-  },
-
-  async runGafAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runGafAnalysis(data);
-  },
-
-  async runDepAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runDepAnalysis(data);
-  },
-
-  async runScellAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runScellAnalysis(data);
-  },
-
-  async runCnvProfileAnalysis({state, dispatch}, data) {
-    data.userid = this.getters["identity/account"].email;
-    return await api.runCnvProfileAnalysis(data);
-  },
   
   async getScellAnalysisModels({state}) {
     return await api.getScellAnalysisModels();
@@ -137,6 +101,14 @@ const actions = {
 
   async getMetadataOptions({state}, data) {
     return await api.getMetadataOptions();
+  },
+
+  async getMetadataValues({state}, data) {
+    return await api.getMetadataValues(data.property);
+  },
+
+  async getAutocompleteOptions({state}, data) {
+    return await api.getAutocompleteOptions(data);
   }
 };
 

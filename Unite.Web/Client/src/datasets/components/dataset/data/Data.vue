@@ -36,6 +36,7 @@
       <u-data-group title="DNA" :show="!!data.sms || !!data.cnvs || !!data.svs || !!data.meth">
         <u-data-item title="SM" :show="!!data.sms" />
         <u-data-item title="CNV" :show="!!data.cnvs" />
+        <u-data-item title="CNVp" :show="!!data.cnvps" />
         <u-data-item title="SV" :show="!!data.svs" />
         <u-data-item title="Methylation" :show="!!data.meth" />
       </u-data-group>
