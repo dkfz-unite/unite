@@ -65,6 +65,24 @@ const module = {
       }
     },
 
+    async requestPasswordReset({state}, {email}) {
+      try {
+        await api.requestPasswordReset(email);
+        return null;
+      } catch (error) {
+        return error.status;
+      }
+    },
+
+    async confirmPasswordReset({state}, {token, password, passwordRepeat}) {
+      try {
+        await api.confirmPasswordReset(token, password, passwordRepeat);
+        return null;
+      } catch (error) {
+        return error.status;
+      }
+    },
+
     async logIn({state}, {email, password, provider}) {
       try {
         await api.logIn(email, password, provider);

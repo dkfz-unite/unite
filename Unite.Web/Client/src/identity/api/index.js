@@ -62,6 +62,28 @@ export async function changePassword(oldPassword, newPassword, newPasswordRepeat
   return await client.put(url, data);
 }
 
+export async function requestPasswordReset(email) {
+  const url = `${accountUrl}/password-reset`;
+
+  const data = {
+    Email: email
+  };
+
+  return await client.post(url, data);
+}
+
+export async function confirmPasswordReset(token, password, passwordRepeat) {
+  const url = `${accountUrl}/password-reset-confirm`;
+
+  const data = {
+    Token: token,
+    Password: password,
+    PasswordRepeat: passwordRepeat
+  };
+
+  return await client.post(url, data);
+}
+
 // export async function checkAccess(email) {
 //   const provider = getIdentityProvider();
 //   const accessUrl = getIdentityUrl(provider, "access");
@@ -97,6 +119,8 @@ export default {
   createAccount,
   deleteAccount,
   changePassword,
+  requestPasswordReset,
+  confirmPasswordReset,
   logIn,
   logOut
 }

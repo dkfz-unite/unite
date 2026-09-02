@@ -25,7 +25,6 @@
                   <!-- Email -->
                   <q-input
                     label="Enter your email"
-                    hint="Only DKFZ UNITE member emails"
                     v-model="email.value"
                     autocomplete="off"
                     type="text"

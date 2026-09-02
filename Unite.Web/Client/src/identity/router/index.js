@@ -16,6 +16,12 @@ const routes = [
     name: "account",
     meta: { title: "Unite.Account", authorize: true },
     component: () => import(/* webpackChunkName: "account" */ '../AccountPage.vue')
+  },
+  {
+    path: '/reset-request',
+    name: "reset-request",
+    meta: { title: "Unite.Reset", anonymous: true },
+    component: () => import(/* webpackChunkName: "reset-request" */ '../ResetRequestPage.vue')
   }
 ];
 

@@ -37,6 +37,13 @@
               dense
             />
 
+            <!-- Reset -->
+            <div>
+              <div class="text-subtitle2 text-primary">
+                <u-link :to="{ name: 'reset-request' }">Forgot your password?</u-link>
+              </div>
+            </div>
+
             <!-- Errors -->
             <div v-if="!!error">
               <div class="text-hint text-red-9">
