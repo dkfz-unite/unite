@@ -20,6 +20,16 @@ async function setDescription(id, data){
   return await client.put(url, data);
 }
 
+async function getUsers(id){
+  let url = `${projectUrl}/${id}/users`;
+  return await client.get(url);
+}
+
+async function removeUsers(id, userIds){
+  let url = `${projectUrl}/${id}/users`;
+  return await client.delete(url, { data: userIds });
+}
+
 async function remove(id){
   let url = `${donorsFeedUrl}/project/${id}`;
   return await client.delete(url);
@@ -60,6 +70,8 @@ export default {
   get,
   getDescription,
   setDescription,
+  getUsers,
+  removeUsers,
   remove,
   // searchImages,
   // searchSpecimens,
