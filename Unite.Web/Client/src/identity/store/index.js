@@ -8,11 +8,23 @@ const module = {
   state: () => ({
     account: null,
     providers: null,
+    passwordResetAvailable: null,
   }),
 
   getters: getters,
 
   actions: {
+    async loadPasswordResetAvailability({state}) {
+      state.passwordResetAvailable = null;
+      try {
+        state.passwordResetAvailable = await api.getPasswordResetAvailability() === true;
+        return null;
+      } catch (error) {
+        state.passwordResetAvailable = false;
+        return error?.status || error;
+      }
+    },
+
     async loadProviders({state}) {
       try {
         state.providers = await api.getProviders();

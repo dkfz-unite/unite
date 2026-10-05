@@ -8,8 +8,17 @@
           <div class="text-subtitle1 text-grey-8">Reset your password</div>
         </div>
 
+        <q-card v-if="!passwordResetAvailable">
+          <q-card-section>
+            Password reset is unavailable on this instance.
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn :to="{ name: 'login' }" flat>Back to login</q-btn>
+          </q-card-actions>
+        </q-card>
+
         <!-- Form -->
-        <div>
+        <div v-else>
           <q-form @submit="onSubmit" autocomplete="off" ref="resetForm">
             <q-card>
               <q-card-section>
@@ -97,6 +106,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -132,6 +143,8 @@ export default {
   },
 
   computed: {
+    ...mapState("identity", ["passwordResetAvailable"]),
+
     canSubmit() {
       let results = [];
 
@@ -147,8 +160,10 @@ export default {
     }
   },
 
-  mounted() {
-    this.$refs.resetForm.resetValidation();
+  async mounted() {
+    await this.$store.dispatch("identity/loadPasswordResetAvailability");
+    await this.$nextTick();
+    this.$refs.resetForm?.resetValidation();
   },
 
   methods: {

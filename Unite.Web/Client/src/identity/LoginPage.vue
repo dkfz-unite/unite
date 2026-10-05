@@ -54,6 +54,8 @@ export default {
       await this.$store.dispatch("identity/loadProviders");
     }
 
+    await this.$store.dispatch("identity/loadPasswordResetAvailability");
+
     this.tab = this.providers[0].name;
   }
 }

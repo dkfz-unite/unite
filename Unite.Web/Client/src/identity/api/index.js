@@ -4,6 +4,7 @@ import ApiClient from "@/_shared/api/api-client";
 
 const client = new ApiClient();
 const providersUrl = `${settings.urls.identity}/providers`;
+const availabilityUrl = `${settings.urls.identity}/availability`;
 const accountUrl = `${settings.urls.identity}/account`;
 const identityUrl = `${settings.urls.identity}/realm`;
 const datasetsUrl = `${settings.urls.composer}/data/datasets`;
@@ -22,6 +23,10 @@ export async function getProviders() {
   var url = providersUrl;
 
   return await client.get(url);
+}
+
+export async function getPasswordResetAvailability() {
+  return await client.get(`${availabilityUrl}/password-reset`);
 }
 
 export async function getAccount() {
@@ -115,6 +120,7 @@ export async function logOut() {
 
 export default {
   getProviders,
+  getPasswordResetAvailability,
   getAccount,
   createAccount,
   deleteAccount,
