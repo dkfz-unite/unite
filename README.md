@@ -29,6 +29,8 @@ To configure the application, change environment variables:
 Variable|Description|Default(Local)|Default(Docker)
 --------|-----------|--------------|---------------
 ASPNETCORE_ENVIRONMENT|ASP.NET environment|Debug|Release
+UNITE_LEGAL_NOTICE_URL|Legal notice link in the footer|Empty|Empty
+UNITE_PRIVACY_POLICY_URL|Privacy policy link in the footer|Empty|Empty
 UNITE_IDENTITY_HOST|Identity web api|http://localhost:5000|http://identity.unite.net
 UNITE_COMPOSER_HOST|Composer web api|http://localhost:5002|http://composer.unite.net
 UNITE_ANALYSIS_HOST|Analysis Web api|http://localhost:5004|http://analysis.unite.net
@@ -36,6 +38,8 @@ UNITE_DONORS_FEED_HOST|Donors feed web api|http://localhost:5100|http://feed.don
 UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5102|http://feed.images.unite.net
 UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5104|http://feed.specimens.unite.net
 UNITE_OMICS_FEED_HOST|Omics feed web api|http://localhost:5106|http://feed.omics.unite.net
+
+The frontend loads these two optional links from `/api/config` when the page opens. Empty links are hidden. Set the URLs in `unite-env/.env` and recreate the portal container to apply changes; rebuilding the frontend is not required.
 
 ## Proxy
 Application serves as a reverse proxy and redirects requests from web portal to other protected services.
@@ -108,4 +112,3 @@ Frontend source code is located in `Unite.Web/Client` folder.
 3. Run development server: `npm run dev`
 
 Composer web api proxy can be configured in vue [config](Unite.Web/Client/vue.config.js) file.
-

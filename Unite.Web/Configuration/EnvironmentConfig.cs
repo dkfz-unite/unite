@@ -2,6 +2,9 @@
 
 public static class EnvironmentConfig
 {
+    public static string LegalNoticeUrl => Environment.GetEnvironmentVariable("UNITE_LEGAL_NOTICE_URL")?.Trim();
+    public static string PrivacyPolicyUrl => Environment.GetEnvironmentVariable("UNITE_PRIVACY_POLICY_URL")?.Trim();
+
     public static string IdentityHost => Environment.GetEnvironmentVariable("UNITE_IDENTITY_HOST");
     public static string ComposerHost => Environment.GetEnvironmentVariable("UNITE_COMPOSER_HOST");
     public static string AnalysisHost => Environment.GetEnvironmentVariable("UNITE_ANALYSIS_HOST");

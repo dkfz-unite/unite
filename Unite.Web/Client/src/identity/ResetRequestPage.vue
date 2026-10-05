@@ -29,6 +29,7 @@
                     autocomplete="off"
                     type="text"
                     :rules="email.rules"
+                    :disable="submitted"
                     lazy-rules square outlined dense
                   />
 
@@ -49,10 +50,10 @@
                 </div>
               </q-card-section>
 
-              <q-separator />
+              <q-separator v-if="!submitted" />
 
-              <q-card-actions align="right" class="q-px-md">
-                <q-btn color="primary" type="submit" :disable="!canSubmit || submitted">
+              <q-card-actions v-if="!submitted" align="right" class="q-px-md">
+                <q-btn color="primary" type="submit" :disable="!canSubmit">
                   Reset
                 </q-btn>
               </q-card-actions>
@@ -112,7 +113,6 @@ export default {
 
       if (!this.error) {
         this.submitted = true;
-        this.$refs.resetForm.reset();
       }
     }
   }

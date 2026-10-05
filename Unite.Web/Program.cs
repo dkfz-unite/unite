@@ -173,6 +173,17 @@ app.UseHsts();
 
 app.UseHttpsRedirection();
 
+app.MapGet("/api/config", (HttpContext context) =>
+{
+    context.Response.Headers.CacheControl = "no-store";
+
+    return Results.Json(new
+    {
+        LegalNoticeUrl = EnvironmentConfig.LegalNoticeUrl,
+        PrivacyPolicyUrl = EnvironmentConfig.PrivacyPolicyUrl
+    });
+});
+
 // app.MapReverseProxy();
 
 app.UseSpaStaticFiles();
