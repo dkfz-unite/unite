@@ -20,9 +20,20 @@ async function setDescription(id, data){
   return await client.put(url, data);
 }
 
+async function setPublic(id, isPublic){
+  let url = `${projectUrl}/${id}/is-public`;
+  // Explicit JSON content type, otherwise axios sends a bare boolean as text/plain.
+  return await client.post(url, isPublic, { headers: { "Content-Type": "application/json" } });
+}
+
 async function getUsers(id){
   let url = `${projectUrl}/${id}/users`;
   return await client.get(url);
+}
+
+async function addUsers(id, userIds){
+  let url = `${projectUrl}/${id}/users`;
+  return await client.post(url, userIds);
 }
 
 async function removeUsers(id, userIds){
@@ -70,7 +81,9 @@ export default {
   get,
   getDescription,
   setDescription,
+  setPublic,
   getUsers,
+  addUsers,
   removeUsers,
   remove,
   // searchImages,

@@ -1,18 +1,41 @@
 <template>
   <div class="col q-gutter-y-sm" v-if="project">
     <div class="row">
+      <span class="text-h5 u-text-title">Users</span>
+    </div>
+
+    <div class="row">
+      <q-checkbox
+        label="Public Project"
+        :model-value="project.isPublic"
+        :disable="updatingPublic"
+        @update:model-value="setPublic"
+        dense>
+      </q-checkbox>
+    </div>
+
+    <div class="row">
+      <u-users-add
+        :project-id="project.id"
+        :exclude-ids="userIds"
+        @added="getData"
+      />
+    </div>
+
+    <div class="row items-center">
       <div class="col">
-        <span class="text-h5 u-text-title">Users</span>
+        <span class="text-subtitle1">Project users</span>
       </div>
       <div class="col-auto">
         <q-btn
+          label="Remove from project"
           icon="las la-user-minus"
           :title="`Remove selected users (${selected.length})`"
           color="negative"
           :loading="removing"
           :disable="!selected.length"
           @click="removeSelected"
-          flat dense>
+          flat dense no-caps>
         </q-btn>
       </div>
     </div>
@@ -38,9 +61,14 @@
 </template>
 
 <script>
+import UUsersAdd from "./UsersAdd.vue";
 import api from "../../../api";
 
 export default {
+  components: {
+    UUsersAdd
+  },
+
   props: {
     project: {
       type: Object,
@@ -54,9 +82,18 @@ export default {
     return {
       loading: false,
       removing: false,
+      updatingPublic: false,
       rows: [],
       selected: [],
       columns: [
+        {
+          name: "id",
+          label: "ID",
+          field: row => row.userId,
+          align: "left",
+          style: "width: 60px",
+          sortable: true
+        },
         {
           name: "email",
           label: "Email",
@@ -68,11 +105,30 @@ export default {
     }
   },
 
+  computed: {
+    userIds() {
+      return this.rows.map(user => user.userId);
+    }
+  },
+
   mounted() {
     this.getData();
   },
 
   methods: {
+    async setPublic(value) {
+      try {
+        this.updatingPublic = true;
+        await api.setPublic(this.project.id, value);
+        this.project.isPublic = value;
+        this.notify("positive", "Success", `Project is now ${value ? "public" : "private"}.`);
+      } catch (error) {
+        this.notify("negative", "Error", "Failed to change project visibility.");
+      } finally {
+        this.updatingPublic = false;
+      }
+    },
+
     async getData() {
       try {
         this.loading = true;
