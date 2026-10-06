@@ -4,6 +4,7 @@ export default class OmicsSubmissionType extends SubmissionTypeBase {
   static readonly DNA = "dna";
   static readonly DNA_SM = "dna-sm";
   static readonly DNA_CNV = "dna-cnv";
+  static readonly DNA_CNVP = "dna-cnvp";
   static readonly DNA_SV = "dna-sv";
   static readonly METH = "meth";
   static readonly METH_LVL = "meth-lvl";
@@ -18,6 +19,7 @@ export default class OmicsSubmissionType extends SubmissionTypeBase {
     [OmicsSubmissionType.DNA, "DNA Sample"],
     [OmicsSubmissionType.DNA_SM, "DNA SM"],
     [OmicsSubmissionType.DNA_CNV, "DNA CNV"],
+    [OmicsSubmissionType.DNA_CNVP, "DNA CNV Profile"],
     [OmicsSubmissionType.DNA_SV, "DNA SV"],
     [OmicsSubmissionType.METH, "Methylation Sample"],
     [OmicsSubmissionType.METH_LVL, "Methylation Levels"],
@@ -34,7 +36,7 @@ export default class OmicsSubmissionType extends SubmissionTypeBase {
   }
 
   static isDataType(type: string): boolean {
-    return [this.DNA_SM, this.DNA_CNV, this.DNA_SV, this.RNA_EXP, this.PROT_EXP].includes(type);
+    return [this.DNA_SM, this.DNA_CNV, this.DNA_CNVP, this.DNA_SV, this.RNA_EXP, this.PROT_EXP].includes(type);
   };
 
   static IsResourceType(type: string): boolean {

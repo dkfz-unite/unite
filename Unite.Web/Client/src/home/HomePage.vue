@@ -32,8 +32,7 @@
       </div>
     </q-page-container>
 
-    <q-footer bordered>
-    </q-footer>
+    <u-footer />
   </q-layout>
 </template>
 
@@ -42,12 +41,14 @@ import { mapGetters, mapActions, mapState } from "vuex";
 import ULogo from "./components/header/Logo.vue";
 import UNavigation from "./components/header/navigation/Navigation.vue";
 import UMenuButton from "./components/header/menu/MenuButton.vue";
+import UFooter from "./components/footer/Footer.vue";
 
 export default {
   components: {
     ULogo,
     UNavigation,
     UMenuButton,
+    UFooter,
   },
 
   computed: {

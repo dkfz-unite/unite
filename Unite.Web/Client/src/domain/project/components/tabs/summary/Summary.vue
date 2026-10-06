@@ -22,6 +22,10 @@
               <td class="text-bold">{{ project.name }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Privacy</td>
+              <td class="text-bold">{{ $helpers.content.toBooleanString(project.isPublic, false, "Public", "Private") }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Donors</td>
               <td>{{ project.stats.donors.number }}</td>
             </tr>

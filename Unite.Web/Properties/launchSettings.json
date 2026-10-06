@@ -13,6 +13,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "UNITE_LEGAL_NOTICE_URL": "",
+        "UNITE_PRIVACY_POLICY_URL": "",
         "UNITE_API_KEY": "Defautl32BitApiKeyHasToBeChanged",
         "UNITE_IDENTITY_HOST": "http://localhost:5000",
         "UNITE_COMPOSER_HOST": "http://localhost:5002",
@@ -30,6 +32,8 @@
       "applicationUrl": "http://localhost:80;https://localhost:443",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "UNITE_LEGAL_NOTICE_URL": "",
+        "UNITE_PRIVACY_POLICY_URL": "",
         "UNITE_API_KEY": "Defautl32BitApiKeyHasToBeChanged",
         "UNITE_IDENTITY_HOST": "http://localhost:5000",
         "UNITE_COMPOSER_HOST": "http://localhost:5002",

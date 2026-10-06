@@ -19,6 +19,8 @@ export default class OmicsFeedApi extends FeedApi {
       url = `${this.feedUrl}/dna/analysis/${VariantType.CNV}/${id}`;
     else if (type == OmicsSubmissionType.DNA_SV)
       url = `${this.feedUrl}/dna/analysis/${VariantType.SV}/${id}`;
+    else if (type == OmicsSubmissionType.DNA_CNVP)
+      url = `${this.feedUrl}/dna/analysis/cnvp/${id}`;
     else if (type == OmicsSubmissionType.METH)
       url = `${this.feedUrl}/meth/sample/${id}`;
     else if (type == OmicsSubmissionType.METH_LVL)

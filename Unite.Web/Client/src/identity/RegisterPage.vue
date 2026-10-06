@@ -25,7 +25,6 @@
                   <!-- Email -->
                   <q-input
                     label="Enter your email"
-                    hint="Only DKFZ UNITE member emails"
                     v-model="email.value"
                     autocomplete="off"
                     type="text"
@@ -75,6 +74,12 @@
                     <b>letters</b> and <b>numbers</b>.
                   </div>
 
+                  <!-- Password recovery hint -->
+                  <q-banner v-if="passwordResetAvailable === false" class="bg-orange-1 text-orange-10" role="alert">
+                    Password recovery is unavailable on this instance.
+                    Save your password securely: if you forget it, you will lose access to your account.
+                  </q-banner>
+
                   <!-- Access list hint -->
                   <div class="text-hint">
                     Please note, that only emails of DKFZ
@@ -116,6 +121,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -151,6 +158,8 @@ export default {
   },
 
   computed: {
+    ...mapState("identity", ["passwordResetAvailable"]),
+
     canSubmit() {
       let results = [];
 
@@ -170,8 +179,9 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     this.$refs.registerForm.resetValidation();
+    await this.$store.dispatch("identity/loadPasswordResetAvailability");
   },
 
   methods: {

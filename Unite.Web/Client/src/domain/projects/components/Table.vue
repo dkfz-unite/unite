@@ -78,6 +78,15 @@ export default {
         align: "left"
       });
 
+      columns.push({
+        name: "privacy",
+        label: "Privacy",
+        field: (row) => this.$helpers.content.toBooleanString(row.isPublic, false, "Public", "Private"),
+        sortable: false,
+        required: true,
+        align: "left"
+      });
+
       // columns.push({
       //   name: "description",
       //   label: "Description",

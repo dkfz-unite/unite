@@ -8,11 +8,23 @@ const module = {
   state: () => ({
     account: null,
     providers: null,
+    passwordResetAvailable: null,
   }),
 
   getters: getters,
 
   actions: {
+    async loadPasswordResetAvailability({state}) {
+      state.passwordResetAvailable = null;
+      try {
+        state.passwordResetAvailable = await api.getPasswordResetAvailability() === true;
+        return null;
+      } catch (error) {
+        state.passwordResetAvailable = false;
+        return error?.status || error;
+      }
+    },
+
     async loadProviders({state}) {
       try {
         state.providers = await api.getProviders();
@@ -59,6 +71,24 @@ const module = {
         const accountData = await api.changePassword(oldPassword, newPassword, newPasswordRepeat);
         const account = new Account(accountData);
         state.account = account;
+        return null;
+      } catch (error) {
+        return error.status;
+      }
+    },
+
+    async requestPasswordReset({state}, {email}) {
+      try {
+        await api.requestPasswordReset(email);
+        return null;
+      } catch (error) {
+        return error.status;
+      }
+    },
+
+    async confirmPasswordReset({state}, {token, password, passwordRepeat}) {
+      try {
+        await api.confirmPasswordReset(token, password, passwordRepeat);
         return null;
       } catch (error) {
         return error.status;

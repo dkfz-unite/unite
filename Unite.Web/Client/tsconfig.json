@@ -10,10 +10,10 @@
     "skipLibCheck": true,
     "isolatedModules": false,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "baseUrl": "./",
+    "moduleResolution": "bundler",
+    // "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "public"],
