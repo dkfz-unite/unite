@@ -37,6 +37,13 @@
               dense
             />
 
+            <!-- Reset -->
+            <div v-if="passwordResetAvailable">
+              <div class="text-subtitle2 text-primary">
+                <u-link :to="{ name: 'reset-request' }">Forgot your password?</u-link>
+              </div>
+            </div>
+
             <!-- Errors -->
             <div v-if="!!error">
               <div class="text-hint text-red-9">
@@ -65,6 +72,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -89,6 +98,8 @@ export default {
   },
 
   computed: {
+    ...mapState("identity", ["passwordResetAvailable"]),
+
     canSubmit() {
       let emaiIslValid = this.email.rules.every(
         (rule) => rule(this.email.value) === true

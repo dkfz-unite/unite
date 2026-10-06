@@ -4,33 +4,32 @@
       <div class="col-12 col-sm-6 col-md-4 q-gutter-md">
         <!-- Header -->
         <div class="text-center">
-          <div class="text-h4">Register</div>
-          <div class="text-subtitle1 text-grey-8">Register new account</div>
+          <div class="text-h4">Reset</div>
+          <div class="text-subtitle1 text-grey-8">Reset your password</div>
         </div>
 
+        <q-card v-if="!passwordResetAvailable">
+          <q-card-section>
+            Password reset is unavailable on this instance.
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn :to="{ name: 'login' }" flat>Back to login</q-btn>
+          </q-card-actions>
+        </q-card>
+
         <!-- Form -->
-        <div>
-          <q-form @submit="onSubmit" autocomplete="off" ref="registerForm">
+        <div v-else>
+          <q-form @submit="onSubmit" autocomplete="off" ref="resetForm">
             <q-card>
               <q-card-section>
                 <div class="col q-gutter-md">
                   <!-- Card header -->
                   <div>
-                    <div class="text-h6">Account</div>
+                    <div class="text-h6">Password</div>
                     <div class="text-subtitle2 text-grey-8">
-                      Enter your account data
+                      Reset your password
                     </div>
                   </div>
-
-                  <!-- Email -->
-                  <q-input
-                    label="Enter your email"
-                    v-model="email.value"
-                    autocomplete="off"
-                    type="text"
-                    :rules="email.rules"
-                    lazy-rules square outlined dense
-                  />
 
                   <!-- Password -->
                   <q-input
@@ -70,46 +69,32 @@
                   <!-- Password hint -->
                   <div class="text-hint">
                     Password must be minimum <b>8</b> characters long
-                    and contain <b>both</b>
-                    <b>letters</b> and <b>numbers</b>.
-                  </div>
-
-                  <!-- Password recovery hint -->
-                  <q-banner v-if="passwordResetAvailable === false" class="bg-orange-1 text-orange-10" role="alert">
-                    Password recovery is unavailable on this instance.
-                    Save your password securely: if you forget it, you will lose access to your account.
-                  </q-banner>
-
-                  <!-- Access list hint -->
-                  <div class="text-hint">
-                    Please note, that only emails of DKFZ
-                    <b>UNITE</b> project members are in access list
-                    and can be used to register account. If you're member of the
-                    UNITE project, but still can't register, please, contact
-                    UNITE <b>PI</b>s.
+                    and contain <b>both</b> <b>letters</b> and <b>numbers</b>.
                   </div>
 
                   <!-- Errors -->
                   <div v-if="!!error">
                     <div class="text-hint text-red-9">
-                      <template v-if="error == 400">
-                        Provided email address is not in access list or is already registered.
-                      </template>
-                      <template v-else>
-                        Something wrong has happened. Please, refresh the page and
-                        try again.
-                      </template>
+                      Something wrong has happened. Please, refresh the page and
+                      try again.
+                    </div>
+                  </div>
+
+                  <!-- Success -->
+                  <div v-if="submitted">
+                    <div class="text-hint text-green-9">
+                      Your password has been successfully reset.<br>
+                      You can now <u-link to="/login">log in</u-link> with your new password.
                     </div>
                   </div>
                 </div>
               </q-card-section>
 
-              <q-separator />
+              <q-separator v-if="!submitted" />
 
-              <q-card-actions align="right" class="q-px-md">
-                <q-btn :to="{ name: 'login' }" flat>Login</q-btn>
+              <q-card-actions v-if="!submitted" align="right" class="q-px-md">
                 <q-btn color="primary" type="submit" :disable="!canSubmit">
-                  Register
+                  Reset
                 </q-btn>
               </q-card-actions>
             </q-card>
@@ -126,11 +111,10 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      email: {
-        value: null,
+      token: {
+        value: this.$route.params.token,
         rules: [
-          (val) => !!val || "Please, enter your email address",
-          (val) => this.$helpers.string.isEmail(val) || "Please, use valid email address"
+          (val) => !!val || "Token is required"
         ]
       },
       password: {
@@ -154,6 +138,7 @@ export default {
 
       error: null,
       submitting: false,
+      submitted: false
     };
   },
 
@@ -162,10 +147,6 @@ export default {
 
     canSubmit() {
       let results = [];
-
-      this.email.rules.forEach((rule) => {
-        results.push(rule(this.email.value) === true);
-      });
 
       this.password.rules.forEach((rule) => {
         results.push(rule(this.password.value) === true);
@@ -180,25 +161,27 @@ export default {
   },
 
   async mounted() {
-    this.$refs.registerForm.resetValidation();
     await this.$store.dispatch("identity/loadPasswordResetAvailability");
+    await this.$nextTick();
+    this.$refs.resetForm?.resetValidation();
   },
 
   methods: {
     async onSubmit() {
       const payload = {
-        email: this.email.value,
+        token: this.token.value,
         password: this.password.value,
-        passwordRepeat: this.passwordRepeat.value,
+        passwordRepeat: this.passwordRepeat.value
       };
 
       this.error = null;
       this.submitting = true;
-      this.error = await this.$store.dispatch("identity/createAccount", payload);
+      this.submitted = false;
+      this.error = await this.$store.dispatch("identity/confirmPasswordReset", payload);
       this.submitting = false;
 
       if (!this.error) {
-        this.$router.push({ name: "login" });
+        this.submitted = true;
       }
     }
   }

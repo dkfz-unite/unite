@@ -23,6 +23,7 @@ export default defineConfig({
   server: {
     port: 8080,
     proxy: {
+      "/api/config": { target: "https://localhost:443", changeOrigin: true, secure: false },
       "/api/identity": { target: "http://127.0.0.1:5000", changeOrigin: true, rewrite: (path) => path.replace(/^\/api\/identity/, '/api') },
       "/api/composer": { target: "http://127.0.0.1:5002", rewrite: (path) => path.replace(/^\/api\/composer/, '/api') },
       "/api/analysis": { target: "http://127.0.0.1:5004", rewrite: (path) => path.replace(/^\/api\/analysis/, '/api') },
