@@ -9,6 +9,9 @@
         <div class="row">
           <u-description :project="project" />
         </div>
+        <div class="row" v-if="isAdmin">
+          <u-users :project="project" />
+        </div>
       </div>
 
       <div class="col-12 col-md-5 q-gutter-y-sm">
@@ -21,15 +24,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import USummary from "./summary/Summary.vue";
 import UDescription from "./summary/Description.vue";
 import UAvailableData from "./summary/AvailableData.vue";
+import UUsers from "./summary/Users.vue";
 
 export default {
   components: {
     USummary,
     UDescription,
-    UAvailableData
+    UAvailableData,
+    UUsers
   },
 
   props: {
@@ -39,6 +45,10 @@ export default {
         return null;
       }
     }
+  },
+
+  computed: {
+    ...mapGetters("identity", ["isAdmin"])
   }
 }
 </script>
