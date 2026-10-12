@@ -48,10 +48,12 @@ UNITE_PRIVACY_POLICY_URL|Privacy policy link in the footer|Empty|Empty
 UNITE_IDENTITY_HOST|Identity web api|http://localhost:5000|http://identity.unite.net
 UNITE_COMPOSER_HOST|Composer web api|http://localhost:5002|http://composer.unite.net
 UNITE_ANALYSIS_HOST|Analysis Web api|http://localhost:5004|http://analysis.unite.net
-UNITE_DONORS_FEED_HOST|Donors feed web api|http://localhost:5100|http://feed.donors.unite.net
-UNITE_IMAGES_FEED_HOST|Images feed web api|http://localhost:5102|http://feed.images.unite.net
-UNITE_SPECIMENS_FEED_HOST|Specimens feed web api|http://localhost:5104|http://feed.specimens.unite.net
-UNITE_OMICS_FEED_HOST|Omics feed web api|http://localhost:5106|http://feed.omics.unite.net
+UNITE_FEED_DONORS_HOST|Donors feed web api|http://localhost:5100|http://donors.feed.unite.net
+UNITE_FEED_IMAGES_HOST|Images feed web api|http://localhost:5102|http://images.feed.unite.net
+UNITE_FEED_SPECIMENS_HOST|Specimens feed web api|http://localhost:5104|http://specimens.feed.unite.net
+UNITE_FEED_OMICS_HOST|Omics feed web api|http://localhost:5106|http://omics.feed.unite.net
+UNITE_VIEWER_CXG_HOST|Cell-x-Gene viewer host template, `{n}` is replaced with the two digit viewer number|http://localhost:543{n}|http://cxg{n}.viewer.unite.net
+UNITE_API_KEY|Key to validate JWT tokens (32 characters, same for all services)|Empty|Empty
 
 The frontend loads these two optional links from `/api/config` when the page opens. Empty links are hidden. Set the URLs in `unite-env/.env` and recreate the portal container to apply changes; rebuilding the frontend is not required.
 
@@ -60,10 +62,11 @@ Application serves as a reverse proxy and redirects requests from web portal to 
 - [api/identity](https://localhost/api/identity) -> [`UNITE_IDENTITY_HOST`]/api - identity web api
 - [api/composer](https://localhost/api/composer) -> [`UNITE_COMPOSER_HOST`]/api - composer web api
 - [api/analysis](https://localhost/api/analysis) -> [`UNITE_ANALYSIS_HOST`]/api - analysis web api
-- [api/feed-donors](https://localhost/api/feed-donors) -> [`UNITE_DONORS_FEED_HOST`]/api - donors feed web api
-- [api/feed-images](https://localhost/api/feed-images) -> [`UNITE_IMAGES_FEED_HOST`]/api - images feed web api
-- [api/feed-specimens](https://localhost/api/feed-specimens) -> [`UNITE_SPECIMENS_FEED_HOST`]/api - specimens feed web api
-- [api/feed-omics](https://localhost/api/feed-omics) -> [`UNITE_OMICS_FEED_HOST`]/api - omics feed web api
+- [api/feed-donors](https://localhost/api/feed-donors) -> [`UNITE_FEED_DONORS_HOST`]/api - donors feed web api
+- [api/feed-images](https://localhost/api/feed-images) -> [`UNITE_FEED_IMAGES_HOST`]/api - images feed web api
+- [api/feed-specimens](https://localhost/api/feed-specimens) -> [`UNITE_FEED_SPECIMENS_HOST`]/api - specimens feed web api
+- [api/feed-omics](https://localhost/api/feed-omics) -> [`UNITE_FEED_OMICS_HOST`]/api - omics feed web api
+- viewer/cxg{n} -> [`UNITE_VIEWER_CXG_HOST`]/viewer/cxg{n} - Cell-x-Gene viewer of a single cell dataset
 
 ## Installation
 Application requires valid SSL certificate.
@@ -107,10 +110,12 @@ docker run \
 -e UNITE_IDENTITY_HOST=http://identity.unite.net \
 -e UNITE_COMPOSER_HOST=http://composer.unite.net \
 -e UNITE_ANALYSIS_HOST=http://analysis.unite.net \
--e UNITE_DONORS_FEED_HOST=http://feed.donors.unite.net \
--e UNITE_IMAGES_FEED_HOST=http://feed.images.unite.net \
--e UNITE_SPECIMENS_FEED_HOST=http://feed.specimens.unite.net \
--e UNITE_OMICS_FEED_HOST=http://feed.omics.unite.net \
+-e UNITE_FEED_DONORS_HOST=http://donors.feed.unite.net \
+-e UNITE_FEED_IMAGES_HOST=http://images.feed.unite.net \
+-e UNITE_FEED_SPECIMENS_HOST=http://specimens.feed.unite.net \
+-e UNITE_FEED_OMICS_HOST=http://omics.feed.unite.net \
+-e UNITE_VIEWER_CXG_HOST=http://cxg{n}.viewer.unite.net \
+-e UNITE_API_KEY=[api_key] \
 -d \
 unite.portal:latest
 ```
