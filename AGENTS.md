@@ -81,7 +81,8 @@ Patterns:
 - **Auth in the UI**: the JWT is in `localStorage['token']`; the request
   interceptor refreshes an expired token through Identity. Routes use
   `meta.authorize`; only `/admin` checks permissions. Controls are gated with
-  `canWriteData` and `isAdmin`. UI gating is convenience only; the services
+  `canWriteData` and `isAdmin`. Administrator means the root user (role `Root`),
+  as in the backend; `isAdmin` still checks permissions instead (Jira UND-1072). UI gating is convenience only; the services
   enforce access.
 - **Search state** lives in Vuex per domain (`filtersCriteria`, rows,
   selection), not in the URL. Entries pages use `page-table-mixin`, which
