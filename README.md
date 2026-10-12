@@ -1,10 +1,13 @@
 # Web Portal
 
+Shared architecture, development workflows, and agent instructions:
+[UNITE project documentation](https://github.com/dkfz-unite/.github/blob/main/README.md).
+
 ## General
-Wep portal giving access to data providing the follwoing functionality:
+Web portal giving access to data with the following functionality:
 - Cross reference search queries
 - Detailed overview of data entries
-- Dataset management tools
+- Dataset management tools - save named search-criteria presets with descriptions and view matching data/modality availability
 - Data upload/download tools
 - Data export tools
 - Data visualisation
@@ -12,8 +15,19 @@ Wep portal giving access to data providing the follwoing functionality:
 
 Web portal includes several components:
 - Web server - ASP.NET web server hosting static files of the frontend SPA.
-- Reverse proxy - ASP.NET reverse proxy service redirecting frontend calls to composer web api.
+- Reverse proxy - ASP.NET middleware forwarding frontend calls to Composer, identity, analysis, and feed APIs.
 - Frontend SPA - Vue.js single page web application.
+
+The frontend source is in `Unite.Web/Client`. The current package scripts use
+Vite, and the server hosts the built application from `Client/dist`.
+`Unite.Web/Program.cs` configures hosting and the active custom proxy middleware.
+
+Saved datasets are presets of search criteria, persisted by Composer in MongoDB
+`user-data.datasets`. The dataset record contains name, description, search
+domain, date, user identifier, and serialized criteria. The datasets page
+queries domain search statistics to show matching data and modality availability;
+analysis controls use method-specific eligibility requirements. See
+`Client/src/datasets` and the shared dataset-save controls in `Client/src/domain`.
 
 ## Dependencies
 - [Composer](https://github.com/dkfz-unite/unite-composer) - composer web api.
@@ -21,7 +35,7 @@ Web portal includes several components:
 ## Access
 Environment|Address|Port
 -----------|-------|----
-Host|https://localhost|80;433
+Host|https://localhost|80;443
 Docker|https://portal.unite.net|80;443
 
 ## Configuration
@@ -46,10 +60,10 @@ Application serves as a reverse proxy and redirects requests from web portal to 
 - [api/identity](https://localhost/api/identity) -> [`UNITE_IDENTITY_HOST`]/api - identity web api
 - [api/composer](https://localhost/api/composer) -> [`UNITE_COMPOSER_HOST`]/api - composer web api
 - [api/analysis](https://localhost/api/analysis) -> [`UNITE_ANALYSIS_HOST`]/api - analysis web api
-- [api/donors-feed](https://localhost/api/donors-feed) -> [`UNITE_DONORS_FEED_HOST`]/api - donors feed web api
-- [api/images-feed](https://localhost/api/images-feed) -> [`UNITE_IMAGES_FEED_HOST`]/api - images feed web api
-- [api/specimens-feed](https://localhost/api/specimens-feed) -> [`UNITE_SPECIMENS_FEED_HOST`]/api - specimens feed web api
-- [api/omics-feed](https://localhost/api/omics-feed) -> [`UNITE_OMICS_FEED_HOST`]/api - omics feed web api
+- [api/feed-donors](https://localhost/api/feed-donors) -> [`UNITE_DONORS_FEED_HOST`]/api - donors feed web api
+- [api/feed-images](https://localhost/api/feed-images) -> [`UNITE_IMAGES_FEED_HOST`]/api - images feed web api
+- [api/feed-specimens](https://localhost/api/feed-specimens) -> [`UNITE_SPECIMENS_FEED_HOST`]/api - specimens feed web api
+- [api/feed-omics](https://localhost/api/feed-omics) -> [`UNITE_OMICS_FEED_HOST`]/api - omics feed web api
 
 ## Installation
 Application requires valid SSL certificate.
@@ -59,8 +73,8 @@ Self signed development certificate can be used:
 
 ### Docker Compose
 The easiest way to install the application is to use docker-compose:
-- Environment configuration and installation scripts: https://github.com/dkfz-unite/unite-environment
-- Web portal configuration and installation scripts: https://github.com/dkfz-unite/unite-environment/tree/main/applications/unite 
+- [Environment configuration and installation scripts](https://github.com/dkfz-unite/unite-env)
+- [Web portal configuration and installation scripts](https://github.com/dkfz-unite/unite-env/tree/main/applications/unite)
 
 ### Docker
 [Dockerfile](https://github.com/dkfz-unite/unite/blob/main/Dockerfile) is used to build an image of the application.
@@ -111,4 +125,16 @@ Frontend source code is located in `Unite.Web/Client` folder.
 2. Install dependencies: `npm install`
 3. Run development server: `npm run dev`
 
-Composer web api proxy can be configured in vue [config](Unite.Web/Client/vue.config.js) file.
+Open the development UI at **http://localhost:8080**. The regular portal service
+continues running at **https://localhost:443**, alongside the backend services.
+
+Development proxies are configured in
+[vite.config.js](Unite.Web/Client/vite.config.js). `/api/config` goes to the
+portal on 443; Identity, Composer, Analysis, and feed API routes go directly to
+their local service ports. The dev config also proxies Cell-x-Gene viewers.
+These routes are separate from the ASP.NET portal's production proxy settings.
+
+The owner mainly uses `npm run build` for Docker deployment. The Dockerfile
+runs it in the client build stage and copies the resulting `dist/` into the
+runtime image's `Client/dist`. Routine frontend development and manual checks
+use `npm run dev`.
