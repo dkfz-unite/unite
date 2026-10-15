@@ -86,7 +86,7 @@ export default {
 
       columns.push({
         name: "accessible",
-        label: "Accessible",
+        label: "Access to Data",
         field: (row) => row.isAccessible ? "Yes" : "No",
         sortable: false,
         required: true,

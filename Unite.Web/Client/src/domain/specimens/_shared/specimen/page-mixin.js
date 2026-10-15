@@ -5,7 +5,7 @@ import donorApi from "@/domain/donor/api";
 const mixin = {
   data() {
     return {
-      loading: false,
+      loading: true,
       specimen: null,
       donor: null,
       samples: null,
