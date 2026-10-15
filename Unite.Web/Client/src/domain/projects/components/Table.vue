@@ -26,7 +26,7 @@
         <!-- Header groups row -->
         <q-tr :props="props">
           <!-- No group -->
-          <q-th colspan="3"></q-th>
+          <q-th colspan="4"></q-th>
           <!-- Donors -->
           <q-th colspan="30" title="Number of donors with specified data">#Donors / Total</q-th>
         </q-tr>
@@ -42,6 +42,12 @@
       <template v-slot:body-cell-name="props">
         <q-td :props="props">
           <u-link-project :id="props.value.id">{{ props.value.name }}</u-link-project>
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-accessible="props">
+        <q-td :props="props">
+          <span :class="props.row.isAccessible ? 'text-green-9' : 'text-red-9'">{{ props.value }}</span>
         </q-td>
       </template>
     </u-data-table>
@@ -73,6 +79,15 @@ export default {
         name: "name",
         label: "Name",
         field: (row) => row,
+        sortable: false,
+        required: true,
+        align: "left"
+      });
+
+      columns.push({
+        name: "accessible",
+        label: "Accessible",
+        field: (row) => row.isAccessible ? "Yes" : "No",
         sortable: false,
         required: true,
         align: "left"
