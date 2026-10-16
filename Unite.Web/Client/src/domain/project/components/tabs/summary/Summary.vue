@@ -22,6 +22,10 @@
               <td class="text-bold">{{ project.name }}</td>
             </tr>
             <tr>
+              <td class="u-text-key">Access to Data</td>
+              <td class="text-bold" :class="project.isAccessible ? 'text-green-9' : 'text-red-9'">{{ project.isAccessible ? "Yes" : "No" }}</td>
+            </tr>
+            <tr>
               <td class="u-text-key">Privacy</td>
               <td class="text-bold">{{ $helpers.content.toBooleanString(project.isPublic, false, "Public", "Private") }}</td>
             </tr>
