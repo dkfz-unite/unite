@@ -93,6 +93,13 @@
       </div>
     </div>
 
+    <u-not-found
+      v-if="!loading && !image"
+      title="Image"
+      :entries="Settings.mrs"
+      :id="$route.params.id"
+    />
+
     <q-inner-loading :showing="loading">
       <q-spinner-gears size="50px" color="grey" />
     </q-inner-loading>
@@ -100,6 +107,7 @@
 </template>
 
 <script>
+import UNotFound from "@/domain/_shared/entry/components/NotFound.vue";
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import UDeleteButton from "../_shared/image/components/delete/DeleteButton.vue";
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
@@ -117,6 +125,7 @@ import { mapGetters } from "vuex";
 
 export default {
   components: {
+    UNotFound,
     UDownloadButton,
     UDeleteButton,
     UTabVariants,
@@ -139,7 +148,7 @@ export default {
 
   data() {
     return {
-      loading: false,
+      loading: true,
       image: null,
       samples: null
     };

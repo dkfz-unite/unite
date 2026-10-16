@@ -129,6 +129,13 @@
       </div>
     </div>
 
+    <u-not-found
+      v-if="!loading && !(specimen && donor)"
+      title="Organoid"
+      :entries="Settings.organoids"
+      :id="$route.params.id"
+    />
+
     <q-inner-loading :showing="loading">
       <q-spinner-gears size="50px" color="grey" />
     </q-inner-loading>
@@ -136,6 +143,7 @@
 </template>
 
 <script>
+import UNotFound from "@/domain/_shared/entry/components/NotFound.vue";
 import UUploadButton from "../_shared/specimen/components/upload/UploadButton.vue";
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import UDeleteButton from "../_shared/specimen/components/delete/DeleteButton.vue";
@@ -156,6 +164,7 @@ import Settings from "@/_settings/settings";
 
 export default {
   components: {
+    UNotFound,
     UUploadButton,
     UDownloadButton,
     UDeleteButton,

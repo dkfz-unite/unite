@@ -65,6 +65,13 @@
       </div>
     </div>
 
+    <u-not-found
+      v-if="!loading && !variant"
+      title="Copy number variant"
+      :entries="Settings.cnvs"
+      :id="$route.params.id"
+    />
+
     <q-inner-loading :showing="loading">
       <q-spinner-gears size="50px" color="grey" />
     </q-inner-loading>
@@ -72,6 +79,7 @@
 </template>
   
 <script>
+import UNotFound from "@/domain/_shared/entry/components/NotFound.vue";
 // import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
 import USimilarsTab from "./components/tabs/SimilarsTab.vue";
@@ -84,6 +92,7 @@ import api from "../_shared/variant/api";
 
 export default {
   components:{
+    UNotFound,
     // UDownloadButton,
     USummaryTab,
     USimilarsTab,
@@ -101,7 +110,7 @@ export default {
 
   data() {
     return {
-      loading: false,
+      loading: true,
       variant: null
     };
   },

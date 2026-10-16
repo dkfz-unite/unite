@@ -99,6 +99,13 @@
       </div>
     </div>
 
+    <u-not-found
+      v-if="!loading && !project"
+      title="Project"
+      :entries="Settings.projects"
+      :id="$route.params.id"
+    />
+
     <q-inner-loading :showing="loading">
       <q-spinner-gears size="50px" color="grey" />
     </q-inner-loading>
@@ -106,6 +113,7 @@
 </template>
 
 <script>
+import UNotFound from "@/domain/_shared/entry/components/NotFound.vue";
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import UDeleteButton from "./components/delete/DeleteButton.vue";
 import USummaryTab from "./components/tabs/SummaryTab.vue";
@@ -122,6 +130,7 @@ import api from "./api";
 
 export default {
   components: {
+    UNotFound,
     UDownloadButton,
     UDeleteButton,
     USummaryTab,
@@ -143,7 +152,7 @@ export default {
 
   data() {
     return {
-      loading: false,
+      loading: true,
       project: null
     };
   },

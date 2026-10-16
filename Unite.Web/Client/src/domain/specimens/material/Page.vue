@@ -102,6 +102,13 @@
       </div>
     </div>
 
+    <u-not-found
+      v-if="!loading && !specimen"
+      title="Material"
+      :entries="Settings.materials"
+      :id="$route.params.id"
+    />
+
     <q-inner-loading :showing="loading">
       <q-spinner-gears size="50px" color="grey" />
     </q-inner-loading>
@@ -109,6 +116,7 @@
 </template>
 
 <script>
+import UNotFound from "@/domain/_shared/entry/components/NotFound.vue";
 import UDownloadButton from "@/domain/_shared/entry/components/download/DownloadButton.vue";
 import UDeleteButton from "../_shared/specimen/components/delete/DeleteButton.vue";
 import UTabVariants from "@/domain/_shared/entry/components/tabs/headers/VariantsTabHeader.vue";
@@ -126,6 +134,7 @@ import Settings from "@/_settings/settings";
 
 export default {
   components: {
+    UNotFound,
     UDownloadButton,
     UDeleteButton,
     UTabVariants,
