@@ -33,23 +33,9 @@ export default class DatasetsStore {
     },
 
     loadAll: async function({state}) {
-      const data = {
-        userId: this.getters["identity/account"].email
-      };
-
       const url = `${datasetsUrl}`;
-      const records = await client.post(url, data);
+      const records = await client.post(url);
       state.datasets = records.map(Dataset.fromRecord);
-    },
-
-    deleteAll: async function({state}) {
-      const data = {
-        userId: this.getters["identity/account"].email
-      };
-
-      const url = `${datasetsUrl}`;
-      await client.delete(url, data);
-      state.datasets = [];
     }
   }
 }
