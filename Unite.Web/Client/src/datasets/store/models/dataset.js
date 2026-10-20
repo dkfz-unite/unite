@@ -13,7 +13,6 @@ export default class Dataset {
   static toRecord(dataset) {
     let entry = {};
     entry.id = dataset.id;
-    entry.userId = dataset.userId;
     entry.name = dataset.name;
     entry.description = dataset.description;
     entry.domain = dataset.domain;

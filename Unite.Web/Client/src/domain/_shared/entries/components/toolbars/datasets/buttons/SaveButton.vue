@@ -109,7 +109,6 @@ export default {
 
     onSave() {
       const dataset = new Dataset();
-      dataset.userId = this.$store.getters["identity/account"].email;
       dataset.name = this.name.value;
       dataset.description = this.description.value;
       dataset.domain = this.domain;

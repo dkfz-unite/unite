@@ -49,7 +49,7 @@ export async function createAccount(email, password, passwordRepeat) {
 
 export async function deleteAccount(email) {
   const url = accountUrl;
-  await client.delete(`${datasetsUrl}?userId=${email}`);
+  await client.delete(datasetsUrl);
   await client.delete(`${analysesUrl}?userId=${email}`);
   await client.delete(url);
   tokenHelpers.remove();
