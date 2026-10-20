@@ -34,7 +34,7 @@ export default class DatasetsStore {
 
     loadAll: async function({state}) {
       const url = `${datasetsUrl}`;
-      const records = await client.post(url, {});
+      const records = await client.post(url);
       state.datasets = records.map(Dataset.fromRecord);
     }
   }
