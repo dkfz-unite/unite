@@ -47,6 +47,9 @@
               <div>Consequences:</div>
               <q-checkbox v-model="model.cnvTranscript" label="Transcript" :disable="loading" dense />
             </div>
+            <div class="row" v-if="hasCnvpData">
+              <q-checkbox v-model="model.cnvp" label="Copy number variant profiles (CNVp)" :disable="loading" dense />
+            </div>
             <div class="row" v-if="hasSvData">
               <q-checkbox v-model="model.sv" label="Structural variants (SV)" :disable="loading" dense />
             </div>
@@ -129,6 +132,7 @@ export default {
         smTranscript: false,
         cnv: false,
         cnvTranscript: false,
+        cnvp: false,
         sv: false,
         svTranscript: false,
         geneExp: false,
@@ -194,6 +198,10 @@ export default {
 
     hasCnvData() {
       return this.data?.cnvs === true;
+    },
+
+    hasCnvpData() {
+      return this.data?.cnvps === true;
     },
 
     hasSvData() {
@@ -298,6 +306,7 @@ export default {
       if (this.hasSmData && !this.model.smTranscript) { return false; }
       if (this.hasCnvData && !this.model.cnv) { return false; }
       if (this.hasCnvData && !this.model.cnvTranscript) { return false; }
+      if (this.hasCnvpData && !this.model.cnvp) { return false; }
       if (this.hasSvData && !this.model.sv) { return false; }
       if (this.hasSvData && !this.model.svTranscript) { return false; }
       // if (this.hasMethData && !this.model.meth) { return false; }
@@ -316,6 +325,7 @@ export default {
       if (this.hasDrugScreeningData) { this.model.drug = value; }
       if (this.hasSmData) { this.model.sm = value; this.model.smTranscript = value; }
       if (this.hasCnvData) { this.model.cnv = value; this.model.cnvTranscript = value; }
+      if (this.hasCnvpData) { this.model.cnvp = value; }
       if (this.hasSvData) { this.model.sv = value; this.model.svTranscript = value; }
       // if (this.hasMethData) { this.model.meth = value; }
       if (this.hasGeneExpData) { this.model.geneExp = value; }
