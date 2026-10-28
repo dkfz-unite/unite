@@ -173,7 +173,6 @@ export default {
 
     showImagesTab() {
       return this.project?.stats.images.mr?.number[0] > 0;
-          // || this.project?.stats.images.ct?.number[0] > 0;
     },
 
     showSpecimensTab() {
@@ -185,13 +184,15 @@ export default {
 
     showGenesTab() {
       return this.project?.stats.rna.number[0] > 0
-          || this.project?.stats.rnasc.number[0] > 0;
+          || this.project?.stats.rnasc.number[0] > 0
+          || this.project?.stats.prot?.number?.[0] > 0;
     },
 
     showVariantsTab() {
       return this.project?.stats.dna.sm.number[0] > 0
           || this.project?.stats.dna.cnv.number[0] > 0
-          || this.project?.stats.dna.sv.number[0] > 0;
+          || this.project?.stats.dna.sv.number[0] > 0
+          || this.project?.stats.dna.cnvp?.number?.[0] > 0;
     }
   },
 

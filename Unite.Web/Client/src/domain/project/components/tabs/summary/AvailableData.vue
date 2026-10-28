@@ -24,10 +24,6 @@
               <td class="u-text-key">MR images</td>
               <td>{{ getNumbers(project.stats.images.mr.number) }}</td>
             </tr>
-            <!-- <tr>
-              <td class="u-text-key">CT images</td>
-              <td>{{ getNumbers(project.stats.images.ct.number) }}</td>
-            </tr> -->
             <tr>
               <td class="u-text-key">Materials</td>
               <td>{{ getNumbers(project.stats.specimens.material.number) }}</td>
