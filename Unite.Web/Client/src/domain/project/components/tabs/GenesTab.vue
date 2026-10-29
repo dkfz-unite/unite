@@ -41,6 +41,28 @@
       </div>
     </div>
 
+    <!-- Proteomics -->
+    <div v-if="showProt" class="row">
+      <div class="col">
+        <div class="row">
+          <span class="text-h6 u-text-title">Proteomics</span>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <div id="prot-per-analysis" style="height: 300px;"></div>
+          </div>
+          <div class="col-6" v-if="project.stats.prot.perMutation">
+            <div id="prot-per-mutation" style="height: 300px;"></div>
+          </div>
+        </div>
+        <div class="row" v-if="project.stats.prot.perVariation">
+          <div class="col-6">
+            <div id="prot-per-variation" style="height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Single Cell Exp -->
     <div v-if="showRnasc" class="row">
       <div class="col">
@@ -81,6 +103,10 @@ export default {
 
     showRnasc() {
       return this.project.stats.rnasc.number[0] > 0;
+    },
+
+    showProt() {
+      return this.project.stats.prot?.number?.[0] > 0;
     }
   },
 
@@ -101,6 +127,23 @@ export default {
       Plotly.newPlot("exp-per-analysis", expPerAnalysis, this.getLayout("Analysis Type", null, null, expPerAnalysisMode), config);
       Plotly.newPlot("exp-per-variation", expPerVariation, this.getLayout("Most Variable Genes (highest CV)", null, "TPM"), config);
       Plotly.newPlot("exp-per-mutation", expPerMutation, this.getLayout("Most Mutated Genes", null, null, expPerMutationMode), config);
+    }
+
+    if (this.showProt) {
+      const protPerAnalysis = this.getSeries(this.project.stats.prot.perAnalysis);
+      const protPerAnalysisMode = Math.max(...protPerAnalysis[0].y) <= 5 ? 'linear' : 'auto';
+      Plotly.newPlot('prot-per-analysis', protPerAnalysis, this.getLayout('Analysis Type', null, null, protPerAnalysisMode), config);
+
+      if (this.project.stats.prot.perMutation) {
+        const protPerMutation = this.getSeries(this.project.stats.prot.perMutation);
+        const protPerMutationMode = Math.max(...protPerMutation[0].y) <= 5 ? 'linear' : 'auto';
+        Plotly.newPlot('prot-per-mutation', protPerMutation, this.getLayout('Most Mutated Proteins', null, null, protPerMutationMode), config);
+      }
+
+      if (this.project.stats.prot.perVariation) {
+        const protPerVariation = this.getSeriesBox(this.project.stats.prot.perVariation);
+        Plotly.newPlot('prot-per-variation', protPerVariation, this.getLayout('Most Variable Proteins (highest SD)', null, 'Normalized intensity'), config);
+      }
     }
 
     if (this.showRnasc) {

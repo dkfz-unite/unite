@@ -17,6 +17,9 @@
           <div class="col-2" v-if="perSex">
             <div id="don-per-sex" style="height: 300px;"></div>
           </div>
+          <div class="col-4" v-if="perDiagnosis">
+            <div id="don-per-diagnosis" style="height: 300px;"></div>
+          </div>
           <div class="col-2" v-if="perVitalStatus">
             <div id="don-per-vital" style="height: 300px;"></div>
           </div>
@@ -50,6 +53,9 @@ export default {
     perSex() {
       return !!this.project.stats.donors?.perSex;
     },
+    perDiagnosis() {
+      return !!this.project.stats.donors?.perDiagnosis;
+    },
     perVitalStatus() {
       return !!this.project.stats.donors?.perVitalStatus;
     },
@@ -75,6 +81,12 @@ export default {
       const donPerSex = this.getSeries(this.project.stats.donors.perSex);
       const donPerSexMode = Math.max(...donPerSex[0].y) <= 5 ? "linear" : "auto";
       Plotly.newPlot("don-per-sex", donPerSex, this.getLayout("Sex", null, null, donPerSexMode), config);
+    }
+
+    if (this.perDiagnosis) {
+      const donPerDiagnosis = this.getSeries(this.project.stats.donors.perDiagnosis);
+      const donPerDiagnosisMode = Math.max(...donPerDiagnosis[0].y) <= 5 ? 'linear' : 'auto';
+      Plotly.newPlot('don-per-diagnosis', donPerDiagnosis, this.getLayout('Diagnosis', null, null, donPerDiagnosisMode), config);
     }
     
     if (this.perVitalStatus) {
