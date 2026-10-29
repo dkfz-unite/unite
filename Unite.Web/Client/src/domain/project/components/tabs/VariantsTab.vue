@@ -55,6 +55,23 @@
       </div>
     </div>
 
+    <!-- CNVp -->
+    <div v-if="showCnvp" class="row">
+       <div class="col">
+        <div class="row">
+          <span class="text-h6 u-text-title">Copy Number Variant Profiles (CNVp)</span>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <div id="cnvp-per-analysis" style="height: 300px;"></div>
+          </div>
+          <div class="col-8" v-if="project.stats.dna.cnvp.perChromosomeArm">
+            <div id="cnvp-per-arm" style="height: 300px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- SV -->
     <div v-if="showSv" class="row">
        <div class="col">
@@ -76,6 +93,7 @@
 
 <script>
 import Plotly from "plotly.js-dist-min";
+import { colors } from 'quasar';
 import enumHelpers from "@/_shared/helpers/enum-helpers.js";
 import EffectType from "@/domain/omics/variants/_shared/variants/models/enums/effect-type.js";
 
@@ -97,6 +115,10 @@ export default {
 
     showCnv() {
       return this.project.stats.dna.cnv.number[0] > 0;
+    },
+
+    showCnvp() {
+      return this.project.stats.dna.cnvp?.number?.[0] > 0;
     },
 
     showSv() {
@@ -139,6 +161,22 @@ export default {
       Plotly.newPlot("cnv-per-type", cnvPerType, this.getLayout("Variant Type", null, null, "auto"), config);
     }
 
+    if (this.showCnvp) {
+      const cnvpPerAnalysis = this.getSeries(this.project.stats.dna.cnvp.perAnalysis);
+      const cnvpPerAnalysisMode = Math.max(...cnvpPerAnalysis[0].y) <= 5 ? 'linear' : 'auto';
+      Plotly.newPlot('cnvp-per-analysis', cnvpPerAnalysis, this.getLayout('Analysis Type', null, null, cnvpPerAnalysisMode), config);
+
+      if (this.project.stats.dna.cnvp.perChromosomeArm) {
+        const cnvpPerArm = this.getSeriesStacked(
+          this.project.stats.dna.cnvp.perChromosomeArm,
+          ['Loss', 'Neutral', 'Gain'],
+          [colors.getPaletteColor('red-4'), colors.getPaletteColor('grey-4'), colors.getPaletteColor('green-4')]
+        );
+        const cnvpPerArmLayout = { ...this.getLayout('Chromosome Arm', null, 'Samples'), barmode: 'stack' };
+        Plotly.newPlot('cnvp-per-arm', cnvpPerArm, cnvpPerArmLayout, config);
+      }
+    }
+
     if (this.showSv) {
       const svPerAnalysis = this.getSeries(this.project.stats.dna.sv.perAnalysis);
       const svPerAnalysisMode = Math.max(...svPerAnalysis[0].y) <= 5 ? "linear" : "auto";
@@ -157,6 +195,17 @@ export default {
         type: "bar",
         orientation: "v"
       }];
+    },
+
+    getSeriesStacked(data, names, colors) {
+      return names.map((name, index) => ({
+        name: name,
+        x: data.map(row => row.key),
+        y: data.map(row => row.value[index]),
+        marker: { color: colors[index] },
+        type: 'bar',
+        orientation: 'v'
+      }));
     },
 
     getSeriesH(data, mapx = (row, index, array) => row.key, mapy = (row, index, array) => row.value) {
