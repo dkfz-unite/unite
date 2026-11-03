@@ -17,6 +17,8 @@
       </template>
     </template>
 
+    <u-row-viewer v-if="data.entries_scope?.length" class="q-mx-sm" label="entries_scope:" :value="data.entries_scope.join(', ')" />
+
     <q-tabs class="q-ml-xs" dense align="left" v-model="tab">
       <q-tab v-if="data.entries?.length" :name="tabs.entries" no-caps>Entries ({{ data.entries.length }})</q-tab>
       <q-tab v-if="data.resources?.length" :name="tabs.resources" no-caps>Resources ({{ data.resources.length }})</q-tab>
@@ -35,14 +37,16 @@
 </template>
 
 <script>
-import UTableViewer from "../TableViewer.vue";
-import USample from "./Sample.vue";
-import mixin from "../viewer-mixin.js";
+import URowViewer from '../RowViewer.vue';
+import UTableViewer from '../TableViewer.vue';
+import USample from './Sample.vue';
+import mixin from '../viewer-mixin.js';
 
-import SubmissionType from "@/domain/submissions/models/enums/submission-type-omics";
+import SubmissionType from '@/domain/submissions/models/enums/submission-type-omics';
 
 export default {
   components: {
+    URowViewer,
     USample,
     UTableViewer
   },
