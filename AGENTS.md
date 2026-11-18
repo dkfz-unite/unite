@@ -121,7 +121,7 @@ dotnet build Unite.sln
   `https://localhost:443`; see
   [Development validation](../unite-meta/docs/development-validation.md).
 - `npm install` needs access to GitHub Packages for `@dkfz-unite/event-grid`;
-  the Docker build gets it through the `GITHUB_TOKEN` build argument.
+  the Docker build mounts the package token as a BuildKit secret.
 - UI changes need a manual check in the browser; there are no automated tests.
 
 ### Pitfalls
@@ -138,7 +138,7 @@ dotnet build Unite.sln
 ### CI
 
 `docker-images.yml` builds amd64 and arm64 images under one manifest on pushes
-to `main`, passing `GITHUB_TOKEN` for the npm package.
+to `main`, mounting `GITHUB_TOKEN` as a build secret for the npm package.
 
 ### Known issues
 

@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 ENV ASPNETCORE_HTTP_PORTS=80
@@ -6,12 +8,14 @@ EXPOSE 80
 EXPOSE 443
 
 FROM node:lts-alpine AS restore-client
-ARG GITHUB_TOKEN
 WORKDIR /app
 COPY ["Unite.Web/Client/package*.json", "./"]
-RUN npm config set @dkfz-unite:registry https://npm.pkg.github.com && \
-    npm config set //npm.pkg.github.com/:_authToken ${GITHUB_TOKEN} && \
-    npm install
+RUN --mount=type=secret,id=github_token \
+    export NPM_CONFIG_USERCONFIG=/tmp/npmrc && \
+    npm config set @dkfz-unite:registry https://npm.pkg.github.com && \
+    npm config set //npm.pkg.github.com/:_authToken "$(cat /run/secrets/github_token)" && \
+    npm install && \
+    rm -f /tmp/npmrc
 
 FROM restore-client AS build-client
 COPY ["Unite.Web/Client/", "./"]

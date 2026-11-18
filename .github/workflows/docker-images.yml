@@ -22,10 +22,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build amd64 image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           docker build \
             --platform linux/amd64 \
-            --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            --secret id=github_token,env=GITHUB_TOKEN \
             -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:amd64 \
             .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:amd64
@@ -44,10 +46,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build arm64 image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           docker build \
             --platform linux/arm64 \
-            --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            --secret id=github_token,env=GITHUB_TOKEN \
             -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:arm64 \
             .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:arm64
