@@ -39,6 +39,10 @@ export default class OmicsSubmissionType extends SubmissionTypeBase {
     return [this.DNA_SM, this.DNA_CNV, this.DNA_CNVP, this.DNA_SV, this.RNA_EXP, this.PROT_EXP].includes(type);
   };
 
+  static isVariantType(type: string): boolean {
+    return [this.DNA_SM, this.DNA_CNV, this.DNA_SV].includes(type);
+  }
+
   static IsResourceType(type: string): boolean {
     return [this.METH_LVL, this.RNASC_EXP].includes(type);
   }

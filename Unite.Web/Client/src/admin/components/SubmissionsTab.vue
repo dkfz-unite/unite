@@ -11,7 +11,7 @@
           separator="cell"
           selection="multiple"
           row-key="id"
-          :rows="rows"
+          :rows="filteredRows"
           :columns="columns"
           v-model:selected="rowsSelected"
           :pagination="{ rowsPerPage: 50 }"
@@ -24,13 +24,25 @@
               {{ props.value }}
             </q-td>
           </template>
+          <template v-slot:body-cell-type="props">
+            <q-td :props="props" :class="{ 'text-primary': props.row.id == row?.id }">
+              <div class="row no-wrap items-center" :title="props.row.liftover ? getLiftoverTitle(props.row.liftover) : null">
+                <span class="ellipsis">{{ props.value }}</span>
+                <q-space />
+                <span v-if="props.row.liftover" class="q-ml-sm no-wrap" :class="getLiftoverStatusClass(props.row.liftover)">
+                  {{ getLiftoverShortMessage(props.row.liftover) }}
+                </span>
+              </div>
+            </q-td>
+          </template>
           <template v-slot:top-right="props">
-            <div  class="row items-center q-gutter-x-sm" style="height: 34px;">
+            <div class="row no-wrap items-center q-gutter-x-sm" style="height: 34px;">
               <div v-if="rowsSelected?.length">
                 <q-btn label="Approve" color="green" icon="las la-check-circle" dense flat no-caps @click="onApproveSubmissions" />
                 <q-btn label="Reject" color="red" icon="las la-times-circle" dense flat no-caps @click="onRejectSubmissions" />
                 <span class="q-ml-sm text-weight-medium">{{ rowsSelected.length }} Selected</span>
               </div>
+              <u-type-filter v-model="typesSelected" :options="typeOptions" />
             </div>
           </template>
         </q-table>
@@ -90,6 +102,7 @@ import USpecimenEntries from "./submissions/specimens/Entries.vue";
 import USpecimenRecords from "./submissions/specimens/Records.vue";
 import USpecimenAnalysis from "./submissions/specimens/Analysis.vue";
 import UOmicsAnalysis from "./submissions/omics/Analysis.vue";
+import UTypeFilter from "./submissions/TypeFilter.vue";
 
 import api from "../api/api-submissions";
 import DonorsFeedApi from "@/domain/submissions/api/api-feed-donors";
@@ -98,6 +111,7 @@ import SpecimensFeedApi from "@/domain/submissions/api/api-feed-specimens";
 import OmicsFeedApi from "@/domain/submissions/api/api-feed-omics";
 
 import SubmissionType from "@/domain/submissions/models/enums/submission-type";
+import liftover from "./submissions/omics/liftover";
 
 export default {
   components: {
@@ -109,7 +123,8 @@ export default {
     USpecimenEntries,
     USpecimenRecords,
     USpecimenAnalysis,
-    UOmicsAnalysis
+    UOmicsAnalysis,
+    UTypeFilter
    },
 
   setup() {
@@ -127,12 +142,21 @@ export default {
       loadingSubmissions: false,
       loadingSubmission: false,
       submission: null,
+      submissions: {},
       row: null,
       rows: [],
       rowsSelected: [],
+      typesSelected: [],
       columns: [
         { name: "id", label: "Id", align: "left", field: "id", sortable: true },
-        { name: "type", label: "Type", align: "left", sortable: true, field: row => this.getTypeLabel(row.type) },
+        {
+          name: "type",
+          label: "Type",
+          align: "left",
+          field: row => this.getTypeLabel(row.type),
+          sort: (first, second, firstRow, secondRow) => SubmissionType.compare(firstRow.type, secondRow.type),
+          sortable: true
+        },
         { name: "date", label: "Date", align: "right", sortable: true, field: row => this.getDateLabel(row.date) }
       ]
     };
@@ -140,6 +164,41 @@ export default {
 
   mounted() {
     this.loadSubmissions();
+  },
+
+  computed: {
+    typeOptions() {
+      const counts = this.rows.reduce((counts, row) => {
+        counts[row.type] = (counts[row.type] || 0) + 1;
+        return counts;
+      }, {});
+
+      return SubmissionType.getAll()
+        .map(type => ({
+          label: this.getTypeLabel(type),
+          value: type,
+          count: counts[type] || null
+        }));
+    },
+
+    filteredRows() {
+      return this.rows.filter(row => this.typesSelected.includes(row.type));
+    }
+  },
+
+  watch: {
+    typesSelected: {
+      deep: true,
+      handler() {
+        const visibleIds = new Set(this.filteredRows.map(row => row.id));
+        this.rowsSelected = this.rowsSelected.filter(row => visibleIds.has(row.id));
+
+        if (this.row && !visibleIds.has(this.row.id)) {
+          this.row = null;
+          this.submission = null;
+        }
+      }
+    }
   },
 
   methods: {
@@ -150,6 +209,12 @@ export default {
     getDateLabel(date) {
       return this.$helpers.content.toDateTimeString(date);
     },
+
+    getLiftoverShortMessage: liftover.getLiftoverShortMessage,
+
+    getLiftoverStatusClass: liftover.getLiftoverStatusClass,
+
+    getLiftoverTitle: liftover.getLiftoverTitle,
 
     notifySuccess(message, caption = undefined) {
       this.$q.notify({
@@ -212,6 +277,8 @@ export default {
       try {
         this.loadingSubmissions = true;
         this.rows = await api.get();
+        this.submissions = {};
+        await this.loadLiftoverSubmissions();
         this.row = null;
         this.submission = null;
       } finally {
@@ -220,10 +287,14 @@ export default {
     },
 
     async loadSubmission(id, type) {
-      // TODO: Chache submissions to avoid multiple server calls for the same data
       try {
         this.submission = null;
         this.loadingSubmission = true;
+
+        if (Object.prototype.hasOwnProperty.call(this.submissions, id)) {
+          this.submission = this.submissions[id];
+          return;
+        }
 
         if (SubmissionType.isDonorsType(type)) {
           this.submission = await this.donorsFeedApi.getSubmission(id, type);
@@ -239,6 +310,20 @@ export default {
       } finally {
         this.loadingSubmission = false;
       }
+    },
+
+    async loadLiftoverSubmissions() {
+      const rows = this.rows.filter(row => SubmissionType.Omics.isVariantType(row.type));
+
+      await Promise.all(rows.map(async row => {
+        try {
+          const submission = await this.omicsFeedApi.getSubmission(row.id, row.type);
+          this.submissions[row.id] = submission;
+          row.liftover = liftover.getLiftoverStats(submission, row.type);
+        } catch (error) {
+          console.error(`Could not load liftover status for submission '${row.id}'`, error);
+        }
+      }));
     },
 
     async approveSubmission(id) {
@@ -288,4 +373,5 @@ export default {
     height: 660px;
   }
 }
+
 </style>

@@ -21,12 +21,23 @@
 
     <q-tabs class="q-ml-xs" dense align="left" v-model="tab">
       <q-tab v-if="data.entries?.length" :name="tabs.entries" no-caps>Entries ({{ data.entries.length }})</q-tab>
+      <q-tab v-if="liftoverFailures.length" :name="tabs.failures" no-caps>Failures ({{ liftoverFailures.length }})</q-tab>
       <q-tab v-if="data.resources?.length" :name="tabs.resources" no-caps>Resources ({{ data.resources.length }})</q-tab>
     </q-tabs>
 
     <q-tab-panels v-model="tab">
       <q-tab-panel v-if="data.entries?.length" :name="tabs.entries" class="q-pa-xs">
-        <u-table-viewer :entries="data.entries" />
+        <u-table-viewer
+          :entries="data.entries"
+          :subtitle="liftover ? getLiftoverEntriesMessage(liftover) : null"
+          :subtitle-class="getLiftoverStatusClass(liftover)" />
+      </q-tab-panel>
+
+      <q-tab-panel v-if="liftoverFailures.length" :name="tabs.failures" class="q-pa-xs">
+        <u-table-viewer
+          :entries="liftoverFailures"
+          :subtitle="getLiftoverFailuresMessage(liftover)"
+          subtitle-class="text-negative" />
       </q-tab-panel>
 
       <q-tab-panel v-if="data.resources?.length" :name="tabs.resources" class="q-pa-xs">
@@ -43,6 +54,7 @@ import USample from './Sample.vue';
 import mixin from '../viewer-mixin.js';
 
 import SubmissionType from '@/domain/submissions/models/enums/submission-type-omics';
+import liftover from './liftover';
 
 export default {
   components: {
@@ -57,6 +69,7 @@ export default {
     return {
       tabs: {
         entries: "entries",
+        failures: "failures",
         resources: "resources"
       }
     };
@@ -64,15 +77,49 @@ export default {
 
   data() {
     return {
-      tab: this.data.entries?.length ? this.tabs.entries
-         : this.data.resources?.length ? this.tabs.resources
-         : null
+      tab: this.getInitialTab()
     };
   },
 
   computed: {
     isSample() {
       return SubmissionType.isSampleType(this.type);
+    },
+
+    liftover() {
+      return liftover.getLiftoverStats(this.data, this.type);
+    },
+
+    liftoverFailures() {
+      return this.data.liftover_failures?.map(result => ({
+        ...result.variant,
+        reason: liftover.getLiftoverReasonLabel(result.failure)
+      })) ?? [];
+    }
+  },
+
+  watch: {
+    data() {
+      this.tab = this.getInitialTab();
+    }
+  },
+
+  methods: {
+    getLiftoverEntriesMessage: liftover.getLiftoverEntriesMessage,
+
+    getLiftoverFailuresMessage: liftover.getLiftoverFailuresMessage,
+
+    getLiftoverStatusClass: liftover.getLiftoverStatusClass,
+
+    getInitialTab() {
+      if (this.data.entries?.length)
+        return this.tabs.entries;
+      if (this.data.liftover_failures?.length)
+        return this.tabs.failures;
+      if (this.data.resources?.length)
+        return this.tabs.resources;
+
+      return null;
     }
   }
 }
