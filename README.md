@@ -81,9 +81,12 @@ The easiest way to install the application is to use docker-compose:
 
 ### Docker
 [Dockerfile](https://github.com/dkfz-unite/unite/blob/main/Dockerfile) is used to build an image of the application.
-To build an image run the following command:
+To build an image, set `GITHUB_TOKEN` to a token with package read access and
+run the following command:
 ```bash
-docker build -t unite.portal:latest .
+docker build \
+--secret id=github_token,env=GITHUB_TOKEN \
+-t unite.portal:latest .
 ```
 
 All application components should run in the same docker network.
