@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogVariants"
     subject="Upload CNVs data"
-    templatePathJson="/templates/omics/cnvs.json"
-    templatePathTsv="/templates/omics/cnvs.tsv"
+    templatePathJson="/templates/domain/omics/cnvs.json"
+    templatePathTsv="/templates/domain/omics/cnvs.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-omics-feed/blob/main/Docs/api-models-dna-cnv.md"
     :uploadMethod="uploadVariants"
   />
