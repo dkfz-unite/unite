@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogDonors"
     subject="Upload donors data"
-    templatePathJson="/templates/donors/donors.json"
-    templatePathTsv="/templates/donors/donors.tsv"
+    templatePathJson="/templates/domain/donors/donors.json"
+    templatePathTsv="/templates/domain/donors/donors.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-models-donors.md"
     :uploadMethod="uploadDonors"
   />
@@ -11,8 +11,8 @@
   <u-upload-dialog
     v-model="dialogTreatments"
     subject="Upload treatments data"
-    templatePathJson="/templates/donors/treatments.json"
-    templatePathTsv="/templates/donors/treatments.tsv"
+    templatePathJson="/templates/domain/donors/treatments.json"
+    templatePathTsv="/templates/domain/donors/treatments.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-donors-feed/blob/main/Docs/api-models-treatments.md"
     :uploadMethod="uploadTreatments"
   />

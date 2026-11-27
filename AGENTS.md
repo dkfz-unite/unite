@@ -99,7 +99,7 @@ Patterns:
 | Filter field on an existing model | `<entries>/models/filters/<x>-filters-criteria.ts` (field and constructor copy), `<x>-filters.js` (UI definition), `<x>-filters-context.ts` if needed, the entity `Table.vue` column; the backend criteria in `unite-indices` must match |
 | New filter model | `_shared/components/filters/{filter-models.js,filters-criteria.ts,filters-context.ts,mixin.js}`, dataset `SaveButton.vue` merge logic, dataset criteria views |
 | Detail page tab | `<entity>/components/tabs/`, shared tabs in `domain/_shared/entry/components/tabs/`, `settings.js` `Tabs` |
-| Upload | Entries page `UploadButton.vue` with the shared `UploadDialog.vue`; templates in `Client/public/templates/` |
+| Upload | Entries page `UploadButton.vue` with the shared `UploadDialog.vue`; templates in `Client/public/templates/domain/` (admin users import: `templates/identity/`) |
 | Download options | `_shared/components/download/DownloadForm.vue` and the entry `DownloadButton.vue`; Composer's download criteria |
 | Analysis method | `analysis/components/<method>/` (`analysis.ts`, `options.ts`, `Dialog.vue` with `canShow` eligibility, `Viewer.vue`, `Results.vue`), `_shared/analysis-type.ts`, `_shared/analysis-factory.ts`, `AnalysisButton.vue`, `analysis/Page.vue` |
 | Genomic profile track | `visualization/profile` (data services and view options) |

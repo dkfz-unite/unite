@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogVariants"
     subject="Upload SVs data"
-    templatePathJson="/templates/omics/svs.json"
-    templatePathTsv="/templates/omics/svs.tsv"
+    templatePathJson="/templates/domain/omics/svs.json"
+    templatePathTsv="/templates/domain/omics/svs.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-omics-feed/blob/main/Docs/api-models-dna-sv.md"
     :uploadMethod="uploadVariants"
   />

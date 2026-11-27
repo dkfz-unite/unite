@@ -1,0 +1,6 @@
+email,provider,permissions
+user1@example.com,,
+user2@example.com,default,
+user3@example.com,default,Data.Read
+user4@example.com,default,Data.Read;Data.Write
+user5@example.com,,Data.Write

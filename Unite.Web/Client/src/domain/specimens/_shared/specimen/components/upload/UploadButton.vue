@@ -19,10 +19,10 @@
 
         <div class="row">
           <div v-if="format == 'default'" class="col">
-            Download file <a href="/templates/specimen-drugs.json" :download="`${specimenId}-drugs-template.json`" class="u-link">template</a>
+            Download file <a href="/templates/domain/specimen/drugs.json" :download="`${specimenId}-drugs-template.json`" class="u-link">template</a>
           </div>
           <div v-if="format == 'itrex'" class="col">
-            Download iTReX file <a href="/templates/specimen-drugs.itrex.txt" :download="`${specimenId}-drugs-itrex-template.txt`" class="u-link">template</a>
+            Download iTReX file <a href="/templates/domain/specimen/drugs.itrex.txt" :download="`${specimenId}-drugs-itrex-template.txt`" class="u-link">template</a>
           </div>
         </div>
 
