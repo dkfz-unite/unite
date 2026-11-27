@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogSpecimens"
     subject="Upload xenografts data"
-    templatePathJson="/templates/specimens/xenografts.json"
-    templatePathTsv="/templates/specimens/xenografts.tsv"
+    templatePathJson="/templates/domain/specimens/xenografts.json"
+    templatePathTsv="/templates/domain/specimens/xenografts.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-xenograft.md"
     :uploadMethod="uploadSpecimens"
   />
@@ -11,8 +11,8 @@
   <u-upload-dialog
     v-model="dialogInterventions"
     subject="Upload interventions data"
-    templatePathJson="/templates/specimens/interventions.json"
-    templatePathTsv="/templates/specimens/interventions.tsv"
+    templatePathJson="/templates/domain/specimens/interventions.json"
+    templatePathTsv="/templates/domain/specimens/interventions.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-interventions.md"
     :uploadMethod="uploadInterventions"
   />
@@ -20,8 +20,8 @@
   <u-upload-dialog
     v-model="dialogDrugs"
     subject="Upload drug screenings data"
-    templatePathJson="/templates/specimens/drugs.json"
-    templatePathTsv="/templates/specimens/drugs.tsv"
+    templatePathJson="/templates/domain/specimens/drugs.json"
+    templatePathTsv="/templates/domain/specimens/drugs.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-specimens-feed/blob/main/Docs/api-models-drugs.md"
     :uploadMethod="uploadDrugs"
   />

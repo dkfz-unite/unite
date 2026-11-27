@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogBulk"
     subject="Upload bulk transcriptomics data"
-    templatePathJson="/templates/omics/bulk-gexps.json"
-    templatePathTsv="/templates/omics/bulk-gexps.tsv"
+    templatePathJson="/templates/domain/omics/bulk-gexps.json"
+    templatePathTsv="/templates/domain/omics/bulk-gexps.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-omics-feed/blob/main/Docs/api-models-rna-exp.md"
     :uploadMethod="uploadBulk"
   />

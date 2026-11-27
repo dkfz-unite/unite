@@ -2,8 +2,8 @@
   <u-upload-dialog
     v-model="dialogMrs"
     subject="Upload MR images data"
-    templatePathJson="/templates/images/mrs.json"
-    templatePathTsv="/templates/images/mrs.tsv"
+    templatePathJson="/templates/domain/images/mrs.json"
+    templatePathTsv="/templates/domain/images/mrs.tsv"
     modelDocs="https://github.com/dkfz-unite/unite-images-feed/blob/main/Docs/api-models-mrs.md"
     :uploadMethod="uploadImages"
   />
